@@ -9,6 +9,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_from_scratch_model.dart';
@@ -32,6 +33,8 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
     super.initState();
     _model = createModel(context, () => CreateFromScratchModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'createFromScratch'});
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
 
@@ -85,6 +88,8 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
             size: 30.0,
           ),
           onPressed: () async {
+            logFirebaseEvent('CREATE_FROM_SCRATCH_close_rounded_ICN_ON');
+            logFirebaseEvent('IconButton_navigate_back');
             context.pop();
           },
         ),
@@ -98,7 +103,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                     FlutterFlowTheme.of(context).headlineMediumFamily),
               ),
         ),
-        actions: const [],
+        actions: [],
         centerTitle: false,
         elevation: 2.0,
       ),
@@ -106,7 +111,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 16.0),
+            padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 16.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,6 +122,9 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent(
+                        'CREATE_FROM_SCRATCH_Container_u83oz7ei_O');
+                    logFirebaseEvent('Container_update_page_state');
                     setState(() {
                       _model.createWhat = 'post';
                     });
@@ -130,7 +138,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                     ),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
+                          EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -154,13 +162,16 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      logFirebaseEvent(
+                          'CREATE_FROM_SCRATCH_Container_bn9bj1ci_O');
+                      logFirebaseEvent('Container_update_page_state');
                       setState(() {
                         _model.createWhat = 'article';
                       });
@@ -173,7 +184,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                         borderRadius: BorderRadius.circular(18.0),
                       ),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             12.0, 8.0, 12.0, 8.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -200,13 +211,16 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      logFirebaseEvent(
+                          'CREATE_FROM_SCRATCH_Container_u73ykdg1_O');
+                      logFirebaseEvent('Container_update_page_state');
                       setState(() {
                         _model.createWhat = 'poll';
                       });
@@ -219,7 +233,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                         borderRadius: BorderRadius.circular(18.0),
                       ),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             12.0, 8.0, 12.0, 8.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -254,17 +268,17 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                 if (_model.createWhat == 'post') {
                   return Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: Container(
                             width: double.infinity,
-                            decoration: const BoxDecoration(),
+                            decoration: BoxDecoration(),
                             child: SingleChildScrollView(
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -275,13 +289,13 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                           'none') {
                                         return Container(
                                           decoration: BoxDecoration(
-                                            color: const Color(0x50B8F2E6),
+                                            color: Color(0x50B8F2E6),
                                             borderRadius:
                                                 BorderRadius.circular(16.0),
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 12.0, 12.0, 12.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -290,6 +304,10 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                               highlightColor:
                                                   Colors.transparent,
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'CREATE_FROM_SCRATCH_Row_k7vlb9ha_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Row_upload_media_to_firebase');
                                                 final selectedMedia =
                                                     await selectMedia(
                                                   mediaSource:
@@ -377,6 +395,8 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                   }
                                                 }
 
+                                                logFirebaseEvent(
+                                                    'Row_update_page_state');
                                                 setState(() {
                                                   _model.typeOfMediaUploaded =
                                                       'image';
@@ -387,7 +407,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 12.0, 0.0),
                                                     child:
@@ -444,7 +464,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                         );
                                       } else {
                                         return Container(
-                                          decoration: const BoxDecoration(),
+                                          decoration: BoxDecoration(),
                                           child: SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
                                             child: Row(
@@ -471,7 +491,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                           height: 150.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: const Color(
+                                                            color: Color(
                                                                 0x50B8F2E6),
                                                             image:
                                                                 DecorationImage(
@@ -491,12 +511,12 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                         16.0),
                                                           ),
                                                         );
-                                                      }).divide(const SizedBox(
+                                                      }).divide(SizedBox(
                                                           width: 12.0)),
                                                     );
                                                   },
                                                 ),
-                                              ].divide(const SizedBox(width: 12.0)),
+                                              ].divide(SizedBox(width: 12.0)),
                                             ),
                                           ),
                                         );
@@ -504,16 +524,16 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                     },
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: const Color(0x50B8F2E6),
+                                        color: Color(0x50B8F2E6),
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 12.0, 12.0, 12.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -610,16 +630,16 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: const Color(0x50B8F2E6),
+                                        color: Color(0x50B8F2E6),
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 12.0, 12.0, 12.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -716,16 +736,16 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: const Color(0x50B8F2E6),
+                                        color: Color(0x50B8F2E6),
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 12.0, 12.0, 12.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -822,16 +842,16 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: const Color(0x50B8F2E6),
+                                        color: Color(0x50B8F2E6),
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 6.0, 12.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -927,17 +947,17 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: const Color(0x50B8F2E6),
+                                        color: Color(0x50B8F2E6),
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 6.0, 12.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -950,7 +970,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                               ),
                                               options: List<String>.from(
                                                   ['80', '170', '270']),
-                                              optionLabels: const [
+                                              optionLabels: [
                                                 'Short commentary (50-100 words)',
                                                 'Brief Description (150-200 words)',
                                                 'Long Analysis (250-300 words)'
@@ -989,7 +1009,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                               borderColor: Colors.transparent,
                                               borderWidth: 2.0,
                                               borderRadius: 8.0,
-                                              margin: const EdgeInsetsDirectional
+                                              margin: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 4.0, 0.0, 4.0),
                                               hidesUnderline: true,
                                               isOverButton: true,
@@ -1007,7 +1027,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () {
@@ -1017,9 +1037,9 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 48.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -1036,7 +1056,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                 .titleSmallFamily),
                                   ),
                               elevation: 3.0,
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Colors.transparent,
                               ),
                               borderRadius: BorderRadius.circular(24.0),

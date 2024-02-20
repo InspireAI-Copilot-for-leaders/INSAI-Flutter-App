@@ -8,11 +8,12 @@ import 'schema/util/firestore_util.dart';
 import 'schema/users_record.dart';
 import 'schema/expertise_area_keywords_sub_collection_record.dart';
 import 'schema/created_posts_record.dart';
-import 'schema/broad_domains_record.dart';
 import 'schema/thought_leaders_record.dart';
-import 'schema/keywords_record.dart';
 import 'schema/brand_voices_record.dart';
 import 'schema/posted_on_linkedin_record.dart';
+import 'schema/broad_domain_record.dart';
+import 'schema/expertise_areas_record.dart';
+import 'schema/article_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,11 +24,12 @@ export 'schema/util/schema_util.dart';
 export 'schema/users_record.dart';
 export 'schema/expertise_area_keywords_sub_collection_record.dart';
 export 'schema/created_posts_record.dart';
-export 'schema/broad_domains_record.dart';
 export 'schema/thought_leaders_record.dart';
-export 'schema/keywords_record.dart';
 export 'schema/brand_voices_record.dart';
 export 'schema/posted_on_linkedin_record.dart';
+export 'schema/broad_domain_record.dart';
+export 'schema/expertise_areas_record.dart';
+export 'schema/article_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -148,43 +150,6 @@ Future<List<CreatedPostsRecord>> queryCreatedPostsRecordOnce({
       singleRecord: singleRecord,
     );
 
-/// Functions to query BroadDomainsRecords (as a Stream and as a Future).
-Future<int> queryBroadDomainsRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      BroadDomainsRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<BroadDomainsRecord>> queryBroadDomainsRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      BroadDomainsRecord.collection,
-      BroadDomainsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<BroadDomainsRecord>> queryBroadDomainsRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      BroadDomainsRecord.collection,
-      BroadDomainsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
 /// Functions to query ThoughtLeadersRecords (as a Stream and as a Future).
 Future<int> queryThoughtLeadersRecordCount({
   Query Function(Query)? queryBuilder,
@@ -217,46 +182,6 @@ Future<List<ThoughtLeadersRecord>> queryThoughtLeadersRecordOnce({
     queryCollectionOnce(
       ThoughtLeadersRecord.collection,
       ThoughtLeadersRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query KeywordsRecords (as a Stream and as a Future).
-Future<int> queryKeywordsRecordCount({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      KeywordsRecord.collection(parent),
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<KeywordsRecord>> queryKeywordsRecord({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      KeywordsRecord.collection(parent),
-      KeywordsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<KeywordsRecord>> queryKeywordsRecordOnce({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      KeywordsRecord.collection(parent),
-      KeywordsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -334,6 +259,120 @@ Future<List<PostedOnLinkedinRecord>> queryPostedOnLinkedinRecordOnce({
     queryCollectionOnce(
       PostedOnLinkedinRecord.collection(parent),
       PostedOnLinkedinRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query BroadDomainRecords (as a Stream and as a Future).
+Future<int> queryBroadDomainRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      BroadDomainRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<BroadDomainRecord>> queryBroadDomainRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      BroadDomainRecord.collection,
+      BroadDomainRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<BroadDomainRecord>> queryBroadDomainRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      BroadDomainRecord.collection,
+      BroadDomainRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query ExpertiseAreasRecords (as a Stream and as a Future).
+Future<int> queryExpertiseAreasRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ExpertiseAreasRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ExpertiseAreasRecord>> queryExpertiseAreasRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ExpertiseAreasRecord.collection(parent),
+      ExpertiseAreasRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ExpertiseAreasRecord>> queryExpertiseAreasRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ExpertiseAreasRecord.collection(parent),
+      ExpertiseAreasRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query ArticleRecords (as a Stream and as a Future).
+Future<int> queryArticleRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ArticleRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ArticleRecord>> queryArticleRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ArticleRecord.collection,
+      ArticleRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ArticleRecord>> queryArticleRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ArticleRecord.collection,
+      ArticleRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -449,7 +488,7 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
   } else {
     docSnapshot = await query.get();
   }
-  getDocs(QuerySnapshot s) => s.docs
+  final getDocs = (QuerySnapshot s) => s.docs
       .map(
         (d) => safeGet(
           () => recordBuilder(d),

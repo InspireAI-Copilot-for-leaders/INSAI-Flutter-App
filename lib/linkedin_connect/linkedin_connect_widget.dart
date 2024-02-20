@@ -7,9 +7,11 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -38,8 +40,12 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
     super.initState();
     _model = createModel(context, () => LinkedinConnectModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'linkedinConnect'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('LINKEDIN_CONNECT_linkedinConnect_ON_INIT');
+      logFirebaseEvent('linkedinConnect_backend_call');
       unawaited(
         () async {
           await currentUserReference!.update(createUsersRecordData(
@@ -48,16 +54,17 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
         }(),
       );
       if (!widget.connectSuccess!) {
+        logFirebaseEvent('linkedinConnect_alert_dialog');
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
             return AlertDialog(
-              title: const Text('Failed!'),
-              content: const Text('LinkedIn Authentication Failed'),
+              title: Text('Failed!'),
+              content: Text('LinkedIn Authentication Failed'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(alertDialogContext),
-                  child: const Text('Try Again'),
+                  child: Text('Try Again'),
                 ),
               ],
             );
@@ -101,10 +108,10 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
           body: SafeArea(
             top: true,
             child: Align(
-              alignment: const AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.0, 0.0),
               child: Container(
                 width: double.infinity,
-                constraints: const BoxConstraints(
+                constraints: BoxConstraints(
                   maxWidth: 670.0,
                 ),
                 decoration: BoxDecoration(
@@ -130,9 +137,9 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, 1.0),
+                            alignment: AlignmentDirectional(-1.0, 1.0),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -146,13 +153,16 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'LINKEDIN_CONNECT_arrow_back_ios_rounded_');
+                                  logFirebaseEvent('IconButton_alert_dialog');
                                   var confirmDialogResponse =
                                       await showDialog<bool>(
                                             context: context,
                                             builder: (alertDialogContext) {
                                               return AlertDialog(
-                                                title: const Text('Logout?'),
-                                                content: const Text(
+                                                title: Text('Logout?'),
+                                                content: Text(
                                                     'This will log you out of InspireAI completely. Are you sure you want to logout?'),
                                                 actions: [
                                                   TextButton(
@@ -160,14 +170,14 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                                         Navigator.pop(
                                                             alertDialogContext,
                                                             false),
-                                                    child: const Text('Cancel'),
+                                                    child: Text('Cancel'),
                                                   ),
                                                   TextButton(
                                                     onPressed: () =>
                                                         Navigator.pop(
                                                             alertDialogContext,
                                                             true),
-                                                    child: const Text('Yes, Logout'),
+                                                    child: Text('Yes, Logout'),
                                                   ),
                                                 ],
                                               );
@@ -175,14 +185,22 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                           ) ??
                                           false;
                                   if (confirmDialogResponse) {
-                                    GoRouter.of(context).prepareAuthEvent();
+                                    logFirebaseEvent('IconButton_auth');
+                                    GoRouter.of(context).prepareAuthEvent(true);
                                     await authManager.signOut();
                                     GoRouter.of(context)
                                         .clearRedirectLocation();
 
-                                    context.pushNamedAuth(
-                                        'LandingPage', context.mounted);
+                                    logFirebaseEvent('IconButton_navigate_to');
+
+                                    context.goNamedAuth(
+                                      'LandingPage',
+                                      context.mounted,
+                                      ignoreRedirect: true,
+                                    );
                                   } else {
+                                    logFirebaseEvent(
+                                        'IconButton_close_dialog,_drawer,_etc');
                                     Navigator.pop(context);
                                   }
                                 },
@@ -190,7 +208,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 36.0, 0.0, 0.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(0.0),
@@ -207,15 +225,15 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 36.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, -1.0),
+                              alignment: AlignmentDirectional(-1.0, -1.0),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: AutoSizeText(
                                   'Externalize your thought leadership.',
@@ -230,18 +248,16 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                         fontSize: 36.0,
                                         fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .displayMediumFamily),
+                                            .containsKey('Montserrat'),
                                       ),
                                   minFontSize: 30.0,
                                 ),
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, -1.0),
+                              alignment: AlignmentDirectional(-1.0, -1.0),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 16.0),
                                 child: AutoSizeText(
                                   'To get the best from InspireAI, we need you to connect your LinkedIn account.',
@@ -271,10 +287,13 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                               color: FlutterFlowTheme.of(context).secondaryText,
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 16.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'LINKEDIN_CONNECT_CONNECT_LINKED_IN_BTN_O');
+                                  logFirebaseEvent('Button_launch_u_r_l');
                                   await launchURL(
                                       'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867aib47yndmjx&redirect_uri=https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth&scope=r_basicprofile%20w_member_social%20w_member_social_feed%20r_1st_connections_size');
                                 },
@@ -288,11 +307,11 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 60.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 12.0, 0.0),
-                                  color: const Color(0x00FFFFFF),
+                                  color: Color(0x00FFFFFF),
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleLarge
                                       .override(
@@ -302,12 +321,10 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLargeFamily),
+                                            .containsKey('Montserrat'),
                                       ),
                                   elevation: 0.0,
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(50.0),

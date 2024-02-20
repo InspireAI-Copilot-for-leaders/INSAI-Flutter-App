@@ -5,10 +5,14 @@ import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
+import '/backend/schema/structs/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,18 +35,26 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
   late LinkedinAuthModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => LinkedinAuthModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'linkedinAuth'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
+      logFirebaseEvent('linkedinAuth_backend_call');
       _model.linkedintokens = await LinkedinTokensCall.call(
         authCodeRecieved: widget.code,
       );
       if ((_model.linkedintokens?.succeeded ?? true)) {
+        logFirebaseEvent('linkedinAuth_backend_call');
+
         await currentUserReference!.update(createUsersRecordData(
           linkedinAccess: getJsonField(
             (_model.linkedintokens?.jsonBody ?? ''),
@@ -53,11 +65,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
             r'''$.refresh_token''',
           ).toString().toString(),
         ));
+        logFirebaseEvent('linkedinAuth_backend_call');
         _model.lIprofileDetails =
             await LinkedInDataGroup.linkedinProfileDetailsCall.call(
           authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
         );
         if ((_model.lIprofileDetails?.succeeded ?? true)) {
+          logFirebaseEvent('linkedinAuth_backend_call');
+
           await currentUserReference!.update(createUsersRecordData(
             linkedinDetails: updateLinkedinDetailsAuthStruct(
               LinkedinDetailsAuthStruct.maybeFromMap(
@@ -65,17 +80,21 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
               clearUnsetFields: false,
             ),
           ));
+          logFirebaseEvent('linkedinAuth_backend_call');
           _model.getExpertiseWorflow =
               await ExpertiseOfPersonProxycurlCall.call(
             linkedinUrl:
-                'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
+                'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
             uid: currentUserUid,
           );
           if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
+            logFirebaseEvent('linkedinAuth_update_page_state');
             setState(() {
               _model.isLoading = false;
             });
           } else {
+            logFirebaseEvent('linkedinAuth_navigate_to');
+
             context.goNamed(
               'linkedinConnect',
               queryParameters: {
@@ -87,6 +106,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
             );
           }
         } else {
+          logFirebaseEvent('linkedinAuth_navigate_to');
+
           context.goNamed(
             'linkedinConnect',
             queryParameters: {
@@ -98,6 +119,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           );
         }
       } else {
+        logFirebaseEvent('linkedinAuth_navigate_to');
+
         context.goNamed(
           'linkedinConnect',
           queryParameters: {
@@ -110,6 +133,18 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
       }
     });
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
+    _model.contentURL1Controller ??= TextEditingController();
+    _model.contentURL1FocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -117,6 +152,9 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -144,10 +182,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             automaticallyImplyLeading: false,
-            title: SizedBox(
+            title: Container(
               width: double.infinity,
               child: Stack(
-                alignment: const AlignmentDirectional(-1.0, 0.0),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 children: [
                   InkWell(
                     splashColor: Colors.transparent,
@@ -155,23 +193,26 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      logFirebaseEvent(
+                          'LINKEDIN_AUTH_PAGE_Row_8t9eg47v_ON_TAP');
+                      logFirebaseEvent('Row_alert_dialog');
                       var confirmDialogResponse = await showDialog<bool>(
                             context: context,
                             builder: (alertDialogContext) {
                               return AlertDialog(
-                                title: const Text('Logout?'),
-                                content: const Text(
+                                title: Text('Logout?'),
+                                content: Text(
                                     'This will log you out of InspireAI completely. Are you sure you want to logout?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(
                                         alertDialogContext, false),
-                                    child: const Text('Cancel'),
+                                    child: Text('Cancel'),
                                   ),
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.pop(alertDialogContext, true),
-                                    child: const Text('Yes, Logout'),
+                                    child: Text('Yes, Logout'),
                                   ),
                                 ],
                               );
@@ -179,12 +220,20 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                           ) ??
                           false;
                       if (confirmDialogResponse) {
-                        GoRouter.of(context).prepareAuthEvent();
+                        logFirebaseEvent('Row_auth');
+                        GoRouter.of(context).prepareAuthEvent(true);
                         await authManager.signOut();
                         GoRouter.of(context).clearRedirectLocation();
 
-                        context.pushNamedAuth('LandingPage', context.mounted);
+                        logFirebaseEvent('Row_navigate_to');
+
+                        context.goNamedAuth(
+                          'LandingPage',
+                          context.mounted,
+                          ignoreRedirect: true,
+                        );
                       } else {
+                        logFirebaseEvent('Row_close_dialog,_drawer,_etc');
                         Navigator.pop(context);
                       }
                     },
@@ -192,7 +241,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 4.0),
                           child: Icon(
                             Icons.arrow_back_ios_rounded,
@@ -201,7 +250,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               4.0, 4.0, 0.0, 4.0),
                           child: Text(
                             'Back ',
@@ -223,7 +272,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.0, 1.0),
                     child: Text(
                       'Expertise',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -237,7 +286,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(1.0, 0.0),
+                    alignment: AlignmentDirectional(1.0, 0.0),
                     child: Icon(
                       Icons.contact_support_outlined,
                       color: FlutterFlowTheme.of(context).secondary,
@@ -247,14 +296,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                 ],
               ),
             ),
-            actions: const [],
+            actions: [],
             centerTitle: false,
             elevation: 2.0,
           ),
           body: SafeArea(
             top: true,
             child: Align(
-              alignment: const AlignmentDirectional(-1.0, -1.0),
+              alignment: AlignmentDirectional(-1.0, -1.0),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -263,14 +312,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                 child: Stack(
                   children: [
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 24.0, 24.0, 0.0),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -278,11 +327,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 4.0),
                                       child: AuthUserStreamWidget(
                                         builder: (context) => AutoSizeText(
-                                          'Welcome ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
+                                          'Welcome ${currentUserDocument?.linkedinDetails?.localizedFirstName}!',
                                           textAlign: TextAlign.start,
                                           maxLines: 2,
                                           style: FlutterFlowTheme.of(context)
@@ -306,7 +355,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                     Opacity(
                                       opacity: 0.8,
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: Text(
                                           'We\'re gonna inspire the world together ;)',
@@ -333,7 +382,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 3.0),
                                       child: Text(
                                         'Your Expertise Areas',
@@ -361,7 +410,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                     Opacity(
                                       opacity: 0.8,
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 12.0),
                                         child: Text(
                                           'Our AI analysed your expertise to be in the following topics. Add more or remove some...',
@@ -390,14 +439,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                     Flexible(
                                       child: Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => Builder(
                                             builder: (context) {
                                               final expertiseAreas =
                                                   (currentUserDocument
                                                               ?.thoughtLeadershipAreas
-                                                              .toList() ??
+                                                              ?.toList() ??
                                                           [])
                                                       .toList();
                                               return Wrap(
@@ -428,6 +477,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'LINKEDIN_AUTH_Container_78gbfhp0_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Container_backend_call');
+
                                                       await currentUserReference!
                                                           .update({
                                                         ...mapToFirestore(
@@ -459,7 +513,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           Flexible(
                                                             child: Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           0.0,
@@ -476,7 +530,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                               .bodyMediumFamily,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryText,
+                                                                          .primaryBackground,
                                                                       fontSize:
                                                                           12.0,
                                                                       fontWeight:
@@ -502,10 +556,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 12.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 20.0, 0.0, 0.0),
                                       child: Text(
-                                        'Choose more areas',
+                                        'Type to add',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -527,19 +581,244 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             ),
                                       ),
                                     ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 8.0, 0.0, 0.0),
+                                      child: TextFormField(
+                                        controller:
+                                            _model.contentURL1Controller,
+                                        focusNode: _model.contentURL1FocusNode,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          hintText: 'Type to add area',
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily,
+                                                fontSize: 12.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMediumFamily),
+                                              ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xFFE0E3E7),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xFF5A5D5D),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          contentPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
+                                            ),
+                                        validator: _model
+                                            .contentURL1ControllerValidator
+                                            .asValidator(context),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 0.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'LINKEDIN_AUTH_PAGE_ADD_BTN_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Button_backend_call');
+
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'thought_leadership_areas':
+                                                      FieldValue.arrayUnion([
+                                                    _model.contentURL1Controller
+                                                        .text
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+                                          },
+                                          text: 'Add',
+                                          options: FFButtonOptions(
+                                            height: 20.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmallFamily,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      fontSize: 12.0,
+                                                      useGoogleFonts: GoogleFonts
+                                                              .asMap()
+                                                          .containsKey(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily),
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 1.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 16.0, 0.0, 12.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Opacity(
+                                              opacity: 0.4,
+                                              child: Container(
+                                                width: 90.0,
+                                                height: 1.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                ),
+                                              ),
+                                            ),
+                                            Opacity(
+                                              opacity: 0.8,
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          16.0, 0.0, 16.0, 0.0),
+                                                  child: Text(
+                                                    'or',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLargeFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily),
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Opacity(
+                                              opacity: 0.4,
+                                              child: Container(
+                                                width: 90.0,
+                                                height: 1.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                     Flexible(
                                       child: AuthUserStreamWidget(
                                         builder: (context) => StreamBuilder<
-                                            List<BroadDomainsRecord>>(
-                                          stream: queryBroadDomainsRecord(
-                                            queryBuilder:
-                                                (broadDomainsRecord) =>
-                                                    broadDomainsRecord.whereIn(
-                                                        'domain',
-                                                        (currentUserDocument
-                                                                ?.broadDomains
-                                                                .toList() ??
-                                                            [])),
+                                            List<BroadDomainRecord>>(
+                                          stream: queryBroadDomainRecord(
+                                            queryBuilder: (broadDomainRecord) =>
+                                                broadDomainRecord.whereIn(
+                                                    'broad_domain',
+                                                    (currentUserDocument
+                                                            ?.broadDomains
+                                                            ?.toList() ??
+                                                        [])),
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -557,8 +836,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                 ),
                                               );
                                             }
-                                            List<BroadDomainsRecord>
-                                                listViewBroadDomainsRecordList =
+                                            List<BroadDomainRecord>
+                                                listViewBroadDomainRecordList =
                                                 snapshot.data!;
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
@@ -566,15 +845,15 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                               shrinkWrap: true,
                                               scrollDirection: Axis.vertical,
                                               itemCount:
-                                                  listViewBroadDomainsRecordList
+                                                  listViewBroadDomainRecordList
                                                       .length,
                                               itemBuilder:
                                                   (context, listViewIndex) {
-                                                final listViewBroadDomainsRecord =
-                                                    listViewBroadDomainsRecordList[
+                                                final listViewBroadDomainRecord =
+                                                    listViewBroadDomainRecordList[
                                                         listViewIndex];
                                                 return Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 12.0),
                                                   child: Column(
@@ -586,15 +865,15 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     4.0),
                                                         child: Text(
-                                                          listViewBroadDomainsRecord
-                                                              .domain,
+                                                          listViewBroadDomainRecord
+                                                              .broadDomain,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -619,23 +898,16 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            const AlignmentDirectional(
+                                                            AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: StreamBuilder<
                                                             List<
-                                                                KeywordsRecord>>(
+                                                                ExpertiseAreasRecord>>(
                                                           stream:
-                                                              queryKeywordsRecord(
+                                                              queryExpertiseAreasRecord(
                                                             parent:
-                                                                listViewBroadDomainsRecord
+                                                                listViewBroadDomainRecord
                                                                     .reference,
-                                                            queryBuilder: (keywordsRecord) =>
-                                                                keywordsRecord.whereNotIn(
-                                                                    'keywords',
-                                                                    (currentUserDocument
-                                                                            ?.thoughtLeadershipAreas
-                                                                            .toList() ??
-                                                                        [])),
                                                             limit: 10,
                                                           ),
                                                           builder: (context,
@@ -657,8 +929,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                 ),
                                                               );
                                                             }
-                                                            List<KeywordsRecord>
-                                                                wrapKeywordsRecordList =
+                                                            List<ExpertiseAreasRecord>
+                                                                wrapExpertiseAreasRecordList =
                                                                 snapshot.data!;
                                                             return Wrap(
                                                               spacing: 4.0,
@@ -680,11 +952,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                               clipBehavior:
                                                                   Clip.none,
                                                               children: List.generate(
-                                                                  wrapKeywordsRecordList
+                                                                  wrapExpertiseAreasRecordList
                                                                       .length,
                                                                   (wrapIndex) {
-                                                                final wrapKeywordsRecord =
-                                                                    wrapKeywordsRecordList[
+                                                                final wrapExpertiseAreasRecord =
+                                                                    wrapExpertiseAreasRecordList[
                                                                         wrapIndex];
                                                                 return InkWell(
                                                                   splashColor:
@@ -699,13 +971,18 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                           .transparent,
                                                                   onTap:
                                                                       () async {
+                                                                    logFirebaseEvent(
+                                                                        'LINKEDIN_AUTH_Container_p2frkdlp_ON_TAP');
+                                                                    logFirebaseEvent(
+                                                                        'Container_backend_call');
+
                                                                     await currentUserReference!
                                                                         .update({
                                                                       ...mapToFirestore(
                                                                         {
                                                                           'thought_leadership_areas':
                                                                               FieldValue.arrayUnion([
-                                                                            wrapKeywordsRecord.keywords
+                                                                            wrapExpertiseAreasRecord.expertiseArea
                                                                           ]),
                                                                         },
                                                                       ),
@@ -731,7 +1008,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                     ),
                                                                     child:
                                                                         Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           12.0,
                                                                           8.0,
                                                                           12.0,
@@ -739,11 +1016,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                       child:
                                                                           Container(
                                                                         decoration:
-                                                                            const BoxDecoration(),
+                                                                            BoxDecoration(),
                                                                         child:
                                                                             Text(
-                                                                          wrapKeywordsRecord
-                                                                              .keywords,
+                                                                          wrapExpertiseAreasRecord
+                                                                              .expertiseArea,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -777,45 +1054,53 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 12.0, 16.0, 24.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                context.pushNamed('brandVoice');
-                              },
-                              text: 'Continue',
-                              options: FFButtonOptions(
-                                width: double.infinity,
-                                height: 48.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .titleMediumFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w500,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .titleMediumFamily),
-                                    ),
-                                elevation: 4.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                          if (!(isWeb
+                              ? MediaQuery.viewInsetsOf(context).bottom > 0
+                              : _isKeyboardVisible))
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 12.0, 16.0, 24.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'LINKEDIN_AUTH_PAGE_CONTINUE_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.pushNamed('brandVoice');
+                                },
+                                text: 'Continue',
+                                options: FFButtonOptions(
+                                  width: double.infinity,
+                                  height: 48.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .titleMediumFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .titleMediumFamily),
+                                      ),
+                                  elevation: 4.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(50.0),
                                 ),
-                                borderRadius: BorderRadius.circular(50.0),
                               ),
                             ),
-                          ),
                         ],
                       ),
                     ),
@@ -823,7 +1108,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                       wrapWithModel(
                         model: _model.profileLoadingScreenModel,
                         updateCallback: () => setState(() {}),
-                        child: const ProfileLoadingScreenWidget(
+                        child: ProfileLoadingScreenWidget(
                           loadingText:
                               'Setting up your profile. This usually takes a minute. Hang Tight...',
                         ),

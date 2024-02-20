@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_with_inspire_a_i_model.dart';
@@ -39,6 +40,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
     super.initState();
     _model = createModel(context, () => CreateWithInspireAIModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'createWithInspireAI'});
     _model.textController1 ??=
         TextEditingController(text: widget.topicForContent);
     _model.textFieldFocusNode ??= FocusNode();
@@ -89,6 +92,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
             size: 30.0,
           ),
           onPressed: () async {
+            logFirebaseEvent('CREATE_WITH_INSPIRE_A_I_close_rounded_IC');
+            logFirebaseEvent('IconButton_navigate_back');
             context.safePop();
           },
         ),
@@ -102,50 +107,50 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                     FlutterFlowTheme.of(context).headlineMediumFamily),
               ),
         ),
-        actions: const [],
+        actions: [],
         centerTitle: false,
         elevation: 2.0,
       ),
       body: SafeArea(
         top: true,
-        child: SizedBox(
+        child: Container(
           height: double.infinity,
           child: Stack(
             children: [
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: Container(
                           width: double.infinity,
-                          decoration: const BoxDecoration(),
+                          decoration: BoxDecoration(),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 0.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: const Color(0x409532EC),
+                                      color: Color(0x409532EC),
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 12.0, 12.0, 12.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 12.0, 0.0, 0.0),
                                               child: TextFormField(
@@ -168,7 +173,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primary,
+                                                                .primaryText,
                                                         fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -204,7 +209,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .primaryText,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -217,7 +222,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .secondary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -286,22 +291,22 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 0.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: const Color(0x409532EC),
+                                      color: Color(0x409532EC),
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 12.0, 12.0, 12.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 12.0, 0.0, 0.0),
                                               child: TextFormField(
@@ -324,7 +329,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primary,
+                                                                .primaryText,
                                                         fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -337,30 +342,33 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                       ),
                                                   hintText:
                                                       'Your Insight on the topic',
-                                                  hintStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelMedium
-                                                          .override(
-                                                            fontFamily:
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 12.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .labelMediumFamily,
-                                                            fontSize: 12.0,
-                                                            useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                .containsKey(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMediumFamily),
-                                                          ),
+                                                                    .labelMediumFamily),
+                                                      ),
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .primaryText,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -373,7 +381,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .secondary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -442,24 +450,24 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 0.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: const Color(0x409532EC),
+                                      color: Color(0x409532EC),
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 12.0, 12.0, 12.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
+                                                AlignmentDirectional(1.0, 0.0),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 2.0),
                                               child: InkWell(
                                                 splashColor: Colors.transparent,
@@ -468,6 +476,10 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'CREATE_WITH_INSPIRE_A_I_Text_r3faw3si_ON');
+                                                  logFirebaseEvent(
+                                                      'Text_set_form_field');
                                                   setState(() {
                                                     _model.voiceController
                                                             ?.text =
@@ -507,7 +519,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 8.0),
                                             child: TextFormField(
                                               controller:
@@ -527,7 +539,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                   .labelMediumFamily,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primary,
+                                                              .primaryText,
                                                           fontSize: 14.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -561,7 +573,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                   borderSide: BorderSide(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primary,
+                                                        .primaryText,
                                                     width: 1.0,
                                                   ),
                                                   borderRadius:
@@ -573,7 +585,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                   borderSide: BorderSide(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primary,
+                                                        .secondary,
                                                     width: 1.0,
                                                   ),
                                                   borderRadius:
@@ -634,16 +646,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 0.0),
                                   child: Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: const Color(0x409532EC),
+                                      color: Color(0x409532EC),
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 6.0, 12.0, 8.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -654,7 +666,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                 FormFieldController<int>(null),
                                             options: List<int>.from(
                                                 [80, 170, 270, 15, 8]),
-                                            optionLabels: const [
+                                            optionLabels: [
                                               'Short commentary (50-100 words)',
                                               'Brief Description (150-200 words)',
                                               'Long Analysis (250-300 words)',
@@ -695,7 +707,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                             borderWidth: 2.0,
                                             borderRadius: 8.0,
                                             margin:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 4.0),
                                             hidesUnderline: true,
                                             isOverButton: true,
@@ -715,15 +727,19 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'CREATE_WITH_INSPIRE_A_I_DO_THE_INSPIRE_A');
                           if (widget.contextForContent == null ||
                               widget.contextForContent == '') {
+                            logFirebaseEvent('Button_backend_call');
                             _model.contentfromtopic =
                                 await InspireAIContentFromTopicsCall.call(
                               topic: _model.textController1.text,
-                              brandVoice: _model.voiceController.text == ''
+                              brandVoice: _model.voiceController.text == null ||
+                                      _model.voiceController.text == ''
                                   ? valueOrDefault(
                                       currentUserDocument?.contentVoice, '')
                                   : _model.voiceController.text,
@@ -731,26 +747,30 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                               uid: currentUserUid,
                             );
                             if ((_model.contentfromtopic?.succeeded ?? true)) {
+                              logFirebaseEvent('Button_update_page_state');
                               setState(() {
                                 _model.loadingScreenVisible = true;
                               });
+                              logFirebaseEvent(
+                                  'Button_clear_text_fields_pin_codes');
                               setState(() {
                                 _model.textController1?.clear();
                                 _model.insightController?.clear();
                                 _model.voiceController?.clear();
                               });
                             } else {
+                              logFirebaseEvent('Button_alert_dialog');
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('Failed Request!'),
-                                    content: const Text('Request Failed'),
+                                    title: Text('Failed Request!'),
+                                    content: Text('Request Failed'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
+                                        child: Text('Ok'),
                                       ),
                                     ],
                                   );
@@ -758,10 +778,12 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                               );
                             }
                           } else {
+                            logFirebaseEvent('Button_backend_call');
                             _model.contentfromcontext =
                                 await InspireAIContentFromContextCall.call(
                               topic: _model.textController1.text,
-                              brandVoice: _model.voiceController.text == ''
+                              brandVoice: _model.voiceController.text == null ||
+                                      _model.voiceController.text == ''
                                   ? valueOrDefault(
                                       currentUserDocument?.contentVoice, '')
                                   : _model.voiceController.text,
@@ -772,26 +794,30 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                             );
                             if ((_model.contentfromcontext?.succeeded ??
                                 true)) {
+                              logFirebaseEvent('Button_update_page_state');
                               setState(() {
                                 _model.loadingScreenVisible = true;
                               });
+                              logFirebaseEvent(
+                                  'Button_clear_text_fields_pin_codes');
                               setState(() {
                                 _model.textController1?.clear();
                                 _model.insightController?.clear();
                                 _model.voiceController?.clear();
                               });
                             } else {
+                              logFirebaseEvent('Button_alert_dialog');
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('Failed Request!'),
-                                    content: const Text('Request Failed'),
+                                    title: Text('Failed Request!'),
+                                    content: Text('Request Failed'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
+                                        child: Text('Ok'),
                                       ),
                                     ],
                                   );
@@ -806,9 +832,9 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 48.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle: FlutterFlowTheme.of(context)
@@ -825,7 +851,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         .titleSmallFamily),
                               ),
                           elevation: 3.0,
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Colors.transparent,
                           ),
                           borderRadius: BorderRadius.circular(24.0),
@@ -839,7 +865,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                 wrapWithModel(
                   model: _model.loadingScreenModel,
                   updateCallback: () => setState(() {}),
-                  child: const LoadingScreenWidget(
+                  child: LoadingScreenWidget(
                     loadingText:
                         'Writing the post. Will take around 30 seconds. You can leave this page...',
                     callToActionVisible: false,

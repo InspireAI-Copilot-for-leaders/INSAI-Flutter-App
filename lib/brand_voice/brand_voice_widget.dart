@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -31,19 +32,24 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
     super.initState();
     _model = createModel(context, () => BrandVoiceModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'brandVoice'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('BRAND_VOICE_brandVoice_ON_INIT_STATE');
       final firestoreBatch = FirebaseFirestore.instance.batch();
       try {
+        logFirebaseEvent('brandVoice_backend_call');
         _model.profilePicture =
             await LinkedInDataGroup.linkedinProfilePictureCall.call(
           authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
         );
         if ((_model.profilePicture?.succeeded ?? true)) {
+          logFirebaseEvent('brandVoice_backend_call');
+
           firestoreBatch.update(currentUserReference!, {
             ...createUsersRecordData(
               linkedinUrn:
-                  'urn:li:person:${currentUserDocument?.linkedinDetails.id}',
+                  'urn:li:person:${currentUserDocument?.linkedinDetails?.id}',
             ),
             ...mapToFirestore(
               {
@@ -56,12 +62,15 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
             ),
           });
         }
+        logFirebaseEvent('brandVoice_backend_call');
         _model.firstConnectionSize =
             await LinkedInDataGroup.firstDegreeConnectionsSizeCall.call(
           authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
           personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
         );
         if ((_model.firstConnectionSize?.succeeded ?? true)) {
+          logFirebaseEvent('brandVoice_backend_call');
+
           firestoreBatch.update(
               currentUserReference!,
               createUsersRecordData(
@@ -71,11 +80,6 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                 ),
               ));
         }
-        _model.apiResultl4b = await InspireAIKeywordAndArticlesCall.call(
-          uid: currentUserUid,
-          expertiseAreasList:
-              (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []),
-        );
       } finally {
         await firestoreBatch.commit();
       }
@@ -125,10 +129,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             automaticallyImplyLeading: false,
-            title: SizedBox(
+            title: Container(
               width: double.infinity,
               child: Stack(
-                alignment: const AlignmentDirectional(-1.0, 0.0),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 children: [
                   InkWell(
                     splashColor: Colors.transparent,
@@ -136,13 +140,15 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      logFirebaseEvent('BRAND_VOICE_PAGE_Row_tdtrkr8f_ON_TAP');
+                      logFirebaseEvent('Row_navigate_back');
                       context.pop();
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 4.0),
                           child: Icon(
                             Icons.arrow_back_ios_rounded,
@@ -151,7 +157,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               4.0, 4.0, 0.0, 4.0),
                           child: Text(
                             'Back ',
@@ -173,7 +179,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.0, 1.0),
                     child: Text(
                       'User Persona',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -187,7 +193,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(1.0, 0.0),
+                    alignment: AlignmentDirectional(1.0, 0.0),
                     child: Icon(
                       Icons.contact_support_outlined,
                       color: FlutterFlowTheme.of(context).secondary,
@@ -197,27 +203,27 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                 ],
               ),
             ),
-            actions: const [],
+            actions: [],
             centerTitle: false,
             elevation: 2.0,
           ),
           body: SafeArea(
             top: true,
             child: Align(
-              alignment: const AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.0, 0.0),
               child: Container(
                 width: double.infinity,
-                constraints: const BoxConstraints(
+                constraints: BoxConstraints(
                   maxWidth: 670.0,
                 ),
-                decoration: const BoxDecoration(),
+                decoration: BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 0.0),
                         child: SingleChildScrollView(
                           child: Column(
@@ -225,7 +231,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 4.0),
                                 child: AutoSizeText(
                                   'Setup your Brand Voice',
@@ -247,7 +253,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 12.0),
                                 child: Text(
                                   'The voice in which your content will be written.',
@@ -269,7 +275,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 12.0, 0.0, 0.0),
                                 child: Text(
                                   'URL of content written by you',
@@ -291,7 +297,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.contentURL1Controller,
@@ -313,14 +319,14 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                       .labelMediumFamily),
                                         ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Color(0xFFE0E3E7),
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(24.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Color(0xFF5A5D5D),
                                         width: 1.0,
                                       ),
@@ -343,7 +349,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                       borderRadius: BorderRadius.circular(24.0),
                                     ),
                                     contentPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
+                                        EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -365,7 +371,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                               ),
                               if (_model.contentUrlFields == '2')
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: TextFormField(
                                     controller: _model.contentURL2Controller,
@@ -387,7 +393,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                         .labelMediumFamily),
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 1.0,
                                         ),
@@ -395,7 +401,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             BorderRadius.circular(24.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFF5A5D5D),
                                           width: 1.0,
                                         ),
@@ -421,7 +427,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             BorderRadius.circular(24.0),
                                       ),
                                       contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               16.0, 0.0, 16.0, 0.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
@@ -444,7 +450,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 ),
                               if (_model.contentUrlFields == '3')
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: TextFormField(
                                     controller: _model.contentURL3Controller,
@@ -466,7 +472,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                         .labelMediumFamily),
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 1.0,
                                         ),
@@ -474,7 +480,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             BorderRadius.circular(24.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFF5A5D5D),
                                           width: 1.0,
                                         ),
@@ -500,7 +506,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             BorderRadius.circular(24.0),
                                       ),
                                       contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               16.0, 0.0, 16.0, 0.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
@@ -522,7 +528,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                   ),
                                 ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     8.0, 8.0, 8.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -554,10 +560,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                       text: 'Detect',
                                       options: FFButtonOptions(
                                         height: 20.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
@@ -579,7 +585,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 3.0,
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -591,7 +597,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -612,10 +618,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                       opacity: 0.8,
                                       child: Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Text(
                                             'or',
@@ -658,7 +664,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   'Select from pre-defined templates',
@@ -680,7 +686,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: StreamBuilder<List<BrandVoicesRecord>>(
                                   stream: queryBrandVoicesRecord(),
@@ -719,6 +725,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
+                                            logFirebaseEvent(
+                                                'BRAND_VOICE_PAGE_Card_cnx2sfut_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Card_update_page_state');
                                             setState(() {
                                               _model.selectedVoice =
                                                   listViewBrandVoicesRecord
@@ -743,10 +753,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                               children: [
                                                 Flexible(
                                                   child: Container(
-                                                    decoration: const BoxDecoration(),
+                                                    decoration: BoxDecoration(),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   12.0,
                                                                   12.0,
@@ -776,7 +786,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 12.0, 0.0),
                                                   child: Icon(
@@ -809,14 +819,19 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
+                      padding: EdgeInsetsDirectional.fromSTEB(
                           16.0, 12.0, 16.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'BRAND_VOICE_PAGE_CONTINUE_BTN_ON_TAP');
+                          logFirebaseEvent('Button_backend_call');
+
                           await currentUserReference!
                               .update(createUsersRecordData(
                             contentVoice: _model.selectedVoice,
                           ));
+                          logFirebaseEvent('Button_navigate_to');
 
                           context.pushNamed('otherLeaders');
                         },
@@ -824,9 +839,9 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 48.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle: FlutterFlowTheme.of(context)
@@ -843,7 +858,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                         .titleMediumFamily),
                               ),
                           elevation: 4.0,
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

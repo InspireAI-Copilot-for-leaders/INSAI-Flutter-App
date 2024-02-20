@@ -32,31 +32,12 @@ service cloud.firestore {
     }
 
 
-    match /broad_domains/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
     match /thought_leaders/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
       allow delete: if true;
     }
-
-    match /broad_domains/{parent}/keywords/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /{path=**}/keywords/{document} {
-      allow read: if true;
-    }
-
 
     match /brand_voices/{document} {
       allow create: if true;
@@ -76,5 +57,31 @@ service cloud.firestore {
       allow read: if true;
     }
 
+
+    match /broad_domain/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /broad_domain/{parent}/expertise_areas/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/expertise_areas/{document} {
+      allow read: if true;
+    }
+
+
+    match /article/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
   }
 }

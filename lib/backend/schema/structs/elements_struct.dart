@@ -1,8 +1,10 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -86,6 +88,30 @@ class ElementsStruct extends FFFirebaseStruct {
           ParamType.DataStruct,
           false,
           structBuilder: IdentifiersStruct.fromSerializableMap,
+        ),
+      );
+
+  static ElementsStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ElementsStruct(
+        artifact: convertAlgoliaParam(
+          data['artifact'],
+          ParamType.String,
+          false,
+        ),
+        authorizationMethod: convertAlgoliaParam(
+          data['authorizationMethod'],
+          ParamType.String,
+          false,
+        ),
+        identifiers: convertAlgoliaParam(
+          data['identifiers'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: IdentifiersStruct.fromAlgoliaData,
+        ),
+        firestoreUtilData: FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

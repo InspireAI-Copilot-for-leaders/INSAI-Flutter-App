@@ -2,8 +2,11 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +30,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
     super.initState();
     _model = createModel(context, () => ForgotPassModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'forgot_pass'});
     _model.forgotPassEmailController ??= TextEditingController();
     _model.forgotPassEmailFocusNode ??= FocusNode();
 
@@ -61,14 +65,14 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100.0),
+          preferredSize: Size.fromHeight(100.0),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primary,
             automaticallyImplyLeading: false,
-            actions: const [],
+            actions: [],
             flexibleSpace: FlexibleSpaceBar(
               title: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -80,13 +84,16 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        logFirebaseEvent(
+                            'FORGOT_PASS_PAGE_Row_htw84ebu_ON_TAP');
+                        logFirebaseEvent('Row_navigate_back');
                         context.pop();
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 25.0, 13.0, 0.0, 13.0),
                             child: Icon(
                               Icons.arrow_back_ios_rounded,
@@ -95,7 +102,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Back ',
@@ -127,18 +134,18 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
           ),
         ),
         body: Align(
-          alignment: const AlignmentDirectional(0.0, 0.0),
+          alignment: AlignmentDirectional(0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
                 width: double.infinity,
-                constraints: const BoxConstraints(
+                constraints: BoxConstraints(
                   maxWidth: 570.0,
                 ),
-                decoration: const BoxDecoration(),
+                decoration: BoxDecoration(),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,13 +156,13 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                         tablet: false,
                       ))
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 44.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 12.0, 0.0),
                                 child: FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
@@ -169,6 +176,10 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
+                                    logFirebaseEvent(
+                                        'FORGOT_PASS_arrow_back_rounded_ICN_ON_TA');
+                                    logFirebaseEvent(
+                                        'IconButton_navigate_back');
                                     context.pop();
                                   },
                                 ),
@@ -182,9 +193,9 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                           ),
                         ),
                       Align(
-                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        alignment: AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: RichText(
                             textScaleFactor:
@@ -222,7 +233,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 8.0, 24.0, 0.0),
                         child: RichText(
                           textScaleFactor:
@@ -265,7 +276,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 0.0),
                         child: TextFormField(
                           controller: _model.forgotPassEmailController,
@@ -296,14 +307,14 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                                           .labelMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0xFFE0E3E7),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0xFF5A5D5D),
                                 width: 2.0,
                               ),
@@ -323,9 +334,9 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 20.0, 24.0, 20.0, 24.0),
-                            prefixIcon: const Icon(
+                            prefixIcon: Icon(
                               Icons.email_outlined,
                               color: Color(0x9C57636C),
                             ),
@@ -347,9 +358,9 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(1.0, 0.0),
+                        alignment: AlignmentDirectional(1.0, 0.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 24.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: FlutterFlowTheme.of(context).primary,
@@ -364,10 +375,13 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                               size: 28.0,
                             ),
                             onPressed: () async {
+                              logFirebaseEvent(
+                                  'FORGOT_PASS_PAGE_arrowRight_ICN_ON_TAP');
+                              logFirebaseEvent('IconButton_auth');
                               if (_model
                                   .forgotPassEmailController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
+                                  SnackBar(
                                     content: Text(
                                       'Email required!',
                                     ),

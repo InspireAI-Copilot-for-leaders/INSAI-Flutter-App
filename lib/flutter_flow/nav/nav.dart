@@ -3,13 +3,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/lat_lng.dart';
+import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -77,28 +86,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
-        child: RootPageContext.wrap(
-          appStateNotifier.loggedIn ? const HomeWidget() : const LandingPageWidget(),
-          errorRoute: state.location,
-        ),
+        child:
+            appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
       ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => RootPageContext.wrap(
-            appStateNotifier.loggedIn ? const HomeWidget() : const LandingPageWidget(),
-          ),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? DashboardWidget()
+              : LandingPageWidget(),
           routes: [
             FFRoute(
               name: 'LandingPage',
               path: 'landingPage',
-              builder: (context, params) => const LandingPageWidget(),
+              builder: (context, params) => LandingPageWidget(),
             ),
             FFRoute(
               name: 'auth_signupOrLogin',
               path: 'auth_signupOrLogin',
-              builder: (context, params) => const AuthSignupOrLoginWidget(),
+              builder: (context, params) => AuthSignupOrLoginWidget(),
             ),
             FFRoute(
               name: 'linkedinConnect',
@@ -112,12 +119,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'phone_number_verify',
               path: 'phoneNumberVerify',
-              builder: (context, params) => const PhoneNumberVerifyWidget(),
+              builder: (context, params) => PhoneNumberVerifyWidget(),
             ),
             FFRoute(
               name: 'forgot_pass',
               path: 'forgot_pass',
-              builder: (context, params) => const ForgotPassWidget(),
+              builder: (context, params) => ForgotPassWidget(),
             ),
             FFRoute(
               name: 'linkedinAuth',
@@ -131,24 +138,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'brandVoice',
               path: 'brandVoice',
               requireAuth: true,
-              builder: (context, params) => const BrandVoiceWidget(),
+              builder: (context, params) => BrandVoiceWidget(),
             ),
             FFRoute(
               name: 'home',
               path: 'home',
               requireAuth: true,
-              builder: (context, params) => const HomeWidget(),
+              builder: (context, params) => HomeWidget(),
             ),
             FFRoute(
               name: 'articleDetails',
               path: 'articleDetails',
               requireAuth: true,
               builder: (context, params) => ArticleDetailsWidget(
-                articleRef: params.getParam(
-                    'articleRef',
-                    ParamType.DocumentReference,
-                    false,
-                    ['users', 'expertise_area_keywords_sub_collection']),
+                articleRef: params.getParam('articleRef',
+                    ParamType.DocumentReference, false, ['article']),
                 articleTitle: params.getParam('articleTitle', ParamType.String),
                 articleImage: params.getParam('articleImage', ParamType.String),
                 articleContent:
@@ -181,19 +185,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'createFromScratch',
               path: 'createFromScratch',
               requireAuth: true,
-              builder: (context, params) => const CreateFromScratchWidget(),
+              builder: (context, params) => CreateFromScratchWidget(),
             ),
             FFRoute(
               name: 'otherLeaders',
               path: 'otherLeaders',
               requireAuth: true,
-              builder: (context, params) => const OtherLeadersWidget(),
+              builder: (context, params) => OtherLeadersWidget(),
             ),
             FFRoute(
               name: 'ProfileDetails',
               path: 'profileDetails',
               requireAuth: true,
-              builder: (context, params) => const ProfileDetailsWidget(),
+              builder: (context, params) => ProfileDetailsWidget(),
             ),
             FFRoute(
               name: 'postDetailed',
@@ -206,6 +210,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 postURN: params.getParam('postURN', ParamType.String),
                 postedOn: params.getParam('postedOn', ParamType.DateTime),
               ),
+            ),
+            FFRoute(
+              name: 'dashboard',
+              path: 'dashboard',
+              requireAuth: true,
+              builder: (context, params) => DashboardWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -439,14 +449,15 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
 }
 
 class _RouteErrorBuilder extends StatefulWidget {
   const _RouteErrorBuilder({
+    Key? key,
     required this.state,
     required this.child,
-  });
+  }) : super(key: key);
 
   final GoRouterState state;
   final Widget child;

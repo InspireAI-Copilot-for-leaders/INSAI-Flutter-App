@@ -1,8 +1,10 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -190,6 +192,57 @@ class LinkedinDetailsAuthStruct extends FFFirebaseStruct {
           data['id'],
           ParamType.String,
           false,
+        ),
+      );
+
+  static LinkedinDetailsAuthStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      LinkedinDetailsAuthStruct(
+        localizedFirstName: convertAlgoliaParam(
+          data['localizedFirstName'],
+          ParamType.String,
+          false,
+        ),
+        firstName: convertAlgoliaParam(
+          data['firstName'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: PrefferedLocaleStruct.fromAlgoliaData,
+        ),
+        localizedLastName: convertAlgoliaParam(
+          data['localizedLastName'],
+          ParamType.String,
+          false,
+        ),
+        lastName: convertAlgoliaParam(
+          data['lastName'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: PrefferedLocaleStruct.fromAlgoliaData,
+        ),
+        localizedHeadline: convertAlgoliaParam(
+          data['localizedHeadline'],
+          ParamType.String,
+          false,
+        ),
+        headline: convertAlgoliaParam(
+          data['headline'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: PrefferedLocaleStruct.fromAlgoliaData,
+        ),
+        vanityName: convertAlgoliaParam(
+          data['vanityName'],
+          ParamType.String,
+          false,
+        ),
+        id: convertAlgoliaParam(
+          data['id'],
+          ParamType.String,
+          false,
+        ),
+        firestoreUtilData: FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 
