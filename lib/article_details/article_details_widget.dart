@@ -1,10 +1,14 @@
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'article_details_model.dart';
@@ -38,6 +42,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
     super.initState();
     _model = createModel(context, () => ArticleDetailsModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'articleDetails'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -76,7 +82,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
+              Container(
                 height: 240.0,
                 child: Stack(
                   children: [
@@ -90,10 +96,10 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(-1.0, 1.0),
+                      alignment: AlignmentDirectional(-1.0, 1.0),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 8.0),
+                            EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 8.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
                           child: BackdropFilter(
@@ -102,15 +108,15 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               sigmaY: 2.0,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(2.0),
+                              padding: EdgeInsets.all(2.0),
                               child: Container(
                                 width: 64.0,
                                 height: 64.0,
                                 decoration: BoxDecoration(
-                                  color: const Color(0x9AFFFFFF),
+                                  color: Color(0x9AFFFFFF),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Icon(
                                   Icons.document_scanner_outlined,
                                   color: FlutterFlowTheme.of(context).primary,
@@ -124,7 +130,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 36.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 36.0, 16.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,6 +146,9 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               size: 25.0,
                             ),
                             onPressed: () async {
+                              logFirebaseEvent(
+                                  'ARTICLE_DETAILS_keyboard_arrow_left_roun');
+                              logFirebaseEvent('IconButton_navigate_back');
                               context.safePop();
                             },
                           ),
@@ -165,14 +174,14 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
               ),
               Flexible(
                 child: Align(
-                  alignment: const AlignmentDirectional(-1.0, -1.0),
+                  alignment: AlignmentDirectional(-1.0, -1.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
                           child: Text(
                             valueOrDefault<String>(
@@ -188,13 +197,178 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                   fontSize: 24.0,
                                   fontWeight: FontWeight.w600,
                                   useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .headlineMediumFamily),
+                                      .containsKey('Montserrat'),
                                 ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 8.0, 16.0, 8.0),
+                          child: StreamBuilder<ArticleRecord>(
+                            stream:
+                                ArticleRecord.getDocument(widget.articleRef!),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    child: SpinKitRipple(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      size: 100.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final rowArticleRecord = snapshot.data!;
+                              return Builder(
+                                builder: (context) {
+                                  final sources =
+                                      rowArticleRecord.metadata.toList();
+                                  return SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: List.generate(sources.length,
+                                          (sourcesIndex) {
+                                        final sourcesItem =
+                                            sources[sourcesIndex];
+                                        return InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'ARTICLE_DETAILS_Container_j6rt1xy5_ON_TA');
+                                            logFirebaseEvent(
+                                                'Container_launch_u_r_l');
+                                            await launchURL(sourcesItem.url);
+                                          },
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 100.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                              border: Border.all(
+                                                color: Color(0x8A080808),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8.0, 8.0, 8.0, 8.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    sourcesItem
+                                                        .orginialArticleUsedForRag
+                                                        .title,
+                                                    maxLines: 3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(4.0, 0.0,
+                                                                4.0, 0.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Container(
+                                                          width: 20.0,
+                                                          height: 20.0,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Image.network(
+                                                            sourcesItem.favicon,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                        Flexible(
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        4.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              sourcesItem
+                                                                  .sourceUrl,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily,
+                                                                    fontSize:
+                                                                        10.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }).divide(SizedBox(width: 8.0)),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
                           child: Text(
                             valueOrDefault<String>(
@@ -210,27 +384,30 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .labelMediumFamily),
+                                      .containsKey('Montserrat'),
                                 ),
                           ),
                         ),
-                      ].divide(const SizedBox(height: 12.0)),
+                      ].divide(SizedBox(height: 12.0)),
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
                 child: Container(
                   width: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'ARTICLE_DETAILS_MODIFY_AND_POST_BTN_ON_T');
+                          logFirebaseEvent('Button_navigate_to');
+
                           context.pushNamed(
                             'createWithInspireAI',
                             queryParameters: {
@@ -248,9 +425,9 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                         text: 'Modify and Post',
                         options: FFButtonOptions(
                           height: 40.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle: FlutterFlowTheme.of(context)
@@ -266,7 +443,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                         .titleSmallFamily),
                               ),
                           elevation: 3.0,
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

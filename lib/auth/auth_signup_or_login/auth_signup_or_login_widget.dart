@@ -5,12 +5,16 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -49,22 +53,22 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 300.ms,
-          begin: const Offset(0.0, -140.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, -140.0),
+          end: Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 300.ms,
-          begin: const Offset(0.9, 0.9),
-          end: const Offset(1.0, 1.0),
+          begin: Offset(0.9, 0.9),
+          end: Offset(1.0, 1.0),
         ),
         TiltEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 300.ms,
-          begin: const Offset(0.349, 0),
-          end: const Offset(0, 0),
+          begin: Offset(0.349, 0),
+          end: Offset(0, 0),
         ),
       ],
     ),
@@ -75,6 +79,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
     super.initState();
     _model = createModel(context, () => AuthSignupOrLoginModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'auth_signupOrLogin'});
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
@@ -145,10 +151,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                 child: Stack(
                   children: [
                     Align(
-                      alignment: const AlignmentDirectional(-1.0, -1.0),
+                      alignment: AlignmentDirectional(-1.0, -1.0),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
@@ -161,9 +167,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 0.14),
+                      alignment: AlignmentDirectional(0.0, 0.14),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             0.0, 56.0, 0.0, 36.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -171,7 +177,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, -1.0),
+                              alignment: AlignmentDirectional(-1.0, -1.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(0.0),
                                 child: Image.asset(
@@ -182,7 +188,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                   width: 161.0,
                                   height: 25.0,
                                   fit: BoxFit.contain,
-                                  alignment: const Alignment(0.0, 0.0),
+                                  alignment: Alignment(0.0, 0.0),
                                 ),
                               ),
                             ),
@@ -198,7 +204,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x33000000),
@@ -208,7 +214,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                     borderRadius: BorderRadius.circular(0.0),
                   ),
                   child: Align(
-                    alignment: const AlignmentDirectional(0.0, -1.0),
+                    alignment: AlignmentDirectional(0.0, -1.0),
                     child: Form(
                       key: _model.formKey,
                       autovalidateMode: AutovalidateMode.disabled,
@@ -218,7 +224,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                         children: [
                           Flexible(
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 24.0, 24.0, 0.0),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -227,7 +233,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: AutoSizeText(
                                         'Lead the Digital Era',
                                         textAlign: TextAlign.center,
@@ -251,9 +257,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       ),
                                     ),
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 24.0),
                                         child: AutoSizeText(
                                           'Your Ideas, Amplified.',
@@ -283,7 +289,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -310,10 +316,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           Opacity(
                                             opacity: 0.8,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: Text(
@@ -378,7 +384,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      decoration: const BoxDecoration(),
+                                      decoration: BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -387,7 +393,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: TextFormField(
@@ -437,7 +443,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               ),
                                                       enabledBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFE0E3E7),
                                                           width: 2.0,
@@ -448,7 +454,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFF5A5D5D),
                                                           width: 2.0,
@@ -482,13 +488,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 .circular(12.0),
                                                       ),
                                                       contentPadding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   24.0,
                                                                   20.0,
                                                                   24.0),
-                                                      prefixIcon: const Icon(
+                                                      prefixIcon: Icon(
                                                         Icons.email_outlined,
                                                         color:
                                                             Color(0x9C57636C),
@@ -522,7 +528,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 12.0, 0.0, 16.0),
                                                   child: TextFormField(
@@ -568,7 +574,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               ),
                                                       enabledBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFE0E3E7),
                                                           width: 2.0,
@@ -579,7 +585,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFF5A5D5D),
                                                           width: 2.0,
@@ -613,13 +619,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 .circular(12.0),
                                                       ),
                                                       contentPadding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   24.0,
                                                                   20.0,
                                                                   24.0),
-                                                      prefixIcon: const Icon(
+                                                      prefixIcon: Icon(
                                                         Icons.password_rounded,
                                                         color:
                                                             Color(0x9C57636C),
@@ -683,7 +689,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: TextFormField(
@@ -731,7 +737,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               ),
                                                       enabledBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFE0E3E7),
                                                           width: 2.0,
@@ -742,7 +748,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFF5A5D5D),
                                                           width: 2.0,
@@ -776,13 +782,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 .circular(12.0),
                                                       ),
                                                       contentPadding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   24.0,
                                                                   20.0,
                                                                   24.0),
-                                                      prefixIcon: const Icon(
+                                                      prefixIcon: Icon(
                                                         Icons.email_outlined,
                                                         color:
                                                             Color(0x9C57636C),
@@ -816,7 +822,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 12.0, 0.0, 20.0),
                                                   child: TextFormField(
@@ -862,7 +868,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               ),
                                                       enabledBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFE0E3E7),
                                                           width: 2.0,
@@ -873,7 +879,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFF5A5D5D),
                                                           width: 2.0,
@@ -907,13 +913,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 .circular(12.0),
                                                       ),
                                                       contentPadding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   24.0,
                                                                   20.0,
                                                                   24.0),
-                                                      prefixIcon: const Icon(
+                                                      prefixIcon: Icon(
                                                         Icons.password_rounded,
                                                         color:
                                                             Color(0x9C57636C),
@@ -977,10 +983,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 16.0, 0.0, 24.0),
-                                                  child: SizedBox(
+                                                  child: Container(
                                                     width: double.infinity,
                                                     height: 56.0,
                                                     child: custom_widgets
@@ -988,6 +994,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       width: double.infinity,
                                                       height: 56.0,
                                                       refreshPageUI: () async {
+                                                        logFirebaseEvent(
+                                                            'AUTH_SIGNUP_OR_LOGIN_Container_ion0jaq4_');
+                                                        logFirebaseEvent(
+                                                            'CountryCodePickerWidget_update_app_state');
                                                         setState(() {});
                                                       },
                                                     ),
@@ -1000,10 +1010,14 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                     ),
                                     if (_model.authType == 'signup_email')
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
+                                            logFirebaseEvent(
+                                                'AUTH_SIGNUP_OR_LOGIN_email_SignupContinu');
+                                            logFirebaseEvent(
+                                                'email_SignupContinue_auth');
                                             GoRouter.of(context)
                                                 .prepareAuthEvent();
 
@@ -1031,17 +1045,17 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 ));
 
                                             context.goNamedAuth(
-                                                'home', context.mounted);
+                                                'dashboard', context.mounted);
                                           },
                                           text: 'Continue',
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 48.0,
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 16.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
@@ -1066,7 +1080,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               .titleSmallFamily),
                                                 ),
                                             elevation: 3.0,
-                                            borderSide: const BorderSide(
+                                            borderSide: BorderSide(
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -1076,7 +1090,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       ),
                                     if (_model.authType == 'login_email')
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 12.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -1084,21 +1098,26 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'AUTH_SIGNUP_OR_LOGIN_forgot_pass_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'forgot_pass_navigate_to');
+
                                                   context
                                                       .pushNamed('forgot_pass');
                                                 },
                                                 text: 'Forgot Password?',
                                                 options: FFButtonOptions(
                                                   height: 24.0,
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 0.0),
                                                   iconPadding:
-                                                      const EdgeInsetsDirectional
+                                                      EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
@@ -1141,10 +1160,14 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             ),
                                             Flexible(
                                               child: Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     1.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
+                                                    logFirebaseEvent(
+                                                        'AUTH_SIGNUP_OR_LOGIN_email_LoginContinue');
+                                                    logFirebaseEvent(
+                                                        'email_LoginContinue_auth');
                                                     GoRouter.of(context)
                                                         .prepareAuthEvent();
 
@@ -1163,7 +1186,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       return;
                                                     }
 
-                                                    context.goNamedAuth('home',
+                                                    context.goNamedAuth(
+                                                        'dashboard',
                                                         context.mounted);
                                                   },
                                                   text: 'Continue',
@@ -1171,11 +1195,11 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     width: 150.0,
                                                     height: 48.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -1203,7 +1227,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                       .titleSmallFamily),
                                                         ),
                                                     elevation: 3.0,
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -1218,12 +1242,19 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       ),
                                     if (_model.authType == 'phone')
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
+                                            logFirebaseEvent(
+                                                'AUTH_SIGNUP_OR_LOGIN_phoneAuthContinue_O');
                                             if (FFAppState().userPhoneNumber !=
+                                                    null &&
+                                                FFAppState().userPhoneNumber !=
                                                     '') {
+                                              logFirebaseEvent(
+                                                  'phoneAuthContinue_navigate_to');
+
                                               context.pushNamed(
                                                   'phone_number_verify');
                                             }
@@ -1233,10 +1264,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             width: double.infinity,
                                             height: 48.0,
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 16.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
@@ -1261,7 +1292,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               .titleSmallFamily),
                                                 ),
                                             elevation: 3.0,
-                                            borderSide: const BorderSide(
+                                            borderSide: BorderSide(
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -1278,12 +1309,18 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
+                                          logFirebaseEvent(
+                                              'AUTH_SIGNUP_OR_LOGIN_createAccount_ON_TA');
                                           if (_model.authType ==
                                               'signup_email') {
+                                            logFirebaseEvent(
+                                                'createAccount_update_page_state');
                                             setState(() {
                                               _model.authType = 'login_email';
                                             });
                                           } else {
+                                            logFirebaseEvent(
+                                                'createAccount_update_page_state');
                                             setState(() {
                                               _model.authType = 'signup_email';
                                             });
@@ -1295,7 +1332,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               MainAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 8.0, 0.0, 8.0),
                                               child: Text(
                                                 _model.authType ==
@@ -1308,7 +1345,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 8.0, 0.0, 8.0),
                                               child: Text(
                                                 _model.authType ==
@@ -1342,9 +1379,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         ),
                                       ),
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 1.0),
+                                      alignment: AlignmentDirectional(0.0, 1.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 12.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -1366,10 +1403,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             Opacity(
                                               opacity: 0.8,
                                               child: Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   child: Text(
@@ -1417,7 +1454,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       ),
                                     ),
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 1.0),
+                                      alignment: AlignmentDirectional(0.0, 1.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1426,14 +1463,14 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           Opacity(
                                             opacity: 0.8,
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 16.0, 0.0),
                                               child: FlutterFlowIconButton(
                                                 borderRadius: 48.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 48.0,
-                                                fillColor: const Color(0xB2979797),
+                                                fillColor: Color(0xB2979797),
                                                 icon: FaIcon(
                                                   FontAwesomeIcons.google,
                                                   color: FlutterFlowTheme.of(
@@ -1442,6 +1479,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   size: 24.0,
                                                 ),
                                                 onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'AUTH_SIGNUP_OR_LOGIN_googleAuthButton_ON');
+                                                  logFirebaseEvent(
+                                                      'googleAuthButton_auth');
                                                   GoRouter.of(context)
                                                       .prepareAuthEvent();
                                                   final user = await authManager
@@ -1452,7 +1493,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   }
 
                                                   context.goNamedAuth(
-                                                      'home', context.mounted);
+                                                      'dashboard',
+                                                      context.mounted);
                                                 },
                                               ),
                                             ),
@@ -1460,7 +1502,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           Opacity(
                                             opacity: 0.8,
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 16.0, 0.0),
                                               child: FlutterFlowIconButton(
@@ -1468,7 +1510,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 borderRadius: 48.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 48.0,
-                                                fillColor: const Color(0xB2979797),
+                                                fillColor: Color(0xB2979797),
                                                 icon: FaIcon(
                                                   FontAwesomeIcons.apple,
                                                   color: FlutterFlowTheme.of(
@@ -1477,6 +1519,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   size: 24.0,
                                                 ),
                                                 onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'AUTH_SIGNUP_OR_LOGIN_appleAuthButton_ON_');
+                                                  logFirebaseEvent(
+                                                      'appleAuthButton_auth');
                                                   GoRouter.of(context)
                                                       .prepareAuthEvent();
                                                   final user = await authManager
@@ -1486,7 +1532,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   }
 
                                                   context.goNamedAuth(
-                                                      'home', context.mounted);
+                                                      'dashboard',
+                                                      context.mounted);
                                                 },
                                               ),
                                             ),
@@ -1499,7 +1546,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 borderRadius: 48.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 48.0,
-                                                fillColor: const Color(0xB2979797),
+                                                fillColor: Color(0xB2979797),
                                                 icon: Icon(
                                                   Icons.phone,
                                                   color: FlutterFlowTheme.of(
@@ -1508,6 +1555,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   size: 24.0,
                                                 ),
                                                 onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'AUTH_SIGNUP_OR_LOGIN_phoneAuthButton_ON_');
+                                                  logFirebaseEvent(
+                                                      'phoneAuthButton_update_page_state');
                                                   setState(() {
                                                     _model.authType = 'phone';
                                                   });
@@ -1522,7 +1573,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 borderRadius: 48.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 48.0,
-                                                fillColor: const Color(0xB2979797),
+                                                fillColor: Color(0xB2979797),
                                                 icon: Icon(
                                                   Icons.email_rounded,
                                                   color: FlutterFlowTheme.of(
@@ -1531,6 +1582,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   size: 24.0,
                                                 ),
                                                 onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'AUTH_SIGNUP_OR_LOGIN_emailAuthButton_ON_');
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_update_page_state');
                                                   setState(() {
                                                     _model.authType =
                                                         'signup_email';
@@ -1547,13 +1602,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.0, 1.0),
+                            alignment: AlignmentDirectional(0.0, 1.0),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 16.0),
                               child: Container(
-                                decoration: const BoxDecoration(),
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                decoration: BoxDecoration(),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Visibility(
                                   visible: !(isWeb
                                       ? MediaQuery.viewInsetsOf(context)
@@ -1613,7 +1668,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 1.0),
+                                            AlignmentDirectional(0.0, 1.0),
                                         child: RichText(
                                           textScaleFactor:
                                               MediaQuery.of(context)
@@ -1692,7 +1747,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 1.0),
+                                            AlignmentDirectional(0.0, 1.0),
                                         child: RichText(
                                           textScaleFactor:
                                               MediaQuery.of(context)

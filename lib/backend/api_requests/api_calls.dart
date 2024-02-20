@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:typed_data';
+import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -20,8 +22,7 @@ class LinkedInDataGroup {
       LinkedinProfilePictureCall();
   static FirstDegreeConnectionsSizeCall firstDegreeConnectionsSizeCall =
       FirstDegreeConnectionsSizeCall();
-  static IndustriesCall industriesCall = IndustriesCall();
-  static IndustriesCopyCall industriesCopyCall = IndustriesCopyCall();
+  static FindOtherPeopleCall findOtherPeopleCall = FindOtherPeopleCall();
 }
 
 class LinkedinProfileDetailsCall {
@@ -33,7 +34,7 @@ class LinkedinProfileDetailsCall {
       apiUrl: '${LinkedInDataGroup.baseUrl}/me',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer $authToken',
+        'Authorization': 'Bearer ${authToken}',
         'Content-Type': 'application/json',
       },
       params: {},
@@ -56,7 +57,7 @@ class LinkedinProfilePictureCall {
           '${LinkedInDataGroup.baseUrl}/me?projection=(id,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer $authToken',
+        'Authorization': 'Bearer ${authToken}',
         'Content-Type': 'application/json',
       },
       params: {},
@@ -91,10 +92,10 @@ class FirstDegreeConnectionsSizeCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'First degree connections size',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/connections/$personUrn',
+      apiUrl: '${LinkedInDataGroup.baseUrl}/connections/${personUrn}',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer $authToken',
+        'Authorization': 'Bearer ${authToken}',
       },
       params: {},
       returnBody: true,
@@ -104,41 +105,25 @@ class FirstDegreeConnectionsSizeCall {
       alwaysAllowBody: false,
     );
   }
+
+  int? connects(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.firstDegreeSize''',
+      ));
 }
 
-class IndustriesCall {
+class FindOtherPeopleCall {
   Future<ApiCallResponse> call({
-    String? personId = '',
+    String? personUrn = '',
     String? authToken = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'industries',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/industries/$personId',
+      callName: 'Find Other People',
+      apiUrl: '${LinkedInDataGroup.baseUrl}/people/(id:${personUrn})',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer $authToken',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
-class IndustriesCopyCall {
-  Future<ApiCallResponse> call({
-    String? personId = '',
-    String? authToken = '',
-  }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'industries Copy',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/industries/$personId',
-      callType: ApiCallType.GET,
-      headers: {
-        'Authorization': 'Bearer $authToken',
+        'Authorization': 'Bearer ${authToken}',
+        'X-RestLi-Protocol-Version': '2.0.0',
       },
       params: {},
       returnBody: true,
@@ -164,7 +149,7 @@ class LinkedinPostGroup {
   static PostTextCall postTextCall = PostTextCall();
   static GetPostCommentsCall getPostCommentsCall = GetPostCommentsCall();
   static GetPostLikesCall getPostLikesCall = GetPostLikesCall();
-  static PostCommentsCopyCall postCommentsCopyCall = PostCommentsCopyCall();
+  static GetSocialMetadataCall getSocialMetadataCall = GetSocialMetadataCall();
   static PeopleCall peopleCall = PeopleCall();
 }
 
@@ -176,8 +161,8 @@ class PostTextCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "author": "$personUrn",
-  "commentary": "$postText",
+  "author": "${personUrn}",
+  "commentary": "${postText}",
   "visibility": "PUBLIC",
   "distribution": {
     "feedDistribution": "MAIN_FEED",
@@ -193,7 +178,7 @@ class PostTextCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer ${accessToken}',
         'LinkedIn-Version': '202308',
       },
       params: {},
@@ -216,14 +201,16 @@ class GetPostCommentsCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'get post comments',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/$postUrn/comments',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/${postUrn}/comments',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer ${accessToken}',
         'LinkedIn-Version': '202308',
       },
-      params: {},
+      params: {
+        'count': 200,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -236,6 +223,51 @@ class GetPostCommentsCall {
         response,
         r'''$.paging.total''',
       ));
+  List<String>? commentsText(dynamic response) => (getJsonField(
+        response,
+        r'''$.elements[:].message.text''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? commentedBy(dynamic response) => (getJsonField(
+        response,
+        r'''$.elements[:].created.actor''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? commentURNs(dynamic response) => (getJsonField(
+        response,
+        r'''$.elements[:].commentUrn''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? createdTime(dynamic response) => (getJsonField(
+        response,
+        r'''$.elements[:].created.time''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? lastModifiedTime(dynamic response) => (getJsonField(
+        response,
+        r'''$.elements[:].lastModified.time''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class GetPostLikesCall {
@@ -246,11 +278,11 @@ class GetPostLikesCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'get post likes',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/$postUrn/likes',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/${postUrn}/likes',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer ${accessToken}',
         'LinkedIn-Version': '202308',
       },
       params: {},
@@ -268,19 +300,18 @@ class GetPostLikesCall {
       ));
 }
 
-class PostCommentsCopyCall {
+class GetSocialMetadataCall {
   Future<ApiCallResponse> call({
     String? postUrn = '',
-    String? personUrn = '',
     String? accessToken = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'post comments Copy',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/reactions/$postUrn',
+      callName: 'Get SocialMetadata',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/socialMetadata/${postUrn}',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer ${accessToken}',
         'LinkedIn-Version': '202308',
       },
       params: {},
@@ -303,7 +334,7 @@ class PeopleCall {
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer ${accessToken}',
         'LinkedIn-Version': '202308',
       },
       params: {},
@@ -325,8 +356,8 @@ class ExpertiseOfPersonApifyCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "uid": "$uid",
-  "linkedin_profile_url": "$linkedinUrl",
+  "uid": "${uid}",
+  "linkedin_profile_url": "${linkedinUrl}",
   "apify_token": "apify_api_yJdWtJercdZZdUUWDXlgDvniyTzSdI0lWKBg"
 }''';
     return ApiManager.instance.makeApiCall(
@@ -353,8 +384,8 @@ class ExpertiseOfPersonProxycurlCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "uid": "$uid",
-  "linkedin_profile_url": "$linkedinUrl"
+  "uid": "${uid}",
+  "linkedin_profile_url": "${linkedinUrl}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Expertise of Person Proxycurl',
@@ -412,13 +443,13 @@ class InspireAIContentFromTopicsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "topic": "$topic",
-  "brand_voice": "$brandVoice",
-  "number_of_words": $numberOfWords,
-  "context_size": $numberOfWords,
+  "topic": "${topic}",
+  "brand_voice": "${brandVoice}",
+  "number_of_words": ${numberOfWords},
+  "context_size": ${numberOfWords},
   "similarity_top_k": 1,
   "apify_token": "apify_api_yJdWtJercdZZdUUWDXlgDvniyTzSdI0lWKBg",
-  "uid": "$uid"
+  "uid": "${uid}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Topics',
@@ -448,12 +479,12 @@ class InspireAIContentFromContextCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "topic": "$topic",
-  "brand_voice": "$brandVoice",
-  "context": "$context",
-  "insights": "$insights",
-  "number_of_words": $numberOfWords,
-  "uid": "$uid"
+  "topic": "${topic}",
+  "brand_voice": "${brandVoice}",
+  "context": "${context}",
+  "insights": "${insights}",
+  "number_of_words": ${numberOfWords},
+  "uid": "${uid}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Context',
@@ -487,8 +518,8 @@ class InspireAIKeywordAndArticlesCall {
 
     final ffApiRequestBody = '''
 {
-  "uid": "$uid",
-  "list_of_expertise_areas": $expertiseAreas
+  "uid": "${uid}",
+  "list_of_expertise_areas": ${expertiseAreas}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Keyword and articles',

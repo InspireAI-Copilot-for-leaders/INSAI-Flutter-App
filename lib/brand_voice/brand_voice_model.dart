@@ -1,7 +1,18 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'brand_voice_widget.dart' show BrandVoiceWidget;
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
   ///  Local state fields for this page.
@@ -17,8 +28,6 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
   ApiCallResponse? profilePicture;
   // Stores action output result for [Backend Call - API (First degree connections size)] action in brandVoice widget.
   ApiCallResponse? firstConnectionSize;
-  // Stores action output result for [Backend Call - API (InspireAI Keyword and articles)] action in brandVoice widget.
-  ApiCallResponse? apiResultl4b;
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode;
   TextEditingController? contentURL1Controller;

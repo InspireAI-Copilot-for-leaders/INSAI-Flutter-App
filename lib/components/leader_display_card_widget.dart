@@ -1,6 +1,9 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'leader_display_card_model.dart';
@@ -61,9 +64,12 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () async {
+        logFirebaseEvent('LEADER_DISPLAY_CARD_Container_t593micf_O');
+        logFirebaseEvent('Container_update_component_state');
         setState(() {
           _model.isSelected = !_model.isSelected;
         });
+        logFirebaseEvent('Container_execute_callback');
         await widget.addToPageStateAction?.call();
       },
       child: Container(
@@ -82,19 +88,19 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 24.0, 8.0, 24.0),
+          padding: EdgeInsetsDirectional.fromSTEB(8.0, 24.0, 8.0, 24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                 child: Container(
                   width: 120.0,
                   height: 120.0,
                   clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: Image.network(
@@ -104,45 +110,49 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
-                child: Text(
+                padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
+                child: AutoSizeText(
                   valueOrDefault<String>(
                     widget.nameOfLeader,
                     'null',
                   ),
                   textAlign: TextAlign.center,
+                  maxLines: 1,
                   style: FlutterFlowTheme.of(context).bodyLarge.override(
                         fontFamily: 'Plus Jakarta Sans',
                         color: FlutterFlowTheme.of(context).primaryText,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
-                        useGoogleFonts: GoogleFonts.asMap().containsKey(
-                            FlutterFlowTheme.of(context).bodyLargeFamily),
+                        useGoogleFonts: GoogleFonts.asMap()
+                            .containsKey('Plus Jakarta Sans'),
                       ),
+                  minFontSize: 14.0,
                 ),
               ),
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
-                  child: Text(
+                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
+                  child: AutoSizeText(
                     valueOrDefault<String>(
                       widget.designation,
                       'null',
                     ),
                     textAlign: TextAlign.center,
+                    maxLines: 3,
                     style: FlutterFlowTheme.of(context).labelSmall.override(
                           fontFamily: 'Plus Jakarta Sans',
                           color: FlutterFlowTheme.of(context).secondaryText,
                           fontSize: 12.0,
                           fontWeight: FontWeight.w500,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).labelSmallFamily),
+                          useGoogleFonts: GoogleFonts.asMap()
+                              .containsKey('Plus Jakarta Sans'),
                         ),
+                    minFontSize: 10.0,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 4.0),
+                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 4.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +160,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                     Flexible(
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
                         child: Builder(
                           builder: (context) {
                             final speaksabout = widget.speaksAbout!.toList();
@@ -168,10 +178,10 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                                 final speaksaboutItem =
                                     speaksabout[speaksaboutIndex];
                                 return Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 2.0, 0.0, 0.0),
                                   child: Text(
-                                    '#$speaksaboutItem',
+                                    '#${speaksaboutItem}',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .labelSmall
@@ -182,9 +192,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                                           fontSize: 10.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelSmallFamily),
+                                              .containsKey('Plus Jakarta Sans'),
                                         ),
                                   ),
                                 );

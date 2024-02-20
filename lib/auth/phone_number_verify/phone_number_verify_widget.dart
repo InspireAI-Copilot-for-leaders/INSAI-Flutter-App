@@ -2,11 +2,13 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +33,18 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
     super.initState();
     _model = createModel(context, () => PhoneNumberVerifyModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'phone_number_verify'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('PHONE_NUMBER_VERIFY_phone_number_verify_');
+      logFirebaseEvent('phone_number_verify_auth');
       final phoneNumberVal = FFAppState().userPhoneNumber;
-      if (phoneNumberVal.isEmpty ||
+      if (phoneNumberVal == null ||
+          phoneNumberVal.isEmpty ||
           !phoneNumberVal.startsWith('+')) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('Phone Number is required and has to start with +.'),
           ),
         );
@@ -89,14 +96,14 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100.0),
+          preferredSize: Size.fromHeight(100.0),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primary,
             automaticallyImplyLeading: false,
-            actions: const [],
+            actions: [],
             flexibleSpace: FlexibleSpaceBar(
               title: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -108,13 +115,16 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        logFirebaseEvent(
+                            'PHONE_NUMBER_VERIFY_Row_dkjtft3d_ON_TAP');
+                        logFirebaseEvent('Row_navigate_back');
                         context.pop();
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 25.0, 13.0, 0.0, 13.0),
                             child: Icon(
                               Icons.arrow_back_ios_rounded,
@@ -123,7 +133,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Back ',
@@ -155,26 +165,26 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
           ),
         ),
         body: Align(
-          alignment: const AlignmentDirectional(0.0, 0.0),
+          alignment: AlignmentDirectional(0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
                 width: double.infinity,
-                constraints: const BoxConstraints(
+                constraints: BoxConstraints(
                   maxWidth: 570.0,
                 ),
-                decoration: const BoxDecoration(),
+                decoration: BoxDecoration(),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        alignment: AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 0.0, 0.0),
                           child: Text(
                             'OTP Verification',
@@ -197,13 +207,13 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                         tablet: false,
                       ))
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 44.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 12.0, 0.0),
                                 child: FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
@@ -217,6 +227,10 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
+                                    logFirebaseEvent(
+                                        'PHONE_NUMBER_VERIFY_arrow_back_rounded_I');
+                                    logFirebaseEvent(
+                                        'IconButton_navigate_back');
                                     context.pop();
                                   },
                                 ),
@@ -230,7 +244,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                           ),
                         ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 8.0, 24.0, 0.0),
                         child: RichText(
                           textScaleFactor:
@@ -283,7 +297,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 0.0),
                         child: PinCodeTextField(
                           autoDisposeControllers: false,
@@ -313,7 +327,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                             fieldHeight: 48.0,
                             fieldWidth: 48.0,
                             borderWidth: 2.0,
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(8.0),
                               bottomRight: Radius.circular(8.0),
                               topLeft: Radius.circular(8.0),
@@ -322,12 +336,12 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                             shape: PinCodeFieldShape.box,
                             activeColor:
                                 FlutterFlowTheme.of(context).primaryText,
-                            inactiveColor: const Color(0xA757636C),
+                            inactiveColor: Color(0xA757636C),
                             selectedColor:
                                 FlutterFlowTheme.of(context).secondary,
                             activeFillColor:
                                 FlutterFlowTheme.of(context).primaryText,
-                            inactiveFillColor: const Color(0xA757636C),
+                            inactiveFillColor: Color(0xA757636C),
                             selectedFillColor:
                                 FlutterFlowTheme.of(context).secondary,
                           ),
@@ -339,9 +353,9 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        alignment: AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: RichText(
                             textScaleFactor:
@@ -365,25 +379,29 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                                                     .bodyMediumFamily),
                                       ),
                                 ),
-                                const TextSpan(
+                                TextSpan(
                                   text: ' ',
                                   style: TextStyle(),
                                 ),
                                 TextSpan(
                                   text: 'Send Again',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     decoration: TextDecoration.underline,
                                   ),
                                   mouseCursor: SystemMouseCursors.click,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
+                                      logFirebaseEvent(
+                                          'PHONE_NUMBER_VERIFY_RichTextSpan_elhsjg8');
+                                      logFirebaseEvent('RichTextSpan_auth');
                                       final phoneNumberVal =
                                           FFAppState().userPhoneNumber;
-                                      if (phoneNumberVal.isEmpty ||
+                                      if (phoneNumberVal == null ||
+                                          phoneNumberVal.isEmpty ||
                                           !phoneNumberVal.startsWith('+')) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             content: Text(
                                                 'Phone Number is required and has to start with +.'),
                                           ),
@@ -420,9 +438,9 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(1.0, 0.0),
+                        alignment: AlignmentDirectional(1.0, 0.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 40.0, 24.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: FlutterFlowTheme.of(context).primary,
@@ -437,11 +455,14 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                               size: 28.0,
                             ),
                             onPressed: () async {
+                              logFirebaseEvent(
+                                  'PHONE_NUMBER_VERIFY_arrowRight_ICN_ON_TA');
+                              logFirebaseEvent('IconButton_auth');
                               GoRouter.of(context).prepareAuthEvent();
                               final smsCodeVal = _model.phoneOTPcode!.text;
-                              if (smsCodeVal.isEmpty) {
+                              if (smsCodeVal == null || smsCodeVal.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
+                                  SnackBar(
                                     content:
                                         Text('Enter SMS verification code.'),
                                   ),
@@ -457,7 +478,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget> {
                                 return;
                               }
 
-                              context.goNamedAuth('home', context.mounted);
+                              context.goNamedAuth('dashboard', context.mounted);
                             },
                           ),
                         ),

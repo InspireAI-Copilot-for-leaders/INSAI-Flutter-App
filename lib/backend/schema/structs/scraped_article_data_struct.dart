@@ -1,9 +1,12 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
+import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class ScrapedArticleDataStruct extends FFFirebaseStruct {
@@ -180,6 +183,54 @@ class ScrapedArticleDataStruct extends FFFirebaseStruct {
           data['url'],
           ParamType.String,
           false,
+        ),
+      );
+
+  static ScrapedArticleDataStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ScrapedArticleDataStruct(
+        description: convertAlgoliaParam(
+          data['description'],
+          ParamType.String,
+          false,
+        ),
+        publishDate: convertAlgoliaParam(
+          data['publish_date'],
+          ParamType.String,
+          false,
+        ),
+        scrapedAt: convertAlgoliaParam(
+          data['scraped_at'],
+          ParamType.String,
+          false,
+        ),
+        sourceUrl: convertAlgoliaParam(
+          data['source_url'],
+          ParamType.String,
+          false,
+        ),
+        text: convertAlgoliaParam(
+          data['text'],
+          ParamType.String,
+          false,
+        ),
+        title: convertAlgoliaParam(
+          data['title'],
+          ParamType.String,
+          false,
+        ),
+        topImage: convertAlgoliaParam(
+          data['top_image'],
+          ParamType.String,
+          false,
+        ),
+        url: convertAlgoliaParam(
+          data['url'],
+          ParamType.String,
+          false,
+        ),
+        firestoreUtilData: FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

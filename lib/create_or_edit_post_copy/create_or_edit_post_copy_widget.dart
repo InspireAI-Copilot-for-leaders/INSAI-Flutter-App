@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_or_edit_post_copy_model.dart';
@@ -42,6 +44,8 @@ class _CreateOrEditPostCopyWidgetState
     super.initState();
     _model = createModel(context, () => CreateOrEditPostCopyModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'createOrEditPostCopy'});
     _model.textController1 ??= TextEditingController(text: widget.postTitle);
     _model.textFieldFocusNode1 ??= FocusNode();
 
@@ -90,7 +94,7 @@ class _CreateOrEditPostCopyWidgetState
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 12.0, 24.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -101,7 +105,7 @@ class _CreateOrEditPostCopyWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 12.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -109,6 +113,9 @@ class _CreateOrEditPostCopyWidgetState
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'CREATE_OR_EDIT_POST_COPY_Icon_gr9oprw7_O');
+                                      logFirebaseEvent('Icon_navigate_back');
                                       context.pop();
                                     },
                                     child: Icon(
@@ -127,19 +134,19 @@ class _CreateOrEditPostCopyWidgetState
                                     borderRadius: BorderRadius.circular(50.0),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
+                                    padding: EdgeInsets.all(2.0),
                                     child: AuthUserStreamWidget(
                                       builder: (context) => Container(
                                         width: 40.0,
                                         height: 40.0,
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
                                         child: Image.network(
                                           (currentUserDocument
                                                       ?.profilePictureLinks
-                                                      .toList() ??
+                                                      ?.toList() ??
                                                   [])
                                               .first,
                                           fit: BoxFit.cover,
@@ -149,7 +156,7 @@ class _CreateOrEditPostCopyWidgetState
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       8.0, 0.0, 0.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -159,7 +166,7 @@ class _CreateOrEditPostCopyWidgetState
                                     children: [
                                       AuthUserStreamWidget(
                                         builder: (context) => Text(
-                                          '${currentUserDocument?.linkedinDetails.localizedFirstName}',
+                                          '${currentUserDocument?.linkedinDetails?.localizedFirstName}',
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
@@ -169,12 +176,9 @@ class _CreateOrEditPostCopyWidgetState
                                                         .primaryText,
                                                 fontSize: 22.0,
                                                 fontWeight: FontWeight.w500,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleLargeFamily),
+                                                useGoogleFonts:
+                                                    GoogleFonts.asMap()
+                                                        .containsKey('Outfit'),
                                               ),
                                         ),
                                       ),
@@ -185,6 +189,9 @@ class _CreateOrEditPostCopyWidgetState
                             ),
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'CREATE_OR_EDIT_POST_COPY_POST_BTN_ON_TAP');
+                                logFirebaseEvent('Button_backend_call');
                                 _model.linkedinPost =
                                     await LinkedinPostGroup.postTextCall.call(
                                   personUrn: valueOrDefault(
@@ -195,20 +202,21 @@ class _CreateOrEditPostCopyWidgetState
                                       currentUserDocument?.linkedinAccess, ''),
                                 );
                                 if ((_model.linkedinPost?.succeeded ?? true)) {
+                                  logFirebaseEvent('Button_alert_dialog');
                                   unawaited(
                                     () async {
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
                                           return AlertDialog(
-                                            title: const Text('Success'),
-                                            content: const Text(
+                                            title: Text('Success'),
+                                            content: Text(
                                                 'Your post has been successfully posted!'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext),
-                                                child: const Text('Ok'),
+                                                child: Text('Ok'),
                                               ),
                                             ],
                                           );
@@ -216,6 +224,7 @@ class _CreateOrEditPostCopyWidgetState
                                       );
                                     }(),
                                   );
+                                  logFirebaseEvent('Button_backend_call');
 
                                   await PostedOnLinkedinRecord.createDoc(
                                           currentUserReference!)
@@ -227,20 +236,22 @@ class _CreateOrEditPostCopyWidgetState
                                     postText: _model.textController2.text,
                                     postTitle: _model.textController1.text,
                                   ));
+                                  logFirebaseEvent('Button_navigate_to');
 
                                   context.goNamed('home');
                                 } else {
+                                  logFirebaseEvent('Button_alert_dialog');
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
                                       return AlertDialog(
-                                        title: const Text('Failed'),
-                                        content: const Text('Posting action failed!'),
+                                        title: Text('Failed'),
+                                        content: Text('Posting action failed!'),
                                         actions: [
                                           TextButton(
                                             onPressed: () => Navigator.pop(
                                                 alertDialogContext),
-                                            child: const Text('Ok'),
+                                            child: Text('Ok'),
                                           ),
                                         ],
                                       );
@@ -254,9 +265,9 @@ class _CreateOrEditPostCopyWidgetState
                               options: FFButtonOptions(
                                 width: 70.0,
                                 height: 36.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -267,12 +278,10 @@ class _CreateOrEditPostCopyWidgetState
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily),
+                                          .containsKey('Plus Jakarta Sans'),
                                     ),
                                 elevation: 2.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -284,22 +293,22 @@ class _CreateOrEditPostCopyWidgetState
                       ),
                       Container(
                         width: double.infinity,
-                        decoration: const BoxDecoration(),
+                        decoration: BoxDecoration(),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 12.0),
                                 child: TextFormField(
                                   controller: _model.textController1,
                                   focusNode: _model.textFieldFocusNode1,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.textController1',
-                                    const Duration(milliseconds: 2000),
+                                    Duration(milliseconds: 2000),
                                     () => setState(() {}),
                                   ),
                                   textCapitalization:
@@ -314,56 +323,54 @@ class _CreateOrEditPostCopyWidgetState
                                         .labelLarge
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: const Color(0xFF57636C),
+                                          color: Color(0xFF57636C),
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.normal,
                                           useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily),
+                                              .containsKey('Plus Jakarta Sans'),
                                         ),
-                                    enabledBorder: const OutlineInputBorder(
+                                    enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFE0E3E7),
                                         width: 2.0,
                                       ),
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(4.0),
                                         topRight: Radius.circular(4.0),
                                       ),
                                     ),
-                                    focusedBorder: const OutlineInputBorder(
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFF4B39EF),
                                         width: 2.0,
                                       ),
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(4.0),
                                         topRight: Radius.circular(4.0),
                                       ),
                                     ),
-                                    errorBorder: const OutlineInputBorder(
+                                    errorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFFF5963),
                                         width: 2.0,
                                       ),
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(4.0),
                                         topRight: Radius.circular(4.0),
                                       ),
                                     ),
-                                    focusedErrorBorder: const OutlineInputBorder(
+                                    focusedErrorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFFF5963),
                                         width: 2.0,
                                       ),
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(4.0),
                                         topRight: Radius.circular(4.0),
                                       ),
                                     ),
                                     contentPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
+                                        EdgeInsetsDirectional.fromSTEB(
                                             16.0, 8.0, 16.0, 12.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -375,26 +382,24 @@ class _CreateOrEditPostCopyWidgetState
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.normal,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLargeFamily),
+                                            .containsKey('Plus Jakarta Sans'),
                                       ),
                                   textAlign: TextAlign.start,
                                   maxLines: null,
-                                  cursorColor: const Color(0xFF4B39EF),
+                                  cursorColor: Color(0xFF4B39EF),
                                   validator: _model.textController1Validator
                                       .asValidator(context),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 12.0),
                                 child: TextFormField(
                                   controller: _model.textController2,
                                   focusNode: _model.textFieldFocusNode2,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.textController2',
-                                    const Duration(milliseconds: 2000),
+                                    Duration(milliseconds: 2000),
                                     () => setState(() {}),
                                   ),
                                   textCapitalization:
@@ -406,13 +411,11 @@ class _CreateOrEditPostCopyWidgetState
                                         .labelLarge
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: const Color(0xFF57636C),
+                                          color: Color(0xFF57636C),
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.normal,
                                           useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily),
+                                              .containsKey('Plus Jakarta Sans'),
                                         ),
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
@@ -428,13 +431,11 @@ class _CreateOrEditPostCopyWidgetState
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.normal,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLargeFamily),
+                                            .containsKey('Plus Jakarta Sans'),
                                       ),
                                   textAlign: TextAlign.start,
                                   maxLines: null,
-                                  cursorColor: const Color(0xFF4B39EF),
+                                  cursorColor: Color(0xFF4B39EF),
                                   validator: _model.textController2Validator
                                       .asValidator(context),
                                 ),
@@ -448,15 +449,15 @@ class _CreateOrEditPostCopyWidgetState
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Align(
-                      alignment: const AlignmentDirectional(1.0, 0.0),
+                      alignment: AlignmentDirectional(1.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
@@ -464,22 +465,27 @@ class _CreateOrEditPostCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
+                            logFirebaseEvent(
+                                'CREATE_OR_EDIT_POST_COPY_Text_1klvrct3_O');
+                            logFirebaseEvent('Text_backend_call');
+
                             await widget.postRef!
                                 .update(createCreatedPostsRecordData(
                               topic: _model.textController1.text,
                               content: _model.textController2.text,
                             ));
+                            logFirebaseEvent('Text_alert_dialog');
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: const Text('Saved'),
-                                  content: const Text('Draft Saved'),
+                                  title: Text('Saved'),
+                                  content: Text('Draft Saved'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
                                           Navigator.pop(alertDialogContext),
-                                      child: const Text('Ok'),
+                                      child: Text('Ok'),
                                     ),
                                   ],
                                 );
@@ -505,9 +511,9 @@ class _CreateOrEditPostCopyWidgetState
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(1.0, 0.0),
+                      alignment: AlignmentDirectional(1.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
@@ -515,23 +521,26 @@ class _CreateOrEditPostCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
+                            logFirebaseEvent(
+                                'CREATE_OR_EDIT_POST_COPY_Text_17la4ovg_O');
+                            logFirebaseEvent('Text_alert_dialog');
                             var confirmDialogResponse = await showDialog<bool>(
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: const Text('Delete?'),
-                                      content: const Text(
+                                      title: Text('Delete?'),
+                                      content: Text(
                                           'This action will permanatly delete this draft. Continue?'),
                                       actions: [
                                         TextButton(
                                           onPressed: () => Navigator.pop(
                                               alertDialogContext, false),
-                                          child: const Text('Cancel'),
+                                          child: Text('Cancel'),
                                         ),
                                         TextButton(
                                           onPressed: () => Navigator.pop(
                                               alertDialogContext, true),
-                                          child: const Text('Delete'),
+                                          child: Text('Delete'),
                                         ),
                                       ],
                                     );
@@ -539,8 +548,11 @@ class _CreateOrEditPostCopyWidgetState
                                 ) ??
                                 false;
                             if (confirmDialogResponse) {
+                              logFirebaseEvent('Text_backend_call');
                               await widget.postRef!.delete();
                             } else {
+                              logFirebaseEvent(
+                                  'Text_close_dialog,_drawer,_etc');
                               Navigator.pop(context);
                             }
                           },

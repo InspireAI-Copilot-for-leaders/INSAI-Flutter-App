@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -41,6 +42,8 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
     super.initState();
     _model = createModel(context, () => PostDetailedModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'postDetailed'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -99,12 +102,14 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                 borderRadius: 30.0,
                 borderWidth: 1.0,
                 buttonSize: 60.0,
-                icon: const Icon(
+                icon: Icon(
                   Icons.arrow_back_rounded,
                   color: Color(0xFF101213),
                   size: 30.0,
                 ),
                 onPressed: () async {
+                  logFirebaseEvent('POST_DETAILED_arrow_back_rounded_ICN_ON_');
+                  logFirebaseEvent('IconButton_navigate_back');
                   context.pop();
                 },
               ),
@@ -112,14 +117,14 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                 'Post Details',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Montserrat',
-                      color: const Color(0xFF101213),
+                      color: Color(0xFF101213),
                       fontSize: 24.0,
                       fontWeight: FontWeight.w500,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).headlineMediumFamily),
+                      useGoogleFonts:
+                          GoogleFonts.asMap().containsKey('Montserrat'),
                     ),
               ),
-              actions: const [],
+              actions: [],
               centerTitle: false,
               elevation: 0.0,
             ),
@@ -131,54 +136,51 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Likes',
-                          style: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: const Color(0xFF57636C),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: Color(0xFF57636C),
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey('Plus Jakarta Sans'),
+                                  ),
                         ),
                       ],
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                     child: Text(
                       postDetailedPostedOnLinkedinRecord.likesNumber.toString(),
                       style: FlutterFlowTheme.of(context).displayLarge.override(
                             fontFamily: 'Outfit',
-                            color: const Color(0xFF101213),
+                            color: Color(0xFF101213),
                             fontSize: 64.0,
                             fontWeight: FontWeight.normal,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context)
-                                    .displayLargeFamily),
+                            useGoogleFonts:
+                                GoogleFonts.asMap().containsKey('Outfit'),
                           ),
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 12.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -190,17 +192,15 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                       .labelSmall
                                       .override(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: const Color(0xFF57636C),
+                                        color: Color(0xFF57636C),
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelSmallFamily),
+                                            .containsKey('Plus Jakarta Sans'),
                                       ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: Text(
                                     postDetailedPostedOnLinkedinRecord
@@ -210,13 +210,11 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                         .titleLarge
                                         .override(
                                           fontFamily: 'Outfit',
-                                          color: const Color(0xFF101213),
+                                          color: Color(0xFF101213),
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
+                                              .containsKey('Outfit'),
                                         ),
                                   ),
                                 ),
@@ -235,17 +233,15 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                     .labelSmall
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF57636C),
+                                      color: Color(0xFF57636C),
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .labelSmallFamily),
+                                          .containsKey('Plus Jakarta Sans'),
                                     ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: Text(
                                   dateTimeFormat('yMMMd', widget.postedOn),
@@ -253,13 +249,11 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                       .titleLarge
                                       .override(
                                         fontFamily: 'Outfit',
-                                        color: const Color(0xFF101213),
+                                        color: Color(0xFF101213),
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLargeFamily),
+                                            .containsKey('Outfit'),
                                       ),
                                 ),
                               ),
@@ -270,24 +264,29 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(1.0, 0.0),
+                    alignment: AlignmentDirectional(1.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 16.0, 16.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 16.0, 16.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'POST_DETAILED_PAGE_REFRESH_BTN_ON_TAP');
+                          logFirebaseEvent('Button_backend_call');
                           _model.likes =
                               await LinkedinPostGroup.getPostLikesCall.call(
                             postUrn: widget.postURN,
                             accessToken: valueOrDefault(
                                 currentUserDocument?.linkedinAccess, ''),
                           );
+                          logFirebaseEvent('Button_backend_call');
                           _model.comments =
                               await LinkedinPostGroup.getPostCommentsCall.call(
                             postUrn: widget.postURN,
                             accessToken: valueOrDefault(
                                 currentUserDocument?.linkedinAccess, ''),
                           );
+                          logFirebaseEvent('Button_backend_call');
 
                           await widget.postRef!
                               .update(createPostedOnLinkedinRecordData(
@@ -307,9 +306,9 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                         text: 'Refresh',
                         options: FFButtonOptions(
                           height: 30.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle: FlutterFlowTheme.of(context)
@@ -324,7 +323,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                         .titleSmallFamily),
                               ),
                           elevation: 3.0,
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),
@@ -335,22 +334,22 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
                     child: Text(
                       'Content',
                       style: FlutterFlowTheme.of(context).labelSmall.override(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: const Color(0xFF57636C),
+                            color: Color(0xFF57636C),
                             fontSize: 12.0,
                             fontWeight: FontWeight.w500,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).labelSmallFamily),
+                            useGoogleFonts: GoogleFonts.asMap()
+                                .containsKey('Plus Jakarta Sans'),
                           ),
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
                     child: Text(
                       valueOrDefault<String>(
                         widget.postText,
@@ -358,11 +357,11 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: const Color(0xFF101213),
+                            color: Color(0xFF101213),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w500,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyMediumFamily),
+                            useGoogleFonts: GoogleFonts.asMap()
+                                .containsKey('Plus Jakarta Sans'),
                           ),
                     ),
                   ),

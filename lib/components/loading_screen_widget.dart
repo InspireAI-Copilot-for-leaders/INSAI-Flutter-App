@@ -2,6 +2,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +15,7 @@ class LoadingScreenWidget extends StatefulWidget {
     super.key,
     String? loadingText,
     this.callToActionVisible,
-  }) : loadingText =
+  }) : this.loadingText =
             loadingText ?? 'This usually takes a minute. Hang tight...';
 
   final String loadingText;
@@ -73,7 +75,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
           Opacity(
             opacity: 0.6,
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 30.0),
+              padding: EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 30.0),
               child: Text(
                 widget.loadingText,
                 textAlign: TextAlign.center,
@@ -88,7 +90,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
           ),
           if (widget.callToActionVisible ?? true)
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () {
                   print('Button pressed ...');
@@ -96,9 +98,9 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
                 text: 'Go to Posts page',
                 options: FFButtonOptions(
                   height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).secondaryText,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily:
@@ -108,7 +110,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
                             FlutterFlowTheme.of(context).titleSmallFamily),
                       ),
                   elevation: 3.0,
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     color: Colors.transparent,
                     width: 1.0,
                   ),

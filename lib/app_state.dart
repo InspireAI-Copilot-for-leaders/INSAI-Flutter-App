@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
+import 'backend/api_requests/api_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -24,46 +28,19 @@ class FFAppState extends ChangeNotifier {
 
   String _userPhoneNumber = '';
   String get userPhoneNumber => _userPhoneNumber;
-  set userPhoneNumber(String value) {
-    _userPhoneNumber = value;
+  set userPhoneNumber(String _value) {
+    _userPhoneNumber = _value;
   }
 
-  final _articlesManager =
-      StreamRequestManager<List<ExpertiseAreaKeywordsSubCollectionRecord>>();
-  Stream<List<ExpertiseAreaKeywordsSubCollectionRecord>> articles({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Stream<List<ExpertiseAreaKeywordsSubCollectionRecord>> Function()
-        requestFn,
-  }) =>
-      _articlesManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearArticlesCache() => _articlesManager.clear();
-  void clearArticlesCacheKey(String? uniqueKey) =>
-      _articlesManager.clearRequest(uniqueKey);
-}
-
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
+  bool _drawer = false;
+  bool get drawer => _drawer;
+  set drawer(bool _value) {
+    _drawer = _value;
   }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
-}
 
-void _safeInit(Function() initializeField) {
-  try {
-    initializeField();
-  } catch (_) {}
-}
-
-Future _safeInitAsync(Function() initializeField) async {
-  try {
-    await initializeField();
-  } catch (_) {}
+  String _whichPage = 'dashboard';
+  String get whichPage => _whichPage;
+  set whichPage(String _value) {
+    _whichPage = _value;
+  }
 }
