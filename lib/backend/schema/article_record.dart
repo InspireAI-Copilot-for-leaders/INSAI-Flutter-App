@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -86,6 +89,47 @@ class ArticleRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       ArticleRecord._(reference, mapFromFirestore(data));
+
+  static ArticleRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      ArticleRecord.getDocumentFromData(
+        {
+          'article_summary': snapshot.data['article_summary'],
+          'metadata': safeGet(
+            () => (snapshot.data['metadata'] as Iterable)
+                .map((d) => ArticleMetadataStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'original_google_search_term':
+              snapshot.data['original_google_search_term'],
+          'scrapped_at': convertAlgoliaParam(
+            snapshot.data['scrapped_at'],
+            ParamType.DateTime,
+            false,
+          ),
+          'trend_keyword': snapshot.data['trend_keyword'],
+          'domain': snapshot.data['domain'],
+          'expertise_area': snapshot.data['expertise_area'],
+        },
+        ArticleRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<ArticleRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'article',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>
