@@ -1,3 +1,4 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -5,7 +6,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +21,513 @@ class LandingPageWidget extends StatefulWidget {
   State<LandingPageWidget> createState() => _LandingPageWidgetState();
 }
 
-class _LandingPageWidgetState extends State<LandingPageWidget> {
+class _LandingPageWidgetState extends State<LandingPageWidget>
+    with TickerProviderStateMixin {
   late LandingPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'imageOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 200.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(-100.0, 20.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'pageViewOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 670.ms),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 670.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 670.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1000.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1200.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 1200.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1200.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1400.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1600.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 1600.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1600.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1600.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1800.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 1800.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1800.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1800.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 400.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 600.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 800.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1000.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation6': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 200.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation7': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 400.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation8': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 600.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation9': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 800.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation10': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1000.ms),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'buttonOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 200.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -30,6 +535,36 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
     _model = createModel(context, () => LandingPageModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'LandingPage'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('LANDING_LandingPage_ON_INIT_STATE');
+      logFirebaseEvent('LandingPage_widget_animation');
+      if (animationsMap['imageOnActionTriggerAnimation'] != null) {
+        animationsMap['imageOnActionTriggerAnimation']!
+            .controller
+            .forward(from: 0.0);
+      }
+      logFirebaseEvent('LandingPage_widget_animation');
+      if (animationsMap['buttonOnActionTriggerAnimation'] != null) {
+        animationsMap['buttonOnActionTriggerAnimation']!
+            .controller
+            .forward(from: 0.0);
+      }
+      logFirebaseEvent('LandingPage_widget_animation');
+      if (animationsMap['pageViewOnActionTriggerAnimation'] != null) {
+        await animationsMap['pageViewOnActionTriggerAnimation']!
+            .controller
+            .forward(from: 0.0);
+      }
+    });
+
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -42,15 +577,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return Scaffold(
@@ -76,6 +602,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                   fit: BoxFit.contain,
                   alignment: Alignment(-1.0, 0.0),
                 ),
+              ).animateOnActionTrigger(
+                animationsMap['imageOnActionTriggerAnimation']!,
               ),
             ),
           ),
@@ -92,6 +620,95 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                       PageView(
                         controller: _model.pageViewController ??=
                             PageController(initialPage: 0),
+                        onPageChanged: (_) async {
+                          logFirebaseEvent(
+                              'LANDING_PageView_txb6kkdt_ON_WIDGET_SWIP');
+                          if (_model.pageViewCurrentIndex == 1) {
+                            logFirebaseEvent('PageView_widget_animation');
+                            if (animationsMap[
+                                    'textOnActionTriggerAnimation1'] !=
+                                null) {
+                              animationsMap['textOnActionTriggerAnimation1']!
+                                  .controller
+                                  .forward(from: 0.0);
+                            }
+                            logFirebaseEvent('PageView_widget_animation');
+                            if (animationsMap[
+                                    'textOnActionTriggerAnimation2'] !=
+                                null) {
+                              animationsMap['textOnActionTriggerAnimation2']!
+                                  .controller
+                                  .forward(from: 0.0);
+                            }
+                            logFirebaseEvent('PageView_widget_animation');
+                            if (animationsMap[
+                                    'textOnActionTriggerAnimation3'] !=
+                                null) {
+                              animationsMap['textOnActionTriggerAnimation3']!
+                                  .controller
+                                  .forward(from: 0.0);
+                            }
+                            logFirebaseEvent('PageView_widget_animation');
+                            if (animationsMap[
+                                    'textOnActionTriggerAnimation4'] !=
+                                null) {
+                              animationsMap['textOnActionTriggerAnimation4']!
+                                  .controller
+                                  .forward(from: 0.0);
+                            }
+                            logFirebaseEvent('PageView_widget_animation');
+                            if (animationsMap[
+                                    'textOnActionTriggerAnimation5'] !=
+                                null) {
+                              animationsMap['textOnActionTriggerAnimation5']!
+                                  .controller
+                                  .forward(from: 0.0);
+                            }
+                          } else {
+                            if (_model.pageViewCurrentIndex == 2) {
+                              logFirebaseEvent('PageView_widget_animation');
+                              if (animationsMap[
+                                      'textOnActionTriggerAnimation6'] !=
+                                  null) {
+                                animationsMap['textOnActionTriggerAnimation6']!
+                                    .controller
+                                    .forward(from: 0.0);
+                              }
+                              logFirebaseEvent('PageView_widget_animation');
+                              if (animationsMap[
+                                      'textOnActionTriggerAnimation7'] !=
+                                  null) {
+                                animationsMap['textOnActionTriggerAnimation7']!
+                                    .controller
+                                    .forward(from: 0.0);
+                              }
+                              logFirebaseEvent('PageView_widget_animation');
+                              if (animationsMap[
+                                      'textOnActionTriggerAnimation8'] !=
+                                  null) {
+                                animationsMap['textOnActionTriggerAnimation8']!
+                                    .controller
+                                    .forward(from: 0.0);
+                              }
+                              logFirebaseEvent('PageView_widget_animation');
+                              if (animationsMap[
+                                      'textOnActionTriggerAnimation9'] !=
+                                  null) {
+                                animationsMap['textOnActionTriggerAnimation9']!
+                                    .controller
+                                    .forward(from: 0.0);
+                              }
+                              logFirebaseEvent('PageView_widget_animation');
+                              if (animationsMap[
+                                      'textOnActionTriggerAnimation10'] !=
+                                  null) {
+                                animationsMap['textOnActionTriggerAnimation10']!
+                                    .controller
+                                    .forward(from: 0.0);
+                              }
+                            }
+                          }
+                        },
                         scrollDirection: Axis.horizontal,
                         children: [
                           Align(
@@ -120,7 +737,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                 .containsKey('Montserrat'),
                                           ),
                                       minFontSize: 30.0,
-                                    ),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'textOnPageLoadAnimation1']!),
                                   ),
                                   Align(
                                     alignment: AlignmentDirectional(-1.0, 0.0),
@@ -140,7 +758,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                 .containsKey('Montserrat'),
                                           ),
                                       minFontSize: 30.0,
-                                    ),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'textOnPageLoadAnimation2']!),
                                   ),
                                   Opacity(
                                     opacity: 0.8,
@@ -165,7 +784,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                           'Montserrat'),
                                             ),
                                         minFontSize: 30.0,
-                                      ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation3']!),
                                     ),
                                   ),
                                   Opacity(
@@ -191,7 +811,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                           'Montserrat'),
                                             ),
                                         minFontSize: 30.0,
-                                      ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation4']!),
                                     ),
                                   ),
                                   Opacity(
@@ -217,7 +838,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                           'Montserrat'),
                                             ),
                                         minFontSize: 30.0,
-                                      ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation5']!),
                                     ),
                                   ),
                                 ],
@@ -247,6 +869,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                               .containsKey('Montserrat'),
                                         ),
                                     minFontSize: 30.0,
+                                  ).animateOnActionTrigger(
+                                    animationsMap[
+                                        'textOnActionTriggerAnimation1']!,
                                   ),
                                 ),
                                 Align(
@@ -266,6 +891,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Montserrat'),
                                         ),
+                                  ).animateOnActionTrigger(
+                                    animationsMap[
+                                        'textOnActionTriggerAnimation2']!,
                                   ),
                                 ),
                                 Opacity(
@@ -287,6 +915,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                           ),
+                                    ).animateOnActionTrigger(
+                                      animationsMap[
+                                          'textOnActionTriggerAnimation3']!,
                                     ),
                                   ),
                                 ),
@@ -309,6 +940,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                           ),
+                                    ).animateOnActionTrigger(
+                                      animationsMap[
+                                          'textOnActionTriggerAnimation4']!,
                                     ),
                                   ),
                                 ),
@@ -331,6 +965,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                           ),
+                                    ).animateOnActionTrigger(
+                                      animationsMap[
+                                          'textOnActionTriggerAnimation5']!,
                                     ),
                                   ),
                                 ),
@@ -360,6 +997,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                               .containsKey('Montserrat'),
                                         ),
                                     minFontSize: 30.0,
+                                  ).animateOnActionTrigger(
+                                    animationsMap[
+                                        'textOnActionTriggerAnimation6']!,
                                   ),
                                 ),
                                 Align(
@@ -380,6 +1020,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                               .containsKey('Montserrat'),
                                         ),
                                     minFontSize: 30.0,
+                                  ).animateOnActionTrigger(
+                                    animationsMap[
+                                        'textOnActionTriggerAnimation7']!,
                                   ),
                                 ),
                                 Opacity(
@@ -402,6 +1045,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                 .containsKey('Montserrat'),
                                           ),
                                       minFontSize: 30.0,
+                                    ).animateOnActionTrigger(
+                                      animationsMap[
+                                          'textOnActionTriggerAnimation8']!,
                                     ),
                                   ),
                                 ),
@@ -425,6 +1071,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                 .containsKey('Montserrat'),
                                           ),
                                       minFontSize: 30.0,
+                                    ).animateOnActionTrigger(
+                                      animationsMap[
+                                          'textOnActionTriggerAnimation9']!,
                                     ),
                                   ),
                                 ),
@@ -448,6 +1097,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                                 .containsKey('Montserrat'),
                                           ),
                                       minFontSize: 30.0,
+                                    ).animateOnActionTrigger(
+                                      animationsMap[
+                                          'textOnActionTriggerAnimation10']!,
                                     ),
                                   ),
                                 ),
@@ -490,6 +1142,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                       ),
                     ],
                   ),
+                ).animateOnActionTrigger(
+                  animationsMap['pageViewOnActionTriggerAnimation']!,
                 ),
               ),
             ),
@@ -499,9 +1153,30 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
             child: FFButtonWidget(
               onPressed: () async {
                 logFirebaseEvent('LANDING_PAGE_PAGE_GET_STARTED_BTN_ON_TAP');
+                logFirebaseEvent('Button_widget_animation');
+                if (animationsMap['pageViewOnActionTriggerAnimation'] != null) {
+                  animationsMap['pageViewOnActionTriggerAnimation']!
+                      .controller
+                      .reverse();
+                }
+                logFirebaseEvent('Button_widget_animation');
+                if (animationsMap['buttonOnActionTriggerAnimation'] != null) {
+                  await animationsMap['buttonOnActionTriggerAnimation']!
+                      .controller
+                      .reverse();
+                }
                 logFirebaseEvent('Button_navigate_to');
 
-                context.pushNamed('auth_signupOrLogin');
+                context.pushNamed(
+                  'auth_signupOrLogin',
+                  extra: <String, dynamic>{
+                    kTransitionInfoKey: TransitionInfo(
+                      hasTransition: true,
+                      transitionType: PageTransitionType.fade,
+                      duration: Duration(milliseconds: 500),
+                    ),
+                  },
+                );
               },
               text: 'Get Started',
               options: FFButtonOptions(
@@ -526,6 +1201,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                 ),
                 borderRadius: BorderRadius.circular(24.0),
               ),
+            ).animateOnActionTrigger(
+              animationsMap['buttonOnActionTriggerAnimation']!,
             ),
           ),
         ],
