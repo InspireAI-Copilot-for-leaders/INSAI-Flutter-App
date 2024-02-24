@@ -14,7 +14,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -204,15 +203,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -562,9 +552,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                               Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: Image.network(
-                                      'https://images.unsplash.com/photo-1682685797332-e678a04f8a64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                                    fit: BoxFit.cover,
+                                    image: Image.asset(
+                                      'assets/images/Google_Pixel_2_-_15_(5).png',
                                     ).image,
                                   ),
                                   borderRadius: BorderRadius.only(
@@ -1087,7 +1077,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       height: 80.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                            .alternate,
                                         boxShadow: [
                                           BoxShadow(
                                             blurRadius: 10.0,

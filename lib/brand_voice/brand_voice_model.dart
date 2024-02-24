@@ -9,7 +9,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +27,6 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
   ApiCallResponse? profilePicture;
   // Stores action output result for [Backend Call - API (First degree connections size)] action in brandVoice widget.
   ApiCallResponse? firstConnectionSize;
-  // State field(s) for contentURL1 widget.
-  FocusNode? contentURL1FocusNode;
-  TextEditingController? contentURL1Controller;
-  String? Function(BuildContext, String?)? contentURL1ControllerValidator;
   // State field(s) for contentURL2 widget.
   FocusNode? contentURL2FocusNode;
   TextEditingController? contentURL2Controller;
@@ -40,6 +35,10 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
   FocusNode? contentURL3FocusNode;
   TextEditingController? contentURL3Controller;
   String? Function(BuildContext, String?)? contentURL3ControllerValidator;
+  // State field(s) for contentURL1 widget.
+  FocusNode? contentURL1FocusNode;
+  TextEditingController? contentURL1Controller;
+  String? Function(BuildContext, String?)? contentURL1ControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -49,14 +48,14 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    contentURL1FocusNode?.dispose();
-    contentURL1Controller?.dispose();
-
     contentURL2FocusNode?.dispose();
     contentURL2Controller?.dispose();
 
     contentURL3FocusNode?.dispose();
     contentURL3Controller?.dispose();
+
+    contentURL1FocusNode?.dispose();
+    contentURL1Controller?.dispose();
   }
 
   /// Action blocks are added here.

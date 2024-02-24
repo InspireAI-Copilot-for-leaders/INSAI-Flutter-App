@@ -11,7 +11,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -36,39 +35,549 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
   bool _isKeyboardVisible = false;
-
+  var hasTextFieldTriggered1 = false;
+  var hasTextFieldTriggered2 = false;
   final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
+    'containerOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
+        ScaleEffect(
+          curve: Curves.easeOut,
           delay: 0.ms,
-          duration: 300.ms,
-          begin: 0.0,
-          end: 1.0,
+          duration: 1200.ms,
+          begin: Offset(20.0, 20.0),
+          end: Offset(1.0, 1.0),
         ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: Offset(0.0, -140.0),
-          end: Offset(0.0, 0.0),
-        ),
+      ],
+    ),
+    'imageOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 300.ms,
-          begin: Offset(0.9, 0.9),
+          duration: 1200.ms,
+          begin: Offset(0.0, 0.0),
           end: Offset(1.0, 1.0),
         ),
-        TiltEffect(
+        BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 300.ms,
-          begin: Offset(0.349, 0),
-          end: Offset(0, 0),
+          duration: 1200.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'imageOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(87.5, -32.0),
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1200.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1200.ms,
+          duration: 100.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1300.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 1300.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1300.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1400.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1500.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 1500.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 1500.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 1500.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textFieldOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: false,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(150.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textFieldOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: false,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(150.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textFieldOnActionTriggerAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(150.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textFieldOnActionTriggerAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(150.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'columnOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(150.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'buttonOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(4.0, 4.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'buttonOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(-300.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'containerOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(2.0, 1.0),
+          end: Offset(1.0, 1.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(-81.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(4.0, 4.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(-106.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(4.0, 4.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'buttonOnActionTriggerAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(150.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 2000.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 2000.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 2000.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 2000.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'iconButtonOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 2100.ms),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 2100.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(1.0, 1.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 2100.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'iconButtonOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 2150.ms),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 2150.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(1.0, 1.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 2150.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'iconButtonOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(1.0, 1.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'iconButtonOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(1.0, 1.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 2300.ms),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 2300.ms,
+          duration: 800.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(1.0, 1.0),
+        ),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 2300.ms,
+          duration: 800.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -81,6 +590,51 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'auth_signupOrLogin'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('AUTH_SIGNUP_OR_LOGIN_auth_signupOrLogin_');
+      logFirebaseEvent('auth_signupOrLogin_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 1600));
+      logFirebaseEvent('auth_signupOrLogin_widget_animation');
+      if (animationsMap['textFieldOnActionTriggerAnimation3'] != null) {
+        animationsMap['textFieldOnActionTriggerAnimation3']!
+            .controller
+            .forward(from: 0.0);
+      }
+      logFirebaseEvent('auth_signupOrLogin_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 100));
+      logFirebaseEvent('auth_signupOrLogin_widget_animation');
+      if (animationsMap['textFieldOnActionTriggerAnimation4'] != null) {
+        animationsMap['textFieldOnActionTriggerAnimation4']!
+            .controller
+            .forward(from: 0.0);
+      }
+      logFirebaseEvent('auth_signupOrLogin_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 100));
+      logFirebaseEvent('auth_signupOrLogin_widget_animation');
+      if (animationsMap['buttonOnActionTriggerAnimation1'] != null) {
+        animationsMap['buttonOnActionTriggerAnimation1']!
+            .controller
+            .forward(from: 0.0);
+      }
+      logFirebaseEvent('auth_signupOrLogin_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 100));
+      logFirebaseEvent('auth_signupOrLogin_widget_animation');
+      if (animationsMap['rowOnActionTriggerAnimation'] != null) {
+        animationsMap['rowOnActionTriggerAnimation']!
+            .controller
+            .forward(from: 0.0);
+      }
+      logFirebaseEvent('auth_signupOrLogin_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 300));
+      logFirebaseEvent('auth_signupOrLogin_widget_animation');
+      if (animationsMap['iconButtonOnActionTriggerAnimation1'] != null) {
+        animationsMap['iconButtonOnActionTriggerAnimation1']!
+            .controller
+            .forward(from: 0.0);
+      }
+    });
+
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
@@ -102,6 +656,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
     _model.signupUserPassController ??= TextEditingController();
     _model.signupUserPassFocusNode ??= FocusNode();
 
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -117,15 +678,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -150,6 +702,14 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                 ),
                 child: Stack(
                   children: [
+                    Container(
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primary,
+                      ),
+                    ).animateOnPageLoad(
+                        animationsMap['containerOnPageLoadAnimation1']!),
                     Align(
                       alignment: AlignmentDirectional(-1.0, -1.0),
                       child: Padding(
@@ -163,33 +723,39 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                             height: 88.0,
                             fit: BoxFit.contain,
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['imageOnPageLoadAnimation1']!),
                       ),
                     ),
                     Align(
                       alignment: AlignmentDirectional(0.0, 0.14),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 56.0, 0.0, 36.0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 88.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Align(
                               alignment: AlignmentDirectional(-1.0, -1.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? 'assets/images/InspireAI_LOGO2_(1).png'
-                                      : 'assets/images/InspireAI_LOGO2_(1).png',
-                                  width: 161.0,
-                                  height: 25.0,
-                                  fit: BoxFit.contain,
-                                  alignment: Alignment(0.0, 0.0),
-                                ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 0.0, 0.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  child: Image.asset(
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? 'assets/images/InspireAI_LOGO2_(1).png'
+                                        : 'assets/images/InspireAI_LOGO2_(1).png',
+                                    width: 161.0,
+                                    height: 25.0,
+                                    fit: BoxFit.contain,
+                                    alignment: Alignment(0.0, 0.0),
+                                  ),
+                                ).animateOnPageLoad(animationsMap[
+                                    'imageOnPageLoadAnimation2']!),
                               ),
                             ),
                           ],
@@ -234,27 +800,41 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                   children: [
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: AutoSizeText(
-                                        'Lead the Digital Era',
-                                        textAlign: TextAlign.center,
-                                        maxLines: 1,
-                                        style: FlutterFlowTheme.of(context)
-                                            .displaySmall
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .displaySmallFamily,
-                                              fontSize: 22.0,
-                                              fontWeight: FontWeight.bold,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .displaySmallFamily),
-                                            ),
-                                        minFontSize: 18.0,
-                                      ),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'AUTH_SIGNUP_OR_LOGIN_Text_ugiznohm_ON_TA');
+                                          logFirebaseEvent('Text_navigate_to');
+
+                                          context.pushNamed('LandingPage');
+                                        },
+                                        child: AutoSizeText(
+                                          'Lead the Digital Era',
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .displaySmall
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .displaySmallFamily,
+                                                fontSize: 22.0,
+                                                fontWeight: FontWeight.bold,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .displaySmallFamily),
+                                              ),
+                                          minFontSize: 18.0,
+                                        ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation1']!),
                                     ),
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
@@ -285,7 +865,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                             .labelLargeFamily),
                                               ),
                                           minFontSize: 18.0,
-                                        ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'textOnPageLoadAnimation2']!),
                                       ),
                                     ),
                                     Padding(
@@ -380,7 +961,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             ),
                                           ),
                                         ],
-                                      ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'rowOnPageLoadAnimation1']!),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -525,7 +1107,11 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .loginUserEmailControllerValidator
                                                         .asValidator(context),
-                                                  ),
+                                                  ).animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'textFieldOnActionTriggerAnimation1']!,
+                                                      hasBeenTriggered:
+                                                          hasTextFieldTriggered1),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
@@ -680,7 +1266,11 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .loginUserPassControllerValidator
                                                         .asValidator(context),
-                                                  ),
+                                                  ).animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'textFieldOnActionTriggerAnimation2']!,
+                                                      hasBeenTriggered:
+                                                          hasTextFieldTriggered2),
                                                 ),
                                               ],
                                             ),
@@ -819,6 +1409,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .signupUserEmailControllerValidator
                                                         .asValidator(context),
+                                                  ).animateOnActionTrigger(
+                                                    animationsMap[
+                                                        'textFieldOnActionTriggerAnimation3']!,
                                                   ),
                                                 ),
                                                 Padding(
@@ -974,6 +1567,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .signupUserPassControllerValidator
                                                         .asValidator(context),
+                                                  ).animateOnActionTrigger(
+                                                    animationsMap[
+                                                        'textFieldOnActionTriggerAnimation4']!,
                                                   ),
                                                 ),
                                               ],
@@ -1004,209 +1600,73 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   ),
                                                 ),
                                               ],
+                                            ).animateOnActionTrigger(
+                                              animationsMap[
+                                                  'columnOnActionTriggerAnimation']!,
                                             ),
                                         ],
                                       ),
                                     ),
-                                    if (_model.authType == 'signup_email')
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 16.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            logFirebaseEvent(
-                                                'AUTH_SIGNUP_OR_LOGIN_email_SignupContinu');
-                                            logFirebaseEvent(
-                                                'email_SignupContinue_auth');
-                                            GoRouter.of(context)
-                                                .prepareAuthEvent();
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 12.0),
+                                      child: Stack(
+                                        children: [
+                                          if (_model.authType == 'signup_email')
+                                            FFButtonWidget(
+                                              onPressed: () async {
+                                                logFirebaseEvent(
+                                                    'AUTH_SIGNUP_OR_LOGIN_email_SignupContinu');
+                                                logFirebaseEvent(
+                                                    'email_SignupContinue_auth');
+                                                GoRouter.of(context)
+                                                    .prepareAuthEvent();
 
-                                            final user = await authManager
-                                                .createAccountWithEmail(
-                                              context,
-                                              _model.signupUserEmailController
-                                                  .text,
-                                              _model.signupUserPassController
-                                                  .text,
-                                            );
-                                            if (user == null) {
-                                              return;
-                                            }
-
-                                            await UsersRecord.collection
-                                                .doc(user.uid)
-                                                .update(createUsersRecordData(
-                                                  createdTime:
-                                                      getCurrentTimestamp,
-                                                  email: _model
+                                                final user = await authManager
+                                                    .createAccountWithEmail(
+                                                  context,
+                                                  _model
                                                       .signupUserEmailController
                                                       .text,
-                                                  isProfileCompleted: false,
-                                                ));
+                                                  _model
+                                                      .signupUserPassController
+                                                      .text,
+                                                );
+                                                if (user == null) {
+                                                  return;
+                                                }
 
-                                            context.goNamedAuth(
-                                                'dashboard', context.mounted);
-                                          },
-                                          text: 'Continue',
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 48.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 16.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            textStyle: FlutterFlowTheme.of(
-                                                    context)
-                                                .titleSmall
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmallFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmallFamily),
-                                                ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                        ),
-                                      ),
-                                    if (_model.authType == 'login_email')
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 12.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8.0, 0.0, 0.0, 0.0),
-                                              child: FFButtonWidget(
-                                                onPressed: () async {
-                                                  logFirebaseEvent(
-                                                      'AUTH_SIGNUP_OR_LOGIN_forgot_pass_ON_TAP');
-                                                  logFirebaseEvent(
-                                                      'forgot_pass_navigate_to');
-
-                                                  context
-                                                      .pushNamed('forgot_pass');
-                                                },
-                                                text: 'Forgot Password?',
-                                                options: FFButtonOptions(
-                                                  height: 24.0,
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 0.0),
-                                                  iconPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmallFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily),
-                                                      ),
-                                                  elevation: 0.0,
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    width: 0.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.0),
-                                                ),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    1.0, 0.0),
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    logFirebaseEvent(
-                                                        'AUTH_SIGNUP_OR_LOGIN_email_LoginContinue');
-                                                    logFirebaseEvent(
-                                                        'email_LoginContinue_auth');
-                                                    GoRouter.of(context)
-                                                        .prepareAuthEvent();
-
-                                                    final user =
-                                                        await authManager
-                                                            .signInWithEmail(
-                                                      context,
-                                                      _model
-                                                          .loginUserEmailController
+                                                await UsersRecord.collection
+                                                    .doc(user.uid)
+                                                    .update(
+                                                        createUsersRecordData(
+                                                      createdTime:
+                                                          getCurrentTimestamp,
+                                                      email: _model
+                                                          .signupUserEmailController
                                                           .text,
-                                                      _model
-                                                          .loginUserPassController
-                                                          .text,
-                                                    );
-                                                    if (user == null) {
-                                                      return;
-                                                    }
+                                                      isProfileCompleted: false,
+                                                    ));
 
-                                                    context.goNamedAuth(
-                                                        'dashboard',
-                                                        context.mounted);
-                                                  },
-                                                  text: 'Continue',
-                                                  options: FFButtonOptions(
-                                                    width: 150.0,
-                                                    height: 48.0,
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    iconPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                                context.goNamedAuth('dashboard',
+                                                    context.mounted);
+                                              },
+                                              text: 'Continue',
+                                              options: FFButtonOptions(
+                                                width: double.infinity,
+                                                height: 48.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(0.0, 0.0,
+                                                            16.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .primaryText,
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
                                                         .titleSmall
                                                         .override(
                                                           fontFamily:
@@ -1226,80 +1686,277 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                           context)
                                                                       .titleSmallFamily),
                                                         ),
-                                                    elevation: 3.0,
-                                                    borderSide: BorderSide(
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.0),
-                                                  ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  width: 1.0,
                                                 ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
                                               ),
+                                            ).animateOnActionTrigger(
+                                              animationsMap[
+                                                  'buttonOnActionTriggerAnimation1']!,
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    if (_model.authType == 'phone')
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 16.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            logFirebaseEvent(
-                                                'AUTH_SIGNUP_OR_LOGIN_phoneAuthContinue_O');
-                                            if (FFAppState().userPhoneNumber !=
-                                                    null &&
-                                                FFAppState().userPhoneNumber !=
-                                                    '') {
-                                              logFirebaseEvent(
-                                                  'phoneAuthContinue_navigate_to');
+                                          if (_model.authType == 'login_email')
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 0.0, 0.0),
+                                                  child: FFButtonWidget(
+                                                    onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'AUTH_SIGNUP_OR_LOGIN_forgot_pass_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'forgot_pass_navigate_to');
 
-                                              context.pushNamed(
-                                                  'phone_number_verify');
-                                            }
-                                          },
-                                          text: 'Continue',
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 48.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 16.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            textStyle: FlutterFlowTheme.of(
-                                                    context)
-                                                .titleSmall
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmallFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
+                                                      context.pushNamed(
+                                                          'forgot_pass');
+                                                    },
+                                                    text: 'Forgot Password?',
+                                                    options: FFButtonOptions(
+                                                      height: 24.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .titleSmallFamily),
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleSmallFamily),
+                                                              ),
+                                                      elevation: 0.0,
+                                                      borderSide: BorderSide(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        width: 0.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                  ).animateOnActionTrigger(
+                                                    animationsMap[
+                                                        'buttonOnActionTriggerAnimation2']!,
+                                                  ),
                                                 ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              width: 1.0,
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          -1.0, -1.0),
+                                                  child: Stack(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    children: [
+                                                      InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'AUTH_SIGNUP_OR_LOGIN_Container_jmu9rpxp_');
+                                                          logFirebaseEvent(
+                                                              'Container_auth');
+                                                          GoRouter.of(context)
+                                                              .prepareAuthEvent();
+
+                                                          final user =
+                                                              await authManager
+                                                                  .signInWithEmail(
+                                                            context,
+                                                            _model
+                                                                .loginUserEmailController
+                                                                .text,
+                                                            _model
+                                                                .loginUserPassController
+                                                                .text,
+                                                          );
+                                                          if (user == null) {
+                                                            return;
+                                                          }
+
+                                                          context.goNamedAuth(
+                                                              'dashboard',
+                                                              context.mounted);
+                                                        },
+                                                        child: Material(
+                                                          color: Colors
+                                                              .transparent,
+                                                          elevation: 3.0,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                          ),
+                                                          child: Container(
+                                                            width: 150.0,
+                                                            height: 48.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12.0),
+                                                              border:
+                                                                  Border.all(
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ).animateOnActionTrigger(
+                                                        animationsMap[
+                                                            'containerOnActionTriggerAnimation']!,
+                                                      ),
+                                                      Align(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                -0.05, -0.26),
+                                                        child: Text(
+                                                          'Continue',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                fontSize: 16.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                        ).animateOnActionTrigger(
+                                                          animationsMap[
+                                                              'textOnActionTriggerAnimation']!,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                        ),
+                                          if (_model.authType == 'phone')
+                                            FFButtonWidget(
+                                              onPressed: () async {
+                                                logFirebaseEvent(
+                                                    'AUTH_SIGNUP_OR_LOGIN_phoneAuthContinue_O');
+                                                if (FFAppState()
+                                                            .userPhoneNumber !=
+                                                        null &&
+                                                    FFAppState()
+                                                            .userPhoneNumber !=
+                                                        '') {
+                                                  logFirebaseEvent(
+                                                      'phoneAuthContinue_navigate_to');
+
+                                                  context.pushNamed(
+                                                      'phone_number_verify');
+                                                }
+                                              },
+                                              text: 'Continue',
+                                              options: FFButtonOptions(
+                                                width: double.infinity,
+                                                height: 48.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(0.0, 0.0,
+                                                            16.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontSize: 16.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily),
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                            ).animateOnActionTrigger(
+                                              animationsMap[
+                                                  'buttonOnActionTriggerAnimation3']!,
+                                            ),
+                                        ],
                                       ),
+                                    ),
                                     if (_model.authType == 'phone'
                                         ? false
                                         : true)
@@ -1318,12 +1975,86 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             setState(() {
                                               _model.authType = 'login_email';
                                             });
+                                            logFirebaseEvent(
+                                                'createAccount_wait__delay');
+                                            await Future.delayed(const Duration(
+                                                milliseconds: 100));
+                                            logFirebaseEvent(
+                                                'createAccount_widget_animation');
+                                            if (animationsMap[
+                                                    'containerOnActionTriggerAnimation'] !=
+                                                null) {
+                                              animationsMap[
+                                                      'containerOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .forward(from: 0.0);
+                                            }
+                                            logFirebaseEvent(
+                                                'createAccount_widget_animation');
+                                            if (animationsMap[
+                                                    'textOnActionTriggerAnimation'] !=
+                                                null) {
+                                              animationsMap[
+                                                      'textOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .forward(from: 0.0);
+                                            }
+                                            logFirebaseEvent(
+                                                'createAccount_widget_animation');
+                                            if (animationsMap[
+                                                    'buttonOnActionTriggerAnimation2'] !=
+                                                null) {
+                                              await animationsMap[
+                                                      'buttonOnActionTriggerAnimation2']!
+                                                  .controller
+                                                  .forward(from: 0.0);
+                                            }
                                           } else {
+                                            logFirebaseEvent(
+                                                'createAccount_widget_animation');
+                                            if (animationsMap[
+                                                    'containerOnActionTriggerAnimation'] !=
+                                                null) {
+                                              animationsMap[
+                                                      'containerOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .reverse();
+                                            }
+                                            logFirebaseEvent(
+                                                'createAccount_widget_animation');
+                                            if (animationsMap[
+                                                    'textOnActionTriggerAnimation'] !=
+                                                null) {
+                                              animationsMap[
+                                                      'textOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .reverse();
+                                            }
+                                            logFirebaseEvent(
+                                                'createAccount_widget_animation');
+                                            if (animationsMap[
+                                                    'buttonOnActionTriggerAnimation2'] !=
+                                                null) {
+                                              await animationsMap[
+                                                      'buttonOnActionTriggerAnimation2']!
+                                                  .controller
+                                                  .reverse();
+                                            }
                                             logFirebaseEvent(
                                                 'createAccount_update_page_state');
                                             setState(() {
                                               _model.authType = 'signup_email';
                                             });
+                                            logFirebaseEvent(
+                                                'createAccount_widget_animation');
+                                            if (animationsMap[
+                                                    'buttonOnActionTriggerAnimation1'] !=
+                                                null) {
+                                              await animationsMap[
+                                                      'buttonOnActionTriggerAnimation1']!
+                                                  .controller
+                                                  .forward(from: 0.0);
+                                            }
                                           }
                                         },
                                         child: Row(
@@ -1377,6 +2108,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             ),
                                           ],
                                         ),
+                                      ).animateOnActionTrigger(
+                                        animationsMap[
+                                            'rowOnActionTriggerAnimation']!,
                                       ),
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 1.0),
@@ -1450,7 +2184,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               ),
                                             ),
                                           ],
-                                        ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'rowOnPageLoadAnimation2']!),
                                       ),
                                     ),
                                     Align(
@@ -1496,7 +2231,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       'dashboard',
                                                       context.mounted);
                                                 },
-                                              ),
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'iconButtonOnPageLoadAnimation1']!),
                                             ),
                                           ),
                                           Opacity(
@@ -1535,7 +2271,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       'dashboard',
                                                       context.mounted);
                                                 },
-                                              ),
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'iconButtonOnPageLoadAnimation2']!),
                                             ),
                                           ),
                                           if (_model.authType != 'phone')
@@ -1557,12 +2294,155 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 onPressed: () async {
                                                   logFirebaseEvent(
                                                       'AUTH_SIGNUP_OR_LOGIN_phoneAuthButton_ON_');
+                                                  if (_model.authType ==
+                                                      'signup_email') {
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'textFieldOnActionTriggerAnimation3'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'textFieldOnActionTriggerAnimation3']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'textFieldOnActionTriggerAnimation4'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'textFieldOnActionTriggerAnimation4']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'buttonOnActionTriggerAnimation1'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'buttonOnActionTriggerAnimation1']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'rowOnActionTriggerAnimation'] !=
+                                                        null) {
+                                                      await animationsMap[
+                                                              'rowOnActionTriggerAnimation']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'textFieldOnActionTriggerAnimation1'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'textFieldOnActionTriggerAnimation1']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'textFieldOnActionTriggerAnimation2'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'textFieldOnActionTriggerAnimation2']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'containerOnActionTriggerAnimation'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'containerOnActionTriggerAnimation']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'textOnActionTriggerAnimation'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'textOnActionTriggerAnimation']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'buttonOnActionTriggerAnimation2'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'buttonOnActionTriggerAnimation2']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'phoneAuthButton_widget_animation');
+                                                    if (animationsMap[
+                                                            'rowOnActionTriggerAnimation'] !=
+                                                        null) {
+                                                      await animationsMap[
+                                                              'rowOnActionTriggerAnimation']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                  }
+
                                                   logFirebaseEvent(
                                                       'phoneAuthButton_update_page_state');
                                                   setState(() {
                                                     _model.authType = 'phone';
                                                   });
+                                                  logFirebaseEvent(
+                                                      'phoneAuthButton_wait__delay');
+                                                  await Future.delayed(
+                                                      const Duration(
+                                                          milliseconds: 100));
+                                                  logFirebaseEvent(
+                                                      'phoneAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'buttonOnActionTriggerAnimation3'] !=
+                                                      null) {
+                                                    animationsMap[
+                                                            'buttonOnActionTriggerAnimation3']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'phoneAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'columnOnActionTriggerAnimation'] !=
+                                                      null) {
+                                                    animationsMap[
+                                                            'columnOnActionTriggerAnimation']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'phoneAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'iconButtonOnActionTriggerAnimation2'] !=
+                                                      null) {
+                                                    await animationsMap[
+                                                            'iconButtonOnActionTriggerAnimation2']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
                                                 },
+                                              ).animateOnActionTrigger(
+                                                animationsMap[
+                                                    'iconButtonOnActionTriggerAnimation1']!,
                                               ),
                                             ),
                                           if (_model.authType == 'phone')
@@ -1585,12 +2465,90 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   logFirebaseEvent(
                                                       'AUTH_SIGNUP_OR_LOGIN_emailAuthButton_ON_');
                                                   logFirebaseEvent(
+                                                      'emailAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'columnOnActionTriggerAnimation'] !=
+                                                      null) {
+                                                    animationsMap[
+                                                            'columnOnActionTriggerAnimation']!
+                                                        .controller
+                                                        .reverse();
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'buttonOnActionTriggerAnimation3'] !=
+                                                      null) {
+                                                    await animationsMap[
+                                                            'buttonOnActionTriggerAnimation3']!
+                                                        .controller
+                                                        .reverse();
+                                                  }
+                                                  logFirebaseEvent(
                                                       'emailAuthButton_update_page_state');
                                                   setState(() {
                                                     _model.authType =
                                                         'signup_email';
                                                   });
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_wait__delay');
+                                                  await Future.delayed(
+                                                      const Duration(
+                                                          milliseconds: 100));
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'textFieldOnActionTriggerAnimation3'] !=
+                                                      null) {
+                                                    animationsMap[
+                                                            'textFieldOnActionTriggerAnimation3']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'textFieldOnActionTriggerAnimation4'] !=
+                                                      null) {
+                                                    animationsMap[
+                                                            'textFieldOnActionTriggerAnimation4']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'iconButtonOnActionTriggerAnimation1'] !=
+                                                      null) {
+                                                    animationsMap[
+                                                            'iconButtonOnActionTriggerAnimation1']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'rowOnActionTriggerAnimation'] !=
+                                                      null) {
+                                                    animationsMap[
+                                                            'rowOnActionTriggerAnimation']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'emailAuthButton_widget_animation');
+                                                  if (animationsMap[
+                                                          'buttonOnActionTriggerAnimation1'] !=
+                                                      null) {
+                                                    await animationsMap[
+                                                            'buttonOnActionTriggerAnimation1']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
                                                 },
+                                              ).animateOnActionTrigger(
+                                                animationsMap[
+                                                    'iconButtonOnActionTriggerAnimation2']!,
                                               ),
                                             ),
                                         ],
@@ -1804,7 +2762,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         ),
                                       ),
                                     ],
-                                  ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'columnOnPageLoadAnimation']!),
                                 ),
                               ),
                             ),
@@ -1814,7 +2773,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                     ),
                   ),
                 ).animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation']!),
+                    animationsMap['containerOnPageLoadAnimation2']!),
               ),
             ],
           ),

@@ -1,17 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
-import '/backend/schema/structs/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,89 +45,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
-      logFirebaseEvent('linkedinAuth_backend_call');
-      _model.linkedintokens = await LinkedinTokensCall.call(
-        authCodeRecieved: widget.code,
-      );
-      if ((_model.linkedintokens?.succeeded ?? true)) {
-        logFirebaseEvent('linkedinAuth_backend_call');
-
-        await currentUserReference!.update(createUsersRecordData(
-          linkedinAccess: getJsonField(
-            (_model.linkedintokens?.jsonBody ?? ''),
-            r'''$.access_token''',
-          ).toString().toString(),
-          linkedinRefresh: getJsonField(
-            (_model.linkedintokens?.jsonBody ?? ''),
-            r'''$.refresh_token''',
-          ).toString().toString(),
-        ));
-        logFirebaseEvent('linkedinAuth_backend_call');
-        _model.lIprofileDetails =
-            await LinkedInDataGroup.linkedinProfileDetailsCall.call(
-          authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
-        );
-        if ((_model.lIprofileDetails?.succeeded ?? true)) {
-          logFirebaseEvent('linkedinAuth_backend_call');
-
-          await currentUserReference!.update(createUsersRecordData(
-            linkedinDetails: updateLinkedinDetailsAuthStruct(
-              LinkedinDetailsAuthStruct.maybeFromMap(
-                  (_model.lIprofileDetails?.jsonBody ?? '')),
-              clearUnsetFields: false,
-            ),
-          ));
-          logFirebaseEvent('linkedinAuth_backend_call');
-          _model.getExpertiseWorflow =
-              await ExpertiseOfPersonProxycurlCall.call(
-            linkedinUrl:
-                'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
-            uid: currentUserUid,
-          );
-          if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
-            logFirebaseEvent('linkedinAuth_update_page_state');
-            setState(() {
-              _model.isLoading = false;
-            });
-          } else {
-            logFirebaseEvent('linkedinAuth_navigate_to');
-
-            context.goNamed(
-              'linkedinConnect',
-              queryParameters: {
-                'connectSuccess': serializeParam(
-                  false,
-                  ParamType.bool,
-                ),
-              }.withoutNulls,
-            );
-          }
-        } else {
-          logFirebaseEvent('linkedinAuth_navigate_to');
-
-          context.goNamed(
-            'linkedinConnect',
-            queryParameters: {
-              'connectSuccess': serializeParam(
-                false,
-                ParamType.bool,
-              ),
-            }.withoutNulls,
-          );
-        }
-      } else {
-        logFirebaseEvent('linkedinAuth_navigate_to');
-
-        context.goNamed(
-          'linkedinConnect',
-          queryParameters: {
-            'connectSuccess': serializeParam(
-              false,
-              ParamType.bool,
-            ),
-          }.withoutNulls,
-        );
-      }
     });
 
     if (!isWeb) {
@@ -160,15 +74,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -1104,7 +1009,12 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                         ],
                       ),
                     ),
-                    if (_model.isLoading ? true : false)
+                    if ((_model.isLoading ? true : false) &&
+                        responsiveVisibility(
+                          context: context,
+                          phone: false,
+                          tablet: false,
+                        ))
                       wrapWithModel(
                         model: _model.profileLoadingScreenModel,
                         updateCallback: () => setState(() {}),
