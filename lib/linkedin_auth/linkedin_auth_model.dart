@@ -8,6 +8,7 @@ import 'dart:async';
 import 'linkedin_auth_widget.dart' show LinkedinAuthWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -27,6 +28,8 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
   FocusNode? contentURL1FocusNode;
   TextEditingController? contentURL1Controller;
   String? Function(BuildContext, String?)? contentURL1ControllerValidator;
+  // Algolia Search Results from action on contentURL1
+  List<BroadDomainRecord>? algoliaSearchResults = [];
   // Model for profileLoadingScreen component.
   late ProfileLoadingScreenModel profileLoadingScreenModel;
 

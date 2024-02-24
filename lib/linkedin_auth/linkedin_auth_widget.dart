@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -137,9 +138,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                           context.mounted,
                           ignoreRedirect: true,
                         );
-                      } else {
-                        logFirebaseEvent('Row_close_dialog,_drawer,_etc');
-                        Navigator.pop(context);
                       }
                     },
                     child: Row(
@@ -493,6 +491,28 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                         controller:
                                             _model.contentURL1Controller,
                                         focusNode: _model.contentURL1FocusNode,
+                                        onChanged: (_) => EasyDebounce.debounce(
+                                          '_model.contentURL1Controller',
+                                          Duration(milliseconds: 2000),
+                                          () async {
+                                            logFirebaseEvent(
+                                                'LINKEDIN_AUTH_contentURL1_ON_TEXTFIELD_C');
+                                            logFirebaseEvent(
+                                                'contentURL1_algolia_search');
+                                            safeSetState(() => _model
+                                                .algoliaSearchResults = null);
+                                            await BroadDomainRecord.search(
+                                              term: _model
+                                                  .contentURL1Controller.text,
+                                            )
+                                                .then((r) => _model
+                                                    .algoliaSearchResults = r)
+                                                .onError((_, __) => _model
+                                                    .algoliaSearchResults = [])
+                                                .whenComplete(
+                                                    () => setState(() {}));
+                                          },
+                                        ),
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'Type to add area',

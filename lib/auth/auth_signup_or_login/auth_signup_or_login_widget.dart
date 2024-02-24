@@ -1779,48 +1779,48 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   alignment:
                                                       AlignmentDirectional(
                                                           -1.0, -1.0),
-                                                  child: Stack(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    children: [
-                                                      InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          logFirebaseEvent(
-                                                              'AUTH_SIGNUP_OR_LOGIN_Container_jmu9rpxp_');
-                                                          logFirebaseEvent(
-                                                              'Container_auth');
-                                                          GoRouter.of(context)
-                                                              .prepareAuthEvent();
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'AUTH_SIGNUP_OR_LOGIN_Stack_67warxwj_ON_T');
+                                                      logFirebaseEvent(
+                                                          'Stack_auth');
+                                                      GoRouter.of(context)
+                                                          .prepareAuthEvent();
 
-                                                          final user =
-                                                              await authManager
-                                                                  .signInWithEmail(
-                                                            context,
-                                                            _model
-                                                                .loginUserEmailController
-                                                                .text,
-                                                            _model
-                                                                .loginUserPassController
-                                                                .text,
-                                                          );
-                                                          if (user == null) {
-                                                            return;
-                                                          }
+                                                      final user =
+                                                          await authManager
+                                                              .signInWithEmail(
+                                                        context,
+                                                        _model
+                                                            .loginUserEmailController
+                                                            .text,
+                                                        _model
+                                                            .loginUserPassController
+                                                            .text,
+                                                      );
+                                                      if (user == null) {
+                                                        return;
+                                                      }
 
-                                                          context.goNamedAuth(
-                                                              'dashboard',
-                                                              context.mounted);
-                                                        },
-                                                        child: Material(
+                                                      context.goNamedAuth(
+                                                          'dashboard',
+                                                          context.mounted);
+                                                    },
+                                                    child: Stack(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      children: [
+                                                        Material(
                                                           color: Colors
                                                               .transparent,
                                                           elevation: 3.0,
@@ -1849,43 +1849,44 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ).animateOnActionTrigger(
-                                                        animationsMap[
-                                                            'containerOnActionTriggerAnimation']!,
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                -0.05, -0.26),
-                                                        child: Text(
-                                                          'Continue',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
                                                         ).animateOnActionTrigger(
                                                           animationsMap[
-                                                              'textOnActionTriggerAnimation']!,
+                                                              'containerOnActionTriggerAnimation']!,
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  -0.05, -0.26),
+                                                          child: Text(
+                                                            'Continue',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                          ).animateOnActionTrigger(
+                                                            animationsMap[
+                                                                'textOnActionTriggerAnimation']!,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ],
