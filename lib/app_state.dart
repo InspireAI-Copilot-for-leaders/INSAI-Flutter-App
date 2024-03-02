@@ -43,4 +43,16 @@ class FFAppState extends ChangeNotifier {
   set whichPage(String _value) {
     _whichPage = _value;
   }
+
+  bool _isNotificationsVisible = false;
+  bool get isNotificationsVisible => _isNotificationsVisible;
+  set isNotificationsVisible(bool _value) {
+    _isNotificationsVisible = _value;
+  }
+
+  bool _storyVisible = false;
+  bool get storyVisible => _storyVisible;
+  set storyVisible(bool _value) {
+    _storyVisible = _value;
+  }
 }

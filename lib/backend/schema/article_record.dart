@@ -55,6 +55,11 @@ class ArticleRecord extends FirestoreRecord {
   String get expertiseArea => _expertiseArea ?? '';
   bool hasExpertiseArea() => _expertiseArea != null;
 
+  // "publish_dates" field.
+  List<DateTime>? _publishDates;
+  List<DateTime> get publishDates => _publishDates ?? const [];
+  bool hasPublishDates() => _publishDates != null;
+
   void _initializeFields() {
     _articleSummary = snapshotData['article_summary'] as String?;
     _metadata = getStructList(
@@ -67,6 +72,7 @@ class ArticleRecord extends FirestoreRecord {
     _trendKeyword = snapshotData['trend_keyword'] as String?;
     _domain = snapshotData['domain'] as String?;
     _expertiseArea = snapshotData['expertise_area'] as String?;
+    _publishDates = getDataList(snapshotData['publish_dates']);
   }
 
   static CollectionReference get collection =>
@@ -109,6 +115,13 @@ class ArticleRecord extends FirestoreRecord {
           'trend_keyword': snapshot.data['trend_keyword'],
           'domain': snapshot.data['domain'],
           'expertise_area': snapshot.data['expertise_area'],
+          'publish_dates': safeGet(
+            () => convertAlgoliaParam<DateTime>(
+              snapshot.data['publish_dates'],
+              ParamType.DateTime,
+              true,
+            ).toList(),
+          ),
         },
         ArticleRecord.collection.doc(snapshot.objectID),
       );
@@ -178,7 +191,8 @@ class ArticleRecordDocumentEquality implements Equality<ArticleRecord> {
         e1?.scrappedAt == e2?.scrappedAt &&
         e1?.trendKeyword == e2?.trendKeyword &&
         e1?.domain == e2?.domain &&
-        e1?.expertiseArea == e2?.expertiseArea;
+        e1?.expertiseArea == e2?.expertiseArea &&
+        listEquality.equals(e1?.publishDates, e2?.publishDates);
   }
 
   @override
@@ -189,7 +203,8 @@ class ArticleRecordDocumentEquality implements Equality<ArticleRecord> {
         e?.scrappedAt,
         e?.trendKeyword,
         e?.domain,
-        e?.expertiseArea
+        e?.expertiseArea,
+        e?.publishDates
       ]);
 
   @override

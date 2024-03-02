@@ -440,20 +440,24 @@ class InspireAIContentFromTopicsCall {
     String? brandVoice = '',
     int? numberOfWords,
     String? uid = '',
+    String? insight = '',
+    String? contentType = '',
   }) async {
     final ffApiRequestBody = '''
 {
+  "insight": "${insight}",
+  "type": "${contentType}",
   "topic": "${topic}",
   "brand_voice": "${brandVoice}",
   "number_of_words": ${numberOfWords},
   "context_size": ${numberOfWords},
   "similarity_top_k": 1,
-  "apify_token": "apify_api_yJdWtJercdZZdUUWDXlgDvniyTzSdI0lWKBg",
   "uid": "${uid}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Topics',
-      apiUrl: 'https://rag-pipeline-continuous-5qpvtpji4a-uc.a.run.app',
+      apiUrl:
+          'https://content-from-topic-continuous-new-5qpvtpji4a-uc.a.run.app',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -476,13 +480,17 @@ class InspireAIContentFromContextCall {
     String? insights = '',
     int? numberOfWords,
     String? uid = '',
+    String? contentType = '',
+    String? broadDomain = '',
   }) async {
     final ffApiRequestBody = '''
 {
+  "broad_domain": "${broadDomain}",
+  "type": "${contentType}",
   "topic": "${topic}",
   "brand_voice": "${brandVoice}",
   "context": "${context}",
-  "insights": "${insights}",
+  "insight": "${insights}",
   "number_of_words": ${numberOfWords},
   "uid": "${uid}"
 }''';

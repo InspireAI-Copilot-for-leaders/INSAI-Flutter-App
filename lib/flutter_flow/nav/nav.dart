@@ -12,6 +12,8 @@ import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
 import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -86,16 +88,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
-        child:
-            appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
+        child: RootPageContext.wrap(
+          appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
+          errorRoute: state.location,
+        ),
       ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? DashboardWidget()
-              : LandingPageWidget(),
+          builder: (context, _) => RootPageContext.wrap(
+            appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
+          ),
           routes: [
             FFRoute(
               name: 'LandingPage',
@@ -157,6 +161,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 articleImage: params.getParam('articleImage', ParamType.String),
                 articleContent:
                     params.getParam('articleContent', ParamType.String),
+                articleDomain:
+                    params.getParam('articleDomain', ParamType.String),
               ),
             ),
             FFRoute(
@@ -168,6 +174,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     params.getParam('contextForContent', ParamType.String),
                 topicForContent:
                     params.getParam('topicForContent', ParamType.String),
+                contentType: params.getParam('contentType', ParamType.String),
+                broadDomain: params.getParam('broadDomain', ParamType.String),
               ),
             ),
             FFRoute(
@@ -216,6 +224,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'dashboard',
               requireAuth: true,
               builder: (context, params) => DashboardWidget(),
+            ),
+            FFRoute(
+              name: 'storiesPage',
+              path: 'storiesPage',
+              builder: (context, params) => StoriesPageWidget(
+                domain: params.getParam('domain', ParamType.String),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -408,7 +423,7 @@ class FFRoute {
                     ),
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

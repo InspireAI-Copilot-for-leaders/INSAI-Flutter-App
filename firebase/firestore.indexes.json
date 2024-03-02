@@ -1,19 +1,38 @@
 {
-  "indexes": [],
-  "fieldOverrides": [
+  "indexes": [
     {
-      "collectionGroup": "expertise_areas",
-      "fieldPath": "expertise_area",
-      "indexes": [
+      "collectionGroup": "article",
+      "queryScope": "COLLECTION",
+      "fields": [
         {
-          "order": "ASCENDING",
-          "queryScope": "COLLECTION_GROUP"
+          "fieldPath": "domain",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "scrapped_at",
+          "order": "DESCENDING"
         }
       ]
     },
     {
-      "collectionGroup": "expertise_areas",
-      "fieldPath": "expertise_area",
+      "collectionGroup": "article",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "expertise_area",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "scrapped_at",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "fcm_tokens",
+      "fieldPath": "fcm_token",
       "indexes": [
         {
           "order": "ASCENDING",

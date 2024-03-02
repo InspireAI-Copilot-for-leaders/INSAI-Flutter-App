@@ -120,6 +120,13 @@ class UsersRecord extends FirestoreRecord {
   int get linkedinRefreshLifetime => _linkedinRefreshLifetime ?? 0;
   bool hasLinkedinRefreshLifetime() => _linkedinRefreshLifetime != null;
 
+  // "thought_leadership_areas_mapping" field.
+  List<ThoughtLeadershipAreasMappingStruct>? _thoughtLeadershipAreasMapping;
+  List<ThoughtLeadershipAreasMappingStruct> get thoughtLeadershipAreasMapping =>
+      _thoughtLeadershipAreasMapping ?? const [];
+  bool hasThoughtLeadershipAreasMapping() =>
+      _thoughtLeadershipAreasMapping != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -146,6 +153,10 @@ class UsersRecord extends FirestoreRecord {
         castToType<int>(snapshotData['linkedinAccessLifetime']);
     _linkedinRefreshLifetime =
         castToType<int>(snapshotData['linkedinRefreshLifetime']);
+    _thoughtLeadershipAreasMapping = getStructList(
+      snapshotData['thought_leadership_areas_mapping'],
+      ThoughtLeadershipAreasMappingStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -254,7 +265,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.linkedinAccess == e2?.linkedinAccess &&
         e1?.linkedinRefresh == e2?.linkedinRefresh &&
         e1?.linkedinAccessLifetime == e2?.linkedinAccessLifetime &&
-        e1?.linkedinRefreshLifetime == e2?.linkedinRefreshLifetime;
+        e1?.linkedinRefreshLifetime == e2?.linkedinRefreshLifetime &&
+        listEquality.equals(e1?.thoughtLeadershipAreasMapping,
+            e2?.thoughtLeadershipAreasMapping);
   }
 
   @override
@@ -278,7 +291,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.linkedinAccess,
         e?.linkedinRefresh,
         e?.linkedinAccessLifetime,
-        e?.linkedinRefreshLifetime
+        e?.linkedinRefreshLifetime,
+        e?.thoughtLeadershipAreasMapping
       ]);
 
   @override

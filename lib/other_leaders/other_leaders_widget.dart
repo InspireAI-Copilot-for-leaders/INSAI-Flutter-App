@@ -6,9 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,33 +33,6 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'otherLeaders'});
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('OTHER_LEADERS_otherLeaders_ON_INIT_STATE');
-      logFirebaseEvent('otherLeaders_firestore_query');
-      _model.actionQuery = await queryExpertiseAreasRecordOnce(
-        queryBuilder: (expertiseAreasRecord) => expertiseAreasRecord.whereIn(
-            'expertise_area',
-            (currentUserDocument?.thoughtLeadershipAreas?.toList() ?? [])),
-      );
-      while (_model.areaIndex! < _model.actionQuery!.length) {
-        logFirebaseEvent('otherLeaders_backend_call');
-
-        await _model.actionQuery![_model.areaIndex!].reference.update({
-          ...mapToFirestore(
-            {
-              'number_of_users': FieldValue.increment(1),
-              'usersInThis': FieldValue.arrayUnion([currentUserReference]),
-            },
-          ),
-        });
-        logFirebaseEvent('otherLeaders_update_page_state');
-        setState(() {
-          _model.areaIndex = _model.areaIndex! + 1;
-        });
-      }
-    });
-
     _model.contentURL2Controller ??= TextEditingController();
     _model.contentURL2FocusNode ??= FocusNode();
 

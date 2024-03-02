@@ -14,11 +14,13 @@ class LoadingScreenWidget extends StatefulWidget {
     super.key,
     String? loadingText,
     this.callToActionVisible,
+    this.callToAction,
   }) : this.loadingText =
             loadingText ?? 'This usually takes a minute. Hang tight...';
 
   final String loadingText;
   final bool? callToActionVisible;
+  final Future Function()? callToAction;
 
   @override
   State<LoadingScreenWidget> createState() => _LoadingScreenWidgetState();
@@ -91,8 +93,10 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
               child: FFButtonWidget(
-                onPressed: () {
-                  print('Button pressed ...');
+                onPressed: () async {
+                  logFirebaseEvent('LOADING_SCREEN_GO_TO_POSTS_BTN_ON_TAP');
+                  logFirebaseEvent('Button_execute_callback');
+                  await widget.callToAction?.call();
                 },
                 text: 'Go to Posts page',
                 options: FFButtonOptions(

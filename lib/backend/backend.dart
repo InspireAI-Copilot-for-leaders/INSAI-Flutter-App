@@ -6,7 +6,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'schema/util/firestore_util.dart';
 
 import 'schema/users_record.dart';
-import 'schema/expertise_area_keywords_sub_collection_record.dart';
 import 'schema/created_posts_record.dart';
 import 'schema/thought_leaders_record.dart';
 import 'schema/brand_voices_record.dart';
@@ -14,6 +13,7 @@ import 'schema/posted_on_linkedin_record.dart';
 import 'schema/broad_domain_record.dart';
 import 'schema/expertise_areas_record.dart';
 import 'schema/article_record.dart';
+import 'schema/to_be_reviewed_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,7 +22,6 @@ export 'schema/util/firestore_util.dart';
 export 'schema/util/schema_util.dart';
 
 export 'schema/users_record.dart';
-export 'schema/expertise_area_keywords_sub_collection_record.dart';
 export 'schema/created_posts_record.dart';
 export 'schema/thought_leaders_record.dart';
 export 'schema/brand_voices_record.dart';
@@ -30,6 +29,7 @@ export 'schema/posted_on_linkedin_record.dart';
 export 'schema/broad_domain_record.dart';
 export 'schema/expertise_areas_record.dart';
 export 'schema/article_record.dart';
+export 'schema/to_be_reviewed_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -67,48 +67,6 @@ Future<List<UsersRecord>> queryUsersRecordOnce({
       limit: limit,
       singleRecord: singleRecord,
     );
-
-/// Functions to query ExpertiseAreaKeywordsSubCollectionRecords (as a Stream and as a Future).
-Future<int> queryExpertiseAreaKeywordsSubCollectionRecordCount({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      ExpertiseAreaKeywordsSubCollectionRecord.collection(parent),
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<ExpertiseAreaKeywordsSubCollectionRecord>>
-    queryExpertiseAreaKeywordsSubCollectionRecord({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-        queryCollection(
-          ExpertiseAreaKeywordsSubCollectionRecord.collection(parent),
-          ExpertiseAreaKeywordsSubCollectionRecord.fromSnapshot,
-          queryBuilder: queryBuilder,
-          limit: limit,
-          singleRecord: singleRecord,
-        );
-
-Future<List<ExpertiseAreaKeywordsSubCollectionRecord>>
-    queryExpertiseAreaKeywordsSubCollectionRecordOnce({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-        queryCollectionOnce(
-          ExpertiseAreaKeywordsSubCollectionRecord.collection(parent),
-          ExpertiseAreaKeywordsSubCollectionRecord.fromSnapshot,
-          queryBuilder: queryBuilder,
-          limit: limit,
-          singleRecord: singleRecord,
-        );
 
 /// Functions to query CreatedPostsRecords (as a Stream and as a Future).
 Future<int> queryCreatedPostsRecordCount({
@@ -373,6 +331,43 @@ Future<List<ArticleRecord>> queryArticleRecordOnce({
     queryCollectionOnce(
       ArticleRecord.collection,
       ArticleRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query ToBeReviewedRecords (as a Stream and as a Future).
+Future<int> queryToBeReviewedRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ToBeReviewedRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ToBeReviewedRecord>> queryToBeReviewedRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ToBeReviewedRecord.collection,
+      ToBeReviewedRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ToBeReviewedRecord>> queryToBeReviewedRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ToBeReviewedRecord.collection,
+      ToBeReviewedRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

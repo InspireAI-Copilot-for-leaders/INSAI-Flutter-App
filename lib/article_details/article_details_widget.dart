@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'article_details_model.dart';
 export 'article_details_model.dart';
 
@@ -20,12 +21,14 @@ class ArticleDetailsWidget extends StatefulWidget {
     required this.articleTitle,
     required this.articleImage,
     required this.articleContent,
+    required this.articleDomain,
   });
 
   final DocumentReference? articleRef;
   final String? articleTitle;
   final String? articleImage;
   final String? articleContent;
+  final String? articleDomain;
 
   @override
   State<ArticleDetailsWidget> createState() => _ArticleDetailsWidgetState();
@@ -76,13 +79,17 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                 height: 240.0,
                 child: Stack(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(0.0),
-                      child: Image.network(
-                        widget.articleImage!,
-                        width: double.infinity,
-                        height: 200.0,
-                        fit: BoxFit.cover,
+                    Hero(
+                      tag: widget.articleImage!,
+                      transitionOnUserGestures: true,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(0.0),
+                        child: Image.network(
+                          widget.articleImage!,
+                          width: double.infinity,
+                          height: 200.0,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Align(
@@ -140,20 +147,6 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                   'ARTICLE_DETAILS_keyboard_arrow_left_roun');
                               logFirebaseEvent('IconButton_navigate_back');
                               context.safePop();
-                            },
-                          ),
-                          FlutterFlowIconButton(
-                            borderColor: FlutterFlowTheme.of(context).alternate,
-                            borderRadius: 40.0,
-                            borderWidth: 1.0,
-                            buttonSize: 40.0,
-                            icon: Icon(
-                              Icons.keyboard_control_rounded,
-                              color: FlutterFlowTheme.of(context).alternate,
-                              size: 25.0,
-                            ),
-                            onPressed: () {
-                              print('IconButton pressed ...');
                             },
                           ),
                         ],
@@ -239,7 +232,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                           },
                                           child: Container(
                                             width: 150.0,
-                                            height: 100.0,
+                                            height: 80.0,
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -266,7 +259,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                     sourcesItem
                                                         .orginialArticleUsedForRag
                                                         .title,
-                                                    maxLines: 3,
+                                                    maxLines: 2,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -369,9 +362,9 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Montserrat',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  fontSize: 14.0,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: 18.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey('Montserrat'),
@@ -390,8 +383,61 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                   decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Builder(
+                        builder: (context) => FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'ARTICLE_DETAILS_PAGE_SHARE_BTN_ON_TAP');
+                            logFirebaseEvent(
+                                'Button_generate_current_page_link');
+                            _model.currentPageLink =
+                                await generateCurrentPageLink(
+                              context,
+                              title: widget.articleTitle,
+                              imageUrl: widget.articleImage,
+                              isShortLink: false,
+                              forceRedirect: true,
+                            );
+
+                            logFirebaseEvent('Button_share');
+                            await Share.share(
+                              _model.currentPageLink,
+                              sharePositionOrigin:
+                                  getWidgetBoundingBox(context),
+                            );
+                          },
+                          text: 'Share',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 24.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .titleSmallFamily,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: 18.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .titleSmallFamily),
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                       FFButtonWidget(
                         onPressed: () async {
                           logFirebaseEvent(
@@ -407,6 +453,14 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                               'topicForContent': serializeParam(
                                 widget.articleTitle,
+                                ParamType.String,
+                              ),
+                              'broadDomain': serializeParam(
+                                widget.articleDomain,
+                                ParamType.String,
+                              ),
+                              'contentType': serializeParam(
+                                'current_events_commentary',
                                 ParamType.String,
                               ),
                             }.withoutNulls,
