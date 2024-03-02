@@ -127,6 +127,11 @@ class UsersRecord extends FirestoreRecord {
   bool hasThoughtLeadershipAreasMapping() =>
       _thoughtLeadershipAreasMapping != null;
 
+  // "pushNotiSubs" field.
+  bool? _pushNotiSubs;
+  bool get pushNotiSubs => _pushNotiSubs ?? false;
+  bool hasPushNotiSubs() => _pushNotiSubs != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -157,6 +162,7 @@ class UsersRecord extends FirestoreRecord {
       snapshotData['thought_leadership_areas_mapping'],
       ThoughtLeadershipAreasMappingStruct.fromMap,
     );
+    _pushNotiSubs = snapshotData['pushNotiSubs'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -209,6 +215,7 @@ Map<String, dynamic> createUsersRecordData({
   String? linkedinRefresh,
   int? linkedinAccessLifetime,
   int? linkedinRefreshLifetime,
+  bool? pushNotiSubs,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -228,6 +235,7 @@ Map<String, dynamic> createUsersRecordData({
       'linkedinRefresh': linkedinRefresh,
       'linkedinAccessLifetime': linkedinAccessLifetime,
       'linkedinRefreshLifetime': linkedinRefreshLifetime,
+      'pushNotiSubs': pushNotiSubs,
     }.withoutNulls,
   );
 
@@ -267,7 +275,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.linkedinAccessLifetime == e2?.linkedinAccessLifetime &&
         e1?.linkedinRefreshLifetime == e2?.linkedinRefreshLifetime &&
         listEquality.equals(e1?.thoughtLeadershipAreasMapping,
-            e2?.thoughtLeadershipAreasMapping);
+            e2?.thoughtLeadershipAreasMapping) &&
+        e1?.pushNotiSubs == e2?.pushNotiSubs;
   }
 
   @override
@@ -292,7 +301,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.linkedinRefresh,
         e?.linkedinAccessLifetime,
         e?.linkedinRefreshLifetime,
-        e?.thoughtLeadershipAreasMapping
+        e?.thoughtLeadershipAreasMapping,
+        e?.pushNotiSubs
       ]);
 
   @override

@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/backend/cloud_functions/cloud_functions.dart';
 import '/backend/push_notifications/push_notifications_util.dart';
 import '/components/allow_notification_popup_widget.dart';
 import '/components/empty_state_widget.dart';

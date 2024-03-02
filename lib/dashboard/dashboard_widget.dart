@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/backend/cloud_functions/cloud_functions.dart';
 import '/backend/push_notifications/push_notifications_util.dart';
 import '/components/allow_notification_popup_widget.dart';
 import '/components/empty_state_widget.dart';
@@ -1414,9 +1415,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           notificationTitle: 'congo',
                                           notificationText:
                                               'you clicked the button 2 minutes ago',
-                                          scheduledTime:
-                                              functions.modifiedDateTime(
-                                                  getCurrentTimestamp)!,
+                                          scheduledTime: getCurrentTimestamp,
                                           notificationSound: 'default',
                                           userRefs: [currentUserReference!],
                                           initialPageName: 'storiesPage',
@@ -2805,6 +2804,25 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                 'Allow_notification_popup_request_permiss');
                             await requestPermission(notificationsPermission);
                             logFirebaseEvent(
+                                'Allow_notification_popup_one_signal');
+                            await makeCloudCall(
+                              'addUser',
+                              {
+                                'user_id': currentUserUid,
+                                'subscriptions': [
+                                  {
+                                    'type': 'Email',
+                                    'token': currentUserEmail,
+                                  },
+                                  {
+                                    'type': 'SMS',
+                                    'token': currentPhoneNumber,
+                                  },
+                                ],
+                              },
+                            );
+
+                            logFirebaseEvent(
                                 'Allow_notification_popup_update_page_sta');
                             setState(() {
                               _model.notificationPopupVisible = false;
@@ -2813,6 +2831,25 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           denyAction: () async {
                             logFirebaseEvent(
                                 'DASHBOARD_Container_k4iuonjj_CALLBACK');
+                            logFirebaseEvent(
+                                'Allow_notification_popup_one_signal');
+                            await makeCloudCall(
+                              'addUser',
+                              {
+                                'user_id': currentUserUid,
+                                'subscriptions': [
+                                  {
+                                    'type': 'Email',
+                                    'token': currentUserEmail,
+                                  },
+                                  {
+                                    'type': 'SMS',
+                                    'token': currentPhoneNumber,
+                                  },
+                                ],
+                              },
+                            );
+
                             logFirebaseEvent(
                                 'Allow_notification_popup_update_page_sta');
                             setState(() {
