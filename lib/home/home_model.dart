@@ -1,15 +1,20 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/empty_state_widget.dart';
 import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_rive_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'home_widget.dart' show HomeWidget;
+import 'package:badges/badges.dart' as badges;
+import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -17,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +33,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   String pageView = 'dashboard';
 
   String filteredTabView = 'For You';
+
+  bool createContentDialogVisible = false;
 
   ///  State fields for stateful widgets in this page.
 
@@ -45,15 +53,32 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
       choiceChipsValueController?.value?.firstOrNull;
   set choiceChipsValue(String? val) =>
       choiceChipsValueController?.value = val != null ? [val] : [];
+  // State field(s) for RiveAnimation widget.
+  final riveAnimationAnimationsList = [
+    'GDSC Modules',
+  ];
+  List<FlutterFlowRiveController> riveAnimationControllers = [];
+  // Model for emptyState component.
+  late EmptyStateModel emptyStateModel;
 
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    riveAnimationAnimationsList.forEach((name) {
+      riveAnimationControllers.add(FlutterFlowRiveController(
+        name,
+        shouldLoop: true,
+      ));
+    });
+
+    emptyStateModel = createModel(context, () => EmptyStateModel());
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
+    emptyStateModel.dispose();
   }
 
   /// Action blocks are added here.

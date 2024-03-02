@@ -120,64 +120,109 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
             ),
             body: SafeArea(
               top: true,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Likes',
-                          style:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0xFF57636C),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey('Plus Jakarta Sans'),
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                    child: Text(
-                      postDetailedPostedOnLinkedinRecord.likesNumber.toString(),
-                      style: FlutterFlowTheme.of(context).displayLarge.override(
-                            fontFamily: 'Outfit',
-                            color: Color(0xFF101213),
-                            fontSize: 64.0,
-                            fontWeight: FontWeight.normal,
-                            useGoogleFonts:
-                                GoogleFonts.asMap().containsKey('Outfit'),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Likes',
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0xFF57636C),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey('Plus Jakarta Sans'),
+                                ),
                           ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 12.0, 0.0),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        postDetailedPostedOnLinkedinRecord.likesNumber
+                            .toString(),
+                        style:
+                            FlutterFlowTheme.of(context).displayLarge.override(
+                                  fontFamily: 'Outfit',
+                                  color: Color(0xFF101213),
+                                  fontSize: 64.0,
+                                  fontWeight: FontWeight.normal,
+                                  useGoogleFonts:
+                                      GoogleFonts.asMap().containsKey('Outfit'),
+                                ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 12.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Comments',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelSmall
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF57636C),
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w500,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey('Plus Jakarta Sans'),
+                                        ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: Text(
+                                      postDetailedPostedOnLinkedinRecord
+                                          .commentsNumber
+                                          .toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            color: Color(0xFF101213),
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey('Outfit'),
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Comments',
+                                  'Posted on',
                                   style: FlutterFlowTheme.of(context)
                                       .labelSmall
                                       .override(
@@ -193,9 +238,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: Text(
-                                    postDetailedPostedOnLinkedinRecord
-                                        .commentsNumber
-                                        .toString(),
+                                    dateTimeFormat('yMMMd', widget.postedOn),
                                     style: FlutterFlowTheme.of(context)
                                         .titleLarge
                                         .override(
@@ -211,151 +254,114 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                               ],
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Posted on',
-                                style: FlutterFlowTheme.of(context)
-                                    .labelSmall
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey('Plus Jakarta Sans'),
-                                    ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
-                                child: Text(
-                                  dateTimeFormat('yMMMd', widget.postedOn),
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleLarge
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        color: Color(0xFF101213),
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey('Outfit'),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 16.0, 16.0),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          logFirebaseEvent(
-                              'POST_DETAILED_PAGE_REFRESH_BTN_ON_TAP');
-                          logFirebaseEvent('Button_backend_call');
-                          _model.likes =
-                              await LinkedinPostGroup.getPostLikesCall.call(
-                            postUrn: widget.postURN,
-                            accessToken: valueOrDefault(
-                                currentUserDocument?.linkedinAccess, ''),
-                          );
-                          logFirebaseEvent('Button_backend_call');
-                          _model.comments =
-                              await LinkedinPostGroup.getPostCommentsCall.call(
-                            postUrn: widget.postURN,
-                            accessToken: valueOrDefault(
-                                currentUserDocument?.linkedinAccess, ''),
-                          );
-                          logFirebaseEvent('Button_backend_call');
-
-                          await widget.postRef!
-                              .update(createPostedOnLinkedinRecordData(
-                            likesNumber:
-                                LinkedinPostGroup.getPostLikesCall.likesCount(
-                              (_model.likes?.jsonBody ?? ''),
-                            ),
-                            commentsNumber: LinkedinPostGroup
+                    Align(
+                      alignment: AlignmentDirectional(1.0, 0.0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 12.0, 16.0, 16.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'POST_DETAILED_PAGE_REFRESH_BTN_ON_TAP');
+                            logFirebaseEvent('Button_backend_call');
+                            _model.likes =
+                                await LinkedinPostGroup.getPostLikesCall.call(
+                              postUrn: widget.postURN,
+                              accessToken: valueOrDefault(
+                                  currentUserDocument?.linkedinAccess, ''),
+                            );
+                            logFirebaseEvent('Button_backend_call');
+                            _model.comments = await LinkedinPostGroup
                                 .getPostCommentsCall
-                                .commentsCount(
-                              (_model.comments?.jsonBody ?? ''),
-                            ),
-                          ));
+                                .call(
+                              postUrn: widget.postURN,
+                              accessToken: valueOrDefault(
+                                  currentUserDocument?.linkedinAccess, ''),
+                            );
+                            logFirebaseEvent('Button_backend_call');
 
-                          setState(() {});
-                        },
-                        text: 'Refresh',
-                        options: FFButtonOptions(
-                          height: 30.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
-                          textStyle: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .titleSmallFamily,
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .titleSmallFamily),
+                            await widget.postRef!
+                                .update(createPostedOnLinkedinRecordData(
+                              likesNumber:
+                                  LinkedinPostGroup.getPostLikesCall.likesCount(
+                                (_model.likes?.jsonBody ?? ''),
                               ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
+                              commentsNumber: LinkedinPostGroup
+                                  .getPostCommentsCall
+                                  .commentsCount(
+                                (_model.comments?.jsonBody ?? ''),
+                              ),
+                            ));
+
+                            setState(() {});
+                          },
+                          text: 'Refresh',
+                          options: FFButtonOptions(
+                            height: 30.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 24.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .titleSmallFamily,
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .titleSmallFamily),
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
-                    child: Text(
-                      'Content',
-                      style: FlutterFlowTheme.of(context).labelSmall.override(
-                            fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF57636C),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w500,
-                            useGoogleFonts: GoogleFonts.asMap()
-                                .containsKey('Plus Jakarta Sans'),
-                          ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
-                    child: Text(
-                      valueOrDefault<String>(
-                        widget.postText,
-                        'null',
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
+                      child: Text(
+                        'Content',
+                        style: FlutterFlowTheme.of(context).labelSmall.override(
+                              fontFamily: 'Plus Jakarta Sans',
+                              color: Color(0xFF57636C),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w500,
+                              useGoogleFonts: GoogleFonts.asMap()
+                                  .containsKey('Plus Jakarta Sans'),
+                            ),
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF101213),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                            useGoogleFonts: GoogleFonts.asMap()
-                                .containsKey('Plus Jakarta Sans'),
-                          ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
+                      child: Text(
+                        valueOrDefault<String>(
+                          widget.postText,
+                          'null',
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Plus Jakarta Sans',
+                              color: Color(0xFF101213),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                              useGoogleFonts: GoogleFonts.asMap()
+                                  .containsKey('Plus Jakarta Sans'),
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

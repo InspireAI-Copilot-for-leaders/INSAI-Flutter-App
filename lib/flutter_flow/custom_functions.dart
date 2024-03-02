@@ -15,5 +15,14 @@ import '/backend/schema/enums/enums.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 String? formatStringForJson(String input) {
-  return input.replaceAll('\n', '\\n');
+  var output = input
+      .replaceAll('\\', '\\\\') // Escape backslashes first
+      .replaceAll('\n', '\\n')
+      .replaceAll('\r', '\\r')
+      .replaceAll('\t', '\\t')
+      .replaceAll('\b', '\\b')
+      .replaceAll('\f', '\\f')
+      .replaceAll(
+          '"', '\\"'); // Escape double quotes, important for JSON strings
+  return output;
 }

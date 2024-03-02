@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'create_with_inspire_a_i_widget.dart' show CreateWithInspireAIWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,17 +28,17 @@ class CreateWithInspireAIModel
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
+  FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for insight widget.
-  FocusNode? insightFocusNode;
-  TextEditingController? insightController;
-  String? Function(BuildContext, String?)? insightControllerValidator;
-  // State field(s) for voice widget.
-  FocusNode? voiceFocusNode;
-  TextEditingController? voiceController;
-  String? Function(BuildContext, String?)? voiceControllerValidator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode2;
+  TextEditingController? textController2;
+  String? Function(BuildContext, String?)? textController2Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode3;
+  TextEditingController? textController3;
+  String? Function(BuildContext, String?)? textController3Validator;
   // State field(s) for DropDown widget.
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
@@ -57,14 +58,14 @@ class CreateWithInspireAIModel
 
   @override
   void dispose() {
-    textFieldFocusNode?.dispose();
+    textFieldFocusNode1?.dispose();
     textController1?.dispose();
 
-    insightFocusNode?.dispose();
-    insightController?.dispose();
+    textFieldFocusNode2?.dispose();
+    textController2?.dispose();
 
-    voiceFocusNode?.dispose();
-    voiceController?.dispose();
+    textFieldFocusNode3?.dispose();
+    textController3?.dispose();
 
     loadingScreenModel.dispose();
   }

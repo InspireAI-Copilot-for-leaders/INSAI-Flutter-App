@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -52,6 +55,11 @@ class ArticleRecord extends FirestoreRecord {
   String get expertiseArea => _expertiseArea ?? '';
   bool hasExpertiseArea() => _expertiseArea != null;
 
+  // "publish_dates" field.
+  List<DateTime>? _publishDates;
+  List<DateTime> get publishDates => _publishDates ?? const [];
+  bool hasPublishDates() => _publishDates != null;
+
   void _initializeFields() {
     _articleSummary = snapshotData['article_summary'] as String?;
     _metadata = getStructList(
@@ -64,6 +72,7 @@ class ArticleRecord extends FirestoreRecord {
     _trendKeyword = snapshotData['trend_keyword'] as String?;
     _domain = snapshotData['domain'] as String?;
     _expertiseArea = snapshotData['expertise_area'] as String?;
+    _publishDates = getDataList(snapshotData['publish_dates']);
   }
 
   static CollectionReference get collection =>
@@ -86,6 +95,54 @@ class ArticleRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       ArticleRecord._(reference, mapFromFirestore(data));
+
+  static ArticleRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      ArticleRecord.getDocumentFromData(
+        {
+          'article_summary': snapshot.data['article_summary'],
+          'metadata': safeGet(
+            () => (snapshot.data['metadata'] as Iterable)
+                .map((d) => ArticleMetadataStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'original_google_search_term':
+              snapshot.data['original_google_search_term'],
+          'scrapped_at': convertAlgoliaParam(
+            snapshot.data['scrapped_at'],
+            ParamType.DateTime,
+            false,
+          ),
+          'trend_keyword': snapshot.data['trend_keyword'],
+          'domain': snapshot.data['domain'],
+          'expertise_area': snapshot.data['expertise_area'],
+          'publish_dates': safeGet(
+            () => convertAlgoliaParam<DateTime>(
+              snapshot.data['publish_dates'],
+              ParamType.DateTime,
+              true,
+            ).toList(),
+          ),
+        },
+        ArticleRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<ArticleRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'article',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>
@@ -134,7 +191,8 @@ class ArticleRecordDocumentEquality implements Equality<ArticleRecord> {
         e1?.scrappedAt == e2?.scrappedAt &&
         e1?.trendKeyword == e2?.trendKeyword &&
         e1?.domain == e2?.domain &&
-        e1?.expertiseArea == e2?.expertiseArea;
+        e1?.expertiseArea == e2?.expertiseArea &&
+        listEquality.equals(e1?.publishDates, e2?.publishDates);
   }
 
   @override
@@ -145,7 +203,8 @@ class ArticleRecordDocumentEquality implements Equality<ArticleRecord> {
         e?.scrappedAt,
         e?.trendKeyword,
         e?.domain,
-        e?.expertiseArea
+        e?.expertiseArea,
+        e?.publishDates
       ]);
 
   @override

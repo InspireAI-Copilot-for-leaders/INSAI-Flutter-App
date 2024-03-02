@@ -1,10 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,10 +22,122 @@ class ForgotPassWidget extends StatefulWidget {
   State<ForgotPassWidget> createState() => _ForgotPassWidgetState();
 }
 
-class _ForgotPassWidgetState extends State<ForgotPassWidget> {
+class _ForgotPassWidgetState extends State<ForgotPassWidget>
+    with TickerProviderStateMixin {
   late ForgotPassModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'richTextOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'richTextOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 100.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textFieldOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 200.ms),
+        ScaleEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(2.5, 2.5),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'iconButtonOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 200.ms),
+        FadeEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 800.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        BlurEffect(
+          curve: Curves.easeOut,
+          delay: 200.ms,
+          duration: 800.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 800.ms,
+          begin: Offset(-300.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -219,7 +334,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                                                 .bodyMediumFamily),
                                   ),
                             ),
-                          ),
+                          ).animateOnPageLoad(
+                              animationsMap['richTextOnPageLoadAnimation1']!),
                         ),
                       ),
                       Padding(
@@ -263,7 +379,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                                           .bodyMediumFamily),
                                 ),
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['richTextOnPageLoadAnimation2']!),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -345,7 +462,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                           cursorColor: FlutterFlowTheme.of(context).secondary,
                           validator: _model.forgotPassEmailControllerValidator
                               .asValidator(context),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['textFieldOnPageLoadAnimation']!),
                       ),
                       Align(
                         alignment: AlignmentDirectional(1.0, 0.0),
@@ -384,7 +502,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget> {
                                 context: context,
                               );
                             },
-                          ),
+                          ).animateOnPageLoad(
+                              animationsMap['iconButtonOnPageLoadAnimation']!),
                         ),
                       ),
                     ],

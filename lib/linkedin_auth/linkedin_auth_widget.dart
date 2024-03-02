@@ -1,12 +1,15 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import '/backend/schema/structs/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -45,6 +48,89 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
+      logFirebaseEvent('linkedinAuth_backend_call');
+      _model.linkedintokens = await LinkedinTokensCall.call(
+        authCodeRecieved: widget.code,
+      );
+      if ((_model.linkedintokens?.succeeded ?? true)) {
+        logFirebaseEvent('linkedinAuth_backend_call');
+
+        await currentUserReference!.update(createUsersRecordData(
+          linkedinAccess: getJsonField(
+            (_model.linkedintokens?.jsonBody ?? ''),
+            r'''$.access_token''',
+          ).toString().toString(),
+          linkedinRefresh: getJsonField(
+            (_model.linkedintokens?.jsonBody ?? ''),
+            r'''$.refresh_token''',
+          ).toString().toString(),
+        ));
+        logFirebaseEvent('linkedinAuth_backend_call');
+        _model.lIprofileDetails =
+            await LinkedInDataGroup.linkedinProfileDetailsCall.call(
+          authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+        );
+        if ((_model.lIprofileDetails?.succeeded ?? true)) {
+          logFirebaseEvent('linkedinAuth_backend_call');
+
+          await currentUserReference!.update(createUsersRecordData(
+            linkedinDetails: updateLinkedinDetailsAuthStruct(
+              LinkedinDetailsAuthStruct.maybeFromMap(
+                  (_model.lIprofileDetails?.jsonBody ?? '')),
+              clearUnsetFields: false,
+            ),
+          ));
+          logFirebaseEvent('linkedinAuth_backend_call');
+          _model.getExpertiseWorflow =
+              await ExpertiseOfPersonProxycurlCall.call(
+            linkedinUrl:
+                'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
+            uid: currentUserUid,
+          );
+          if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
+            logFirebaseEvent('linkedinAuth_update_page_state');
+            setState(() {
+              _model.isLoading = false;
+            });
+          } else {
+            logFirebaseEvent('linkedinAuth_navigate_to');
+
+            context.goNamed(
+              'linkedinConnect',
+              queryParameters: {
+                'connectSuccess': serializeParam(
+                  false,
+                  ParamType.bool,
+                ),
+              }.withoutNulls,
+            );
+          }
+        } else {
+          logFirebaseEvent('linkedinAuth_navigate_to');
+
+          context.goNamed(
+            'linkedinConnect',
+            queryParameters: {
+              'connectSuccess': serializeParam(
+                false,
+                ParamType.bool,
+              ),
+            }.withoutNulls,
+          );
+        }
+      } else {
+        logFirebaseEvent('linkedinAuth_navigate_to');
+
+        context.goNamed(
+          'linkedinConnect',
+          queryParameters: {
+            'connectSuccess': serializeParam(
+              false,
+              ParamType.bool,
+            ),
+          }.withoutNulls,
+        );
+      }
     });
 
     if (!isWeb) {
@@ -137,9 +223,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                           context.mounted,
                           ignoreRedirect: true,
                         );
-                      } else {
-                        logFirebaseEvent('Row_close_dialog,_drawer,_etc');
-                        Navigator.pop(context);
                       }
                     },
                     child: Row(
@@ -344,127 +427,146 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                     Flexible(
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: AuthUserStreamWidget(
-                                          builder: (context) => Builder(
-                                            builder: (context) {
-                                              final expertiseAreas =
-                                                  (currentUserDocument
-                                                              ?.thoughtLeadershipAreas
-                                                              ?.toList() ??
-                                                          [])
-                                                      .toList();
-                                              return Wrap(
-                                                spacing: 4.0,
-                                                runSpacing: 4.0,
-                                                alignment: WrapAlignment.center,
-                                                crossAxisAlignment:
-                                                    WrapCrossAlignment.center,
-                                                direction: Axis.horizontal,
-                                                runAlignment:
-                                                    WrapAlignment.center,
-                                                verticalDirection:
-                                                    VerticalDirection.down,
-                                                clipBehavior: Clip.none,
-                                                children: List.generate(
-                                                    expertiseAreas.length,
-                                                    (expertiseAreasIndex) {
-                                                  final expertiseAreasItem =
-                                                      expertiseAreas[
-                                                          expertiseAreasIndex];
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'LINKEDIN_AUTH_Container_78gbfhp0_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Container_backend_call');
+                                            AlignmentDirectional(-1.0, -1.0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 16.0),
+                                          child: AuthUserStreamWidget(
+                                            builder: (context) => Builder(
+                                              builder: (context) {
+                                                final expertiseAreas =
+                                                    (currentUserDocument
+                                                                ?.thoughtLeadershipAreas
+                                                                ?.toList() ??
+                                                            [])
+                                                        .toList();
+                                                return Wrap(
+                                                  spacing: 4.0,
+                                                  runSpacing: 4.0,
+                                                  alignment:
+                                                      WrapAlignment.start,
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.start,
+                                                  direction: Axis.horizontal,
+                                                  runAlignment:
+                                                      WrapAlignment.start,
+                                                  verticalDirection:
+                                                      VerticalDirection.down,
+                                                  clipBehavior: Clip.none,
+                                                  children: List.generate(
+                                                      expertiseAreas.length,
+                                                      (expertiseAreasIndex) {
+                                                    final expertiseAreasItem =
+                                                        expertiseAreas[
+                                                            expertiseAreasIndex];
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'LINKEDIN_AUTH_Container_78gbfhp0_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Container_backend_call');
 
-                                                      await currentUserReference!
-                                                          .update({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'thought_leadership_areas':
-                                                                FieldValue
-                                                                    .arrayRemove([
-                                                              expertiseAreasItem
-                                                            ]),
-                                                          },
+                                                        await currentUserReference!
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'thought_leadership_areas':
+                                                                  FieldValue
+                                                                      .arrayRemove([
+                                                                expertiseAreasItem
+                                                              ]),
+                                                              'thought_leadership_areas_mapping':
+                                                                  FieldValue
+                                                                      .arrayRemove([
+                                                                getThoughtLeadershipAreasMappingFirestoreData(
+                                                                  createThoughtLeadershipAreasMappingStruct(
+                                                                    fieldValues: {
+                                                                      'sub_categories':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        expertiseAreasItem
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                  true,
+                                                                )
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        height: 40.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      48.0),
                                                         ),
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                      height: 40.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(48.0),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          Flexible(
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          0.0,
-                                                                          12.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                expertiseAreasItem,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryBackground,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                    ),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Flexible(
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12.0,
+                                                                        0.0,
+                                                                        12.0,
+                                                                        0.0),
+                                                                child: Text(
+                                                                  expertiseAreasItem,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                      ),
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                }),
-                                              );
-                                            },
+                                                    );
+                                                  }),
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 0.0),
+                                          0.0, 0.0, 0.0, 3.0),
                                       child: Text(
-                                        'Type to add',
+                                        'Add More',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -475,8 +577,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.normal,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w600,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
                                                   .containsKey(
@@ -495,7 +597,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                         focusNode: _model.contentURL1FocusNode,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          hintText: 'Type to add area',
+                                          hintText: 'Type to add custom',
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
@@ -592,9 +694,59 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     _model.contentURL1Controller
                                                         .text
                                                   ]),
+                                                  'thought_leadership_areas_mapping':
+                                                      FieldValue.arrayUnion([
+                                                    getThoughtLeadershipAreasMappingFirestoreData(
+                                                      createThoughtLeadershipAreasMappingStruct(
+                                                        category:
+                                                            'Miscellaneous',
+                                                        fieldValues: {
+                                                          'sub_categories':
+                                                              FieldValue
+                                                                  .arrayUnion([
+                                                            _model
+                                                                .contentURL1Controller
+                                                                .text
+                                                          ]),
+                                                        },
+                                                        clearUnsetFields: false,
+                                                      ),
+                                                      true,
+                                                    )
+                                                  ]),
                                                 },
                                               ),
                                             });
+                                            logFirebaseEvent(
+                                                'Button_firestore_query');
+                                            _model.toBeReviewedDoc =
+                                                await queryToBeReviewedRecordOnce(
+                                              queryBuilder:
+                                                  (toBeReviewedRecord) =>
+                                                      toBeReviewedRecord.where(
+                                                'uid',
+                                                isEqualTo: currentUserUid,
+                                              ),
+                                              singleRecord: true,
+                                            ).then((s) => s.firstOrNull);
+                                            logFirebaseEvent(
+                                                'Button_backend_call');
+
+                                            await _model
+                                                .toBeReviewedDoc!.reference
+                                                .update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'addedByUser':
+                                                      FieldValue.arrayUnion([
+                                                    _model.contentURL1Controller
+                                                        .text
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+
+                                            setState(() {});
                                           },
                                           text: 'Add',
                                           options: FFButtonOptions(
@@ -650,7 +802,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             Opacity(
                                               opacity: 0.4,
                                               child: Container(
-                                                width: 90.0,
+                                                width: 65.0,
                                                 height: 1.0,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -669,7 +821,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   child: Text(
-                                                    'or',
+                                                    'or select from below',
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -699,7 +851,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             Opacity(
                                               opacity: 0.4,
                                               child: Container(
-                                                width: 90.0,
+                                                width: 65.0,
                                                 height: 1.0,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -721,9 +873,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                 broadDomainRecord.whereIn(
                                                     'broad_domain',
                                                     (currentUserDocument
-                                                            ?.broadDomains
-                                                            ?.toList() ??
-                                                        [])),
+                                                                ?.thoughtLeadershipAreasMapping
+                                                                ?.toList() ??
+                                                            [])
+                                                        .map((e) => e.category)
+                                                        .toList()),
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -775,7 +929,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
-                                                                    4.0),
+                                                                    8.0),
                                                         child: Text(
                                                           listViewBroadDomainRecord
                                                               .broadDomain,
@@ -804,7 +958,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0.0, 0.0),
+                                                                -1.0, -1.0),
                                                         child: StreamBuilder<
                                                             List<
                                                                 ExpertiseAreasRecord>>(
@@ -845,12 +999,12 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                       .start,
                                                               crossAxisAlignment:
                                                                   WrapCrossAlignment
-                                                                      .center,
+                                                                      .start,
                                                               direction: Axis
                                                                   .horizontal,
                                                               runAlignment:
                                                                   WrapAlignment
-                                                                      .center,
+                                                                      .start,
                                                               verticalDirection:
                                                                   VerticalDirection
                                                                       .down,

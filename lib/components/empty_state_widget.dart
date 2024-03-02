@@ -12,10 +12,16 @@ class EmptyStateWidget extends StatefulWidget {
   const EmptyStateWidget({
     super.key,
     String? loadingText,
-  }) : this.loadingText =
-            loadingText ?? 'This usually takes a minute. Hang tight...';
+    int? imageWidth,
+    int? imageHeight,
+  })  : this.loadingText =
+            loadingText ?? 'This usually takes a minute. Hang tight...',
+        this.imageWidth = imageWidth ?? 200,
+        this.imageHeight = imageHeight ?? 200;
 
   final String loadingText;
+  final int imageWidth;
+  final int imageHeight;
 
   @override
   State<EmptyStateWidget> createState() => _EmptyStateWidgetState();
@@ -62,8 +68,8 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
             borderRadius: BorderRadius.circular(8.0),
             child: SvgPicture.asset(
               'assets/images/Warning-rafiki.svg',
-              width: 200.0,
-              height: 200.0,
+              width: widget.imageWidth.toDouble(),
+              height: widget.imageHeight.toDouble(),
               fit: BoxFit.contain,
             ),
           ),

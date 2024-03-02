@@ -7,9 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'other_leaders_widget.dart' show OtherLeadersWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,8 +36,6 @@ class OtherLeadersModel extends FlutterFlowModel<OtherLeadersWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Firestore Query - Query a collection] action in otherLeaders widget.
-  List<ExpertiseAreasRecord>? actionQuery;
   // State field(s) for contentURL2 widget.
   FocusNode? contentURL2FocusNode;
   TextEditingController? contentURL2Controller;

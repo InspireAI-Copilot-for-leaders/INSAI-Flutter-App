@@ -21,3 +21,4 @@ export '/other_leaders/other_leaders_widget.dart' show OtherLeadersWidget;
 export '/profile_details/profile_details_widget.dart' show ProfileDetailsWidget;
 export '/post_detailed/post_detailed_widget.dart' show PostDetailedWidget;
 export '/dashboard/dashboard_widget.dart' show DashboardWidget;
+export '/stories_page/stories_page_widget.dart' show StoriesPageWidget;
