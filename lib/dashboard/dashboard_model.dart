@@ -1,6 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/backend/push_notifications/push_notifications_util.dart';
+import '/components/allow_notification_popup_widget.dart';
 import '/components/empty_state_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -9,6 +11,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/permissions_util.dart';
 import 'dashboard_widget.dart' show DashboardWidget;
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -27,6 +30,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
 
   bool createContentDialogVisible = false;
 
+  bool notificationPopupVisible = true;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -36,6 +41,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   late EmptyStateModel emptyStateModel1;
   // Model for emptyState component.
   late EmptyStateModel emptyStateModel2;
+  // Model for Allow_notification_popup component.
+  late AllowNotificationPopupModel allowNotificationPopupModel;
 
   /// Initialization and disposal methods.
 
@@ -43,6 +50,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   void initState(BuildContext context) {
     emptyStateModel1 = createModel(context, () => EmptyStateModel());
     emptyStateModel2 = createModel(context, () => EmptyStateModel());
+    allowNotificationPopupModel =
+        createModel(context, () => AllowNotificationPopupModel());
   }
 
   @override
@@ -50,6 +59,7 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
     unfocusNode.dispose();
     emptyStateModel1.dispose();
     emptyStateModel2.dispose();
+    allowNotificationPopupModel.dispose();
   }
 
   /// Action blocks are added here.

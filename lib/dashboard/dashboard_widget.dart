@@ -1,6 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/backend/push_notifications/push_notifications_util.dart';
+import '/components/allow_notification_popup_widget.dart';
 import '/components/empty_state_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -9,6 +11,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/permissions_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -1420,21 +1423,44 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         24.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Content Analytics',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w600,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily),
-                                          ),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'DASHBOARD_PAGE_Text_ohijnrlp_ON_TAP');
+                                        logFirebaseEvent(
+                                            'Text_trigger_push_notification');
+                                        triggerPushNotification(
+                                          notificationTitle: 'congo',
+                                          notificationText:
+                                              'you clicked the button 2 minutes ago',
+                                          notificationSound: 'default',
+                                          userRefs: [currentUserReference!],
+                                          initialPageName: 'dashboard',
+                                          parameterData: {},
+                                        );
+                                      },
+                                      child: Text(
+                                        'Content Analytics',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
+                                            ),
+                                      ),
                                     ),
                                   ),
                                   wrapWithModel(
@@ -2706,6 +2732,49 @@ class _DashboardWidgetState extends State<DashboardWidget>
                               ],
                             ),
                           ),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (_model.notificationPopupVisible)
+                  Stack(
+                    children: [
+                      Opacity(
+                        opacity: 0.8,
+                        child: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                      ),
+                      wrapWithModel(
+                        model: _model.allowNotificationPopupModel,
+                        updateCallback: () => setState(() {}),
+                        updateOnChange: true,
+                        child: AllowNotificationPopupWidget(
+                          allowAction: () async {
+                            logFirebaseEvent(
+                                'DASHBOARD_Container_k4iuonjj_CALLBACK');
+                            logFirebaseEvent(
+                                'Allow_notification_popup_request_permiss');
+                            await requestPermission(notificationsPermission);
+                            logFirebaseEvent(
+                                'Allow_notification_popup_update_page_sta');
+                            setState(() {
+                              _model.notificationPopupVisible = false;
+                            });
+                          },
+                          denyAction: () async {
+                            logFirebaseEvent(
+                                'DASHBOARD_Container_k4iuonjj_CALLBACK');
+                            logFirebaseEvent(
+                                'Allow_notification_popup_update_page_sta');
+                            setState(() {
+                              _model.notificationPopupVisible = false;
+                            });
+                          },
                         ),
                       ),
                     ],
