@@ -26,3 +26,8 @@ String? formatStringForJson(String input) {
           '"', '\\"'); // Escape double quotes, important for JSON strings
   return output;
 }
+
+DateTime? modifiedDateTime(DateTime inputTimestamp) {
+  DateTime newTimestamp = inputTimestamp.add(Duration(minutes: 2));
+  return newTimestamp;
+}

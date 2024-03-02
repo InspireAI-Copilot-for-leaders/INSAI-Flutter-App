@@ -9,12 +9,13 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -957,21 +958,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                 0.42,
                                                         decoration:
                                                             BoxDecoration(
-                                                          image:
-                                                              DecorationImage(
-                                                            fit: BoxFit.cover,
-                                                            image:
-                                                                Image.network(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                wrapArticleRecord
-                                                                    .metadata
-                                                                    .first
-                                                                    .imageUrl,
-                                                                'https://plus.unsplash.com/premium_photo-1661573098974-7ed22f9b737f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGhvdWdodCUyMGxlYWRlcnNoaXB8ZW58MHx8MHx8fDA%3D',
-                                                              ),
-                                                            ).image,
-                                                          ),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
@@ -979,119 +965,110 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                           border: Border.all(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .primaryBackground,
-                                                            width: 0.0,
+                                                                .primaryText,
+                                                            width: 1.0,
                                                           ),
                                                         ),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      22.0),
-                                                          child: BackdropFilter(
-                                                            filter: ImageFilter
-                                                                .blur(
-                                                              sigmaX: 30.0,
-                                                              sigmaY: 30.0,
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(
-                                                                          12.0),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  12.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
                                                                             4.0),
-                                                                    child:
-                                                                        AutoSizeText(
-                                                                      wrapArticleRecord
-                                                                          .trendKeyword,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      maxLines:
-                                                                          3,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .displaySmall
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Plus Jakarta Sans',
-                                                                            color:
-                                                                                Color(0xFF101213),
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w600,
-                                                                            useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                          ),
-                                                                      minFontSize:
-                                                                          12.0,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                child:
+                                                                    AutoSizeText(
+                                                                  wrapArticleRecord
+                                                                      .trendKeyword,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  maxLines: 3,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .displaySmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: Color(
+                                                                            0xFF101213),
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                      ),
+                                                                  minFontSize:
+                                                                      12.0,
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             8.0,
                                                                             0.0,
                                                                             8.0,
                                                                             0.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Icon(
-                                                                          Icons
-                                                                              .trending_up,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondary,
-                                                                          size:
-                                                                              24.0,
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              4.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            dateTimeFormat('relative',
-                                                                                wrapArticleRecord.metadata.sortedList((e) => dateTimeFormat('relative', e.publishDate!)).first.publishDate!),
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                            style: FlutterFlowTheme.of(context).labelSmall.override(
-                                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                                  color: Color(0xFF57636C),
-                                                                                  fontSize: 12.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .trending_up,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      size:
+                                                                          24.0,
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        dateTimeFormat(
+                                                                            'relative',
+                                                                            wrapArticleRecord.metadata.sortedList((e) => dateTimeFormat('relative', e.publishDate!)).first.publishDate!),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .labelSmall
+                                                                            .override(
+                                                                              fontFamily: 'Plus Jakarta Sans',
+                                                                              color: Color(0xFF57636C),
+                                                                              fontSize: 12.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
                                                         ),
                                                       );
@@ -1437,11 +1414,78 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           notificationTitle: 'congo',
                                           notificationText:
                                               'you clicked the button 2 minutes ago',
+                                          scheduledTime:
+                                              functions.modifiedDateTime(
+                                                  getCurrentTimestamp)!,
                                           notificationSound: 'default',
                                           userRefs: [currentUserReference!],
-                                          initialPageName: 'dashboard',
-                                          parameterData: {},
+                                          initialPageName: 'storiesPage',
+                                          parameterData: {
+                                            'domain':
+                                                'Artificial Intelligence (AI)',
+                                          },
                                         );
+                                      },
+                                      child: Text(
+                                        'Content Analytics',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 16.0, 0.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'DASHBOARD_PAGE_Text_5zcns529_ON_TAP');
+                                        logFirebaseEvent(
+                                            'Text_firestore_query');
+                                        _model.ref = await queryUsersRecordOnce(
+                                          queryBuilder: (usersRecord) =>
+                                              usersRecord.where(
+                                            'email',
+                                            isEqualTo: 'tanisha@panscience.xyz',
+                                          ),
+                                          singleRecord: true,
+                                        ).then((s) => s.firstOrNull);
+                                        logFirebaseEvent(
+                                            'Text_trigger_push_notification');
+                                        triggerPushNotification(
+                                          notificationTitle: 'congo',
+                                          notificationText:
+                                              'you clicked the button 2 minutes ago',
+                                          scheduledTime:
+                                              functions.modifiedDateTime(
+                                                  getCurrentTimestamp)!,
+                                          notificationSound: 'default',
+                                          userRefs: [_model.ref!.reference],
+                                          initialPageName: 'storiesPage',
+                                          parameterData: {
+                                            'domain':
+                                                'Artificial Intelligence (AI)',
+                                          },
+                                        );
+
+                                        setState(() {});
                                       },
                                       child: Text(
                                         'Content Analytics',

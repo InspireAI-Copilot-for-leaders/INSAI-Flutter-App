@@ -589,6 +589,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   : _model.textController3.text,
                               numberOfWords: _model.dropDownValue,
                               uid: currentUserUid,
+                              insight: _model.textController2.text,
+                              contentType: widget.contentType,
                             );
                             if ((_model.contentfromtopic?.succeeded ?? true)) {
                               logFirebaseEvent('Button_update_page_state');
