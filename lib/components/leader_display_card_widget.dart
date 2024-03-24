@@ -42,8 +42,6 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => LeaderDisplayCardModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -55,8 +53,6 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return InkWell(
       splashColor: Colors.transparent,
       focusColor: Colors.transparent,

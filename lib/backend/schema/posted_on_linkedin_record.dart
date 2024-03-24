@@ -47,6 +47,11 @@ class PostedOnLinkedinRecord extends FirestoreRecord {
   int get commentsNumber => _commentsNumber ?? 0;
   bool hasCommentsNumber() => _commentsNumber != null;
 
+  // "reactionRefreshQuota" field.
+  int? _reactionRefreshQuota;
+  int get reactionRefreshQuota => _reactionRefreshQuota ?? 0;
+  bool hasReactionRefreshQuota() => _reactionRefreshQuota != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -56,6 +61,8 @@ class PostedOnLinkedinRecord extends FirestoreRecord {
     _postTitle = snapshotData['postTitle'] as String?;
     _likesNumber = castToType<int>(snapshotData['likesNumber']);
     _commentsNumber = castToType<int>(snapshotData['commentsNumber']);
+    _reactionRefreshQuota =
+        castToType<int>(snapshotData['reactionRefreshQuota']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -105,6 +112,7 @@ Map<String, dynamic> createPostedOnLinkedinRecordData({
   String? postTitle,
   int? likesNumber,
   int? commentsNumber,
+  int? reactionRefreshQuota,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -114,6 +122,7 @@ Map<String, dynamic> createPostedOnLinkedinRecordData({
       'postTitle': postTitle,
       'likesNumber': likesNumber,
       'commentsNumber': commentsNumber,
+      'reactionRefreshQuota': reactionRefreshQuota,
     }.withoutNulls,
   );
 
@@ -131,7 +140,8 @@ class PostedOnLinkedinRecordDocumentEquality
         e1?.postText == e2?.postText &&
         e1?.postTitle == e2?.postTitle &&
         e1?.likesNumber == e2?.likesNumber &&
-        e1?.commentsNumber == e2?.commentsNumber;
+        e1?.commentsNumber == e2?.commentsNumber &&
+        e1?.reactionRefreshQuota == e2?.reactionRefreshQuota;
   }
 
   @override
@@ -141,7 +151,8 @@ class PostedOnLinkedinRecordDocumentEquality
         e?.postText,
         e?.postTitle,
         e?.likesNumber,
-        e?.commentsNumber
+        e?.commentsNumber,
+        e?.reactionRefreshQuota
       ]);
 
   @override

@@ -22,8 +22,10 @@ String? formatStringForJson(String input) {
       .replaceAll('\t', '\\t')
       .replaceAll('\b', '\\b')
       .replaceAll('\f', '\\f')
-      .replaceAll(
-          '"', '\\"'); // Escape double quotes, important for JSON strings
+      .replaceAll('"', '\\"')
+      .replaceAll('(', '\\(')
+      .replaceAll(')', '\\)');
+  ;
   return output;
 }
 

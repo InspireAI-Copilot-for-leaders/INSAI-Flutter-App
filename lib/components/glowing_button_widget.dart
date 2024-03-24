@@ -33,8 +33,6 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GlowingButtonModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -46,8 +44,6 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       height: 100.0,
       constraints: BoxConstraints(

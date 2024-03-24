@@ -204,8 +204,6 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
 
     authManager.handlePhoneAuthStateChanges(context);
     authManager.handlePhoneAuthStateChanges(context);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -379,8 +377,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                         padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 8.0, 24.0, 0.0),
                         child: RichText(
-                          textScaleFactor:
-                              MediaQuery.of(context).textScaleFactor,
+                          textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
                             children: [
                               TextSpan(
@@ -492,8 +489,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: RichText(
-                            textScaleFactor:
-                                MediaQuery.of(context).textScaleFactor,
+                            textScaler: MediaQuery.of(context).textScaler,
                             text: TextSpan(
                               children: [
                                 TextSpan(

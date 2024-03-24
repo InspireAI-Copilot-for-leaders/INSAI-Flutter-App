@@ -40,8 +40,6 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => EmptyStateModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -53,8 +51,6 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(

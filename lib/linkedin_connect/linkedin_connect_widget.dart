@@ -71,8 +71,6 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
         );
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -84,8 +82,6 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -188,10 +184,6 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                       context.mounted,
                                       ignoreRedirect: true,
                                     );
-                                  } else {
-                                    logFirebaseEvent(
-                                        'IconButton_close_dialog,_drawer,_etc');
-                                    Navigator.pop(context);
                                   }
                                 },
                               ),

@@ -47,8 +47,6 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
     _model.textController4 ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.contentVoice, ''));
     _model.textFieldFocusNode4 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -60,8 +58,6 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,

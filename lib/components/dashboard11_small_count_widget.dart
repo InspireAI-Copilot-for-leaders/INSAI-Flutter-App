@@ -29,8 +29,6 @@ class _Dashboard11SmallCountWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => Dashboard11SmallCountModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -42,8 +40,6 @@ class _Dashboard11SmallCountWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       height: 100.0,

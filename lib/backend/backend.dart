@@ -14,6 +14,8 @@ import 'schema/broad_domain_record.dart';
 import 'schema/expertise_areas_record.dart';
 import 'schema/article_record.dart';
 import 'schema/to_be_reviewed_record.dart';
+import 'schema/support_tickets_record.dart';
+import 'schema/post_reviews_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,6 +32,8 @@ export 'schema/broad_domain_record.dart';
 export 'schema/expertise_areas_record.dart';
 export 'schema/article_record.dart';
 export 'schema/to_be_reviewed_record.dart';
+export 'schema/support_tickets_record.dart';
+export 'schema/post_reviews_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -373,6 +377,80 @@ Future<List<ToBeReviewedRecord>> queryToBeReviewedRecordOnce({
       singleRecord: singleRecord,
     );
 
+/// Functions to query SupportTicketsRecords (as a Stream and as a Future).
+Future<int> querySupportTicketsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      SupportTicketsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<SupportTicketsRecord>> querySupportTicketsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      SupportTicketsRecord.collection,
+      SupportTicketsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<SupportTicketsRecord>> querySupportTicketsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      SupportTicketsRecord.collection,
+      SupportTicketsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query PostReviewsRecords (as a Stream and as a Future).
+Future<int> queryPostReviewsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      PostReviewsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<PostReviewsRecord>> queryPostReviewsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PostReviewsRecord.collection,
+      PostReviewsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PostReviewsRecord>> queryPostReviewsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PostReviewsRecord.collection,
+      PostReviewsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
 Future<int> queryCollectionCount(
   Query collection, {
   Query Function(Query)? queryBuilder,
@@ -386,7 +464,7 @@ Future<int> queryCollectionCount(
 
   return query.count().get().catchError((err) {
     print('Error querying $collection: $err');
-  }).then((value) => value.count);
+  }).then((value) => value.count!);
 }
 
 Stream<List<T>> queryCollection<T>(
@@ -437,6 +515,21 @@ Future<List<T>> queryCollectionOnce<T>(
       .where((d) => d != null)
       .map((d) => d!)
       .toList());
+}
+
+extension FilterExtension on Filter {
+  Filter filterIn(String field, List? list) => (list?.isEmpty ?? true)
+      ? Filter(field, whereIn: null)
+      : Filter(field, whereIn: list);
+
+  Filter filterNotIn(String field, List? list) => (list?.isEmpty ?? true)
+      ? Filter(field, whereNotIn: null)
+      : Filter(field, whereNotIn: list);
+
+  Filter filterArrayContainsAny(String field, List? list) =>
+      (list?.isEmpty ?? true)
+          ? Filter(field, arrayContainsAny: null)
+          : Filter(field, arrayContainsAny: list);
 }
 
 extension QueryExtension on Query {

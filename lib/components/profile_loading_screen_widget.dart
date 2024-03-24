@@ -36,8 +36,6 @@ class _ProfileLoadingScreenWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfileLoadingScreenModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -49,8 +47,6 @@ class _ProfileLoadingScreenWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(

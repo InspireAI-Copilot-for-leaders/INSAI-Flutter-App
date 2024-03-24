@@ -35,52 +35,45 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('BRAND_VOICE_brandVoice_ON_INIT_STATE');
-      final firestoreBatch = FirebaseFirestore.instance.batch();
-      try {
+      logFirebaseEvent('brandVoice_backend_call');
+      _model.profilePicture =
+          await LinkedInDataGroup.linkedinProfilePictureCall.call(
+        authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+      );
+      if ((_model.profilePicture?.succeeded ?? true)) {
         logFirebaseEvent('brandVoice_backend_call');
-        _model.profilePicture =
-            await LinkedInDataGroup.linkedinProfilePictureCall.call(
-          authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
-        );
-        if ((_model.profilePicture?.succeeded ?? true)) {
-          logFirebaseEvent('brandVoice_backend_call');
 
-          firestoreBatch.update(currentUserReference!, {
-            ...createUsersRecordData(
-              linkedinUrn:
-                  'urn:li:person:${currentUserDocument?.linkedinDetails?.id}',
-            ),
-            ...mapToFirestore(
-              {
-                'profilePictureLinks': LinkedInDataGroup
-                    .linkedinProfilePictureCall
-                    .profilePictureList(
-                  (_model.profilePicture?.jsonBody ?? ''),
-                ),
-              },
-            ),
-          });
-        }
+        await currentUserReference!.update({
+          ...createUsersRecordData(
+            linkedinUrn:
+                'urn:li:person:${currentUserDocument?.linkedinDetails?.id}',
+          ),
+          ...mapToFirestore(
+            {
+              'profilePictureLinks': LinkedInDataGroup
+                  .linkedinProfilePictureCall
+                  .profilePictureList(
+                (_model.profilePicture?.jsonBody ?? ''),
+              ),
+            },
+          ),
+        });
+      }
+      logFirebaseEvent('brandVoice_backend_call');
+      _model.firstConnectionSize =
+          await LinkedInDataGroup.firstDegreeConnectionsSizeCall.call(
+        authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+        personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
+      );
+      if ((_model.firstConnectionSize?.succeeded ?? true)) {
         logFirebaseEvent('brandVoice_backend_call');
-        _model.firstConnectionSize =
-            await LinkedInDataGroup.firstDegreeConnectionsSizeCall.call(
-          authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
-          personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
-        );
-        if ((_model.firstConnectionSize?.succeeded ?? true)) {
-          logFirebaseEvent('brandVoice_backend_call');
 
-          firestoreBatch.update(
-              currentUserReference!,
-              createUsersRecordData(
-                firstDegreeConnectionsSize: getJsonField(
-                  (_model.firstConnectionSize?.jsonBody ?? ''),
-                  r'''$.firstDegreeSize''',
-                ),
-              ));
-        }
-      } finally {
-        await firestoreBatch.commit();
+        await currentUserReference!.update(createUsersRecordData(
+          firstDegreeConnectionsSize:
+              LinkedInDataGroup.firstDegreeConnectionsSizeCall.connects(
+            (_model.firstConnectionSize?.jsonBody ?? ''),
+          ),
+        ));
       }
     });
 
@@ -90,10 +83,11 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
     _model.contentURL3Controller ??= TextEditingController();
     _model.contentURL3FocusNode ??= FocusNode();
 
-    _model.contentURL1Controller ??= TextEditingController();
-    _model.contentURL1FocusNode ??= FocusNode();
+    _model.contentURL1Controller1 ??= TextEditingController();
+    _model.contentURL1FocusNode1 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    _model.contentURL1Controller2 ??= TextEditingController();
+    _model.contentURL1FocusNode2 ??= FocusNode();
   }
 
   @override
@@ -105,8 +99,6 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -184,10 +176,23 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                   ),
                   Align(
                     alignment: AlignmentDirectional(1.0, 0.0),
-                    child: Icon(
-                      Icons.contact_support_outlined,
-                      color: FlutterFlowTheme.of(context).secondary,
-                      size: 24.0,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'BRAND_VOICE_PAGE_Icon_3vp9cvr8_ON_TAP');
+                        logFirebaseEvent('Icon_navigate_to');
+
+                        context.pushNamed('support');
+                      },
+                      child: Icon(
+                        Icons.contact_support_outlined,
+                        color: FlutterFlowTheme.of(context).secondary,
+                        size: 24.0,
+                      ),
                     ),
                   ),
                 ],
@@ -264,327 +269,627 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                       ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 12.0, 0.0, 0.0),
-                                child: Text(
-                                  'URL of content written by you',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelLargeFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLargeFamily),
-                                      ),
-                                ),
-                              ),
-                              if (_model.contentUrlFields == '2')
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 8.0, 0.0, 0.0),
-                                  child: TextFormField(
-                                    controller: _model.contentURL2Controller,
-                                    focusNode: _model.contentURL2FocusNode,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      hintText:
-                                          'We\'ll automatically detect your voice',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily,
-                                            fontSize: 12.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily),
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFE0E3E7),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFF5A5D5D),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 0.0, 16.0, 0.0),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
-                                        ),
-                                    validator: _model
-                                        .contentURL2ControllerValidator
-                                        .asValidator(context),
-                                  ),
-                                ),
-                              if (_model.contentUrlFields == '3')
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 8.0, 0.0, 0.0),
-                                  child: TextFormField(
-                                    controller: _model.contentURL3Controller,
-                                    focusNode: _model.contentURL3FocusNode,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      hintText:
-                                          'We\'ll automatically detect your voice',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily,
-                                            fontSize: 12.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily),
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFE0E3E7),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFF5A5D5D),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 0.0, 16.0, 0.0),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
-                                        ),
-                                    validator: _model
-                                        .contentURL3ControllerValidator
-                                        .asValidator(context),
-                                  ),
-                                ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
-                                child: TextFormField(
-                                  controller: _model.contentURL1Controller,
-                                  focusNode: _model.contentURL1FocusNode,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText:
-                                        'We\'ll automatically detect your voice',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMediumFamily,
-                                          fontSize: 12.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMediumFamily),
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFE0E3E7),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(24.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFF5A5D5D),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(24.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(24.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(24.0),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
-                                      ),
-                                  validator: _model
-                                      .contentURL1ControllerValidator
-                                      .asValidator(context),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 8.0, 8.0, 0.0),
-                                child: Row(
+                              if (MediaQuery.sizeOf(context).width > 500.0)
+                                Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      '+ Add Another',
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12.0, 12.0, 0.0, 0.0),
+                                      child: Text(
+                                        'URL of content written by you',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLargeFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLargeFamily),
+                                            ),
+                                      ),
+                                    ),
+                                    if (_model.contentUrlFields == '2')
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 0.0, 0.0),
+                                        child: TextFormField(
+                                          controller:
+                                              _model.contentURL2Controller,
+                                          focusNode:
+                                              _model.contentURL2FocusNode,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                'We\'ll automatically detect your voice',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily,
+                                                      fontSize: 12.0,
+                                                      useGoogleFonts: GoogleFonts
+                                                              .asMap()
+                                                          .containsKey(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMediumFamily),
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0xFFE0E3E7),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0xFF5A5D5D),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 16.0, 0.0),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                          validator: _model
+                                              .contentURL2ControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    if (_model.contentUrlFields == '3')
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 0.0, 0.0),
+                                        child: TextFormField(
+                                          controller:
+                                              _model.contentURL3Controller,
+                                          focusNode:
+                                              _model.contentURL3FocusNode,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                'We\'ll automatically detect your voice',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily,
+                                                      fontSize: 12.0,
+                                                      useGoogleFonts: GoogleFonts
+                                                              .asMap()
+                                                          .containsKey(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMediumFamily),
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0xFFE0E3E7),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0xFF5A5D5D),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 16.0, 0.0),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                          validator: _model
+                                              .contentURL3ControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 8.0, 0.0, 0.0),
+                                      child: TextFormField(
+                                        controller:
+                                            _model.contentURL1Controller1,
+                                        focusNode: _model.contentURL1FocusNode1,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          hintText:
+                                              'We\'ll automatically detect your voice',
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily,
+                                                fontSize: 12.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMediumFamily),
+                                              ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xFFE0E3E7),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xFF5A5D5D),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                          contentPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
+                                            ),
+                                        validator: _model
+                                            .contentURL1Controller1Validator
+                                            .asValidator(context),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 8.0, 8.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '+ Add Another',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMediumFamily),
+                                                ),
+                                          ),
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: 'Detect',
+                                            options: FFButtonOptions(
+                                              height: 20.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmallFamily,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        fontSize: 12.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily),
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 12.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Your content voice',
+                                      textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .override(
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily,
+                                                    .labelLargeFamily,
                                             color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            fontSize: 12.0,
+                                                .primaryText,
+                                            fontSize: 14.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily),
+                                                        .labelLargeFamily),
                                           ),
                                     ),
-                                    FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
-                                      },
-                                      text: 'Detect',
-                                      options: FFButtonOptions(
-                                        height: 20.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: TextFormField(
+                                      controller: _model.contentURL1Controller2,
+                                      focusNode: _model.contentURL1FocusNode2,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        hintText: 'We\'ll write in this voice',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .titleSmallFamily,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .labelMediumFamily,
                                               fontSize: 12.0,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
                                                   .containsKey(
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .titleSmallFamily),
+                                                          .labelMediumFamily),
                                             ),
-                                        elevation: 3.0,
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFE0E3E7),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFF5A5D5D),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        contentPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                16.0, 0.0, 16.0, 0.0),
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
+                                          ),
+                                      validator: _model
+                                          .contentURL1Controller2Validator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 8.0, 8.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'BRAND_VOICE_PAGE_ADD_BTN_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Button_update_page_state');
+                                            setState(() {
+                                              _model.typedVoice = _model
+                                                  .contentURL1Controller2.text;
+                                            });
+                                            logFirebaseEvent(
+                                                'Button_clear_text_fields_pin_codes');
+                                            setState(() {
+                                              _model.contentURL1Controller2
+                                                  ?.clear();
+                                            });
+                                          },
+                                          text: 'Add',
+                                          options: FFButtonOptions(
+                                            height: 20.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmallFamily,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      fontSize: 12.0,
+                                                      useGoogleFonts: GoogleFonts
+                                                              .asMap()
+                                                          .containsKey(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily),
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  if (_model.typedVoice != null &&
+                                      _model.typedVoice != '')
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 12.0, 0.0, 0.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 12.0, 12.0, 12.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Voice added by you',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 12.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 8.0, 0.0, 0.0),
+                                                child: Text(
+                                                  'Hello World',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                ],
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -723,6 +1028,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                               _model.selectedVoice =
                                                   listViewBrandVoicesRecord
                                                       .voice;
+                                              _model.typedVoice = null;
                                             });
                                           },
                                           child: Card(
@@ -815,15 +1121,28 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                         onPressed: () async {
                           logFirebaseEvent(
                               'BRAND_VOICE_PAGE_CONTINUE_BTN_ON_TAP');
-                          logFirebaseEvent('Button_backend_call');
+                          if (_model.typedVoice != null &&
+                              _model.typedVoice != '') {
+                            logFirebaseEvent('Button_backend_call');
 
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            contentVoice: _model.selectedVoice,
-                          ));
-                          logFirebaseEvent('Button_navigate_to');
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              contentVoice: _model.typedVoice,
+                            ));
+                            logFirebaseEvent('Button_navigate_to');
 
-                          context.pushNamed('otherLeaders');
+                            context.pushNamed('otherLeaders');
+                          } else {
+                            logFirebaseEvent('Button_backend_call');
+
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              contentVoice: _model.selectedVoice,
+                            ));
+                            logFirebaseEvent('Button_navigate_to');
+
+                            context.pushNamed('otherLeaders');
+                          }
                         },
                         text: 'Continue',
                         options: FFButtonOptions(

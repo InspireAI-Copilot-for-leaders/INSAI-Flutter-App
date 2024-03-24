@@ -27,8 +27,6 @@ class _NotiWidgetState extends State<NotiWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NotiModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -40,8 +38,6 @@ class _NotiWidgetState extends State<NotiWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
       child: AnimatedContainer(

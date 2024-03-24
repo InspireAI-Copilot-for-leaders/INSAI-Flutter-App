@@ -1,3 +1,4 @@
+import '/custom_code/actions/index.dart' as actions;
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
   await initFirebase();
+
+  // Start initial custom actions code
+  await actions.initOneSignal();
+  // End initial custom actions code
 
   await FlutterFlowTheme.initialize();
 
@@ -104,6 +109,7 @@ class _MyAppState extends State<MyApp> {
           trackVisibility: MaterialStateProperty.all(false),
           interactive: false,
         ),
+        useMaterial3: false,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -112,6 +118,7 @@ class _MyAppState extends State<MyApp> {
           trackVisibility: MaterialStateProperty.all(false),
           interactive: false,
         ),
+        useMaterial3: false,
       ),
       themeMode: _themeMode,
       routerConfig: _router,

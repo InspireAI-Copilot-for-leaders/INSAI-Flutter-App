@@ -38,8 +38,6 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
 
     _model.contentURL3Controller ??= TextEditingController();
     _model.contentURL3FocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -51,8 +49,6 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -131,10 +127,23 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                   ),
                   Align(
                     alignment: AlignmentDirectional(1.0, 0.0),
-                    child: Icon(
-                      Icons.contact_support_outlined,
-                      color: FlutterFlowTheme.of(context).secondary,
-                      size: 24.0,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'OTHER_LEADERS_PAGE_Icon_ip8otd4j_ON_TAP');
+                        logFirebaseEvent('Icon_navigate_to');
+
+                        context.pushNamed('support');
+                      },
+                      child: Icon(
+                        Icons.contact_support_outlined,
+                        color: FlutterFlowTheme.of(context).secondary,
+                        size: 24.0,
+                      ),
                     ),
                   ),
                 ],

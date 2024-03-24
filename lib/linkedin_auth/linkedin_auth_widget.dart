@@ -1,12 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
-import '/backend/schema/structs/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -48,89 +46,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
-      logFirebaseEvent('linkedinAuth_backend_call');
-      _model.linkedintokens = await LinkedinTokensCall.call(
-        authCodeRecieved: widget.code,
-      );
-      if ((_model.linkedintokens?.succeeded ?? true)) {
-        logFirebaseEvent('linkedinAuth_backend_call');
-
-        await currentUserReference!.update(createUsersRecordData(
-          linkedinAccess: getJsonField(
-            (_model.linkedintokens?.jsonBody ?? ''),
-            r'''$.access_token''',
-          ).toString().toString(),
-          linkedinRefresh: getJsonField(
-            (_model.linkedintokens?.jsonBody ?? ''),
-            r'''$.refresh_token''',
-          ).toString().toString(),
-        ));
-        logFirebaseEvent('linkedinAuth_backend_call');
-        _model.lIprofileDetails =
-            await LinkedInDataGroup.linkedinProfileDetailsCall.call(
-          authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
-        );
-        if ((_model.lIprofileDetails?.succeeded ?? true)) {
-          logFirebaseEvent('linkedinAuth_backend_call');
-
-          await currentUserReference!.update(createUsersRecordData(
-            linkedinDetails: updateLinkedinDetailsAuthStruct(
-              LinkedinDetailsAuthStruct.maybeFromMap(
-                  (_model.lIprofileDetails?.jsonBody ?? '')),
-              clearUnsetFields: false,
-            ),
-          ));
-          logFirebaseEvent('linkedinAuth_backend_call');
-          _model.getExpertiseWorflow =
-              await ExpertiseOfPersonProxycurlCall.call(
-            linkedinUrl:
-                'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
-            uid: currentUserUid,
-          );
-          if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
-            logFirebaseEvent('linkedinAuth_update_page_state');
-            setState(() {
-              _model.isLoading = false;
-            });
-          } else {
-            logFirebaseEvent('linkedinAuth_navigate_to');
-
-            context.goNamed(
-              'linkedinConnect',
-              queryParameters: {
-                'connectSuccess': serializeParam(
-                  false,
-                  ParamType.bool,
-                ),
-              }.withoutNulls,
-            );
-          }
-        } else {
-          logFirebaseEvent('linkedinAuth_navigate_to');
-
-          context.goNamed(
-            'linkedinConnect',
-            queryParameters: {
-              'connectSuccess': serializeParam(
-                false,
-                ParamType.bool,
-              ),
-            }.withoutNulls,
-          );
-        }
-      } else {
-        logFirebaseEvent('linkedinAuth_navigate_to');
-
-        context.goNamed(
-          'linkedinConnect',
-          queryParameters: {
-            'connectSuccess': serializeParam(
-              false,
-              ParamType.bool,
-            ),
-          }.withoutNulls,
-        );
-      }
     });
 
     if (!isWeb) {
@@ -144,8 +59,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
 
     _model.contentURL1Controller ??= TextEditingController();
     _model.contentURL1FocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -160,8 +73,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -275,10 +186,23 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                   ),
                   Align(
                     alignment: AlignmentDirectional(1.0, 0.0),
-                    child: Icon(
-                      Icons.contact_support_outlined,
-                      color: FlutterFlowTheme.of(context).secondary,
-                      size: 24.0,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'LINKEDIN_AUTH_PAGE_Icon_4rby4r5s_ON_TAP');
+                        logFirebaseEvent('Icon_navigate_to');
+
+                        context.pushNamed('support');
+                      },
+                      child: Icon(
+                        Icons.contact_support_outlined,
+                        color: FlutterFlowTheme.of(context).secondary,
+                        size: 24.0,
+                      ),
                     ),
                   ),
                 ],
@@ -311,7 +235,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                   24.0, 24.0, 24.0, 0.0),
                               child: SingleChildScrollView(
                                 child: Column(
-                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
@@ -435,7 +359,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                           child: AuthUserStreamWidget(
                                             builder: (context) => Builder(
                                               builder: (context) {
-                                                final expertiseAreas =
+                                                final thoughtLeadershipAre =
                                                     (currentUserDocument
                                                                 ?.thoughtLeadershipAreas
                                                                 ?.toList() ??
@@ -455,69 +379,78 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       VerticalDirection.down,
                                                   clipBehavior: Clip.none,
                                                   children: List.generate(
-                                                      expertiseAreas.length,
-                                                      (expertiseAreasIndex) {
-                                                    final expertiseAreasItem =
-                                                        expertiseAreas[
-                                                            expertiseAreasIndex];
-                                                    return InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        logFirebaseEvent(
-                                                            'LINKEDIN_AUTH_Container_78gbfhp0_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'Container_backend_call');
+                                                      thoughtLeadershipAre
+                                                          .length,
+                                                      (thoughtLeadershipAreIndex) {
+                                                    final thoughtLeadershipAreItem =
+                                                        thoughtLeadershipAre[
+                                                            thoughtLeadershipAreIndex];
+                                                    return Container(
+                                                      height: 40.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(48.0),
+                                                      ),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'LINKEDIN_AUTH_PAGE_Row_l7iwstls_ON_TAP');
+                                                          logFirebaseEvent(
+                                                              'Row_backend_call');
 
-                                                        await currentUserReference!
-                                                            .update({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'thought_leadership_areas':
-                                                                  FieldValue
-                                                                      .arrayRemove([
-                                                                expertiseAreasItem
-                                                              ]),
-                                                              'thought_leadership_areas_mapping':
-                                                                  FieldValue
-                                                                      .arrayRemove([
-                                                                getThoughtLeadershipAreasMappingFirestoreData(
-                                                                  createThoughtLeadershipAreasMappingStruct(
-                                                                    fieldValues: {
-                                                                      'sub_categories':
-                                                                          FieldValue
-                                                                              .arrayRemove([
-                                                                        expertiseAreasItem
-                                                                      ]),
-                                                                    },
-                                                                    clearUnsetFields:
-                                                                        false,
-                                                                  ),
-                                                                  true,
-                                                                )
-                                                              ]),
-                                                            },
-                                                          ),
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                        height: 40.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      48.0),
-                                                        ),
+                                                          await currentUserReference!
+                                                              .update({
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'thought_leadership_areas':
+                                                                    FieldValue
+                                                                        .arrayRemove([
+                                                                  thoughtLeadershipAreItem
+                                                                ]),
+                                                              },
+                                                            ),
+                                                          });
+                                                          logFirebaseEvent(
+                                                              'Row_backend_call');
+
+                                                          await currentUserReference!
+                                                              .update({
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'thought_leadership_areas_mapping':
+                                                                    FieldValue
+                                                                        .arrayRemove([
+                                                                  getThoughtLeadershipAreasMappingFirestoreData(
+                                                                    createThoughtLeadershipAreasMappingStruct(
+                                                                      fieldValues: {
+                                                                        'sub_categories':
+                                                                            FieldValue.arrayRemove([
+                                                                          thoughtLeadershipAreItem
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                    true,
+                                                                  )
+                                                                ]),
+                                                              },
+                                                            ),
+                                                          });
+                                                        },
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
@@ -531,7 +464,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                         12.0,
                                                                         0.0),
                                                                 child: Text(
-                                                                  expertiseAreasItem,
+                                                                  thoughtLeadershipAreItem,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -694,6 +627,15 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     _model.contentURL1Controller
                                                         .text
                                                   ]),
+                                                },
+                                              ),
+                                            });
+                                            logFirebaseEvent(
+                                                'Button_backend_call');
+
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
                                                   'thought_leadership_areas_mapping':
                                                       FieldValue.arrayUnion([
                                                     getThoughtLeadershipAreasMappingFirestoreData(
@@ -1043,6 +985,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                               FieldValue.arrayUnion([
                                                                             wrapExpertiseAreasRecord.expertiseArea
                                                                           ]),
+                                                                          'broad_domains':
+                                                                              FieldValue.arrayUnion([
+                                                                            listViewBroadDomainRecord.broadDomain
+                                                                          ]),
                                                                         },
                                                                       ),
                                                                     });
@@ -1053,6 +999,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                         40.0,
                                                                     decoration:
                                                                         BoxDecoration(
+                                                                      color: valueOrDefault<
+                                                                          Color>(
+                                                                        (currentUserDocument?.thoughtLeadershipAreas?.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
+                                                                            ? FlutterFlowTheme.of(context).secondary
+                                                                            : Colors.transparent,
+                                                                        Colors
+                                                                            .transparent,
+                                                                      ),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               48.0),
@@ -1105,6 +1059,275 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                               },
                                             );
                                           },
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(),
+                                      child: Visibility(
+                                        visible: (currentUserDocument
+                                                        ?.broadDomains
+                                                        ?.toList() ??
+                                                    [])
+                                                .length <
+                                            5,
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => StreamBuilder<
+                                              List<BroadDomainRecord>>(
+                                            stream: queryBroadDomainRecord(
+                                              queryBuilder: (broadDomainRecord) =>
+                                                  broadDomainRecord.whereNotIn(
+                                                      'broad_domain',
+                                                      (currentUserDocument
+                                                              ?.broadDomains
+                                                              ?.toList() ??
+                                                          [])),
+                                              limit: 3,
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    child: SpinKitRipple(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      size: 100.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<BroadDomainRecord>
+                                                  listViewBroadDomainRecordList =
+                                                  snapshot.data!;
+                                              return ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                primary: false,
+                                                shrinkWrap: true,
+                                                scrollDirection: Axis.vertical,
+                                                itemCount:
+                                                    listViewBroadDomainRecordList
+                                                        .length,
+                                                itemBuilder:
+                                                    (context, listViewIndex) {
+                                                  final listViewBroadDomainRecord =
+                                                      listViewBroadDomainRecordList[
+                                                          listViewIndex];
+                                                  return Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 12.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      8.0),
+                                                          child: Text(
+                                                            listViewBroadDomainRecord
+                                                                .broadDomain,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  -1.0, -1.0),
+                                                          child: StreamBuilder<
+                                                              List<
+                                                                  ExpertiseAreasRecord>>(
+                                                            stream:
+                                                                queryExpertiseAreasRecord(
+                                                              parent:
+                                                                  listViewBroadDomainRecord
+                                                                      .reference,
+                                                              limit: 10,
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width:
+                                                                        100.0,
+                                                                    height:
+                                                                        100.0,
+                                                                    child:
+                                                                        SpinKitRipple(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      size:
+                                                                          100.0,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              List<ExpertiseAreasRecord>
+                                                                  wrapExpertiseAreasRecordList =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return Wrap(
+                                                                spacing: 4.0,
+                                                                runSpacing: 4.0,
+                                                                alignment:
+                                                                    WrapAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    WrapCrossAlignment
+                                                                        .start,
+                                                                direction: Axis
+                                                                    .horizontal,
+                                                                runAlignment:
+                                                                    WrapAlignment
+                                                                        .start,
+                                                                verticalDirection:
+                                                                    VerticalDirection
+                                                                        .down,
+                                                                clipBehavior:
+                                                                    Clip.none,
+                                                                children: List.generate(
+                                                                    wrapExpertiseAreasRecordList
+                                                                        .length,
+                                                                    (wrapIndex) {
+                                                                  final wrapExpertiseAreasRecord =
+                                                                      wrapExpertiseAreasRecordList[
+                                                                          wrapIndex];
+                                                                  return InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      logFirebaseEvent(
+                                                                          'LINKEDIN_AUTH_Container_xuuy1erv_ON_TAP');
+                                                                      logFirebaseEvent(
+                                                                          'Container_backend_call');
+
+                                                                      await currentUserReference!
+                                                                          .update({
+                                                                        ...mapToFirestore(
+                                                                          {
+                                                                            'thought_leadership_areas':
+                                                                                FieldValue.arrayUnion([
+                                                                              wrapExpertiseAreasRecord.expertiseArea
+                                                                            ]),
+                                                                            'broad_domains':
+                                                                                FieldValue.arrayUnion([
+                                                                              listViewBroadDomainRecord.broadDomain
+                                                                            ]),
+                                                                          },
+                                                                        ),
+                                                                      });
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          40.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: valueOrDefault<
+                                                                            Color>(
+                                                                          (currentUserDocument?.thoughtLeadershipAreas?.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
+                                                                              ? FlutterFlowTheme.of(context).secondary
+                                                                              : Colors.transparent,
+                                                                          Colors
+                                                                              .transparent,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(48.0),
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondary,
+                                                                          width:
+                                                                              2.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            12.0,
+                                                                            8.0,
+                                                                            12.0,
+                                                                            8.0),
+                                                                        child:
+                                                                            Container(
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              Text(
+                                                                            wrapExpertiseAreasRecord.expertiseArea,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  fontSize: 14.0,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ),

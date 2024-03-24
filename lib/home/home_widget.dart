@@ -149,7 +149,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
         ScaleEffect(
           curve: Curves.elasticOut,
           delay: 0.ms,
-          duration: 1200.ms,
+          duration: 600.ms,
           begin: Offset(0.0, 0.0),
           end: Offset(1.0, 1.0),
         ),
@@ -163,7 +163,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
         ScaleEffect(
           curve: Curves.elasticOut,
           delay: 0.ms,
-          duration: 1200.ms,
+          duration: 600.ms,
           begin: Offset(0.0, 0.0),
           end: Offset(1.0, 1.0),
         ),
@@ -336,8 +336,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
           !anim.applyInitialState),
       this,
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -512,7 +510,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                     .SatisfyingSwitch(
                                                   width: 60.0,
                                                   height: 30.0,
-                                                  size: 20.0,
+                                                  size: 10.0,
                                                   onColor: FlutterFlowTheme.of(
                                                           context)
                                                       .primaryText,
@@ -814,12 +812,15 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               List<ArticleRecord>>(
                                             stream: queryArticleRecord(
                                               queryBuilder: (articleRecord) =>
-                                                  articleRecord.whereIn(
-                                                      'expertise_area',
-                                                      (currentUserDocument
-                                                              ?.thoughtLeadershipAreas
-                                                              ?.toList() ??
-                                                          [])),
+                                                  articleRecord
+                                                      .whereIn(
+                                                          'domain',
+                                                          (currentUserDocument
+                                                                  ?.broadDomains
+                                                                  ?.toList() ??
+                                                              []))
+                                                      .orderBy('scrapped_at',
+                                                          descending: true),
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
@@ -1065,7 +1066,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                 maxLines: 2,
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                      fontSize: 12.0,
+                                                                                      fontSize: 10.0,
                                                                                       fontWeight: FontWeight.w500,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                     ),
@@ -1103,10 +1104,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         ),
                                                         child: Builder(
                                                           builder: (context) {
-                                                            final highlight =
-                                                                discoverContainerArticleRecordList
-                                                                    .take(4)
-                                                                    .toList();
+                                                            final highlight = discoverContainerArticleRecordList
+                                                                .sortedList((e) =>
+                                                                    dateTimeFormat(
+                                                                        'relative',
+                                                                        e.scrappedAt!))
+                                                                .toList()
+                                                                .take(4)
+                                                                .toList();
                                                             return Container(
                                                               width: double
                                                                   .infinity,
@@ -1455,7 +1460,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                   color: valueOrDefault<Color>(
-                                                                                    _model.filteredTabView == 'For You' ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryText,
+                                                                                    _model.filteredTabView == 'For You' ? FlutterFlowTheme.of(context).primaryBackground : FlutterFlowTheme.of(context).secondaryText,
                                                                                     FlutterFlowTheme.of(context).secondaryText,
                                                                                   ),
                                                                                   fontSize: 12.0,
@@ -1482,7 +1487,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                 builder:
                                                                     (context) {
                                                                   final filterTabs =
-                                                                      (currentUserDocument?.thoughtLeadershipAreas?.toList() ??
+                                                                      (currentUserDocument?.broadDomains?.toList() ??
                                                                               [])
                                                                           .toList();
                                                                   return Row(
@@ -1543,7 +1548,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                           color: valueOrDefault<Color>(
-                                                                                            _model.filteredTabView == filterTabsItem ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryText,
+                                                                                            _model.filteredTabView == filterTabsItem ? FlutterFlowTheme.of(context).primaryBackground : FlutterFlowTheme.of(context).secondaryText,
                                                                                             FlutterFlowTheme.of(context).secondaryText,
                                                                                           ),
                                                                                           fontSize: 12.0,
@@ -1576,13 +1581,18 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                   0.0),
                                                       child: Builder(
                                                         builder: (context) {
-                                                          final filteredTabs =
-                                                              discoverContainerArticleRecordList
-                                                                  .where((e) =>
-                                                                      e.expertiseArea ==
-                                                                      _model
-                                                                          .filteredTabView)
-                                                                  .toList();
+                                                          final filteredTabs = discoverContainerArticleRecordList
+                                                              .where((e) =>
+                                                                  e.domain ==
+                                                                  _model
+                                                                      .filteredTabView)
+                                                              .toList()
+                                                              .sortedList((e) =>
+                                                                  dateTimeFormat(
+                                                                      'relative',
+                                                                      e.publishDates
+                                                                          .first))
+                                                              .toList();
                                                           return ListView
                                                               .separated(
                                                             padding:
@@ -1691,29 +1701,24 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                             1.0,
                                                                             0.0),
                                                                         child:
-                                                                            Hero(
-                                                                          tag: filteredTabsItem
-                                                                              .metadata
-                                                                              .first
-                                                                              .imageUrl,
-                                                                          transitionOnUserGestures:
-                                                                              true,
+                                                                            ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(16.0),
                                                                           child:
-                                                                              ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(16.0),
-                                                                            child:
-                                                                                Image.network(
-                                                                              filteredTabsItem.metadata.first.imageUrl,
+                                                                              Image.network(
+                                                                            filteredTabsItem.metadata.first.imageUrl,
+                                                                            width:
+                                                                                56.0,
+                                                                            height:
+                                                                                56.0,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                            errorBuilder: (context, error, stackTrace) =>
+                                                                                Image.asset(
+                                                                              'assets/images/error_image.png',
                                                                               width: 56.0,
                                                                               height: 56.0,
                                                                               fit: BoxFit.cover,
-                                                                              errorBuilder: (context, error, stackTrace) => Image.asset(
-                                                                                'assets/images/error_image.png',
-                                                                                width: 56.0,
-                                                                                height: 56.0,
-                                                                                fit: BoxFit.cover,
-                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
@@ -1761,7 +1766,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                         textAlign: TextAlign.start,
                                                                                         style: FlutterFlowTheme.of(context).labelMedium.override(
                                                                                               fontFamily: 'Plus Jakarta Sans',
-                                                                                              color: Color(0xFF57636C),
+                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
                                                                                               fontSize: 12.0,
                                                                                               fontWeight: FontWeight.w500,
                                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
@@ -1818,7 +1823,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                           builder: (context) {
                                                             final forYou =
                                                                 discoverContainerArticleRecordList
-                                                                    .take(15)
+                                                                    .sortedList(
+                                                                        (e) => e
+                                                                            .articleSummary)
+                                                                    .take(20)
                                                                     .toList();
                                                             return ListView
                                                                 .separated(
@@ -1925,22 +1933,18 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                 1.0,
                                                                                 1.0),
                                                                             child:
-                                                                                Hero(
-                                                                              tag: forYouItem.metadata.first.imageUrl,
-                                                                              transitionOnUserGestures: true,
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(16.0),
-                                                                                child: Image.network(
-                                                                                  forYouItem.metadata.first.imageUrl,
+                                                                                ClipRRect(
+                                                                              borderRadius: BorderRadius.circular(16.0),
+                                                                              child: Image.network(
+                                                                                forYouItem.metadata.first.imageUrl,
+                                                                                width: 56.0,
+                                                                                height: 56.0,
+                                                                                fit: BoxFit.cover,
+                                                                                errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                  'assets/images/error_image.png',
                                                                                   width: 56.0,
                                                                                   height: 56.0,
                                                                                   fit: BoxFit.cover,
-                                                                                  errorBuilder: (context, error, stackTrace) => Image.asset(
-                                                                                    'assets/images/error_image.png',
-                                                                                    width: 56.0,
-                                                                                    height: 56.0,
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ),
@@ -2455,8 +2459,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           12.0,
                                                                           0.0),
                                                                   child: Text(
-                                                                    listViewCreatedPostsRecord
-                                                                        .status,
+                                                                    'Writing your post...',
                                                                     textAlign:
                                                                         TextAlign
                                                                             .end,
@@ -2603,9 +2606,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       (createdPostsRecord) =>
                                                           createdPostsRecord
                                                               .where(
-                                                    'status',
-                                                    isEqualTo: 'Drafts',
-                                                  ),
+                                                                'status',
+                                                                isEqualTo:
+                                                                    'Drafts',
+                                                              )
+                                                              .orderBy(
+                                                                  'time_stamp',
+                                                                  descending:
+                                                                      true),
                                                 ),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
@@ -2663,35 +2671,74 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                           onTap: () async {
                                                             logFirebaseEvent(
                                                                 'HOME_PAGE_listContainer_ON_TAP');
-                                                            logFirebaseEvent(
-                                                                'listContainer_navigate_to');
+                                                            if (listViewCreatedPostsRecord
+                                                                    .content
+                                                                    .length ==
+                                                                1) {
+                                                              logFirebaseEvent(
+                                                                  'listContainer_navigate_to');
 
-                                                            context.pushNamed(
-                                                              'createOrEditPostCopy',
-                                                              queryParameters: {
-                                                                'postText':
-                                                                    serializeParam(
-                                                                  listViewCreatedPostsRecord
-                                                                      .content,
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                                'postRef':
-                                                                    serializeParam(
-                                                                  listViewCreatedPostsRecord
-                                                                      .reference,
-                                                                  ParamType
-                                                                      .DocumentReference,
-                                                                ),
-                                                                'postTitle':
-                                                                    serializeParam(
-                                                                  listViewCreatedPostsRecord
-                                                                      .topic,
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
+                                                              context.pushNamed(
+                                                                'createOrEditPostCopy',
+                                                                queryParameters:
+                                                                    {
+                                                                  'postText':
+                                                                      serializeParam(
+                                                                    listViewCreatedPostsRecord
+                                                                        .content
+                                                                        .first,
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                  'postRef':
+                                                                      serializeParam(
+                                                                    listViewCreatedPostsRecord
+                                                                        .reference,
+                                                                    ParamType
+                                                                        .DocumentReference,
+                                                                  ),
+                                                                  'postTitle':
+                                                                      serializeParam(
+                                                                    listViewCreatedPostsRecord
+                                                                        .topic,
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                              );
+                                                            } else {
+                                                              logFirebaseEvent(
+                                                                  'listContainer_navigate_to');
+
+                                                              context.pushNamed(
+                                                                'createOrEditOneLiner',
+                                                                queryParameters:
+                                                                    {
+                                                                  'postText':
+                                                                      serializeParam(
+                                                                    listViewCreatedPostsRecord
+                                                                        .content,
+                                                                    ParamType
+                                                                        .String,
+                                                                    true,
+                                                                  ),
+                                                                  'postRef':
+                                                                      serializeParam(
+                                                                    listViewCreatedPostsRecord
+                                                                        .reference,
+                                                                    ParamType
+                                                                        .DocumentReference,
+                                                                  ),
+                                                                  'postTitle':
+                                                                      serializeParam(
+                                                                    listViewCreatedPostsRecord
+                                                                        .topic,
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                              );
+                                                            }
                                                           },
                                                           child: Container(
                                                             width: 500.0,
@@ -2760,7 +2807,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 16.0),
                                                                               child: Text(
-                                                                                listViewCreatedPostsRecord.content,
+                                                                                listViewCreatedPostsRecord.content.first,
                                                                                 maxLines: 2,
                                                                                 style: FlutterFlowTheme.of(context).labelMedium.override(
                                                                                       fontFamily: 'Plus Jakarta Sans',
@@ -2853,8 +2900,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           dateTimeFormat(
                                                                               'relative',
                                                                               listViewCreatedPostsRecord.timeStamp!),
-                                                                          style:
-                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              ),
                                                                         ),
                                                                         Container(
                                                                           height:
@@ -3182,8 +3234,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           640.0,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          color: Color(0xFFFAFAFA),
                                         ),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3192,24 +3243,27 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           children: [
                                             Text(
                                               'Coming Soon!',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle: FontStyle.italic,
+                                                    useGoogleFonts: GoogleFonts
+                                                            .asMap()
+                                                        .containsKey(
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyMediumFamily,
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
+                                                                .bodyMediumFamily),
+                                                  ),
                                             ),
                                             Container(
                                               width: 250.0,
@@ -3237,6 +3291,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
                                                           fontSize: 18.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
@@ -3607,222 +3664,232 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(1.0, -1.0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 33.0, 60.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 10.0, 8.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  logFirebaseEvent(
-                                      'HOME_PAGE_Badge_zyo2aimm_ON_TAP');
-                                  if (FFAppState().isNotificationsVisible) {
-                                    logFirebaseEvent('Badge_widget_animation');
-                                    if (animationsMap[
-                                            'containerOnActionTriggerAnimation3'] !=
-                                        null) {
-                                      await animationsMap[
-                                              'containerOnActionTriggerAnimation3']!
-                                          .controller
-                                          .reverse();
+                    if (MediaQuery.sizeOf(context).width > 500.0)
+                      Align(
+                        alignment: AlignmentDirectional(1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 33.0, 60.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 10.0, 8.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'HOME_PAGE_Badge_zyo2aimm_ON_TAP');
+                                    if (FFAppState().isNotificationsVisible) {
+                                      logFirebaseEvent(
+                                          'Badge_widget_animation');
+                                      if (animationsMap[
+                                              'containerOnActionTriggerAnimation3'] !=
+                                          null) {
+                                        await animationsMap[
+                                                'containerOnActionTriggerAnimation3']!
+                                            .controller
+                                            .reverse();
+                                      }
+                                      logFirebaseEvent(
+                                          'Badge_update_app_state');
+                                      setState(() {
+                                        FFAppState().isNotificationsVisible =
+                                            false;
+                                      });
+                                    } else {
+                                      logFirebaseEvent(
+                                          'Badge_update_app_state');
+                                      setState(() {
+                                        FFAppState().isNotificationsVisible =
+                                            true;
+                                      });
+                                      logFirebaseEvent('Badge_wait__delay');
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 100));
+                                      logFirebaseEvent(
+                                          'Badge_widget_animation');
+                                      if (animationsMap[
+                                              'containerOnActionTriggerAnimation3'] !=
+                                          null) {
+                                        await animationsMap[
+                                                'containerOnActionTriggerAnimation3']!
+                                            .controller
+                                            .forward(from: 0.0);
+                                      }
+                                      logFirebaseEvent(
+                                          'Badge_widget_animation');
+                                      if (animationsMap[
+                                              'textOnActionTriggerAnimation1'] !=
+                                          null) {
+                                        animationsMap[
+                                                'textOnActionTriggerAnimation1']!
+                                            .controller
+                                            .forward(from: 0.0);
+                                      }
+                                      logFirebaseEvent(
+                                          'Badge_widget_animation');
+                                      if (animationsMap[
+                                              'textOnActionTriggerAnimation2'] !=
+                                          null) {
+                                        animationsMap[
+                                                'textOnActionTriggerAnimation2']!
+                                            .controller
+                                            .forward(from: 0.0);
+                                      }
                                     }
-                                    logFirebaseEvent('Badge_update_app_state');
-                                    setState(() {
-                                      FFAppState().isNotificationsVisible =
-                                          false;
-                                    });
-                                  } else {
-                                    logFirebaseEvent('Badge_update_app_state');
-                                    setState(() {
-                                      FFAppState().isNotificationsVisible =
-                                          true;
-                                    });
-                                    logFirebaseEvent('Badge_wait__delay');
-                                    await Future.delayed(
-                                        const Duration(milliseconds: 100));
-                                    logFirebaseEvent('Badge_widget_animation');
-                                    if (animationsMap[
-                                            'containerOnActionTriggerAnimation3'] !=
-                                        null) {
-                                      await animationsMap[
-                                              'containerOnActionTriggerAnimation3']!
-                                          .controller
-                                          .forward(from: 0.0);
-                                    }
-                                    logFirebaseEvent('Badge_widget_animation');
-                                    if (animationsMap[
-                                            'textOnActionTriggerAnimation1'] !=
-                                        null) {
-                                      animationsMap[
-                                              'textOnActionTriggerAnimation1']!
-                                          .controller
-                                          .forward(from: 0.0);
-                                    }
-                                    logFirebaseEvent('Badge_widget_animation');
-                                    if (animationsMap[
-                                            'textOnActionTriggerAnimation2'] !=
-                                        null) {
-                                      animationsMap[
-                                              'textOnActionTriggerAnimation2']!
-                                          .controller
-                                          .forward(from: 0.0);
-                                    }
-                                  }
-                                },
-                                child: badges.Badge(
-                                  badgeContent: Text(
-                                    '1',
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily,
-                                          color: Colors.white,
-                                          fontSize: 10.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmallFamily),
-                                        ),
-                                  ),
-                                  showBadge: true,
-                                  shape: badges.BadgeShape.circle,
-                                  badgeColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                  elevation: 4.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      6.0, 8.0, 6.0, 8.0),
-                                  position: badges.BadgePosition.topEnd(),
-                                  animationType:
-                                      badges.BadgeAnimationType.scale,
-                                  toAnimate: true,
-                                  child: FaIcon(
-                                    FontAwesomeIcons.bell,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 28.0,
-                                  ),
-                                ),
-                              ).animateOnPageLoad(
-                                  animationsMap['badgeOnPageLoadAnimation']!),
-                            ),
-                            if (FFAppState().isNotificationsVisible)
-                              Material(
-                                color: Colors.transparent,
-                                elevation: 10.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Container(
-                                    width: 250.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 12.0, 12.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Notifications',
-                                                style:
+                                  },
+                                  child: badges.Badge(
+                                    badgeContent: Text(
+                                      '1',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily,
+                                            color: Colors.white,
+                                            fontSize: 10.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          fontSize: 16.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              ).animateOnActionTrigger(
-                                                animationsMap[
-                                                    'textOnActionTriggerAnimation1']!,
-                                              ),
-                                            ],
+                                                        .titleSmallFamily),
                                           ),
-                                        ),
-                                        wrapWithModel(
-                                          model: _model.emptyStateModel,
-                                          updateCallback: () => setState(() {}),
-                                          child: EmptyStateWidget(
-                                            loadingText:
-                                                'You have no new notifications',
-                                            imageWidth: 100,
-                                            imageHeight: 100,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 12.0),
-                                          child: Text(
-                                            'Mark all as read',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondary,
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMediumFamily),
-                                                ),
-                                          ).animateOnActionTrigger(
-                                            animationsMap[
-                                                'textOnActionTriggerAnimation2']!,
-                                          ),
-                                        ),
-                                      ],
+                                    ),
+                                    showBadge: true,
+                                    shape: badges.BadgeShape.circle,
+                                    badgeColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    elevation: 4.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        6.0, 8.0, 6.0, 8.0),
+                                    position: badges.BadgePosition.topEnd(),
+                                    animationType:
+                                        badges.BadgeAnimationType.scale,
+                                    toAnimate: true,
+                                    child: FaIcon(
+                                      FontAwesomeIcons.bell,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 28.0,
                                     ),
                                   ),
-                                ),
-                              ).animateOnActionTrigger(
-                                animationsMap[
-                                    'containerOnActionTriggerAnimation3']!,
+                                ).animateOnPageLoad(
+                                    animationsMap['badgeOnPageLoadAnimation']!),
                               ),
-                          ],
+                              if (FFAppState().isNotificationsVisible)
+                                Material(
+                                  color: Colors.transparent,
+                                  elevation: 10.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Container(
+                                      width: 250.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 12.0, 12.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'Notifications',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                ).animateOnActionTrigger(
+                                                  animationsMap[
+                                                      'textOnActionTriggerAnimation1']!,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          wrapWithModel(
+                                            model: _model.emptyStateModel,
+                                            updateCallback: () =>
+                                                setState(() {}),
+                                            child: EmptyStateWidget(
+                                              loadingText:
+                                                  'You have no new notifications',
+                                              imageWidth: 100,
+                                              imageHeight: 100,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 12.0),
+                                            child: Text(
+                                              'Mark all as read',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    fontSize: 12.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts: GoogleFonts
+                                                            .asMap()
+                                                        .containsKey(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily),
+                                                  ),
+                                            ).animateOnActionTrigger(
+                                              animationsMap[
+                                                  'textOnActionTriggerAnimation2']!,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation3']!,
+                                ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ).animateOnActionTrigger(

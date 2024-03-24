@@ -20,6 +20,8 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
 
   String? selectedVoice;
 
+  String? typedVoice;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -36,9 +38,13 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
   TextEditingController? contentURL3Controller;
   String? Function(BuildContext, String?)? contentURL3ControllerValidator;
   // State field(s) for contentURL1 widget.
-  FocusNode? contentURL1FocusNode;
-  TextEditingController? contentURL1Controller;
-  String? Function(BuildContext, String?)? contentURL1ControllerValidator;
+  FocusNode? contentURL1FocusNode1;
+  TextEditingController? contentURL1Controller1;
+  String? Function(BuildContext, String?)? contentURL1Controller1Validator;
+  // State field(s) for contentURL1 widget.
+  FocusNode? contentURL1FocusNode2;
+  TextEditingController? contentURL1Controller2;
+  String? Function(BuildContext, String?)? contentURL1Controller2Validator;
 
   /// Initialization and disposal methods.
 
@@ -54,8 +60,11 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
     contentURL3FocusNode?.dispose();
     contentURL3Controller?.dispose();
 
-    contentURL1FocusNode?.dispose();
-    contentURL1Controller?.dispose();
+    contentURL1FocusNode1?.dispose();
+    contentURL1Controller1?.dispose();
+
+    contentURL1FocusNode2?.dispose();
+    contentURL1Controller2?.dispose();
   }
 
   /// Action blocks are added here.

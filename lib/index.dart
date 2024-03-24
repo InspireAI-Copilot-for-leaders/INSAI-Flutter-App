@@ -22,3 +22,13 @@ export '/profile_details/profile_details_widget.dart' show ProfileDetailsWidget;
 export '/post_detailed/post_detailed_widget.dart' show PostDetailedWidget;
 export '/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/stories_page/stories_page_widget.dart' show StoriesPageWidget;
+export '/expertise_area_edit/expertise_area_edit_widget.dart'
+    show ExpertiseAreaEditWidget;
+export '/support/support_widget.dart' show SupportWidget;
+export '/post_review/post_review_widget.dart' show PostReviewWidget;
+export '/create_or_edit_one_liner/create_or_edit_one_liner_widget.dart'
+    show CreateOrEditOneLinerWidget;
+export '/details03_transactions_summary/details03_transactions_summary_widget.dart'
+    show Details03TransactionsSummaryWidget;
+export '/edit_brand_voice/edit_brand_voice_widget.dart'
+    show EditBrandVoiceWidget;

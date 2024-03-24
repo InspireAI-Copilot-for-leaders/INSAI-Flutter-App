@@ -35,8 +35,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
   bool _isKeyboardVisible = false;
-  var hasTextFieldTriggered1 = false;
-  var hasTextFieldTriggered2 = false;
+  var hasButtonTriggered1 = false;
   final animationsMap = {
     'containerOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -94,230 +93,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
         ),
       ],
     ),
-    'textOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1300.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 1300.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 1300.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 1300.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1400.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 1400.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 1400.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 1400.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1500.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 1500.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 1500.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 1500.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textFieldOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: false,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(150.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textFieldOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: false,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(150.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textFieldOnActionTriggerAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(150.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textFieldOnActionTriggerAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(150.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'columnOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(150.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
     'buttonOnActionTriggerAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
+      applyInitialState: false,
       effects: [
-        VisibilityEffect(duration: 1.ms),
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
@@ -404,178 +183,14 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
         FadeEffect(
           curve: Curves.easeOut,
           delay: 0.ms,
-          duration: 600.ms,
+          duration: 400.ms,
           begin: 0.0,
           end: 1.0,
         ),
         BlurEffect(
           curve: Curves.easeOut,
           delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(150.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 2000.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 2000.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 2000.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 2000.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'iconButtonOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 2100.ms),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 2100.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 2100.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'iconButtonOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 2150.ms),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 2150.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 2150.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'iconButtonOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'iconButtonOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'columnOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 2300.ms),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 2300.ms,
-          duration: 800.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 2300.ms,
-          duration: 800.ms,
+          duration: 400.ms,
           begin: Offset(10.0, 10.0),
           end: Offset(0.0, 0.0),
         ),
@@ -590,51 +205,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'auth_signupOrLogin'});
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('AUTH_SIGNUP_OR_LOGIN_auth_signupOrLogin_');
-      logFirebaseEvent('auth_signupOrLogin_wait__delay');
-      await Future.delayed(const Duration(milliseconds: 1600));
-      logFirebaseEvent('auth_signupOrLogin_widget_animation');
-      if (animationsMap['textFieldOnActionTriggerAnimation3'] != null) {
-        animationsMap['textFieldOnActionTriggerAnimation3']!
-            .controller
-            .forward(from: 0.0);
-      }
-      logFirebaseEvent('auth_signupOrLogin_wait__delay');
-      await Future.delayed(const Duration(milliseconds: 100));
-      logFirebaseEvent('auth_signupOrLogin_widget_animation');
-      if (animationsMap['textFieldOnActionTriggerAnimation4'] != null) {
-        animationsMap['textFieldOnActionTriggerAnimation4']!
-            .controller
-            .forward(from: 0.0);
-      }
-      logFirebaseEvent('auth_signupOrLogin_wait__delay');
-      await Future.delayed(const Duration(milliseconds: 100));
-      logFirebaseEvent('auth_signupOrLogin_widget_animation');
-      if (animationsMap['buttonOnActionTriggerAnimation1'] != null) {
-        animationsMap['buttonOnActionTriggerAnimation1']!
-            .controller
-            .forward(from: 0.0);
-      }
-      logFirebaseEvent('auth_signupOrLogin_wait__delay');
-      await Future.delayed(const Duration(milliseconds: 100));
-      logFirebaseEvent('auth_signupOrLogin_widget_animation');
-      if (animationsMap['rowOnActionTriggerAnimation'] != null) {
-        animationsMap['rowOnActionTriggerAnimation']!
-            .controller
-            .forward(from: 0.0);
-      }
-      logFirebaseEvent('auth_signupOrLogin_wait__delay');
-      await Future.delayed(const Duration(milliseconds: 300));
-      logFirebaseEvent('auth_signupOrLogin_widget_animation');
-      if (animationsMap['iconButtonOnActionTriggerAnimation1'] != null) {
-        animationsMap['iconButtonOnActionTriggerAnimation1']!
-            .controller
-            .forward(from: 0.0);
-      }
-    });
-
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
@@ -662,8 +232,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
           !anim.applyInitialState),
       this,
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -833,8 +401,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               ),
                                           minFontSize: 18.0,
                                         ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'textOnPageLoadAnimation1']!),
+                                      ),
                                     ),
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
@@ -865,8 +432,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                             .labelLargeFamily),
                                               ),
                                           minFontSize: 18.0,
-                                        ).animateOnPageLoad(animationsMap[
-                                            'textOnPageLoadAnimation2']!),
+                                        ),
                                       ),
                                     ),
                                     Padding(
@@ -961,8 +527,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             ),
                                           ),
                                         ],
-                                      ).animateOnPageLoad(animationsMap[
-                                          'rowOnPageLoadAnimation1']!),
+                                      ),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -1107,11 +672,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .loginUserEmailControllerValidator
                                                         .asValidator(context),
-                                                  ).animateOnActionTrigger(
-                                                      animationsMap[
-                                                          'textFieldOnActionTriggerAnimation1']!,
-                                                      hasBeenTriggered:
-                                                          hasTextFieldTriggered1),
+                                                  ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
@@ -1266,11 +827,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .loginUserPassControllerValidator
                                                         .asValidator(context),
-                                                  ).animateOnActionTrigger(
-                                                      animationsMap[
-                                                          'textFieldOnActionTriggerAnimation2']!,
-                                                      hasBeenTriggered:
-                                                          hasTextFieldTriggered2),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -1409,9 +966,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .signupUserEmailControllerValidator
                                                         .asValidator(context),
-                                                  ).animateOnActionTrigger(
-                                                    animationsMap[
-                                                        'textFieldOnActionTriggerAnimation3']!,
                                                   ),
                                                 ),
                                                 Padding(
@@ -1567,9 +1121,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     validator: _model
                                                         .signupUserPassControllerValidator
                                                         .asValidator(context),
-                                                  ).animateOnActionTrigger(
-                                                    animationsMap[
-                                                        'textFieldOnActionTriggerAnimation4']!,
                                                   ),
                                                 ),
                                               ],
@@ -1600,9 +1151,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   ),
                                                 ),
                                               ],
-                                            ).animateOnActionTrigger(
-                                              animationsMap[
-                                                  'columnOnActionTriggerAnimation']!,
                                             ),
                                         ],
                                       ),
@@ -1646,6 +1194,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           .signupUserEmailController
                                                           .text,
                                                       isProfileCompleted: false,
+                                                      pushNotifications:
+                                                          createNotificationPopupStruct(
+                                                        notificationPopupVisible:
+                                                            true,
+                                                        clearUnsetFields: false,
+                                                        create: true,
+                                                      ),
                                                     ));
 
                                                 context.goNamedAuth('dashboard',
@@ -1694,9 +1249,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     BorderRadius.circular(12.0),
                                               ),
                                             ).animateOnActionTrigger(
-                                              animationsMap[
-                                                  'buttonOnActionTriggerAnimation1']!,
-                                            ),
+                                                animationsMap[
+                                                    'buttonOnActionTriggerAnimation1']!,
+                                                hasBeenTriggered:
+                                                    hasButtonTriggered1),
                                           if (_model.authType == 'login_email')
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -2051,10 +1607,14 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             if (animationsMap[
                                                     'buttonOnActionTriggerAnimation1'] !=
                                                 null) {
-                                              await animationsMap[
-                                                      'buttonOnActionTriggerAnimation1']!
-                                                  .controller
-                                                  .forward(from: 0.0);
+                                              setState(() =>
+                                                  hasButtonTriggered1 = true);
+                                              SchedulerBinding.instance
+                                                  .addPostFrameCallback((_) async =>
+                                                      await animationsMap[
+                                                              'buttonOnActionTriggerAnimation1']!
+                                                          .controller
+                                                          .forward(from: 0.0));
                                             }
                                           }
                                         },
@@ -2109,9 +1669,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             ),
                                           ],
                                         ),
-                                      ).animateOnActionTrigger(
-                                        animationsMap[
-                                            'rowOnActionTriggerAnimation']!,
                                       ),
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 1.0),
@@ -2185,8 +1742,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               ),
                                             ),
                                           ],
-                                        ).animateOnPageLoad(animationsMap[
-                                            'rowOnPageLoadAnimation2']!),
+                                        ),
                                       ),
                                     ),
                                     Align(
@@ -2232,8 +1788,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       'dashboard',
                                                       context.mounted);
                                                 },
-                                              ).animateOnPageLoad(animationsMap[
-                                                  'iconButtonOnPageLoadAnimation1']!),
+                                              ),
                                             ),
                                           ),
                                           Opacity(
@@ -2272,8 +1827,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       'dashboard',
                                                       context.mounted);
                                                 },
-                                              ).animateOnPageLoad(animationsMap[
-                                                  'iconButtonOnPageLoadAnimation2']!),
+                                              ),
                                             ),
                                           ),
                                           if (_model.authType != 'phone')
@@ -2300,26 +1854,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     logFirebaseEvent(
                                                         'phoneAuthButton_widget_animation');
                                                     if (animationsMap[
-                                                            'textFieldOnActionTriggerAnimation3'] !=
-                                                        null) {
-                                                      animationsMap[
-                                                              'textFieldOnActionTriggerAnimation3']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
-                                                    logFirebaseEvent(
-                                                        'phoneAuthButton_widget_animation');
-                                                    if (animationsMap[
-                                                            'textFieldOnActionTriggerAnimation4'] !=
-                                                        null) {
-                                                      animationsMap[
-                                                              'textFieldOnActionTriggerAnimation4']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
-                                                    logFirebaseEvent(
-                                                        'phoneAuthButton_widget_animation');
-                                                    if (animationsMap[
                                                             'buttonOnActionTriggerAnimation1'] !=
                                                         null) {
                                                       animationsMap[
@@ -2327,37 +1861,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           .controller
                                                           .reverse();
                                                     }
-                                                    logFirebaseEvent(
-                                                        'phoneAuthButton_widget_animation');
-                                                    if (animationsMap[
-                                                            'rowOnActionTriggerAnimation'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'rowOnActionTriggerAnimation']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
                                                   } else {
-                                                    logFirebaseEvent(
-                                                        'phoneAuthButton_widget_animation');
-                                                    if (animationsMap[
-                                                            'textFieldOnActionTriggerAnimation1'] !=
-                                                        null) {
-                                                      animationsMap[
-                                                              'textFieldOnActionTriggerAnimation1']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
-                                                    logFirebaseEvent(
-                                                        'phoneAuthButton_widget_animation');
-                                                    if (animationsMap[
-                                                            'textFieldOnActionTriggerAnimation2'] !=
-                                                        null) {
-                                                      animationsMap[
-                                                              'textFieldOnActionTriggerAnimation2']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
                                                     logFirebaseEvent(
                                                         'phoneAuthButton_widget_animation');
                                                     if (animationsMap[
@@ -2388,16 +1892,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           .controller
                                                           .reverse();
                                                     }
-                                                    logFirebaseEvent(
-                                                        'phoneAuthButton_widget_animation');
-                                                    if (animationsMap[
-                                                            'rowOnActionTriggerAnimation'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'rowOnActionTriggerAnimation']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
                                                   }
 
                                                   logFirebaseEvent(
@@ -2420,30 +1914,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                         .controller
                                                         .forward(from: 0.0);
                                                   }
-                                                  logFirebaseEvent(
-                                                      'phoneAuthButton_widget_animation');
-                                                  if (animationsMap[
-                                                          'columnOnActionTriggerAnimation'] !=
-                                                      null) {
-                                                    animationsMap[
-                                                            'columnOnActionTriggerAnimation']!
-                                                        .controller
-                                                        .forward(from: 0.0);
-                                                  }
-                                                  logFirebaseEvent(
-                                                      'phoneAuthButton_widget_animation');
-                                                  if (animationsMap[
-                                                          'iconButtonOnActionTriggerAnimation2'] !=
-                                                      null) {
-                                                    await animationsMap[
-                                                            'iconButtonOnActionTriggerAnimation2']!
-                                                        .controller
-                                                        .forward(from: 0.0);
-                                                  }
                                                 },
-                                              ).animateOnActionTrigger(
-                                                animationsMap[
-                                                    'iconButtonOnActionTriggerAnimation1']!,
                                               ),
                                             ),
                                           if (_model.authType == 'phone')
@@ -2468,16 +1939,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   logFirebaseEvent(
                                                       'emailAuthButton_widget_animation');
                                                   if (animationsMap[
-                                                          'columnOnActionTriggerAnimation'] !=
-                                                      null) {
-                                                    animationsMap[
-                                                            'columnOnActionTriggerAnimation']!
-                                                        .controller
-                                                        .reverse();
-                                                  }
-                                                  logFirebaseEvent(
-                                                      'emailAuthButton_widget_animation');
-                                                  if (animationsMap[
                                                           'buttonOnActionTriggerAnimation3'] !=
                                                       null) {
                                                     await animationsMap[
@@ -2499,57 +1960,20 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   logFirebaseEvent(
                                                       'emailAuthButton_widget_animation');
                                                   if (animationsMap[
-                                                          'textFieldOnActionTriggerAnimation3'] !=
-                                                      null) {
-                                                    animationsMap[
-                                                            'textFieldOnActionTriggerAnimation3']!
-                                                        .controller
-                                                        .forward(from: 0.0);
-                                                  }
-                                                  logFirebaseEvent(
-                                                      'emailAuthButton_widget_animation');
-                                                  if (animationsMap[
-                                                          'textFieldOnActionTriggerAnimation4'] !=
-                                                      null) {
-                                                    animationsMap[
-                                                            'textFieldOnActionTriggerAnimation4']!
-                                                        .controller
-                                                        .forward(from: 0.0);
-                                                  }
-                                                  logFirebaseEvent(
-                                                      'emailAuthButton_widget_animation');
-                                                  if (animationsMap[
-                                                          'iconButtonOnActionTriggerAnimation1'] !=
-                                                      null) {
-                                                    animationsMap[
-                                                            'iconButtonOnActionTriggerAnimation1']!
-                                                        .controller
-                                                        .forward(from: 0.0);
-                                                  }
-                                                  logFirebaseEvent(
-                                                      'emailAuthButton_widget_animation');
-                                                  if (animationsMap[
-                                                          'rowOnActionTriggerAnimation'] !=
-                                                      null) {
-                                                    animationsMap[
-                                                            'rowOnActionTriggerAnimation']!
-                                                        .controller
-                                                        .forward(from: 0.0);
-                                                  }
-                                                  logFirebaseEvent(
-                                                      'emailAuthButton_widget_animation');
-                                                  if (animationsMap[
                                                           'buttonOnActionTriggerAnimation1'] !=
                                                       null) {
-                                                    await animationsMap[
-                                                            'buttonOnActionTriggerAnimation1']!
-                                                        .controller
-                                                        .forward(from: 0.0);
+                                                    setState(() =>
+                                                        hasButtonTriggered1 =
+                                                            true);
+                                                    SchedulerBinding.instance
+                                                        .addPostFrameCallback((_) async =>
+                                                            await animationsMap[
+                                                                    'buttonOnActionTriggerAnimation1']!
+                                                                .controller
+                                                                .forward(
+                                                                    from: 0.0));
                                                   }
                                                 },
-                                              ).animateOnActionTrigger(
-                                                animationsMap[
-                                                    'iconButtonOnActionTriggerAnimation2']!,
                                               ),
                                             ),
                                         ],
@@ -2578,8 +2002,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       RichText(
-                                        textScaleFactor: MediaQuery.of(context)
-                                            .textScaleFactor,
+                                        textScaler:
+                                            MediaQuery.of(context).textScaler,
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
@@ -2629,9 +2053,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         alignment:
                                             AlignmentDirectional(0.0, 1.0),
                                         child: RichText(
-                                          textScaleFactor:
-                                              MediaQuery.of(context)
-                                                  .textScaleFactor,
+                                          textScaler:
+                                              MediaQuery.of(context).textScaler,
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
@@ -2708,9 +2131,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         alignment:
                                             AlignmentDirectional(0.0, 1.0),
                                         child: RichText(
-                                          textScaleFactor:
-                                              MediaQuery.of(context)
-                                                  .textScaleFactor,
+                                          textScaler:
+                                              MediaQuery.of(context).textScaler,
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
@@ -2763,8 +2185,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         ),
                                       ),
                                     ],
-                                  ).animateOnPageLoad(animationsMap[
-                                      'columnOnPageLoadAnimation']!),
+                                  ),
                                 ),
                               ),
                             ),

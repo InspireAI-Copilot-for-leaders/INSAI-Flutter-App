@@ -37,8 +37,6 @@ class _AllowNotificationPopupWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AllowNotificationPopupModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -50,8 +48,6 @@ class _AllowNotificationPopupWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -89,6 +85,7 @@ class _AllowNotificationPopupWidgetState
                             .headlineLarge
                             .override(
                               fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).primary,
                               fontSize: 24.0,
                               fontWeight: FontWeight.w800,
                               useGoogleFonts:
@@ -105,6 +102,7 @@ class _AllowNotificationPopupWidgetState
                               .bodyLarge
                               .override(
                                 fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).primary,
                                 useGoogleFonts:
                                     GoogleFonts.asMap().containsKey('Poppins'),
                                 lineHeight: 1.5,

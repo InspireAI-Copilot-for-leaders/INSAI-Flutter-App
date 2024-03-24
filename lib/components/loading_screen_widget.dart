@@ -39,8 +39,6 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => LoadingScreenModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -52,8 +50,6 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -104,7 +100,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   iconPadding:
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).secondaryText,
+                  color: Colors.transparent,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily:
                             FlutterFlowTheme.of(context).titleSmallFamily,
@@ -114,7 +110,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
                       ),
                   elevation: 3.0,
                   borderSide: BorderSide(
-                    color: Colors.transparent,
+                    color: FlutterFlowTheme.of(context).primaryText,
                     width: 1.0,
                   ),
                   borderRadius: BorderRadius.circular(8.0),

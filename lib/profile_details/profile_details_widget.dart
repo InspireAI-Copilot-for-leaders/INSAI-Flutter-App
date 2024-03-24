@@ -29,7 +29,6 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'ProfileDetails'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -41,8 +40,6 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -60,7 +57,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
             buttonSize: 60.0,
             icon: Icon(
               Icons.close_rounded,
-              color: FlutterFlowTheme.of(context).tertiary,
+              color: FlutterFlowTheme.of(context).primaryBackground,
               size: 30.0,
             ),
             onPressed: () async {
@@ -138,7 +135,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                 child: Image.asset(
                                   Theme.of(context).brightness ==
                                           Brightness.dark
-                                      ? 'assets/images/@4xff_badgeDesign_dark_small.png'
+                                      ? 'assets/images/Group_847.png'
                                       : 'assets/images/Group_847.png',
                                   width: 100.0,
                                   height: 100.0,
@@ -205,23 +202,19 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                         clipBehavior: Clip.none,
                         children: List.generate(areas.length, (areasIndex) {
                           final areasItem = areas[areasIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: Text(
-                              '#${areasItem}',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineSmall
-                                  .override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0x6BFFFFFF),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey('Plus Jakarta Sans'),
-                                  ),
-                            ),
+                          return Text(
+                            '#${areasItem}',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0x6BFFFFFF),
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w500,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey('Plus Jakarta Sans'),
+                                ),
                           );
                         }),
                       );
@@ -319,7 +312,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
-                                            'Language',
+                                            'Expertise Areas',
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -337,7 +330,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                         ),
                                       ),
                                       Text(
-                                        'English (eng)',
+                                        'Edit (Add or delete)',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -359,102 +352,143 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 8.0, 16.0, 8.0),
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Color(0xFF57636C),
-                                        size: 24.0,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'PROFILE_DETAILS_PAGE_Row_vkjpdr38_ON_TAP');
+                                    logFirebaseEvent('Row_navigate_to');
+
+                                    context.pushNamed('editBrandVoice');
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 12.0, 0.0),
-                                        child: Text(
-                                          'Profile Settings',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFF101213),
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts:
-                                                    GoogleFonts.asMap()
-                                                        .containsKey(
-                                                            'Montserrat'),
-                                              ),
+                                            0.0, 8.0, 16.0, 8.0),
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: Color(0xFF57636C),
+                                          size: 24.0,
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Edit Profile',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF4B39EF),
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w500,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey('Montserrat'),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: Text(
+                                            'Content Voice',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF101213),
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey(
+                                                              'Montserrat'),
+                                                ),
                                           ),
-                                    ),
-                                  ],
+                                        ),
+                                      ),
+                                      Text(
+                                        'Edit Voice',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFF4B39EF),
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts:
+                                                  GoogleFonts.asMap()
+                                                      .containsKey(
+                                                          'Montserrat'),
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 8.0, 16.0, 8.0),
-                                      child: Icon(
-                                        Icons.notifications_active,
-                                        color: Color(0xFF57636C),
-                                        size: 24.0,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'PROFILE_DETAILS_PAGE_Row_uer1fkxg_ON_TAP');
+                                    logFirebaseEvent('Row_navigate_to');
+
+                                    context.pushNamed('support');
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 12.0, 0.0),
-                                        child: Text(
-                                          'Notification Settings',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFF101213),
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts:
-                                                    GoogleFonts.asMap()
-                                                        .containsKey(
-                                                            'Montserrat'),
-                                              ),
+                                            0.0, 8.0, 16.0, 8.0),
+                                        child: Icon(
+                                          Icons.support_agent_sharp,
+                                          color: Color(0xFF57636C),
+                                          size: 24.0,
                                         ),
                                       ),
-                                    ),
-                                    Icon(
-                                      Icons.chevron_right_rounded,
-                                      color: Color(0xFF57636C),
-                                      size: 24.0,
-                                    ),
-                                  ],
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: Text(
+                                            'Raise a Support Ticket',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF101213),
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey(
+                                                              'Montserrat'),
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Raise',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFF4B39EF),
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts:
+                                                  GoogleFonts.asMap()
+                                                      .containsKey(
+                                                          'Montserrat'),
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -513,10 +547,6 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                         context.mounted,
                                         ignoreRedirect: true,
                                       );
-                                    } else {
-                                      logFirebaseEvent(
-                                          'Row_close_dialog,_drawer,_etc');
-                                      Navigator.pop(context);
                                     }
                                   },
                                   child: Row(

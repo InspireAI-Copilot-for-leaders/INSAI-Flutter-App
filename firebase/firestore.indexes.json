@@ -15,6 +15,20 @@
       ]
     },
     {
+      "collectionGroup": "created_posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "time_stamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "article",
       "queryScope": "COLLECTION",
       "fields": [
@@ -24,6 +38,10 @@
         },
         {
           "fieldPath": "scrapped_at",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "article_summary",
           "order": "DESCENDING"
         }
       ]
@@ -36,6 +54,16 @@
       "indexes": [
         {
           "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "postedOnLinkedin",
+      "fieldPath": "postedOn",
+      "indexes": [
+        {
+          "order": "DESCENDING",
           "queryScope": "COLLECTION_GROUP"
         }
       ]

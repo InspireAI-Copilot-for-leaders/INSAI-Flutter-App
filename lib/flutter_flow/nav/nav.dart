@@ -231,6 +231,49 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => StoriesPageWidget(
                 domain: params.getParam('domain', ParamType.String),
               ),
+            ),
+            FFRoute(
+              name: 'expertiseAreaEdit',
+              path: 'expertiseAreaEdit',
+              requireAuth: true,
+              builder: (context, params) => ExpertiseAreaEditWidget(),
+            ),
+            FFRoute(
+              name: 'support',
+              path: 'support',
+              builder: (context, params) => SupportWidget(),
+            ),
+            FFRoute(
+              name: 'postReview',
+              path: 'postReview',
+              builder: (context, params) => PostReviewWidget(
+                postRef: params.getParam('postRef', ParamType.DocumentReference,
+                    false, ['users', 'created_posts']),
+              ),
+            ),
+            FFRoute(
+              name: 'createOrEditOneLiner',
+              path: 'createOrEditOneLiner',
+              requireAuth: true,
+              builder: (context, params) => CreateOrEditOneLinerWidget(
+                postText:
+                    params.getParam<String>('postText', ParamType.String, true),
+                postRef: params.getParam('postRef', ParamType.DocumentReference,
+                    false, ['users', 'created_posts']),
+                postTitle: params.getParam('postTitle', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'Details03TransactionsSummary',
+              path: 'details03TransactionsSummary',
+              builder: (context, params) =>
+                  Details03TransactionsSummaryWidget(),
+            ),
+            FFRoute(
+              name: 'editBrandVoice',
+              path: 'editBrandVoice',
+              requireAuth: true,
+              builder: (context, params) => EditBrandVoiceWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

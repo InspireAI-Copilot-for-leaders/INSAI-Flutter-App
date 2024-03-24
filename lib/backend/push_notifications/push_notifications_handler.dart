@@ -178,6 +178,21 @@ final parametersBuilderMap =
           'domain': getParameter<String>(data, 'domain'),
         },
       ),
+  'expertiseAreaEdit': ParameterData.none(),
+  'support': ParameterData.none(),
+  'postReview': (data) async => ParameterData(
+        allParams: {
+          'postRef': getParameter<DocumentReference>(data, 'postRef'),
+        },
+      ),
+  'createOrEditOneLiner': (data) async => ParameterData(
+        allParams: {
+          'postRef': getParameter<DocumentReference>(data, 'postRef'),
+          'postTitle': getParameter<String>(data, 'postTitle'),
+        },
+      ),
+  'Details03TransactionsSummary': ParameterData.none(),
+  'editBrandVoice': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

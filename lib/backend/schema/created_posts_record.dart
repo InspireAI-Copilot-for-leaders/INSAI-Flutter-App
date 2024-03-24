@@ -27,23 +27,29 @@ class CreatedPostsRecord extends FirestoreRecord {
   String get topic => _topic ?? '';
   bool hasTopic() => _topic != null;
 
-  // "content" field.
-  String? _content;
-  String get content => _content ?? '';
-  bool hasContent() => _content != null;
-
   // "time_stamp" field.
   DateTime? _timeStamp;
   DateTime? get timeStamp => _timeStamp;
   bool hasTimeStamp() => _timeStamp != null;
+
+  // "content_review" field.
+  String? _contentReview;
+  String get contentReview => _contentReview ?? '';
+  bool hasContentReview() => _contentReview != null;
+
+  // "content" field.
+  List<String>? _content;
+  List<String> get content => _content ?? const [];
+  bool hasContent() => _content != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _status = snapshotData['status'] as String?;
     _topic = snapshotData['topic'] as String?;
-    _content = snapshotData['content'] as String?;
     _timeStamp = snapshotData['time_stamp'] as DateTime?;
+    _contentReview = snapshotData['content_review'] as String?;
+    _content = getDataList(snapshotData['content']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -88,15 +94,15 @@ class CreatedPostsRecord extends FirestoreRecord {
 Map<String, dynamic> createCreatedPostsRecordData({
   String? status,
   String? topic,
-  String? content,
   DateTime? timeStamp,
+  String? contentReview,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'status': status,
       'topic': topic,
-      'content': content,
       'time_stamp': timeStamp,
+      'content_review': contentReview,
     }.withoutNulls,
   );
 
@@ -109,15 +115,17 @@ class CreatedPostsRecordDocumentEquality
 
   @override
   bool equals(CreatedPostsRecord? e1, CreatedPostsRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.status == e2?.status &&
         e1?.topic == e2?.topic &&
-        e1?.content == e2?.content &&
-        e1?.timeStamp == e2?.timeStamp;
+        e1?.timeStamp == e2?.timeStamp &&
+        e1?.contentReview == e2?.contentReview &&
+        listEquality.equals(e1?.content, e2?.content);
   }
 
   @override
   int hash(CreatedPostsRecord? e) => const ListEquality()
-      .hash([e?.status, e?.topic, e?.content, e?.timeStamp]);
+      .hash([e?.status, e?.topic, e?.timeStamp, e?.contentReview, e?.content]);
 
   @override
   bool isValidKey(Object? o) => o is CreatedPostsRecord;

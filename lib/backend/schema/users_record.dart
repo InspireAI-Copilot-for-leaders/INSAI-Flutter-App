@@ -127,10 +127,21 @@ class UsersRecord extends FirestoreRecord {
   bool hasThoughtLeadershipAreasMapping() =>
       _thoughtLeadershipAreasMapping != null;
 
-  // "pushNotiSubs" field.
-  bool? _pushNotiSubs;
-  bool get pushNotiSubs => _pushNotiSubs ?? false;
-  bool hasPushNotiSubs() => _pushNotiSubs != null;
+  // "pushNotifications" field.
+  NotificationPopupStruct? _pushNotifications;
+  NotificationPopupStruct get pushNotifications =>
+      _pushNotifications ?? NotificationPopupStruct();
+  bool hasPushNotifications() => _pushNotifications != null;
+
+  // "totalLikes" field.
+  int? _totalLikes;
+  int get totalLikes => _totalLikes ?? 0;
+  bool hasTotalLikes() => _totalLikes != null;
+
+  // "totalComments" field.
+  int? _totalComments;
+  int get totalComments => _totalComments ?? 0;
+  bool hasTotalComments() => _totalComments != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -162,7 +173,10 @@ class UsersRecord extends FirestoreRecord {
       snapshotData['thought_leadership_areas_mapping'],
       ThoughtLeadershipAreasMappingStruct.fromMap,
     );
-    _pushNotiSubs = snapshotData['pushNotiSubs'] as bool?;
+    _pushNotifications =
+        NotificationPopupStruct.maybeFromMap(snapshotData['pushNotifications']);
+    _totalLikes = castToType<int>(snapshotData['totalLikes']);
+    _totalComments = castToType<int>(snapshotData['totalComments']);
   }
 
   static CollectionReference get collection =>
@@ -215,7 +229,9 @@ Map<String, dynamic> createUsersRecordData({
   String? linkedinRefresh,
   int? linkedinAccessLifetime,
   int? linkedinRefreshLifetime,
-  bool? pushNotiSubs,
+  NotificationPopupStruct? pushNotifications,
+  int? totalLikes,
+  int? totalComments,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -235,13 +251,19 @@ Map<String, dynamic> createUsersRecordData({
       'linkedinRefresh': linkedinRefresh,
       'linkedinAccessLifetime': linkedinAccessLifetime,
       'linkedinRefreshLifetime': linkedinRefreshLifetime,
-      'pushNotiSubs': pushNotiSubs,
+      'pushNotifications': NotificationPopupStruct().toMap(),
+      'totalLikes': totalLikes,
+      'totalComments': totalComments,
     }.withoutNulls,
   );
 
   // Handle nested data for "linkedin_details" field.
   addLinkedinDetailsAuthStructData(
       firestoreData, linkedinDetails, 'linkedin_details');
+
+  // Handle nested data for "pushNotifications" field.
+  addNotificationPopupStructData(
+      firestoreData, pushNotifications, 'pushNotifications');
 
   return firestoreData;
 }
@@ -276,7 +298,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.linkedinRefreshLifetime == e2?.linkedinRefreshLifetime &&
         listEquality.equals(e1?.thoughtLeadershipAreasMapping,
             e2?.thoughtLeadershipAreasMapping) &&
-        e1?.pushNotiSubs == e2?.pushNotiSubs;
+        e1?.pushNotifications == e2?.pushNotifications &&
+        e1?.totalLikes == e2?.totalLikes &&
+        e1?.totalComments == e2?.totalComments;
   }
 
   @override
@@ -302,7 +326,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.linkedinAccessLifetime,
         e?.linkedinRefreshLifetime,
         e?.thoughtLeadershipAreasMapping,
-        e?.pushNotiSubs
+        e?.pushNotifications,
+        e?.totalLikes,
+        e?.totalComments
       ]);
 
   @override

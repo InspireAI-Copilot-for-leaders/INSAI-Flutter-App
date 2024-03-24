@@ -147,8 +147,6 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'forgot_pass'});
     _model.forgotPassEmailController ??= TextEditingController();
     _model.forgotPassEmailFocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -160,8 +158,6 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -303,8 +299,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: RichText(
-                            textScaleFactor:
-                                MediaQuery.of(context).textScaleFactor,
+                            textScaler: MediaQuery.of(context).textScaler,
                             text: TextSpan(
                               children: [
                                 TextSpan(
@@ -342,8 +337,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                         padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 8.0, 24.0, 0.0),
                         child: RichText(
-                          textScaleFactor:
-                              MediaQuery.of(context).textScaleFactor,
+                          textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
                             children: [
                               TextSpan(

@@ -4,64 +4,60 @@ admin.initializeApp();
 
 const kFcmTokensCollection = "fcm_tokens";
 const kPushNotificationsCollection = "ff_push_notifications";
-const kUserPushNotificationsCollection = "ff_user_push_notifications";
 const kSchedulerIntervalMinutes = 1;
 const firestore = admin.firestore();
 
 const kPushNotificationRuntimeOpts = {
   timeoutSeconds: 540,
-  memory: "2GB",
+  memory: "2GB"
 };
 
-exports.addFcmToken = functions
-  .region("asia-south1")
-  .https.onCall(async (data, context) => {
-    if (!context.auth) {
-      return "Failed: Unauthenticated calls are not allowed.";
+exports.addFcmToken = functions.region("asia-south1").https.onCall(async (data, context) => {
+  if (!context.auth) {
+    return "Failed: Unauthenticated calls are not allowed.";
+  }
+  const userDocPath = data.userDocPath;
+  const fcmToken = data.fcmToken;
+  const deviceType = data.deviceType;
+  if (
+    typeof userDocPath === "undefined" ||
+    typeof fcmToken === "undefined" ||
+    typeof deviceType === "undefined" ||
+    userDocPath.split("/").length <= 1 ||
+    fcmToken.length === 0 ||
+    deviceType.length === 0
+  ) {
+    return "Invalid arguments encoutered when adding FCM token.";
+  }
+  if (context.auth.uid != userDocPath.split("/")[1]) {
+    return "Failed: Authenticated user doesn't match user provided.";
+  }
+  const existingTokens = await firestore
+    .collectionGroup(kFcmTokensCollection)
+    .where("fcm_token", "==", fcmToken)
+    .get();
+  var userAlreadyHasToken = false;
+  for (var doc of existingTokens.docs) {
+    const user = doc.ref.parent.parent;
+    if (user.path != userDocPath) {
+      // Should never have the same FCM token associated with multiple users.
+      await doc.ref.delete();
+    } else {
+      userAlreadyHasToken = true;
     }
-    const userDocPath = data.userDocPath;
-    const fcmToken = data.fcmToken;
-    const deviceType = data.deviceType;
-    if (
-      typeof userDocPath === "undefined" ||
-      typeof fcmToken === "undefined" ||
-      typeof deviceType === "undefined" ||
-      userDocPath.split("/").length <= 1 ||
-      fcmToken.length === 0 ||
-      deviceType.length === 0
-    ) {
-      return "Invalid arguments encoutered when adding FCM token.";
-    }
-    if (context.auth.uid != userDocPath.split("/")[1]) {
-      return "Failed: Authenticated user doesn't match user provided.";
-    }
-    const existingTokens = await firestore
-      .collectionGroup(kFcmTokensCollection)
-      .where("fcm_token", "==", fcmToken)
-      .get();
-    var userAlreadyHasToken = false;
-    for (var doc of existingTokens.docs) {
-      const user = doc.ref.parent.parent;
-      if (user.path != userDocPath) {
-        // Should never have the same FCM token associated with multiple users.
-        await doc.ref.delete();
-      } else {
-        userAlreadyHasToken = true;
-      }
-    }
-    if (userAlreadyHasToken) {
-      return "FCM token already exists for this user. Ignoring...";
-    }
-    await getUserFcmTokensCollection(userDocPath).doc().set({
-      fcm_token: fcmToken,
-      device_type: deviceType,
-      created_at: admin.firestore.FieldValue.serverTimestamp(),
-    });
-    return "Successfully added FCM token!";
+  }
+  if (userAlreadyHasToken) {
+    return "FCM token already exists for this user. Ignoring...";
+  }
+  await getUserFcmTokensCollection(userDocPath).doc().set({
+    fcm_token: fcmToken,
+    device_type: deviceType,
+    created_at: admin.firestore.FieldValue.serverTimestamp(),
   });
+  return "Successfully added FCM token!";
+});
 
-exports.sendPushNotificationsTrigger = functions
-  .region("asia-south1")
+exports.sendPushNotificationsTrigger = functions.region("asia-south1")
   .runWith(kPushNotificationRuntimeOpts)
   .firestore.document(`${kPushNotificationsCollection}/{id}`)
   .onCreate(async (snapshot, _) => {
@@ -79,32 +75,9 @@ exports.sendPushNotificationsTrigger = functions
     }
   });
 
-exports.sendUserPushNotificationsTrigger = functions
-  .region("asia-south1")
-  .runWith(kPushNotificationRuntimeOpts)
-  .firestore.document(`${kUserPushNotificationsCollection}/{id}`)
-  .onCreate(async (snapshot, _) => {
-    try {
-      // Ignore scheduled push notifications on create
-      const scheduledTime = snapshot.data().scheduled_time || "";
-      if (scheduledTime) {
-        return;
-      }
 
-      // Don't let user-triggered notifications to be sent to all users.
-      const userRefsStr = snapshot.data().user_refs || "";
-      if (userRefsStr) {
-        await sendPushNotifications(snapshot);
-      }
-    } catch (e) {
-      console.log(`Error: ${e}`);
-      await snapshot.ref.update({ status: "failed", error: `${e}` });
-    }
-  });
-
-exports.sendScheduledPushNotifications = functions
-  .region("asia-south1")
-  .pubsub.schedule(`every ${kSchedulerIntervalMinutes} minutes synchronized`)
+exports.sendScheduledPushNotifications = functions.region("asia-south1").pubsub
+  .schedule(`every ${kSchedulerIntervalMinutes} minutes synchronized`)
   .onRun(async (_) => {
     const minutesToMilliseconds = (minutes) => minutes * 60 * 1000;
     function currentTimeDownToNearestMinute() {
@@ -133,25 +106,8 @@ exports.sendScheduledPushNotifications = functions
         await snapshot.ref.update({ status: "failed", error: `${e}` });
       }
     }
-    // Send push notifications that users have scheduled.
-    const scheduledUserNotifications = await firestore
-      .collection(kUserPushNotificationsCollection)
-      .where("scheduled_time", ">", lowerCutoffTime)
-      .where("scheduled_time", "<=", upperCutoffTime)
-      .get();
-    for (var snapshot of scheduledUserNotifications.docs) {
-      try {
-        // Don't let user-triggered notifications to be sent to all users.
-        const userRefsStr = snapshot.data().user_refs || "";
-        if (userRefsStr) {
-          await sendPushNotifications(snapshot);
-        }
-      } catch (e) {
-        console.log(`Error: ${e}`);
-        await snapshot.ref.update({ status: "failed", error: `${e}` });
-      }
-    }
   });
+
 
 async function sendPushNotifications(snapshot) {
   const notificationData = snapshot.data();
@@ -224,7 +180,7 @@ async function sendPushNotifications(snapshot) {
       },
       data: {
         initialPageName,
-        parameterData,
+        parameterData
       },
       android: {
         notification: {
@@ -248,7 +204,7 @@ async function sendPushNotifications(snapshot) {
     messageBatches.map(async (messages) => {
       const response = await admin.messaging().sendMulticast(messages);
       numSent += response.successCount;
-    }),
+    })
   );
 
   await snapshot.ref.update({ status: "succeeded", num_sent: numSent });
@@ -285,14 +241,21 @@ function getCharForIndex(charIdx) {
     return String.fromCharCode("a".charCodeAt(0) + charIdx - 36);
   }
 }
-exports.onUserDeleted = functions
-  .region("asia-south1")
-  .auth.user()
-  .onDelete(async (user) => {
-    let firestore = admin.firestore();
-    let userRef = firestore.doc("users/" + user.uid);
+exports.onUserDeleted = functions.region("asia-south1").auth.user().onDelete(async (user) => {
+  let firestore = admin.firestore();
+  let userRef = firestore.doc('users/' + user.uid);
+  await firestore.collection("users").where("uid", "==", user.uid).get().then(async (querySnapshot) => {
+    for (var doc of querySnapshot.docs) {
+            await doc.ref.collection("created_posts").get().then(async (q) => {
+        for (var d of q.docs) {
+          console.log(`Deleting document ${d.id} from collection created_posts`);
+          await d.ref.delete();
+        };
+      });
+
+    };
   });
-const OneSignal = require("@onesignal/node-onesignal");
+});const OneSignal = require("@onesignal/node-onesignal");
 
 const kUserKey = "ODkwMTY3OGYtYjEyZi00NjY2LTk0YzUtNDkwOWRmZTNmNjI2";
 const kAPIKey = "NDliMDA5N2EtM2MwYy00OTdmLWFjYmYtNjVhZTkyYTEzM2U3";
@@ -304,64 +267,62 @@ const configuration = OneSignal.createConfiguration({
 const client = new OneSignal.DefaultApi(configuration);
 const user = new OneSignal.User();
 
-exports.addUser = functions
-  .region("asia-south1")
-  .https.onCall(async (data, context) => {
-    if (context.auth.uid != data.user_id) {
-      return "Unauthenticated calls are not allowed.";
-    }
-    try {
-      user.identity = {
-        external_id: data.user_id,
-      };
-      user.properties = {
-        tags: data.tags,
-      };
-      user.subscriptions = data.subscriptions;
-      const createdUser = await client.createUser(
-        "81645fb1-17aa-4ebc-908f-5ccc07499ec5",
-        user,
-      );
-      if (createdUser.identity["onesignal_id"] == null) {
+exports.addUser = functions.region("asia-south1").https.onCall(
+    async (data, context) => {
+      if (context.auth.uid != data.user_id) {
+        return "Unauthenticated calls are not allowed.";
+      }
+      try {
+        user.identity = {
+          "external_id": data.user_id,
+        };
+        user.properties = {
+          "tags": data.tags,
+        };
+        user.subscriptions = data.subscriptions;
+        const createdUser = await client.createUser("81645fb1-17aa-4ebc-908f-5ccc07499ec5", user);
+        if (createdUser.identity["onesignal_id"] == null) {
+          throw new functions.https.HttpsError(
+              "aborted",
+              "Could not create OneSignal user",
+          );
+        }
+        return createdUser;
+      } catch (err) {
+        console.error(
+            `Unable to create user ${context.auth.uid}.
+            Error ${err}`,
+        );
         throw new functions.https.HttpsError(
-          "aborted",
-          "Could not create OneSignal user",
+            "aborted",
+            "Could not create OneSignal user",
         );
       }
-      return createdUser;
-    } catch (err) {
-      console.error(
-        `Unable to create user ${context.auth.uid}.
-            Error ${err}`,
-      );
-      throw new functions.https.HttpsError(
-        "aborted",
-        "Could not create OneSignal user",
-      );
-    }
-  });
+    },
+);
 
-exports.deleteUser = functions
-  .region("asia-south1")
-  .https.onCall(async (data, context) => {
-    if (context.auth.uid != data.user_id) {
-      return "Unauthenticated calls are not allowed.";
-    }
-    try {
-      await client.deleteUser(
-        "81645fb1-17aa-4ebc-908f-5ccc07499ec5",
-        "external_id",
-        data.user_id,
-      );
-      return "User deleted";
-    } catch (err) {
-      console.error(
-        `Unable to delete user ${context.auth.uid}.
+exports.deleteUser = functions.region("asia-south1").https.onCall(
+    async (data, context) => {
+      if (context.auth.uid != data.user_id) {
+        return "Unauthenticated calls are not allowed.";
+      }
+      try {
+        await client.deleteUser(
+            "81645fb1-17aa-4ebc-908f-5ccc07499ec5",
+            "external_id",
+            data.user_id,
+        );
+        return "User deleted";
+      } catch (err) {
+        console.error(
+            `Unable to delete user ${context.auth.uid}.
             Error ${err}`,
-      );
-      throw new functions.https.HttpsError(
-        "aborted",
-        "Could not delete OneSignal user",
-      );
-    }
-  });
+        );
+        throw new functions.https.HttpsError(
+            "aborted",
+            "Could not delete OneSignal user",
+        );
+      }
+    },
+);
+

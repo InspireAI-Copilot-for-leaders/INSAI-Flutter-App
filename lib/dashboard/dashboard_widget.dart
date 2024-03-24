@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/cloud_functions/cloud_functions.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/components/allow_notification_popup_widget.dart';
 import '/components/empty_state_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -11,12 +10,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -182,6 +179,44 @@ class _DashboardWidgetState extends State<DashboardWidget>
         ),
       ],
     ),
+    'containerOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 90.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 60.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
     'badgeOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
@@ -295,19 +330,19 @@ class _DashboardWidgetState extends State<DashboardWidget>
           isProfileCompleted: false,
         ));
       } else {
-        if (!valueOrDefault<bool>(
+        if (valueOrDefault<bool>(
             currentUserDocument?.isProfileCompleted, false)) {
+          logFirebaseEvent('dashboard_widget_animation');
+          if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
+            animationsMap['iconOnActionTriggerAnimation1']!
+                .controller
+                .forward(from: 0.0);
+          }
+        } else {
           logFirebaseEvent('dashboard_navigate_to');
 
           context.goNamed('linkedinConnect');
         }
-      }
-
-      logFirebaseEvent('dashboard_widget_animation');
-      if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
-        animationsMap['iconOnActionTriggerAnimation1']!
-            .controller
-            .forward(from: 0.0);
       }
     });
 
@@ -317,8 +352,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
           !anim.applyInitialState),
       this,
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -825,9 +858,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 20.0, 24.0, 0.0),
                                           child: RichText(
-                                            textScaleFactor:
-                                                MediaQuery.of(context)
-                                                    .textScaleFactor,
+                                            textScaler: MediaQuery.of(context)
+                                                .textScaler,
                                             text: TextSpan(
                                               children: [
                                                 TextSpan(
@@ -908,6 +940,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                   []))
                                                           .orderBy(
                                                               'scrapped_at',
+                                                              descending: true)
+                                                          .orderBy(
+                                                              'article_summary',
                                                               descending: true),
                                                   limit: 4,
                                                 ),
@@ -951,125 +986,181 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                       final wrapArticleRecord =
                                                           wrapArticleRecordList[
                                                               wrapIndex];
-                                                      return Container(
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width *
-                                                                0.42,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      24.0),
-                                                          border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  12.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            4.0),
-                                                                child:
-                                                                    AutoSizeText(
-                                                                  wrapArticleRecord
-                                                                      .trendKeyword,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  maxLines: 3,
-                                                                  style: FlutterFlowTheme.of(
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'DASHBOARD_PAGE_Container_hf3cstxx_ON_TAP');
+                                                          logFirebaseEvent(
+                                                              'Container_navigate_to');
+
+                                                          context.pushNamed(
+                                                            'articleDetails',
+                                                            queryParameters: {
+                                                              'articleRef':
+                                                                  serializeParam(
+                                                                wrapArticleRecord
+                                                                    .reference,
+                                                                ParamType
+                                                                    .DocumentReference,
+                                                              ),
+                                                              'articleTitle':
+                                                                  serializeParam(
+                                                                wrapArticleRecord
+                                                                    .originalGoogleSearchTerm,
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'articleImage':
+                                                                  serializeParam(
+                                                                wrapArticleRecord
+                                                                    .metadata
+                                                                    .first
+                                                                    .imageUrl,
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'articleContent':
+                                                                  serializeParam(
+                                                                wrapArticleRecord
+                                                                    .articleSummary,
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'articleDomain':
+                                                                  serializeParam(
+                                                                wrapArticleRecord
+                                                                    .domain,
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        },
+                                                        child: Container(
+                                                          width:
+                                                              MediaQuery.sizeOf(
                                                                           context)
-                                                                      .displaySmall
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Plus Jakarta Sans',
-                                                                        color: Color(
-                                                                            0xFF101213),
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                      ),
-                                                                  minFontSize:
-                                                                      12.0,
+                                                                      .width *
+                                                                  0.42,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24.0),
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                              width: 1.0,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    12.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          4.0),
+                                                                  child:
+                                                                      AutoSizeText(
+                                                                    wrapArticleRecord
+                                                                        .trendKeyword,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    maxLines: 3,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .displaySmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Plus Jakarta Sans',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                          useGoogleFonts:
+                                                                              GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                        ),
+                                                                    minFontSize:
+                                                                        12.0,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            8.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .trending_up,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary,
-                                                                      size:
-                                                                          24.0,
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          4.0,
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
                                                                           0.0,
-                                                                          0.0,
+                                                                          8.0,
                                                                           0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        dateTimeFormat(
-                                                                            'relative',
-                                                                            wrapArticleRecord.metadata.sortedList((e) => dateTimeFormat('relative', e.publishDate!)).first.publishDate!),
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .labelSmall
-                                                                            .override(
-                                                                              fontFamily: 'Plus Jakarta Sans',
-                                                                              color: Color(0xFF57636C),
-                                                                              fontSize: 12.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                            ),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .trending_up,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        size:
+                                                                            24.0,
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          dateTimeFormat(
+                                                                              'relative',
+                                                                              wrapArticleRecord.metadata.sortedList((e) => dateTimeFormat('relative', e.publishDate!)).first.publishDate!),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .labelSmall
+                                                                              .override(
+                                                                                fontFamily: 'Plus Jakarta Sans',
+                                                                                color: Color(0xFF57636C),
+                                                                                fontSize: 12.0,
+                                                                                fontWeight: FontWeight.w500,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       );
@@ -1401,119 +1492,261 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         24.0, 16.0, 0.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'DASHBOARD_PAGE_Text_ohijnrlp_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Text_trigger_push_notification');
-                                        triggerPushNotification(
-                                          notificationTitle: 'congo',
-                                          notificationText:
-                                              'you clicked the button 2 minutes ago',
-                                          scheduledTime: getCurrentTimestamp,
-                                          notificationSound: 'default',
-                                          userRefs: [currentUserReference!],
-                                          initialPageName: 'storiesPage',
-                                          parameterData: {
-                                            'domain':
-                                                'Artificial Intelligence (AI)',
-                                          },
-                                        );
-                                      },
-                                      child: Text(
-                                        'Content Analytics',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 16.0, 0.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'DASHBOARD_PAGE_Text_5zcns529_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Text_firestore_query');
-                                        _model.ref = await queryUsersRecordOnce(
-                                          queryBuilder: (usersRecord) =>
-                                              usersRecord.where(
-                                            'email',
-                                            isEqualTo: 'tanisha@panscience.xyz',
+                                    child: Text(
+                                      'Content Analytics',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
                                           ),
-                                          singleRecord: true,
-                                        ).then((s) => s.firstOrNull);
-                                        logFirebaseEvent(
-                                            'Text_trigger_push_notification');
-                                        triggerPushNotification(
-                                          notificationTitle: 'congo',
-                                          notificationText:
-                                              'you clicked the button 2 minutes ago',
-                                          scheduledTime:
-                                              functions.modifiedDateTime(
-                                                  getCurrentTimestamp)!,
-                                          notificationSound: 'default',
-                                          userRefs: [_model.ref!.reference],
-                                          initialPageName: 'storiesPage',
-                                          parameterData: {
-                                            'domain':
-                                                'Artificial Intelligence (AI)',
-                                          },
-                                        );
-
-                                        setState(() {});
-                                      },
-                                      child: Text(
-                                        'Content Analytics',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
+                                    ),
+                                  ),
+                                  if ((valueOrDefault(
+                                              currentUserDocument?.totalLikes,
+                                              0) ==
+                                          null) ||
+                                      (valueOrDefault(
+                                              currentUserDocument?.totalLikes,
+                                              0) ==
+                                          0))
+                                    AuthUserStreamWidget(
+                                      builder: (context) => wrapWithModel(
+                                        model: _model.emptyStateModel1,
+                                        updateCallback: () => setState(() {}),
+                                        child: EmptyStateWidget(
+                                          loadingText:
+                                              'There\'s nothing here. Create your first post to start seeing analytics.',
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  wrapWithModel(
-                                    model: _model.emptyStateModel1,
-                                    updateCallback: () => setState(() {}),
-                                    child: EmptyStateWidget(
-                                      loadingText:
-                                          'There\'s nothing here. Create your first post to start seeing analytics.',
+                                  if (valueOrDefault(
+                                          currentUserDocument?.totalLikes, 0) >
+                                      0)
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 12.0, 16.0, 12.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => GridView(
+                                          padding: EdgeInsets.zero,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 10.0,
+                                            mainAxisSpacing: 10.0,
+                                            childAspectRatio: 1.0,
+                                          ),
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  0.4,
+                                              height: 160.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(12.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons
+                                                          .supervisor_account_rounded,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 32.0,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0,
+                                                                  12.0),
+                                                      child: Text(
+                                                        formatNumber(
+                                                          valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.totalLikes,
+                                                              0),
+                                                          formatType: FormatType
+                                                              .compact,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .displaySmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .displaySmallFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  fontSize:
+                                                                      28.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .displaySmallFamily),
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Total Likes',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelMediumFamily),
+                                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ).animateOnPageLoad(animationsMap[
+                                                'containerOnPageLoadAnimation3']!),
+                                            Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  0.4,
+                                              height: 160.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(12.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.comment,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 32.0,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0,
+                                                                  12.0),
+                                                      child: Text(
+                                                        formatNumber(
+                                                          valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.totalComments,
+                                                              0),
+                                                          formatType: FormatType
+                                                              .compact,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .displaySmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .displaySmallFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize:
+                                                                      28.0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .displaySmallFamily),
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    AutoSizeText(
+                                                      'Total Comments',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLines: 1,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                fontSize: 16.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleSmallFamily),
+                                                              ),
+                                                      minFontSize: 12.0,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ).animateOnPageLoad(animationsMap[
+                                                'containerOnPageLoadAnimation4']!),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -1849,231 +2082,235 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           ),
                         ],
                       ),
-                      Align(
-                        alignment: AlignmentDirectional(1.0, -1.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 33.0, 60.0, 0.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 10.0, 8.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    logFirebaseEvent(
-                                        'DASHBOARD_PAGE_Badge_b7gjlnw9_ON_TAP');
-                                    if (FFAppState().isNotificationsVisible) {
+                      if (MediaQuery.sizeOf(context).width > 500.0)
+                        Align(
+                          alignment: AlignmentDirectional(1.0, -1.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 33.0, 60.0, 0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 10.0, 8.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
                                       logFirebaseEvent(
-                                          'Badge_widget_animation');
-                                      if (animationsMap[
-                                              'containerOnActionTriggerAnimation3'] !=
-                                          null) {
-                                        await animationsMap[
-                                                'containerOnActionTriggerAnimation3']!
-                                            .controller
-                                            .reverse();
+                                          'DASHBOARD_PAGE_Badge_b7gjlnw9_ON_TAP');
+                                      if (FFAppState().isNotificationsVisible) {
+                                        logFirebaseEvent(
+                                            'Badge_widget_animation');
+                                        if (animationsMap[
+                                                'containerOnActionTriggerAnimation3'] !=
+                                            null) {
+                                          await animationsMap[
+                                                  'containerOnActionTriggerAnimation3']!
+                                              .controller
+                                              .reverse();
+                                        }
+                                        logFirebaseEvent(
+                                            'Badge_update_app_state');
+                                        setState(() {
+                                          FFAppState().isNotificationsVisible =
+                                              false;
+                                        });
+                                      } else {
+                                        logFirebaseEvent(
+                                            'Badge_update_app_state');
+                                        setState(() {
+                                          FFAppState().isNotificationsVisible =
+                                              true;
+                                        });
+                                        logFirebaseEvent('Badge_wait__delay');
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 100));
+                                        logFirebaseEvent(
+                                            'Badge_widget_animation');
+                                        if (animationsMap[
+                                                'containerOnActionTriggerAnimation3'] !=
+                                            null) {
+                                          await animationsMap[
+                                                  'containerOnActionTriggerAnimation3']!
+                                              .controller
+                                              .forward(from: 0.0);
+                                        }
+                                        logFirebaseEvent(
+                                            'Badge_widget_animation');
+                                        if (animationsMap[
+                                                'textOnActionTriggerAnimation1'] !=
+                                            null) {
+                                          animationsMap[
+                                                  'textOnActionTriggerAnimation1']!
+                                              .controller
+                                              .forward(from: 0.0);
+                                        }
+                                        logFirebaseEvent(
+                                            'Badge_widget_animation');
+                                        if (animationsMap[
+                                                'textOnActionTriggerAnimation2'] !=
+                                            null) {
+                                          animationsMap[
+                                                  'textOnActionTriggerAnimation2']!
+                                              .controller
+                                              .forward(from: 0.0);
+                                        }
                                       }
-                                      logFirebaseEvent(
-                                          'Badge_update_app_state');
-                                      setState(() {
-                                        FFAppState().isNotificationsVisible =
-                                            false;
-                                      });
-                                    } else {
-                                      logFirebaseEvent(
-                                          'Badge_update_app_state');
-                                      setState(() {
-                                        FFAppState().isNotificationsVisible =
-                                            true;
-                                      });
-                                      logFirebaseEvent('Badge_wait__delay');
-                                      await Future.delayed(
-                                          const Duration(milliseconds: 100));
-                                      logFirebaseEvent(
-                                          'Badge_widget_animation');
-                                      if (animationsMap[
-                                              'containerOnActionTriggerAnimation3'] !=
-                                          null) {
-                                        await animationsMap[
-                                                'containerOnActionTriggerAnimation3']!
-                                            .controller
-                                            .forward(from: 0.0);
-                                      }
-                                      logFirebaseEvent(
-                                          'Badge_widget_animation');
-                                      if (animationsMap[
-                                              'textOnActionTriggerAnimation1'] !=
-                                          null) {
-                                        animationsMap[
-                                                'textOnActionTriggerAnimation1']!
-                                            .controller
-                                            .forward(from: 0.0);
-                                      }
-                                      logFirebaseEvent(
-                                          'Badge_widget_animation');
-                                      if (animationsMap[
-                                              'textOnActionTriggerAnimation2'] !=
-                                          null) {
-                                        animationsMap[
-                                                'textOnActionTriggerAnimation2']!
-                                            .controller
-                                            .forward(from: 0.0);
-                                      }
-                                    }
-                                  },
-                                  child: badges.Badge(
-                                    badgeContent: Text(
-                                      '1',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily,
-                                            color: Colors.white,
-                                            fontSize: 10.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily),
-                                          ),
-                                    ),
-                                    showBadge: true,
-                                    shape: badges.BadgeShape.circle,
-                                    badgeColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    elevation: 4.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        6.0, 8.0, 6.0, 8.0),
-                                    position: badges.BadgePosition.topEnd(),
-                                    animationType:
-                                        badges.BadgeAnimationType.scale,
-                                    toAnimate: true,
-                                    child: FaIcon(
-                                      FontAwesomeIcons.bell,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 28.0,
-                                    ),
-                                  ),
-                                ).animateOnPageLoad(
-                                    animationsMap['badgeOnPageLoadAnimation']!),
-                              ),
-                              if (FFAppState().isNotificationsVisible)
-                                Material(
-                                  color: Colors.transparent,
-                                  elevation: 10.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Container(
-                                      width: 250.0,
-                                      decoration: BoxDecoration(
+                                    },
+                                    child: badges.Badge(
+                                      badgeContent: Text(
+                                        '1',
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily,
+                                              color: Colors.white,
+                                              fontSize: 10.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallFamily),
+                                            ),
+                                      ),
+                                      showBadge: true,
+                                      shape: badges.BadgeShape.circle,
+                                      badgeColor: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      elevation: 4.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          6.0, 8.0, 6.0, 8.0),
+                                      position: badges.BadgePosition.topEnd(),
+                                      animationType:
+                                          badges.BadgeAnimationType.scale,
+                                      toAnimate: true,
+                                      child: FaIcon(
+                                        FontAwesomeIcons.bell,
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 12.0, 12.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Notifications',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
-                                                ).animateOnActionTrigger(
-                                                  animationsMap[
-                                                      'textOnActionTriggerAnimation1']!,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          wrapWithModel(
-                                            model: _model.emptyStateModel2,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: EmptyStateWidget(
-                                              loadingText:
-                                                  'You have no new notifications',
-                                              imageWidth: 100,
-                                              imageHeight: 100,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 12.0),
-                                            child: Text(
-                                              'Mark all as read',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondary,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w500,
-                                                    useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                        .containsKey(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily),
-                                                  ),
-                                            ).animateOnActionTrigger(
-                                              animationsMap[
-                                                  'textOnActionTriggerAnimation2']!,
-                                            ),
-                                          ),
-                                        ],
+                                            .primaryText,
+                                        size: 28.0,
                                       ),
                                     ),
-                                  ),
-                                ).animateOnActionTrigger(
-                                  animationsMap[
-                                      'containerOnActionTriggerAnimation3']!,
+                                  ).animateOnPageLoad(animationsMap[
+                                      'badgeOnPageLoadAnimation']!),
                                 ),
-                            ],
+                                if (FFAppState().isNotificationsVisible)
+                                  Material(
+                                    color: Colors.transparent,
+                                    elevation: 10.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Container(
+                                        width: 250.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 12.0, 12.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'Notifications',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 16.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ).animateOnActionTrigger(
+                                                    animationsMap[
+                                                        'textOnActionTriggerAnimation1']!,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            wrapWithModel(
+                                              model: _model.emptyStateModel2,
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child: EmptyStateWidget(
+                                                loadingText:
+                                                    'You have no new notifications',
+                                                imageWidth: 100,
+                                                imageHeight: 100,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 12.0),
+                                              child: Text(
+                                                'Mark all as read',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ).animateOnActionTrigger(
+                                                animationsMap[
+                                                    'textOnActionTriggerAnimation2']!,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ).animateOnActionTrigger(
+                                    animationsMap[
+                                        'containerOnActionTriggerAnimation3']!,
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ).animateOnActionTrigger(
@@ -2779,7 +3016,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                       ),
                     ],
                   ),
-                if (_model.notificationPopupVisible)
+                if (FFAppState().notificationPopupVisible)
                   Stack(
                     children: [
                       Opacity(
@@ -2814,19 +3051,26 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                     'type': 'Email',
                                     'token': currentUserEmail,
                                   },
-                                  {
-                                    'type': 'SMS',
-                                    'token': currentPhoneNumber,
-                                  },
                                 ],
                               },
                             );
 
                             logFirebaseEvent(
-                                'Allow_notification_popup_update_page_sta');
+                                'Allow_notification_popup_update_app_stat');
                             setState(() {
-                              _model.notificationPopupVisible = false;
+                              FFAppState().notificationPopupVisible = false;
                             });
+                            logFirebaseEvent(
+                                'Allow_notification_popup_backend_call');
+
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              pushNotifications: createNotificationPopupStruct(
+                                notificationPopupVisible: false,
+                                subsToNoti: true,
+                                clearUnsetFields: false,
+                              ),
+                            ));
                           },
                           denyAction: () async {
                             logFirebaseEvent(
@@ -2842,19 +3086,26 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                     'type': 'Email',
                                     'token': currentUserEmail,
                                   },
-                                  {
-                                    'type': 'SMS',
-                                    'token': currentPhoneNumber,
-                                  },
                                 ],
                               },
                             );
 
                             logFirebaseEvent(
-                                'Allow_notification_popup_update_page_sta');
+                                'Allow_notification_popup_update_app_stat');
                             setState(() {
-                              _model.notificationPopupVisible = false;
+                              FFAppState().notificationPopupVisible = false;
                             });
+                            logFirebaseEvent(
+                                'Allow_notification_popup_backend_call');
+
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              pushNotifications: createNotificationPopupStruct(
+                                notificationPopupVisible: false,
+                                subsToNoti: false,
+                                clearUnsetFields: false,
+                              ),
+                            ));
                           },
                         ),
                       ),

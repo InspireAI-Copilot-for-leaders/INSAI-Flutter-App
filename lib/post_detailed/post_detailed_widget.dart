@@ -43,7 +43,6 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'postDetailed'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -55,8 +54,6 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return StreamBuilder<PostedOnLinkedinRecord>(
       stream: PostedOnLinkedinRecord.getDocument(widget.postRef!),
       builder: (context, snapshot) {
@@ -127,7 +124,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,7 +147,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Text(
                         postDetailedPostedOnLinkedinRecord.likesNumber
                             .toString(),
@@ -167,7 +164,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +172,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 12.0, 0.0),
+                                  0.0, 0.0, 24.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,40 +258,86 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                       alignment: AlignmentDirectional(1.0, 0.0),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 12.0, 16.0, 16.0),
+                            24.0, 4.0, 24.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
                                 'POST_DETAILED_PAGE_REFRESH_BTN_ON_TAP');
-                            logFirebaseEvent('Button_backend_call');
-                            _model.likes =
-                                await LinkedinPostGroup.getPostLikesCall.call(
-                              postUrn: widget.postURN,
-                              accessToken: valueOrDefault(
-                                  currentUserDocument?.linkedinAccess, ''),
-                            );
-                            logFirebaseEvent('Button_backend_call');
-                            _model.comments = await LinkedinPostGroup
-                                .getPostCommentsCall
-                                .call(
-                              postUrn: widget.postURN,
-                              accessToken: valueOrDefault(
-                                  currentUserDocument?.linkedinAccess, ''),
-                            );
-                            logFirebaseEvent('Button_backend_call');
-
-                            await widget.postRef!
-                                .update(createPostedOnLinkedinRecordData(
-                              likesNumber:
-                                  LinkedinPostGroup.getPostLikesCall.likesCount(
-                                (_model.likes?.jsonBody ?? ''),
-                              ),
-                              commentsNumber: LinkedinPostGroup
+                            if (postDetailedPostedOnLinkedinRecord
+                                    .reactionRefreshQuota >
+                                0) {
+                              logFirebaseEvent('Button_backend_call');
+                              _model.likes =
+                                  await LinkedinPostGroup.getPostLikesCall.call(
+                                postUrn: widget.postURN,
+                                accessToken: valueOrDefault(
+                                    currentUserDocument?.linkedinAccess, ''),
+                              );
+                              logFirebaseEvent('Button_backend_call');
+                              _model.comments = await LinkedinPostGroup
                                   .getPostCommentsCall
-                                  .commentsCount(
-                                (_model.comments?.jsonBody ?? ''),
-                              ),
-                            ));
+                                  .call(
+                                postUrn: widget.postURN,
+                                accessToken: valueOrDefault(
+                                    currentUserDocument?.linkedinAccess, ''),
+                              );
+                              logFirebaseEvent('Button_backend_call');
+
+                              await widget.postRef!
+                                  .update(createPostedOnLinkedinRecordData(
+                                likesNumber: LinkedinPostGroup.getPostLikesCall
+                                    .likesCount(
+                                  (_model.likes?.jsonBody ?? ''),
+                                ),
+                                commentsNumber: LinkedinPostGroup
+                                    .getPostCommentsCall
+                                    .commentsCount(
+                                  (_model.comments?.jsonBody ?? ''),
+                                ),
+                              ));
+                              logFirebaseEvent('Button_backend_call');
+
+                              await currentUserReference!.update({
+                                ...mapToFirestore(
+                                  {
+                                    'totalLikes': FieldValue.increment(
+                                        LinkedinPostGroup.getPostLikesCall
+                                            .likesCount(
+                                      (_model.likes?.jsonBody ?? ''),
+                                    )!),
+                                    'totalComments': FieldValue.increment(
+                                        LinkedinPostGroup.getPostCommentsCall
+                                            .commentsCount(
+                                      (_model.comments?.jsonBody ?? ''),
+                                    )!),
+                                  },
+                                ),
+                              });
+                              logFirebaseEvent('Button_update_page_state');
+                              setState(() {
+                                _model.infoVisible = true;
+                              });
+                            } else {
+                              logFirebaseEvent('Button_show_snack_bar');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Refresh Quota exceeded for today.',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                              logFirebaseEvent('Button_update_page_state');
+                              setState(() {
+                                _model.infoVisible = true;
+                              });
+                            }
 
                             setState(() {});
                           },
@@ -327,9 +370,75 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                         ),
                       ),
                     ),
+                    if (_model.infoVisible)
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            24.0, 8.0, 24.0, 0.0),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Color(0xCB1E1E1E),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 12.0, 12.0, 12.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 8.0, 0.0),
+                                    child: Text(
+                                      'Due to rate limits, the refresh button will currently only work 2 times a day.',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily,
+                                            fontSize: 12.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(1.0, -1.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'POST_DETAILED_PAGE_Icon_ikohtqz1_ON_TAP');
+                                      logFirebaseEvent(
+                                          'Icon_update_page_state');
+                                      setState(() {
+                                        _model.infoVisible = false;
+                                      });
+                                    },
+                                    child: Icon(
+                                      Icons.close_sharp,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 20.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
                       child: Text(
                         'Content',
                         style: FlutterFlowTheme.of(context).labelSmall.override(
@@ -344,7 +453,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
                           widget.postText,

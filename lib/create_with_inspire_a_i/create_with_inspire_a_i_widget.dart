@@ -57,8 +57,6 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
 
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -498,13 +496,12 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                         FormFieldController<
                                                             int>(null),
                                                     options: List<int>.from(
-                                                        [80, 170, 270, 15, 8]),
+                                                        [80, 170, 270, 101]),
                                                     optionLabels: [
                                                       'Short commentary (50-100 words)',
                                                       'Brief Description (150-200 words)',
                                                       'Long Analysis (250-300 words)',
-                                                      'One Liner (10-20 words)',
-                                                      'Comment (<10 words)'
+                                                      'Comment (One-Liners)'
                                                     ],
                                                     onChanged: (val) =>
                                                         setState(() => _model
@@ -576,103 +573,155 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                         onPressed: () async {
                           logFirebaseEvent(
                               'CREATE_WITH_INSPIRE_A_I_DO_THE_INSPIRE_A');
-                          if (widget.contextForContent == null ||
-                              widget.contextForContent == '') {
-                            logFirebaseEvent('Button_backend_call');
-                            _model.contentfromtopic =
-                                await InspireAIContentFromTopicsCall.call(
-                              topic: _model.textController1.text,
-                              brandVoice: _model.textController3.text == null ||
-                                      _model.textController3.text == ''
-                                  ? valueOrDefault(
-                                      currentUserDocument?.contentVoice, '')
-                                  : _model.textController3.text,
-                              numberOfWords: _model.dropDownValue,
-                              uid: currentUserUid,
-                              insight: _model.textController2.text,
-                              contentType: widget.contentType,
-                            );
-                            if ((_model.contentfromtopic?.succeeded ?? true)) {
-                              logFirebaseEvent('Button_update_page_state');
-                              setState(() {
-                                _model.loadingScreenVisible = true;
-                              });
-                              logFirebaseEvent(
-                                  'Button_clear_text_fields_pin_codes');
-                              setState(() {
-                                _model.textController1?.clear();
-                                _model.textController2?.clear();
-                                _model.textController3?.clear();
-                              });
-                            } else {
-                              logFirebaseEvent('Button_alert_dialog');
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Failed Request!'),
-                                    content: Text('Request Failed'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
+                          if (_model.dropDownValue != null) {
+                            if (widget.contextForContent == null ||
+                                widget.contextForContent == '') {
+                              logFirebaseEvent('Button_backend_call');
+                              _model.contentfromtopic =
+                                  await InspireAIContentFromTopicsCall.call(
+                                topic: _model.textController1.text,
+                                brandVoice: _model.textController3.text ==
+                                            null ||
+                                        _model.textController3.text == ''
+                                    ? valueOrDefault(
+                                        currentUserDocument?.contentVoice, '')
+                                    : _model.textController3.text,
+                                numberOfWords: _model.dropDownValue,
+                                uid: currentUserUid,
+                                insight: _model.textController2.text,
+                                contentType: widget.contentType,
+                                apifyToken: FFAppState().apifytoken,
+                                notificationTitle: 'Content Created!',
+                                notificationText:
+                                    'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
+                                initialPageName: 'createOrEditPostCopy',
+                                anthropicKey: FFAppState().anthropicKey,
                               );
+                              if ((_model.contentfromtopic?.succeeded ??
+                                  true)) {
+                                logFirebaseEvent('Button_update_page_state');
+                                setState(() {
+                                  _model.loadingScreenVisible = true;
+                                });
+                                logFirebaseEvent(
+                                    'Button_clear_text_fields_pin_codes');
+                                setState(() {
+                                  _model.textController1?.clear();
+                                  _model.textController2?.clear();
+                                  _model.textController3?.clear();
+                                });
+                                logFirebaseEvent('Button_wait__delay');
+                                await Future.delayed(
+                                    const Duration(milliseconds: 4000));
+                                logFirebaseEvent('Button_update_app_state');
+                                setState(() {
+                                  FFAppState().whichPage = 'posts';
+                                });
+                                logFirebaseEvent('Button_navigate_to');
+
+                                context.goNamed('home');
+                              } else {
+                                logFirebaseEvent('Button_alert_dialog');
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Failed Request!'),
+                                      content: Text('Request Failed'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            } else {
+                              logFirebaseEvent('Button_backend_call');
+                              _model.contentfromcontext =
+                                  await InspireAIContentFromContxtCall.call(
+                                topic: _model.textController1.text,
+                                brandVoice: _model.textController3.text ==
+                                            null ||
+                                        _model.textController3.text == ''
+                                    ? valueOrDefault(
+                                        currentUserDocument?.contentVoice, '')
+                                    : _model.textController3.text,
+                                numberOfWords: _model.dropDownValue,
+                                uid: currentUserUid,
+                                insight: _model.textController2.text,
+                                contentType: widget.contentType,
+                                broadDomain: widget.broadDomain,
+                                notificationTitle: 'Content Created!',
+                                notificationText:
+                                    'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
+                                initialPageName: 'createOrEditPostCopy',
+                                context: functions.formatStringForJson(
+                                    widget.contextForContent!),
+                                anthropicKey: FFAppState().anthropicKey,
+                              );
+                              if ((_model.contentfromcontext?.succeeded ??
+                                  true)) {
+                                logFirebaseEvent('Button_update_page_state');
+                                setState(() {
+                                  _model.loadingScreenVisible = true;
+                                });
+                                logFirebaseEvent(
+                                    'Button_clear_text_fields_pin_codes');
+                                setState(() {
+                                  _model.textController1?.clear();
+                                  _model.textController2?.clear();
+                                  _model.textController3?.clear();
+                                });
+                                logFirebaseEvent('Button_wait__delay');
+                                await Future.delayed(
+                                    const Duration(milliseconds: 4000));
+                                logFirebaseEvent('Button_update_app_state');
+                                setState(() {
+                                  FFAppState().whichPage = 'posts';
+                                });
+                                logFirebaseEvent('Button_navigate_to');
+
+                                context.goNamed('home');
+                              } else {
+                                logFirebaseEvent('Button_alert_dialog');
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Failed Request!'),
+                                      content: Text('Request Failed'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             }
                           } else {
-                            logFirebaseEvent('Button_backend_call');
-                            _model.contentfromcontext =
-                                await InspireAIContentFromContextCall.call(
-                              topic: _model.textController1.text,
-                              brandVoice: _model.textController3.text == null ||
-                                      _model.textController3.text == ''
-                                  ? valueOrDefault(
-                                      currentUserDocument?.contentVoice, '')
-                                  : _model.textController3.text,
-                              context: functions.formatStringForJson(
-                                  widget.contextForContent!),
-                              insights: _model.textController2.text,
-                              numberOfWords: _model.dropDownValue,
-                              uid: currentUserUid,
-                              contentType: widget.contentType,
-                              broadDomain: widget.broadDomain,
+                            logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Selecting length of post is required.',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
                             );
-                            if ((_model.contentfromcontext?.succeeded ??
-                                true)) {
-                              logFirebaseEvent('Button_update_page_state');
-                              setState(() {
-                                _model.loadingScreenVisible = true;
-                              });
-                              logFirebaseEvent(
-                                  'Button_clear_text_fields_pin_codes');
-                              setState(() {
-                                _model.textController1?.clear();
-                                _model.textController2?.clear();
-                                _model.textController3?.clear();
-                              });
-                            } else {
-                              logFirebaseEvent('Button_alert_dialog');
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Failed Request!'),
-                                    content: Text('Request Failed'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
                           }
 
                           setState(() {});
@@ -727,7 +776,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                       });
                       logFirebaseEvent('LoadingScreen_navigate_to');
 
-                      context.pushNamed('home');
+                      context.goNamed('home');
                     },
                   ),
                 ),

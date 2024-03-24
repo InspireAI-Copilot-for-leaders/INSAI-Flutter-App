@@ -442,22 +442,85 @@ class InspireAIContentFromTopicsCall {
     String? uid = '',
     String? insight = '',
     String? contentType = '',
+    String? apifyToken = '',
+    String? notificationTitle = '',
+    String? notificationText = '',
+    String? notificationImageUrl = '',
+    String? initialPageName = '',
+    String? anthropicKey = '',
   }) async {
     final ffApiRequestBody = '''
 {
   "insight": "${insight}",
   "type": "${contentType}",
   "topic": "${topic}",
+  "anthropic_api_key": "${anthropicKey}",
   "brand_voice": "${brandVoice}",
   "number_of_words": ${numberOfWords},
   "context_size": ${numberOfWords},
   "similarity_top_k": 1,
-  "uid": "${uid}"
+  "uid": "${uid}",
+  "apify_token": "${apifyToken}",
+  "notification_title": "${notificationTitle}",
+  "notification_text": "${notificationText}",
+  "notification_image_url": "${notificationImageUrl}",
+  "initial_page_name": "${initialPageName}",
+  "notificationSound": "default"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Topics',
-      apiUrl:
-          'https://content-from-topic-continuous-new-5qpvtpji4a-uc.a.run.app',
+      apiUrl: 'https://content-from-topic-continuous-5qpvtpji4a-em.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class InspireAIContentFromContxtCall {
+  static Future<ApiCallResponse> call({
+    String? topic = '',
+    String? brandVoice = '',
+    int? numberOfWords,
+    String? uid = '',
+    String? insight = '',
+    String? contentType = '',
+    String? broadDomain = '',
+    String? notificationTitle = '',
+    String? notificationText = '',
+    String? notificationImageUrl = '',
+    String? initialPageName = '',
+    String? context = '',
+    String? anthropicKey = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "insight": "${insight}",
+  "type": "${contentType}",
+  "anthropic_api_key": "${anthropicKey}",
+  "topic": "${topic}",
+  "brand_voice": "${brandVoice}",
+  "number_of_words": ${numberOfWords},
+  "context": "${context}",
+  "similarity_top_k": 1,
+  "uid": "${uid}",
+  "broad_domain": "${broadDomain}",
+  "notification_title": "${notificationTitle}",
+  "notification_text": "${notificationText}",
+  "notification_image_url": "${notificationImageUrl}",
+  "initial_page_name": "${initialPageName}",
+  "notificationSound": "default"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'InspireAI Content from Contxt',
+      apiUrl: 'https://content-from-context-continuous-5qpvtpji4a-el.a.run.app',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
