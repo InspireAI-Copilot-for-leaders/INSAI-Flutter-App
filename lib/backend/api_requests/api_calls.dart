@@ -349,6 +349,15 @@ class PeopleCall {
 
 /// End linkedinPost Group Code
 
+/// Start InspireAI Backend Group Code
+
+class InspireAIBackendGroup {
+  static String baseUrl = 'https://api.platform.theinspireai.com';
+  static Map<String, String> headers = {};
+}
+
+/// End InspireAI Backend Group Code
+
 class ExpertiseOfPersonApifyCall {
   static Future<ApiCallResponse> call({
     String? linkedinUrl = '',
@@ -357,12 +366,11 @@ class ExpertiseOfPersonApifyCall {
     final ffApiRequestBody = '''
 {
   "uid": "${uid}",
-  "linkedin_profile_url": "${linkedinUrl}",
-  "apify_token": "apify_api_yJdWtJercdZZdUUWDXlgDvniyTzSdI0lWKBg"
+  "linkedin_profile_url": "${linkedinUrl}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Expertise of Person Apify',
-      apiUrl: 'https://userkeywordsdata-continuous-5qpvtpji4a-uc.a.run.app',
+      apiUrl: 'https://api.platform.theinspireai.com/ls/linkedin_scrapper',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -389,8 +397,7 @@ class ExpertiseOfPersonProxycurlCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Expertise of Person Proxycurl',
-      apiUrl:
-          'https://userkeywordsdata-proxycurl-continuous-5qpvtpji4a-uc.a.run.app',
+      apiUrl: 'https://api.platform.theinspireai.com/ls/linkedin_scrapper',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -442,7 +449,6 @@ class InspireAIContentFromTopicsCall {
     String? uid = '',
     String? insight = '',
     String? contentType = '',
-    String? apifyToken = '',
     String? notificationTitle = '',
     String? notificationText = '',
     String? notificationImageUrl = '',
@@ -460,7 +466,6 @@ class InspireAIContentFromTopicsCall {
   "context_size": ${numberOfWords},
   "similarity_top_k": 1,
   "uid": "${uid}",
-  "apify_token": "${apifyToken}",
   "notification_title": "${notificationTitle}",
   "notification_text": "${notificationText}",
   "notification_image_url": "${notificationImageUrl}",
@@ -469,7 +474,7 @@ class InspireAIContentFromTopicsCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Topics',
-      apiUrl: 'https://content-from-topic-continuous-5qpvtpji4a-em.a.run.app',
+      apiUrl: 'https://api.platform.theinspireai.com/cft/content_from_topic',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -520,7 +525,7 @@ class InspireAIContentFromContxtCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Contxt',
-      apiUrl: 'https://content-from-context-continuous-5qpvtpji4a-el.a.run.app',
+      apiUrl: 'https://api.platform.theinspireai.com/cfc/content_from_context',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -533,51 +538,6 @@ class InspireAIContentFromContxtCall {
       alwaysAllowBody: false,
     );
   }
-}
-
-class InspireAIContentFromContextCall {
-  static Future<ApiCallResponse> call({
-    String? topic = '',
-    String? brandVoice = '',
-    String? context = '',
-    String? insights = '',
-    int? numberOfWords,
-    String? uid = '',
-    String? contentType = '',
-    String? broadDomain = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "broad_domain": "${broadDomain}",
-  "type": "${contentType}",
-  "topic": "${topic}",
-  "brand_voice": "${brandVoice}",
-  "context": "${context}",
-  "insight": "${insights}",
-  "number_of_words": ${numberOfWords},
-  "uid": "${uid}"
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'InspireAI Content from Context',
-      apiUrl: 'https://content-from-context-continuous-5qpvtpji4a-uc.a.run.app',
-      callType: ApiCallType.POST,
-      headers: {},
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  static String? documentID(dynamic response) =>
-      castToType<String>(getJsonField(
-        response,
-        r'''$.document_id''',
-      ));
 }
 
 class InspireAIKeywordAndArticlesCall {
@@ -594,7 +554,7 @@ class InspireAIKeywordAndArticlesCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Keyword and articles',
-      apiUrl: 'https://keyword-finder-continuous-5qpvtpji4a-uc.a.run.app',
+      apiUrl: 'https://api.platform.theinspireai.com/ls/linkedin_scrapper',
       callType: ApiCallType.POST,
       headers: {},
       params: {},

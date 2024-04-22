@@ -30,9 +30,10 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for login_user_email widget.
   FocusNode? loginUserEmailFocusNode;
-  TextEditingController? loginUserEmailController;
-  String? Function(BuildContext, String?)? loginUserEmailControllerValidator;
-  String? _loginUserEmailControllerValidator(
+  TextEditingController? loginUserEmailTextController;
+  String? Function(BuildContext, String?)?
+      loginUserEmailTextControllerValidator;
+  String? _loginUserEmailTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -46,10 +47,11 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
 
   // State field(s) for login_user_pass widget.
   FocusNode? loginUserPassFocusNode;
-  TextEditingController? loginUserPassController;
+  TextEditingController? loginUserPassTextController;
   late bool loginUserPassVisibility;
-  String? Function(BuildContext, String?)? loginUserPassControllerValidator;
-  String? _loginUserPassControllerValidator(BuildContext context, String? val) {
+  String? Function(BuildContext, String?)? loginUserPassTextControllerValidator;
+  String? _loginUserPassTextControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -66,9 +68,10 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
 
   // State field(s) for signup_user_email widget.
   FocusNode? signupUserEmailFocusNode;
-  TextEditingController? signupUserEmailController;
-  String? Function(BuildContext, String?)? signupUserEmailControllerValidator;
-  String? _signupUserEmailControllerValidator(
+  TextEditingController? signupUserEmailTextController;
+  String? Function(BuildContext, String?)?
+      signupUserEmailTextControllerValidator;
+  String? _signupUserEmailTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -82,10 +85,11 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
 
   // State field(s) for signup_user_pass widget.
   FocusNode? signupUserPassFocusNode;
-  TextEditingController? signupUserPassController;
+  TextEditingController? signupUserPassTextController;
   late bool signupUserPassVisibility;
-  String? Function(BuildContext, String?)? signupUserPassControllerValidator;
-  String? _signupUserPassControllerValidator(
+  String? Function(BuildContext, String?)?
+      signupUserPassTextControllerValidator;
+  String? _signupUserPassTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -101,35 +105,33 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
     return null;
   }
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
-    loginUserEmailControllerValidator = _loginUserEmailControllerValidator;
+    loginUserEmailTextControllerValidator =
+        _loginUserEmailTextControllerValidator;
     loginUserPassVisibility = false;
-    loginUserPassControllerValidator = _loginUserPassControllerValidator;
-    signupUserEmailControllerValidator = _signupUserEmailControllerValidator;
+    loginUserPassTextControllerValidator =
+        _loginUserPassTextControllerValidator;
+    signupUserEmailTextControllerValidator =
+        _signupUserEmailTextControllerValidator;
     signupUserPassVisibility = false;
-    signupUserPassControllerValidator = _signupUserPassControllerValidator;
+    signupUserPassTextControllerValidator =
+        _signupUserPassTextControllerValidator;
   }
 
   @override
   void dispose() {
     unfocusNode.dispose();
     loginUserEmailFocusNode?.dispose();
-    loginUserEmailController?.dispose();
+    loginUserEmailTextController?.dispose();
 
     loginUserPassFocusNode?.dispose();
-    loginUserPassController?.dispose();
+    loginUserPassTextController?.dispose();
 
     signupUserEmailFocusNode?.dispose();
-    signupUserEmailController?.dispose();
+    signupUserEmailTextController?.dispose();
 
     signupUserPassFocusNode?.dispose();
-    signupUserPassController?.dispose();
+    signupUserPassTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

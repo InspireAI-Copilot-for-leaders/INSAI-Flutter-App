@@ -24,12 +24,10 @@ class ExpertiseAreaEditModel extends FlutterFlowModel<ExpertiseAreaEditWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode;
-  TextEditingController? contentURL1Controller;
-  String? Function(BuildContext, String?)? contentURL1ControllerValidator;
+  TextEditingController? contentURL1TextController;
+  String? Function(BuildContext, String?)? contentURL1TextControllerValidator;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   ToBeReviewedRecord? toBeReviewedDoc;
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {}
@@ -38,10 +36,6 @@ class ExpertiseAreaEditModel extends FlutterFlowModel<ExpertiseAreaEditWidget> {
   void dispose() {
     unfocusNode.dispose();
     contentURL1FocusNode?.dispose();
-    contentURL1Controller?.dispose();
+    contentURL1TextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

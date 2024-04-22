@@ -1,10 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import '/backend/schema/structs/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -46,6 +48,89 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
+      logFirebaseEvent('linkedinAuth_backend_call');
+      _model.linkedintokens = await LinkedinTokensCall.call(
+        authCodeRecieved: widget.code,
+      );
+      if ((_model.linkedintokens?.succeeded ?? true)) {
+        logFirebaseEvent('linkedinAuth_backend_call');
+
+        await currentUserReference!.update(createUsersRecordData(
+          linkedinAccess: getJsonField(
+            (_model.linkedintokens?.jsonBody ?? ''),
+            r'''$.access_token''',
+          ).toString().toString(),
+          linkedinRefresh: getJsonField(
+            (_model.linkedintokens?.jsonBody ?? ''),
+            r'''$.refresh_token''',
+          ).toString().toString(),
+        ));
+        logFirebaseEvent('linkedinAuth_backend_call');
+        _model.lIprofileDetails =
+            await LinkedInDataGroup.linkedinProfileDetailsCall.call(
+          authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+        );
+        if ((_model.lIprofileDetails?.succeeded ?? true)) {
+          logFirebaseEvent('linkedinAuth_backend_call');
+
+          await currentUserReference!.update(createUsersRecordData(
+            linkedinDetails: updateLinkedinDetailsAuthStruct(
+              LinkedinDetailsAuthStruct.maybeFromMap(
+                  (_model.lIprofileDetails?.jsonBody ?? '')),
+              clearUnsetFields: false,
+            ),
+          ));
+          logFirebaseEvent('linkedinAuth_backend_call');
+          _model.getExpertiseWorflow =
+              await ExpertiseOfPersonProxycurlCall.call(
+            linkedinUrl:
+                'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
+            uid: currentUserUid,
+          );
+          if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
+            logFirebaseEvent('linkedinAuth_update_page_state');
+            setState(() {
+              _model.isLoading = false;
+            });
+          } else {
+            logFirebaseEvent('linkedinAuth_navigate_to');
+
+            context.goNamed(
+              'linkedinConnect',
+              queryParameters: {
+                'connectSuccess': serializeParam(
+                  false,
+                  ParamType.bool,
+                ),
+              }.withoutNulls,
+            );
+          }
+        } else {
+          logFirebaseEvent('linkedinAuth_navigate_to');
+
+          context.goNamed(
+            'linkedinConnect',
+            queryParameters: {
+              'connectSuccess': serializeParam(
+                false,
+                ParamType.bool,
+              ),
+            }.withoutNulls,
+          );
+        }
+      } else {
+        logFirebaseEvent('linkedinAuth_navigate_to');
+
+        context.goNamed(
+          'linkedinConnect',
+          queryParameters: {
+            'connectSuccess': serializeParam(
+              false,
+              ParamType.bool,
+            ),
+          }.withoutNulls,
+        );
+      }
     });
 
     if (!isWeb) {
@@ -57,8 +142,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
       });
     }
 
-    _model.contentURL1Controller ??= TextEditingController();
+    _model.contentURL1TextController ??= TextEditingController();
     _model.contentURL1FocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -160,6 +247,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       .headlineMediumFamily,
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -178,6 +266,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                             fontFamily:
                                 FlutterFlowTheme.of(context).bodyMediumFamily,
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -253,6 +342,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .displayMediumFamily,
                                                 fontSize: 30.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -282,6 +372,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
                                                 fontSize: 14.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -309,6 +400,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
@@ -337,6 +429,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
                                                 fontSize: 12.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -475,6 +568,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                             .primaryBackground,
                                                                         fontSize:
                                                                             12.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                         useGoogleFonts:
@@ -511,6 +606,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
@@ -526,8 +622,9 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                           0.0, 8.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
-                                            _model.contentURL1Controller,
+                                            _model.contentURL1TextController,
                                         focusNode: _model.contentURL1FocusNode,
+                                        autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'Type to add custom',
@@ -539,6 +636,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .labelMediumFamily,
                                                 fontSize: 12.0,
+                                                letterSpacing: 0.0,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
                                                     .containsKey(
@@ -594,6 +692,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMediumFamily,
                                               fontSize: 18.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
@@ -603,7 +702,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           .bodyMediumFamily),
                                             ),
                                         validator: _model
-                                            .contentURL1ControllerValidator
+                                            .contentURL1TextControllerValidator
                                             .asValidator(context),
                                       ),
                                     ),
@@ -624,7 +723,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                 {
                                                   'thought_leadership_areas':
                                                       FieldValue.arrayUnion([
-                                                    _model.contentURL1Controller
+                                                    _model
+                                                        .contentURL1TextController
                                                         .text
                                                   ]),
                                                 },
@@ -647,7 +747,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                               FieldValue
                                                                   .arrayUnion([
                                                             _model
-                                                                .contentURL1Controller
+                                                                .contentURL1TextController
                                                                 .text
                                                           ]),
                                                         },
@@ -681,7 +781,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                 {
                                                   'addedByUser':
                                                       FieldValue.arrayUnion([
-                                                    _model.contentURL1Controller
+                                                    _model
+                                                        .contentURL1TextController
                                                         .text
                                                   ]),
                                                 },
@@ -713,6 +814,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                               .of(context)
                                                           .primaryBackground,
                                                       fontSize: 12.0,
+                                                      letterSpacing: 0.0,
                                                       useGoogleFonts: GoogleFonts
                                                               .asMap()
                                                           .containsKey(
@@ -777,6 +879,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                   .of(context)
                                                               .secondaryText,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -886,6 +989,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                         context)
                                                                     .secondaryText,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -1040,6 +1145,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                 fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
                                                                                 fontSize: 14.0,
+                                                                                letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                               ),
@@ -1152,6 +1258,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                       .secondaryText,
                                                                   fontSize:
                                                                       14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -1308,6 +1416,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                   fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                   color: FlutterFlowTheme.of(context).primaryText,
                                                                                   fontSize: 14.0,
+                                                                                  letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                 ),
@@ -1368,6 +1477,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .primaryBackground,
                                         fontSize: 18.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -1386,12 +1496,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                         ],
                       ),
                     ),
-                    if ((_model.isLoading ? true : false) &&
-                        responsiveVisibility(
-                          context: context,
-                          phone: false,
-                          tablet: false,
-                        ))
+                    if (_model.isLoading ? true : false)
                       wrapWithModel(
                         model: _model.profileLoadingScreenModel,
                         updateCallback: () => setState(() {}),

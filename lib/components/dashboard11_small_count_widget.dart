@@ -29,6 +29,8 @@ class _Dashboard11SmallCountWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => Dashboard11SmallCountModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -52,7 +54,10 @@ class _Dashboard11SmallCountWidgetState
           BoxShadow(
             blurRadius: 4.0,
             color: Color(0x33000000),
-            offset: Offset(0.0, 2.0),
+            offset: Offset(
+              0.0,
+              2.0,
+            ),
           )
         ],
         borderRadius: BorderRadius.circular(8.0),
@@ -86,6 +91,7 @@ class _Dashboard11SmallCountWidgetState
                           fontFamily: 'Readex Pro',
                           color: Color(0xFF57636C),
                           fontSize: 14.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.normal,
                           useGoogleFonts:
                               GoogleFonts.asMap().containsKey('Readex Pro'),
@@ -105,6 +111,7 @@ class _Dashboard11SmallCountWidgetState
                                 fontFamily: 'Outfit',
                                 color: Color(0xFF14181B),
                                 fontSize: 24.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,
                                 useGoogleFonts:
                                     GoogleFonts.asMap().containsKey('Outfit'),
@@ -130,6 +137,7 @@ class _Dashboard11SmallCountWidgetState
                                     fontFamily: 'Readex Pro',
                                     color: Color(0xFF39D2C0),
                                     fontSize: 12.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey('Readex Pro'),

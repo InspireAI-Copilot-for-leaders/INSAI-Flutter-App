@@ -39,6 +39,8 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => LoadingScreenModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -78,6 +80,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -105,6 +108,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
                         fontFamily:
                             FlutterFlowTheme.of(context).titleSmallFamily,
                         color: FlutterFlowTheme.of(context).primaryText,
+                        letterSpacing: 0.0,
                         useGoogleFonts: GoogleFonts.asMap().containsKey(
                             FlutterFlowTheme.of(context).titleSmallFamily),
                       ),

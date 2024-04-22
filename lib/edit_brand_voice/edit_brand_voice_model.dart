@@ -26,22 +26,20 @@ class EditBrandVoiceModel extends FlutterFlowModel<EditBrandVoiceWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for contentURL2 widget.
   FocusNode? contentURL2FocusNode;
-  TextEditingController? contentURL2Controller;
-  String? Function(BuildContext, String?)? contentURL2ControllerValidator;
+  TextEditingController? contentURL2TextController;
+  String? Function(BuildContext, String?)? contentURL2TextControllerValidator;
   // State field(s) for contentURL3 widget.
   FocusNode? contentURL3FocusNode;
-  TextEditingController? contentURL3Controller;
-  String? Function(BuildContext, String?)? contentURL3ControllerValidator;
+  TextEditingController? contentURL3TextController;
+  String? Function(BuildContext, String?)? contentURL3TextControllerValidator;
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode1;
-  TextEditingController? contentURL1Controller1;
-  String? Function(BuildContext, String?)? contentURL1Controller1Validator;
+  TextEditingController? contentURL1TextController1;
+  String? Function(BuildContext, String?)? contentURL1TextController1Validator;
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode2;
-  TextEditingController? contentURL1Controller2;
-  String? Function(BuildContext, String?)? contentURL1Controller2Validator;
-
-  /// Initialization and disposal methods.
+  TextEditingController? contentURL1TextController2;
+  String? Function(BuildContext, String?)? contentURL1TextController2Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -50,19 +48,15 @@ class EditBrandVoiceModel extends FlutterFlowModel<EditBrandVoiceWidget> {
   void dispose() {
     unfocusNode.dispose();
     contentURL2FocusNode?.dispose();
-    contentURL2Controller?.dispose();
+    contentURL2TextController?.dispose();
 
     contentURL3FocusNode?.dispose();
-    contentURL3Controller?.dispose();
+    contentURL3TextController?.dispose();
 
     contentURL1FocusNode1?.dispose();
-    contentURL1Controller1?.dispose();
+    contentURL1TextController1?.dispose();
 
     contentURL1FocusNode2?.dispose();
-    contentURL1Controller2?.dispose();
+    contentURL1TextController2?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

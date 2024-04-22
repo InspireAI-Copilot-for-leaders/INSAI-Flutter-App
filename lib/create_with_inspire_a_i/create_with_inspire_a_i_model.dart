@@ -49,8 +49,6 @@ class CreateWithInspireAIModel
   // Model for LoadingScreen component.
   late LoadingScreenModel loadingScreenModel;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
     loadingScreenModel = createModel(context, () => LoadingScreenModel());
@@ -69,8 +67,4 @@ class CreateWithInspireAIModel
 
     loadingScreenModel.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

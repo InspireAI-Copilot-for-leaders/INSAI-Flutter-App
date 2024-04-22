@@ -36,167 +36,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
   bool _isKeyboardVisible = false;
   var hasButtonTriggered1 = false;
-  final animationsMap = {
-    'containerOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 1200.ms,
-          begin: Offset(20.0, 20.0),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'imageOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 1200.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 1200.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'imageOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(87.5, -32.0),
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1200.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 1200.ms,
-          duration: 100.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'buttonOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: false,
-      effects: [
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(4.0, 4.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'buttonOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-300.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'containerOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(2.0, 1.0),
-          end: Offset(1.0, 1.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-81.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(4.0, 4.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-106.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(4.0, 4.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'buttonOnActionTriggerAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -214,24 +54,175 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
       });
     }
 
-    _model.loginUserEmailController ??= TextEditingController();
+    _model.loginUserEmailTextController ??= TextEditingController();
     _model.loginUserEmailFocusNode ??= FocusNode();
 
-    _model.loginUserPassController ??= TextEditingController();
+    _model.loginUserPassTextController ??= TextEditingController();
     _model.loginUserPassFocusNode ??= FocusNode();
 
-    _model.signupUserEmailController ??= TextEditingController();
+    _model.signupUserEmailTextController ??= TextEditingController();
     _model.signupUserEmailFocusNode ??= FocusNode();
 
-    _model.signupUserPassController ??= TextEditingController();
+    _model.signupUserPassTextController ??= TextEditingController();
     _model.signupUserPassFocusNode ??= FocusNode();
 
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 1200.0.ms,
+            begin: Offset(20.0, 20.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'imageOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 1200.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 1200.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1200.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 1200.0.ms,
+            duration: 100.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'buttonOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          BlurEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(4.0, 4.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'buttonOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(-300.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(2.0, 1.0),
+            end: Offset(1.0, 1.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(-81.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(4.0, 4.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(-106.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(4.0, 4.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'buttonOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -292,17 +283,17 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                             fit: BoxFit.contain,
                           ),
                         ).animateOnPageLoad(
-                            animationsMap['imageOnPageLoadAnimation1']!),
+                            animationsMap['imageOnPageLoadAnimation']!),
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.14),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 88.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 56.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Align(
@@ -322,8 +313,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                     fit: BoxFit.contain,
                                     alignment: Alignment(0.0, 0.0),
                                   ),
-                                ).animateOnPageLoad(animationsMap[
-                                    'imageOnPageLoadAnimation2']!),
+                                ),
                               ),
                             ),
                           ],
@@ -342,7 +332,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x33000000),
-                        offset: Offset(0.0, 2.0),
+                        offset: Offset(
+                          0.0,
+                          2.0,
+                        ),
                       )
                     ],
                     borderRadius: BorderRadius.circular(0.0),
@@ -391,6 +384,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .displaySmallFamily,
                                                 fontSize: 22.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -496,6 +490,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -545,9 +540,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: TextFormField(
                                                     controller: _model
-                                                        .loginUserEmailController,
+                                                        .loginUserEmailTextController,
                                                     focusNode: _model
                                                         .loginUserEmailFocusNode,
+                                                    autofocus: false,
                                                     textInputAction:
                                                         TextInputAction.next,
                                                     obscureText: false,
@@ -562,6 +558,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMediumFamily,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -582,6 +580,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         context)
                                                                     .labelMediumFamily,
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -656,6 +656,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -670,7 +671,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 context)
                                                             .secondary,
                                                     validator: _model
-                                                        .loginUserEmailControllerValidator
+                                                        .loginUserEmailTextControllerValidator
                                                         .asValidator(context),
                                                   ),
                                                 ),
@@ -680,9 +681,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           0.0, 12.0, 0.0, 16.0),
                                                   child: TextFormField(
                                                     controller: _model
-                                                        .loginUserPassController,
+                                                        .loginUserPassTextController,
                                                     focusNode: _model
                                                         .loginUserPassFocusNode,
+                                                    autofocus: false,
                                                     obscureText: !_model
                                                         .loginUserPassVisibility,
                                                     decoration: InputDecoration(
@@ -696,6 +698,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         context)
                                                                     .bodyMediumFamily,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -713,6 +717,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         context)
                                                                     .labelMediumFamily,
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -809,6 +815,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -825,7 +832,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 context)
                                                             .secondary,
                                                     validator: _model
-                                                        .loginUserPassControllerValidator
+                                                        .loginUserPassTextControllerValidator
                                                         .asValidator(context),
                                                   ),
                                                 ),
@@ -841,9 +848,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: TextFormField(
                                                     controller: _model
-                                                        .signupUserEmailController,
+                                                        .signupUserEmailTextController,
                                                     focusNode: _model
                                                         .signupUserEmailFocusNode,
+                                                    autofocus: false,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       labelText:
@@ -856,6 +864,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMediumFamily,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -876,6 +886,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         context)
                                                                     .labelMediumFamily,
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -950,6 +962,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -964,7 +977,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 context)
                                                             .secondary,
                                                     validator: _model
-                                                        .signupUserEmailControllerValidator
+                                                        .signupUserEmailTextControllerValidator
                                                         .asValidator(context),
                                                   ),
                                                 ),
@@ -974,9 +987,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           0.0, 12.0, 0.0, 20.0),
                                                   child: TextFormField(
                                                     controller: _model
-                                                        .signupUserPassController,
+                                                        .signupUserPassTextController,
                                                     focusNode: _model
                                                         .signupUserPassFocusNode,
+                                                    autofocus: false,
                                                     obscureText: !_model
                                                         .signupUserPassVisibility,
                                                     decoration: InputDecoration(
@@ -990,6 +1004,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         context)
                                                                     .bodyMediumFamily,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -1007,6 +1023,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         context)
                                                                     .labelMediumFamily,
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -1103,6 +1121,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -1119,7 +1138,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                 context)
                                                             .secondary,
                                                     validator: _model
-                                                        .signupUserPassControllerValidator
+                                                        .signupUserPassTextControllerValidator
                                                         .asValidator(context),
                                                   ),
                                                 ),
@@ -1174,10 +1193,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     .createAccountWithEmail(
                                                   context,
                                                   _model
-                                                      .signupUserEmailController
+                                                      .signupUserEmailTextController
                                                       .text,
                                                   _model
-                                                      .signupUserPassController
+                                                      .signupUserPassTextController
                                                       .text,
                                                 );
                                                 if (user == null) {
@@ -1191,7 +1210,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       createdTime:
                                                           getCurrentTimestamp,
                                                       email: _model
-                                                          .signupUserEmailController
+                                                          .signupUserEmailTextController
                                                           .text,
                                                       isProfileCompleted: false,
                                                       pushNotifications:
@@ -1232,6 +1251,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -1306,6 +1326,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         context)
                                                                     .secondary,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -1357,10 +1379,10 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               .signInWithEmail(
                                                         context,
                                                         _model
-                                                            .loginUserEmailController
+                                                            .loginUserEmailTextController
                                                             .text,
                                                         _model
-                                                            .loginUserPassController
+                                                            .loginUserPassTextController
                                                             .text,
                                                       );
                                                       if (user == null) {
@@ -1427,6 +1449,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                       .primaryBackground,
                                                                   fontSize:
                                                                       16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -1491,6 +1515,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -1633,7 +1658,20 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     : 'Are you new here?',
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
                                               ),
                                             ),
                                             Padding(
@@ -1656,6 +1694,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                   .of(context)
                                                               .secondary,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -1716,6 +1755,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                   .of(context)
                                                               .secondaryText,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -1783,9 +1823,11 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   if (user == null) {
                                                     return;
                                                   }
+                                                  logFirebaseEvent(
+                                                      'googleAuthButton_navigate_to');
 
                                                   context.goNamedAuth(
-                                                      'dashboard',
+                                                      'linkedinConnect',
                                                       context.mounted);
                                                 },
                                               ),
@@ -2021,6 +2063,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                             context)
                                                         .primaryText,
                                                     fontSize: 12.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                     useGoogleFonts: GoogleFonts
                                                             .asMap()
@@ -2040,6 +2083,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
+                                                letterSpacing: 0.0,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
                                                     .containsKey(
@@ -2071,6 +2115,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                   .of(context)
                                                               .primaryText,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           decoration:
@@ -2117,6 +2162,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           context)
                                                       .primaryText,
                                                   fontSize: 16.0,
+                                                  letterSpacing: 0.0,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
                                                       .containsKey(
@@ -2149,6 +2195,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                   .of(context)
                                                               .primaryText,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           decoration:
@@ -2174,6 +2221,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           context)
                                                       .primaryText,
                                                   fontSize: 16.0,
+                                                  letterSpacing: 0.0,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
                                                       .containsKey(

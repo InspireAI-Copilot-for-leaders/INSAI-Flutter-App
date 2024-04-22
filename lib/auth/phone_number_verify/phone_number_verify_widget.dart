@@ -30,142 +30,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'textOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'richTextOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 100.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 100.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 100.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 100.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'pinCodeOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 200.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'richTextOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 200.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 600.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'iconButtonOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 800.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 800.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 200.ms,
-          duration: 800.ms,
-          begin: Offset(-300.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -204,6 +69,144 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
 
     authManager.handlePhoneAuthStateChanges(context);
     authManager.handlePhoneAuthStateChanges(context);
+    animationsMap.addAll({
+      'textOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(2.5, 2.5),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'richTextOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 100.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(2.5, 2.5),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'pinCodeOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 200.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(2.5, 2.5),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'richTextOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 200.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(2.5, 2.5),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'iconButtonOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 800.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 800.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 200.0.ms,
+            duration: 800.0.ms,
+            begin: Offset(-300.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -274,6 +277,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
                                             FlutterFlowTheme.of(context)
@@ -322,6 +326,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .headlineLargeFamily,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -367,8 +372,17 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                               ),
                               Text(
                                 'Confirm your Code',
-                                style:
-                                    FlutterFlowTheme.of(context).headlineSmall,
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .headlineSmallFamily,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmallFamily),
+                                    ),
                               ),
                             ],
                           ),
@@ -390,6 +404,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
@@ -418,6 +433,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
                                   fontSize: 18.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .bodyMediumFamily),
@@ -439,6 +455,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .titleSmallFamily,
                                 color: FlutterFlowTheme.of(context).primaryText,
+                                letterSpacing: 0.0,
                                 useGoogleFonts: GoogleFonts.asMap().containsKey(
                                     FlutterFlowTheme.of(context)
                                         .titleSmallFamily),
@@ -502,6 +519,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
                                         fontSize: 16.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -558,6 +576,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
                                             FlutterFlowTheme.of(context)

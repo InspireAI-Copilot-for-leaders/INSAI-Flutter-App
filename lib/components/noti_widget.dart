@@ -27,6 +27,8 @@ class _NotiWidgetState extends State<NotiWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NotiModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -50,7 +52,10 @@ class _NotiWidgetState extends State<NotiWidget> {
             BoxShadow(
               blurRadius: 0.0,
               color: Color(0xFFF5FBFB),
-              offset: Offset(0.0, 1.0),
+              offset: Offset(
+                0.0,
+                1.0,
+              ),
             )
           ],
           borderRadius: BorderRadius.circular(12.0),
@@ -88,6 +93,7 @@ class _NotiWidgetState extends State<NotiWidget> {
                                         fontFamily: 'Inter',
                                         color: Color(0xFF101518),
                                         fontSize: 12.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey('Inter'),
@@ -102,6 +108,7 @@ class _NotiWidgetState extends State<NotiWidget> {
                                       fontFamily: 'Inter',
                                       color: Color(0xFF57636C),
                                       fontSize: 10.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey('Inter'),
@@ -121,6 +128,7 @@ class _NotiWidgetState extends State<NotiWidget> {
                                     fontFamily: 'Inter',
                                     color: Color(0xFF57636C),
                                     fontSize: 10.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey('Inter'),

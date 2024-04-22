@@ -46,8 +46,10 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
       });
     }
 
-    _model.contentURL1Controller ??= TextEditingController();
+    _model.contentURL1TextController ??= TextEditingController();
     _model.contentURL1FocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -113,6 +115,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                       .headlineMediumFamily,
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -131,6 +134,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                             fontFamily:
                                 FlutterFlowTheme.of(context).bodyMediumFamily,
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -204,6 +208,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .displayMediumFamily,
                                             fontSize: 30.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
@@ -231,6 +236,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryText,
                                             fontSize: 14.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
@@ -255,6 +261,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           fontSize: 14.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
@@ -280,6 +287,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryText,
                                             fontSize: 12.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
@@ -343,59 +351,49 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                     onTap: () async {
                                                       logFirebaseEvent(
                                                           'EXPERTISE_AREA_EDIT_Row_6zlemo5a_ON_TAP');
-                                                      final firestoreBatch =
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .batch();
-                                                      try {
-                                                        logFirebaseEvent(
-                                                            'Row_backend_call');
+                                                      logFirebaseEvent(
+                                                          'Row_backend_call');
 
-                                                        firestoreBatch.update(
-                                                            currentUserReference!,
-                                                            {
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'thought_leadership_areas':
-                                                                      FieldValue
-                                                                          .arrayRemove([
-                                                                    expertiseAreasItem
-                                                                  ]),
-                                                                },
-                                                              ),
-                                                            });
-                                                        logFirebaseEvent(
-                                                            'Row_backend_call');
+                                                      await currentUserReference!
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'thought_leadership_areas':
+                                                                FieldValue
+                                                                    .arrayRemove([
+                                                              expertiseAreasItem
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                      logFirebaseEvent(
+                                                          'Row_backend_call');
 
-                                                        firestoreBatch.update(
-                                                            currentUserReference!,
-                                                            {
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'thought_leadership_areas_mapping':
-                                                                      FieldValue
-                                                                          .arrayRemove([
-                                                                    getThoughtLeadershipAreasMappingFirestoreData(
-                                                                      createThoughtLeadershipAreasMappingStruct(
-                                                                        fieldValues: {
-                                                                          'sub_categories':
-                                                                              FieldValue.arrayRemove([
-                                                                            expertiseAreasItem
-                                                                          ]),
-                                                                        },
-                                                                        clearUnsetFields:
-                                                                            false,
-                                                                      ),
-                                                                      true,
-                                                                    )
-                                                                  ]),
-                                                                },
-                                                              ),
-                                                            });
-                                                      } finally {
-                                                        await firestoreBatch
-                                                            .commit();
-                                                      }
+                                                      await currentUserReference!
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'thought_leadership_areas_mapping':
+                                                                FieldValue
+                                                                    .arrayRemove([
+                                                              getThoughtLeadershipAreasMappingFirestoreData(
+                                                                createThoughtLeadershipAreasMappingStruct(
+                                                                  fieldValues: {
+                                                                    'sub_categories':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      expertiseAreasItem
+                                                                    ]),
+                                                                  },
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
                                                     },
                                                     child: Row(
                                                       mainAxisSize:
@@ -424,6 +422,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                         .primaryBackground,
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -462,6 +462,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           fontSize: 14.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
@@ -474,8 +475,10 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: TextFormField(
-                                    controller: _model.contentURL1Controller,
+                                    controller:
+                                        _model.contentURL1TextController,
                                     focusNode: _model.contentURL1FocusNode,
+                                    autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       hintText: 'Type to add custom',
@@ -486,6 +489,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMediumFamily,
                                             fontSize: 12.0,
+                                            letterSpacing: 0.0,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
@@ -536,6 +540,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
                                           fontSize: 18.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
@@ -543,7 +548,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                       .bodyMediumFamily),
                                         ),
                                     validator: _model
-                                        .contentURL1ControllerValidator
+                                        .contentURL1TextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -568,7 +573,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                               {
                                                 'thought_leadership_areas':
                                                     FieldValue.arrayUnion([
-                                                  _model.contentURL1Controller
+                                                  _model
+                                                      .contentURL1TextController
                                                       .text
                                                 ]),
                                               },
@@ -591,7 +597,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                             FieldValue
                                                                 .arrayUnion([
                                                           _model
-                                                              .contentURL1Controller
+                                                              .contentURL1TextController
                                                               .text
                                                         ]),
                                                       },
@@ -626,7 +632,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                     'addedByUser':
                                                         FieldValue.arrayUnion([
                                                       _model
-                                                          .contentURL1Controller
+                                                          .contentURL1TextController
                                                           .text
                                                     ]),
                                                   },
@@ -658,6 +664,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
                                               fontSize: 12.0,
+                                              letterSpacing: 0.0,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
                                                   .containsKey(
@@ -722,6 +729,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                   .of(context)
                                                               .secondaryText,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -827,6 +835,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                         context)
                                                                     .secondaryText,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -983,6 +993,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                 FlutterFlowTheme.of(context).primaryText,
                                                                             fontSize:
                                                                                 14.0,
+                                                                            letterSpacing:
+                                                                                0.0,
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
@@ -1095,6 +1107,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                         context)
                                                                     .secondaryText,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -1245,6 +1259,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                 fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
                                                                                 fontSize: 14.0,
+                                                                                letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                               ),
@@ -1305,6 +1320,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
                                     fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(

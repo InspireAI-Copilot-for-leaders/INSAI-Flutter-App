@@ -21,8 +21,6 @@ class LinkedinConnectModel extends FlutterFlowModel<LinkedinConnectWidget> {
 
   final unfocusNode = FocusNode();
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -30,8 +28,4 @@ class LinkedinConnectModel extends FlutterFlowModel<LinkedinConnectWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

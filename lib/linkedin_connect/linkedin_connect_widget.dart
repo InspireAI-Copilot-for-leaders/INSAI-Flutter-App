@@ -71,6 +71,8 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
         );
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -228,6 +230,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
                                         fontSize: 36.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey('Montserrat'),
@@ -252,6 +255,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
                                         fontSize: 16.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -301,6 +305,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
                                         fontSize: 18.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey('Montserrat'),

@@ -51,7 +51,9 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'articleDetails'});
-    _model.expandableController = ExpandableController(initialExpanded: false);
+    _model.expandableExpandableController =
+        ExpandableController(initialExpanded: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -86,7 +88,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                   buttonSize: 40.0,
                   icon: Icon(
                     Icons.close,
-                    color: FlutterFlowTheme.of(context).alternate,
+                    color: FlutterFlowTheme.of(context).secondary,
                     size: 25.0,
                   ),
                   onPressed: () async {
@@ -154,7 +156,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 24.0, 24.0, 0.0),
-                              child: Text(
+                              child: SelectionArea(
+                                  child: Text(
                                 valueOrDefault<String>(
                                   widget.articleTitle,
                                   'null',
@@ -166,11 +169,12 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 24.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey('Montserrat'),
                                     ),
-                              ),
+                              )),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -204,7 +208,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       width: double.infinity,
                                       color: Color(0x00000000),
                                       child: ExpandableNotifier(
-                                        controller: _model.expandableController,
+                                        controller: _model
+                                            .expandableExpandableController,
                                         child: ExpandablePanel(
                                           header: Padding(
                                             padding:
@@ -243,6 +248,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                   .of(context)
                                                               .primaryText,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -352,6 +358,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                             FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                         fontSize:
                                                                             12.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.normal,
                                                                         useGoogleFonts:
@@ -406,6 +414,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                   fontSize: 10.0,
+                                                                                  letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                 ),
@@ -660,7 +669,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 16.0, 24.0, 0.0),
-                              child: Text(
+                              child: SelectionArea(
+                                  child: Text(
                                 valueOrDefault<String>(
                                   widget.articleContent,
                                   'null',
@@ -672,11 +682,12 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey('Montserrat'),
                                     ),
-                              ),
+                              )),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -707,6 +718,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMediumFamily,
                                                 fontSize: 10.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w300,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -867,6 +879,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .primaryBackground,
                                         fontSize: 18.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -935,6 +948,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
                                           fontSize: 24.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
@@ -979,6 +993,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
                                         fontSize: 14.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -1063,6 +1078,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -1084,6 +1100,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -1176,6 +1193,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -1197,6 +1215,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -1289,6 +1308,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -1310,6 +1330,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -1402,6 +1423,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -1423,6 +1445,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -1515,6 +1538,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -1536,6 +1560,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -1627,6 +1652,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                   .of(context)
                                                               .secondary,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts

@@ -27,507 +27,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'imageOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 200.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 400.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 400.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 400.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 400.ms,
-          begin: Offset(-100.0, 20.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'pageViewOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 600.ms),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 600.ms,
-          duration: 200.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 600.ms,
-          duration: 200.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 820.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 820.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 820.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 820.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 960.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 960.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 960.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 960.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1100.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 1100.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 1100.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 1100.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1240.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 1240.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 1240.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 1240.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation5': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1380.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 1380.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 1380.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 1380.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 200.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 340.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 340.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 340.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 340.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 480.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 480.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 480.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 480.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 620.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 620.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 620.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 620.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation5': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 760.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 760.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 760.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 760.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation6': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 200.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation7': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 340.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 340.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 340.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 340.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation8': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 480.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 480.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 480.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 480.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation9': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 620.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 620.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 620.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 620.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation10': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 760.ms),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 760.ms,
-          duration: 420.ms,
-          begin: Offset(100.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 760.ms,
-          duration: 420.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 760.ms,
-          duration: 420.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'buttonOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 200.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 200.ms,
-          begin: Offset(2.5, 2.5),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 200.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 200.ms,
-          duration: 200.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -558,12 +58,515 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
       }
     });
 
+    animationsMap.addAll({
+      'imageOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 200.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(2.5, 2.5),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(-100.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'pageViewOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 600.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 600.0.ms,
+            duration: 200.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 600.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 820.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 820.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 820.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 820.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 960.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 960.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 960.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 960.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1100.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 1100.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 1100.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 1100.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation4': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1240.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 1240.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 1240.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 1240.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation5': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1380.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 1380.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 1380.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 1380.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 200.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 340.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 340.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 340.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 340.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 480.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation4': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 620.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 620.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 620.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 620.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation5': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 760.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 760.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 760.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 760.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation6': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 200.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation7': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 340.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 340.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 340.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 340.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation8': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 480.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation9': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 620.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 620.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 620.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 620.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation10': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 760.ms),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 760.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 760.0.ms,
+            duration: 420.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 760.0.ms,
+            duration: 420.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'buttonOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 200.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(2.5, 2.5),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 200.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -1149,18 +1152,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             child: FFButtonWidget(
               onPressed: () async {
                 logFirebaseEvent('LANDING_PAGE_PAGE_GET_STARTED_BTN_ON_TAP');
-                logFirebaseEvent('Button_widget_animation');
-                if (animationsMap['pageViewOnActionTriggerAnimation'] != null) {
-                  animationsMap['pageViewOnActionTriggerAnimation']!
-                      .controller
-                      .reverse();
-                }
-                logFirebaseEvent('Button_widget_animation');
-                if (animationsMap['buttonOnActionTriggerAnimation'] != null) {
-                  await animationsMap['buttonOnActionTriggerAnimation']!
-                      .controller
-                      .reverse();
-                }
                 logFirebaseEvent('Button_navigate_to');
 
                 context.pushNamed(
@@ -1186,6 +1177,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                           FlutterFlowTheme.of(context).labelMediumFamily,
                       color: FlutterFlowTheme.of(context).primary,
                       fontSize: 16.0,
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).labelMediumFamily),

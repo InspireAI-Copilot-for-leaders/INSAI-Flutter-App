@@ -29,6 +29,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'ProfileDetails'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -160,6 +161,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                           fontFamily: 'Plus Jakarta Sans',
                           color: Colors.white,
                           fontSize: 22.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
                           useGoogleFonts: GoogleFonts.asMap()
                               .containsKey('Plus Jakarta Sans'),
@@ -176,6 +178,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                         fontFamily: 'Plus Jakarta Sans',
                         color: Colors.white,
                         fontSize: 14.0,
+                        letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
                         useGoogleFonts: GoogleFonts.asMap()
                             .containsKey('Plus Jakarta Sans'),
@@ -211,6 +214,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Color(0x6BFFFFFF),
                                   fontSize: 12.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey('Plus Jakarta Sans'),
@@ -231,7 +235,10 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                       BoxShadow(
                         blurRadius: 3.0,
                         color: Color(0x33000000),
-                        offset: Offset(0.0, -1.0),
+                        offset: Offset(
+                          0.0,
+                          -1.0,
+                        ),
                       )
                     ],
                     borderRadius: BorderRadius.only(
@@ -264,6 +271,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                         fontFamily: 'Montserrat',
                                         color: Color(0xFF101213),
                                         fontSize: 22.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey('Montserrat'),
@@ -283,15 +291,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                         'PROFILE_DETAILS_PAGE_Row_xhoggcdg_ON_TAP');
                                     logFirebaseEvent('Row_navigate_to');
 
-                                    context.pushNamed(
-                                      'linkedinAuth',
-                                      pathParameters: {
-                                        'code': serializeParam(
-                                          'null',
-                                          ParamType.String,
-                                        ),
-                                      }.withoutNulls,
-                                    );
+                                    context.pushNamed('expertiseAreaEdit');
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -320,6 +320,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                   fontFamily: 'Montserrat',
                                                   color: Color(0xFF101213),
                                                   fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
                                                       GoogleFonts.asMap()
@@ -338,6 +339,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               fontFamily: 'Montserrat',
                                               color: Color(0xFF4B39EF),
                                               fontSize: 14.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
                                                   GoogleFonts.asMap()
@@ -391,6 +393,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                   fontFamily: 'Montserrat',
                                                   color: Color(0xFF101213),
                                                   fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
                                                       GoogleFonts.asMap()
@@ -409,6 +412,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               fontFamily: 'Montserrat',
                                               color: Color(0xFF4B39EF),
                                               fontSize: 14.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
                                                   GoogleFonts.asMap()
@@ -462,6 +466,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                   fontFamily: 'Montserrat',
                                                   color: Color(0xFF101213),
                                                   fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
                                                       GoogleFonts.asMap()
@@ -480,6 +485,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               fontFamily: 'Montserrat',
                                               color: Color(0xFF4B39EF),
                                               fontSize: 14.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
                                                   GoogleFonts.asMap()
@@ -576,6 +582,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                   fontFamily: 'Montserrat',
                                                   color: Color(0xFF101213),
                                                   fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
                                                       GoogleFonts.asMap()
@@ -594,6 +601,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               fontFamily: 'Montserrat',
                                               color: Color(0xFF4B39EF),
                                               fontSize: 14.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
                                                   GoogleFonts.asMap()

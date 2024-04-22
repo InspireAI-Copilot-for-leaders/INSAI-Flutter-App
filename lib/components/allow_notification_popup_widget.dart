@@ -37,6 +37,8 @@ class _AllowNotificationPopupWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AllowNotificationPopupModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -87,6 +89,7 @@ class _AllowNotificationPopupWidgetState
                               fontFamily: 'Poppins',
                               color: FlutterFlowTheme.of(context).primary,
                               fontSize: 24.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w800,
                               useGoogleFonts:
                                   GoogleFonts.asMap().containsKey('Poppins'),
@@ -103,6 +106,7 @@ class _AllowNotificationPopupWidgetState
                               .override(
                                 fontFamily: 'Poppins',
                                 color: FlutterFlowTheme.of(context).primary,
+                                letterSpacing: 0.0,
                                 useGoogleFonts:
                                     GoogleFonts.asMap().containsKey('Poppins'),
                                 lineHeight: 1.5,
@@ -140,6 +144,7 @@ class _AllowNotificationPopupWidgetState
                                       .titleSmallFamily,
                                   color: FlutterFlowTheme.of(context).alternate,
                                   fontSize: 18.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -180,6 +185,7 @@ class _AllowNotificationPopupWidgetState
                                       .titleSmallFamily,
                                   color: Color(0xFF111111),
                                   fontSize: 18.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)

@@ -33,6 +33,8 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GlowingButtonModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -54,7 +56,10 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
           BoxShadow(
             blurRadius: 10.0,
             color: FlutterFlowTheme.of(context).accent2,
-            offset: Offset(0.0, 5.0),
+            offset: Offset(
+              0.0,
+              5.0,
+            ),
           )
         ],
         borderRadius: BorderRadius.circular(1000.0),
@@ -66,7 +71,10 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
             BoxShadow(
               blurRadius: 7.0,
               color: FlutterFlowTheme.of(context).accent1,
-              offset: Offset(0.0, 3.0),
+              offset: Offset(
+                0.0,
+                3.0,
+              ),
             )
           ],
           borderRadius: BorderRadius.circular(1000.0),
@@ -78,7 +86,10 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
               BoxShadow(
                 blurRadius: 3.0,
                 color: FlutterFlowTheme.of(context).secondary,
-                offset: Offset(0.0, 1.0),
+                offset: Offset(
+                  0.0,
+                  1.0,
+                ),
               )
             ],
             borderRadius: BorderRadius.circular(1000.0),
@@ -97,6 +108,7 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
               textStyle: FlutterFlowTheme.of(context).titleMedium.override(
                     fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
                     color: FlutterFlowTheme.of(context).primaryBackground,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w600,
                     useGoogleFonts: GoogleFonts.asMap().containsKey(
                         FlutterFlowTheme.of(context).titleMediumFamily),

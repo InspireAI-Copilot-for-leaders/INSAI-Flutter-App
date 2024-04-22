@@ -47,6 +47,8 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
 
     _model.textController ??= TextEditingController(text: widget.expandedText);
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -93,6 +95,7 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
                                 FlutterFlowTheme.of(context).displaySmallFamily,
                             color: FlutterFlowTheme.of(context).primaryText,
                             fontSize: 14.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context)
                                     .displaySmallFamily),
@@ -146,8 +149,24 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
                     autofocus: true,
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                      hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                      labelStyle: FlutterFlowTheme.of(context)
+                          .labelMedium
+                          .override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).labelMediumFamily,
+                            letterSpacing: 0.0,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).labelMediumFamily),
+                          ),
+                      hintStyle: FlutterFlowTheme.of(context)
+                          .labelMedium
+                          .override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).labelMediumFamily,
+                            letterSpacing: 0.0,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).labelMediumFamily),
+                          ),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       errorBorder: InputBorder.none,
@@ -157,6 +176,7 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
                           fontSize: 18.0,
+                          letterSpacing: 0.0,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
                               FlutterFlowTheme.of(context).bodyMediumFamily),
                         ),

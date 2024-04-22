@@ -90,7 +90,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         state: state,
         child: RootPageContext.wrap(
           appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
-          errorRoute: state.location,
+          errorRoute: state.uri.toString(),
         ),
       ),
       routes: [
@@ -116,8 +116,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'linkedinConnect',
               requireAuth: true,
               builder: (context, params) => LinkedinConnectWidget(
-                connectSuccess:
-                    params.getParam('connectSuccess', ParamType.bool),
+                connectSuccess: params.getParam(
+                  'connectSuccess',
+                  ParamType.bool,
+                ),
               ),
             ),
             FFRoute(
@@ -135,7 +137,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'linkedinAuth/:code',
               requireAuth: true,
               builder: (context, params) => LinkedinAuthWidget(
-                code: params.getParam('code', ParamType.String),
+                code: params.getParam(
+                  'code',
+                  ParamType.String,
+                ),
               ),
             ),
             FFRoute(
@@ -155,14 +160,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'articleDetails',
               requireAuth: true,
               builder: (context, params) => ArticleDetailsWidget(
-                articleRef: params.getParam('articleRef',
-                    ParamType.DocumentReference, false, ['article']),
-                articleTitle: params.getParam('articleTitle', ParamType.String),
-                articleImage: params.getParam('articleImage', ParamType.String),
-                articleContent:
-                    params.getParam('articleContent', ParamType.String),
-                articleDomain:
-                    params.getParam('articleDomain', ParamType.String),
+                articleRef: params.getParam(
+                  'articleRef',
+                  ParamType.DocumentReference,
+                  false,
+                  ['article'],
+                ),
+                articleTitle: params.getParam(
+                  'articleTitle',
+                  ParamType.String,
+                ),
+                articleImage: params.getParam(
+                  'articleImage',
+                  ParamType.String,
+                ),
+                articleContent: params.getParam(
+                  'articleContent',
+                  ParamType.String,
+                ),
+                articleDomain: params.getParam(
+                  'articleDomain',
+                  ParamType.String,
+                ),
               ),
             ),
             FFRoute(
@@ -170,12 +189,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createWithInspireAI',
               requireAuth: true,
               builder: (context, params) => CreateWithInspireAIWidget(
-                contextForContent:
-                    params.getParam('contextForContent', ParamType.String),
-                topicForContent:
-                    params.getParam('topicForContent', ParamType.String),
-                contentType: params.getParam('contentType', ParamType.String),
-                broadDomain: params.getParam('broadDomain', ParamType.String),
+                contextForContent: params.getParam(
+                  'contextForContent',
+                  ParamType.String,
+                ),
+                topicForContent: params.getParam(
+                  'topicForContent',
+                  ParamType.String,
+                ),
+                contentType: params.getParam(
+                  'contentType',
+                  ParamType.String,
+                ),
+                broadDomain: params.getParam(
+                  'broadDomain',
+                  ParamType.String,
+                ),
               ),
             ),
             FFRoute(
@@ -183,10 +212,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createOrEditPostCopy',
               requireAuth: true,
               builder: (context, params) => CreateOrEditPostCopyWidget(
-                postText: params.getParam('postText', ParamType.String),
-                postRef: params.getParam('postRef', ParamType.DocumentReference,
-                    false, ['users', 'created_posts']),
-                postTitle: params.getParam('postTitle', ParamType.String),
+                postText: params.getParam(
+                  'postText',
+                  ParamType.String,
+                ),
+                postRef: params.getParam(
+                  'postRef',
+                  ParamType.DocumentReference,
+                  false,
+                  ['users', 'created_posts'],
+                ),
+                postTitle: params.getParam(
+                  'postTitle',
+                  ParamType.String,
+                ),
               ),
             ),
             FFRoute(
@@ -212,11 +251,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'postDetailed',
               requireAuth: true,
               builder: (context, params) => PostDetailedWidget(
-                postRef: params.getParam('postRef', ParamType.DocumentReference,
-                    false, ['users', 'postedOnLinkedin']),
-                postText: params.getParam('postText', ParamType.String),
-                postURN: params.getParam('postURN', ParamType.String),
-                postedOn: params.getParam('postedOn', ParamType.DateTime),
+                postRef: params.getParam(
+                  'postRef',
+                  ParamType.DocumentReference,
+                  false,
+                  ['users', 'postedOnLinkedin'],
+                ),
+                postText: params.getParam(
+                  'postText',
+                  ParamType.String,
+                ),
+                postURN: params.getParam(
+                  'postURN',
+                  ParamType.String,
+                ),
+                postedOn: params.getParam(
+                  'postedOn',
+                  ParamType.DateTime,
+                ),
               ),
             ),
             FFRoute(
@@ -229,7 +281,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'storiesPage',
               path: 'storiesPage',
               builder: (context, params) => StoriesPageWidget(
-                domain: params.getParam('domain', ParamType.String),
+                domain: params.getParam(
+                  'domain',
+                  ParamType.String,
+                ),
               ),
             ),
             FFRoute(
@@ -247,8 +302,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'postReview',
               path: 'postReview',
               builder: (context, params) => PostReviewWidget(
-                postRef: params.getParam('postRef', ParamType.DocumentReference,
-                    false, ['users', 'created_posts']),
+                postRef: params.getParam(
+                  'postRef',
+                  ParamType.DocumentReference,
+                  false,
+                  ['users', 'created_posts'],
+                ),
               ),
             ),
             FFRoute(
@@ -256,11 +315,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createOrEditOneLiner',
               requireAuth: true,
               builder: (context, params) => CreateOrEditOneLinerWidget(
-                postText:
-                    params.getParam<String>('postText', ParamType.String, true),
-                postRef: params.getParam('postRef', ParamType.DocumentReference,
-                    false, ['users', 'created_posts']),
-                postTitle: params.getParam('postTitle', ParamType.String),
+                postText: params.getParam<String>(
+                  'postText',
+                  ParamType.String,
+                  true,
+                ),
+                postRef: params.getParam(
+                  'postRef',
+                  ParamType.DocumentReference,
+                  false,
+                  ['users', 'created_posts'],
+                ),
+                postTitle: params.getParam(
+                  'postTitle',
+                  ParamType.String,
+                ),
               ),
             ),
             FFRoute(
@@ -352,7 +421,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -395,6 +464,7 @@ class FFParameters {
     ParamType type, [
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -408,8 +478,13 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList,
-        collectionNamePath: collectionNamePath);
+    return deserializeParam<T>(
+      param,
+      type,
+      isList,
+      collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
+    );
   }
 }
 
@@ -441,7 +516,7 @@ class FFRoute {
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.location);
+            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
             return '/landingPage';
           }
           return null;
@@ -534,8 +609,8 @@ class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
   void initState() {
     super.initState();
     // Handle erroneous links from Firebase Dynamic Links.
-    if (widget.state.location.startsWith('/link') &&
-        widget.state.location.contains('request_ip_version')) {
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.toString().contains('request_ip_version')) {
       SchedulerBinding.instance.addPostFrameCallback((_) => context.go('/'));
     }
   }
@@ -552,7 +627,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;

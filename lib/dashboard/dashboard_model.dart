@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
 import 'dashboard_widget.dart' show DashboardWidget;
 import 'package:badges/badges.dart' as badges;
@@ -41,8 +42,6 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   // Model for Allow_notification_popup component.
   late AllowNotificationPopupModel allowNotificationPopupModel;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
     emptyStateModel1 = createModel(context, () => EmptyStateModel());
@@ -58,8 +57,4 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
     emptyStateModel2.dispose();
     allowNotificationPopupModel.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

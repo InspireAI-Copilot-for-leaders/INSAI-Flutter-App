@@ -47,8 +47,6 @@ class CreateFromScratchModel extends FlutterFlowModel<CreateFromScratchWidget> {
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -66,8 +64,4 @@ class CreateFromScratchModel extends FlutterFlowModel<CreateFromScratchWidget> {
     textFieldFocusNode4?.dispose();
     textController4?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

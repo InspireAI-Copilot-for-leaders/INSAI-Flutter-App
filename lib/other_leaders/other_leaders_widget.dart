@@ -33,11 +33,13 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'otherLeaders'});
-    _model.contentURL2Controller ??= TextEditingController();
+    _model.contentURL2TextController ??= TextEditingController();
     _model.contentURL2FocusNode ??= FocusNode();
 
-    _model.contentURL3Controller ??= TextEditingController();
+    _model.contentURL3TextController ??= TextEditingController();
     _model.contentURL3FocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -101,6 +103,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                       .headlineMediumFamily,
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -119,6 +122,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                             fontFamily:
                                 FlutterFlowTheme.of(context).bodyMediumFamily,
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -181,6 +185,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .displayMediumFamily,
                                     fontSize: 30.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
@@ -203,6 +208,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .labelLargeFamily,
                                     fontSize: 12.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
@@ -217,8 +223,9 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: TextFormField(
-                                controller: _model.contentURL2Controller,
+                                controller: _model.contentURL2TextController,
                                 focusNode: _model.contentURL2FocusNode,
+                                autofocus: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText:
@@ -229,6 +236,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .labelMediumFamily,
                                         fontSize: 12.0,
+                                        letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
@@ -273,13 +281,15 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                       fontFamily: FlutterFlowTheme.of(context)
                                           .bodyMediumFamily,
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily),
                                     ),
-                                validator: _model.contentURL2ControllerValidator
+                                validator: _model
+                                    .contentURL2TextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -288,8 +298,9 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: TextFormField(
-                                controller: _model.contentURL3Controller,
+                                controller: _model.contentURL3TextController,
                                 focusNode: _model.contentURL3FocusNode,
+                                autofocus: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText:
@@ -300,6 +311,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .labelMediumFamily,
                                         fontSize: 12.0,
+                                        letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
@@ -344,13 +356,15 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                       fontFamily: FlutterFlowTheme.of(context)
                                           .bodyMediumFamily,
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily),
                                     ),
-                                validator: _model.contentURL3ControllerValidator
+                                validator: _model
+                                    .contentURL3TextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -502,6 +516,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                             color:
                                 FlutterFlowTheme.of(context).primaryBackground,
                             fontSize: 18.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).titleMediumFamily),

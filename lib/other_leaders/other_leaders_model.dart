@@ -38,14 +38,12 @@ class OtherLeadersModel extends FlutterFlowModel<OtherLeadersWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for contentURL2 widget.
   FocusNode? contentURL2FocusNode;
-  TextEditingController? contentURL2Controller;
-  String? Function(BuildContext, String?)? contentURL2ControllerValidator;
+  TextEditingController? contentURL2TextController;
+  String? Function(BuildContext, String?)? contentURL2TextControllerValidator;
   // State field(s) for contentURL3 widget.
   FocusNode? contentURL3FocusNode;
-  TextEditingController? contentURL3Controller;
-  String? Function(BuildContext, String?)? contentURL3ControllerValidator;
-
-  /// Initialization and disposal methods.
+  TextEditingController? contentURL3TextController;
+  String? Function(BuildContext, String?)? contentURL3TextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -54,13 +52,9 @@ class OtherLeadersModel extends FlutterFlowModel<OtherLeadersWidget> {
   void dispose() {
     unfocusNode.dispose();
     contentURL2FocusNode?.dispose();
-    contentURL2Controller?.dispose();
+    contentURL2TextController?.dispose();
 
     contentURL3FocusNode?.dispose();
-    contentURL3Controller?.dispose();
+    contentURL3TextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
@@ -123,6 +124,27 @@ class FFAppState extends ChangeNotifier {
   void deleteAnthropicKey() {
     secureStorage.delete(key: 'ff_anthropicKey');
   }
+
+  DateTime? _dateMinus2Days;
+  DateTime? get dateMinus2Days => _dateMinus2Days;
+  set dateMinus2Days(DateTime? _value) {
+    _dateMinus2Days = _value;
+  }
+
+  final _discoverManager = StreamRequestManager<List<ArticleRecord>>();
+  Stream<List<ArticleRecord>> discover({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<ArticleRecord>> Function() requestFn,
+  }) =>
+      _discoverManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearDiscoverCache() => _discoverManager.clear();
+  void clearDiscoverCacheKey(String? uniqueKey) =>
+      _discoverManager.clearRequest(uniqueKey);
 }
 
 void _safeInit(Function() initializeField) {

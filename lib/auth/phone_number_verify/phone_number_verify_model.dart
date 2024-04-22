@@ -23,8 +23,6 @@ class PhoneNumberVerifyModel extends FlutterFlowModel<PhoneNumberVerifyWidget> {
   TextEditingController? phoneOTPcode;
   String? Function(BuildContext, String?)? phoneOTPcodeValidator;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
     phoneOTPcode = TextEditingController();
@@ -35,8 +33,4 @@ class PhoneNumberVerifyModel extends FlutterFlowModel<PhoneNumberVerifyWidget> {
     unfocusNode.dispose();
     phoneOTPcode?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

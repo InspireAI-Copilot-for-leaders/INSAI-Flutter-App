@@ -61,8 +61,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   // Model for emptyState component.
   late EmptyStateModel emptyStateModel;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
     riveAnimationAnimationsList.forEach((name) {
@@ -80,8 +78,4 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
     unfocusNode.dispose();
     emptyStateModel.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

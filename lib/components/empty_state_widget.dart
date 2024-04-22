@@ -40,6 +40,8 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => EmptyStateModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -78,6 +80,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).bodyMediumFamily),

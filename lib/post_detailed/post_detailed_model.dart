@@ -25,8 +25,6 @@ class PostDetailedModel extends FlutterFlowModel<PostDetailedWidget> {
   // Stores action output result for [Backend Call - API (get post comments)] action in Button widget.
   ApiCallResponse? comments;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -34,8 +32,4 @@ class PostDetailedModel extends FlutterFlowModel<PostDetailedWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

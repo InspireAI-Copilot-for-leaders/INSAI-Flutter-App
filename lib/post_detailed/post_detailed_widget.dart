@@ -43,6 +43,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'postDetailed'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -106,6 +107,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                       fontFamily: 'Montserrat',
                       color: Color(0xFF101213),
                       fontSize: 24.0,
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.w500,
                       useGoogleFonts:
                           GoogleFonts.asMap().containsKey('Montserrat'),
@@ -137,6 +139,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Color(0xFF57636C),
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey('Plus Jakarta Sans'),
@@ -156,6 +159,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                   fontFamily: 'Outfit',
                                   color: Color(0xFF101213),
                                   fontSize: 64.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                   useGoogleFonts:
                                       GoogleFonts.asMap().containsKey('Outfit'),
@@ -185,6 +189,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                           fontFamily: 'Plus Jakarta Sans',
                                           color: Color(0xFF57636C),
                                           fontSize: 12.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Plus Jakarta Sans'),
@@ -203,6 +208,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                             fontFamily: 'Outfit',
                                             color: Color(0xFF101213),
                                             fontSize: 18.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Outfit'),
@@ -226,6 +232,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                         fontFamily: 'Plus Jakarta Sans',
                                         color: Color(0xFF57636C),
                                         fontSize: 12.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey('Plus Jakarta Sans'),
@@ -242,6 +249,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                           fontFamily: 'Outfit',
                                           color: Color(0xFF101213),
                                           fontSize: 18.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Outfit'),
@@ -356,6 +364,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                       .titleSmallFamily,
                                   color: Colors.white,
                                   fontSize: 18.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .titleSmallFamily),
@@ -399,6 +408,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMediumFamily,
                                             fontSize: 12.0,
+                                            letterSpacing: 0.0,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
@@ -445,6 +455,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                               fontFamily: 'Plus Jakarta Sans',
                               color: Color(0xFF57636C),
                               fontSize: 12.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                               useGoogleFonts: GoogleFonts.asMap()
                                   .containsKey('Plus Jakarta Sans'),
@@ -463,6 +474,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                               fontFamily: 'Plus Jakarta Sans',
                               color: Color(0xFF101213),
                               fontSize: 14.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                               useGoogleFonts: GoogleFonts.asMap()
                                   .containsKey('Plus Jakarta Sans'),

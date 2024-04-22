@@ -42,6 +42,8 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => LeaderDisplayCardModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -117,6 +119,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                         fontFamily: 'Plus Jakarta Sans',
                         color: FlutterFlowTheme.of(context).primaryText,
                         fontSize: 16.0,
+                        letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                         useGoogleFonts: GoogleFonts.asMap()
                             .containsKey('Plus Jakarta Sans'),
@@ -138,6 +141,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                           fontFamily: 'Plus Jakarta Sans',
                           color: FlutterFlowTheme.of(context).secondaryText,
                           fontSize: 12.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                           useGoogleFonts: GoogleFonts.asMap()
                               .containsKey('Plus Jakarta Sans'),
@@ -185,6 +189,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           fontSize: 10.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Plus Jakarta Sans'),

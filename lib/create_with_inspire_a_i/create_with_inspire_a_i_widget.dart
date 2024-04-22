@@ -57,6 +57,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
 
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -97,6 +99,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
           style: FlutterFlowTheme.of(context).headlineMedium.override(
                 fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,
                 fontSize: 18.0,
+                letterSpacing: 0.0,
                 fontWeight: FontWeight.w600,
                 useGoogleFonts: GoogleFonts.asMap().containsKey(
                     FlutterFlowTheme.of(context).headlineMediumFamily),
@@ -163,6 +166,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                           .textController1,
                                                       focusNode: _model
                                                           .textFieldFocusNode1,
+                                                      autofocus: false,
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
@@ -182,6 +186,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                       .primaryText,
                                                                   fontSize:
                                                                       14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -203,6 +209,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                       .labelMediumFamily,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
@@ -227,6 +235,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                         context)
                                                                     .bodyMediumFamily,
                                                                 fontSize: 18.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -274,6 +284,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                           .textController2,
                                                       focusNode: _model
                                                           .textFieldFocusNode2,
+                                                      autofocus: false,
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
@@ -292,6 +303,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                       .primaryText,
                                                                   fontSize:
                                                                       14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -313,6 +326,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                       .labelMediumFamily,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
@@ -337,6 +352,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                         context)
                                                                     .bodyMediumFamily,
                                                                 fontSize: 18.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -384,6 +401,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                           .textController3,
                                                       focusNode: _model
                                                           .textFieldFocusNode3,
+                                                      autofocus: false,
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
@@ -403,6 +421,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                       .primaryText,
                                                                   fontSize:
                                                                       14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -424,6 +444,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                       .labelMediumFamily,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
@@ -448,6 +470,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                                         context)
                                                                     .bodyMediumFamily,
                                                                 fontSize: 18.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -517,6 +541,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .bodyMediumFamily,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -590,7 +615,6 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 uid: currentUserUid,
                                 insight: _model.textController2.text,
                                 contentType: widget.contentType,
-                                apifyToken: FFAppState().apifytoken,
                                 notificationTitle: 'Content Created!',
                                 notificationText:
                                     'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
@@ -743,6 +767,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
                                 fontSize: 14.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: GoogleFonts.asMap().containsKey(
                                     FlutterFlowTheme.of(context)

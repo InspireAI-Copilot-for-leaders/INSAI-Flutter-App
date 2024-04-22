@@ -77,17 +77,19 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
       }
     });
 
-    _model.contentURL2Controller ??= TextEditingController();
+    _model.contentURL2TextController ??= TextEditingController();
     _model.contentURL2FocusNode ??= FocusNode();
 
-    _model.contentURL3Controller ??= TextEditingController();
+    _model.contentURL3TextController ??= TextEditingController();
     _model.contentURL3FocusNode ??= FocusNode();
 
-    _model.contentURL1Controller1 ??= TextEditingController();
+    _model.contentURL1TextController1 ??= TextEditingController();
     _model.contentURL1FocusNode1 ??= FocusNode();
 
-    _model.contentURL1Controller2 ??= TextEditingController();
+    _model.contentURL1TextController2 ??= TextEditingController();
     _model.contentURL1FocusNode2 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -150,6 +152,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                       .headlineMediumFamily,
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -168,6 +171,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                             fontFamily:
                                 FlutterFlowTheme.of(context).bodyMediumFamily,
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -238,6 +242,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .displayMediumFamily,
                                         fontSize: 30.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -261,6 +266,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
                                         fontSize: 12.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -290,6 +296,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
@@ -306,9 +313,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             0.0, 8.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
-                                              _model.contentURL2Controller,
+                                              _model.contentURL2TextController,
                                           focusNode:
                                               _model.contentURL2FocusNode,
+                                          autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             hintText:
@@ -322,6 +330,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                                   context)
                                                               .labelMediumFamily,
                                                       fontSize: 12.0,
+                                                      letterSpacing: 0.0,
                                                       useGoogleFonts: GoogleFonts
                                                               .asMap()
                                                           .containsKey(
@@ -377,6 +386,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMediumFamily,
                                                 fontSize: 18.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -386,7 +396,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                             .bodyMediumFamily),
                                               ),
                                           validator: _model
-                                              .contentURL2ControllerValidator
+                                              .contentURL2TextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -396,9 +406,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             0.0, 8.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
-                                              _model.contentURL3Controller,
+                                              _model.contentURL3TextController,
                                           focusNode:
                                               _model.contentURL3FocusNode,
+                                          autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             hintText:
@@ -412,6 +423,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                                   context)
                                                               .labelMediumFamily,
                                                       fontSize: 12.0,
+                                                      letterSpacing: 0.0,
                                                       useGoogleFonts: GoogleFonts
                                                               .asMap()
                                                           .containsKey(
@@ -467,6 +479,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMediumFamily,
                                                 fontSize: 18.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -476,7 +489,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                             .bodyMediumFamily),
                                               ),
                                           validator: _model
-                                              .contentURL3ControllerValidator
+                                              .contentURL3TextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -485,8 +498,9 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                           0.0, 8.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
-                                            _model.contentURL1Controller1,
+                                            _model.contentURL1TextController1,
                                         focusNode: _model.contentURL1FocusNode1,
+                                        autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText:
@@ -499,6 +513,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .labelMediumFamily,
                                                 fontSize: 12.0,
+                                                letterSpacing: 0.0,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
                                                     .containsKey(
@@ -554,6 +569,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMediumFamily,
                                               fontSize: 18.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
@@ -563,7 +579,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                           .bodyMediumFamily),
                                             ),
                                         validator: _model
-                                            .contentURL1Controller1Validator
+                                            .contentURL1TextController1Validator
                                             .asValidator(context),
                                       ),
                                     ),
@@ -588,6 +604,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                           context)
                                                       .secondary,
                                                   fontSize: 12.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
@@ -624,6 +641,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                                 .of(context)
                                                             .primaryBackground,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
@@ -664,6 +682,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             fontSize: 14.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
@@ -676,8 +695,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 0.0, 0.0),
                                     child: TextFormField(
-                                      controller: _model.contentURL1Controller2,
+                                      controller:
+                                          _model.contentURL1TextController2,
                                       focusNode: _model.contentURL1FocusNode2,
+                                      autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         hintText: 'We\'ll write in this voice',
@@ -688,6 +709,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .labelMediumFamily,
                                               fontSize: 12.0,
+                                              letterSpacing: 0.0,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
                                                   .containsKey(
@@ -740,6 +762,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMediumFamily,
                                             fontSize: 18.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
@@ -747,7 +770,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                         .bodyMediumFamily),
                                           ),
                                       validator: _model
-                                          .contentURL1Controller2Validator
+                                          .contentURL1TextController2Validator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -766,12 +789,13 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                 'Button_update_page_state');
                                             setState(() {
                                               _model.typedVoice = _model
-                                                  .contentURL1Controller2.text;
+                                                  .contentURL1TextController2
+                                                  .text;
                                             });
                                             logFirebaseEvent(
                                                 'Button_clear_text_fields_pin_codes');
                                             setState(() {
-                                              _model.contentURL1Controller2
+                                              _model.contentURL1TextController2
                                                   ?.clear();
                                             });
                                           },
@@ -798,6 +822,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                               .of(context)
                                                           .primaryBackground,
                                                       fontSize: 12.0,
+                                                      letterSpacing: 0.0,
                                                       useGoogleFonts: GoogleFonts
                                                               .asMap()
                                                           .containsKey(
@@ -850,6 +875,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -873,6 +899,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 16.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -932,6 +959,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                           context)
                                                       .secondaryText,
                                                   fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
@@ -972,6 +1000,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
                                         fontSize: 14.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -1071,6 +1100,8 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                                       .bodyMediumFamily,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
@@ -1161,6 +1192,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
                                 fontSize: 18.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: GoogleFonts.asMap().containsKey(
                                     FlutterFlowTheme.of(context)

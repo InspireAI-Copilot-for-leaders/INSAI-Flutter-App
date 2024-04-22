@@ -40,274 +40,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'containerOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(460.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 400.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: Offset(2.0, 2.0),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: Offset(0.0, 70.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'containerOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(-335.0, 0.0),
-        ),
-        TiltEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(0, 0),
-          end: Offset(0, -0.524),
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(1.0, 1.0),
-          end: Offset(0.8, 0.8),
-        ),
-      ],
-    ),
-    'circleImageOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 800.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 0.ms,
-          duration: 800.ms,
-          begin: Offset(8.0, 8.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'iconOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'iconOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: Offset(0.0, 40.0),
-          end: Offset(0.0, 0.0),
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: Offset(0.8, 0.8),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: Offset(0.0, 40.0),
-          end: Offset(0.0, 0.0),
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 400.ms,
-          begin: Offset(0.8, 0.8),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'badgeOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 1200.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'containerOnActionTriggerAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(100.0, -150.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(4.0, 4.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-30.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-30.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -330,12 +63,282 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
       }
     });
 
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(460.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 400.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(2.0, 2.0),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 70.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(-335.0, 0.0),
+          ),
+          TiltEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0, 0),
+            end: Offset(0, -0.524),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.8, 0.8),
+          ),
+        ],
+      ),
+      'circleImageOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 800.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 800.0.ms,
+            begin: Offset(8.0, 8.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'iconOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'iconOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 40.0),
+            end: Offset(0.0, 0.0),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.8, 0.8),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 40.0),
+            end: Offset(0.0, 0.0),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.8, 0.8),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'badgeOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 1200.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(100.0, -150.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(4.0, 4.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(-30.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(-30.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+    });
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -461,6 +464,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                     context)
                                                                 .primaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         useGoogleFonts: GoogleFonts
@@ -486,6 +490,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         useGoogleFonts: GoogleFonts
@@ -567,6 +572,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
                                     fontSize: 11.0,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
                                             FlutterFlowTheme.of(context)
@@ -810,17 +816,20 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                         child: AuthUserStreamWidget(
                                           builder: (context) => StreamBuilder<
                                               List<ArticleRecord>>(
-                                            stream: queryArticleRecord(
-                                              queryBuilder: (articleRecord) =>
-                                                  articleRecord
-                                                      .whereIn(
-                                                          'domain',
-                                                          (currentUserDocument
-                                                                  ?.broadDomains
-                                                                  ?.toList() ??
-                                                              []))
-                                                      .orderBy('scrapped_at',
-                                                          descending: true),
+                                            stream: FFAppState().discover(
+                                              requestFn: () =>
+                                                  queryArticleRecord(
+                                                queryBuilder: (articleRecord) =>
+                                                    articleRecord
+                                                        .whereIn(
+                                                            'domain',
+                                                            (currentUserDocument
+                                                                    ?.broadDomains
+                                                                    ?.toList() ??
+                                                                []))
+                                                        .orderBy('scrapped_at',
+                                                            descending: true),
+                                              ),
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
@@ -881,6 +890,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                               .displayMediumFamily,
                                                                       fontSize:
                                                                           24.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
@@ -1067,6 +1078,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                       fontSize: 10.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.w500,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                     ),
@@ -1124,7 +1136,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                             .pageViewController ??=
                                                                         PageController(
                                                                             initialPage:
-                                                                                min(0, highlight.length - 1)),
+                                                                                max(0, min(0, highlight.length - 1))),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
@@ -1243,6 +1255,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                                           fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                           color: FlutterFlowTheme.of(context).primary,
                                                                                                           fontSize: 10.0,
+                                                                                                          letterSpacing: 0.0,
                                                                                                           fontWeight: FontWeight.w600,
                                                                                                           useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                         ),
@@ -1280,6 +1293,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                                             fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                             color: FlutterFlowTheme.of(context).alternate,
                                                                                                             fontSize: 10.0,
+                                                                                                            letterSpacing: 0.0,
                                                                                                             fontWeight: FontWeight.w500,
                                                                                                             useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                           ),
@@ -1297,6 +1311,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                               style: FlutterFlowTheme.of(context).headlineSmall.override(
                                                                                                     fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,
                                                                                                     color: FlutterFlowTheme.of(context).alternate,
+                                                                                                    letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineSmallFamily),
                                                                                                   ),
@@ -1332,7 +1347,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           .SmoothPageIndicator(
                                                                         controller:
                                                                             _model.pageViewController ??=
-                                                                                PageController(initialPage: min(0, highlight.length - 1)),
+                                                                                PageController(initialPage: max(0, min(0, highlight.length - 1))),
                                                                         count: highlight
                                                                             .length,
                                                                         axisDirection:
@@ -1464,6 +1479,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                     FlutterFlowTheme.of(context).secondaryText,
                                                                                   ),
                                                                                   fontSize: 12.0,
+                                                                                  letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w600,
                                                                                   useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                 ),
@@ -1552,6 +1568,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                             FlutterFlowTheme.of(context).secondaryText,
                                                                                           ),
                                                                                           fontSize: 12.0,
+                                                                                          letterSpacing: 0.0,
                                                                                           fontWeight: FontWeight.w600,
                                                                                           useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                         ),
@@ -1747,6 +1764,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                       fontFamily: 'Outfit',
                                                                                       color: FlutterFlowTheme.of(context).primaryText,
                                                                                       fontSize: 18.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.normal,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
                                                                                     ),
@@ -1768,6 +1786,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                               fontFamily: 'Plus Jakarta Sans',
                                                                                               color: FlutterFlowTheme.of(context).secondaryText,
                                                                                               fontSize: 12.0,
+                                                                                              letterSpacing: 0.0,
                                                                                               fontWeight: FontWeight.w500,
                                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                             ),
@@ -1787,6 +1806,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                               fontFamily: 'Plus Jakarta Sans',
                                                                                               color: Color(0xFF57636C),
                                                                                               fontSize: 12.0,
+                                                                                              letterSpacing: 0.0,
                                                                                               fontWeight: FontWeight.w500,
                                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                             ),
@@ -1965,6 +1985,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                           fontFamily: 'Outfit',
                                                                                           color: FlutterFlowTheme.of(context).primaryText,
                                                                                           fontSize: 18.0,
+                                                                                          letterSpacing: 0.0,
                                                                                           fontWeight: FontWeight.normal,
                                                                                           useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
                                                                                         ),
@@ -1986,6 +2007,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                                   fontFamily: 'Plus Jakarta Sans',
                                                                                                   color: FlutterFlowTheme.of(context).secondaryText,
                                                                                                   fontSize: 12.0,
+                                                                                                  letterSpacing: 0.0,
                                                                                                   fontWeight: FontWeight.w500,
                                                                                                   useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                                 ),
@@ -2005,6 +2027,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                                   fontFamily: 'Plus Jakarta Sans',
                                                                                                   color: FlutterFlowTheme.of(context).secondaryText,
                                                                                                   fontSize: 12.0,
+                                                                                                  letterSpacing: 0.0,
                                                                                                   fontWeight: FontWeight.w500,
                                                                                                   useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                                 ),
@@ -2078,6 +2101,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                         context)
                                                                     .primaryText,
                                                                 fontSize: 24.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -2109,6 +2134,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                 color: Color(
                                                                     0xFF606A85),
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -2292,6 +2319,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       0xFF15161E),
                                                                   fontSize:
                                                                       14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -2326,6 +2355,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       0xFF606A85),
                                                                   fontSize:
                                                                       14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -2473,6 +2504,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                               Color(0xFF15161E),
                                                                           fontSize:
                                                                               18.0,
+                                                                          letterSpacing:
+                                                                              0.0,
                                                                           fontWeight:
                                                                               FontWeight.normal,
                                                                           useGoogleFonts:
@@ -2573,6 +2606,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                 fontFamily: 'Plus Jakarta Sans',
                                                                                 color: FlutterFlowTheme.of(context).alternate,
                                                                                 fontSize: 14.0,
+                                                                                letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                               ),
@@ -2799,6 +2833,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                       fontFamily: 'Outfit',
                                                                                       color: Color(0xFF15161E),
                                                                                       fontSize: 22.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.bold,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
                                                                                     ),
@@ -2813,6 +2848,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                       fontFamily: 'Plus Jakarta Sans',
                                                                                       color: Color(0xFF606A85),
                                                                                       fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.w500,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                     ),
@@ -2905,6 +2941,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                               .override(
                                                                                 fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                letterSpacing: 0.0,
                                                                                 useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                               ),
                                                                         ),
@@ -2936,6 +2973,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                       fontFamily: 'Plus Jakarta Sans',
                                                                                       color: FlutterFlowTheme.of(context).accent1,
                                                                                       fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.w500,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                     ),
@@ -3121,6 +3159,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                       fontFamily: 'Outfit',
                                                                                       color: Color(0xFF15161E),
                                                                                       fontSize: 22.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.bold,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
                                                                                     ),
@@ -3135,6 +3174,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                       fontFamily: 'Plus Jakarta Sans',
                                                                                       color: Color(0xFF606A85),
                                                                                       fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.w500,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                     ),
@@ -3171,8 +3211,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           dateTimeFormat(
                                                                               'relative',
                                                                               listViewPostedOnLinkedinRecord.postedOn!),
-                                                                          style:
-                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              ),
                                                                         ),
                                                                         Container(
                                                                           height:
@@ -3202,6 +3247,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                       fontFamily: 'Plus Jakarta Sans',
                                                                                       color: FlutterFlowTheme.of(context).success,
                                                                                       fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.w500,
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                                     ),
@@ -3255,6 +3301,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                             context)
                                                         .primary,
                                                     fontSize: 20.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.bold,
                                                     fontStyle: FontStyle.italic,
                                                     useGoogleFonts: GoogleFonts
@@ -3295,6 +3342,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                   .of(context)
                                                               .primary,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -3337,7 +3385,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           BoxShadow(
                                             blurRadius: 10.0,
                                             color: Color(0x1A57636C),
-                                            offset: Offset(0.0, -10.0),
+                                            offset: Offset(
+                                              0.0,
+                                              -10.0,
+                                            ),
                                             spreadRadius: 0.1,
                                           )
                                         ],
@@ -3410,6 +3461,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       .secondaryText,
                                                 ),
                                                 fontSize: 10.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -3477,6 +3529,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       .secondaryText,
                                                 ),
                                                 fontSize: 10.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -3578,6 +3631,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       .secondaryText,
                                                 ),
                                                 fontSize: 10.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -3645,6 +3699,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       .secondaryText,
                                                 ),
                                                 fontSize: 10.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -3755,6 +3810,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                     .titleSmallFamily,
                                             color: Colors.white,
                                             fontSize: 10.0,
+                                            letterSpacing: 0.0,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
@@ -3820,6 +3876,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 16.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -3865,6 +3922,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                             context)
                                                         .secondary,
                                                     fontSize: 12.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts: GoogleFonts
                                                             .asMap()
@@ -3941,6 +3999,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
                                           fontSize: 24.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
@@ -3985,6 +4044,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
                                         fontSize: 14.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -4057,6 +4117,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -4078,6 +4139,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -4158,6 +4220,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -4179,6 +4242,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -4259,6 +4323,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -4280,6 +4345,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -4360,6 +4426,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -4381,6 +4448,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -4461,6 +4529,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 15.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -4482,6 +4551,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -4561,6 +4631,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                   .of(context)
                                                               .secondary,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts

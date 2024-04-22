@@ -39,6 +39,8 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'postReview'});
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -91,13 +93,26 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                 children: [
                   Text(
                     'Created Post Review',
-                    style: FlutterFlowTheme.of(context).headlineMedium,
+                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).headlineMediumFamily,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context)
+                                  .headlineMediumFamily),
+                        ),
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: Text(
                       'Please let us know why you didn\'t like the post...',
-                      style: FlutterFlowTheme.of(context).labelLarge,
+                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).labelLargeFamily,
+                            letterSpacing: 0.0,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).labelLargeFamily),
+                          ),
                     ),
                   ),
                   Column(
@@ -121,6 +136,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                               fontFamily:
                                   FlutterFlowTheme.of(context).bodyMediumFamily,
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: GoogleFonts.asMap().containsKey(
                                   FlutterFlowTheme.of(context)
                                       .bodyMediumFamily),
@@ -151,9 +167,27 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                         autofocus: true,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          labelStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .labelMediumFamily,
+                                letterSpacing: 0.0,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .labelMediumFamily),
+                              ),
                           hintText: 'Please ellaborate on the problem...',
-                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .labelMediumFamily,
+                                letterSpacing: 0.0,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .labelMediumFamily),
+                              ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).alternate,
@@ -185,7 +219,14 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 24.0, 16.0, 12.0),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily:
+                                  FlutterFlowTheme.of(context).bodyMediumFamily,
+                              letterSpacing: 0.0,
+                              useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                  FlutterFlowTheme.of(context)
+                                      .bodyMediumFamily),
+                            ),
                         maxLines: 16,
                         minLines: 6,
                         cursorColor: FlutterFlowTheme.of(context).primary,
@@ -218,6 +259,22 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                             },
                           ),
                         });
+                        logFirebaseEvent('Button_show_snack_bar');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Review has been submitted!',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                        logFirebaseEvent('Button_navigate_back');
+                        context.safePop();
                       },
                       text: 'Submit Review',
                       icon: Icon(
@@ -237,6 +294,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                               fontFamily:
                                   FlutterFlowTheme.of(context).titleSmallFamily,
                               color: Colors.white,
+                              letterSpacing: 0.0,
                               useGoogleFonts: GoogleFonts.asMap().containsKey(
                                   FlutterFlowTheme.of(context)
                                       .titleSmallFamily),

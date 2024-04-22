@@ -47,6 +47,8 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
     _model.textController4 ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.contentVoice, ''));
     _model.textFieldFocusNode4 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -85,6 +87,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
           style: FlutterFlowTheme.of(context).headlineMedium.override(
                 fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,
                 fontSize: 16.0,
+                letterSpacing: 0.0,
                 fontWeight: FontWeight.w600,
                 useGoogleFonts: GoogleFonts.asMap().containsKey(
                     FlutterFlowTheme.of(context).headlineMediumFamily),
@@ -137,6 +140,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
                                   color: FlutterFlowTheme.of(context).primary,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -184,6 +188,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
                                     color: FlutterFlowTheme.of(context).primary,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
@@ -233,6 +238,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
                                     color: FlutterFlowTheme.of(context).primary,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
@@ -436,6 +442,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -531,6 +538,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                     _model.textController1,
                                                 focusNode:
                                                     _model.textFieldFocusNode1,
+                                                autofocus: false,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
                                                   isDense: true,
@@ -547,6 +555,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                     context)
                                                                 .primary,
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -568,6 +577,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                         context)
                                                                     .labelMediumFamily,
                                                             fontSize: 12.0,
+                                                            letterSpacing: 0.0,
                                                             useGoogleFonts: GoogleFonts
                                                                     .asMap()
                                                                 .containsKey(
@@ -592,6 +602,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -637,6 +648,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                     _model.textController2,
                                                 focusNode:
                                                     _model.textFieldFocusNode2,
+                                                autofocus: false,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
                                                   isDense: true,
@@ -653,6 +665,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                     context)
                                                                 .primary,
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -674,6 +687,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                         context)
                                                                     .labelMediumFamily,
                                                             fontSize: 12.0,
+                                                            letterSpacing: 0.0,
                                                             useGoogleFonts: GoogleFonts
                                                                     .asMap()
                                                                 .containsKey(
@@ -698,6 +712,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -743,6 +758,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                     _model.textController3,
                                                 focusNode:
                                                     _model.textFieldFocusNode3,
+                                                autofocus: false,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
                                                   isDense: true,
@@ -759,6 +775,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                     context)
                                                                 .primary,
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -780,6 +797,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                         context)
                                                                     .labelMediumFamily,
                                                             fontSize: 12.0,
+                                                            letterSpacing: 0.0,
                                                             useGoogleFonts: GoogleFonts
                                                                     .asMap()
                                                                 .containsKey(
@@ -804,6 +822,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -851,6 +870,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                       _model.textController4,
                                                   focusNode: _model
                                                       .textFieldFocusNode4,
+                                                  autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
@@ -868,6 +888,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                   .of(context)
                                                               .primary,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -877,23 +898,23 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                           context)
                                                                       .labelMediumFamily),
                                                         ),
-                                                    hintStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMedium
-                                                            .override(
-                                                              fontFamily:
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMediumFamily,
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .labelMediumFamily,
-                                                              fontSize: 12.0,
-                                                              useGoogleFonts: GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .labelMediumFamily),
-                                                            ),
+                                                                      .labelMediumFamily),
+                                                        ),
                                                     enabledBorder:
                                                         InputBorder.none,
                                                     focusedBorder:
@@ -912,6 +933,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 16.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -974,6 +996,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -1036,6 +1059,7 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                                         .titleSmallFamily,
                                     color: Colors.white,
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
@@ -1056,7 +1080,13 @@ class _CreateFromScratchWidgetState extends State<CreateFromScratchWidget> {
                 } else {
                   return Text(
                     'Hello World',
-                    style: FlutterFlowTheme.of(context).bodyMedium,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                        ),
                   );
                 }
               },

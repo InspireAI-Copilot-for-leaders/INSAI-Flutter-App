@@ -41,29 +41,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'iconOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        RotateEffect(
-          curve: Curves.bounceOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        TintEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          color: Color(0xFF9532EC),
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -77,12 +55,37 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
 
     _model.textFieldFocusNode2 ??= FocusNode();
 
+    animationsMap.addAll({
+      'iconOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          RotateEffect(
+            curve: Curves.bounceOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          TintEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            color: Color(0xFF9532EC),
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+    });
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -202,6 +205,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                                             context)
                                                         .primaryText,
                                                     fontSize: 22.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts:
                                                         GoogleFonts.asMap()
@@ -316,6 +320,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                           fontFamily: 'Plus Jakarta Sans',
                                           color: Colors.white,
                                           fontSize: 16.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Plus Jakarta Sans'),
@@ -376,6 +381,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                             Duration(milliseconds: 2000),
                                             () => setState(() {}),
                                           ),
+                                          autofocus: false,
                                           textCapitalization:
                                               TextCapitalization.sentences,
                                           obscureText: false,
@@ -392,6 +398,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                                           'Plus Jakarta Sans',
                                                       color: Color(0xFF57636C),
                                                       fontSize: 16.0,
+                                                      letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       useGoogleFonts: GoogleFonts
@@ -456,6 +463,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -486,6 +494,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                             Duration(milliseconds: 2000),
                                             () => setState(() {}),
                                           ),
+                                          autofocus: false,
                                           textCapitalization:
                                               TextCapitalization.sentences,
                                           obscureText: false,
@@ -499,6 +508,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                                           'Plus Jakarta Sans',
                                                       color: Color(0xFF57636C),
                                                       fontSize: 16.0,
+                                                      letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       useGoogleFonts: GoogleFonts
@@ -520,6 +530,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
@@ -727,6 +738,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                       .bodyMediumFamily,
                                   color: FlutterFlowTheme.of(context).accent3,
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -776,6 +788,8 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                             if (confirmDialogResponse) {
                               logFirebaseEvent('Text_backend_call');
                               await widget.postRef!.delete();
+                              logFirebaseEvent('Text_navigate_back');
+                              context.safePop();
                             } else {
                               logFirebaseEvent(
                                   'Text_close_dialog,_drawer,_etc');
@@ -791,6 +805,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                       .bodyMediumFamily,
                                   color: FlutterFlowTheme.of(context).error,
                                   fontSize: 12.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)

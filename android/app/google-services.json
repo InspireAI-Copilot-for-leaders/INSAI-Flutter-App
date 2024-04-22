@@ -8,12 +8,64 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:705064728296:android:ed8bc931376693ada9bb5d",
+        "android_client_info": {
+          "package_name": "com.inspireai.web"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705064728296-8k9qt4mk6oikkc529acnotp1icm9fc73.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inspireai.web",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "705064728296-lb6a2k7fk7r2bulgd3pmhsu25rsu5s2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABTtaoD7ssfurkf_LoradE9CsybVbUPRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705064728296-lb6a2k7fk7r2bulgd3pmhsu25rsu5s2s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "705064728296-34sv01ebjii8ps5m8d2rkl0s4p5fg3f6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.inspireai"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:705064728296:android:df73a7b88bd05fbda9bb5d",
         "android_client_info": {
           "package_name": "com.panscience.inspireai"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "705064728296-62bs17dooq2p9drs4nfgnul4k3ecrptd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.panscience.inspireai",
+            "certificate_hash": "9fc3cd58f8e719a0eb480848dfaa0d930543e626"
+          }
+        },
         {
           "client_id": "705064728296-8961hhc78ho5t8s3412o1ls3f60pq75r.apps.googleusercontent.com",
           "client_type": 1,
@@ -23,11 +75,11 @@
           }
         },
         {
-          "client_id": "705064728296-qvqud5rjos7qim7php9iq836gil9k1rp.apps.googleusercontent.com",
+          "client_id": "705064728296-tmarktuha5frl5js6jamgtrsseki4ude.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.panscience.inspireai",
-            "certificate_hash": "c70663e9e53575a5fd998bd7193ad4288693e075"
+            "certificate_hash": "b5d27e1d80d626c9f4b647a94e6d9708bf55c012"
           }
         },
         {

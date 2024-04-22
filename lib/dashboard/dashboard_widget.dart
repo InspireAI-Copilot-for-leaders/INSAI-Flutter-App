@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -38,272 +39,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'containerOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(460.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 400.ms),
-        ScaleEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: Offset(2.0, 2.0),
-          end: Offset(1.0, 1.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        BlurEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeOut,
-          delay: 400.ms,
-          duration: 400.ms,
-          begin: Offset(0.0, 70.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'containerOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(-335.0, 0.0),
-        ),
-        TiltEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(0, 0),
-          end: Offset(0, -0.524),
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(1.0, 1.0),
-          end: Offset(0.8, 0.8),
-        ),
-      ],
-    ),
-    'circleImageOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeIn,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(4.0, 4.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'iconOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 1200.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'iconOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 1200.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'iconOnActionTriggerAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        RotateEffect(
-          curve: Curves.linear,
-          delay: 0.ms,
-          duration: 800.ms,
-          begin: 0.0,
-          end: -1.0,
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 90.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 60.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'badgeOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 1200.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'containerOnActionTriggerAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.0),
-          end: Offset(1.0, 1.0),
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(100.0, -150.0),
-          end: Offset(0.0, 0.0),
-        ),
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(4.0, 4.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-30.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'textOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-30.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -346,12 +82,280 @@ class _DashboardWidgetState extends State<DashboardWidget>
       }
     });
 
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(460.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 400.ms),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(2.0, 2.0),
+            end: Offset(1.0, 1.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          BlurEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 70.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(-335.0, 0.0),
+          ),
+          TiltEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0, 0),
+            end: Offset(0, -0.524),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.8, 0.8),
+          ),
+        ],
+      ),
+      'circleImageOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeIn,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(4.0, 4.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'iconOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 1200.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'iconOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 1200.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'iconOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          RotateEffect(
+            curve: Curves.linear,
+            delay: 0.0.ms,
+            duration: 800.0.ms,
+            begin: 0.0,
+            end: -1.0,
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 90.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation4': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'badgeOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.elasticOut,
+            delay: 0.0.ms,
+            duration: 1200.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(100.0, -150.0),
+            end: Offset(0.0, 0.0),
+          ),
+          BlurEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(4.0, 4.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(-30.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(-30.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+    });
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -479,6 +483,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                   .of(context)
                                                               .primaryText,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           useGoogleFonts: GoogleFonts
@@ -503,6 +508,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                   .of(context)
                                                               .secondaryText,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           useGoogleFonts: GoogleFonts
@@ -577,7 +583,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                'Version 1.0.1',
+                                'Version 2.0.1',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -586,6 +592,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                       fontSize: 11.0,
+                                      letterSpacing: 0.0,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
@@ -612,7 +619,10 @@ class _DashboardWidgetState extends State<DashboardWidget>
                       BoxShadow(
                         blurRadius: 50.0,
                         color: Color(0xDB000000),
-                        offset: Offset(0.0, 0.0),
+                        offset: Offset(
+                          0.0,
+                          0.0,
+                        ),
                       )
                     ],
                     borderRadius: BorderRadius.circular(0.0),
@@ -878,6 +888,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .primaryText,
                                                         fontSize: 32.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -914,7 +925,20 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               ],
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
                                             ),
                                           ),
                                         ),
@@ -938,6 +962,17 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                       ?.thoughtLeadershipAreas
                                                                       ?.toList() ??
                                                                   []))
+                                                          .where(
+                                                            'scrapped_at',
+                                                            isGreaterThanOrEqualTo:
+                                                                functions
+                                                                    .modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        12,
+                                                                        2,
+                                                                        false),
+                                                          )
                                                           .orderBy(
                                                               'scrapped_at',
                                                               descending: true)
@@ -1100,6 +1135,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                               FlutterFlowTheme.of(context).primaryText,
                                                                           fontSize:
                                                                               14.0,
+                                                                          letterSpacing:
+                                                                              0.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           useGoogleFonts:
@@ -1151,6 +1188,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                                 fontFamily: 'Plus Jakarta Sans',
                                                                                 color: Color(0xFF57636C),
                                                                                 fontSize: 12.0,
+                                                                                letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                               ),
@@ -1204,6 +1242,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -1228,6 +1267,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         useGoogleFonts: GoogleFonts
@@ -1361,6 +1401,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                               context)
                                                           .bodyMediumFamily,
                                                   fontSize: 20.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
@@ -1391,6 +1432,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         useGoogleFonts: GoogleFonts
@@ -1442,6 +1484,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 20.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -1474,6 +1517,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         useGoogleFonts: GoogleFonts
@@ -1501,6 +1545,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMediumFamily,
                                             fontSize: 18.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
@@ -1607,6 +1652,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                       .primaryBackground,
                                                                   fontSize:
                                                                       28.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -1633,6 +1680,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primaryBackground,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -1705,6 +1754,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                       .primaryText,
                                                                   fontSize:
                                                                       28.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
@@ -1730,6 +1781,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                         context)
                                                                     .primaryText,
                                                                 fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -1777,7 +1830,10 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               BoxShadow(
                                                 blurRadius: 10.0,
                                                 color: Color(0x1A57636C),
-                                                offset: Offset(0.0, -10.0),
+                                                offset: Offset(
+                                                  0.0,
+                                                  -10.0,
+                                                ),
                                                 spreadRadius: 0.1,
                                               )
                                             ],
@@ -1856,6 +1912,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                         .secondaryText,
                                                   ),
                                                   fontSize: 10.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
@@ -1913,6 +1970,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                           context)
                                                       .secondaryText,
                                                   fontSize: 10.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
@@ -2006,6 +2064,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                           context)
                                                       .secondaryText,
                                                   fontSize: 10.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
@@ -2063,6 +2122,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                           context)
                                                       .secondaryText,
                                                   fontSize: 10.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
@@ -2173,6 +2233,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                       .titleSmallFamily,
                                               color: Colors.white,
                                               fontSize: 10.0,
+                                              letterSpacing: 0.0,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
                                                   .containsKey(
@@ -2240,6 +2301,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                       context)
                                                                   .bodyMediumFamily,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: GoogleFonts
@@ -2285,6 +2347,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                   .of(context)
                                                               .secondary,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -2362,6 +2425,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMediumFamily,
                                             fontSize: 24.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
@@ -2407,6 +2471,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           fontSize: 14.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
@@ -2480,6 +2545,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 15.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -2501,6 +2567,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
@@ -2582,6 +2649,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 15.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -2603,6 +2671,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
@@ -2684,6 +2753,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 15.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -2705,6 +2775,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
@@ -2786,6 +2857,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 15.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -2807,6 +2879,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
@@ -2888,6 +2961,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 15.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: GoogleFonts
@@ -2909,6 +2983,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
@@ -2991,6 +3066,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                     context)
                                                                 .secondary,
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts

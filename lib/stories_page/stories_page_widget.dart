@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'stories_page_model.dart';
 export 'stories_page_model.dart';
 
@@ -34,6 +35,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
     _model = createModel(context, () => StoriesPageModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'storiesPage'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -87,8 +89,10 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                       PageView.builder(
                         controller: _model.pageViewController ??=
                             PageController(
-                                initialPage: min(
-                                    0, pageViewArticleRecordList.length - 1)),
+                                initialPage: max(
+                                    0,
+                                    min(0,
+                                        pageViewArticleRecordList.length - 1))),
                         onPageChanged: (_) => setState(() {}),
                         scrollDirection: Axis.horizontal,
                         itemCount: pageViewArticleRecordList.length,
@@ -170,6 +174,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                 fontFamily: 'Outfit',
                                                 color: Color(0xFF15161E),
                                                 fontSize: 36.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts:
                                                     GoogleFonts.asMap()
@@ -200,6 +205,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                   fontFamily: 'Outfit',
                                                   color: Color(0xFF15161E),
                                                   fontSize: 24.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
                                                       GoogleFonts.asMap()
@@ -222,6 +228,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                   fontFamily: 'Outfit',
                                                   color: Color(0xFF606A85),
                                                   fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
                                                       GoogleFonts.asMap()
@@ -238,51 +245,87 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Expanded(
-                                                child: FFButtonWidget(
-                                                  onPressed: () {
-                                                    print('Button pressed ...');
-                                                  },
-                                                  text: 'Share',
-                                                  icon: Icon(
-                                                    Icons.ios_share,
-                                                    size: 15.0,
-                                                  ),
-                                                  options: FFButtonOptions(
-                                                    height: 40.0,
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(24.0, 0.0,
-                                                                24.0, 0.0),
-                                                    iconPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: Colors.white,
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF15161E),
-                                                          fontSize: 16.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts:
-                                                              GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      'Plus Jakarta Sans'),
-                                                        ),
-                                                    elevation: 0.0,
-                                                    borderSide: BorderSide(
-                                                      color: Color(0xFFE5E7EB),
-                                                      width: 1.0,
+                                                child: Builder(
+                                                  builder: (context) =>
+                                                      FFButtonWidget(
+                                                    onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'STORIES_PAGE_PAGE_SHARE_BTN_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Button_generate_current_page_link');
+                                                      _model.currentPageLink =
+                                                          await generateCurrentPageLink(
+                                                        context,
+                                                        title: pageViewArticleRecord
+                                                            .originalGoogleSearchTerm,
+                                                        imageUrl:
+                                                            pageViewArticleRecord
+                                                                .metadata
+                                                                .first
+                                                                .imageUrl,
+                                                      );
+
+                                                      logFirebaseEvent(
+                                                          'Button_share');
+                                                      await Share.share(
+                                                        _model.currentPageLink,
+                                                        sharePositionOrigin:
+                                                            getWidgetBoundingBox(
+                                                                context),
+                                                      );
+                                                    },
+                                                    text: 'Share',
+                                                    icon: Icon(
+                                                      Icons.ios_share,
+                                                      size: 15.0,
                                                     ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    options: FFButtonOptions(
+                                                      height: 40.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  24.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color: Colors.white,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Plus Jakarta Sans',
+                                                                color: Color(
+                                                                    0xFF15161E),
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        'Plus Jakarta Sans'),
+                                                              ),
+                                                      elevation: 0.0,
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFE5E7EB),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -357,6 +400,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts:
@@ -396,8 +440,12 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                           child: smooth_page_indicator.SmoothPageIndicator(
                             controller: _model.pageViewController ??=
                                 PageController(
-                                    initialPage: min(0,
-                                        pageViewArticleRecordList.length - 1)),
+                                    initialPage: max(
+                                        0,
+                                        min(
+                                            0,
+                                            pageViewArticleRecordList.length -
+                                                1))),
                             count: pageViewArticleRecordList.length,
                             axisDirection: Axis.horizontal,
                             onDotClicked: (i) async {
@@ -444,28 +492,31 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                 },
                 child: Container(
                   width: 60.0,
-                  height: double.infinity,
+                  height: MediaQuery.sizeOf(context).height * 0.7,
                   decoration: BoxDecoration(),
                 ),
               ),
             ),
-            InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                logFirebaseEvent('STORIES_PAGE_PAGE_leftContainer_ON_TAP');
-                logFirebaseEvent('leftContainer_page_view');
-                await _model.pageViewController?.previousPage(
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                );
-              },
-              child: Container(
-                width: 60.0,
-                height: double.infinity,
-                decoration: BoxDecoration(),
+            Align(
+              alignment: AlignmentDirectional(-1.0, 0.0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('STORIES_PAGE_PAGE_leftContainer_ON_TAP');
+                  logFirebaseEvent('leftContainer_page_view');
+                  await _model.pageViewController?.previousPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.ease,
+                  );
+                },
+                child: Container(
+                  width: 60.0,
+                  height: MediaQuery.sizeOf(context).height * 0.7,
+                  decoration: BoxDecoration(),
+                ),
               ),
             ),
           ],

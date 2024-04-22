@@ -36,6 +36,8 @@ class _ProfileLoadingScreenWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfileLoadingScreenModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -75,6 +77,7 @@ class _ProfileLoadingScreenWidgetState
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).bodyMediumFamily),

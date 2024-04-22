@@ -11,7 +11,7 @@ Future initFirebase() async {
             storageBucket: "inspire-ai-40690.appspot.com",
             messagingSenderId: "705064728296",
             appId: "1:705064728296:web:4b07abb9f7c73c4da9bb5d",
-            measurementId: "G-XZR2S2KN5B"));
+            measurementId: "G-01SS8GL4BS"));
   } else {
     await Firebase.initializeApp();
   }

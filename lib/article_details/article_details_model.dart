@@ -27,11 +27,9 @@ class ArticleDetailsModel extends FlutterFlowModel<ArticleDetailsWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for Expandable widget.
-  late ExpandableController expandableController;
+  late ExpandableController expandableExpandableController;
 
   String currentPageLink = '';
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {}
@@ -39,10 +37,6 @@ class ArticleDetailsModel extends FlutterFlowModel<ArticleDetailsWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    expandableController.dispose();
+    expandableExpandableController.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }
