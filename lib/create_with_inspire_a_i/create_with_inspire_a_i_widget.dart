@@ -683,7 +683,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 notificationText:
                                     'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
                                 initialPageName: 'createOrEditPostCopy',
-                                context: functions.formatStringForJson(
+                                context: functions.formatStringforNormalJson(
                                     widget.contextForContent!),
                                 anthropicKey: FFAppState().anthropicKey,
                               );

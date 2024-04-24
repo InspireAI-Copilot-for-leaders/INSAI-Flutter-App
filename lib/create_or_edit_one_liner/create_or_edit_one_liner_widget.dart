@@ -231,8 +231,9 @@ class _CreateOrEditOneLinerWidgetState extends State<CreateOrEditOneLinerWidget>
                                         personUrn: valueOrDefault(
                                             currentUserDocument?.linkedinUrn,
                                             ''),
-                                        postText: functions.formatStringForJson(
-                                            _model.oneLinerText),
+                                        postText:
+                                            functions.formatStringForLIJson(
+                                                _model.oneLinerText),
                                         accessToken: valueOrDefault(
                                             currentUserDocument?.linkedinAccess,
                                             ''),

@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:badges/badges.dart' as badges;
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
@@ -827,6 +828,17 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                     ?.broadDomains
                                                                     ?.toList() ??
                                                                 []))
+                                                        .where(
+                                                          'scrapped_at',
+                                                          isGreaterThanOrEqualTo:
+                                                              functions
+                                                                  .modifiedDateTime(
+                                                                      getCurrentTimestamp,
+                                                                      0,
+                                                                      0,
+                                                                      4,
+                                                                      false),
+                                                        )
                                                         .orderBy('scrapped_at',
                                                             descending: true),
                                               ),
@@ -955,6 +967,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                             .where(
                                                                               'domain',
                                                                               isEqualTo: storiesItem,
+                                                                            )
+                                                                            .where(
+                                                                              'scrapped_at',
+                                                                              isGreaterThanOrEqualTo: functions.modifiedDateTime(getCurrentTimestamp, 0, 0, 3, false),
                                                                             )
                                                                             .orderBy('scrapped_at', descending: true),
                                                                         singleRecord:

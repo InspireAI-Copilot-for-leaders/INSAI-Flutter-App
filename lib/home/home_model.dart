@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'home_widget.dart' show HomeWidget;
 import 'package:badges/badges.dart' as badges;
 import 'package:rive/rive.dart' hide LinearGradient;

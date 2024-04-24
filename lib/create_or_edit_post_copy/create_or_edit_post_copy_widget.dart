@@ -229,7 +229,7 @@ class _CreateOrEditPostCopyWidgetState extends State<CreateOrEditPostCopyWidget>
                                             .call(
                                       personUrn: valueOrDefault(
                                           currentUserDocument?.linkedinUrn, ''),
-                                      postText: functions.formatStringForJson(
+                                      postText: functions.formatStringForLIJson(
                                           _model.textController2.text),
                                       accessToken: valueOrDefault(
                                           currentUserDocument?.linkedinAccess,

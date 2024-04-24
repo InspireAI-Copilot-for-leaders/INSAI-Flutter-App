@@ -125,12 +125,6 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_anthropicKey');
   }
 
-  DateTime? _dateMinus2Days;
-  DateTime? get dateMinus2Days => _dateMinus2Days;
-  set dateMinus2Days(DateTime? _value) {
-    _dateMinus2Days = _value;
-  }
-
   final _discoverManager = StreamRequestManager<List<ArticleRecord>>();
   Stream<List<ArticleRecord>> discover({
     String? uniqueQueryKey,

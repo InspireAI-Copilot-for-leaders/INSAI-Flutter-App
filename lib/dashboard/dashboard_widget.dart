@@ -583,7 +583,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                'Version 2.0.1',
+                                'Version 1.0.1',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

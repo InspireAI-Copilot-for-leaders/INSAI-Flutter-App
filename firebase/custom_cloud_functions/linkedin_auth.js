@@ -17,8 +17,15 @@ app.get("/", async (req, res) => {
   // Create the final dynamic link with the encoded URL
   const finalDynamicLink = dynamicLink + encodeURIComponent(newUrl);
 
+  // Get the current date and time
+  const creationDate = new Date();
+
   // DEBUG: Add the parameters to the document
-  await docRef.set({ params: req.query, url: finalDynamicLink });
+  await docRef.set({
+    params: req.query,
+    url: finalDynamicLink,
+    createdAt: admin.firestore.Timestamp.fromDate(creationDate),
+  });
 
   res.redirect(finalDynamicLink);
 });
