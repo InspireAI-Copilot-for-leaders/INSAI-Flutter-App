@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
@@ -252,27 +253,28 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                       logFirebaseEvent(
                                                           'STORIES_PAGE_PAGE_SHARE_BTN_ON_TAP');
                                                       logFirebaseEvent(
-                                                          'Button_generate_current_page_link');
-                                                      _model.currentPageLink =
-                                                          await generateCurrentPageLink(
+                                                          'Button_custom_action');
+                                                      _model.branchPageLinkkk =
+                                                          await actions
+                                                              .generateBranchLink(
                                                         context,
-                                                        title: pageViewArticleRecord
+                                                        pageViewArticleRecord
                                                             .originalGoogleSearchTerm,
-                                                        imageUrl:
-                                                            pageViewArticleRecord
-                                                                .metadata
-                                                                .first
-                                                                .imageUrl,
+                                                        pageViewArticleRecord
+                                                            .articleSummary,
+                                                        'image.png',
                                                       );
-
                                                       logFirebaseEvent(
                                                           'Button_share');
                                                       await Share.share(
-                                                        _model.currentPageLink,
+                                                        _model
+                                                            .branchPageLinkkk!,
                                                         sharePositionOrigin:
                                                             getWidgetBoundingBox(
                                                                 context),
                                                       );
+
+                                                      setState(() {});
                                                     },
                                                     text: 'Share',
                                                     icon: Icon(

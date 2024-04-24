@@ -18,7 +18,14 @@ Future initBranchSDK() async {
     if (data.containsKey('+clicked_branch_link') &&
         data['+clicked_branch_link'] == true) {
       // Handle deep link data
-      print('Deep link data: ${data}');
+      print(
+          '------------------------------------Link clicked----------------------------------------------');
+      print('Custom string: ${data['custom_string']}');
+      print('Custom number: ${data['custom_number']}');
+      print('Custom bool: ${data['custom_bool']}');
+      print('Custom list number: ${data['custom_list_number']}');
+      print(
+          '------------------------------------------------------------------------------------------------');
     }
   }, onError: (error) {
     // Handle errors

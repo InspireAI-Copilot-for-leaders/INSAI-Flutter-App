@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
@@ -111,19 +112,20 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                     onPressed: () async {
                       logFirebaseEvent(
                           'ARTICLE_DETAILS_share_outlined_ICN_ON_TA');
-                      logFirebaseEvent('IconButton_generate_current_page_link');
-                      _model.currentPageLink = await generateCurrentPageLink(
+                      logFirebaseEvent('IconButton_custom_action');
+                      _model.branchPageLink = await actions.generateBranchLink(
                         context,
-                        title: widget.articleTitle,
-                        imageUrl: widget.articleImage,
-                        forceRedirect: true,
+                        widget.articleTitle,
+                        widget.articleContent,
+                        'image.png',
                       );
-
                       logFirebaseEvent('IconButton_share');
                       await Share.share(
-                        _model.currentPageLink,
+                        _model.branchPageLink!,
                         sharePositionOrigin: getWidgetBoundingBox(context),
                       );
+
+                      setState(() {});
                     },
                   ),
                 ),
@@ -767,21 +769,22 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                           logFirebaseEvent(
                                               'ARTICLE_DETAILS_Icon_9qpsx21g_ON_TAP');
                                           logFirebaseEvent(
-                                              'Icon_generate_current_page_link');
-                                          _model.currentPageLink =
-                                              await generateCurrentPageLink(
+                                              'Icon_custom_action');
+                                          _model.branchPageLinkk =
+                                              await actions.generateBranchLink(
                                             context,
-                                            title: widget.articleTitle,
-                                            imageUrl: widget.articleImage,
-                                            forceRedirect: true,
+                                            widget.articleTitle,
+                                            widget.articleContent,
+                                            'image.png',
                                           );
-
                                           logFirebaseEvent('Icon_share');
                                           await Share.share(
-                                            _model.currentPageLink,
+                                            _model.branchPageLinkk!,
                                             sharePositionOrigin:
                                                 getWidgetBoundingBox(context),
                                           );
+
+                                          setState(() {});
                                         },
                                         child: Icon(
                                           Icons.share_rounded,
