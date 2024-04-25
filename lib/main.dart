@@ -26,7 +26,7 @@ void main() async {
   await initFirebase();
 
   // Start initial custom actions code
-  await actions.initBranchSDK();
+  await actions.initOneSignal();
   // End initial custom actions code
 
   await FlutterFlowTheme.initialize();
