@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
@@ -118,6 +119,19 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                         widget.articleTitle,
                         widget.articleContent,
                         'image.png',
+                        'te',
+                        'te',
+                        'te',
+                        'te',
+                        List.generate(
+                            random_data.randomInteger(0, 0),
+                            (index) => random_data.randomString(
+                                  0,
+                                  0,
+                                  true,
+                                  false,
+                                  false,
+                                )).toList(),
                       );
                       logFirebaseEvent('IconButton_share');
                       await Share.share(
@@ -776,6 +790,20 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                             widget.articleTitle,
                                             widget.articleContent,
                                             'image.png',
+                                            'te',
+                                            'te',
+                                            'te',
+                                            'te',
+                                            List.generate(
+                                                random_data.randomInteger(0, 0),
+                                                (index) =>
+                                                    random_data.randomString(
+                                                      0,
+                                                      0,
+                                                      true,
+                                                      false,
+                                                      false,
+                                                    )).toList(),
                                           );
                                           logFirebaseEvent('Icon_share');
                                           await Share.share(

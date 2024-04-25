@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'stories_page_widget.dart' show StoriesPageWidget;
@@ -25,7 +26,7 @@ class StoriesPageModel extends FlutterFlowModel<StoriesPageWidget> {
       ? pageViewController!.page!.round()
       : 0;
   // Stores action output result for [Custom Action - generateBranchLink] action in Button widget.
-  String? branchPageLinkkk;
+  String? branchPageLinkk;
 
   @override
   void initState(BuildContext context) {}

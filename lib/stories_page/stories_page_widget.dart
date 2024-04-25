@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
@@ -254,7 +255,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                           'STORIES_PAGE_PAGE_SHARE_BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_custom_action');
-                                                      _model.branchPageLinkkk =
+                                                      _model.branchPageLinkk =
                                                           await actions
                                                               .generateBranchLink(
                                                         context,
@@ -263,12 +264,28 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                         pageViewArticleRecord
                                                             .articleSummary,
                                                         'image.png',
+                                                        'te',
+                                                        'te',
+                                                        'te',
+                                                        'te',
+                                                        List.generate(
+                                                            random_data
+                                                                .randomInteger(
+                                                                    0, 0),
+                                                            (index) =>
+                                                                random_data
+                                                                    .randomString(
+                                                                  0,
+                                                                  0,
+                                                                  true,
+                                                                  false,
+                                                                  false,
+                                                                )).toList(),
                                                       );
                                                       logFirebaseEvent(
                                                           'Button_share');
                                                       await Share.share(
-                                                        _model
-                                                            .branchPageLinkkk!,
+                                                        _model.branchPageLinkk!,
                                                         sharePositionOrigin:
                                                             getWidgetBoundingBox(
                                                                 context),

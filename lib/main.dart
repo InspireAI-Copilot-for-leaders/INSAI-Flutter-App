@@ -26,7 +26,6 @@ void main() async {
   await initFirebase();
 
   // Start initial custom actions code
-  await actions.initOneSignal();
   await actions.initBranchSDK();
   // End initial custom actions code
 

@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:async';
+
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 Future<String> generateBranchLink(
@@ -17,49 +19,70 @@ Future<String> generateBranchLink(
   String? title,
   String? description,
   String? imageUrl,
+  String? campaign,
+  String? channel,
+  String? feature,
+  String? key,
+  List<String>? tags,
 ) async {
-  final branchUniversalObject = BranchUniversalObject(
+  final DateTime now = DateTime.now();
+  final Uri currentUri = Uri.parse(
+      'https://app.theinspireai.com${GoRouterState.of(context).uri.toString()}');
+
+  String dateString =
+      '${now.year}-${now.month}-${now.day} ${now.hour}:${now.minute}:${now.second}';
+
+  BranchContentMetaData metadata = BranchContentMetaData()
+    ..addCustomMetadata('custom_string', 'example_string')
+    ..addCustomMetadata('custom_number', 123)
+    ..addCustomMetadata('key', key)
+    ..addCustomMetadata('custom_date_created', dateString);
+
+  BranchUniversalObject branchUniversalObject = BranchUniversalObject(
     canonicalIdentifier: 'flutter/branch',
-    title: title ?? 'Default Title',
-    contentDescription: description ?? 'Default Description',
+    title: title ?? 'title',
+    contentMetadata: metadata,
+    contentDescription: description ?? 'description',
     imageUrl: imageUrl ?? 'image.png',
-    contentMetadata: BranchContentMetaData()
-      ..addCustomMetadata('custom_data', 'test'),
+    keywords: tags ?? [],
     publiclyIndex: true,
     locallyIndex: true,
+    expirationDateInMilliSec:
+        DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch,
   );
 
-  final branchLinkProperties = BranchLinkProperties(
-    channel: 'facebook',
-    feature: 'sharing',
-    campaign: 'content_launch',
-    stage: 'new_user',
-    tags: ['flutter', 'branch', 'tutorial'],
-    // Add control parameters if needed
+  BranchLinkProperties linkProperties = BranchLinkProperties(
+    channel: channel ?? 'app',
+    feature: feature ?? 'sharing',
+    campaign: campaign ?? 'example_campaign',
+    stage: 'new user',
+    tags: tags ?? ['flutter', 'branch', 'example'],
+  )
+    ..addControlParam('\$desktop_url', currentUri.toString())
+    ..addControlParam('\$android_url', currentUri.toString())
+    ..addControlParam('\$ios_url', currentUri.toString());
+
+  BranchResponse response = await FlutterBranchSdk.getShortUrl(
+    buo: branchUniversalObject,
+    linkProperties: linkProperties,
   );
 
-  try {
-    final BranchResponse response = await FlutterBranchSdk.getShortUrl(
-      buo: branchUniversalObject,
-      linkProperties: branchLinkProperties,
-    );
-    if (response.success) {
-      final String linkUrl = response.result;
+  if (response.success) {
+    if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Branch link generated: $linkUrl')),
+        SnackBar(content: Text('Link generated: ${response.result}')),
       );
-      return linkUrl;
-    } else {
-      final String errorMessage = response.errorMessage;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to generate link: $errorMessage')),
-      );
-      return 'Error generating link';
     }
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to generate link: $e')),
-    );
-    return 'Error generating link';
+    return response.result; // Return the generated link
+  } else {
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(
+                'Failed to generate link: ${response.errorCode} - ${response.errorMessage}')),
+      );
+    }
+    return Future.error(
+        'Failed to generate link: ${response.errorCode} - ${response.errorMessage}');
   }
 }
