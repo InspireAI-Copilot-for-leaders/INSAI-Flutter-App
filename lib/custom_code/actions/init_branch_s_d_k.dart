@@ -13,22 +13,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 Future initBranchSDK() async {
-  // Configure Branch SDK
-  FlutterBranchSdk.initSession().listen((data) {
-    if (data.containsKey('+clicked_branch_link') &&
-        data['+clicked_branch_link'] == true) {
-      // Handle deep link data
-      print(
-          '------------------------------------Link clicked----------------------------------------------');
-      print('Custom string: ${data['custom_string']}');
-      print('Custom number: ${data['custom_number']}');
-      print('Custom bool: ${data['custom_bool']}');
-      print('Custom list number: ${data['custom_list_number']}');
-      print(
-          '------------------------------------------------------------------------------------------------');
-    }
-  }, onError: (error) {
-    // Handle errors
-    print('Branch SDK Initialization Error: $error');
-  });
+  try {
+    // Initialize Branch SDK first
+    await FlutterBranchSdk.init();
+
+    // After initialization, configure the session listener
+    FlutterBranchSdk.initSession().listen((data) {
+      if (data.containsKey('+clicked_branch_link') &&
+          data['+clicked_branch_link'] == true) {
+        // Handle deep link data
+        print(
+            '------------------------------------Link clicked----------------------------------------------');
+        print('Custom string: ${data['custom_string']}');
+        print('Custom number: ${data['custom_number']}');
+        print('Custom bool: ${data['custom_bool']}');
+        print('Custom list number: ${data['custom_list_number']}');
+        print(
+            '------------------------------------------------------------------------------------------------');
+      }
+    }, onError: (error) {
+      // Handle errors
+      print('Branch SDK Initialization Error: $error');
+    });
+  } catch (e) {
+    // Handle any errors that occur during initialization
+    print('Error initializing Branch SDK: $e');
+  }
 }
