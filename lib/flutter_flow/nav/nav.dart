@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
@@ -23,6 +24,8 @@ import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
+export '/backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show generateCurrentPageLink;
 
 const kTransitionInfoKey = '__transition_info__';
 
@@ -83,9 +86,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => RootPageContext.wrap(
-        appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
-        errorRoute: state.uri.toString(),
+      errorBuilder: (context, state) => _RouteErrorBuilder(
+        state: state,
+        child: RootPageContext.wrap(
+          appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
+          errorRoute: state.uri.toString(),
+        ),
       ),
       routes: [
         FFRoute(
@@ -157,8 +163,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 articleRef: params.getParam(
                   'articleRef',
                   ParamType.DocumentReference,
-                  false,
-                  ['article'],
+                  isList: false,
+                  collectionNamePath: ['article'],
                 ),
                 articleTitle: params.getParam(
                   'articleTitle',
@@ -213,8 +219,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 postRef: params.getParam(
                   'postRef',
                   ParamType.DocumentReference,
-                  false,
-                  ['users', 'created_posts'],
+                  isList: false,
+                  collectionNamePath: ['users', 'created_posts'],
                 ),
                 postTitle: params.getParam(
                   'postTitle',
@@ -248,8 +254,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 postRef: params.getParam(
                   'postRef',
                   ParamType.DocumentReference,
-                  false,
-                  ['users', 'postedOnLinkedin'],
+                  isList: false,
+                  collectionNamePath: ['users', 'postedOnLinkedin'],
                 ),
                 postText: params.getParam(
                   'postText',
@@ -299,8 +305,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 postRef: params.getParam(
                   'postRef',
                   ParamType.DocumentReference,
-                  false,
-                  ['users', 'created_posts'],
+                  isList: false,
+                  collectionNamePath: ['users', 'created_posts'],
                 ),
               ),
             ),
@@ -312,13 +318,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 postText: params.getParam<String>(
                   'postText',
                   ParamType.String,
-                  true,
+                  isList: true,
                 ),
                 postRef: params.getParam(
                   'postRef',
                   ParamType.DocumentReference,
-                  false,
-                  ['users', 'created_posts'],
+                  isList: false,
+                  collectionNamePath: ['users', 'created_posts'],
                 ),
                 postTitle: params.getParam(
                   'postTitle',
@@ -434,7 +440,7 @@ class FFParameters {
   // present is the special extra parameter reserved for the transition info.
   bool get isEmpty =>
       state.allParams.isEmpty ||
-      (state.extraMap.length == 1 &&
+      (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
@@ -455,11 +461,11 @@ class FFParameters {
 
   dynamic getParam<T>(
     String paramName,
-    ParamType type, [
+    ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
     StructBuilder<T>? structBuilder,
-  ]) {
+  }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
     }
@@ -582,6 +588,35 @@ class TransitionInfo {
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 300),
       );
+}
+
+class _RouteErrorBuilder extends StatefulWidget {
+  const _RouteErrorBuilder({
+    Key? key,
+    required this.state,
+    required this.child,
+  }) : super(key: key);
+
+  final GoRouterState state;
+  final Widget child;
+
+  @override
+  State<_RouteErrorBuilder> createState() => _RouteErrorBuilderState();
+}
+
+class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
+  @override
+  void initState() {
+    super.initState();
+    // Handle erroneous links from Firebase Dynamic Links.
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.toString().contains('request_ip_version')) {
+      SchedulerBinding.instance.addPostFrameCallback((_) => context.go('/'));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 class RootPageContext {

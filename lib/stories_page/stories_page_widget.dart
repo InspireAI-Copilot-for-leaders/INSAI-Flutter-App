@@ -2,8 +2,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
@@ -254,44 +252,27 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                       logFirebaseEvent(
                                                           'STORIES_PAGE_PAGE_SHARE_BTN_ON_TAP');
                                                       logFirebaseEvent(
-                                                          'Button_custom_action');
-                                                      _model.branchPageLinkk =
-                                                          await actions
-                                                              .generateBranchLink(
+                                                          'Button_generate_current_page_link');
+                                                      _model.currentPageLink =
+                                                          await generateCurrentPageLink(
                                                         context,
-                                                        pageViewArticleRecord
+                                                        title: pageViewArticleRecord
                                                             .originalGoogleSearchTerm,
-                                                        pageViewArticleRecord
-                                                            .articleSummary,
-                                                        'image.png',
-                                                        'te',
-                                                        'te',
-                                                        'te',
-                                                        'te',
-                                                        List.generate(
-                                                            random_data
-                                                                .randomInteger(
-                                                                    0, 0),
-                                                            (index) =>
-                                                                random_data
-                                                                    .randomString(
-                                                                  0,
-                                                                  0,
-                                                                  true,
-                                                                  false,
-                                                                  false,
-                                                                )).toList(),
+                                                        imageUrl:
+                                                            pageViewArticleRecord
+                                                                .metadata
+                                                                .first
+                                                                .imageUrl,
                                                       );
+
                                                       logFirebaseEvent(
                                                           'Button_share');
                                                       await Share.share(
-                                                        _model.branchPageLinkk!,
+                                                        _model.currentPageLink,
                                                         sharePositionOrigin:
                                                             getWidgetBoundingBox(
                                                                 context),
                                                       );
-
-                                                      setState(() {});
                                                     },
                                                     text: 'Share',
                                                     icon: Icon(

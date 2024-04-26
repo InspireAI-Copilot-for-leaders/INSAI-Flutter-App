@@ -19,4 +19,4 @@ Future initOneSignal() async {
 }
 
 // Set your action name, define your arguments and return parameter,
-// and then add the boilerplate code using the green button on the right!
+// and then add the boilerplate code using the button on the right!
