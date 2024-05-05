@@ -2,6 +2,9 @@ const axios = require("axios").default;
 const qs = require("qs");
 
 async function _linkedinTokensCall(context, ffVariables) {
+  if (!context.auth) {
+    return _unauthenticatedResponse;
+  }
   var authCodeRecieved = ffVariables["authCodeRecieved"];
 
   var url = `https://www.linkedin.com/oauth/v2/accessToken`;

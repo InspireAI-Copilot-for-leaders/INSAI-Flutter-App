@@ -145,7 +145,7 @@ class LinkedinPostGroup {
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer [access_token]',
-    'LinkedIn-Version': '202308',
+    'LinkedIn-Version': '202402',
   };
   static PostTextCall postTextCall = PostTextCall();
   static GetPostCommentsCall getPostCommentsCall = GetPostCommentsCall();
@@ -180,7 +180,7 @@ class PostTextCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       body: ffApiRequestBody,
@@ -207,7 +207,7 @@ class GetPostCommentsCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {
         'count': 200,
@@ -284,7 +284,7 @@ class GetPostLikesCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       returnBody: true,
@@ -313,7 +313,7 @@ class GetSocialMetadataCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       returnBody: true,
@@ -336,7 +336,7 @@ class PeopleCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       returnBody: true,
@@ -549,6 +549,75 @@ class InspireAIKeywordAndArticlesCall {
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetImageUploadUrlFromLinkedinCall {
+  static Future<ApiCallResponse> call({
+    String? urn = '',
+    String? accessToken = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "initializeUploadRequest": {
+    "owner": "${urn}"
+  }
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getImageUploadUrlFromLinkedin',
+      apiUrl: 'https://api.linkedin.com/rest/images?action=initializeUpload',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? urlExpiryIn(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.value.uploadUrlExpiresAt''',
+      ));
+  static String? uploadURL(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.value.uploadUrl''',
+      ));
+  static String? imageURN(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.value.image''',
+      ));
+}
+
+class UploadImageToLinkedinCall {
+  static Future<ApiCallResponse> call({
+    String? accessToken = '',
+    String? uploadUrl = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'uploadImageToLinkedin',
+      apiUrl: '${uploadUrl}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      bodyType: BodyType.NONE,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
