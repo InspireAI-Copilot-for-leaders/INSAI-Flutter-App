@@ -828,17 +828,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                     ?.broadDomains
                                                                     ?.toList() ??
                                                                 []))
-                                                        .where(
-                                                          'scrapped_at',
-                                                          isGreaterThanOrEqualTo:
-                                                              functions
-                                                                  .modifiedDateTime(
-                                                                      getCurrentTimestamp,
-                                                                      0,
-                                                                      0,
-                                                                      4,
-                                                                      false),
-                                                        )
                                                         .orderBy('scrapped_at',
                                                             descending: true),
                                               ),
