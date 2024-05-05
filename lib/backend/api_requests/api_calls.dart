@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import '../cloud_functions/cloud_functions.dart';
 import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -416,28 +417,16 @@ class LinkedinTokensCall {
   static Future<ApiCallResponse> call({
     String? authCodeRecieved = '',
   }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'LinkedinTokens',
-      apiUrl: 'https://www.linkedin.com/oauth/v2/accessToken',
-      callType: ApiCallType.POST,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'LinkedinTokensCall',
+        'variables': {
+          'authCodeRecieved': authCodeRecieved,
+        },
       },
-      params: {
-        'grant_type': "authorization_code",
-        'code': authCodeRecieved,
-        'client_id': "867aib47yndmjx",
-        'client_secret': "fDcszmfWhSHUW2xe",
-        'redirect_uri':
-            "https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth",
-      },
-      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
     );
+    return ApiCallResponse.fromCloudCallResponse(response);
   }
 }
 
