@@ -1837,81 +1837,43 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'DASHBOARD_PAGE_Column_vg4i1ja1_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Column_update_app_state');
-                                        FFAppState().update(() {
-                                          FFAppState().whichPage = 'dashboard';
-                                        });
-                                        logFirebaseEvent('Column_navigate_to');
-
-                                        context.pushNamed('dashboard');
-                                      },
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 4.0),
-                                            child: Icon(
-                                              Icons.dashboard_rounded,
-                                              color: valueOrDefault<Color>(
-                                                FFAppState().whichPage ==
-                                                        'dashboard'
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondary
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                              ),
-                                              size: 30.0,
-                                            ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 4.0),
+                                          child: Icon(
+                                            Icons.dashboard_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            size: 30.0,
                                           ),
-                                          Text(
-                                            'Dashboard',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  color: valueOrDefault<Color>(
-                                                    FFAppState().whichPage ==
-                                                            'dashboard'
-                                                        ? FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary
-                                                        : FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryText,
+                                        ),
+                                        Text(
+                                          'Dashboard',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                  ),
-                                                  fontSize: 10.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMediumFamily),
-                                                ),
-                                          ),
-                                        ],
-                                      ),
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                                fontSize: 10.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                     InkWell(
                                       splashColor: Colors.transparent,
@@ -1921,14 +1883,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'DASHBOARD_PAGE_Column_u1hvf74c_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Column_update_app_state');
-                                        FFAppState().update(() {
-                                          FFAppState().whichPage = 'discover';
-                                        });
                                         logFirebaseEvent('Column_navigate_to');
 
-                                        context.pushNamed('home');
+                                        context.pushNamed('discoverPage');
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
@@ -2015,14 +1972,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'DASHBOARD_PAGE_Column_q9lvgi3t_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Column_update_app_state');
-                                        FFAppState().update(() {
-                                          FFAppState().whichPage = 'campaign';
-                                        });
                                         logFirebaseEvent('Column_navigate_to');
 
-                                        context.pushNamed('home');
+                                        context.pushNamed('campaigns');
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
@@ -2073,14 +2025,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'DASHBOARD_PAGE_Column_etwzwbcw_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Column_update_app_state');
-                                        FFAppState().update(() {
-                                          FFAppState().whichPage = 'posts';
-                                        });
                                         logFirebaseEvent('Column_navigate_to');
 
-                                        context.pushNamed('home');
+                                        context.pushNamed('allPostsOverview');
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,

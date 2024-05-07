@@ -26,6 +26,11 @@ String? formatStringForLIJson(String input) {
       .replaceAll('(', '\\(')
       .replaceAll(')', '\\)');
   ;
+
+  // Change hashtag element to {hashtag|#|SingleWord}
+  output = output.replaceAllMapped(
+      RegExp(r'#(\w+)'), (match) => '{hashtag|#|${match.group(1)}}');
+
   return output;
 }
 
@@ -66,4 +71,14 @@ String? formatStringforNormalJson(String input) {
       .replaceAll('"', '\\"');
   ;
   return output;
+}
+
+dynamic valueToJsonMapList(
+  List<String> listOfURN,
+  String keyName,
+) {
+  // convert list of strings to list of json key value pairs. the key is id for all
+  List<Map<String, dynamic>> maps =
+      listOfURN.map((urn) => {keyName: urn}).toList();
+  return jsonEncode(maps);
 }

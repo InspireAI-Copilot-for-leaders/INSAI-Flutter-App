@@ -30,7 +30,7 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
   ApiCallResponse? linkedintokens;
   // Stores action output result for [Backend Call - API (Linkedin Profile Details)] action in linkedinAuth widget.
   ApiCallResponse? lIprofileDetails;
-  // Stores action output result for [Backend Call - API (Expertise of Person Proxycurl)] action in linkedinAuth widget.
+  // Stores action output result for [Backend Call - API (Expertise of Person)] action in linkedinAuth widget.
   ApiCallResponse? getExpertiseWorflow;
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode;

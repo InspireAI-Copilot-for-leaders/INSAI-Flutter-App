@@ -618,7 +618,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 notificationTitle: 'Content Created!',
                                 notificationText:
                                     'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
-                                initialPageName: 'createOrEditPostCopy',
+                                initialPageName: 'viewOrEditPostCopy',
                                 anthropicKey: FFAppState().anthropicKey,
                               );
                               if ((_model.contentfromtopic?.succeeded ??
@@ -637,13 +637,9 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 logFirebaseEvent('Button_wait__delay');
                                 await Future.delayed(
                                     const Duration(milliseconds: 4000));
-                                logFirebaseEvent('Button_update_app_state');
-                                setState(() {
-                                  FFAppState().whichPage = 'posts';
-                                });
                                 logFirebaseEvent('Button_navigate_to');
 
-                                context.goNamed('home');
+                                context.goNamed('allPostsOverview');
                               } else {
                                 logFirebaseEvent('Button_alert_dialog');
                                 await showDialog(
@@ -682,7 +678,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 notificationTitle: 'Content Created!',
                                 notificationText:
                                     'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
-                                initialPageName: 'createOrEditPostCopy',
+                                initialPageName: 'viewOrEditPostCopy',
                                 context: functions.formatStringforNormalJson(
                                     widget.contextForContent!),
                                 anthropicKey: FFAppState().anthropicKey,
@@ -703,13 +699,9 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 logFirebaseEvent('Button_wait__delay');
                                 await Future.delayed(
                                     const Duration(milliseconds: 4000));
-                                logFirebaseEvent('Button_update_app_state');
-                                setState(() {
-                                  FFAppState().whichPage = 'posts';
-                                });
                                 logFirebaseEvent('Button_navigate_to');
 
-                                context.goNamed('home');
+                                context.goNamed('allPostsOverview');
                               } else {
                                 logFirebaseEvent('Button_alert_dialog');
                                 await showDialog(
@@ -795,13 +787,9 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                     callToAction: () async {
                       logFirebaseEvent(
                           'CREATE_WITH_INSPIRE_A_I_Container_h88ebv');
-                      logFirebaseEvent('LoadingScreen_update_app_state');
-                      FFAppState().update(() {
-                        FFAppState().whichPage = 'posts';
-                      });
                       logFirebaseEvent('LoadingScreen_navigate_to');
 
-                      context.goNamed('home');
+                      context.goNamed('allPostsOverview');
                     },
                   ),
                 ),

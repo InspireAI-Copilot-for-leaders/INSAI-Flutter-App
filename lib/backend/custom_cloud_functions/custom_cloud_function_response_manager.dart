@@ -14,3 +14,14 @@ class LinkedinAuthCloudFunctionCallResponse {
   String? resultAsString;
   String? data;
 }
+
+class ScheduleLinkedInPostsCloudFunctionCallResponse {
+  ScheduleLinkedInPostsCloudFunctionCallResponse({
+    this.errorCode,
+    this.succeeded,
+    this.jsonBody,
+  });
+  String? errorCode;
+  bool? succeeded;
+  dynamic jsonBody;
+}

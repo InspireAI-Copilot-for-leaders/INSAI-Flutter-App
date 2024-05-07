@@ -52,6 +52,46 @@ class PostedOnLinkedinRecord extends FirestoreRecord {
   int get reactionRefreshQuota => _reactionRefreshQuota ?? 0;
   bool hasReactionRefreshQuota() => _reactionRefreshQuota != null;
 
+  // "imageUrns" field.
+  List<String>? _imageUrns;
+  List<String> get imageUrns => _imageUrns ?? const [];
+  bool hasImageUrns() => _imageUrns != null;
+
+  // "uploadedImageUrls" field.
+  List<String>? _uploadedImageUrls;
+  List<String> get uploadedImageUrls => _uploadedImageUrls ?? const [];
+  bool hasUploadedImageUrls() => _uploadedImageUrls != null;
+
+  // "docUrn" field.
+  String? _docUrn;
+  String get docUrn => _docUrn ?? '';
+  bool hasDocUrn() => _docUrn != null;
+
+  // "typeOfPost" field.
+  String? _typeOfPost;
+  String get typeOfPost => _typeOfPost ?? '';
+  bool hasTypeOfPost() => _typeOfPost != null;
+
+  // "uploadedDocUrl" field.
+  String? _uploadedDocUrl;
+  String get uploadedDocUrl => _uploadedDocUrl ?? '';
+  bool hasUploadedDocUrl() => _uploadedDocUrl != null;
+
+  // "pollQuestion" field.
+  String? _pollQuestion;
+  String get pollQuestion => _pollQuestion ?? '';
+  bool hasPollQuestion() => _pollQuestion != null;
+
+  // "pollOptions" field.
+  List<String>? _pollOptions;
+  List<String> get pollOptions => _pollOptions ?? const [];
+  bool hasPollOptions() => _pollOptions != null;
+
+  // "pollDuration" field.
+  String? _pollDuration;
+  String get pollDuration => _pollDuration ?? '';
+  bool hasPollDuration() => _pollDuration != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -63,6 +103,14 @@ class PostedOnLinkedinRecord extends FirestoreRecord {
     _commentsNumber = castToType<int>(snapshotData['commentsNumber']);
     _reactionRefreshQuota =
         castToType<int>(snapshotData['reactionRefreshQuota']);
+    _imageUrns = getDataList(snapshotData['imageUrns']);
+    _uploadedImageUrls = getDataList(snapshotData['uploadedImageUrls']);
+    _docUrn = snapshotData['docUrn'] as String?;
+    _typeOfPost = snapshotData['typeOfPost'] as String?;
+    _uploadedDocUrl = snapshotData['uploadedDocUrl'] as String?;
+    _pollQuestion = snapshotData['pollQuestion'] as String?;
+    _pollOptions = getDataList(snapshotData['pollOptions']);
+    _pollDuration = snapshotData['pollDuration'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -113,6 +161,11 @@ Map<String, dynamic> createPostedOnLinkedinRecordData({
   int? likesNumber,
   int? commentsNumber,
   int? reactionRefreshQuota,
+  String? docUrn,
+  String? typeOfPost,
+  String? uploadedDocUrl,
+  String? pollQuestion,
+  String? pollDuration,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -123,6 +176,11 @@ Map<String, dynamic> createPostedOnLinkedinRecordData({
       'likesNumber': likesNumber,
       'commentsNumber': commentsNumber,
       'reactionRefreshQuota': reactionRefreshQuota,
+      'docUrn': docUrn,
+      'typeOfPost': typeOfPost,
+      'uploadedDocUrl': uploadedDocUrl,
+      'pollQuestion': pollQuestion,
+      'pollDuration': pollDuration,
     }.withoutNulls,
   );
 
@@ -135,13 +193,22 @@ class PostedOnLinkedinRecordDocumentEquality
 
   @override
   bool equals(PostedOnLinkedinRecord? e1, PostedOnLinkedinRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.postURN == e2?.postURN &&
         e1?.postedOn == e2?.postedOn &&
         e1?.postText == e2?.postText &&
         e1?.postTitle == e2?.postTitle &&
         e1?.likesNumber == e2?.likesNumber &&
         e1?.commentsNumber == e2?.commentsNumber &&
-        e1?.reactionRefreshQuota == e2?.reactionRefreshQuota;
+        e1?.reactionRefreshQuota == e2?.reactionRefreshQuota &&
+        listEquality.equals(e1?.imageUrns, e2?.imageUrns) &&
+        listEquality.equals(e1?.uploadedImageUrls, e2?.uploadedImageUrls) &&
+        e1?.docUrn == e2?.docUrn &&
+        e1?.typeOfPost == e2?.typeOfPost &&
+        e1?.uploadedDocUrl == e2?.uploadedDocUrl &&
+        e1?.pollQuestion == e2?.pollQuestion &&
+        listEquality.equals(e1?.pollOptions, e2?.pollOptions) &&
+        e1?.pollDuration == e2?.pollDuration;
   }
 
   @override
@@ -152,7 +219,15 @@ class PostedOnLinkedinRecordDocumentEquality
         e?.postTitle,
         e?.likesNumber,
         e?.commentsNumber,
-        e?.reactionRefreshQuota
+        e?.reactionRefreshQuota,
+        e?.imageUrns,
+        e?.uploadedImageUrls,
+        e?.docUrn,
+        e?.typeOfPost,
+        e?.uploadedDocUrl,
+        e?.pollQuestion,
+        e?.pollOptions,
+        e?.pollDuration
       ]);
 
   @override

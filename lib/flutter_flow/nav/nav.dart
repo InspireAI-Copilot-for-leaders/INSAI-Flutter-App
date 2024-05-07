@@ -150,10 +150,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => BrandVoiceWidget(),
             ),
             FFRoute(
-              name: 'home',
-              path: 'home',
+              name: 'discoverPage',
+              path: 'discoverPage',
               requireAuth: true,
-              builder: (context, params) => HomeWidget(),
+              builder: (context, params) => DiscoverPageWidget(),
             ),
             FFRoute(
               name: 'articleDetails',
@@ -208,10 +208,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'createOrEditPostCopy',
-              path: 'createOrEditPostCopy',
+              name: 'viewOrEditPostCopy',
+              path: 'viewOrEditPostCopy',
               requireAuth: true,
-              builder: (context, params) => CreateOrEditPostCopyWidget(
+              builder: (context, params) => ViewOrEditPostCopyWidget(
                 postText: params.getParam(
                   'postText',
                   ParamType.String,
@@ -226,13 +226,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   'postTitle',
                   ParamType.String,
                 ),
+                oneLinerIndex: params.getParam(
+                  'oneLinerIndex',
+                  ParamType.int,
+                ),
               ),
-            ),
-            FFRoute(
-              name: 'createFromScratch',
-              path: 'createFromScratch',
-              requireAuth: true,
-              builder: (context, params) => CreateFromScratchWidget(),
             ),
             FFRoute(
               name: 'otherLeaders',
@@ -311,10 +309,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'createOrEditOneLiner',
-              path: 'createOrEditOneLiner',
+              name: 'viewOrEditOneLiner',
+              path: 'viewOrEditOneLiner',
               requireAuth: true,
-              builder: (context, params) => CreateOrEditOneLinerWidget(
+              builder: (context, params) => ViewOrEditOneLinerWidget(
                 postText: params.getParam<String>(
                   'postText',
                   ParamType.String,
@@ -333,16 +331,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'Details03TransactionsSummary',
-              path: 'details03TransactionsSummary',
-              builder: (context, params) =>
-                  Details03TransactionsSummaryWidget(),
-            ),
-            FFRoute(
               name: 'editBrandVoice',
               path: 'editBrandVoice',
               requireAuth: true,
               builder: (context, params) => EditBrandVoiceWidget(),
+            ),
+            FFRoute(
+              name: 'allPostsOverview',
+              path: 'allPostsOverview',
+              requireAuth: true,
+              builder: (context, params) => AllPostsOverviewWidget(),
+            ),
+            FFRoute(
+              name: 'campaigns',
+              path: 'campaigns',
+              requireAuth: true,
+              builder: (context, params) => CampaignsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

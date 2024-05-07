@@ -16,6 +16,7 @@ import 'schema/article_record.dart';
 import 'schema/to_be_reviewed_record.dart';
 import 'schema/support_tickets_record.dart';
 import 'schema/post_reviews_record.dart';
+import 'schema/scheduled_posts_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -35,6 +36,7 @@ export 'schema/article_record.dart';
 export 'schema/to_be_reviewed_record.dart';
 export 'schema/support_tickets_record.dart';
 export 'schema/post_reviews_record.dart';
+export 'schema/scheduled_posts_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -447,6 +449,43 @@ Future<List<PostReviewsRecord>> queryPostReviewsRecordOnce({
     queryCollectionOnce(
       PostReviewsRecord.collection,
       PostReviewsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query ScheduledPostsRecords (as a Stream and as a Future).
+Future<int> queryScheduledPostsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ScheduledPostsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ScheduledPostsRecord>> queryScheduledPostsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ScheduledPostsRecord.collection,
+      ScheduledPostsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ScheduledPostsRecord>> queryScheduledPostsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ScheduledPostsRecord.collection,
+      ScheduledPostsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
