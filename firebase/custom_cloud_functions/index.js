@@ -3,3 +3,5 @@ admin.initializeApp();
 
 const linkedinAuth = require("./linkedin_auth.js");
 exports.linkedinAuth = linkedinAuth.linkedinAuth;
+const scheduleLinkedInPosts = require("./schedule_linked_in_posts.js");
+exports.scheduleLinkedInPosts = scheduleLinkedInPosts.scheduleLinkedInPosts;

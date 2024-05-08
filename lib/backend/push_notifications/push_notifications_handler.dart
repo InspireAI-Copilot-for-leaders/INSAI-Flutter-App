@@ -136,7 +136,7 @@ final parametersBuilderMap =
     );
   },
   'brandVoice': ParameterData.none(),
-  'home': ParameterData.none(),
+  'discoverPage': ParameterData.none(),
   'articleDetails': (data) async => ParameterData(
         allParams: {
           'articleRef': getParameter<DocumentReference>(data, 'articleRef'),
@@ -154,14 +154,14 @@ final parametersBuilderMap =
           'broadDomain': getParameter<String>(data, 'broadDomain'),
         },
       ),
-  'createOrEditPostCopy': (data) async => ParameterData(
+  'viewOrEditPostCopy': (data) async => ParameterData(
         allParams: {
           'postText': getParameter<String>(data, 'postText'),
           'postRef': getParameter<DocumentReference>(data, 'postRef'),
           'postTitle': getParameter<String>(data, 'postTitle'),
+          'oneLinerIndex': getParameter<int>(data, 'oneLinerIndex'),
         },
       ),
-  'createFromScratch': ParameterData.none(),
   'otherLeaders': ParameterData.none(),
   'ProfileDetails': ParameterData.none(),
   'postDetailed': (data) async => ParameterData(
@@ -185,14 +185,15 @@ final parametersBuilderMap =
           'postRef': getParameter<DocumentReference>(data, 'postRef'),
         },
       ),
-  'createOrEditOneLiner': (data) async => ParameterData(
+  'viewOrEditOneLiner': (data) async => ParameterData(
         allParams: {
           'postRef': getParameter<DocumentReference>(data, 'postRef'),
           'postTitle': getParameter<String>(data, 'postTitle'),
         },
       ),
-  'Details03TransactionsSummary': ParameterData.none(),
   'editBrandVoice': ParameterData.none(),
+  'allPostsOverview': ParameterData.none(),
+  'campaigns': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

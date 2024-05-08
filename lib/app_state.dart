@@ -62,12 +62,6 @@ class FFAppState extends ChangeNotifier {
     _drawer = _value;
   }
 
-  String _whichPage = 'dashboard';
-  String get whichPage => _whichPage;
-  set whichPage(String _value) {
-    _whichPage = _value;
-  }
-
   bool _isNotificationsVisible = false;
   bool get isNotificationsVisible => _isNotificationsVisible;
   set isNotificationsVisible(bool _value) {

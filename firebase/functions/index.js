@@ -243,6 +243,24 @@ function getCharForIndex(charIdx) {
     return String.fromCharCode("a".charCodeAt(0) + charIdx - 36);
   }
 }
+const apiManager = require("./api_manager");
+exports.InspirePrivateAPIs = functions
+  .region("asia-south1")
+  .runWith({ minInstances: 1, timeoutSeconds: 120 })
+  .https.onCall(async (data, context) => {
+    try {
+      console.log(`Making API call for ${data["callName"]}`);
+      var response = await apiManager.makeApiCall(context, data);
+      console.log(`Done making API Call! Status: ${response.statusCode}`);
+      return response;
+    } catch (err) {
+      console.error(`Error performing API call: ${err}`);
+      return {
+        statusCode: 400,
+        error: `${err}`,
+      };
+    }
+  });
 exports.onUserDeleted = functions
   .region("asia-south1")
   .auth.user()

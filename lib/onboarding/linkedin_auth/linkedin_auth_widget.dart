@@ -81,8 +81,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
             ),
           ));
           logFirebaseEvent('linkedinAuth_backend_call');
-          _model.getExpertiseWorflow =
-              await ExpertiseOfPersonProxycurlCall.call(
+          _model.getExpertiseWorflow = await ExpertiseOfPersonCall.call(
             linkedinUrl:
                 'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
             uid: currentUserUid,

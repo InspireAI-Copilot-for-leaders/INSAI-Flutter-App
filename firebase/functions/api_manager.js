@@ -1,13 +1,46 @@
 const axios = require("axios").default;
 const qs = require("qs");
 
+async function _linkedinTokensCall(context, ffVariables) {
+  if (!context.auth) {
+    return _unauthenticatedResponse;
+  }
+  var authCodeRecieved = ffVariables["authCodeRecieved"];
+
+  var url = `https://www.linkedin.com/oauth/v2/accessToken`;
+  var headers = { "Content-Type": `application/x-www-form-urlencoded` };
+  var params = {
+    grant_type: `authorization_code`,
+    code: authCodeRecieved,
+    client_id: `867aib47yndmjx`,
+    client_secret: `fDcszmfWhSHUW2xe`,
+    redirect_uri: `https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth`,
+  };
+  var ffApiRequestBody = undefined;
+
+  return makeApiRequest({
+    method: "post",
+    url,
+    headers,
+    body: createBody({
+      headers,
+      params,
+      body: ffApiRequestBody,
+      bodyType: "X_WWW_FORM_URL_ENCODED",
+    }),
+    returnBody: true,
+  });
+}
+
 /// Helper functions to route to the appropriate API Call.
 
 async function makeApiCall(context, data) {
   var callName = data["callName"] || "";
   var variables = data["variables"] || {};
 
-  const callMap = {};
+  const callMap = {
+    LinkedinTokensCall: _linkedinTokensCall,
+  };
 
   if (!(callName in callMap)) {
     return {

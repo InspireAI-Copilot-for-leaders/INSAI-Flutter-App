@@ -147,6 +147,7 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
                       },
                     ),
                     autofocus: true,
+                    readOnly: true,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelStyle: FlutterFlowTheme.of(context)

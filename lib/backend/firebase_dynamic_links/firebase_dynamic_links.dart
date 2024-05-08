@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 const _kDynamicLinksUrl = 'https://app.theinspireai.com';
 const _kAppBundleId = 'com.panscience.inspireai';
+const _kIosAppId = '6499279164';
 
 Future<String> generateCurrentPageLink(
   BuildContext context, {
@@ -22,6 +23,7 @@ Future<String> generateCurrentPageLink(
     androidParameters: const AndroidParameters(packageName: _kAppBundleId),
     iosParameters: const IOSParameters(
       bundleId: _kAppBundleId,
+      appStoreId: _kIosAppId,
     ),
     socialMetaTagParameters: SocialMetaTagParameters(
       title: title,

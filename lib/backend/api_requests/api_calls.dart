@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import '../cloud_functions/cloud_functions.dart';
 import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -144,16 +145,20 @@ class LinkedinPostGroup {
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer [access_token]',
-    'LinkedIn-Version': '202308',
+    'LinkedIn-Version': '202402',
   };
-  static PostTextCall postTextCall = PostTextCall();
+  static PostOnlyTextCall postOnlyTextCall = PostOnlyTextCall();
+  static PostTextWithMultipleImagesCall postTextWithMultipleImagesCall =
+      PostTextWithMultipleImagesCall();
+  static PostTextWithMediaCall postTextWithMediaCall = PostTextWithMediaCall();
+  static PostTextWithPollCall postTextWithPollCall = PostTextWithPollCall();
   static GetPostCommentsCall getPostCommentsCall = GetPostCommentsCall();
   static GetPostLikesCall getPostLikesCall = GetPostLikesCall();
   static GetSocialMetadataCall getSocialMetadataCall = GetSocialMetadataCall();
   static PeopleCall peopleCall = PeopleCall();
 }
 
-class PostTextCall {
+class PostOnlyTextCall {
   Future<ApiCallResponse> call({
     String? personUrn = '',
     String? postText = '',
@@ -173,13 +178,162 @@ class PostTextCall {
   "isReshareDisabledByAuthor": false
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'Post Text',
+      callName: 'postOnlyText',
       apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PostTextWithMultipleImagesCall {
+  Future<ApiCallResponse> call({
+    String? personUrn = '',
+    String? postText = '',
+    dynamic? imagesJson,
+    String? accessToken = '',
+  }) async {
+    final images = _serializeJson(imagesJson, true);
+    final ffApiRequestBody = '''
+{
+  "author": "${personUrn}",
+  "commentary": "${postText}",
+  "visibility": "PUBLIC",
+  "distribution": {
+    "feedDistribution": "MAIN_FEED",
+    "targetEntities": [],
+    "thirdPartyDistributionChannels": []
+  },
+  "lifecycleState": "PUBLISHED",
+  "isReshareDisabledByAuthor": false,
+  "content": {
+    "multiImage": {
+      "images": ${images}
+    }
+  }
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'postTextWithMultipleImages',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PostTextWithMediaCall {
+  Future<ApiCallResponse> call({
+    String? personUrn = '',
+    String? postText = '',
+    String? mediaId = '',
+    String? accessToken = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "author": "${personUrn}",
+  "commentary": "${postText}",
+  "visibility": "PUBLIC",
+  "distribution": {
+    "feedDistribution": "MAIN_FEED",
+    "targetEntities": [],
+    "thirdPartyDistributionChannels": []
+  },
+  "content": {
+    "media": {
+      "title": "title of the video",
+      "id": "${mediaId}"
+    }
+  },
+  "lifecycleState": "PUBLISHED",
+  "isReshareDisabledByAuthor": false
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'postTextWithMedia',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PostTextWithPollCall {
+  Future<ApiCallResponse> call({
+    String? personUrn = '',
+    String? postText = '',
+    String? question = '',
+    dynamic? optionsJson,
+    String? duration = '',
+    String? accessToken = '',
+  }) async {
+    final options = _serializeJson(optionsJson, true);
+    final ffApiRequestBody = '''
+{
+  "author": "${personUrn}",
+  "commentary": "${postText}",
+  "visibility": "PUBLIC",
+  "distribution": {
+    "feedDistribution": "MAIN_FEED",
+    "targetEntities": [],
+    "thirdPartyDistributionChannels": []
+  },
+  "content": {
+    "poll": {
+      "question": "${question}",
+      "options": [
+        ${options}
+      ],
+      "settings": {
+        "duration": "${duration}"
+      }
+    }
+  },
+  "lifecycleState": "PUBLISHED",
+  "isReshareDisabledByAuthor": false
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'postTextWithPoll',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       body: ffApiRequestBody,
@@ -206,7 +360,7 @@ class GetPostCommentsCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {
         'count': 200,
@@ -283,7 +437,7 @@ class GetPostLikesCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       returnBody: true,
@@ -312,7 +466,7 @@ class GetSocialMetadataCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       returnBody: true,
@@ -335,7 +489,7 @@ class PeopleCall {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${accessToken}',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202402',
       },
       params: {},
       returnBody: true,
@@ -349,16 +503,7 @@ class PeopleCall {
 
 /// End linkedinPost Group Code
 
-/// Start InspireAI Backend Group Code
-
-class InspireAIBackendGroup {
-  static String baseUrl = 'https://api.platform.theinspireai.com';
-  static Map<String, String> headers = {};
-}
-
-/// End InspireAI Backend Group Code
-
-class ExpertiseOfPersonApifyCall {
+class ExpertiseOfPersonCall {
   static Future<ApiCallResponse> call({
     String? linkedinUrl = '',
     String? uid = '',
@@ -369,34 +514,7 @@ class ExpertiseOfPersonApifyCall {
   "linkedin_profile_url": "${linkedinUrl}"
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'Expertise of Person Apify',
-      apiUrl: 'https://api.platform.theinspireai.com/ls/linkedin_scrapper',
-      callType: ApiCallType.POST,
-      headers: {},
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
-class ExpertiseOfPersonProxycurlCall {
-  static Future<ApiCallResponse> call({
-    String? linkedinUrl = '',
-    String? uid = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "uid": "${uid}",
-  "linkedin_profile_url": "${linkedinUrl}"
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'Expertise of Person Proxycurl',
+      callName: 'Expertise of Person',
       apiUrl: 'https://api.platform.theinspireai.com/ls/linkedin_scrapper',
       callType: ApiCallType.POST,
       headers: {},
@@ -416,28 +534,16 @@ class LinkedinTokensCall {
   static Future<ApiCallResponse> call({
     String? authCodeRecieved = '',
   }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'LinkedinTokens',
-      apiUrl: 'https://www.linkedin.com/oauth/v2/accessToken',
-      callType: ApiCallType.POST,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'LinkedinTokensCall',
+        'variables': {
+          'authCodeRecieved': authCodeRecieved,
+        },
       },
-      params: {
-        'grant_type': "authorization_code",
-        'code': authCodeRecieved,
-        'client_id': "867aib47yndmjx",
-        'client_secret': "fDcszmfWhSHUW2xe",
-        'redirect_uri':
-            "https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth",
-      },
-      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
     );
+    return ApiCallResponse.fromCloudCallResponse(response);
   }
 }
 
@@ -514,7 +620,6 @@ class InspireAIContentFromContxtCall {
   "brand_voice": "${brandVoice}",
   "number_of_words": ${numberOfWords},
   "context": "${context}",
-  "similarity_top_k": 1,
   "uid": "${uid}",
   "broad_domain": "${broadDomain}",
   "notification_title": "${notificationTitle}",
@@ -540,26 +645,143 @@ class InspireAIContentFromContxtCall {
   }
 }
 
-class InspireAIKeywordAndArticlesCall {
+class GetImageUploadUrlFromLinkedinCall {
   static Future<ApiCallResponse> call({
-    String? uid = '',
-    List<String>? expertiseAreasList,
+    String? urn = '',
+    String? accessToken = '',
   }) async {
-    final expertiseAreas = _serializeList(expertiseAreasList);
-
     final ffApiRequestBody = '''
 {
-  "uid": "${uid}",
-  "list_of_expertise_areas": ${expertiseAreas}
+  "initializeUploadRequest": {
+    "owner": "${urn}"
+  }
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'InspireAI Keyword and articles',
-      apiUrl: 'https://api.platform.theinspireai.com/ls/linkedin_scrapper',
+      callName: 'getImageUploadUrlFromLinkedin',
+      apiUrl: 'https://api.linkedin.com/rest/images?action=initializeUpload',
       callType: ApiCallType.POST,
-      headers: {},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? urlExpiryIn(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.value.uploadUrlExpiresAt''',
+      ));
+  static String? uploadURL(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.value.uploadUrl''',
+      ));
+  static String? imageURN(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.value.image''',
+      ));
+}
+
+class GetDocUploadUrlFromLinkedinCall {
+  static Future<ApiCallResponse> call({
+    String? urn = '',
+    String? accessToken = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "initializeUploadRequest": {
+    "owner": "${urn}"
+  }
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getDocUploadUrlFromLinkedin',
+      apiUrl: 'https://api.linkedin.com/rest/documents?action=initializeUpload',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? urlExpiryIn(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.value.uploadUrlExpiresAt''',
+      ));
+  static String? uploadURL(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.value.uploadUrl''',
+      ));
+  static String? docURN(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.value.document''',
+      ));
+}
+
+class UploadImageToLinkedinCall {
+  static Future<ApiCallResponse> call({
+    String? accessToken = '',
+    String? uploadUrl = '',
+    String? imageToBeUploaded = '',
+  }) async {
+    final ffApiRequestBody = '''
+<p>"${imageToBeUploaded}"</p>''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'uploadImageToLinkedin',
+      apiUrl: '${uploadUrl}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.TEXT,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UploadDocToLinkedinCall {
+  static Future<ApiCallResponse> call({
+    String? accessToken = '',
+    String? uploadUrl = '',
+    String? docToBeUploaded = '',
+  }) async {
+    final ffApiRequestBody = '''
+<p>"${docToBeUploaded}"</p>''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'uploadDocToLinkedin',
+      apiUrl: '${uploadUrl}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': 'Bearer ${accessToken}',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.TEXT,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
