@@ -32,23 +32,88 @@ class ScheduledPostsRecord extends FirestoreRecord {
   DateTime? get timeOfCreation => _timeOfCreation;
   bool hasTimeOfCreation() => _timeOfCreation != null;
 
-  // "postData" field.
-  ScheduledPostDataStruct? _postData;
-  ScheduledPostDataStruct get postData =>
-      _postData ?? ScheduledPostDataStruct();
-  bool hasPostData() => _postData != null;
-
   // "postType" field.
   String? _postType;
   String get postType => _postType ?? '';
   bool hasPostType() => _postType != null;
 
+  // "personUrn" field.
+  String? _personUrn;
+  String get personUrn => _personUrn ?? '';
+  bool hasPersonUrn() => _personUrn != null;
+
+  // "accessToken" field.
+  String? _accessToken;
+  String get accessToken => _accessToken ?? '';
+  bool hasAccessToken() => _accessToken != null;
+
+  // "postText" field.
+  String? _postText;
+  String get postText => _postText ?? '';
+  bool hasPostText() => _postText != null;
+
+  // "imagesJson" field.
+  String? _imagesJson;
+  String get imagesJson => _imagesJson ?? '';
+  bool hasImagesJson() => _imagesJson != null;
+
+  // "mediaId" field.
+  String? _mediaId;
+  String get mediaId => _mediaId ?? '';
+  bool hasMediaId() => _mediaId != null;
+
+  // "mediaTitle" field.
+  String? _mediaTitle;
+  String get mediaTitle => _mediaTitle ?? '';
+  bool hasMediaTitle() => _mediaTitle != null;
+
+  // "question" field.
+  String? _question;
+  String get question => _question ?? '';
+  bool hasQuestion() => _question != null;
+
+  // "optionsJson" field.
+  String? _optionsJson;
+  String get optionsJson => _optionsJson ?? '';
+  bool hasOptionsJson() => _optionsJson != null;
+
+  // "duration" field.
+  String? _duration;
+  String get duration => _duration ?? '';
+  bool hasDuration() => _duration != null;
+
+  // "imageUrns" field.
+  List<String>? _imageUrns;
+  List<String> get imageUrns => _imageUrns ?? const [];
+  bool hasImageUrns() => _imageUrns != null;
+
+  // "linkedinImgUrls" field.
+  List<String>? _linkedinImgUrls;
+  List<String> get linkedinImgUrls => _linkedinImgUrls ?? const [];
+  bool hasLinkedinImgUrls() => _linkedinImgUrls != null;
+
+  // "firebaseImgUrls" field.
+  List<String>? _firebaseImgUrls;
+  List<String> get firebaseImgUrls => _firebaseImgUrls ?? const [];
+  bool hasFirebaseImgUrls() => _firebaseImgUrls != null;
+
   void _initializeFields() {
     _userRef = snapshotData['userRef'] as DocumentReference?;
     _timestamp = snapshotData['timestamp'] as DateTime?;
     _timeOfCreation = snapshotData['timeOfCreation'] as DateTime?;
-    _postData = ScheduledPostDataStruct.maybeFromMap(snapshotData['postData']);
     _postType = snapshotData['postType'] as String?;
+    _personUrn = snapshotData['personUrn'] as String?;
+    _accessToken = snapshotData['accessToken'] as String?;
+    _postText = snapshotData['postText'] as String?;
+    _imagesJson = snapshotData['imagesJson'] as String?;
+    _mediaId = snapshotData['mediaId'] as String?;
+    _mediaTitle = snapshotData['mediaTitle'] as String?;
+    _question = snapshotData['question'] as String?;
+    _optionsJson = snapshotData['optionsJson'] as String?;
+    _duration = snapshotData['duration'] as String?;
+    _imageUrns = getDataList(snapshotData['imageUrns']);
+    _linkedinImgUrls = getDataList(snapshotData['linkedinImgUrls']);
+    _firebaseImgUrls = getDataList(snapshotData['firebaseImgUrls']);
   }
 
   static CollectionReference get collection =>
@@ -89,21 +154,34 @@ Map<String, dynamic> createScheduledPostsRecordData({
   DocumentReference? userRef,
   DateTime? timestamp,
   DateTime? timeOfCreation,
-  ScheduledPostDataStruct? postData,
   String? postType,
+  String? personUrn,
+  String? accessToken,
+  String? postText,
+  String? imagesJson,
+  String? mediaId,
+  String? mediaTitle,
+  String? question,
+  String? optionsJson,
+  String? duration,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'userRef': userRef,
       'timestamp': timestamp,
       'timeOfCreation': timeOfCreation,
-      'postData': ScheduledPostDataStruct().toMap(),
       'postType': postType,
+      'personUrn': personUrn,
+      'accessToken': accessToken,
+      'postText': postText,
+      'imagesJson': imagesJson,
+      'mediaId': mediaId,
+      'mediaTitle': mediaTitle,
+      'question': question,
+      'optionsJson': optionsJson,
+      'duration': duration,
     }.withoutNulls,
   );
-
-  // Handle nested data for "postData" field.
-  addScheduledPostDataStructData(firestoreData, postData, 'postData');
 
   return firestoreData;
 }
@@ -114,16 +192,44 @@ class ScheduledPostsRecordDocumentEquality
 
   @override
   bool equals(ScheduledPostsRecord? e1, ScheduledPostsRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.userRef == e2?.userRef &&
         e1?.timestamp == e2?.timestamp &&
         e1?.timeOfCreation == e2?.timeOfCreation &&
-        e1?.postData == e2?.postData &&
-        e1?.postType == e2?.postType;
+        e1?.postType == e2?.postType &&
+        e1?.personUrn == e2?.personUrn &&
+        e1?.accessToken == e2?.accessToken &&
+        e1?.postText == e2?.postText &&
+        e1?.imagesJson == e2?.imagesJson &&
+        e1?.mediaId == e2?.mediaId &&
+        e1?.mediaTitle == e2?.mediaTitle &&
+        e1?.question == e2?.question &&
+        e1?.optionsJson == e2?.optionsJson &&
+        e1?.duration == e2?.duration &&
+        listEquality.equals(e1?.imageUrns, e2?.imageUrns) &&
+        listEquality.equals(e1?.linkedinImgUrls, e2?.linkedinImgUrls) &&
+        listEquality.equals(e1?.firebaseImgUrls, e2?.firebaseImgUrls);
   }
 
   @override
-  int hash(ScheduledPostsRecord? e) => const ListEquality().hash(
-      [e?.userRef, e?.timestamp, e?.timeOfCreation, e?.postData, e?.postType]);
+  int hash(ScheduledPostsRecord? e) => const ListEquality().hash([
+        e?.userRef,
+        e?.timestamp,
+        e?.timeOfCreation,
+        e?.postType,
+        e?.personUrn,
+        e?.accessToken,
+        e?.postText,
+        e?.imagesJson,
+        e?.mediaId,
+        e?.mediaTitle,
+        e?.question,
+        e?.optionsJson,
+        e?.duration,
+        e?.imageUrns,
+        e?.linkedinImgUrls,
+        e?.firebaseImgUrls
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is ScheduledPostsRecord;

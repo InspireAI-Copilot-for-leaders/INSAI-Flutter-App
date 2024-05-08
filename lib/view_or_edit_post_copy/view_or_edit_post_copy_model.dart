@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/exit_dialog_widget.dart';
 import '/components/post_content_options_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_pdf_viewer.dart';
@@ -11,6 +12,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:async';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'view_or_edit_post_copy_widget.dart' show ViewOrEditPostCopyWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -112,6 +114,25 @@ class ViewOrEditPostCopyModel
   ApiCallResponse? singleImgPosted;
   // Stores action output result for [Backend Call - API (postTextWithPoll)] action in pollButton widget.
   ApiCallResponse? linkedinPollPost;
+  bool isDataUploading3 = false;
+  FFUploadedFile uploadedLocalFile3 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl3 = '';
+
+  // Stores action output result for [Backend Call - API (getDocUploadUrlFromLinkedin)] action in scheduleDoc widget.
+  ApiCallResponse? liDocURLSche;
+  // Stores action output result for [Backend Call - API (uploadDocToLinkedin)] action in scheduleDoc widget.
+  ApiCallResponse? docUploadedSche;
+  bool isDataUploading4 = false;
+  List<FFUploadedFile> uploadedLocalFiles4 = [];
+  List<String> uploadedFileUrls4 = [];
+
+  // Stores action output result for [Backend Call - API (getImageUploadUrlFromLinkedin)] action in scheduleImage widget.
+  ApiCallResponse? imageUrlSch;
+  // Stores action output result for [Backend Call - API (uploadImageToLinkedin)] action in scheduleImage widget.
+  ApiCallResponse? imageUploadedSch;
+  // Stores action output result for [Backend Call - Create Document] action in scheduleImage widget.
+  ScheduledPostsRecord? createdDocRefrenceSch;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
@@ -120,8 +141,8 @@ class ViewOrEditPostCopyModel
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  bool isDataUploading3 = false;
-  List<FFUploadedFile> uploadedLocalFiles3 = [];
+  bool isDataUploading5 = false;
+  List<FFUploadedFile> uploadedLocalFiles5 = [];
 
   DateTime? datePicked1;
   DateTime? datePicked2;

@@ -169,6 +169,10 @@ exports.scheduleLinkedInPosts = functions.pubsub
 
     snapshot.forEach(async (doc) => {
       const post = doc.data();
+      // Exclude accessToken, personUrn, userRef
+      const { accessToken, personUrn, userRef, ...postDataWithoutSensitive } =
+        post;
+
       try {
         const result = await postToLinkedIn(post.postType, post);
 
@@ -178,6 +182,7 @@ exports.scheduleLinkedInPosts = functions.pubsub
           timestamp: admin.firestore.Timestamp.now(),
           response: result.data,
           linkedInId: result.linkedInId, // Store the LinkedIn ID
+          postData: postDataWithoutSensitive, // Store filtered postData
         });
 
         // Optional: update the original scheduled post document

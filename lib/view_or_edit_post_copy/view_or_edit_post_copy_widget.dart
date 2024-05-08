@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/exit_dialog_widget.dart';
 import '/components/post_content_options_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_pdf_viewer.dart';
@@ -11,6 +12,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:async';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -130,26 +132,105 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent(
-                                              'VIEW_OR_EDIT_POST_COPY_Icon_gr9oprw7_ON_');
-                                          logFirebaseEvent(
-                                              'Icon_navigate_back');
-                                          context.pop();
-                                        },
-                                        child: Icon(
-                                          Icons.close,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
+                                    Builder(
+                                      builder: (context) => Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 12.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'VIEW_OR_EDIT_POST_COPY_Icon_gr9oprw7_ON_');
+                                            logFirebaseEvent(
+                                                'Icon_alert_dialog');
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child: ExitDialogWidget(
+                                                      saveAction: () async {
+                                                        logFirebaseEvent(
+                                                            '_backend_call');
+
+                                                        await widget.postRef!
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'content':
+                                                                  FieldValue
+                                                                      .delete(),
+                                                            },
+                                                          ),
+                                                        });
+                                                        logFirebaseEvent(
+                                                            '_backend_call');
+
+                                                        await widget.postRef!
+                                                            .update({
+                                                          ...createCreatedPostsRecordData(
+                                                            topic: _model
+                                                                .textController1
+                                                                .text,
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'content': FieldValue
+                                                                  .arrayUnion([
+                                                                _model
+                                                                    .textController2
+                                                                    .text
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+                                                        logFirebaseEvent(
+                                                            '_navigate_to');
+
+                                                        context.goNamed(
+                                                            'allPostsOverview');
+                                                      },
+                                                      discardAction: () async {
+                                                        logFirebaseEvent(
+                                                            '_navigate_to');
+
+                                                        context.goNamed(
+                                                            'allPostsOverview');
+                                                      },
+                                                      cancelAction: () async {},
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+                                          },
+                                          child: Icon(
+                                            Icons.close,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -1368,22 +1449,49 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                         getCurrentTimestamp,
                                                     postType: _model
                                                         .typeOfMediaUploaded,
-                                                    postData:
-                                                        createScheduledPostDataStruct(
-                                                      personUrn: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinUrn,
-                                                          ''),
-                                                      accessToken: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinAccess,
-                                                          ''),
-                                                      postText: _model
-                                                          .textController2.text,
-                                                      clearUnsetFields: false,
-                                                      create: true,
-                                                    ),
+                                                    personUrn: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinUrn,
+                                                        ''),
+                                                    accessToken: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinAccess,
+                                                        ''),
+                                                    postText: _model
+                                                        .textController2.text,
                                                   ));
+                                              logFirebaseEvent(
+                                                  'scheduleOnlyText_alert_dialog');
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Success'),
+                                                    content: Text(
+                                                        'Your post has been successfully scheduled!'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                              logFirebaseEvent(
+                                                  'scheduleOnlyText_backend_call');
+
+                                              await widget.postRef!.update(
+                                                  createCreatedPostsRecordData(
+                                                status: 'Scheduled',
+                                              ));
+                                              logFirebaseEvent(
+                                                  'scheduleOnlyText_navigate_to');
+
+                                              context
+                                                  .goNamed('allPostsOverview');
                                             },
                                             text: 'Schedule',
                                             options: FFButtonOptions(
@@ -1421,62 +1529,195 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                   BorderRadius.circular(20.0),
                                             ),
                                           ),
-                                        if (_model.isScheduled)
+                                        if (_model.isScheduled &&
+                                            (_model.typeOfMediaUploaded ==
+                                                'doc'))
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_COPY_scheduleDoc_ON_TA');
-                                              logFirebaseEvent(
-                                                  'scheduleDoc_backend_call');
+                                              if (_model.typeOfMediaUploaded ==
+                                                  'doc') {
+                                                logFirebaseEvent(
+                                                    'scheduleDoc_upload_file_to_firebase');
+                                                {
+                                                  setState(() => _model
+                                                      .isDataUploading3 = true);
+                                                  var selectedUploadedFiles =
+                                                      <FFUploadedFile>[];
+                                                  var selectedFiles =
+                                                      <SelectedFile>[];
+                                                  var downloadUrls = <String>[];
+                                                  try {
+                                                    selectedUploadedFiles =
+                                                        _model
+                                                                .uploadedDoc!
+                                                                .bytes!
+                                                                .isNotEmpty
+                                                            ? [
+                                                                _model
+                                                                    .uploadedDoc!
+                                                              ]
+                                                            : <FFUploadedFile>[];
+                                                    selectedFiles =
+                                                        selectedFilesFromUploadedFiles(
+                                                      selectedUploadedFiles,
+                                                    );
+                                                    downloadUrls = (await Future
+                                                            .wait(
+                                                      selectedFiles.map(
+                                                        (f) async =>
+                                                            await uploadData(
+                                                                f.storagePath,
+                                                                f.bytes),
+                                                      ),
+                                                    ))
+                                                        .where((u) => u != null)
+                                                        .map((u) => u!)
+                                                        .toList();
+                                                  } finally {
+                                                    _model.isDataUploading3 =
+                                                        false;
+                                                  }
+                                                  if (selectedUploadedFiles
+                                                              .length ==
+                                                          selectedFiles
+                                                              .length &&
+                                                      downloadUrls.length ==
+                                                          selectedFiles
+                                                              .length) {
+                                                    setState(() {
+                                                      _model.uploadedLocalFile3 =
+                                                          selectedUploadedFiles
+                                                              .first;
+                                                      _model.uploadedFileUrl3 =
+                                                          downloadUrls.first;
+                                                    });
+                                                  } else {
+                                                    setState(() {});
+                                                    return;
+                                                  }
+                                                }
 
-                                              await ScheduledPostsRecord
-                                                  .collection
-                                                  .doc()
-                                                  .set(
-                                                      createScheduledPostsRecordData(
-                                                    userRef:
-                                                        currentUserReference,
-                                                    timestamp: functions
-                                                        .combineDateTime(
-                                                            _model
-                                                                .scheduledDate!,
-                                                            _model
-                                                                .scheduledTime!),
-                                                    timeOfCreation:
-                                                        getCurrentTimestamp,
-                                                    postType: _model
-                                                        .typeOfMediaUploaded,
-                                                    postData:
-                                                        createScheduledPostDataStruct(
-                                                      personUrn: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinUrn,
+                                                logFirebaseEvent(
+                                                    'scheduleDoc_backend_call');
+                                                _model.liDocURLSche =
+                                                    await GetDocUploadUrlFromLinkedinCall
+                                                        .call(
+                                                  urn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                );
+                                                if ((_model.liDocURLSche
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'scheduleDoc_backend_call');
+                                                  _model.docUploadedSche =
+                                                      await UploadDocToLinkedinCall
+                                                          .call(
+                                                    accessToken: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinAccess,
+                                                        ''),
+                                                    uploadUrl:
+                                                        GetDocUploadUrlFromLinkedinCall
+                                                            .uploadURL(
+                                                      (_model.liDocURLSche
+                                                              ?.jsonBody ??
                                                           ''),
-                                                      accessToken: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinAccess,
-                                                          ''),
-                                                      postText: _model
-                                                          .textController2.text,
-                                                      imagesJson: functions
-                                                          .valueToJsonMapList(
-                                                              _model
-                                                                  .createdDocRefrence!
-                                                                  .imageUrns
-                                                                  .toList(),
-                                                              'id')
-                                                          .toString(),
-                                                      mediaId: '',
-                                                      mediaTitle: '',
-                                                      question:
-                                                          _model.pollQuestion,
-                                                      optionsJson: '',
-                                                      duration:
-                                                          _model.pollDuration,
-                                                      clearUnsetFields: false,
-                                                      create: true,
                                                     ),
-                                                  ));
+                                                    docToBeUploaded:
+                                                        _model.uploadedFileUrl3,
+                                                  );
+                                                  if ((_model.docUploadedSche
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    logFirebaseEvent(
+                                                        'scheduleDoc_backend_call');
+
+                                                    await ScheduledPostsRecord
+                                                        .collection
+                                                        .doc()
+                                                        .set(
+                                                            createScheduledPostsRecordData(
+                                                          userRef:
+                                                              currentUserReference,
+                                                          timestamp: functions
+                                                              .combineDateTime(
+                                                                  _model
+                                                                      .scheduledDate!,
+                                                                  _model
+                                                                      .scheduledTime!),
+                                                          timeOfCreation:
+                                                              getCurrentTimestamp,
+                                                          postType: _model
+                                                              .typeOfMediaUploaded,
+                                                          personUrn: valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.linkedinUrn,
+                                                              ''),
+                                                          accessToken: valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.linkedinAccess,
+                                                              ''),
+                                                          postText: _model
+                                                              .textController2
+                                                              .text,
+                                                          mediaId:
+                                                              GetDocUploadUrlFromLinkedinCall
+                                                                  .docURN(
+                                                            (_model.liDocURLSche
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          ),
+                                                          mediaTitle: _model
+                                                              .uploadedDocTitle,
+                                                        ));
+                                                    logFirebaseEvent(
+                                                        'scheduleDoc_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              Text('Success'),
+                                                          content: Text(
+                                                              'Your post has been successfully scheduled!'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                    logFirebaseEvent(
+                                                        'scheduleDoc_backend_call');
+
+                                                    await widget.postRef!.update(
+                                                        createCreatedPostsRecordData(
+                                                      status: 'Scheduled',
+                                                    ));
+                                                    logFirebaseEvent(
+                                                        'scheduleDoc_navigate_to');
+
+                                                    context.goNamed(
+                                                        'allPostsOverview');
+                                                  }
+                                                }
+                                              }
+
+                                              setState(() {});
                                             },
                                             text: 'Schedule',
                                             options: FFButtonOptions(
@@ -1514,11 +1755,61 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                   BorderRadius.circular(20.0),
                                             ),
                                           ),
-                                        if (_model.isScheduled)
+                                        if (_model.isScheduled &&
+                                            (_model.typeOfMediaUploaded ==
+                                                'poll'))
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_COPY_schedulePoll_ON_T');
+                                              await Future.wait([
+                                                Future(() async {
+                                                  logFirebaseEvent(
+                                                      'schedulePoll_update_page_state');
+                                                  setState(() {
+                                                    _model.addToPollOptionsList(
+                                                        _model.pollOption1!);
+                                                  });
+                                                }),
+                                                Future(() async {
+                                                  logFirebaseEvent(
+                                                      'schedulePoll_update_page_state');
+                                                  setState(() {
+                                                    _model.addToPollOptionsList(
+                                                        _model.pollOption2!);
+                                                  });
+                                                }),
+                                                Future(() async {
+                                                  if (_model.pollOption3 !=
+                                                          null &&
+                                                      _model.pollOption3 !=
+                                                          '') {
+                                                    logFirebaseEvent(
+                                                        'schedulePoll_update_page_state');
+                                                    setState(() {
+                                                      _model
+                                                          .addToPollOptionsList(
+                                                              _model
+                                                                  .pollOption3!);
+                                                    });
+                                                  }
+                                                }),
+                                                Future(() async {
+                                                  if (_model.pollOption4 !=
+                                                          null &&
+                                                      _model.pollOption4 !=
+                                                          '') {
+                                                    logFirebaseEvent(
+                                                        'schedulePoll_update_page_state');
+                                                    setState(() {
+                                                      _model
+                                                          .addToPollOptionsList(
+                                                              _model
+                                                                  .pollOption4!);
+                                                    });
+                                                  }
+                                                }),
+                                              ]);
                                               logFirebaseEvent(
                                                   'schedulePoll_backend_call');
 
@@ -1539,37 +1830,60 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                         getCurrentTimestamp,
                                                     postType: _model
                                                         .typeOfMediaUploaded,
-                                                    postData:
-                                                        createScheduledPostDataStruct(
-                                                      personUrn: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinUrn,
-                                                          ''),
-                                                      accessToken: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinAccess,
-                                                          ''),
-                                                      postText: _model
-                                                          .textController2.text,
-                                                      imagesJson: functions
-                                                          .valueToJsonMapList(
-                                                              _model
-                                                                  .createdDocRefrence!
-                                                                  .imageUrns
-                                                                  .toList(),
-                                                              'id')
-                                                          .toString(),
-                                                      mediaId: '',
-                                                      mediaTitle: '',
-                                                      question:
-                                                          _model.pollQuestion,
-                                                      optionsJson: '',
-                                                      duration:
-                                                          _model.pollDuration,
-                                                      clearUnsetFields: false,
-                                                      create: true,
-                                                    ),
+                                                    personUrn: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinUrn,
+                                                        ''),
+                                                    accessToken: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinAccess,
+                                                        ''),
+                                                    postText: _model
+                                                        .textController2.text,
+                                                    question:
+                                                        _model.pollQuestion,
+                                                    optionsJson: functions
+                                                        .valueToJsonMapList(
+                                                            _model
+                                                                .pollOptionsList
+                                                                .toList(),
+                                                            'text')
+                                                        .toString(),
+                                                    duration:
+                                                        _model.pollDuration,
                                                   ));
+                                              logFirebaseEvent(
+                                                  'schedulePoll_alert_dialog');
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Success'),
+                                                    content: Text(
+                                                        'Your post has been successfully scheduled!'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                              logFirebaseEvent(
+                                                  'schedulePoll_backend_call');
+
+                                              await widget.postRef!.update(
+                                                  createCreatedPostsRecordData(
+                                                status: 'Scheduled',
+                                              ));
+                                              logFirebaseEvent(
+                                                  'schedulePoll_navigate_to');
+
+                                              context
+                                                  .goNamed('allPostsOverview');
                                             },
                                             text: 'Schedule',
                                             options: FFButtonOptions(
@@ -1607,33 +1921,260 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                   BorderRadius.circular(20.0),
                                             ),
                                           ),
-                                        if (_model.isScheduled)
+                                        if (_model.isScheduled &&
+                                            ((_model.typeOfMediaUploaded ==
+                                                    'singleImage') ||
+                                                (_model.typeOfMediaUploaded ==
+                                                    'multiImage')))
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_COPY_scheduleImage_ON_');
                                               logFirebaseEvent(
-                                                  'scheduleImage_backend_call');
+                                                  'scheduleImage_upload_media_to_firebase');
+                                              {
+                                                setState(() => _model
+                                                    .isDataUploading4 = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
+                                                var selectedMedia =
+                                                    <SelectedFile>[];
+                                                var downloadUrls = <String>[];
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      _model.uploadedMedia;
+                                                  selectedMedia =
+                                                      selectedFilesFromUploadedFiles(
+                                                    selectedUploadedFiles,
+                                                    isMultiData: true,
+                                                  );
+                                                  downloadUrls =
+                                                      (await Future.wait(
+                                                    selectedMedia.map(
+                                                      (m) async =>
+                                                          await uploadData(
+                                                              m.storagePath,
+                                                              m.bytes),
+                                                    ),
+                                                  ))
+                                                          .where(
+                                                              (u) => u != null)
+                                                          .map((u) => u!)
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading4 =
+                                                      false;
+                                                }
+                                                if (selectedUploadedFiles
+                                                            .length ==
+                                                        selectedMedia.length &&
+                                                    downloadUrls.length ==
+                                                        selectedMedia.length) {
+                                                  setState(() {
+                                                    _model.uploadedLocalFiles4 =
+                                                        selectedUploadedFiles;
+                                                    _model.uploadedFileUrls4 =
+                                                        downloadUrls;
+                                                  });
+                                                } else {
+                                                  setState(() {});
+                                                  return;
+                                                }
+                                              }
 
-                                              await ScheduledPostsRecord
-                                                  .collection
-                                                  .doc()
-                                                  .set(
-                                                      createScheduledPostsRecordData(
-                                                    userRef:
-                                                        currentUserReference,
-                                                    timestamp: functions
-                                                        .combineDateTime(
-                                                            _model
-                                                                .scheduledDate!,
-                                                            _model
-                                                                .scheduledTime!),
-                                                    timeOfCreation:
-                                                        getCurrentTimestamp,
-                                                    postType: _model
-                                                        .typeOfMediaUploaded,
-                                                    postData:
-                                                        createScheduledPostDataStruct(
+                                              while (_model
+                                                      .noOfImagesUploadedToFirebase <
+                                                  (_model.numberOfImagesUploaded -
+                                                      1)) {
+                                                logFirebaseEvent(
+                                                    'scheduleImage_backend_call');
+                                                _model.imageUrlSch =
+                                                    await GetImageUploadUrlFromLinkedinCall
+                                                        .call(
+                                                  urn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                );
+                                                if ((_model.imageUrlSch
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'scheduleImage_backend_call');
+                                                  _model.imageUploadedSch =
+                                                      await UploadImageToLinkedinCall
+                                                          .call(
+                                                    accessToken: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinAccess,
+                                                        ''),
+                                                    uploadUrl:
+                                                        GetImageUploadUrlFromLinkedinCall
+                                                            .uploadURL(
+                                                      (_model.imageUrlSch
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                    imageToBeUploaded: _model
+                                                            .uploadedFileUrls4[
+                                                        _model
+                                                            .noOfImagesUploadedToFirebase],
+                                                  );
+                                                  if ((_model.imageUploadedSch
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    if (_model
+                                                            .noOfImagesUploadedToFirebase >=
+                                                        1) {
+                                                      logFirebaseEvent(
+                                                          'scheduleImage_backend_call');
+
+                                                      await _model
+                                                          .createdDocRefrenceSch!
+                                                          .reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'imageUrns':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .imageURN(
+                                                                (_model.imageUrlSch
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ]),
+                                                            'linkedinImgUrls':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .uploadURL(
+                                                                (_model.imageUrlSch
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ]),
+                                                            'firebaseImgUrls':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              _model.uploadedFileUrls4[
+                                                                  _model
+                                                                      .noOfImagesUploadedToFirebase]
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                      logFirebaseEvent(
+                                                          'scheduleImage_update_page_state');
+                                                      setState(() {
+                                                        _model.noOfImagesUploadedToFirebase =
+                                                            _model.noOfImagesUploadedToFirebase +
+                                                                1;
+                                                      });
+                                                    } else {
+                                                      logFirebaseEvent(
+                                                          'scheduleImage_backend_call');
+
+                                                      var scheduledPostsRecordReference1 =
+                                                          ScheduledPostsRecord
+                                                              .collection
+                                                              .doc();
+                                                      await scheduledPostsRecordReference1
+                                                          .set({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'imageUrns': [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .imageURN(
+                                                                (_model.imageUrlSch
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                            'linkedinImgUrls': [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .uploadURL(
+                                                                (_model.imageUrlSch
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                            'firebaseImgUrls': [
+                                                              _model.uploadedFileUrls4[
+                                                                  _model
+                                                                      .noOfImagesUploadedToFirebase]
+                                                            ],
+                                                          },
+                                                        ),
+                                                      });
+                                                      _model.createdDocRefrenceSch =
+                                                          ScheduledPostsRecord
+                                                              .getDocumentFromData({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'imageUrns': [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .imageURN(
+                                                                (_model.imageUrlSch
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                            'linkedinImgUrls': [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .uploadURL(
+                                                                (_model.imageUrlSch
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                            'firebaseImgUrls': [
+                                                              _model.uploadedFileUrls4[
+                                                                  _model
+                                                                      .noOfImagesUploadedToFirebase]
+                                                            ],
+                                                          },
+                                                        ),
+                                                      }, scheduledPostsRecordReference1);
+                                                      logFirebaseEvent(
+                                                          'scheduleImage_update_page_state');
+                                                      setState(() {
+                                                        _model.noOfImagesUploadedToFirebase =
+                                                            _model.noOfImagesUploadedToFirebase +
+                                                                1;
+                                                      });
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                              if (_model
+                                                      .numberOfImagesUploaded >
+                                                  1) {
+                                                logFirebaseEvent(
+                                                    'scheduleImage_backend_call');
+
+                                                await ScheduledPostsRecord
+                                                    .collection
+                                                    .doc()
+                                                    .set(
+                                                        createScheduledPostsRecordData(
+                                                      userRef:
+                                                          currentUserReference,
+                                                      timestamp: functions
+                                                          .combineDateTime(
+                                                              _model
+                                                                  .scheduledDate!,
+                                                              _model
+                                                                  .scheduledTime!),
+                                                      timeOfCreation:
+                                                          getCurrentTimestamp,
+                                                      postType: _model
+                                                          .typeOfMediaUploaded,
                                                       personUrn: valueOrDefault(
                                                           currentUserDocument
                                                               ?.linkedinUrn,
@@ -1647,22 +2188,120 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                       imagesJson: functions
                                                           .valueToJsonMapList(
                                                               _model
-                                                                  .createdDocRefrence!
+                                                                  .createdDocRefrenceSch!
                                                                   .imageUrns
                                                                   .toList(),
                                                               'id')
                                                           .toString(),
-                                                      mediaId: '',
-                                                      mediaTitle: '',
-                                                      question:
-                                                          _model.pollQuestion,
-                                                      optionsJson: '',
-                                                      duration:
-                                                          _model.pollDuration,
-                                                      clearUnsetFields: false,
-                                                      create: true,
-                                                    ),
-                                                  ));
+                                                    ));
+                                                logFirebaseEvent(
+                                                    'scheduleImage_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text('Success'),
+                                                      content: Text(
+                                                          'Your post has been successfully scheduled!'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                logFirebaseEvent(
+                                                    'scheduleImage_backend_call');
+
+                                                await widget.postRef!.update(
+                                                    createCreatedPostsRecordData(
+                                                  status: 'Scheduled',
+                                                ));
+                                                logFirebaseEvent(
+                                                    'scheduleImage_navigate_to');
+
+                                                context.goNamed(
+                                                    'allPostsOverview');
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'scheduleImage_backend_call');
+
+                                                await ScheduledPostsRecord
+                                                    .collection
+                                                    .doc()
+                                                    .set(
+                                                        createScheduledPostsRecordData(
+                                                      userRef:
+                                                          currentUserReference,
+                                                      timestamp: functions
+                                                          .combineDateTime(
+                                                              _model
+                                                                  .scheduledDate!,
+                                                              _model
+                                                                  .scheduledTime!),
+                                                      timeOfCreation:
+                                                          getCurrentTimestamp,
+                                                      postType: _model
+                                                          .typeOfMediaUploaded,
+                                                      personUrn: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinUrn,
+                                                          ''),
+                                                      accessToken: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinAccess,
+                                                          ''),
+                                                      postText: _model
+                                                          .textController2.text,
+                                                      mediaId:
+                                                          GetImageUploadUrlFromLinkedinCall
+                                                              .imageURN(
+                                                        (_model.imageUrlSch
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      ),
+                                                    ));
+                                                logFirebaseEvent(
+                                                    'scheduleImage_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text('Success'),
+                                                      content: Text(
+                                                          'Your post has been successfully scheduled!'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                logFirebaseEvent(
+                                                    'scheduleImage_backend_call');
+
+                                                await widget.postRef!.update(
+                                                    createCreatedPostsRecordData(
+                                                  status: 'Scheduled',
+                                                ));
+                                                logFirebaseEvent(
+                                                    'scheduleImage_navigate_to');
+
+                                                context.goNamed(
+                                                    'allPostsOverview');
+                                              }
+
+                                              setState(() {});
                                             },
                                             text: 'Schedule',
                                             options: FFButtonOptions(
@@ -1947,6 +2586,114 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           validator: _model
                                               .textController1Validator
                                               .asValidator(context),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.0, -1.0),
+                                        child: Builder(
+                                          builder: (context) => Container(
+                                            width: 1.0,
+                                            height: 1.0,
+                                            child: custom_widgets
+                                                .BackButtonOverrider(
+                                              width: 1.0,
+                                              height: 1.0,
+                                              onBack: () async {
+                                                logFirebaseEvent(
+                                                    'VIEW_OR_EDIT_POST_COPY_Container_1cuobz7');
+                                                logFirebaseEvent(
+                                                    'BackButtonOverrider_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child: GestureDetector(
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child: ExitDialogWidget(
+                                                          saveAction: () async {
+                                                            logFirebaseEvent(
+                                                                '_backend_call');
+
+                                                            await widget
+                                                                .postRef!
+                                                                .update({
+                                                              ...mapToFirestore(
+                                                                {
+                                                                  'content':
+                                                                      FieldValue
+                                                                          .delete(),
+                                                                },
+                                                              ),
+                                                            });
+                                                            logFirebaseEvent(
+                                                                '_backend_call');
+
+                                                            await widget
+                                                                .postRef!
+                                                                .update({
+                                                              ...createCreatedPostsRecordData(
+                                                                topic: _model
+                                                                    .textController1
+                                                                    .text,
+                                                              ),
+                                                              ...mapToFirestore(
+                                                                {
+                                                                  'content':
+                                                                      FieldValue
+                                                                          .arrayUnion([
+                                                                    _model
+                                                                        .textController2
+                                                                        .text
+                                                                  ]),
+                                                                },
+                                                              ),
+                                                            });
+                                                            logFirebaseEvent(
+                                                                '_navigate_to');
+
+                                                            context.goNamed(
+                                                                'allPostsOverview');
+                                                          },
+                                                          discardAction:
+                                                              () async {
+                                                            logFirebaseEvent(
+                                                                '_navigate_to');
+
+                                                            context.goNamed(
+                                                                'allPostsOverview');
+                                                          },
+                                                          cancelAction:
+                                                              () async {},
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then(
+                                                    (value) => setState(() {}));
+                                              },
+                                            ),
+                                          ),
                                         ),
                                       ),
                                       Padding(
@@ -3737,7 +4484,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           validateFileFormat(
                                               m.storagePath, context))) {
                                     setState(
-                                        () => _model.isDataUploading3 = true);
+                                        () => _model.isDataUploading5 = true);
                                     var selectedUploadedFiles =
                                         <FFUploadedFile>[];
 
@@ -3761,12 +4508,12 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                     } finally {
                                       ScaffoldMessenger.of(context)
                                           .hideCurrentSnackBar();
-                                      _model.isDataUploading3 = false;
+                                      _model.isDataUploading5 = false;
                                     }
                                     if (selectedUploadedFiles.length ==
                                         selectedMedia.length) {
                                       setState(() {
-                                        _model.uploadedLocalFiles3 =
+                                        _model.uploadedLocalFiles5 =
                                             selectedUploadedFiles;
                                       });
                                       showUploadMessage(context, 'Success!');
@@ -3782,13 +4529,13 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                       'Container_update_page_state');
                                   setState(() {
                                     _model.typeOfMediaUploaded =
-                                        _model.uploadedLocalFiles3.length > 1
+                                        _model.uploadedLocalFiles5.length > 1
                                             ? 'multiImage'
                                             : 'singleImage';
                                     _model.numberOfImagesUploaded =
-                                        _model.uploadedLocalFiles3.length;
+                                        _model.uploadedLocalFiles5.length;
                                     _model.uploadedMedia = _model
-                                        .uploadedLocalFiles3
+                                        .uploadedLocalFiles5
                                         .toList()
                                         .cast<FFUploadedFile>();
                                   });

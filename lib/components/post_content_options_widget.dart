@@ -67,7 +67,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
       child: Align(
         alignment: AlignmentDirectional(0.0, 1.0),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(32.0, 12.0, 32.0, 12.0),
+          padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 20.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,40 +217,6 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         ),
                       ].divide(SizedBox(height: 4.0)),
                     ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
-                        child: Container(
-                          width: 60.0,
-                          height: 60.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.poll_outlined,
-                            color: Color(0xFF2E2C2C),
-                            size: 32.0,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Poll',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily),
-                            ),
-                      ),
-                    ].divide(SizedBox(height: 4.0)),
                   ),
                 ].divide(SizedBox(height: 18.0)),
               ),
@@ -500,39 +466,6 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         ),
                       ].divide(SizedBox(height: 4.0)),
                     ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
-                        child: Container(
-                          width: 60.0,
-                          height: 60.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.settings_outlined,
-                            color: Color(0xFF2E2C2C),
-                            size: 32.0,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Hello World',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily),
-                            ),
-                      ),
-                    ].divide(SizedBox(height: 4.0)),
                   ),
                 ].divide(SizedBox(height: 18.0)),
               ),
