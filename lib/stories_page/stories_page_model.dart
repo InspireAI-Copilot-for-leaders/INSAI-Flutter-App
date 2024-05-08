@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 class StoriesPageModel extends FlutterFlowModel<StoriesPageWidget> {
   ///  State fields for stateful widgets in this page.
@@ -23,7 +22,6 @@ class StoriesPageModel extends FlutterFlowModel<StoriesPageWidget> {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
-  String currentPageLink = '';
 
   @override
   void initState(BuildContext context) {}

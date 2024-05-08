@@ -16,7 +16,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ArticleDetailsModel extends FlutterFlowModel<ArticleDetailsWidget> {
   ///  Local state fields for this page.
@@ -28,8 +27,6 @@ class ArticleDetailsModel extends FlutterFlowModel<ArticleDetailsWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for Expandable widget.
   late ExpandableController expandableExpandableController;
-
-  String currentPageLink = '';
 
   @override
   void initState(BuildContext context) {}

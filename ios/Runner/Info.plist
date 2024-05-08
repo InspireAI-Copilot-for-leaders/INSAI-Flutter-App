@@ -37,10 +37,10 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>inspire_a_i</string>
+        <string>app.theinspireai.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>com.panscience.inspireai</string>
+        <string>inspireai</string>
         </array>
         </dict>
     </array>

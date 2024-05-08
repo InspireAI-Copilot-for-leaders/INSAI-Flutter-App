@@ -15,7 +15,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'article_details_model.dart';
 export 'article_details_model.dart';
 
@@ -97,35 +96,19 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                     context.safePop();
                   },
                 ),
-                Builder(
-                  builder: (context) => FlutterFlowIconButton(
-                    borderColor: FlutterFlowTheme.of(context).primaryBackground,
-                    borderRadius: 40.0,
-                    borderWidth: 0.0,
-                    buttonSize: 40.0,
-                    icon: Icon(
-                      Icons.share_outlined,
-                      color: FlutterFlowTheme.of(context).secondary,
-                      size: 25.0,
-                    ),
-                    onPressed: () async {
-                      logFirebaseEvent(
-                          'ARTICLE_DETAILS_share_outlined_ICN_ON_TA');
-                      logFirebaseEvent('IconButton_generate_current_page_link');
-                      _model.currentPageLink = await generateCurrentPageLink(
-                        context,
-                        title: widget.articleTitle,
-                        imageUrl: widget.articleImage,
-                        forceRedirect: true,
-                      );
-
-                      logFirebaseEvent('IconButton_share');
-                      await Share.share(
-                        _model.currentPageLink,
-                        sharePositionOrigin: getWidgetBoundingBox(context),
-                      );
-                    },
+                FlutterFlowIconButton(
+                  borderColor: FlutterFlowTheme.of(context).primaryBackground,
+                  borderRadius: 40.0,
+                  borderWidth: 0.0,
+                  buttonSize: 40.0,
+                  icon: Icon(
+                    Icons.share_outlined,
+                    color: FlutterFlowTheme.of(context).secondary,
+                    size: 25.0,
                   ),
+                  onPressed: () {
+                    print('IconButton pressed ...');
+                  },
                 ),
               ],
             ),
@@ -754,42 +737,14 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     ),
                                   ),
-                                  Builder(
-                                    builder: (context) => Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent(
-                                              'ARTICLE_DETAILS_Icon_9qpsx21g_ON_TAP');
-                                          logFirebaseEvent(
-                                              'Icon_generate_current_page_link');
-                                          _model.currentPageLink =
-                                              await generateCurrentPageLink(
-                                            context,
-                                            title: widget.articleTitle,
-                                            imageUrl: widget.articleImage,
-                                            forceRedirect: true,
-                                          );
-
-                                          logFirebaseEvent('Icon_share');
-                                          await Share.share(
-                                            _model.currentPageLink,
-                                            sharePositionOrigin:
-                                                getWidgetBoundingBox(context),
-                                          );
-                                        },
-                                        child: Icon(
-                                          Icons.share_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          size: 24.0,
-                                        ),
-                                      ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 0.0, 0.0),
+                                    child: Icon(
+                                      Icons.share_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      size: 24.0,
                                     ),
                                   ),
                                   Padding(
