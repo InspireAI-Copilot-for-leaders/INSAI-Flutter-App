@@ -3,17 +3,23 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/post_content_options_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:async';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'view_or_edit_post_copy_model.dart';
@@ -38,10 +44,13 @@ class ViewOrEditPostCopyWidget extends StatefulWidget {
       _ViewOrEditPostCopyWidgetState();
 }
 
-class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
+class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
+    with TickerProviderStateMixin {
   late ViewOrEditPostCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -54,6 +63,29 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textFieldFocusNode2 ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: Offset(0.0, 500.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -82,7 +114,6 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
             children: [
               Flexible(
                 child: Stack(
-                  alignment: AlignmentDirectional(1.0, 1.0),
                   children: [
                     SingleChildScrollView(
                       child: Column(
@@ -182,16 +213,68 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Icon(
-                                      Icons.access_time_rounded,
-                                      color: Color(0xFF6F6E6E),
-                                      size: 24.0,
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'VIEW_OR_EDIT_POST_COPY_Icon_ryam30mi_ON_');
+                                        if (_model.isScheduled) {
+                                          logFirebaseEvent(
+                                              'Icon_update_page_state');
+                                          setState(() {
+                                            _model.datePickerVisbile = true;
+                                          });
+                                          logFirebaseEvent('Icon_wait__delay');
+                                          await Future.delayed(const Duration(
+                                              milliseconds: 100));
+                                          logFirebaseEvent(
+                                              'Icon_widget_animation');
+                                          if (animationsMap[
+                                                  'containerOnActionTriggerAnimation'] !=
+                                              null) {
+                                            await animationsMap[
+                                                    'containerOnActionTriggerAnimation']!
+                                                .controller
+                                                .forward(from: 0.0);
+                                          }
+                                        } else {
+                                          logFirebaseEvent(
+                                              'Icon_update_page_state');
+                                          setState(() {
+                                            _model.scheduledTime =
+                                                getCurrentTimestamp;
+                                            _model.scheduledDate =
+                                                getCurrentTimestamp;
+                                            _model.datePickerVisbile = true;
+                                          });
+                                          logFirebaseEvent('Icon_wait__delay');
+                                          await Future.delayed(const Duration(
+                                              milliseconds: 100));
+                                          logFirebaseEvent(
+                                              'Icon_widget_animation');
+                                          if (animationsMap[
+                                                  'containerOnActionTriggerAnimation'] !=
+                                              null) {
+                                            await animationsMap[
+                                                    'containerOnActionTriggerAnimation']!
+                                                .controller
+                                                .forward(from: 0.0);
+                                          }
+                                        }
+                                      },
+                                      child: Icon(
+                                        Icons.access_time_rounded,
+                                        color: Color(0xFF6F6E6E),
+                                        size: 24.0,
+                                      ),
                                     ),
                                     Stack(
                                       children: [
                                         if (_model.typeOfMediaUploaded ==
-                                                null ||
-                                            _model.typeOfMediaUploaded == '')
+                                            'onlyText')
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
@@ -455,8 +538,11 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                           currentUserDocument
                                                               ?.linkedinUrn,
                                                           ''),
-                                                      postText: _model
-                                                          .textController2.text,
+                                                      postText: functions
+                                                          .formatStringForLIJson(
+                                                              _model
+                                                                  .textController2
+                                                                  .text),
                                                       mediaId:
                                                           GetDocUploadUrlFromLinkedinCall
                                                               .docURN(
@@ -542,8 +628,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                                   ?.jsonBody ??
                                                               ''),
                                                         ),
-                                                        typeOfPost:
-                                                            'testWithDoc',
+                                                        typeOfPost: 'doc',
                                                       ));
                                                       logFirebaseEvent(
                                                           'docButton_navigate_to');
@@ -593,8 +678,10 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                   BorderRadius.circular(20.0),
                                             ),
                                           ),
-                                        if (_model.typeOfMediaUploaded ==
-                                            'image')
+                                        if ((_model.typeOfMediaUploaded ==
+                                                'singleImage') ||
+                                            (_model.typeOfMediaUploaded ==
+                                                'multiImage'))
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
@@ -822,8 +909,11 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                         currentUserDocument
                                                             ?.linkedinUrn,
                                                         ''),
-                                                    postText: _model
-                                                        .textController2.text,
+                                                    postText: functions
+                                                        .formatStringForLIJson(
+                                                            _model
+                                                                .textController2
+                                                                .text),
                                                     imagesJson: functions
                                                         .valueToJsonMapList(
                                                             _model
@@ -892,7 +982,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                           .textController2.text,
                                                       postTitle: _model
                                                           .textController1.text,
-                                                      typeOfPost: 'singleImage',
+                                                      typeOfPost: 'multiImage',
                                                       reactionRefreshQuota: 2,
                                                     ));
                                                     logFirebaseEvent(
@@ -912,8 +1002,11 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                         currentUserDocument
                                                             ?.linkedinUrn,
                                                         ''),
-                                                    postText: _model
-                                                        .textController2.text,
+                                                    postText: functions
+                                                        .formatStringForLIJson(
+                                                            _model
+                                                                .textController2
+                                                                .text),
                                                     mediaId:
                                                         GetImageUploadUrlFromLinkedinCall
                                                             .imageURN(
@@ -1100,8 +1193,10 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                     currentUserDocument
                                                         ?.linkedinAccess,
                                                     ''),
-                                                postText:
-                                                    _model.textController2.text,
+                                                postText: functions
+                                                    .formatStringForLIJson(
+                                                        _model.textController2
+                                                            .text),
                                                 question: _model.pollQuestion,
                                                 duration: _model.pollDuration,
                                                 optionsJson: functions
@@ -1246,6 +1341,365 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                   BorderRadius.circular(20.0),
                                             ),
                                           ),
+                                        if (_model.isScheduled &&
+                                            (_model.typeOfMediaUploaded ==
+                                                'onlyText'))
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_POST_COPY_scheduleOnlyText_');
+                                              logFirebaseEvent(
+                                                  'scheduleOnlyText_backend_call');
+
+                                              await ScheduledPostsRecord
+                                                  .collection
+                                                  .doc()
+                                                  .set(
+                                                      createScheduledPostsRecordData(
+                                                    userRef:
+                                                        currentUserReference,
+                                                    timestamp: functions
+                                                        .combineDateTime(
+                                                            _model
+                                                                .scheduledDate!,
+                                                            _model
+                                                                .scheduledTime!),
+                                                    timeOfCreation:
+                                                        getCurrentTimestamp,
+                                                    postType: _model
+                                                        .typeOfMediaUploaded,
+                                                    postData:
+                                                        createScheduledPostDataStruct(
+                                                      personUrn: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinUrn,
+                                                          ''),
+                                                      accessToken: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinAccess,
+                                                          ''),
+                                                      postText: _model
+                                                          .textController2.text,
+                                                      clearUnsetFields: false,
+                                                      create: true,
+                                                    ),
+                                                  ));
+                                            },
+                                            text: 'Schedule',
+                                            options: FFButtonOptions(
+                                              width: 88.0,
+                                              height: 32.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                'Plus Jakarta Sans'),
+                                                      ),
+                                              elevation: 2.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                          ),
+                                        if (_model.isScheduled)
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_POST_COPY_scheduleDoc_ON_TA');
+                                              logFirebaseEvent(
+                                                  'scheduleDoc_backend_call');
+
+                                              await ScheduledPostsRecord
+                                                  .collection
+                                                  .doc()
+                                                  .set(
+                                                      createScheduledPostsRecordData(
+                                                    userRef:
+                                                        currentUserReference,
+                                                    timestamp: functions
+                                                        .combineDateTime(
+                                                            _model
+                                                                .scheduledDate!,
+                                                            _model
+                                                                .scheduledTime!),
+                                                    timeOfCreation:
+                                                        getCurrentTimestamp,
+                                                    postType: _model
+                                                        .typeOfMediaUploaded,
+                                                    postData:
+                                                        createScheduledPostDataStruct(
+                                                      personUrn: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinUrn,
+                                                          ''),
+                                                      accessToken: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinAccess,
+                                                          ''),
+                                                      postText: _model
+                                                          .textController2.text,
+                                                      imagesJson: functions
+                                                          .valueToJsonMapList(
+                                                              _model
+                                                                  .createdDocRefrence!
+                                                                  .imageUrns
+                                                                  .toList(),
+                                                              'id')
+                                                          .toString(),
+                                                      mediaId: '',
+                                                      mediaTitle: '',
+                                                      question:
+                                                          _model.pollQuestion,
+                                                      optionsJson: '',
+                                                      duration:
+                                                          _model.pollDuration,
+                                                      clearUnsetFields: false,
+                                                      create: true,
+                                                    ),
+                                                  ));
+                                            },
+                                            text: 'Schedule',
+                                            options: FFButtonOptions(
+                                              width: 88.0,
+                                              height: 32.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                'Plus Jakarta Sans'),
+                                                      ),
+                                              elevation: 2.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                          ),
+                                        if (_model.isScheduled)
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_POST_COPY_schedulePoll_ON_T');
+                                              logFirebaseEvent(
+                                                  'schedulePoll_backend_call');
+
+                                              await ScheduledPostsRecord
+                                                  .collection
+                                                  .doc()
+                                                  .set(
+                                                      createScheduledPostsRecordData(
+                                                    userRef:
+                                                        currentUserReference,
+                                                    timestamp: functions
+                                                        .combineDateTime(
+                                                            _model
+                                                                .scheduledDate!,
+                                                            _model
+                                                                .scheduledTime!),
+                                                    timeOfCreation:
+                                                        getCurrentTimestamp,
+                                                    postType: _model
+                                                        .typeOfMediaUploaded,
+                                                    postData:
+                                                        createScheduledPostDataStruct(
+                                                      personUrn: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinUrn,
+                                                          ''),
+                                                      accessToken: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinAccess,
+                                                          ''),
+                                                      postText: _model
+                                                          .textController2.text,
+                                                      imagesJson: functions
+                                                          .valueToJsonMapList(
+                                                              _model
+                                                                  .createdDocRefrence!
+                                                                  .imageUrns
+                                                                  .toList(),
+                                                              'id')
+                                                          .toString(),
+                                                      mediaId: '',
+                                                      mediaTitle: '',
+                                                      question:
+                                                          _model.pollQuestion,
+                                                      optionsJson: '',
+                                                      duration:
+                                                          _model.pollDuration,
+                                                      clearUnsetFields: false,
+                                                      create: true,
+                                                    ),
+                                                  ));
+                                            },
+                                            text: 'Schedule',
+                                            options: FFButtonOptions(
+                                              width: 88.0,
+                                              height: 32.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                'Plus Jakarta Sans'),
+                                                      ),
+                                              elevation: 2.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                          ),
+                                        if (_model.isScheduled)
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_POST_COPY_scheduleImage_ON_');
+                                              logFirebaseEvent(
+                                                  'scheduleImage_backend_call');
+
+                                              await ScheduledPostsRecord
+                                                  .collection
+                                                  .doc()
+                                                  .set(
+                                                      createScheduledPostsRecordData(
+                                                    userRef:
+                                                        currentUserReference,
+                                                    timestamp: functions
+                                                        .combineDateTime(
+                                                            _model
+                                                                .scheduledDate!,
+                                                            _model
+                                                                .scheduledTime!),
+                                                    timeOfCreation:
+                                                        getCurrentTimestamp,
+                                                    postType: _model
+                                                        .typeOfMediaUploaded,
+                                                    postData:
+                                                        createScheduledPostDataStruct(
+                                                      personUrn: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinUrn,
+                                                          ''),
+                                                      accessToken: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinAccess,
+                                                          ''),
+                                                      postText: _model
+                                                          .textController2.text,
+                                                      imagesJson: functions
+                                                          .valueToJsonMapList(
+                                                              _model
+                                                                  .createdDocRefrence!
+                                                                  .imageUrns
+                                                                  .toList(),
+                                                              'id')
+                                                          .toString(),
+                                                      mediaId: '',
+                                                      mediaTitle: '',
+                                                      question:
+                                                          _model.pollQuestion,
+                                                      optionsJson: '',
+                                                      duration:
+                                                          _model.pollDuration,
+                                                      clearUnsetFields: false,
+                                                      create: true,
+                                                    ),
+                                                  ));
+                                            },
+                                            text: 'Schedule',
+                                            options: FFButtonOptions(
+                                              width: 88.0,
+                                              height: 32.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                'Plus Jakarta Sans'),
+                                                      ),
+                                              elevation: 2.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ].divide(SizedBox(width: 8.0)),
@@ -1282,6 +1736,106 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
+                                      if (_model.isScheduled)
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 16.0, 0.0, 12.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 8.0, 0.0),
+                                                child: FaIcon(
+                                                  FontAwesomeIcons
+                                                      .globeAmericas,
+                                                  color: Color(0xFF404040),
+                                                  size: 16.0,
+                                                ),
+                                              ),
+                                              Text(
+                                                'Posting on ${dateTimeFormat('MMMEd', _model.scheduledDate)} at ${dateTimeFormat('jm', _model.scheduledTime)}.',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'VIEW_OR_EDIT_POST_COPY_Text_141qennn_ON_');
+                                                  logFirebaseEvent(
+                                                      'Text_update_page_state');
+                                                  setState(() {
+                                                    _model.datePickerVisbile =
+                                                        true;
+                                                  });
+                                                  logFirebaseEvent(
+                                                      'Text_wait__delay');
+                                                  await Future.delayed(
+                                                      const Duration(
+                                                          milliseconds: 100));
+                                                  logFirebaseEvent(
+                                                      'Text_widget_animation');
+                                                  if (animationsMap[
+                                                          'containerOnActionTriggerAnimation'] !=
+                                                      null) {
+                                                    await animationsMap[
+                                                            'containerOnActionTriggerAnimation']!
+                                                        .controller
+                                                        .forward(from: 0.0);
+                                                  }
+                                                },
+                                                child: Text(
+                                                  ' Edit.',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 12.0),
@@ -1467,7 +2021,10 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                               .asValidator(context),
                                         ),
                                       ),
-                                      if (_model.typeOfMediaUploaded == 'image')
+                                      if ((_model.typeOfMediaUploaded ==
+                                              'singleImage') ||
+                                          (_model.typeOfMediaUploaded ==
+                                              'multiImage'))
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1521,7 +2078,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                                 'Container_update_page_state');
                                                             setState(() {
                                                               _model.typeOfMediaUploaded =
-                                                                  null;
+                                                                  'onlyText';
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
@@ -1672,7 +2229,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                                 'Container_update_page_state');
                                                             setState(() {
                                                               _model.typeOfMediaUploaded =
-                                                                  null;
+                                                                  'onlyText';
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
@@ -1857,7 +2414,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                                 'Container_update_page_state');
                                                             setState(() {
                                                               _model.typeOfMediaUploaded =
-                                                                  null;
+                                                                  'onlyText';
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
@@ -2067,7 +2624,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                                 'Container_update_page_state');
                                                             setState(() {
                                                               _model.typeOfMediaUploaded =
-                                                                  null;
+                                                                  'onlyText';
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
@@ -2319,7 +2876,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                                 'Container_update_page_state');
                                                             setState(() {
                                                               _model.typeOfMediaUploaded =
-                                                                  null;
+                                                                  'onlyText';
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
@@ -2601,7 +3158,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                                 'Container_update_page_state');
                                                             setState(() {
                                                               _model.typeOfMediaUploaded =
-                                                                  null;
+                                                                  'onlyText';
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
@@ -2709,7 +3266,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                           'Container_update_page_state');
                                                       setState(() {
                                                         _model.typeOfMediaUploaded =
-                                                            null;
+                                                            'onlyText';
                                                         _model.numberOfImagesUploaded =
                                                             0;
                                                         _model.uploadedMedia =
@@ -3113,7 +3670,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                                                           'Container_update_page_state');
                                                       setState(() {
                                                         _model.typeOfMediaUploaded =
-                                                            null;
+                                                            'onlyText';
                                                         _model.numberOfImagesUploaded =
                                                             0;
                                                         _model.uploadedMedia =
@@ -3152,255 +3709,1014 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 24.0, 12.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (_model.typeOfMediaUploaded == null ||
-                              _model.typeOfMediaUploaded == '')
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                logFirebaseEvent(
-                                    'VIEW_OR_EDIT_POST_COPY_Container_60pueuy');
-                                logFirebaseEvent(
-                                    'Container_store_media_for_upload');
-                                final selectedMedia = await selectMedia(
-                                  mediaSource: MediaSource.photoGallery,
-                                  multiImage: true,
-                                );
-                                if (selectedMedia != null &&
-                                    selectedMedia.every((m) =>
-                                        validateFileFormat(
-                                            m.storagePath, context))) {
-                                  setState(
-                                      () => _model.isDataUploading3 = true);
-                                  var selectedUploadedFiles =
-                                      <FFUploadedFile>[];
+                    Align(
+                      alignment: AlignmentDirectional(1.0, 1.0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 24.0, 12.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (_model.typeOfMediaUploaded == 'onlyText')
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'VIEW_OR_EDIT_POST_COPY_Container_60pueuy');
+                                  logFirebaseEvent(
+                                      'Container_store_media_for_upload');
+                                  final selectedMedia = await selectMedia(
+                                    mediaSource: MediaSource.photoGallery,
+                                    multiImage: true,
+                                  );
+                                  if (selectedMedia != null &&
+                                      selectedMedia.every((m) =>
+                                          validateFileFormat(
+                                              m.storagePath, context))) {
+                                    setState(
+                                        () => _model.isDataUploading3 = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
 
-                                  try {
-                                    showUploadMessage(
-                                      context,
-                                      'Uploading file...',
-                                      showLoading: true,
-                                    );
-                                    selectedUploadedFiles = selectedMedia
-                                        .map((m) => FFUploadedFile(
-                                              name:
-                                                  m.storagePath.split('/').last,
-                                              bytes: m.bytes,
-                                              height: m.dimensions?.height,
-                                              width: m.dimensions?.width,
-                                              blurHash: m.blurHash,
-                                            ))
-                                        .toList();
-                                  } finally {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                    _model.isDataUploading3 = false;
+                                    try {
+                                      showUploadMessage(
+                                        context,
+                                        'Uploading file...',
+                                        showLoading: true,
+                                      );
+                                      selectedUploadedFiles = selectedMedia
+                                          .map((m) => FFUploadedFile(
+                                                name: m.storagePath
+                                                    .split('/')
+                                                    .last,
+                                                bytes: m.bytes,
+                                                height: m.dimensions?.height,
+                                                width: m.dimensions?.width,
+                                                blurHash: m.blurHash,
+                                              ))
+                                          .toList();
+                                    } finally {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      _model.isDataUploading3 = false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                        selectedMedia.length) {
+                                      setState(() {
+                                        _model.uploadedLocalFiles3 =
+                                            selectedUploadedFiles;
+                                      });
+                                      showUploadMessage(context, 'Success!');
+                                    } else {
+                                      setState(() {});
+                                      showUploadMessage(
+                                          context, 'Failed to upload data');
+                                      return;
+                                    }
                                   }
-                                  if (selectedUploadedFiles.length ==
-                                      selectedMedia.length) {
-                                    setState(() {
-                                      _model.uploadedLocalFiles3 =
-                                          selectedUploadedFiles;
-                                    });
-                                    showUploadMessage(context, 'Success!');
-                                  } else {
-                                    setState(() {});
-                                    showUploadMessage(
-                                        context, 'Failed to upload data');
-                                    return;
-                                  }
-                                }
 
-                                logFirebaseEvent('Container_update_page_state');
-                                setState(() {
-                                  _model.typeOfMediaUploaded = 'image';
-                                  _model.numberOfImagesUploaded =
-                                      _model.uploadedLocalFiles3.length;
-                                  _model.uploadedMedia = _model
-                                      .uploadedLocalFiles3
-                                      .toList()
-                                      .cast<FFUploadedFile>();
-                                });
-                              },
-                              child: Container(
-                                width: 50.0,
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.image_outlined,
-                                  color: Color(0xFF535252),
-                                  size: 28.0,
+                                  logFirebaseEvent(
+                                      'Container_update_page_state');
+                                  setState(() {
+                                    _model.typeOfMediaUploaded =
+                                        _model.uploadedLocalFiles3.length > 1
+                                            ? 'multiImage'
+                                            : 'singleImage';
+                                    _model.numberOfImagesUploaded =
+                                        _model.uploadedLocalFiles3.length;
+                                    _model.uploadedMedia = _model
+                                        .uploadedLocalFiles3
+                                        .toList()
+                                        .cast<FFUploadedFile>();
+                                  });
+                                },
+                                child: Container(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.image_outlined,
+                                    color: Color(0xFF535252),
+                                    size: 28.0,
+                                  ),
                                 ),
                               ),
+                            if (_model.typeOfMediaUploaded == 'onlyText')
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'VIEW_OR_EDIT_POST_COPY_Container_a2sakqw');
+                                  logFirebaseEvent('Container_bottom_sheet');
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: Container(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.4,
+                                            child: PostContentOptionsWidget(
+                                              mediaAction:
+                                                  (uploadedMedia) async {
+                                                logFirebaseEvent(
+                                                    '_update_page_state');
+                                                setState(() {
+                                                  _model.typeOfMediaUploaded =
+                                                      uploadedMedia!.length > 1
+                                                          ? 'multiImage'
+                                                          : 'singleImage';
+                                                  _model.numberOfImagesUploaded =
+                                                      uploadedMedia!.length;
+                                                  _model.uploadedMedia =
+                                                      uploadedMedia!
+                                                          .toList()
+                                                          .cast<
+                                                              FFUploadedFile>();
+                                                });
+                                              },
+                                              documentAction:
+                                                  (docURL, docTitle) async {
+                                                logFirebaseEvent(
+                                                    '_update_page_state');
+                                                setState(() {
+                                                  _model.typeOfMediaUploaded =
+                                                      'doc';
+                                                  _model.uploadedDoc = docURL;
+                                                  _model.uploadedDocTitle =
+                                                      docTitle;
+                                                });
+                                              },
+                                              saveAction: () async {
+                                                logFirebaseEvent(
+                                                    '_backend_call');
+
+                                                await widget.postRef!.update({
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'content':
+                                                          FieldValue.delete(),
+                                                    },
+                                                  ),
+                                                });
+                                                logFirebaseEvent(
+                                                    '_backend_call');
+
+                                                await widget.postRef!.update({
+                                                  ...createCreatedPostsRecordData(
+                                                    topic: _model
+                                                        .textController1.text,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'content': FieldValue
+                                                          .arrayUnion([
+                                                        _model.textController2
+                                                            .text
+                                                      ]),
+                                                    },
+                                                  ),
+                                                });
+                                                logFirebaseEvent(
+                                                    '_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text('Saved'),
+                                                      content:
+                                                          Text('Draft Saved'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              deleteAction: () async {
+                                                logFirebaseEvent(
+                                                    '_backend_call');
+                                                await widget.postRef!.delete();
+                                                logFirebaseEvent(
+                                                    '_navigate_back');
+                                                context.safePop();
+                                              },
+                                              pollAction: (question,
+                                                  option1,
+                                                  option2,
+                                                  option3,
+                                                  option4,
+                                                  duration) async {
+                                                logFirebaseEvent(
+                                                    '_update_page_state');
+                                                setState(() {
+                                                  _model.typeOfMediaUploaded =
+                                                      'poll';
+                                                  _model.pollQuestion =
+                                                      question;
+                                                  _model.pollOption1 = option1;
+                                                  _model.pollOption2 = option2;
+                                                  _model.pollOption3 = option3;
+                                                  _model.pollOption4 = option4;
+                                                  _model.pollDuration =
+                                                      duration;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                child: Container(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.add_rounded,
+                                    color: Color(0xFF504E4E),
+                                    size: 32.0,
+                                  ),
+                                ),
+                              ),
+                          ].divide(SizedBox(width: 10.0)),
+                        ),
+                      ),
+                    ),
+                    if (_model.datePickerVisbile)
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(0.0),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 2.0,
+                              sigmaY: 2.0,
                             ),
-                          if (_model.typeOfMediaUploaded == null ||
-                              _model.typeOfMediaUploaded == '')
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                logFirebaseEvent(
-                                    'VIEW_OR_EDIT_POST_COPY_Container_a2sakqw');
-                                logFirebaseEvent('Container_bottom_sheet');
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return GestureDetector(
-                                      onTap: () => _model
-                                              .unfocusNode.canRequestFocus
-                                          ? FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode)
-                                          : FocusScope.of(context).unfocus(),
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: Container(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.4,
-                                          child: PostContentOptionsWidget(
-                                            mediaAction: (uploadedMedia) async {
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'VIEW_OR_EDIT_POST_COPY_Container_sltyiu7');
+                                      logFirebaseEvent(
+                                          'Container_widget_animation');
+                                      if (animationsMap[
+                                              'containerOnActionTriggerAnimation'] !=
+                                          null) {
+                                        await animationsMap[
+                                                'containerOnActionTriggerAnimation']!
+                                            .controller
+                                            .reverse();
+                                      }
+                                      logFirebaseEvent(
+                                          'Container_update_page_state');
+                                      setState(() {
+                                        _model.datePickerVisbile = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 7.0,
+                                        color: Color(0x33000000),
+                                        offset: Offset(
+                                          0.0,
+                                          -2.0,
+                                        ),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(0.0),
+                                      bottomRight: Radius.circular(0.0),
+                                      topLeft: Radius.circular(16.0),
+                                      topRight: Radius.circular(16.0),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 60.0,
+                                              height: 3.0,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFE0E3E7),
+                                                borderRadius:
+                                                    BorderRadius.circular(4.0),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 16.0, 0.0, 0.0),
+                                          child: Text(
+                                            'Schedule',
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineSmall
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF14181B),
+                                                  fontSize: 24.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey(
+                                                              'Montserrat'),
+                                                ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 12.0, 0.0, 4.0),
+                                          child: Text(
+                                            'Date *',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey(
+                                                              'Montserrat'),
+                                                ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
                                               logFirebaseEvent(
-                                                  '_update_page_state');
-                                              setState(() {
-                                                _model.typeOfMediaUploaded =
-                                                    'image';
-                                                _model.numberOfImagesUploaded =
-                                                    uploadedMedia!.length;
-                                                _model.uploadedMedia =
-                                                    uploadedMedia!
-                                                        .toList()
-                                                        .cast<FFUploadedFile>();
-                                              });
-                                            },
-                                            documentAction:
-                                                (docURL, docTitle) async {
+                                                  'VIEW_OR_EDIT_POST_COPY_Container_ybdkcmp');
                                               logFirebaseEvent(
-                                                  '_update_page_state');
-                                              setState(() {
-                                                _model.typeOfMediaUploaded =
-                                                    'doc';
-                                                _model.uploadedDoc = docURL;
-                                                _model.uploadedDocTitle =
-                                                    docTitle;
-                                              });
-                                            },
-                                            saveAction: () async {
-                                              logFirebaseEvent('_backend_call');
-
-                                              await widget.postRef!.update({
-                                                ...mapToFirestore(
-                                                  {
-                                                    'content':
-                                                        FieldValue.delete(),
-                                                  },
-                                                ),
-                                              });
-                                              logFirebaseEvent('_backend_call');
-
-                                              await widget.postRef!.update({
-                                                ...createCreatedPostsRecordData(
-                                                  topic: _model
-                                                      .textController1.text,
-                                                ),
-                                                ...mapToFirestore(
-                                                  {
-                                                    'content':
-                                                        FieldValue.arrayUnion([
-                                                      _model
-                                                          .textController2.text
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-                                              logFirebaseEvent('_alert_dialog');
-                                              await showDialog(
+                                                  'Container_date_time_picker');
+                                              final _datePicked1Date =
+                                                  await showDatePicker(
                                                 context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text('Saved'),
-                                                    content:
-                                                        Text('Draft Saved'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: Text('Ok'),
-                                                      ),
-                                                    ],
+                                                initialDate:
+                                                    getCurrentTimestamp,
+                                                firstDate: getCurrentTimestamp,
+                                                lastDate: DateTime(2050),
+                                                builder: (context, child) {
+                                                  return wrapInMaterialDatePickerTheme(
+                                                    context,
+                                                    child!,
+                                                    headerBackgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                    headerForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryBackground,
+                                                    headerTextStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineLarge
+                                                            .override(
+                                                              fontFamily:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLargeFamily,
+                                                              fontSize: 32.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              useGoogleFonts: GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLargeFamily),
+                                                            ),
+                                                    pickerBackgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondaryBackground,
+                                                    pickerForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    selectedDateTimeBackgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                    selectedDateTimeForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                    actionButtonForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    iconSize: 24.0,
                                                   );
                                                 },
                                               );
-                                            },
-                                            deleteAction: () async {
-                                              logFirebaseEvent('_backend_call');
-                                              await widget.postRef!.delete();
+
+                                              if (_datePicked1Date != null) {
+                                                safeSetState(() {
+                                                  _model.datePicked1 = DateTime(
+                                                    _datePicked1Date.year,
+                                                    _datePicked1Date.month,
+                                                    _datePicked1Date.day,
+                                                  );
+                                                });
+                                              }
                                               logFirebaseEvent(
-                                                  '_navigate_back');
-                                              context.safePop();
-                                            },
-                                            pollAction: (question,
-                                                option1,
-                                                option2,
-                                                option3,
-                                                option4,
-                                                duration) async {
-                                              logFirebaseEvent(
-                                                  '_update_page_state');
+                                                  'Container_update_page_state');
                                               setState(() {
-                                                _model.typeOfMediaUploaded =
-                                                    'poll';
-                                                _model.pollQuestion = question;
-                                                _model.pollOption1 = option1;
-                                                _model.pollOption2 = option2;
-                                                _model.pollOption3 = option3;
-                                                _model.pollOption4 = option4;
-                                                _model.pollDuration = duration;
+                                                _model.scheduledDate =
+                                                    _model.datePicked1;
                                               });
                                             },
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 44.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                border: Border.all(
+                                                  color: Color(0xFF3D3D3D),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 8.0, 12.0, 8.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      dateTimeFormat('yMMMd',
+                                                          _model.scheduledDate),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .calendar_month_sharp,
+                                                      color: Color(0xFF3F3D3D),
+                                                      size: 20.0,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              },
-                              child: Container(
-                                width: 50.0,
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  shape: BoxShape.circle,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 20.0, 0.0, 4.0),
+                                          child: Text(
+                                            'Time *',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey(
+                                                              'Montserrat'),
+                                                ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_POST_COPY_Container_nl8hjmg');
+                                              logFirebaseEvent(
+                                                  'Container_date_time_picker');
+
+                                              final _datePicked2Time =
+                                                  await showTimePicker(
+                                                context: context,
+                                                initialTime:
+                                                    TimeOfDay.fromDateTime(
+                                                        getCurrentTimestamp),
+                                                builder: (context, child) {
+                                                  return wrapInMaterialTimePickerTheme(
+                                                    context,
+                                                    child!,
+                                                    headerBackgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                    headerForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryBackground,
+                                                    headerTextStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineLarge
+                                                            .override(
+                                                              fontFamily:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLargeFamily,
+                                                              fontSize: 32.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              useGoogleFonts: GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLargeFamily),
+                                                            ),
+                                                    pickerBackgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondaryBackground,
+                                                    pickerForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    selectedDateTimeBackgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                    selectedDateTimeForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                    actionButtonForegroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    iconSize: 24.0,
+                                                  );
+                                                },
+                                              );
+                                              if (_datePicked2Time != null) {
+                                                safeSetState(() {
+                                                  _model.datePicked2 = DateTime(
+                                                    getCurrentTimestamp.year,
+                                                    getCurrentTimestamp.month,
+                                                    getCurrentTimestamp.day,
+                                                    _datePicked2Time.hour,
+                                                    _datePicked2Time.minute,
+                                                  );
+                                                });
+                                              }
+                                              logFirebaseEvent(
+                                                  'Container_update_page_state');
+                                              setState(() {
+                                                _model.scheduledTime =
+                                                    _model.datePicked2;
+                                              });
+                                            },
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 44.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                border: Border.all(
+                                                  color: Color(0xFF3D3D3D),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 8.0, 12.0, 8.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      dateTimeFormat('jm',
+                                                          _model.scheduledTime),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.access_time_rounded,
+                                                      color: Color(0xFF3F3D3D),
+                                                      size: 20.0,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 16.0, 16.0, 0.0),
+                                          child: Text(
+                                            '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMediumFamily),
+                                                ),
+                                          ),
+                                        ),
+                                        if (!_model.isScheduled)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 16.0, 16.0, 44.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                logFirebaseEvent(
+                                                    'VIEW_OR_EDIT_POST_COPY_NEXT_BTN_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Button_widget_animation');
+                                                if (animationsMap[
+                                                        'containerOnActionTriggerAnimation'] !=
+                                                    null) {
+                                                  await animationsMap[
+                                                          'containerOnActionTriggerAnimation']!
+                                                      .controller
+                                                      .reverse();
+                                                }
+                                                logFirebaseEvent(
+                                                    'Button_update_page_state');
+                                                setState(() {
+                                                  _model.isScheduled = true;
+                                                  _model.datePickerVisbile =
+                                                      false;
+                                                });
+                                              },
+                                              text: 'Next',
+                                              options: FFButtonOptions(
+                                                width: double.infinity,
+                                                height: 32.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                                textStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts:
+                                                          GoogleFonts.asMap()
+                                                              .containsKey(
+                                                                  'Montserrat'),
+                                                    ),
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                            ),
+                                          ),
+                                        if (_model.isScheduled)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 16.0, 16.0, 44.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: FFButtonWidget(
+                                                    onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'VIEW_OR_EDIT_POST_COPY_CLEAR_BTN_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Button_widget_animation');
+                                                      if (animationsMap[
+                                                              'containerOnActionTriggerAnimation'] !=
+                                                          null) {
+                                                        animationsMap[
+                                                                'containerOnActionTriggerAnimation']!
+                                                            .controller
+                                                            .reverse();
+                                                      }
+                                                      logFirebaseEvent(
+                                                          'Button_update_page_state');
+                                                      setState(() {
+                                                        _model.scheduledTime =
+                                                            null;
+                                                        _model.scheduledDate =
+                                                            null;
+                                                        _model.isScheduled =
+                                                            false;
+                                                        _model.datePickerVisbile =
+                                                            false;
+                                                      });
+                                                    },
+                                                    text: 'Clear',
+                                                    options: FFButtonOptions(
+                                                      width: double.infinity,
+                                                      height: 32.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color: Colors.transparent,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        'Montserrat'),
+                                                              ),
+                                                      elevation: 0.0,
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: FFButtonWidget(
+                                                    onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'VIEW_OR_EDIT_POST_COPY_NEXT_BTN_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Button_widget_animation');
+                                                      if (animationsMap[
+                                                              'containerOnActionTriggerAnimation'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'containerOnActionTriggerAnimation']!
+                                                            .controller
+                                                            .reverse();
+                                                      }
+                                                      logFirebaseEvent(
+                                                          'Button_update_page_state');
+                                                      setState(() {
+                                                        _model.datePickerVisbile =
+                                                            false;
+                                                      });
+                                                    },
+                                                    text: 'Next',
+                                                    options: FFButtonOptions(
+                                                      width: double.infinity,
+                                                      height: 32.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        'Montserrat'),
+                                                              ),
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ].divide(SizedBox(width: 16.0)),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                                child: Icon(
-                                  Icons.add_rounded,
-                                  color: Color(0xFF504E4E),
-                                  size: 32.0,
-                                ),
-                              ),
+                              ],
                             ),
-                        ].divide(SizedBox(width: 10.0)),
+                          ),
+                        ),
+                      ).animateOnActionTrigger(
+                        animationsMap['containerOnActionTriggerAnimation']!,
                       ),
-                    ),
                   ],
                 ),
               ),

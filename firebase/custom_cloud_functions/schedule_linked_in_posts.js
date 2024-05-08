@@ -4,37 +4,144 @@ const admin = require("firebase-admin");
 
 const axios = require("axios");
 
-// Utility function to make API call to LinkedIn
-async function postToLinkedIn(personUrn, postText, accessToken) {
-  const apiUrl = `https://api.linkedin.com/v2/posts`;
-  const data = {
-    author: personUrn,
-    commentary: postText,
-    visibility: "PUBLIC",
-    distribution: {
-      feedDistribution: "MAIN_FEED",
-      targetEntities: [],
-      thirdPartyDistributionChannels: [],
-    },
-    lifecycleState: "PUBLISHED",
-    isReshareDisabledByAuthor: false,
-  };
+function formatStringForLIJson(input) {
+  let output = input
+    .replace(/\\/g, "\\\\")
+    .replace(/\n/g, "\\n")
+    .replace(/\r/g, "\\r")
+    .replace(/\t/g, "\\t")
+    .replace(/\b/g, "\\b")
+    .replace(/\f/g, "\\f")
+    .replace(/"/g, '\\"')
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)");
+
+  output = output.replace(/#(\w+)/g, (match, p1) => `{hashtag|#|${p1}}`);
+
+  return output;
+}
+
+// Utility function to make API call to LinkedIn for different post types
+async function postToLinkedIn(postType, postData) {
+  let apiUrl = `https://api.linkedin.com/v2/posts`;
+  let ApiRequestBody;
+  postData.postText = formatStringForLIJson(postData.postText); // Format the post text
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${postData.accessToken}`,
     "LinkedIn-Version": "202402",
   };
 
+  switch (postType) {
+    case "onlyText":
+      ApiRequestBody = {
+        author: postData.personUrn,
+        commentary: postData.postText,
+        visibility: "PUBLIC",
+        distribution: {
+          feedDistribution: "MAIN_FEED",
+          targetEntities: [],
+          thirdPartyDistributionChannels: [],
+        },
+        lifecycleState: "PUBLISHED",
+        isReshareDisabledByAuthor: false,
+      };
+      break;
+    case "multiImage":
+      ApiRequestBody = {
+        author: postData.personUrn,
+        commentary: postData.postText,
+        visibility: "PUBLIC",
+        distribution: {
+          feedDistribution: "MAIN_FEED",
+          targetEntities: [],
+          thirdPartyDistributionChannels: [],
+        },
+        lifecycleState: "PUBLISHED",
+        isReshareDisabledByAuthor: false,
+        content: {
+          multiImage: {
+            images: JSON.parse(postData.imagesJson),
+          },
+        },
+      };
+      break;
+    case "singleImage":
+      ApiRequestBody = {
+        author: postData.personUrn,
+        commentary: postData.postText,
+        visibility: "PUBLIC",
+        distribution: {
+          feedDistribution: "MAIN_FEED",
+          targetEntities: [],
+          thirdPartyDistributionChannels: [],
+        },
+        content: {
+          media: {
+            title: postData.mediaTitle,
+            id: postData.mediaId,
+          },
+        },
+        lifecycleState: "PUBLISHED",
+        isReshareDisabledByAuthor: false,
+      };
+    case "doc":
+      ApiRequestBody = {
+        author: postData.personUrn,
+        commentary: postData.postText,
+        visibility: "PUBLIC",
+        distribution: {
+          feedDistribution: "MAIN_FEED",
+          targetEntities: [],
+          thirdPartyDistributionChannels: [],
+        },
+        content: {
+          media: {
+            title: postData.mediaTitle,
+            id: postData.mediaId,
+          },
+        },
+        lifecycleState: "PUBLISHED",
+        isReshareDisabledByAuthor: false,
+      };
+      break;
+    case "poll":
+      ApiRequestBody = {
+        author: postData.personUrn,
+        commentary: postData.postText,
+        visibility: "PUBLIC",
+        distribution: {
+          feedDistribution: "MAIN_FEED",
+          targetEntities: [],
+          thirdPartyDistributionChannels: [],
+        },
+        content: {
+          poll: {
+            question: postData.question,
+            options: JSON.parse(postData.optionsJson),
+            settings: {
+              duration: postData.duration,
+            },
+          },
+        },
+        lifecycleState: "PUBLISHED",
+        isReshareDisabledByAuthor: false,
+      };
+      break;
+    default:
+      throw new Error("Unsupported post type");
+  }
+
   try {
-    const response = await axios.post(apiUrl, data, { headers });
+    const response = await axios.post(apiUrl, ApiRequestBody, { headers });
     return {
       data: response.data,
-      linkedInId: response.headers["x-linkedin-id"], // Capture the LinkedIn ID header
+      linkedInId: response.headers["x-linkedin-id"],
     };
   } catch (error) {
     console.error("Failed to post on LinkedIn:", error);
-    throw new Error("Failed to post on LinkedIn");
+    throw error;
   }
 }
 
@@ -63,15 +170,10 @@ exports.scheduleLinkedInPosts = functions.pubsub
     snapshot.forEach(async (doc) => {
       const post = doc.data();
       try {
-        const result = await postToLinkedIn(
-          post.personUrn,
-          post.postText,
-          post.accessToken,
-        );
+        const result = await postToLinkedIn(post.postType, post);
 
         // Create a document in the subcollection after successful posting
-        const userRef = admin.firestore().collection("users").doc(post.userRef);
-        await userRef.collection("postedOnlinkedin").add({
+        await post.userRef.collection("postedOnlinkedin").add({
           postText: post.postText,
           timestamp: admin.firestore.Timestamp.now(),
           response: result.data,

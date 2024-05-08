@@ -3,18 +3,24 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/post_content_options_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:async';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'view_or_edit_post_copy_widget.dart' show ViewOrEditPostCopyWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +28,7 @@ class ViewOrEditPostCopyModel
     extends FlutterFlowModel<ViewOrEditPostCopyWidget> {
   ///  Local state fields for this page.
 
-  String? typeOfMediaUploaded;
+  String typeOfMediaUploaded = 'onlyText';
 
   int numberOfImagesUploaded = 0;
 
@@ -66,6 +72,14 @@ class ViewOrEditPostCopyModel
   void updatePollOptionsListAtIndex(int index, Function(String) updateFn) =>
       pollOptionsList[index] = updateFn(pollOptionsList[index]);
 
+  DateTime? scheduledTime;
+
+  DateTime? scheduledDate;
+
+  bool isScheduled = false;
+
+  bool datePickerVisbile = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -108,6 +122,9 @@ class ViewOrEditPostCopyModel
   String? Function(BuildContext, String?)? textController2Validator;
   bool isDataUploading3 = false;
   List<FFUploadedFile> uploadedLocalFiles3 = [];
+
+  DateTime? datePicked1;
+  DateTime? datePicked2;
 
   @override
   void initState(BuildContext context) {}

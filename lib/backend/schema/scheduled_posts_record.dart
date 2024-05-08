@@ -17,21 +17,6 @@ class ScheduledPostsRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "personUrn" field.
-  String? _personUrn;
-  String get personUrn => _personUrn ?? '';
-  bool hasPersonUrn() => _personUrn != null;
-
-  // "accessToken" field.
-  String? _accessToken;
-  String get accessToken => _accessToken ?? '';
-  bool hasAccessToken() => _accessToken != null;
-
-  // "postText" field.
-  String? _postText;
-  String get postText => _postText ?? '';
-  bool hasPostText() => _postText != null;
-
   // "userRef" field.
   DocumentReference? _userRef;
   DocumentReference? get userRef => _userRef;
@@ -47,13 +32,23 @@ class ScheduledPostsRecord extends FirestoreRecord {
   DateTime? get timeOfCreation => _timeOfCreation;
   bool hasTimeOfCreation() => _timeOfCreation != null;
 
+  // "postData" field.
+  ScheduledPostDataStruct? _postData;
+  ScheduledPostDataStruct get postData =>
+      _postData ?? ScheduledPostDataStruct();
+  bool hasPostData() => _postData != null;
+
+  // "postType" field.
+  String? _postType;
+  String get postType => _postType ?? '';
+  bool hasPostType() => _postType != null;
+
   void _initializeFields() {
-    _personUrn = snapshotData['personUrn'] as String?;
-    _accessToken = snapshotData['accessToken'] as String?;
-    _postText = snapshotData['postText'] as String?;
     _userRef = snapshotData['userRef'] as DocumentReference?;
     _timestamp = snapshotData['timestamp'] as DateTime?;
     _timeOfCreation = snapshotData['timeOfCreation'] as DateTime?;
+    _postData = ScheduledPostDataStruct.maybeFromMap(snapshotData['postData']);
+    _postType = snapshotData['postType'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -91,23 +86,24 @@ class ScheduledPostsRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createScheduledPostsRecordData({
-  String? personUrn,
-  String? accessToken,
-  String? postText,
   DocumentReference? userRef,
   DateTime? timestamp,
   DateTime? timeOfCreation,
+  ScheduledPostDataStruct? postData,
+  String? postType,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'personUrn': personUrn,
-      'accessToken': accessToken,
-      'postText': postText,
       'userRef': userRef,
       'timestamp': timestamp,
       'timeOfCreation': timeOfCreation,
+      'postData': ScheduledPostDataStruct().toMap(),
+      'postType': postType,
     }.withoutNulls,
   );
+
+  // Handle nested data for "postData" field.
+  addScheduledPostDataStructData(firestoreData, postData, 'postData');
 
   return firestoreData;
 }
@@ -118,23 +114,16 @@ class ScheduledPostsRecordDocumentEquality
 
   @override
   bool equals(ScheduledPostsRecord? e1, ScheduledPostsRecord? e2) {
-    return e1?.personUrn == e2?.personUrn &&
-        e1?.accessToken == e2?.accessToken &&
-        e1?.postText == e2?.postText &&
-        e1?.userRef == e2?.userRef &&
+    return e1?.userRef == e2?.userRef &&
         e1?.timestamp == e2?.timestamp &&
-        e1?.timeOfCreation == e2?.timeOfCreation;
+        e1?.timeOfCreation == e2?.timeOfCreation &&
+        e1?.postData == e2?.postData &&
+        e1?.postType == e2?.postType;
   }
 
   @override
-  int hash(ScheduledPostsRecord? e) => const ListEquality().hash([
-        e?.personUrn,
-        e?.accessToken,
-        e?.postText,
-        e?.userRef,
-        e?.timestamp,
-        e?.timeOfCreation
-      ]);
+  int hash(ScheduledPostsRecord? e) => const ListEquality().hash(
+      [e?.userRef, e?.timestamp, e?.timeOfCreation, e?.postData, e?.postType]);
 
   @override
   bool isValidKey(Object? o) => o is ScheduledPostsRecord;
