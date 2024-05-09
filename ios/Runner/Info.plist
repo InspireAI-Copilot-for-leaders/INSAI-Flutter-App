@@ -47,11 +47,6 @@
     <key>FlutterDeepLinkingEnabled</key>
     <true/>
 
-	<key>FirebaseDynamicLinksCustomDomains</key>
-    <array>
-    <string>https://app.theinspireai.com</string>
-    </array>
-
 
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
