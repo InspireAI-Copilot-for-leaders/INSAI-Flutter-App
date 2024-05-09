@@ -52,7 +52,7 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
 
   // State field(s) for scheduledListView widget.
 
-  PagingController<DocumentSnapshot?, CreatedPostsRecord>?
+  PagingController<DocumentSnapshot?, ScheduledPostsRecord>?
       scheduledListViewPagingController;
   Query? scheduledListViewPagingQuery;
   List<StreamSubscription?> scheduledListViewStreamSubscriptions = [];
@@ -151,7 +151,7 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
       );
   }
 
-  PagingController<DocumentSnapshot?, CreatedPostsRecord>
+  PagingController<DocumentSnapshot?, ScheduledPostsRecord>
       setScheduledListViewController(
     Query query, {
     DocumentReference<Object?>? parent,
@@ -165,17 +165,17 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
     return scheduledListViewPagingController!;
   }
 
-  PagingController<DocumentSnapshot?, CreatedPostsRecord>
+  PagingController<DocumentSnapshot?, ScheduledPostsRecord>
       _createScheduledListViewController(
     Query query,
     DocumentReference<Object?>? parent,
   ) {
-    final controller = PagingController<DocumentSnapshot?, CreatedPostsRecord>(
-        firstPageKey: null);
+    final controller =
+        PagingController<DocumentSnapshot?, ScheduledPostsRecord>(
+            firstPageKey: null);
     return controller
       ..addPageRequestListener(
-        (nextPageMarker) => queryCreatedPostsRecordPage(
-          parent: parent,
+        (nextPageMarker) => queryScheduledPostsRecordPage(
           queryBuilder: (_) => scheduledListViewPagingQuery ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: scheduledListViewStreamSubscriptions,

@@ -1243,19 +1243,13 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
 
                                                                             context.pushNamed(
                                                                               'articleDetails',
-                                                                              pathParameters: {
+                                                                              queryParameters: {
                                                                                 'articleRef': serializeParam(
                                                                                   highlightItem.reference,
                                                                                   ParamType.DocumentReference,
                                                                                 ),
-                                                                              }.withoutNulls,
-                                                                              queryParameters: {
                                                                                 'articleTitle': serializeParam(
                                                                                   highlightItem.originalGoogleSearchTerm,
-                                                                                  ParamType.String,
-                                                                                ),
-                                                                                'articleImage': serializeParam(
-                                                                                  highlightItem.metadata.first.imageUrl,
                                                                                   ParamType.String,
                                                                                 ),
                                                                                 'articleContent': serializeParam(
@@ -1266,7 +1260,14 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                   highlightItem.domain,
                                                                                   ParamType.String,
                                                                                 ),
+                                                                                'articleDocument': serializeParam(
+                                                                                  highlightItem,
+                                                                                  ParamType.Document,
+                                                                                ),
                                                                               }.withoutNulls,
+                                                                              extra: <String, dynamic>{
+                                                                                'articleDocument': highlightItem,
+                                                                              },
                                                                             );
                                                                           },
                                                                           child:
@@ -1722,7 +1723,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
 
                                                               context.pushNamed(
                                                                 'articleDetails',
-                                                                pathParameters:
+                                                                queryParameters:
                                                                     {
                                                                   'articleRef':
                                                                       serializeParam(
@@ -1731,22 +1732,10 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     ParamType
                                                                         .DocumentReference,
                                                                   ),
-                                                                }.withoutNulls,
-                                                                queryParameters:
-                                                                    {
                                                                   'articleTitle':
                                                                       serializeParam(
                                                                     filteredTabsItem
                                                                         .originalGoogleSearchTerm,
-                                                                    ParamType
-                                                                        .String,
-                                                                  ),
-                                                                  'articleImage':
-                                                                      serializeParam(
-                                                                    filteredTabsItem
-                                                                        .metadata
-                                                                        .first
-                                                                        .imageUrl,
                                                                     ParamType
                                                                         .String,
                                                                   ),
@@ -1764,7 +1753,18 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     ParamType
                                                                         .String,
                                                                   ),
+                                                                  'articleDocument':
+                                                                      serializeParam(
+                                                                    filteredTabsItem,
+                                                                    ParamType
+                                                                        .Document,
+                                                                  ),
                                                                 }.withoutNulls,
+                                                                extra: <String,
+                                                                    dynamic>{
+                                                                  'articleDocument':
+                                                                      filteredTabsItem,
+                                                                },
                                                               );
                                                             },
                                                             child: Container(
@@ -1984,7 +1984,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                   context
                                                                       .pushNamed(
                                                                     'articleDetails',
-                                                                    pathParameters:
+                                                                    queryParameters:
                                                                         {
                                                                       'articleRef':
                                                                           serializeParam(
@@ -1993,22 +1993,10 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         ParamType
                                                                             .DocumentReference,
                                                                       ),
-                                                                    }.withoutNulls,
-                                                                    queryParameters:
-                                                                        {
                                                                       'articleTitle':
                                                                           serializeParam(
                                                                         forYouItem
                                                                             .originalGoogleSearchTerm,
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                      'articleImage':
-                                                                          serializeParam(
-                                                                        forYouItem
-                                                                            .metadata
-                                                                            .first
-                                                                            .imageUrl,
                                                                         ParamType
                                                                             .String,
                                                                       ),
@@ -2026,7 +2014,18 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         ParamType
                                                                             .String,
                                                                       ),
+                                                                      'articleDocument':
+                                                                          serializeParam(
+                                                                        forYouItem,
+                                                                        ParamType
+                                                                            .Document,
+                                                                      ),
                                                                     }.withoutNulls,
+                                                                    extra: <String,
+                                                                        dynamic>{
+                                                                      'articleDocument':
+                                                                          forYouItem,
+                                                                    },
                                                                   );
                                                                 },
                                                                 child:

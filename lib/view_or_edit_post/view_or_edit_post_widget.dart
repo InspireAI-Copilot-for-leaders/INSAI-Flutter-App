@@ -24,11 +24,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'view_or_edit_post_copy_model.dart';
-export 'view_or_edit_post_copy_model.dart';
+import 'view_or_edit_post_model.dart';
+export 'view_or_edit_post_model.dart';
 
-class ViewOrEditPostCopyWidget extends StatefulWidget {
-  const ViewOrEditPostCopyWidget({
+class ViewOrEditPostWidget extends StatefulWidget {
+  const ViewOrEditPostWidget({
     super.key,
     required this.postText,
     required this.postRef,
@@ -42,13 +42,12 @@ class ViewOrEditPostCopyWidget extends StatefulWidget {
   final int? oneLinerIndex;
 
   @override
-  State<ViewOrEditPostCopyWidget> createState() =>
-      _ViewOrEditPostCopyWidgetState();
+  State<ViewOrEditPostWidget> createState() => _ViewOrEditPostWidgetState();
 }
 
-class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
+class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
     with TickerProviderStateMixin {
-  late ViewOrEditPostCopyModel _model;
+  late ViewOrEditPostModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,10 +56,10 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ViewOrEditPostCopyModel());
+    _model = createModel(context, () => ViewOrEditPostModel());
 
     logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'viewOrEditPostCopy'});
+        parameters: {'screen_name': 'viewOrEditPost'});
 
     _model.textFieldFocusNode1 ??= FocusNode();
 
@@ -143,7 +142,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             logFirebaseEvent(
-                                                'VIEW_OR_EDIT_POST_COPY_Icon_gr9oprw7_ON_');
+                                                'VIEW_OR_EDIT_POST_Icon_gr9oprw7_ON_TAP');
                                             if ((_model.textController2.text !=
                                                     widget.postText) ||
                                                 (_model.textController1.text !=
@@ -315,7 +314,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
-                                            'VIEW_OR_EDIT_POST_COPY_Icon_ryam30mi_ON_');
+                                            'VIEW_OR_EDIT_POST_Icon_ryam30mi_ON_TAP');
                                         if (_model.isScheduled) {
                                           logFirebaseEvent(
                                               'Icon_update_page_state');
@@ -373,7 +372,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_onlyTextButton_ON');
+                                                  'VIEW_OR_EDIT_POST_onlyTextButton_ON_TAP');
                                               logFirebaseEvent(
                                                   'onlyTextButton_backend_call');
                                               _model.linkedinPost =
@@ -520,7 +519,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_docButton_ON_TAP');
+                                                  'VIEW_OR_EDIT_POST_PAGE_docButton_ON_TAP');
                                               if (_model.typeOfMediaUploaded ==
                                                   'doc') {
                                                 logFirebaseEvent(
@@ -780,7 +779,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_imageButton_ON_TA');
+                                                  'VIEW_OR_EDIT_POST_imageButton_ON_TAP');
                                               if (_model.typeOfMediaUploaded ==
                                                   'image') {
                                                 logFirebaseEvent(
@@ -1225,7 +1224,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_pollButton_ON_TAP');
+                                                  'VIEW_OR_EDIT_POST_PAGE_pollButton_ON_TAP');
                                               await Future.wait([
                                                 Future(() async {
                                                   logFirebaseEvent(
@@ -1442,7 +1441,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_scheduleOnlyText_');
+                                                  'VIEW_OR_EDIT_POST_scheduleOnlyText_ON_TA');
                                               logFirebaseEvent(
                                                   'scheduleOnlyText_backend_call');
 
@@ -1473,6 +1472,9 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                         ''),
                                                     postText: _model
                                                         .textController2.text,
+                                                    postTilte: _model
+                                                        .textController1.text,
+                                                    status: 'pending',
                                                   ));
                                               logFirebaseEvent(
                                                   'scheduleOnlyText_alert_dialog');
@@ -1549,7 +1551,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_scheduleDoc_ON_TA');
+                                                  'VIEW_OR_EDIT_POST_scheduleDoc_ON_TAP');
                                               if (_model.typeOfMediaUploaded ==
                                                   'doc') {
                                                 logFirebaseEvent(
@@ -1692,6 +1694,12 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                           ),
                                                           mediaTitle: _model
                                                               .uploadedDocTitle,
+                                                          status: 'pending',
+                                                          postTilte: _model
+                                                              .textController1
+                                                              .text,
+                                                          docFirebaseUrl: _model
+                                                              .uploadedFileUrl3,
                                                         ));
                                                     logFirebaseEvent(
                                                         'scheduleDoc_alert_dialog');
@@ -1775,7 +1783,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_schedulePoll_ON_T');
+                                                  'VIEW_OR_EDIT_POST_schedulePoll_ON_TAP');
                                               await Future.wait([
                                                 Future(() async {
                                                   logFirebaseEvent(
@@ -1865,6 +1873,9 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                         .toString(),
                                                     duration:
                                                         _model.pollDuration,
+                                                    postTilte: _model
+                                                        .textController1.text,
+                                                    status: 'pending',
                                                   ));
                                               logFirebaseEvent(
                                                   'schedulePoll_alert_dialog');
@@ -1943,7 +1954,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           FFButtonWidget(
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_scheduleImage_ON_');
+                                                  'VIEW_OR_EDIT_POST_scheduleImage_ON_TAP');
                                               logFirebaseEvent(
                                                   'scheduleImage_upload_media_to_firebase');
                                               {
@@ -2207,6 +2218,9 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                   .toList(),
                                                               'id')
                                                           .toString(),
+                                                      postTilte: _model
+                                                          .textController1.text,
+                                                      status: 'pending',
                                                     ));
                                                 logFirebaseEvent(
                                                     'scheduleImage_alert_dialog');
@@ -2279,6 +2293,9 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                 ?.jsonBody ??
                                                             ''),
                                                       ),
+                                                      postTilte: _model
+                                                          .textController1.text,
+                                                      status: 'pending',
                                                     ));
                                                 logFirebaseEvent(
                                                     'scheduleImage_alert_dialog');
@@ -2437,7 +2454,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                     Colors.transparent,
                                                 onTap: () async {
                                                   logFirebaseEvent(
-                                                      'VIEW_OR_EDIT_POST_COPY_Text_141qennn_ON_');
+                                                      'VIEW_OR_EDIT_POST_Text_141qennn_ON_TAP');
                                                   logFirebaseEvent(
                                                       'Text_update_page_state');
                                                   setState(() {
@@ -2615,7 +2632,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                               height: 1.0,
                                               onBack: () async {
                                                 logFirebaseEvent(
-                                                    'VIEW_OR_EDIT_POST_COPY_Container_1cuobz7');
+                                                    'VIEW_OR_EDIT_POST_Container_1cuobz7g_CAL');
                                                 if ((_model.textController2
                                                             .text !=
                                                         widget.postText) ||
@@ -2846,7 +2863,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_POST_COPY_Container_v934ugd');
+                                                                'VIEW_OR_EDIT_POST_Container_v934ugdk_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
                                                             setState(() {
@@ -3003,7 +3020,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_POST_COPY_Container_slssatj');
+                                                                'VIEW_OR_EDIT_POST_Container_slssatjt_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
                                                             setState(() {
@@ -3196,7 +3213,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_POST_COPY_Container_wkc6dtp');
+                                                                'VIEW_OR_EDIT_POST_Container_wkc6dtpu_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
                                                             setState(() {
@@ -3414,7 +3431,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_POST_COPY_Container_ck0y627');
+                                                                'VIEW_OR_EDIT_POST_Container_ck0y6275_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
                                                             setState(() {
@@ -3674,7 +3691,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_POST_COPY_Container_acr90kd');
+                                                                'VIEW_OR_EDIT_POST_Container_acr90kd8_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
                                                             setState(() {
@@ -3976,7 +3993,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_POST_COPY_Container_67l3jnn');
+                                                                'VIEW_OR_EDIT_POST_Container_67l3jnnx_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
                                                             setState(() {
@@ -4092,7 +4109,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_POST_COPY_Container_vjgs4iq');
+                                                          'VIEW_OR_EDIT_POST_Container_vjgs4iqm_ON_');
                                                       logFirebaseEvent(
                                                           'Container_update_page_state');
                                                       setState(() {
@@ -4496,7 +4513,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_POST_COPY_Container_534orpl');
+                                                          'VIEW_OR_EDIT_POST_Container_534orpla_ON_');
                                                       logFirebaseEvent(
                                                           'Container_update_page_state');
                                                       setState(() {
@@ -4556,7 +4573,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   logFirebaseEvent(
-                                      'VIEW_OR_EDIT_POST_COPY_Container_60pueuy');
+                                      'VIEW_OR_EDIT_POST_Container_60pueuye_ON_');
                                   logFirebaseEvent(
                                       'Container_store_media_for_upload');
                                   final selectedMedia = await selectMedia(
@@ -4649,7 +4666,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   logFirebaseEvent(
-                                      'VIEW_OR_EDIT_POST_COPY_Container_a2sakqw');
+                                      'VIEW_OR_EDIT_POST_Container_a2sakqwc_ON_');
                                   logFirebaseEvent('Container_bottom_sheet');
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
@@ -4839,7 +4856,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
-                                          'VIEW_OR_EDIT_POST_COPY_Container_sltyiu7');
+                                          'VIEW_OR_EDIT_POST_Container_sltyiu77_ON_');
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -4962,7 +4979,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_Container_ybdkcmp');
+                                                  'VIEW_OR_EDIT_POST_Container_ybdkcmpo_ON_');
                                               logFirebaseEvent(
                                                   'Container_date_time_picker');
                                               final _datePicked1Date =
@@ -5140,7 +5157,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_POST_COPY_Container_nl8hjmg');
+                                                  'VIEW_OR_EDIT_POST_Container_nl8hjmga_ON_');
                                               logFirebaseEvent(
                                                   'Container_date_time_picker');
 
@@ -5316,7 +5333,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                             child: FFButtonWidget(
                                               onPressed: () async {
                                                 logFirebaseEvent(
-                                                    'VIEW_OR_EDIT_POST_COPY_NEXT_BTN_ON_TAP');
+                                                    'VIEW_OR_EDIT_POST_PAGE_NEXT_BTN_ON_TAP');
                                                 logFirebaseEvent(
                                                     'Button_widget_animation');
                                                 if (animationsMap[
@@ -5388,7 +5405,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
                                                       logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_POST_COPY_CLEAR_BTN_ON_TAP');
+                                                          'VIEW_OR_EDIT_POST_PAGE_CLEAR_BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_widget_animation');
                                                       if (animationsMap[
@@ -5470,7 +5487,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
                                                       logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_POST_COPY_NEXT_BTN_ON_TAP');
+                                                          'VIEW_OR_EDIT_POST_PAGE_NEXT_BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_widget_animation');
                                                       if (animationsMap[

@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>705064728296-qsb1fkg2hha11e7ivdr1hjb34fnfu9iv.apps.googleusercontent.com</string>
+	<string>705064728296-r6glbl8p2p3l83u8690vmkunfcpsav5k.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.705064728296-qsb1fkg2hha11e7ivdr1hjb34fnfu9iv</string>
+	<string>com.googleusercontent.apps.705064728296-r6glbl8p2p3l83u8690vmkunfcpsav5k</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>705064728296-62bs17dooq2p9drs4nfgnul4k3ecrptd.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB7ppKv7GsjaPG4iPRVtUPUsm85YVnNSlA</string>
+	<string>AIzaSyAU0mNuvXMb1j1QJUVXjIz9zVPNZ3qqT34</string>
 	<key>GCM_SENDER_ID</key>
 	<string>705064728296</string>
 	<key>PLIST_VERSION</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:705064728296:ios:e65474175c6c43a1a9bb5d</string>
+	<string>1:705064728296:ios:18951d6ace8e348da9bb5d</string>
 	<key>DATABASE_URL</key>
 	<string>https://inspire-ai-40690-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>

@@ -177,7 +177,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                     logFirebaseEvent('Button_navigate_to');
 
                                     context.pushNamed(
-                                      'viewOrEditPostCopy',
+                                      'viewOrEditPost',
                                       queryParameters: {
                                         'postText': serializeParam(
                                           _model.oneLinerText,

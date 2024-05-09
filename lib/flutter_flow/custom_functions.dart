@@ -99,3 +99,22 @@ DateTime combineDateTime(
     time.microsecond,
   );
 }
+
+String? getValueFromJson(
+  String jsonStr,
+  int index,
+) {
+  try {
+    // Decode the JSON string into a dynamic object (List in this case)
+    List<dynamic> data = jsonDecode(jsonStr);
+
+    // Access the map at the specified index and return the value associated with the key 'text'
+    return data[index]['text'];
+  } on FormatException {
+    // Handle cases where the json string is malformed
+    return 'Invalid JSON format';
+  } catch (e) {
+    // Handle other errors, such as index out of bounds
+    return 'Error: ${e.toString()}';
+  }
+}
