@@ -108,8 +108,8 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          top: true,
+        body: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -144,86 +144,100 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                           onTap: () async {
                                             logFirebaseEvent(
                                                 'VIEW_OR_EDIT_POST_COPY_Icon_gr9oprw7_ON_');
-                                            logFirebaseEvent(
-                                                'Icon_alert_dialog');
-                                            await showDialog(
-                                              context: context,
-                                              builder: (dialogContext) {
-                                                return Dialog(
-                                                  elevation: 0,
-                                                  insetPadding: EdgeInsets.zero,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  child: GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: ExitDialogWidget(
-                                                      saveAction: () async {
-                                                        logFirebaseEvent(
-                                                            '_backend_call');
+                                            if ((_model.textController2.text !=
+                                                    widget.postText) ||
+                                                (_model.textController1.text !=
+                                                    widget.postTitle)) {
+                                              logFirebaseEvent(
+                                                  'Icon_alert_dialog');
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    elevation: 0,
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child: GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child: ExitDialogWidget(
+                                                        saveAction: () async {
+                                                          logFirebaseEvent(
+                                                              '_backend_call');
 
-                                                        await widget.postRef!
-                                                            .update({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'content':
-                                                                  FieldValue
-                                                                      .delete(),
-                                                            },
-                                                          ),
-                                                        });
-                                                        logFirebaseEvent(
-                                                            '_backend_call');
+                                                          await widget.postRef!
+                                                              .update({
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'content':
+                                                                    FieldValue
+                                                                        .delete(),
+                                                              },
+                                                            ),
+                                                          });
+                                                          logFirebaseEvent(
+                                                              '_backend_call');
 
-                                                        await widget.postRef!
-                                                            .update({
-                                                          ...createCreatedPostsRecordData(
-                                                            topic: _model
-                                                                .textController1
-                                                                .text,
-                                                          ),
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'content': FieldValue
-                                                                  .arrayUnion([
-                                                                _model
-                                                                    .textController2
-                                                                    .text
-                                                              ]),
-                                                            },
-                                                          ),
-                                                        });
-                                                        logFirebaseEvent(
-                                                            '_navigate_to');
+                                                          await widget.postRef!
+                                                              .update({
+                                                            ...createCreatedPostsRecordData(
+                                                              topic: _model
+                                                                  .textController1
+                                                                  .text,
+                                                            ),
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'content':
+                                                                    FieldValue
+                                                                        .arrayUnion([
+                                                                  _model
+                                                                      .textController2
+                                                                      .text
+                                                                ]),
+                                                              },
+                                                            ),
+                                                          });
+                                                          logFirebaseEvent(
+                                                              '_navigate_to');
 
-                                                        context.goNamed(
-                                                            'allPostsOverview');
-                                                      },
-                                                      discardAction: () async {
-                                                        logFirebaseEvent(
-                                                            '_navigate_to');
+                                                          context.goNamed(
+                                                              'allPostsOverview');
+                                                        },
+                                                        discardAction:
+                                                            () async {
+                                                          logFirebaseEvent(
+                                                              '_navigate_to');
 
-                                                        context.goNamed(
-                                                            'allPostsOverview');
-                                                      },
-                                                      cancelAction: () async {},
+                                                          context.goNamed(
+                                                              'allPostsOverview');
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
+                                                  );
+                                                },
+                                              ).then(
+                                                  (value) => setState(() {}));
+                                            } else {
+                                              logFirebaseEvent(
+                                                  'Icon_navigate_back');
+                                              context.safePop();
+                                            }
                                           },
                                           child: Icon(
                                             Icons.close,
@@ -238,8 +252,8 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                       padding: EdgeInsets.all(2.0),
                                       child: AuthUserStreamWidget(
                                         builder: (context) => Container(
-                                          width: 30.0,
-                                          height: 30.0,
+                                          width: 38.0,
+                                          height: 38.0,
                                           clipBehavior: Clip.antiAlias,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
@@ -2602,95 +2616,107 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                               onBack: () async {
                                                 logFirebaseEvent(
                                                     'VIEW_OR_EDIT_POST_COPY_Container_1cuobz7');
-                                                logFirebaseEvent(
-                                                    'BackButtonOverrider_alert_dialog');
-                                                await showDialog(
-                                                  context: context,
-                                                  builder: (dialogContext) {
-                                                    return Dialog(
-                                                      elevation: 0,
-                                                      insetPadding:
-                                                          EdgeInsets.zero,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      child: GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child: ExitDialogWidget(
-                                                          saveAction: () async {
-                                                            logFirebaseEvent(
-                                                                '_backend_call');
+                                                if ((_model.textController2
+                                                            .text !=
+                                                        widget.postText) ||
+                                                    (_model.textController1
+                                                            .text !=
+                                                        widget.postTitle)) {
+                                                  logFirebaseEvent(
+                                                      'BackButtonOverrider_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) {
+                                                      return Dialog(
+                                                        elevation: 0,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                        child: GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child:
+                                                              ExitDialogWidget(
+                                                            saveAction:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  '_backend_call');
 
-                                                            await widget
-                                                                .postRef!
-                                                                .update({
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'content':
-                                                                      FieldValue
-                                                                          .delete(),
-                                                                },
-                                                              ),
-                                                            });
-                                                            logFirebaseEvent(
-                                                                '_backend_call');
+                                                              await widget
+                                                                  .postRef!
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'content':
+                                                                        FieldValue
+                                                                            .delete(),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              logFirebaseEvent(
+                                                                  '_backend_call');
 
-                                                            await widget
-                                                                .postRef!
-                                                                .update({
-                                                              ...createCreatedPostsRecordData(
-                                                                topic: _model
-                                                                    .textController1
-                                                                    .text,
-                                                              ),
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'content':
-                                                                      FieldValue
-                                                                          .arrayUnion([
-                                                                    _model
-                                                                        .textController2
-                                                                        .text
-                                                                  ]),
-                                                                },
-                                                              ),
-                                                            });
-                                                            logFirebaseEvent(
-                                                                '_navigate_to');
+                                                              await widget
+                                                                  .postRef!
+                                                                  .update({
+                                                                ...createCreatedPostsRecordData(
+                                                                  topic: _model
+                                                                      .textController1
+                                                                      .text,
+                                                                ),
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'content':
+                                                                        FieldValue
+                                                                            .arrayUnion([
+                                                                      _model
+                                                                          .textController2
+                                                                          .text
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              logFirebaseEvent(
+                                                                  '_navigate_to');
 
-                                                            context.goNamed(
-                                                                'allPostsOverview');
-                                                          },
-                                                          discardAction:
-                                                              () async {
-                                                            logFirebaseEvent(
-                                                                '_navigate_to');
+                                                              context.goNamed(
+                                                                  'allPostsOverview');
+                                                            },
+                                                            discardAction:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  '_navigate_to');
 
-                                                            context.goNamed(
-                                                                'allPostsOverview');
-                                                          },
-                                                          cancelAction:
-                                                              () async {},
+                                                              context.goNamed(
+                                                                  'allPostsOverview');
+                                                            },
+                                                          ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ).then(
-                                                    (value) => setState(() {}));
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      setState(() {}));
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'BackButtonOverrider_navigate_back');
+                                                  context.safePop();
+                                                }
                                               },
                                             ),
                                           ),
@@ -2794,7 +2820,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                 []),
                                                         width: double.infinity,
                                                         height: 250.0,
-                                                        fit: BoxFit.fitHeight,
+                                                        fit: BoxFit.none,
                                                       ),
                                                     ),
                                                     Align(
@@ -2829,6 +2855,14 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
+                                                                  [];
+                                                            });
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading5 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles5 =
                                                                   [];
                                                             });
                                                           },
@@ -2903,8 +2937,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                       .width *
                                                                   0.5,
                                                               height: 250.0,
-                                                              fit: BoxFit
-                                                                  .fitHeight,
+                                                              fit: BoxFit.none,
                                                             ),
                                                           ),
                                                         ),
@@ -2941,8 +2974,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                       .width *
                                                                   0.5,
                                                               height: 250.0,
-                                                              fit: BoxFit
-                                                                  .fitHeight,
+                                                              fit: BoxFit.none,
                                                             ),
                                                           ),
                                                         ),
@@ -2980,6 +3012,14 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
+                                                                  [];
+                                                            });
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading5 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles5 =
                                                                   [];
                                                             });
                                                           },
@@ -3042,7 +3082,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                             width:
                                                                 double.infinity,
                                                             height: 150.0,
-                                                            fit: BoxFit.cover,
+                                                            fit: BoxFit.none,
                                                           ),
                                                         ),
                                                         Row(
@@ -3088,7 +3128,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                       0.5,
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3125,7 +3165,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                       0.5,
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3165,6 +3205,14 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
+                                                                  [];
+                                                            });
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading5 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles5 =
                                                                   [];
                                                             });
                                                           },
@@ -3227,7 +3275,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                             width:
                                                                 double.infinity,
                                                             height: 150.0,
-                                                            fit: BoxFit.cover,
+                                                            fit: BoxFit.none,
                                                           ),
                                                         ),
                                                         Row(
@@ -3269,7 +3317,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3302,7 +3350,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3335,7 +3383,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3375,6 +3423,14 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
+                                                                  [];
+                                                            });
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading5 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles5 =
                                                                   [];
                                                             });
                                                           },
@@ -3443,7 +3499,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 150.0,
                                                                   fit: BoxFit
-                                                                      .cover,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3476,7 +3532,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 150.0,
                                                                   fit: BoxFit
-                                                                      .cover,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3521,7 +3577,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3554,7 +3610,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3587,7 +3643,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3627,6 +3683,14 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
+                                                                  [];
+                                                            });
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading5 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles5 =
                                                                   [];
                                                             });
                                                           },
@@ -3693,7 +3757,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 150.0,
                                                                   fit: BoxFit
-                                                                      .cover,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3726,7 +3790,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 150.0,
                                                                   fit: BoxFit
-                                                                      .cover,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3771,7 +3835,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3804,7 +3868,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                               []),
                                                                   height: 100.0,
                                                                   fit: BoxFit
-                                                                      .fitHeight,
+                                                                      .none,
                                                                 ),
                                                               ),
                                                             ),
@@ -3836,7 +3900,7 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                       height:
                                                                           100.0,
                                                                       fit: BoxFit
-                                                                          .fitHeight,
+                                                                          .none,
                                                                     ),
                                                                   ),
                                                                   Container(
@@ -3847,7 +3911,19 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                                     decoration:
                                                                         BoxDecoration(
                                                                       color: Color(
-                                                                          0xA2080808),
+                                                                          0xC9080808),
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(8.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
                                                                     ),
                                                                     child:
                                                                         Align(
@@ -3909,6 +3985,14 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                               _model.numberOfImagesUploaded =
                                                                   0;
                                                               _model.uploadedMedia =
+                                                                  [];
+                                                            });
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading5 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles5 =
                                                                   [];
                                                             });
                                                           },
@@ -4014,10 +4098,10 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                                       setState(() {
                                                         _model.typeOfMediaUploaded =
                                                             'onlyText';
-                                                        _model.numberOfImagesUploaded =
-                                                            0;
-                                                        _model.uploadedMedia =
-                                                            [];
+                                                        _model.uploadedDoc =
+                                                            null;
+                                                        _model.uploadedDocTitle =
+                                                            null;
                                                       });
                                                     },
                                                     child: Container(
@@ -4525,20 +4609,22 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                     }
                                   }
 
-                                  logFirebaseEvent(
-                                      'Container_update_page_state');
-                                  setState(() {
-                                    _model.typeOfMediaUploaded =
-                                        _model.uploadedLocalFiles5.length > 1
-                                            ? 'multiImage'
-                                            : 'singleImage';
-                                    _model.numberOfImagesUploaded =
-                                        _model.uploadedLocalFiles5.length;
-                                    _model.uploadedMedia = _model
-                                        .uploadedLocalFiles5
-                                        .toList()
-                                        .cast<FFUploadedFile>();
-                                  });
+                                  if (_model.uploadedLocalFiles5.isNotEmpty) {
+                                    logFirebaseEvent(
+                                        'Container_update_page_state');
+                                    setState(() {
+                                      _model.typeOfMediaUploaded =
+                                          _model.uploadedLocalFiles5.length > 1
+                                              ? 'multiImage'
+                                              : 'singleImage';
+                                      _model.numberOfImagesUploaded =
+                                          _model.uploadedLocalFiles5.length;
+                                      _model.uploadedMedia = _model
+                                          .uploadedLocalFiles5
+                                          .toList()
+                                          .cast<FFUploadedFile>();
+                                    });
+                                  }
                                 },
                                 child: Container(
                                   width: 50.0,
@@ -4588,21 +4674,26 @@ class _ViewOrEditPostCopyWidgetState extends State<ViewOrEditPostCopyWidget>
                                             child: PostContentOptionsWidget(
                                               mediaAction:
                                                   (uploadedMedia) async {
-                                                logFirebaseEvent(
-                                                    '_update_page_state');
-                                                setState(() {
-                                                  _model.typeOfMediaUploaded =
-                                                      uploadedMedia!.length > 1
-                                                          ? 'multiImage'
-                                                          : 'singleImage';
-                                                  _model.numberOfImagesUploaded =
-                                                      uploadedMedia!.length;
-                                                  _model.uploadedMedia =
-                                                      uploadedMedia!
-                                                          .toList()
-                                                          .cast<
-                                                              FFUploadedFile>();
-                                                });
+                                                if (uploadedMedia != null &&
+                                                    (uploadedMedia)!
+                                                        .isNotEmpty) {
+                                                  logFirebaseEvent(
+                                                      '_update_page_state');
+                                                  setState(() {
+                                                    _model.typeOfMediaUploaded =
+                                                        uploadedMedia!.length >
+                                                                1
+                                                            ? 'multiImage'
+                                                            : 'singleImage';
+                                                    _model.numberOfImagesUploaded =
+                                                        uploadedMedia!.length;
+                                                    _model.uploadedMedia =
+                                                        uploadedMedia!
+                                                            .toList()
+                                                            .cast<
+                                                                FFUploadedFile>();
+                                                  });
+                                                }
                                               },
                                               documentAction:
                                                   (docURL, docTitle) async {

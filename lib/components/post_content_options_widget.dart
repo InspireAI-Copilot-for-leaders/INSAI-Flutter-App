@@ -126,12 +126,14 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         }
                       }
 
-                      logFirebaseEvent('Column_execute_callback');
-                      await widget.mediaAction?.call(
-                        _model.uploadedLocalFiles,
-                      );
-                      logFirebaseEvent('Column_bottom_sheet');
-                      Navigator.pop(context);
+                      if (_model.uploadedLocalFiles.isNotEmpty) {
+                        logFirebaseEvent('Column_execute_callback');
+                        await widget.mediaAction?.call(
+                          _model.uploadedLocalFiles,
+                        );
+                        logFirebaseEvent('Column_bottom_sheet');
+                        Navigator.pop(context);
+                      }
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -256,13 +258,15 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         },
                       ).then((value) => safeSetState(() {}));
 
-                      logFirebaseEvent('Column_execute_callback');
-                      await widget.documentAction?.call(
-                        _model.uploadedDoc,
-                        _model.docTitle,
-                      );
-                      logFirebaseEvent('Column_bottom_sheet');
-                      Navigator.pop(context);
+                      if (_model.uploadedLocalFiles.isNotEmpty) {
+                        logFirebaseEvent('Column_execute_callback');
+                        await widget.documentAction?.call(
+                          _model.uploadedDoc,
+                          _model.docTitle,
+                        );
+                        logFirebaseEvent('Column_bottom_sheet');
+                        Navigator.pop(context);
+                      }
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.max,

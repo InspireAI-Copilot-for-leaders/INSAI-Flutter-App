@@ -129,7 +129,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 48.0, 24.0, 0.0),
+                                        0.0, 56.0, 24.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -258,11 +258,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                         context,
                                                         title: pageViewArticleRecord
                                                             .originalGoogleSearchTerm,
-                                                        imageUrl:
-                                                            pageViewArticleRecord
-                                                                .metadata
-                                                                .first
-                                                                .imageUrl,
+                                                        forceRedirect: true,
                                                       );
 
                                                       logFirebaseEvent(
@@ -339,7 +335,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
 
                                                     context.goNamed(
                                                       'articleDetails',
-                                                      queryParameters: {
+                                                      pathParameters: {
                                                         'articleRef':
                                                             serializeParam(
                                                           pageViewArticleRecord
@@ -347,6 +343,8 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                           ParamType
                                                               .DocumentReference,
                                                         ),
+                                                      }.withoutNulls,
+                                                      queryParameters: {
                                                         'articleTitle':
                                                             serializeParam(
                                                           pageViewArticleRecord
@@ -436,7 +434,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                         alignment: AlignmentDirectional(0.0, -1.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 28.0, 0.0, 0.0),
+                              16.0, 40.0, 0.0, 0.0),
                           child: smooth_page_indicator.SmoothPageIndicator(
                             controller: _model.pageViewController ??=
                                 PageController(
