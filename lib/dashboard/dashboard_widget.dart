@@ -1026,7 +1026,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
 
                                                           context.pushNamed(
                                                             'articleDetails',
-                                                            queryParameters: {
+                                                            pathParameters: {
                                                               'articleRef':
                                                                   serializeParam(
                                                                 wrapArticleRecord
@@ -1034,6 +1034,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                 ParamType
                                                                     .DocumentReference,
                                                               ),
+                                                            }.withoutNulls,
+                                                            queryParameters: {
                                                               'articleTitle':
                                                                   serializeParam(
                                                                 wrapArticleRecord

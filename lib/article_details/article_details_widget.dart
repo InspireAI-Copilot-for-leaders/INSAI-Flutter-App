@@ -23,10 +23,10 @@ class ArticleDetailsWidget extends StatefulWidget {
   const ArticleDetailsWidget({
     super.key,
     required this.articleRef,
-    required this.articleTitle,
-    required this.articleImage,
-    required this.articleContent,
-    required this.articleDomain,
+    this.articleTitle,
+    this.articleImage,
+    this.articleContent,
+    this.articleDomain,
   });
 
   final DocumentReference? articleRef;
@@ -141,67 +141,63 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
         ),
         body: Stack(
           children: [
-            Container(
-              height: double.infinity,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).primaryBackground,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 24.0, 24.0, 0.0),
-                            child: SelectionArea(
-                                child: Text(
-                              valueOrDefault<String>(
-                                widget.articleTitle,
-                                'null',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineMedium
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    fontSize: 24.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey('Montserrat'),
-                                  ),
-                            )),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 28.0, 24.0, 0.0),
-                            child: StreamBuilder<ArticleRecord>(
-                              stream:
-                                  ArticleRecord.getDocument(widget.articleRef!),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 100.0,
-                                      height: 100.0,
-                                      child: SpinKitRipple(
+            StreamBuilder<ArticleRecord>(
+              stream: ArticleRecord.getDocument(widget.articleRef!),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 100.0,
+                      height: 100.0,
+                      child: SpinKitRipple(
+                        color: FlutterFlowTheme.of(context).secondary,
+                        size: 100.0,
+                      ),
+                    ),
+                  );
+                }
+                final containerArticleRecord = snapshot.data!;
+                return Container(
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 24.0, 24.0, 0.0),
+                                child: SelectionArea(
+                                    child: Text(
+                                  containerArticleRecord
+                                      .originalGoogleSearchTerm,
+                                  style: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
                                         color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 100.0,
+                                            .primaryText,
+                                        fontSize: 24.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey('Montserrat'),
                                       ),
-                                    ),
-                                  );
-                                }
-                                final containerArticleRecord = snapshot.data!;
-                                return Container(
+                                )),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 28.0, 24.0, 0.0),
+                                child: Container(
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -317,15 +313,17 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                         height: 90.0,
                                                         decoration:
                                                             BoxDecoration(
-                                                          color:
-                                                              Color(0xFF2E2C2C),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
                                                                       12.0),
                                                           border: Border.all(
-                                                            color: Color(
-                                                                0x8A080808),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
                                                             width: 1.0,
                                                           ),
                                                         ),
@@ -469,37 +467,16 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     ),
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 24.0, 24.0, 0.0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 150.0,
-                              decoration: BoxDecoration(),
-                              child: StreamBuilder<ArticleRecord>(
-                                stream: ArticleRecord.getDocument(
-                                    widget.articleRef!),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 100.0,
-                                        height: 100.0,
-                                        child: SpinKitRipple(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          size: 100.0,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  final rowArticleRecord = snapshot.data!;
-                                  return Row(
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 24.0, 24.0, 0.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 150.0,
+                                  decoration: BoxDecoration(),
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -524,28 +501,24 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                 child:
                                                     FlutterFlowExpandedImageView(
                                                   image: Image.network(
-                                                    rowArticleRecord.metadata
-                                                        .first.imageUrl,
+                                                    'https://picsum.photos/seed/980/600',
                                                     fit: BoxFit.contain,
                                                   ),
                                                   allowRotation: false,
-                                                  tag: rowArticleRecord
-                                                      .metadata.first.imageUrl,
+                                                  tag: 'imageTag1',
                                                   useHeroAnimation: true,
                                                 ),
                                               ),
                                             );
                                           },
                                           child: Hero(
-                                            tag: rowArticleRecord
-                                                .metadata.first.imageUrl,
+                                            tag: 'imageTag1',
                                             transitionOnUserGestures: true,
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                               child: Image.network(
-                                                rowArticleRecord
-                                                    .metadata.first.imageUrl,
+                                                'https://picsum.photos/seed/980/600',
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                             .width *
@@ -578,28 +551,24 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                   child:
                                                       FlutterFlowExpandedImageView(
                                                     image: Image.network(
-                                                      rowArticleRecord
-                                                          .metadata[1].imageUrl,
+                                                      'https://picsum.photos/seed/839/600',
                                                       fit: BoxFit.contain,
                                                     ),
                                                     allowRotation: false,
-                                                    tag: rowArticleRecord
-                                                        .metadata[1].imageUrl,
+                                                    tag: 'imageTag2',
                                                     useHeroAnimation: true,
                                                   ),
                                                 ),
                                               );
                                             },
                                             child: Hero(
-                                              tag: rowArticleRecord
-                                                  .metadata[1].imageUrl,
+                                              tag: 'imageTag2',
                                               transitionOnUserGestures: true,
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 child: Image.network(
-                                                  rowArticleRecord
-                                                      .metadata[1].imageUrl,
+                                                  'https://picsum.photos/seed/839/600',
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
@@ -627,28 +596,24 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                   child:
                                                       FlutterFlowExpandedImageView(
                                                     image: Image.network(
-                                                      rowArticleRecord
-                                                          .metadata[2].imageUrl,
+                                                      'https://picsum.photos/seed/839/600',
                                                       fit: BoxFit.contain,
                                                     ),
                                                     allowRotation: false,
-                                                    tag: rowArticleRecord
-                                                        .metadata[2].imageUrl,
+                                                    tag: 'imageTag3',
                                                     useHeroAnimation: true,
                                                   ),
                                                 ),
                                               );
                                             },
                                             child: Hero(
-                                              tag: rowArticleRecord
-                                                  .metadata[2].imageUrl,
+                                              tag: 'imageTag3',
                                               transitionOnUserGestures: true,
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 child: Image.network(
-                                                  rowArticleRecord
-                                                      .metadata[2].imageUrl,
+                                                  'https://picsum.photos/seed/839/600',
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
@@ -662,245 +627,250 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                         ],
                                       ),
                                     ],
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 16.0, 24.0, 0.0),
-                            child: SelectionArea(
-                                child: Text(
-                              valueOrDefault<String>(
-                                widget.articleContent,
-                                'null',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    fontSize: 18.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey('Montserrat'),
                                   ),
-                            )),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 24.0, 24.0, 24.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
-                                      child: Text(
-                                        'GPT - 4',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              fontSize: 10.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w300,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 16.0, 24.0, 0.0),
+                                child: SelectionArea(
+                                    child: Text(
+                                  containerArticleRecord.articleSummary,
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey('Montserrat'),
+                                      ),
+                                )),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 24.0, 24.0, 24.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 8.0, 8.0, 8.0),
+                                          child: Text(
+                                            'GPT - 4',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyMediumFamily),
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 0.0, 0.0),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      logFirebaseEvent(
-                                          'ARTICLE_DETAILS_Icon_cw350h7a_ON_TAP');
-                                      logFirebaseEvent('Icon_navigate_to');
-
-                                      context.pushNamed('support');
-                                    },
-                                    child: Icon(
-                                      Icons.flag,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      size: 24.0,
-                                    ),
-                                  ),
-                                ),
-                                Builder(
-                                  builder: (context) => Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 0.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'ARTICLE_DETAILS_Icon_9qpsx21g_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Icon_generate_current_page_link');
-                                        _model.currentPageLink =
-                                            await generateCurrentPageLink(
-                                          context,
-                                          title: widget.articleTitle,
-                                          imageUrl: widget.articleImage,
-                                          forceRedirect: true,
-                                        );
-
-                                        logFirebaseEvent('Icon_share');
-                                        await Share.share(
-                                          _model.currentPageLink,
-                                          sharePositionOrigin:
-                                              getWidgetBoundingBox(context),
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.share_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 24.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 0.0),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      logFirebaseEvent(
-                                          'ARTICLE_DETAILS_Icon_n1tvt4u3_ON_TAP');
-                                      logFirebaseEvent(
-                                          'Icon_copy_to_clipboard');
-                                      await Clipboard.setData(ClipboardData(
-                                          text: widget.articleContent!));
-                                      logFirebaseEvent('Icon_show_snack_bar');
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Text copied!',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                            ),
+                                                          .bodyMediumFamily,
+                                                  fontSize: 10.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w300,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMediumFamily),
+                                                ),
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
                                         ),
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.content_copy_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      size: 24.0,
+                                      ),
                                     ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 0.0, 0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'ARTICLE_DETAILS_Icon_cw350h7a_ON_TAP');
+                                          logFirebaseEvent('Icon_navigate_to');
+
+                                          context.pushNamed('support');
+                                        },
+                                        child: Icon(
+                                          Icons.flag,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Builder(
+                                      builder: (context) => Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 0.0, 0.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'ARTICLE_DETAILS_Icon_9qpsx21g_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Icon_generate_current_page_link');
+                                            _model.currentPageLink =
+                                                await generateCurrentPageLink(
+                                              context,
+                                              title: widget.articleTitle,
+                                              imageUrl: widget.articleImage,
+                                              forceRedirect: true,
+                                            );
+
+                                            logFirebaseEvent('Icon_share');
+                                            await Share.share(
+                                              _model.currentPageLink,
+                                              sharePositionOrigin:
+                                                  getWidgetBoundingBox(context),
+                                            );
+                                          },
+                                          child: Icon(
+                                            Icons.share_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'ARTICLE_DETAILS_Icon_n1tvt4u3_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Icon_copy_to_clipboard');
+                                          await Clipboard.setData(ClipboardData(
+                                              text: widget.articleContent!));
+                                          logFirebaseEvent(
+                                              'Icon_show_snack_bar');
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Text copied!',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.content_copy_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            24.0, 8.0, 24.0, 24.0),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'ARTICLE_DETAILS_POST_WITH_YOUR_THOUGHTS_');
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
+                                    setState(() {
+                                      _model.createContentDialogVisible = true;
+                                    });
+                                  },
+                                  text: 'Post with your thoughts',
+                                  options: FFButtonOptions(
+                                    height: 40.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily),
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 24.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                logFirebaseEvent(
-                                    'ARTICLE_DETAILS_POST_WITH_YOUR_THOUGHTS_');
-                                logFirebaseEvent('Button_update_page_state');
-                                setState(() {
-                                  _model.createContentDialogVisible = true;
-                                });
-                              },
-                              text: 'Post with your thoughts',
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .titleSmallFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 18.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily),
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
             if (_model.createContentDialogVisible)
               Stack(

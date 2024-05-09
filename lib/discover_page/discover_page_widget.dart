@@ -1243,11 +1243,13 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
 
                                                                             context.pushNamed(
                                                                               'articleDetails',
-                                                                              queryParameters: {
+                                                                              pathParameters: {
                                                                                 'articleRef': serializeParam(
                                                                                   highlightItem.reference,
                                                                                   ParamType.DocumentReference,
                                                                                 ),
+                                                                              }.withoutNulls,
+                                                                              queryParameters: {
                                                                                 'articleTitle': serializeParam(
                                                                                   highlightItem.originalGoogleSearchTerm,
                                                                                   ParamType.String,
@@ -1720,7 +1722,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
 
                                                               context.pushNamed(
                                                                 'articleDetails',
-                                                                queryParameters:
+                                                                pathParameters:
                                                                     {
                                                                   'articleRef':
                                                                       serializeParam(
@@ -1729,6 +1731,9 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     ParamType
                                                                         .DocumentReference,
                                                                   ),
+                                                                }.withoutNulls,
+                                                                queryParameters:
+                                                                    {
                                                                   'articleTitle':
                                                                       serializeParam(
                                                                     filteredTabsItem
@@ -1979,7 +1984,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                   context
                                                                       .pushNamed(
                                                                     'articleDetails',
-                                                                    queryParameters:
+                                                                    pathParameters:
                                                                         {
                                                                       'articleRef':
                                                                           serializeParam(
@@ -1988,6 +1993,9 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         ParamType
                                                                             .DocumentReference,
                                                                       ),
+                                                                    }.withoutNulls,
+                                                                    queryParameters:
+                                                                        {
                                                                       'articleTitle':
                                                                           serializeParam(
                                                                         forYouItem

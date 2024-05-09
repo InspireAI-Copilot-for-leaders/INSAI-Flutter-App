@@ -335,7 +335,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
 
                                                     context.goNamed(
                                                       'articleDetails',
-                                                      queryParameters: {
+                                                      pathParameters: {
                                                         'articleRef':
                                                             serializeParam(
                                                           pageViewArticleRecord
@@ -343,6 +343,8 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                           ParamType
                                                               .DocumentReference,
                                                         ),
+                                                      }.withoutNulls,
+                                                      queryParameters: {
                                                         'articleTitle':
                                                             serializeParam(
                                                           pageViewArticleRecord

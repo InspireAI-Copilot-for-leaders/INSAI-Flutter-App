@@ -157,7 +157,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'articleDetails',
-              path: 'articleDetails',
+              path: 'articleDetails/:articleRef',
               requireAuth: true,
               builder: (context, params) => ArticleDetailsWidget(
                 articleRef: params.getParam(
