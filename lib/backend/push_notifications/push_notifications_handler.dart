@@ -137,24 +137,16 @@ final parametersBuilderMap =
   },
   'brandVoice': ParameterData.none(),
   'discoverPage': ParameterData.none(),
-  'articleDetails': (data) async {
-    final allParams = {
-      'articleRef': getParameter<DocumentReference>(data, 'articleRef'),
-      'articleTitle': getParameter<String>(data, 'articleTitle'),
-      'articleImage': getParameter<String>(data, 'articleImage'),
-      'articleContent': getParameter<String>(data, 'articleContent'),
-      'articleDomain': getParameter<String>(data, 'articleDomain'),
-    };
-    return ParameterData(
-      requiredParams: {
-        'articleRef': serializeParam(
-          allParams['articleRef'],
-          ParamType.DocumentReference,
-        ),
-      },
-      allParams: allParams,
-    );
-  },
+  'articleDetails': (data) async => ParameterData(
+        allParams: {
+          'articleRef': getParameter<DocumentReference>(data, 'articleRef'),
+          'articleTitle': getParameter<String>(data, 'articleTitle'),
+          'articleContent': getParameter<String>(data, 'articleContent'),
+          'articleDomain': getParameter<String>(data, 'articleDomain'),
+          'articleDocument': await getDocumentParameter<ArticleRecord>(
+              data, 'articleDocument', ArticleRecord.fromSnapshot),
+        },
+      ),
   'createWithInspireAI': (data) async => ParameterData(
         allParams: {
           'contextForContent': getParameter<String>(data, 'contextForContent'),

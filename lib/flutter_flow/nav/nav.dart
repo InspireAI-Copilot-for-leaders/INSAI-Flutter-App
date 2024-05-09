@@ -157,8 +157,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'articleDetails',
-              path: 'articleDetails/:articleRef',
+              path: 'articleDetails',
               requireAuth: true,
+              asyncParams: {
+                'articleDocument':
+                    getDoc(['article'], ArticleRecord.fromSnapshot),
+              },
               builder: (context, params) => ArticleDetailsWidget(
                 articleRef: params.getParam(
                   'articleRef',
@@ -170,10 +174,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   'articleTitle',
                   ParamType.String,
                 ),
-                articleImage: params.getParam(
-                  'articleImage',
-                  ParamType.String,
-                ),
                 articleContent: params.getParam(
                   'articleContent',
                   ParamType.String,
@@ -181,6 +181,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 articleDomain: params.getParam(
                   'articleDomain',
                   ParamType.String,
+                ),
+                articleDocument: params.getParam(
+                  'articleDocument',
+                  ParamType.Document,
                 ),
               ),
             ),

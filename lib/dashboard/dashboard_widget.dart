@@ -1026,7 +1026,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
 
                                                           context.pushNamed(
                                                             'articleDetails',
-                                                            pathParameters: {
+                                                            queryParameters: {
                                                               'articleRef':
                                                                   serializeParam(
                                                                 wrapArticleRecord
@@ -1034,21 +1034,10 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                 ParamType
                                                                     .DocumentReference,
                                                               ),
-                                                            }.withoutNulls,
-                                                            queryParameters: {
                                                               'articleTitle':
                                                                   serializeParam(
                                                                 wrapArticleRecord
                                                                     .originalGoogleSearchTerm,
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'articleImage':
-                                                                  serializeParam(
-                                                                wrapArticleRecord
-                                                                    .metadata
-                                                                    .first
-                                                                    .imageUrl,
                                                                 ParamType
                                                                     .String,
                                                               ),
@@ -1066,7 +1055,18 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                 ParamType
                                                                     .String,
                                                               ),
+                                                              'articleDocument':
+                                                                  serializeParam(
+                                                                wrapArticleRecord,
+                                                                ParamType
+                                                                    .Document,
+                                                              ),
                                                             }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              'articleDocument':
+                                                                  wrapArticleRecord,
+                                                            },
                                                           );
                                                         },
                                                         child: Container(
