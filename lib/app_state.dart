@@ -41,6 +41,18 @@ class FFAppState extends ChangeNotifier {
       _anthropicKey =
           await secureStorage.getString('ff_anthropicKey') ?? _anthropicKey;
     });
+    await _safeInitAsync(() async {
+      _shouldOverideDiscoverCache =
+          await secureStorage.getBool('ff_shouldOverideDiscoverCache') ??
+              _shouldOverideDiscoverCache;
+    });
+    await _safeInitAsync(() async {
+      _lastDiscoverCachedTime =
+          await secureStorage.read(key: 'ff_lastDiscoverCachedTime') != null
+              ? DateTime.fromMillisecondsSinceEpoch(
+                  (await secureStorage.getInt('ff_lastDiscoverCachedTime'))!)
+              : _lastDiscoverCachedTime;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -119,11 +131,36 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_anthropicKey');
   }
 
-  final _discoverManager = StreamRequestManager<List<ArticleRecord>>();
-  Stream<List<ArticleRecord>> discover({
+  bool _shouldOverideDiscoverCache = false;
+  bool get shouldOverideDiscoverCache => _shouldOverideDiscoverCache;
+  set shouldOverideDiscoverCache(bool _value) {
+    _shouldOverideDiscoverCache = _value;
+    secureStorage.setBool('ff_shouldOverideDiscoverCache', _value);
+  }
+
+  void deleteShouldOverideDiscoverCache() {
+    secureStorage.delete(key: 'ff_shouldOverideDiscoverCache');
+  }
+
+  DateTime? _lastDiscoverCachedTime;
+  DateTime? get lastDiscoverCachedTime => _lastDiscoverCachedTime;
+  set lastDiscoverCachedTime(DateTime? _value) {
+    _lastDiscoverCachedTime = _value;
+    _value != null
+        ? secureStorage.setInt(
+            'ff_lastDiscoverCachedTime', _value.millisecondsSinceEpoch)
+        : secureStorage.remove('ff_lastDiscoverCachedTime');
+  }
+
+  void deleteLastDiscoverCachedTime() {
+    secureStorage.delete(key: 'ff_lastDiscoverCachedTime');
+  }
+
+  final _discoverManager = FutureRequestManager<List<ArticleRecord>>();
+  Future<List<ArticleRecord>> discover({
     String? uniqueQueryKey,
     bool? overrideCache,
-    required Stream<List<ArticleRecord>> Function() requestFn,
+    required Future<List<ArticleRecord>> Function() requestFn,
   }) =>
       _discoverManager.performRequest(
         uniqueQueryKey: uniqueQueryKey,
