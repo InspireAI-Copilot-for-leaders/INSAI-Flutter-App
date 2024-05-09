@@ -1333,7 +1333,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                               'listContainer_navigate_to');
 
                                                           context.pushNamed(
-                                                            'viewOrEditPostCopy',
+                                                            'viewOrEditPost',
                                                             queryParameters: {
                                                               'postText':
                                                                   serializeParam(
@@ -1582,7 +1582,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                             fontFamily:
                                                                                 FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                                FlutterFlowTheme.of(context).primaryText,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             useGoogleFonts:
@@ -1963,20 +1963,17 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     0.0, 16.0, 0.0, 0.0),
                                             child: PagedListView<
                                                 DocumentSnapshot<Object?>?,
-                                                CreatedPostsRecord>.separated(
+                                                ScheduledPostsRecord>.separated(
                                               pagingController: _model
                                                   .setScheduledListViewController(
-                                                      CreatedPostsRecord.collection(
-                                                              currentUserReference)
-                                                          .where(
-                                                            'status',
-                                                            isEqualTo:
-                                                                'Scheduled',
-                                                          )
-                                                          .orderBy('time_stamp',
-                                                              descending: true),
-                                                      parent:
-                                                          currentUserReference),
+                                                ScheduledPostsRecord.collection
+                                                    .where(
+                                                      'status',
+                                                      isEqualTo: 'pending',
+                                                    )
+                                                    .orderBy('timestamp',
+                                                        descending: true),
+                                              ),
                                               padding: EdgeInsets.zero,
                                               reverse: false,
                                               scrollDirection: Axis.vertical,
@@ -1984,7 +1981,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                   SizedBox(height: 4.0),
                                               builderDelegate:
                                                   PagedChildBuilderDelegate<
-                                                      CreatedPostsRecord>(
+                                                      ScheduledPostsRecord>(
                                                 // Customize what your widget looks like when it's loading the first page.
                                                 firstPageProgressIndicatorBuilder:
                                                     (_) => Center(
@@ -2022,7 +2019,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                 ),
                                                 itemBuilder: (context, _,
                                                     scheduledListViewIndex) {
-                                                  final scheduledListViewCreatedPostsRecord =
+                                                  final scheduledListViewScheduledPostsRecord =
                                                       _model.scheduledListViewPagingController!
                                                               .itemList![
                                                           scheduledListViewIndex];
@@ -2043,72 +2040,25 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                       onTap: () async {
                                                         logFirebaseEvent(
                                                             'ALL_POSTS_OVERVIEW_listContainer_ON_TAP');
-                                                        if (scheduledListViewCreatedPostsRecord
-                                                                .content
-                                                                .length ==
-                                                            1) {
-                                                          logFirebaseEvent(
-                                                              'listContainer_navigate_to');
+                                                        logFirebaseEvent(
+                                                            'listContainer_navigate_to');
 
-                                                          context.pushNamed(
-                                                            'viewOrEditPostCopy',
-                                                            queryParameters: {
-                                                              'postText':
-                                                                  serializeParam(
-                                                                scheduledListViewCreatedPostsRecord
-                                                                    .content
-                                                                    .first,
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'postRef':
-                                                                  serializeParam(
-                                                                scheduledListViewCreatedPostsRecord
-                                                                    .reference,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                              'postTitle':
-                                                                  serializeParam(
-                                                                scheduledListViewCreatedPostsRecord
-                                                                    .topic,
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        } else {
-                                                          logFirebaseEvent(
-                                                              'listContainer_navigate_to');
-
-                                                          context.pushNamed(
-                                                            'viewOrEditOneLiner',
-                                                            queryParameters: {
-                                                              'postText':
-                                                                  serializeParam(
-                                                                scheduledListViewCreatedPostsRecord
-                                                                    .content,
-                                                                ParamType
-                                                                    .String,
-                                                                true,
-                                                              ),
-                                                              'postRef':
-                                                                  serializeParam(
-                                                                scheduledListViewCreatedPostsRecord
-                                                                    .reference,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                              'postTitle':
-                                                                  serializeParam(
-                                                                scheduledListViewCreatedPostsRecord
-                                                                    .topic,
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        }
+                                                        context.pushNamed(
+                                                          'viewScheduledPost',
+                                                          queryParameters: {
+                                                            'postDocument':
+                                                                serializeParam(
+                                                              scheduledListViewScheduledPostsRecord,
+                                                              ParamType
+                                                                  .Document,
+                                                            ),
+                                                          }.withoutNulls,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            'postDocument':
+                                                                scheduledListViewScheduledPostsRecord,
+                                                          },
+                                                        );
                                                       },
                                                       child: Container(
                                                         width: 500.0,
@@ -2167,7 +2117,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               0.0),
                                                                           child:
                                                                               Text(
-                                                                            scheduledListViewCreatedPostsRecord.topic,
+                                                                            scheduledListViewScheduledPostsRecord.postTilte,
                                                                             textAlign:
                                                                                 TextAlign.start,
                                                                             maxLines:
@@ -2190,7 +2140,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               16.0),
                                                                           child:
                                                                               Text(
-                                                                            scheduledListViewCreatedPostsRecord.content.first,
+                                                                            scheduledListViewScheduledPostsRecord.postText,
                                                                             maxLines:
                                                                                 2,
                                                                             style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -2254,7 +2204,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                       if (confirmDialogResponse) {
                                                                         logFirebaseEvent(
                                                                             'IconButton_backend_call');
-                                                                        await scheduledListViewCreatedPostsRecord
+                                                                        await scheduledListViewScheduledPostsRecord
                                                                             .reference
                                                                             .delete();
                                                                       } else {
@@ -2289,10 +2239,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                           .spaceBetween,
                                                                   children: [
                                                                     Text(
-                                                                      dateTimeFormat(
-                                                                          'relative',
-                                                                          scheduledListViewCreatedPostsRecord
-                                                                              .timeStamp!),
+                                                                      'Posting on ${dateTimeFormat('MMMEd', scheduledListViewScheduledPostsRecord.timestamp)} at ${dateTimeFormat('jm', scheduledListViewScheduledPostsRecord.timestamp)}.',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -2300,7 +2247,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                             fontFamily:
                                                                                 FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                                FlutterFlowTheme.of(context).primaryText,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             useGoogleFonts:
@@ -2313,13 +2260,13 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         color: Color(
-                                                                            0x7CFD3E81),
+                                                                            0x39FFD700),
                                                                         borderRadius:
                                                                             BorderRadius.circular(12.0),
                                                                         border:
                                                                             Border.all(
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).accent1,
+                                                                              FlutterFlowTheme.of(context).accent2,
                                                                           width:
                                                                               2.0,
                                                                         ),
@@ -2338,10 +2285,10 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               0.0),
                                                                           child:
                                                                               Text(
-                                                                            scheduledListViewCreatedPostsRecord.status,
+                                                                            'Scheduled',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Plus Jakarta Sans',
-                                                                                  color: FlutterFlowTheme.of(context).accent1,
+                                                                                  color: FlutterFlowTheme.of(context).accent2,
                                                                                   fontSize: 14.0,
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w500,

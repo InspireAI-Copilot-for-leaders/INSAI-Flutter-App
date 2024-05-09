@@ -4,7 +4,7 @@ const functions = require("firebase-functions");
 
 app.get("/", async (req, res) => {
   const dynamicLink =
-    "https://app.theinspireai.com?apn=com.panscience.inspireai&ibi=com.pansciece.inspireai&link=";
+    "https://app.theinspireai.com?apn=com.panscience.inspireai&ibi=com.panscience.inspireai&isi=6499279164&link=";
   const targetUrl = "https://app.theinspireai.com/linkedinAuth";
 
   // Get the 'code' from the query and append it as a path parameter

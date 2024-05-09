@@ -14,8 +14,8 @@ export '/discover_page/discover_page_widget.dart' show DiscoverPageWidget;
 export '/article_details/article_details_widget.dart' show ArticleDetailsWidget;
 export '/create_with_inspire_a_i/create_with_inspire_a_i_widget.dart'
     show CreateWithInspireAIWidget;
-export '/view_or_edit_post_copy/view_or_edit_post_copy_widget.dart'
-    show ViewOrEditPostCopyWidget;
+export '/view_or_edit_post/view_or_edit_post_widget.dart'
+    show ViewOrEditPostWidget;
 export '/onboarding/other_leaders/other_leaders_widget.dart'
     show OtherLeadersWidget;
 export '/profile_details/profile_details_widget.dart' show ProfileDetailsWidget;
@@ -33,3 +33,5 @@ export '/edit_brand_voice/edit_brand_voice_widget.dart'
 export '/all_posts_overview/all_posts_overview_widget.dart'
     show AllPostsOverviewWidget;
 export '/campaigns/campaigns_widget.dart' show CampaignsWidget;
+export '/view_scheduled_post/view_scheduled_post_widget.dart'
+    show ViewScheduledPostWidget;

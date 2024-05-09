@@ -155,7 +155,7 @@ final parametersBuilderMap =
           'broadDomain': getParameter<String>(data, 'broadDomain'),
         },
       ),
-  'viewOrEditPostCopy': (data) async => ParameterData(
+  'viewOrEditPost': (data) async => ParameterData(
         allParams: {
           'postText': getParameter<String>(data, 'postText'),
           'postRef': getParameter<DocumentReference>(data, 'postRef'),
@@ -195,6 +195,12 @@ final parametersBuilderMap =
   'editBrandVoice': ParameterData.none(),
   'allPostsOverview': ParameterData.none(),
   'campaigns': ParameterData.none(),
+  'viewScheduledPost': (data) async => ParameterData(
+        allParams: {
+          'postDocument': await getDocumentParameter<ScheduledPostsRecord>(
+              data, 'postDocument', ScheduledPostsRecord.fromSnapshot),
+        },
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

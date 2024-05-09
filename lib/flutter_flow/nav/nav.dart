@@ -212,10 +212,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'viewOrEditPostCopy',
-              path: 'viewOrEditPostCopy',
+              name: 'viewOrEditPost',
+              path: 'viewOrEditPost',
               requireAuth: true,
-              builder: (context, params) => ViewOrEditPostCopyWidget(
+              builder: (context, params) => ViewOrEditPostWidget(
                 postText: params.getParam(
                   'postText',
                   ParamType.String,
@@ -351,6 +351,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'campaigns',
               requireAuth: true,
               builder: (context, params) => CampaignsWidget(),
+            ),
+            FFRoute(
+              name: 'viewScheduledPost',
+              path: 'viewScheduledPost',
+              requireAuth: true,
+              asyncParams: {
+                'postDocument': getDoc(
+                    ['scheduled_posts'], ScheduledPostsRecord.fromSnapshot),
+              },
+              builder: (context, params) => ViewScheduledPostWidget(
+                postDocument: params.getParam(
+                  'postDocument',
+                  ParamType.Document,
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
