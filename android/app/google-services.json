@@ -40,10 +40,11 @@
               "client_type": 3
             },
             {
-              "client_id": "705064728296-r6glbl8p2p3l83u8690vmkunfcpsav5k.apps.googleusercontent.com",
+              "client_id": "705064728296-gkdp5aa40c4dk1888nj6dopj5njabdc8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.panscience.inspireai"
+                "bundle_id": "com.panscience.inspireai",
+                "app_store_id": "6499279164"
               }
             }
           ]
@@ -100,10 +101,11 @@
               "client_type": 3
             },
             {
-              "client_id": "705064728296-r6glbl8p2p3l83u8690vmkunfcpsav5k.apps.googleusercontent.com",
+              "client_id": "705064728296-gkdp5aa40c4dk1888nj6dopj5njabdc8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.panscience.inspireai"
+                "bundle_id": "com.panscience.inspireai",
+                "app_store_id": "6499279164"
               }
             }
           ]

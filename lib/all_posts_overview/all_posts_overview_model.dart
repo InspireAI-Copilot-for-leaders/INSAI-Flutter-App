@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:math';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'all_posts_overview_widget.dart' show AllPostsOverviewWidget;
 import 'package:badges/badges.dart' as badges;
@@ -36,13 +37,6 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
       choiceChipsValueController?.value?.firstOrNull;
   set choiceChipsValue(String? val) =>
       choiceChipsValueController?.value = val != null ? [val] : [];
-  // State field(s) for draftsListView widget.
-
-  PagingController<DocumentSnapshot?, CreatedPostsRecord>?
-      draftsListViewPagingController;
-  Query? draftsListViewPagingQuery;
-  List<StreamSubscription?> draftsListViewStreamSubscriptions = [];
-
   // State field(s) for postedListView widget.
 
   PagingController<DocumentSnapshot?, PostedOnLinkedinRecord>?
@@ -68,9 +62,6 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    draftsListViewStreamSubscriptions.forEach((s) => s?.cancel());
-    draftsListViewPagingController?.dispose();
-
     postedListViewStreamSubscriptions.forEach((s) => s?.cancel());
     postedListViewPagingController?.dispose();
 
@@ -81,41 +72,6 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
   }
 
   /// Additional helper methods.
-  PagingController<DocumentSnapshot?, CreatedPostsRecord>
-      setDraftsListViewController(
-    Query query, {
-    DocumentReference<Object?>? parent,
-  }) {
-    draftsListViewPagingController ??=
-        _createDraftsListViewController(query, parent);
-    if (draftsListViewPagingQuery != query) {
-      draftsListViewPagingQuery = query;
-      draftsListViewPagingController?.refresh();
-    }
-    return draftsListViewPagingController!;
-  }
-
-  PagingController<DocumentSnapshot?, CreatedPostsRecord>
-      _createDraftsListViewController(
-    Query query,
-    DocumentReference<Object?>? parent,
-  ) {
-    final controller = PagingController<DocumentSnapshot?, CreatedPostsRecord>(
-        firstPageKey: null);
-    return controller
-      ..addPageRequestListener(
-        (nextPageMarker) => queryCreatedPostsRecordPage(
-          parent: parent,
-          queryBuilder: (_) => draftsListViewPagingQuery ??= query,
-          nextPageMarker: nextPageMarker,
-          streamSubscriptions: draftsListViewStreamSubscriptions,
-          controller: controller,
-          pageSize: 10,
-          isStream: true,
-        ),
-      );
-  }
-
   PagingController<DocumentSnapshot?, PostedOnLinkedinRecord>
       setPostedListViewController(
     Query query, {

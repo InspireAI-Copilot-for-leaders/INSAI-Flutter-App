@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -1123,6 +1124,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
+                              setState(() {});
                             },
                             effect: smooth_page_indicator.ExpandingDotsEffect(
                               expansionFactor: 3.0,
@@ -1148,7 +1150,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
+            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 32.0),
             child: FFButtonWidget(
               onPressed: () async {
                 logFirebaseEvent('LANDING_PAGE_PAGE_GET_STARTED_BTN_ON_TAP');

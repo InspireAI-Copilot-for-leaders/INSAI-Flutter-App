@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
@@ -1114,7 +1115,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                          AutoSizeText(
+                                                                          Text(
                                                                             storiesItem,
                                                                             textAlign:
                                                                                 TextAlign.center,
@@ -1122,7 +1123,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                 2,
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                  fontSize: 10.0,
+                                                                                  fontSize: 8.0,
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -1426,6 +1427,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         curve: Curves
                                                                             .ease,
                                                                       );
+                                                                      setState(
+                                                                          () {});
                                                                     },
                                                                     effect: smooth_page_indicator
                                                                         .ExpandingDotsEffect(

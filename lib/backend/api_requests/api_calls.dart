@@ -547,6 +547,42 @@ class LinkedinTokensCall {
   }
 }
 
+class LinkedinRefreshTokenCall {
+  static Future<ApiCallResponse> call({
+    String? refreshToken = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'LinkedinRefreshTokenCall',
+        'variables': {
+          'refreshToken': refreshToken,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+
+  static String? accessToken(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.access_token''',
+      ));
+  static int? accessExpiry(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.expires_in''',
+      ));
+  static String? refreshToken(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.refresh_token''',
+      ));
+  static int? refreshExpiry(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.refresh_token_expires_in''',
+      ));
+}
+
 class InspireAIContentFromTopicsCall {
   static Future<ApiCallResponse> call({
     String? topic = '',

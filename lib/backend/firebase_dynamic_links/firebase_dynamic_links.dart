@@ -4,7 +4,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
-const _kDynamicLinksUrl = 'https://app.theinspireai.com';
+const _kDynamicLinksUrl = 'https://inspireai.page.link';
 const _kAppBundleId = 'com.panscience.inspireai';
 const _kIosAppId = '6499279164';
 
@@ -78,7 +78,7 @@ class _DynamicLinksHandlerState extends State<DynamicLinksHandler> {
     final link = linkData.link.toString();
     final host = linkData.link.host;
     final location = link.split(host).last;
-    if (GoRouterState.of(context).uri.toString() != location) {
+    if (widget.router.getCurrentLocation() != location) {
       widget.router.push(location);
     }
   }

@@ -22,7 +22,7 @@ export 'linkedin_auth_model.dart';
 class LinkedinAuthWidget extends StatefulWidget {
   const LinkedinAuthWidget({
     super.key,
-    required this.code,
+    this.code,
   });
 
   final String? code;
@@ -48,49 +48,69 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
-      logFirebaseEvent('linkedinAuth_backend_call');
-      _model.linkedintokens = await LinkedinTokensCall.call(
-        authCodeRecieved: widget.code,
-      );
-      if ((_model.linkedintokens?.succeeded ?? true)) {
+      if (valueOrDefault(currentUserDocument?.onboardingStatus, '') !=
+          'inProgress') {
         logFirebaseEvent('linkedinAuth_backend_call');
-
-        await currentUserReference!.update(createUsersRecordData(
-          linkedinAccess: getJsonField(
-            (_model.linkedintokens?.jsonBody ?? ''),
-            r'''$.access_token''',
-          ).toString().toString(),
-          linkedinRefresh: getJsonField(
-            (_model.linkedintokens?.jsonBody ?? ''),
-            r'''$.refresh_token''',
-          ).toString().toString(),
-        ));
-        logFirebaseEvent('linkedinAuth_backend_call');
-        _model.lIprofileDetails =
-            await LinkedInDataGroup.linkedinProfileDetailsCall.call(
-          authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+        _model.linkedintokens = await LinkedinTokensCall.call(
+          authCodeRecieved: widget.code,
         );
-        if ((_model.lIprofileDetails?.succeeded ?? true)) {
+        if ((_model.linkedintokens?.succeeded ?? true)) {
           logFirebaseEvent('linkedinAuth_backend_call');
 
           await currentUserReference!.update(createUsersRecordData(
-            linkedinDetails: updateLinkedinDetailsAuthStruct(
-              LinkedinDetailsAuthStruct.maybeFromMap(
-                  (_model.lIprofileDetails?.jsonBody ?? '')),
-              clearUnsetFields: false,
-            ),
+            linkedinAccess: getJsonField(
+              (_model.linkedintokens?.jsonBody ?? ''),
+              r'''$.access_token''',
+            ).toString().toString(),
+            linkedinRefresh: getJsonField(
+              (_model.linkedintokens?.jsonBody ?? ''),
+              r'''$.refresh_token''',
+            ).toString().toString(),
           ));
           logFirebaseEvent('linkedinAuth_backend_call');
-          _model.getExpertiseWorflow = await ExpertiseOfPersonCall.call(
-            linkedinUrl:
-                'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
-            uid: currentUserUid,
+          _model.lIprofileDetails =
+              await LinkedInDataGroup.linkedinProfileDetailsCall.call(
+            authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
           );
-          if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
-            logFirebaseEvent('linkedinAuth_update_page_state');
-            setState(() {
-              _model.isLoading = false;
-            });
+          if ((_model.lIprofileDetails?.succeeded ?? true)) {
+            logFirebaseEvent('linkedinAuth_backend_call');
+
+            await currentUserReference!.update(createUsersRecordData(
+              linkedinDetails: updateLinkedinDetailsAuthStruct(
+                LinkedinDetailsAuthStruct.maybeFromMap(
+                    (_model.lIprofileDetails?.jsonBody ?? '')),
+                clearUnsetFields: false,
+              ),
+            ));
+            logFirebaseEvent('linkedinAuth_backend_call');
+            _model.getExpertiseWorflow = await ExpertiseOfPersonCall.call(
+              linkedinUrl:
+                  'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
+              uid: currentUserUid,
+            );
+            if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
+              logFirebaseEvent('linkedinAuth_update_page_state');
+              setState(() {
+                _model.isLoading = false;
+              });
+              logFirebaseEvent('linkedinAuth_backend_call');
+
+              await currentUserReference!.update(createUsersRecordData(
+                onboardingStatus: 'inProgress',
+              ));
+            } else {
+              logFirebaseEvent('linkedinAuth_navigate_to');
+
+              context.goNamed(
+                'linkedinConnect',
+                queryParameters: {
+                  'connectSuccess': serializeParam(
+                    false,
+                    ParamType.bool,
+                  ),
+                }.withoutNulls,
+              );
+            }
           } else {
             logFirebaseEvent('linkedinAuth_navigate_to');
 
@@ -118,17 +138,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           );
         }
       } else {
-        logFirebaseEvent('linkedinAuth_navigate_to');
-
-        context.goNamed(
-          'linkedinConnect',
-          queryParameters: {
-            'connectSuccess': serializeParam(
-              false,
-              ParamType.bool,
-            ),
-          }.withoutNulls,
-        );
+        logFirebaseEvent('linkedinAuth_update_page_state');
+        setState(() {
+          _model.isLoading = false;
+        });
       }
     });
 
@@ -167,138 +180,149 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
         onWillPop: () async => false,
         child: Scaffold(
           key: scaffoldKey,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            automaticallyImplyLeading: false,
-            title: Container(
-              width: double.infinity,
-              child: Stack(
-                alignment: AlignmentDirectional(-1.0, 0.0),
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent(
-                          'LINKEDIN_AUTH_PAGE_Row_8t9eg47v_ON_TAP');
-                      logFirebaseEvent('Row_alert_dialog');
-                      var confirmDialogResponse = await showDialog<bool>(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('Logout?'),
-                                content: Text(
-                                    'This will log you out of InspireAI completely. Are you sure you want to logout?'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(
-                                        alertDialogContext, false),
-                                    child: Text('Cancel'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext, true),
-                                    child: Text('Yes, Logout'),
-                                  ),
-                                ],
-                              );
-                            },
-                          ) ??
-                          false;
-                      if (confirmDialogResponse) {
-                        logFirebaseEvent('Row_auth');
-                        GoRouter.of(context).prepareAuthEvent(true);
-                        await authManager.signOut();
-                        GoRouter.of(context).clearRedirectLocation();
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(72.0),
+            child: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              automaticallyImplyLeading: false,
+              title: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                child: Container(
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent(
+                              'LINKEDIN_AUTH_PAGE_Row_8t9eg47v_ON_TAP');
+                          logFirebaseEvent('Row_alert_dialog');
+                          var confirmDialogResponse = await showDialog<bool>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('Logout?'),
+                                    content: Text(
+                                        'This will log you out of InspireAI completely. Are you sure you want to logout?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, false),
+                                        child: Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, true),
+                                        child: Text('Yes, Logout'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ) ??
+                              false;
+                          if (confirmDialogResponse) {
+                            logFirebaseEvent('Row_auth');
+                            GoRouter.of(context).prepareAuthEvent(true);
+                            await authManager.signOut();
+                            GoRouter.of(context).clearRedirectLocation();
 
-                        logFirebaseEvent('Row_navigate_to');
+                            logFirebaseEvent('Row_navigate_to');
 
-                        context.goNamedAuth(
-                          'LandingPage',
-                          context.mounted,
-                          ignoreRedirect: true,
-                        );
-                      }
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 4.0),
-                          child: Icon(
-                            Icons.arrow_back_ios_rounded,
-                            color: FlutterFlowTheme.of(context).secondary,
-                            size: 22.0,
-                          ),
+                            context.goNamedAuth(
+                              'LandingPage',
+                              context.mounted,
+                              ignoreRedirect: true,
+                            );
+                          }
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 4.0),
+                              child: Icon(
+                                Icons.arrow_back_ios_rounded,
+                                color: FlutterFlowTheme.of(context).secondary,
+                                size: 22.0,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  4.0, 4.0, 0.0, 4.0),
+                              child: Text(
+                                'Back ',
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .headlineMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      fontSize: 14.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMediumFamily),
+                                    ),
+                              ),
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              4.0, 4.0, 0.0, 4.0),
-                          child: Text(
-                            'Back ',
-                            style: FlutterFlowTheme.of(context)
-                                .headlineMedium
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .headlineMediumFamily,
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .headlineMediumFamily),
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
-                    child: Text(
-                      'Expertise',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyMediumFamily),
-                          ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        logFirebaseEvent(
-                            'LINKEDIN_AUTH_PAGE_Icon_4rby4r5s_ON_TAP');
-                        logFirebaseEvent('Icon_navigate_to');
-
-                        context.pushNamed('support');
-                      },
-                      child: Icon(
-                        Icons.contact_support_outlined,
-                        color: FlutterFlowTheme.of(context).secondary,
-                        size: 24.0,
                       ),
-                    ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: Text(
+                          'Expertise',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily),
+                              ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(1.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'LINKEDIN_AUTH_PAGE_Icon_4rby4r5s_ON_TAP');
+                            logFirebaseEvent('Icon_navigate_to');
+
+                            context.pushNamed('support');
+                          },
+                          child: Icon(
+                            Icons.contact_support_outlined,
+                            color: FlutterFlowTheme.of(context).secondary,
+                            size: 24.0,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
+              actions: [],
+              centerTitle: false,
+              elevation: 2.0,
             ),
-            actions: [],
-            centerTitle: false,
-            elevation: 2.0,
           ),
           body: SafeArea(
             top: true,

@@ -1,10 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -608,7 +611,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                               logFirebaseEvent(
                                   'PHONE_NUMBER_VERIFY_arrowRight_ICN_ON_TA');
                               logFirebaseEvent('IconButton_auth');
-                              GoRouter.of(context).prepareAuthEvent();
+                              GoRouter.of(context).prepareAuthEvent(true);
                               final smsCodeVal = _model.phoneOTPcode!.text;
                               if (smsCodeVal == null || smsCodeVal.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -628,7 +631,135 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                 return;
                               }
 
-                              context.goNamedAuth('dashboard', context.mounted);
+                              if ((valueOrDefault(
+                                              currentUserDocument
+                                                  ?.onboardingStatus,
+                                              '') ==
+                                          null ||
+                                      valueOrDefault(
+                                              currentUserDocument
+                                                  ?.onboardingStatus,
+                                              '') ==
+                                          '') ||
+                                  (valueOrDefault(
+                                              currentUserDocument?.accessType,
+                                              '') ==
+                                          null ||
+                                      valueOrDefault(
+                                              currentUserDocument?.accessType,
+                                              '') ==
+                                          '')) {
+                                logFirebaseEvent('IconButton_backend_call');
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  onboardingStatus: 'notStarted',
+                                  accessType: 'noAccess',
+                                ));
+                              }
+                              if ((valueOrDefault(
+                                          currentUserDocument?.accessType,
+                                          '') ==
+                                      'noAccess') ||
+                                  (valueOrDefault(
+                                          currentUserDocument?.accessType,
+                                          '') ==
+                                      'paidWaitlist')) {
+                                logFirebaseEvent('IconButton_navigate_to');
+
+                                context.goNamedAuth(
+                                  'payWall',
+                                  context.mounted,
+                                  ignoreRedirect: true,
+                                );
+                              } else {
+                                if (valueOrDefault(
+                                        currentUserDocument?.accessType, '') ==
+                                    'specialWaitlist') {
+                                  logFirebaseEvent('IconButton_navigate_to');
+
+                                  context.goNamedAuth(
+                                    'accessRequested',
+                                    context.mounted,
+                                    ignoreRedirect: true,
+                                  );
+                                } else {
+                                  if ((valueOrDefault(
+                                              currentUserDocument?.accessType,
+                                              '') ==
+                                          'specialGranted') &&
+                                      (valueOrDefault(
+                                              currentUserDocument
+                                                  ?.onboardingStatus,
+                                              '') ==
+                                          'notStarted')) {
+                                    logFirebaseEvent('IconButton_navigate_to');
+
+                                    context.goNamedAuth(
+                                      'linkedinConnect',
+                                      context.mounted,
+                                      ignoreRedirect: true,
+                                    );
+                                  } else {
+                                    if ((valueOrDefault(
+                                                currentUserDocument?.accessType,
+                                                '') ==
+                                            'specialGranted') &&
+                                        (valueOrDefault(
+                                                currentUserDocument
+                                                    ?.onboardingStatus,
+                                                '') ==
+                                            'inProgress')) {
+                                      logFirebaseEvent(
+                                          'IconButton_navigate_to');
+
+                                      context.goNamedAuth(
+                                        'linkedinAuth',
+                                        context.mounted,
+                                        ignoreRedirect: true,
+                                      );
+                                    } else {
+                                      if ((valueOrDefault(
+                                                  currentUserDocument
+                                                      ?.accessType,
+                                                  '') ==
+                                              'specialGranted') &&
+                                          (valueOrDefault(
+                                                  currentUserDocument
+                                                      ?.onboardingStatus,
+                                                  '') ==
+                                              'completed')) {
+                                        logFirebaseEvent(
+                                            'IconButton_navigate_to');
+
+                                        context.goNamedAuth(
+                                            'dashboard', context.mounted);
+                                      } else {
+                                        logFirebaseEvent(
+                                            'IconButton_alert_dialog');
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text('Failed!'),
+                                              content: Text(
+                                                  'All validation conditions failed.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }
+                                  }
+                                }
+                              }
                             },
                           ).animateOnPageLoad(
                               animationsMap['iconButtonOnPageLoadAnimation']!),

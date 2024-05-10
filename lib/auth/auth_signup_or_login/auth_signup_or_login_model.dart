@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import 'dart:math';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'auth_signup_or_login_widget.dart' show AuthSignupOrLoginWidget;
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -23,6 +25,8 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
   ///  Local state fields for this page.
 
   String authType = 'signup_email';
+
+  bool loginBtnVisible = false;
 
   ///  State fields for stateful widgets in this page.
 
