@@ -451,6 +451,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
+                              setState(() {});
                             },
                             effect: smooth_page_indicator.ExpandingDotsEffect(
                               expansionFactor: 3.0,

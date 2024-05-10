@@ -60,479 +60,474 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            automaticallyImplyLeading: false,
-            title: Container(
-              width: double.infinity,
-              child: Stack(
-                alignment: AlignmentDirectional(-1.0, 0.0),
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent(
-                          'OTHER_LEADERS_PAGE_Row_ddv7i816_ON_TAP');
-                      logFirebaseEvent('Row_navigate_back');
-                      context.pop();
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(72.0),
+            child: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              automaticallyImplyLeading: false,
+              title: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                child: Container(
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent(
+                              'OTHER_LEADERS_PAGE_Row_ddv7i816_ON_TAP');
+                          logFirebaseEvent('Row_navigate_back');
+                          context.pop();
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 4.0),
+                              child: Icon(
+                                Icons.arrow_back_ios_rounded,
+                                color: FlutterFlowTheme.of(context).secondary,
+                                size: 22.0,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  4.0, 4.0, 0.0, 4.0),
+                              child: Text(
+                                'Back ',
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .headlineMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      fontSize: 14.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMediumFamily),
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: Text(
+                          'Similar Leaders',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily),
+                              ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(1.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'OTHER_LEADERS_PAGE_Icon_ip8otd4j_ON_TAP');
+                            logFirebaseEvent('Icon_navigate_to');
+
+                            context.pushNamed('support');
+                          },
+                          child: Icon(
+                            Icons.contact_support_outlined,
+                            color: FlutterFlowTheme.of(context).secondary,
+                            size: 24.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              actions: [],
+              centerTitle: false,
+              elevation: 2.0,
+            ),
+          ),
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 4.0),
-                          child: Icon(
-                            Icons.arrow_back_ios_rounded,
-                            color: FlutterFlowTheme.of(context).secondary,
-                            size: 22.0,
+                              0.0, 0.0, 0.0, 4.0),
+                          child: AutoSizeText(
+                            'Your Peers',
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                            style: FlutterFlowTheme.of(context)
+                                .displayMedium
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .displayMediumFamily,
+                                  fontSize: 30.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .displayMediumFamily),
+                                ),
+                            minFontSize: 24.0,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              4.0, 4.0, 0.0, 4.0),
-                          child: Text(
-                            'Back ',
+                              0.0, 0.0, 0.0, 12.0),
+                          child: AutoSizeText(
+                            'Select 3 or more thought leaders in your field whose content you find insightful. We will take inspiration from them to improve your content.',
+                            textAlign: TextAlign.start,
+                            maxLines: 3,
                             style: FlutterFlowTheme.of(context)
-                                .headlineMedium
+                                .labelLarge
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
-                                      .headlineMediumFamily,
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  fontSize: 14.0,
+                                      .labelLargeFamily,
+                                  fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
-                                          .headlineMediumFamily),
+                                          .labelLargeFamily),
                                 ),
+                            minFontSize: 10.0,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
-                    child: Text(
-                      'Similar Leaders',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyMediumFamily),
-                          ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        logFirebaseEvent(
-                            'OTHER_LEADERS_PAGE_Icon_ip8otd4j_ON_TAP');
-                        logFirebaseEvent('Icon_navigate_to');
-
-                        context.pushNamed('support');
-                      },
-                      child: Icon(
-                        Icons.contact_support_outlined,
-                        color: FlutterFlowTheme.of(context).secondary,
-                        size: 24.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            actions: [],
-            centerTitle: false,
-            elevation: 2.0,
-          ),
-          body: SafeArea(
-            top: true,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        if (_model.contentUrlFields == '2')
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 4.0),
-                            child: AutoSizeText(
-                              'Your Peers',
-                              textAlign: TextAlign.start,
-                              maxLines: 1,
-                              style: FlutterFlowTheme.of(context)
-                                  .displayMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .displayMediumFamily,
-                                    fontSize: 30.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .displayMediumFamily),
+                                0.0, 8.0, 0.0, 0.0),
+                            child: TextFormField(
+                              controller: _model.contentURL2TextController,
+                              focusNode: _model.contentURL2FocusNode,
+                              autofocus: false,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                hintText:
+                                    'We\'ll automatically detect your voice',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .labelMediumFamily,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMediumFamily),
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x7A080808),
+                                    width: 1.0,
                                   ),
-                              minFontSize: 24.0,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: AutoSizeText(
-                              'Select 3 or more thought leaders in your field whose content you find insightful. We will take inspiration from them to improve your content.',
-                              textAlign: TextAlign.start,
-                              maxLines: 3,
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 0.0),
+                              ),
                               style: FlutterFlowTheme.of(context)
-                                  .labelLarge
+                                  .bodyMedium
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
-                                        .labelLargeFamily,
-                                    fontSize: 12.0,
+                                        .bodyMediumFamily,
+                                    fontSize: 18.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
                                             FlutterFlowTheme.of(context)
-                                                .labelLargeFamily),
+                                                .bodyMediumFamily),
                                   ),
-                              minFontSize: 10.0,
+                              validator: _model
+                                  .contentURL2TextControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
-                          if (_model.contentUrlFields == '2')
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
-                              child: TextFormField(
-                                controller: _model.contentURL2TextController,
-                                focusNode: _model.contentURL2FocusNode,
-                                autofocus: false,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText:
-                                      'We\'ll automatically detect your voice',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelMediumFamily,
-                                        fontSize: 12.0,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily),
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x7A080808),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 16.0, 0.0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
+                        if (_model.contentUrlFields == '3')
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 0.0, 0.0),
+                            child: TextFormField(
+                              controller: _model.contentURL3TextController,
+                              focusNode: _model.contentURL3FocusNode,
+                              autofocus: false,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                hintText:
+                                    'We\'ll automatically detect your voice',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily,
-                                      fontSize: 18.0,
+                                          .labelMediumFamily,
+                                      fontSize: 12.0,
                                       letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily),
+                                                  .labelMediumFamily),
                                     ),
-                                validator: _model
-                                    .contentURL2TextControllerValidator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          if (_model.contentUrlFields == '3')
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
-                              child: TextFormField(
-                                controller: _model.contentURL3TextController,
-                                focusNode: _model.contentURL3FocusNode,
-                                autofocus: false,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText:
-                                      'We\'ll automatically detect your voice',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelMediumFamily,
-                                        fontSize: 12.0,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily),
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x7A080808),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x7A080808),
+                                    width: 1.0,
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 16.0, 0.0),
+                                  borderRadius: BorderRadius.circular(24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily,
-                                      fontSize: 18.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily),
-                                    ),
-                                validator: _model
-                                    .contentURL3TextControllerValidator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          Flexible(
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(),
-                              child: AuthUserStreamWidget(
-                                builder: (context) =>
-                                    StreamBuilder<List<ThoughtLeadersRecord>>(
-                                  stream: queryThoughtLeadersRecord(
-                                    queryBuilder: (thoughtLeadersRecord) =>
-                                        thoughtLeadersRecord.whereIn(
-                                            'broad_domain',
-                                            (currentUserDocument?.broadDomains
-                                                    ?.toList() ??
-                                                [])),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.0,
                                   ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 200.0, 0.0, 100.0),
-                                          child: SizedBox(
-                                            width: 70.0,
-                                            height: 70.0,
-                                            child: SpinKitRipple(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 70.0,
-                                            ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 0.0),
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily,
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMediumFamily),
+                                  ),
+                              validator: _model
+                                  .contentURL3TextControllerValidator
+                                  .asValidator(context),
+                            ),
+                          ),
+                        Flexible(
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(),
+                            child: AuthUserStreamWidget(
+                              builder: (context) =>
+                                  StreamBuilder<List<ThoughtLeadersRecord>>(
+                                stream: queryThoughtLeadersRecord(
+                                  queryBuilder: (thoughtLeadersRecord) =>
+                                      thoughtLeadersRecord.whereIn(
+                                          'broad_domain',
+                                          (currentUserDocument?.broadDomains
+                                                  ?.toList() ??
+                                              [])),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 200.0, 0.0, 100.0),
+                                        child: SizedBox(
+                                          width: 70.0,
+                                          height: 70.0,
+                                          child: SpinKitRipple(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            size: 70.0,
                                           ),
                                         ),
-                                      );
-                                    }
-                                    List<ThoughtLeadersRecord>
-                                        staggeredViewThoughtLeadersRecordList =
-                                        snapshot.data!;
-                                    return MasonryGridView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
                                       ),
-                                      crossAxisSpacing: 8.0,
-                                      mainAxisSpacing: 8.0,
-                                      itemCount:
-                                          staggeredViewThoughtLeadersRecordList
-                                              .length,
-                                      shrinkWrap: true,
-                                      itemBuilder:
-                                          (context, staggeredViewIndex) {
-                                        final staggeredViewThoughtLeadersRecord =
-                                            staggeredViewThoughtLeadersRecordList[
-                                                staggeredViewIndex];
-                                        return LeaderDisplayCardWidget(
-                                          key: Key(
-                                              'Keytun_${staggeredViewIndex}_of_${staggeredViewThoughtLeadersRecordList.length}'),
-                                          nameOfLeader:
-                                              staggeredViewThoughtLeadersRecord
-                                                  .name,
-                                          designation:
-                                              staggeredViewThoughtLeadersRecord
-                                                  .designation,
-                                          speaksAbout:
-                                              staggeredViewThoughtLeadersRecord
-                                                  .speaksAbout,
-                                          leaderImage:
-                                              staggeredViewThoughtLeadersRecord
-                                                  .imageLink,
-                                          addToPageStateAction: () async {
-                                            logFirebaseEvent(
-                                                'OTHER_LEADERS_Container_tun4h47g_CALLBAC');
-                                            if (_model.leadersSelected.contains(
-                                                staggeredViewThoughtLeadersRecord
-                                                    .reference)) {
-                                              logFirebaseEvent(
-                                                  'leaderDisplayCard_update_page_state');
-                                              setState(() {
-                                                _model.removeFromLeadersSelected(
-                                                    staggeredViewThoughtLeadersRecord
-                                                        .reference);
-                                              });
-                                            } else {
-                                              logFirebaseEvent(
-                                                  'leaderDisplayCard_update_page_state');
-                                              setState(() {
-                                                _model.addToLeadersSelected(
-                                                    staggeredViewThoughtLeadersRecord
-                                                        .reference);
-                                              });
-                                            }
-                                          },
-                                        );
-                                      },
                                     );
-                                  },
-                                ),
+                                  }
+                                  List<ThoughtLeadersRecord>
+                                      staggeredViewThoughtLeadersRecordList =
+                                      snapshot.data!;
+                                  return MasonryGridView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                    ),
+                                    crossAxisSpacing: 8.0,
+                                    mainAxisSpacing: 8.0,
+                                    itemCount:
+                                        staggeredViewThoughtLeadersRecordList
+                                            .length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, staggeredViewIndex) {
+                                      final staggeredViewThoughtLeadersRecord =
+                                          staggeredViewThoughtLeadersRecordList[
+                                              staggeredViewIndex];
+                                      return LeaderDisplayCardWidget(
+                                        key: Key(
+                                            'Keytun_${staggeredViewIndex}_of_${staggeredViewThoughtLeadersRecordList.length}'),
+                                        nameOfLeader:
+                                            staggeredViewThoughtLeadersRecord
+                                                .name,
+                                        designation:
+                                            staggeredViewThoughtLeadersRecord
+                                                .designation,
+                                        speaksAbout:
+                                            staggeredViewThoughtLeadersRecord
+                                                .speaksAbout,
+                                        leaderImage:
+                                            staggeredViewThoughtLeadersRecord
+                                                .imageLink,
+                                        addToPageStateAction: () async {
+                                          logFirebaseEvent(
+                                              'OTHER_LEADERS_Container_tun4h47g_CALLBAC');
+                                          if (_model.leadersSelected.contains(
+                                              staggeredViewThoughtLeadersRecord
+                                                  .reference)) {
+                                            logFirebaseEvent(
+                                                'leaderDisplayCard_update_page_state');
+                                            setState(() {
+                                              _model.removeFromLeadersSelected(
+                                                  staggeredViewThoughtLeadersRecord
+                                                      .reference);
+                                            });
+                                          } else {
+                                            logFirebaseEvent(
+                                                'leaderDisplayCard_update_page_state');
+                                            setState(() {
+                                              _model.addToLeadersSelected(
+                                                  staggeredViewThoughtLeadersRecord
+                                                      .reference);
+                                            });
+                                          }
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 24.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent(
-                          'OTHER_LEADERS_PAGE_CONTINUE_BTN_ON_TAP');
-                      logFirebaseEvent('Button_backend_call');
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 24.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    logFirebaseEvent('OTHER_LEADERS_PAGE_CONTINUE_BTN_ON_TAP');
+                    logFirebaseEvent('Button_backend_call');
 
-                      await currentUserReference!.update({
-                        ...createUsersRecordData(
-                          isProfileCompleted: true,
-                        ),
-                        ...mapToFirestore(
-                          {
-                            'other_selected_leaders': _model.leadersSelected,
-                          },
-                        ),
-                      });
-                      logFirebaseEvent('Button_navigate_to');
-
-                      context.goNamed('dashboard');
-                    },
-                    text: 'Continue',
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 48.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      textStyle: FlutterFlowTheme.of(context)
-                          .titleMedium
-                          .override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).titleMediumFamily,
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            fontSize: 18.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).titleMediumFamily),
-                          ),
-                      elevation: 4.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                    await currentUserReference!.update({
+                      ...createUsersRecordData(
+                        onboardingStatus: 'completed',
                       ),
-                      borderRadius: BorderRadius.circular(50.0),
-                      hoverColor: FlutterFlowTheme.of(context).primaryText,
+                      ...mapToFirestore(
+                        {
+                          'other_selected_leaders': _model.leadersSelected,
+                        },
+                      ),
+                    });
+                    logFirebaseEvent('Button_navigate_to');
+
+                    context.goNamed('dashboard');
+                  },
+                  text: 'Continue',
+                  options: FFButtonOptions(
+                    width: double.infinity,
+                    height: 48.0,
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    textStyle: FlutterFlowTheme.of(context)
+                        .titleMedium
+                        .override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).titleMediumFamily,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          fontSize: 18.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).titleMediumFamily),
+                        ),
+                    elevation: 4.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
                     ),
+                    borderRadius: BorderRadius.circular(50.0),
+                    hoverColor: FlutterFlowTheme.of(context).primaryText,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

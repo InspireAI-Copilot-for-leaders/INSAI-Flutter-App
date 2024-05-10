@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_rive_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'campaigns_widget.dart' show CampaignsWidget;
 import 'package:badges/badges.dart' as badges;

@@ -31,6 +31,35 @@ async function _linkedinTokensCall(context, ffVariables) {
     returnBody: true,
   });
 }
+async function _linkedinRefreshTokenCall(context, ffVariables) {
+  if (!context.auth) {
+    return _unauthenticatedResponse;
+  }
+  var refreshToken = ffVariables["refreshToken"];
+
+  var url = `https://www.linkedin.com/oauth/v2/accessToken`;
+  var headers = { "Content-Type": `application/x-www-form-urlencoded` };
+  var params = {
+    grant_type: `refresh_token`,
+    client_id: `867aib47yndmjx`,
+    client_secret: `fDcszmfWhSHUW2xe`,
+    refresh_token: refreshToken,
+  };
+  var ffApiRequestBody = undefined;
+
+  return makeApiRequest({
+    method: "post",
+    url,
+    headers,
+    body: createBody({
+      headers,
+      params,
+      body: ffApiRequestBody,
+      bodyType: "X_WWW_FORM_URL_ENCODED",
+    }),
+    returnBody: true,
+  });
+}
 
 /// Helper functions to route to the appropriate API Call.
 
@@ -40,6 +69,7 @@ async function makeApiCall(context, data) {
 
   const callMap = {
     LinkedinTokensCall: _linkedinTokensCall,
+    LinkedinRefreshTokenCall: _linkedinRefreshTokenCall,
   };
 
   if (!(callName in callMap)) {

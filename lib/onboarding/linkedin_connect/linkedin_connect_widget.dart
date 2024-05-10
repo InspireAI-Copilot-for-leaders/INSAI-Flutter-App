@@ -93,236 +93,230 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.white,
-          body: SafeArea(
-            top: true,
-            child: Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
-              child: Container(
-                width: double.infinity,
-                constraints: BoxConstraints(
-                  maxWidth: 670.0,
+          body: Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Container(
+              width: double.infinity,
+              constraints: BoxConstraints(
+                maxWidth: 670.0,
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: Image.asset(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? 'assets/images/backgroundDark.png'
+                        : 'assets/images/backgroundLight.png',
+                  ).image,
                 ),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: Image.asset(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? 'assets/images/backgroundDark.png'
-                          : 'assets/images/backgroundLight.png',
-                    ).image,
-                  ),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 10.0,
+                  sigmaY: 10.0,
                 ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 10.0,
-                    sigmaY: 10.0,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 1.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 24.0, 0.0, 0.0),
+                            child: FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 30.0,
+                              borderWidth: 1.0,
+                              buttonSize: 60.0,
+                              icon: Icon(
+                                Icons.arrow_back_ios_rounded,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 30.0,
+                              ),
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'LINKEDIN_CONNECT_arrow_back_ios_rounded_');
+                                logFirebaseEvent('IconButton_alert_dialog');
+                                var confirmDialogResponse =
+                                    await showDialog<bool>(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text('Logout?'),
+                                              content: Text(
+                                                  'This will log you out of InspireAI completely. Are you sure you want to logout?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          false),
+                                                  child: Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          true),
+                                                  child: Text('Yes, Logout'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ) ??
+                                        false;
+                                if (confirmDialogResponse) {
+                                  logFirebaseEvent('IconButton_auth');
+                                  GoRouter.of(context).prepareAuthEvent(true);
+                                  await authManager.signOut();
+                                  GoRouter.of(context).clearRedirectLocation();
+
+                                  logFirebaseEvent('IconButton_navigate_to');
+
+                                  context.goNamedAuth(
+                                    'LandingPage',
+                                    context.mounted,
+                                    ignoreRedirect: true,
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 36.0, 0.0, 0.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: Image.asset(
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? 'assets/images/InspireAI_LOGO2_(1).png'
+                                  : 'assets/images/InspireAI_LOGO2_(2).png',
+                              width: 200.0,
+                              height: 32.0,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 36.0),
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.0, 1.0),
+                            alignment: AlignmentDirectional(-1.0, -1.0),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
-                                buttonSize: 60.0,
-                                icon: Icon(
-                                  Icons.arrow_back_ios_rounded,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 30.0,
-                                ),
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'LINKEDIN_CONNECT_arrow_back_ios_rounded_');
-                                  logFirebaseEvent('IconButton_alert_dialog');
-                                  var confirmDialogResponse =
-                                      await showDialog<bool>(
-                                            context: context,
-                                            builder: (alertDialogContext) {
-                                              return AlertDialog(
-                                                title: Text('Logout?'),
-                                                content: Text(
-                                                    'This will log you out of InspireAI completely. Are you sure you want to logout?'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext,
-                                                            false),
-                                                    child: Text('Cancel'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext,
-                                                            true),
-                                                    child: Text('Yes, Logout'),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          ) ??
-                                          false;
-                                  if (confirmDialogResponse) {
-                                    logFirebaseEvent('IconButton_auth');
-                                    GoRouter.of(context).prepareAuthEvent(true);
-                                    await authManager.signOut();
-                                    GoRouter.of(context)
-                                        .clearRedirectLocation();
-
-                                    logFirebaseEvent('IconButton_navigate_to');
-
-                                    context.goNamedAuth(
-                                      'LandingPage',
-                                      context.mounted,
-                                      ignoreRedirect: true,
-                                    );
-                                  }
-                                },
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: AutoSizeText(
+                                'Externalize your thought leadership.',
+                                textAlign: TextAlign.start,
+                                maxLines: 3,
+                                style: FlutterFlowTheme.of(context)
+                                    .displayMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 36.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey('Montserrat'),
+                                    ),
+                                minFontSize: 30.0,
                               ),
                             ),
                           ),
+                          Align(
+                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: AutoSizeText(
+                                'To get the best from InspireAI, we need you to connect your LinkedIn account.',
+                                maxLines: 3,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMediumFamily),
+                                    ),
+                                minFontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                          Divider(
+                            thickness: 1.0,
+                            indent: 8.0,
+                            endIndent: 8.0,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 36.0, 0.0, 0.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? 'assets/images/InspireAI_LOGO2_(1).png'
-                                    : 'assets/images/InspireAI_LOGO2_(2).png',
-                                width: 200.0,
-                                height: 32.0,
-                                fit: BoxFit.contain,
+                                0.0, 8.0, 0.0, 16.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'LINKEDIN_CONNECT_CONNECT_LINKED_IN_BTN_O');
+                                logFirebaseEvent('Button_launch_u_r_l');
+                                await launchURL(
+                                    'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867aib47yndmjx&redirect_uri=https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth&scope=r_basicprofile%20w_member_social%20w_member_social_feed%20r_1st_connections_size');
+                              },
+                              text: 'Connect LinkedIn',
+                              icon: FaIcon(
+                                FontAwesomeIcons.linkedinIn,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 30.0,
+                              ),
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 60.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 12.0, 0.0),
+                                color: Color(0x00FFFFFF),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleLarge
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey('Montserrat'),
+                                    ),
+                                elevation: 0.0,
+                                borderSide: BorderSide(
+                                  width: 0.0,
+                                ),
+                                borderRadius: BorderRadius.circular(50.0),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 36.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(-1.0, -1.0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
-                                child: AutoSizeText(
-                                  'Externalize your thought leadership.',
-                                  textAlign: TextAlign.start,
-                                  maxLines: 3,
-                                  style: FlutterFlowTheme.of(context)
-                                      .displayMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 36.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey('Montserrat'),
-                                      ),
-                                  minFontSize: 30.0,
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(-1.0, -1.0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 16.0),
-                                child: AutoSizeText(
-                                  'To get the best from InspireAI, we need you to connect your LinkedIn account.',
-                                  maxLines: 3,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
-                                      ),
-                                  minFontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                            Divider(
-                              thickness: 1.0,
-                              indent: 8.0,
-                              endIndent: 8.0,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 16.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'LINKEDIN_CONNECT_CONNECT_LINKED_IN_BTN_O');
-                                  logFirebaseEvent('Button_launch_u_r_l');
-                                  await launchURL(
-                                      'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867aib47yndmjx&redirect_uri=https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth&scope=r_basicprofile%20w_member_social%20w_member_social_feed%20r_1st_connections_size');
-                                },
-                                text: 'Connect LinkedIn',
-                                icon: FaIcon(
-                                  FontAwesomeIcons.linkedinIn,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 30.0,
-                                ),
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 60.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  color: Color(0x00FFFFFF),
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleLarge
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey('Montserrat'),
-                                      ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    width: 0.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

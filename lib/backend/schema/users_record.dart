@@ -43,11 +43,6 @@ class UsersRecord extends FirestoreRecord {
       _linkedinDetails ?? LinkedinDetailsAuthStruct();
   bool hasLinkedinDetails() => _linkedinDetails != null;
 
-  // "isProfileCompleted" field.
-  bool? _isProfileCompleted;
-  bool get isProfileCompleted => _isProfileCompleted ?? false;
-  bool hasIsProfileCompleted() => _isProfileCompleted != null;
-
   // "phone_number" field.
   String? _phoneNumber;
   String get phoneNumber => _phoneNumber ?? '';
@@ -143,6 +138,21 @@ class UsersRecord extends FirestoreRecord {
   int get totalComments => _totalComments ?? 0;
   bool hasTotalComments() => _totalComments != null;
 
+  // "accessType" field.
+  String? _accessType;
+  String get accessType => _accessType ?? '';
+  bool hasAccessType() => _accessType != null;
+
+  // "linkedinForSpecialAccess" field.
+  String? _linkedinForSpecialAccess;
+  String get linkedinForSpecialAccess => _linkedinForSpecialAccess ?? '';
+  bool hasLinkedinForSpecialAccess() => _linkedinForSpecialAccess != null;
+
+  // "onboardingStatus" field.
+  String? _onboardingStatus;
+  String get onboardingStatus => _onboardingStatus ?? '';
+  bool hasOnboardingStatus() => _onboardingStatus != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -150,7 +160,6 @@ class UsersRecord extends FirestoreRecord {
     _displayName = snapshotData['display_name'] as String?;
     _linkedinDetails = LinkedinDetailsAuthStruct.maybeFromMap(
         snapshotData['linkedin_details']);
-    _isProfileCompleted = snapshotData['isProfileCompleted'] as bool?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _thoughtLeadershipAreas =
         getDataList(snapshotData['thought_leadership_areas']);
@@ -177,6 +186,10 @@ class UsersRecord extends FirestoreRecord {
         NotificationPopupStruct.maybeFromMap(snapshotData['pushNotifications']);
     _totalLikes = castToType<int>(snapshotData['totalLikes']);
     _totalComments = castToType<int>(snapshotData['totalComments']);
+    _accessType = snapshotData['accessType'] as String?;
+    _linkedinForSpecialAccess =
+        snapshotData['linkedinForSpecialAccess'] as String?;
+    _onboardingStatus = snapshotData['onboardingStatus'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -218,7 +231,6 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   String? displayName,
   LinkedinDetailsAuthStruct? linkedinDetails,
-  bool? isProfileCompleted,
   String? phoneNumber,
   String? linkedinUrn,
   String? contentVoice,
@@ -232,6 +244,9 @@ Map<String, dynamic> createUsersRecordData({
   NotificationPopupStruct? pushNotifications,
   int? totalLikes,
   int? totalComments,
+  String? accessType,
+  String? linkedinForSpecialAccess,
+  String? onboardingStatus,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -240,7 +255,6 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'display_name': displayName,
       'linkedin_details': LinkedinDetailsAuthStruct().toMap(),
-      'isProfileCompleted': isProfileCompleted,
       'phone_number': phoneNumber,
       'linkedin_urn': linkedinUrn,
       'content_voice': contentVoice,
@@ -254,6 +268,9 @@ Map<String, dynamic> createUsersRecordData({
       'pushNotifications': NotificationPopupStruct().toMap(),
       'totalLikes': totalLikes,
       'totalComments': totalComments,
+      'accessType': accessType,
+      'linkedinForSpecialAccess': linkedinForSpecialAccess,
+      'onboardingStatus': onboardingStatus,
     }.withoutNulls,
   );
 
@@ -279,7 +296,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.displayName == e2?.displayName &&
         e1?.linkedinDetails == e2?.linkedinDetails &&
-        e1?.isProfileCompleted == e2?.isProfileCompleted &&
         e1?.phoneNumber == e2?.phoneNumber &&
         listEquality.equals(
             e1?.thoughtLeadershipAreas, e2?.thoughtLeadershipAreas) &&
@@ -300,7 +316,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
             e2?.thoughtLeadershipAreasMapping) &&
         e1?.pushNotifications == e2?.pushNotifications &&
         e1?.totalLikes == e2?.totalLikes &&
-        e1?.totalComments == e2?.totalComments;
+        e1?.totalComments == e2?.totalComments &&
+        e1?.accessType == e2?.accessType &&
+        e1?.linkedinForSpecialAccess == e2?.linkedinForSpecialAccess &&
+        e1?.onboardingStatus == e2?.onboardingStatus;
   }
 
   @override
@@ -310,7 +329,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.displayName,
         e?.linkedinDetails,
-        e?.isProfileCompleted,
         e?.phoneNumber,
         e?.thoughtLeadershipAreas,
         e?.linkedinUrn,
@@ -328,7 +346,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.thoughtLeadershipAreasMapping,
         e?.pushNotifications,
         e?.totalLikes,
-        e?.totalComments
+        e?.totalComments,
+        e?.accessType,
+        e?.linkedinForSpecialAccess,
+        e?.onboardingStatus
       ]);
 
   @override

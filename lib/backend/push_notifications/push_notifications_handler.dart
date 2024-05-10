@@ -201,6 +201,8 @@ final parametersBuilderMap =
               data, 'postDocument', ScheduledPostsRecord.fromSnapshot),
         },
       ),
+  'payWall': ParameterData.none(),
+  'accessRequested': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

@@ -35,3 +35,6 @@ export '/all_posts_overview/all_posts_overview_widget.dart'
 export '/campaigns/campaigns_widget.dart' show CampaignsWidget;
 export '/view_scheduled_post/view_scheduled_post_widget.dart'
     show ViewScheduledPostWidget;
+export '/pay_wall/pay_wall_widget.dart' show PayWallWidget;
+export '/access_requested/access_requested_widget.dart'
+    show AccessRequestedWidget;

@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:badges/badges.dart' as badges;
@@ -52,31 +53,17 @@ class _DashboardWidgetState extends State<DashboardWidget>
         return;
       }
       logFirebaseEvent('DASHBOARD_PAGE_dashboard_ON_INIT_STATE');
-      if (valueOrDefault<bool>(
-              currentUserDocument?.isProfileCompleted, false) ==
-          null) {
+      if (valueOrDefault(currentUserDocument?.onboardingStatus, '') !=
+          'completed') {
         logFirebaseEvent('dashboard_navigate_to');
 
         context.goNamed('linkedinConnect');
-
-        logFirebaseEvent('dashboard_backend_call');
-
-        await currentUserReference!.update(createUsersRecordData(
-          isProfileCompleted: false,
-        ));
       } else {
-        if (valueOrDefault<bool>(
-            currentUserDocument?.isProfileCompleted, false)) {
-          logFirebaseEvent('dashboard_widget_animation');
-          if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
-            animationsMap['iconOnActionTriggerAnimation1']!
-                .controller
-                .forward(from: 0.0);
-          }
-        } else {
-          logFirebaseEvent('dashboard_navigate_to');
-
-          context.goNamed('linkedinConnect');
+        logFirebaseEvent('dashboard_widget_animation');
+        if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
+          animationsMap['iconOnActionTriggerAnimation1']!
+              .controller
+              .forward(from: 0.0);
         }
       }
     });
@@ -1107,8 +1094,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                           0.0,
                                                                           0.0,
                                                                           4.0),
-                                                                  child:
-                                                                      AutoSizeText(
+                                                                  child: Text(
                                                                     wrapArticleRecord
                                                                         .trendKeyword,
                                                                     textAlign:
@@ -1132,8 +1118,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                           useGoogleFonts:
                                                                               GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                         ),
-                                                                    minFontSize:
-                                                                        12.0,
                                                                   ),
                                                                 ),
                                                                 Padding(
@@ -1204,7 +1188,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 18.0, 0.0, 0.0),
+                                        0.0, 32.0, 0.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:

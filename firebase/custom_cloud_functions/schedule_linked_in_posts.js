@@ -9,9 +9,6 @@ function formatStringForLIJson(input) {
     .replace(/\\/g, "\\\\")
     .replace(/\n/g, "\\n")
     .replace(/\r/g, "\\r")
-    .replace(/\t/g, "\\t")
-    .replace(/\b/g, "\\b")
-    .replace(/\f/g, "\\f")
     .replace(/"/g, '\\"')
     .replace(/\(/g, "\\(")
     .replace(/\)/g, "\\)");
@@ -147,18 +144,14 @@ async function postToLinkedIn(postType, postData) {
 
 // Scheduled function that checks for posts every 5 minutes using cutoff times
 exports.scheduleLinkedInPosts = functions.pubsub
-  .schedule("every 5 minutes synchronized")
+  .schedule("every 1 minutes synchronized")
   .onRun(async (context) => {
     const now = new Date();
-    const fiveMinutesAgo = new Date(now.getTime() - 5 * 60000);
+    const oneMinuteAgo = new Date(now.getTime() - 60000);
 
     const scheduledPostsRef = admin.firestore().collection("scheduled_posts");
     const snapshot = await scheduledPostsRef
-      .where(
-        "timestamp",
-        ">",
-        admin.firestore.Timestamp.fromDate(fiveMinutesAgo),
-      )
+      .where("timestamp", ">", admin.firestore.Timestamp.fromDate(oneMinuteAgo))
       .where("timestamp", "<=", admin.firestore.Timestamp.fromDate(now))
       .get();
 
@@ -177,7 +170,7 @@ exports.scheduleLinkedInPosts = functions.pubsub
         const result = await postToLinkedIn(post.postType, post);
 
         // Create a document in the subcollection after successful posting
-        await post.userRef.collection("postedOnlinkedin").add({
+        await post.userRef.collection("postedOnLinkedin").add({
           postText: post.postText,
           timestamp: admin.firestore.Timestamp.now(),
           response: result.data,
