@@ -4,14 +4,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'upload_doc_model.dart';
 export 'upload_doc_model.dart';
 
@@ -56,8 +52,8 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
             curve: Curves.easeInOut,
             delay: 250.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 70.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 70.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -83,12 +79,12 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 670.0,
       ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 3.0,
             color: Color(0x33000000),
@@ -108,13 +104,13 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
         key: _model.formKey,
         autovalidateMode: AutovalidateMode.disabled,
         child: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,14 +129,14 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                             logFirebaseEvent('Icon_bottom_sheet');
                             Navigator.pop(context);
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back_rounded,
                             color: Color(0xB0080808),
                             size: 30.0,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 4.0),
                           child: Text(
                             'Add a document',
@@ -158,7 +154,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                                 ),
                           ),
                         ),
-                      ].divide(SizedBox(width: 16.0)),
+                      ].divide(const SizedBox(width: 16.0)),
                     ),
                     FFButtonWidget(
                       onPressed: !_model.fileUploaded
@@ -183,9 +179,9 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                       options: FFButtonOptions(
                         height: 40.0,
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: Colors.transparent,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -201,7 +197,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                                       .titleSmallFamily),
                             ),
                         elevation: 0.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -210,11 +206,11 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                             FlutterFlowTheme.of(context).secondaryText,
                       ),
                     ),
-                  ].divide(SizedBox(width: 16.0)),
+                  ].divide(const SizedBox(width: 16.0)),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: TextFormField(
                   controller: _model.questionTextController,
                   focusNode: _model.questionFocusNode,
@@ -289,7 +285,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                       ),
                     ),
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
+                        const EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
                   ),
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily:
@@ -308,7 +304,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                 child: Text(
                   'Adding a title helps your document get discovered more easily.',
                   textAlign: TextAlign.start,
@@ -325,7 +321,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
               ),
               if (!_model.fileUploaded)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent(
@@ -378,10 +374,10 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                     text: 'Choose a file',
                     options: FFButtonOptions(
                       height: 38.0,
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           14.0, 12.0, 14.0, 12.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: Colors.transparent,
                       textStyle: FlutterFlowTheme.of(context)
                           .titleSmall
@@ -413,10 +409,10 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                       horizontalScroll: true,
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1.0, -1.0),
+                      alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -434,7 +430,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                           child: Container(
                             width: 24.0,
                             height: 24.0,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xD4080808),
                               shape: BoxShape.circle,
                             ),

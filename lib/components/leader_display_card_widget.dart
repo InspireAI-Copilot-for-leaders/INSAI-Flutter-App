@@ -2,9 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'leader_display_card_model.dart';
 export 'leader_display_card_model.dart';
 
@@ -85,19 +83,19 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(8.0, 24.0, 8.0, 24.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 24.0, 8.0, 24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                 child: Container(
                   width: 120.0,
                   height: 120.0,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: Image.network(
@@ -107,7 +105,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
                 child: AutoSizeText(
                   valueOrDefault<String>(
                     widget.nameOfLeader,
@@ -129,7 +127,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
               ),
               Flexible(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
                   child: AutoSizeText(
                     valueOrDefault<String>(
                       widget.designation,
@@ -151,7 +149,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 4.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 4.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +157,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                     Flexible(
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
                         child: Builder(
                           builder: (context) {
                             final speaksabout = widget.speaksAbout!.toList();
@@ -177,10 +175,10 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                                 final speaksaboutItem =
                                     speaksabout[speaksaboutIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 2.0, 0.0, 0.0),
                                   child: Text(
-                                    '#${speaksaboutItem}',
+                                    '#$speaksaboutItem',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .labelSmall

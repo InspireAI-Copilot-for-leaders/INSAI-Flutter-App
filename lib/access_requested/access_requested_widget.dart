@@ -5,9 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'access_requested_model.dart';
 export 'access_requested_model.dart';
 
@@ -49,7 +47,7 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20.0, 36.0, 20.0, 16.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 36.0, 20.0, 16.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -72,19 +70,19 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                           context: context,
                           builder: (alertDialogContext) {
                             return AlertDialog(
-                              title: Text('Logout?'),
-                              content: Text(
+                              title: const Text('Logout?'),
+                              content: const Text(
                                   'This will log you out of InspireAI completely. Are you sure you want to logout?'),
                               actions: [
                                 TextButton(
                                   onPressed: () =>
                                       Navigator.pop(alertDialogContext, false),
-                                  child: Text('Cancel'),
+                                  child: const Text('Cancel'),
                                 ),
                                 TextButton(
                                   onPressed: () =>
                                       Navigator.pop(alertDialogContext, true),
-                                  child: Text('Yes, Logout'),
+                                  child: const Text('Yes, Logout'),
                                 ),
                               ],
                             );
@@ -120,9 +118,9 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                 width: 2.0,
               ),
             ),
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(30.0),
               child: Icon(
                 Icons.check_rounded,
                 color: FlutterFlowTheme.of(context).primaryText,
@@ -131,7 +129,7 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
             child: AuthUserStreamWidget(
               builder: (context) => Text(
                 valueOrDefault(currentUserDocument?.accessType, '') ==
@@ -153,7 +151,7 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
             child: AuthUserStreamWidget(
               builder: (context) => Text(
                 valueOrDefault<String>(
@@ -177,7 +175,7 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -189,13 +187,13 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
@@ -208,14 +206,14 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 4.0),
                             child: Text(
                               'Application Status',
@@ -234,7 +232,7 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 4.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => Text(
@@ -281,12 +279,12 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 1.0,
                     height: 1.0,
                     child: custom_widgets.BackButtonOverrider(
@@ -300,19 +298,19 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: Text('Logout?'),
-                                  content: Text(
+                                  title: const Text('Logout?'),
+                                  content: const Text(
                                       'This will log you out of InspireAI completely. Are you sure you want to logout?'),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, false),
-                                      child: Text('Cancel'),
+                                      child: const Text('Cancel'),
                                     ),
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, true),
-                                      child: Text('Yes, Logout'),
+                                      child: const Text('Yes, Logout'),
                                     ),
                                   ],
                                 );
@@ -347,9 +345,9 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                         options: FFButtonOptions(
                           width: 300.0,
                           height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle: FlutterFlowTheme.of(context)
@@ -366,7 +364,7 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
                                         .bodyLargeFamily),
                               ),
                           elevation: 0.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

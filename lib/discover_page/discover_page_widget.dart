@@ -6,8 +6,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
@@ -65,7 +63,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
         });
       }
       logFirebaseEvent('discoverPage_custom_action');
-      _model.isCacheOverride = await actions.isOverrideCacheAction(
+      _model.isCacheOverride = actions.isOverrideCacheAction(
         FFAppState().lastDiscoverCachedTime!,
       );
       if (_model.isCacheOverride!) {
@@ -101,8 +99,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(460.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(460.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -114,8 +112,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(2.0, 2.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.0, 2.0),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -128,15 +126,15 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           MoveEffect(
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.0, 70.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 70.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -148,22 +146,22 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(-335.0, 0.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(-335.0, 0.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0, 0),
-            end: Offset(0, -0.524),
+            begin: const Offset(0, 0),
+            end: const Offset(0, -0.524),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(1.0, 1.0),
-            end: Offset(0.8, 0.8),
+            begin: const Offset(1.0, 1.0),
+            end: const Offset(0.8, 0.8),
           ),
         ],
       ),
@@ -175,15 +173,15 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 800.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 800.0.ms,
-            begin: Offset(8.0, 8.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(8.0, 8.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -195,8 +193,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -209,8 +207,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -228,15 +226,15 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.0, 40.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 40.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.8, 0.8),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -254,15 +252,15 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.0, 40.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 40.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.8, 0.8),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -273,8 +271,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 1200.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -293,22 +291,22 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
           MoveEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(100.0, -150.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, -150.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(4.0, 4.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(4.0, 4.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -320,8 +318,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(-30.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-30.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -340,8 +338,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(-30.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-30.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -386,7 +384,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
             Container(
               width: double.infinity,
               height: double.infinity,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -395,7 +393,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(120.0, 0.0, 20.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(120.0, 0.0, 20.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -409,7 +407,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 20.0),
                                 child: Image.asset(
                                   'assets/images/InspireAI_LOGO2_(2).png',
@@ -433,7 +431,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     borderRadius: BorderRadius.circular(40.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 12.0, 8.0, 12.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -458,7 +456,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   4.0, 0.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -523,8 +521,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                         Expanded(
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(1.0, 0.0),
-                                            child: Container(
+                                                const AlignmentDirectional(1.0, 0.0),
+                                            child: SizedBox(
                                               width: 80.0,
                                               height: 40.0,
                                               child: custom_widgets
@@ -606,7 +604,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
               height: double.infinity,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryBackground,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 50.0,
                     color: Color(0xDB000000),
@@ -618,7 +616,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                 ],
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                 child: Stack(
                   children: [
                     Column(
@@ -639,7 +637,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 16.0, 14.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -667,13 +665,13 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           width: 50.0,
                                           height: 50.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
                                             (currentUserDocument
                                                         ?.profilePictureLinks
-                                                        ?.toList() ??
+                                                        .toList() ??
                                                     [])
                                                 .first,
                                             fit: BoxFit.cover,
@@ -799,7 +797,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Stack(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       children: [
                                         Icon(
                                           Icons.menu_rounded,
@@ -834,7 +832,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               children: [
                                 Flexible(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 0.0, 0.0),
                                     child: AuthUserStreamWidget(
                                       builder: (context) =>
@@ -851,7 +849,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                         'domain',
                                                         (currentUserDocument
                                                                 ?.broadDomains
-                                                                ?.toList() ??
+                                                                .toList() ??
                                                             []))
                                                     .where(
                                                       'scrapped_at',
@@ -871,8 +869,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
-                                            return Center(
-                                              child: Container(
+                                            return const Center(
+                                              child: SizedBox(
                                                 height: 700.0,
                                                 child:
                                                     ProfileLoadingScreenWidget(),
@@ -883,7 +881,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                               discoverContainerArticleRecordList =
                                               snapshot.data!;
                                           return Container(
-                                            decoration: BoxDecoration(),
+                                            decoration: const BoxDecoration(),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -900,7 +898,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
@@ -942,7 +940,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                   ],
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 8.0, 16.0, 0.0),
                                                   child: Builder(
@@ -950,7 +948,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                       final stories =
                                                           (currentUserDocument
                                                                       ?.broadDomains
-                                                                      ?.toList() ??
+                                                                      .toList() ??
                                                                   [])
                                                               .toList();
                                                       return Row(
@@ -965,12 +963,12 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                           return Flexible(
                                                             child: Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       -1.0,
                                                                       -1.0),
                                                               child: Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -1037,7 +1035,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                       width:
                                                                           90.0,
                                                                       decoration:
-                                                                          BoxDecoration(),
+                                                                          const BoxDecoration(),
                                                                       child:
                                                                           Column(
                                                                         mainAxisSize:
@@ -1047,7 +1045,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         children: [
                                                                           Stack(
                                                                             alignment:
-                                                                                AlignmentDirectional(0.0, 0.0),
+                                                                                const AlignmentDirectional(0.0, 0.0),
                                                                             children: [
                                                                               Container(
                                                                                 width: 76.0,
@@ -1060,14 +1058,14 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                       FlutterFlowTheme.of(context).primary,
                                                                                       FlutterFlowTheme.of(context).secondary
                                                                                     ],
-                                                                                    stops: [
+                                                                                    stops: const [
                                                                                       0.0,
                                                                                       0.25,
                                                                                       0.75,
                                                                                       0.875
                                                                                     ],
-                                                                                    begin: AlignmentDirectional(1.0, -0.98),
-                                                                                    end: AlignmentDirectional(-1.0, 0.98),
+                                                                                    begin: const AlignmentDirectional(1.0, -0.98),
+                                                                                    end: const AlignmentDirectional(-1.0, 0.98),
                                                                                   ),
                                                                                   shape: BoxShape.circle,
                                                                                 ),
@@ -1090,7 +1088,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                       ),
                                                                                     }.withoutNulls,
                                                                                     extra: <String, dynamic>{
-                                                                                      kTransitionInfoKey: TransitionInfo(
+                                                                                      kTransitionInfoKey: const TransitionInfo(
                                                                                         hasTransition: true,
                                                                                         transitionType: PageTransitionType.rightToLeft,
                                                                                         duration: Duration(milliseconds: 300),
@@ -1143,7 +1141,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 16.0, 0.0, 0.0),
                                                   child: Container(
@@ -1165,7 +1163,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                 .toList()
                                                                 .take(4)
                                                                 .toList();
-                                                        return Container(
+                                                        return SizedBox(
                                                           width:
                                                               double.infinity,
                                                           height: 500.0,
@@ -1279,12 +1277,12 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                 231.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: Color(0x430F1113),
+                                                                              color: const Color(0x430F1113),
                                                                               borderRadius: BorderRadius.circular(0.0),
                                                                             ),
                                                                             child:
                                                                                 Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 12.0),
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 12.0),
                                                                               child: Column(
                                                                                 mainAxisSize: MainAxisSize.max,
                                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1298,12 +1296,12 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                         borderRadius: BorderRadius.circular(24.0),
                                                                                       ),
                                                                                       child: Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.min,
                                                                                           children: [
                                                                                             Padding(
-                                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 2.0, 0.0),
+                                                                                              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 2.0, 0.0),
                                                                                               child: Icon(
                                                                                                 Icons.local_fire_department_outlined,
                                                                                                 color: FlutterFlowTheme.of(context).accent2,
@@ -1333,7 +1331,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                                     children: [
                                                                                       Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                                                                                         child: Container(
                                                                                           height: 16.0,
                                                                                           decoration: BoxDecoration(
@@ -1344,7 +1342,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                             ),
                                                                                           ),
                                                                                           child: Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                                                                                            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                                                                                             child: Row(
                                                                                               mainAxisSize: MainAxisSize.min,
                                                                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -1366,7 +1364,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                         ),
                                                                                       ),
                                                                                       Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 19.0),
+                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 19.0),
                                                                                         child: Text(
                                                                                           highlightItem.originalGoogleSearchTerm,
                                                                                           maxLines: 3,
@@ -1395,11 +1393,11 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    AlignmentDirectional(
+                                                                    const AlignmentDirectional(
                                                                         -1.0,
                                                                         1.0),
                                                                 child: Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
                                                                           0.0,
@@ -1423,7 +1421,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                           .animateToPage(
                                                                         i,
                                                                         duration:
-                                                                            Duration(milliseconds: 500),
+                                                                            const Duration(milliseconds: 500),
                                                                         curve: Curves
                                                                             .ease,
                                                                       );
@@ -1443,7 +1441,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                       dotHeight:
                                                                           3.0,
                                                                       dotColor:
-                                                                          Color(
+                                                                          const Color(
                                                                               0x30F5F5F5),
                                                                       activeDotColor:
                                                                           FlutterFlowTheme.of(context)
@@ -1464,7 +1462,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                       'containerOnPageLoadAnimation2']!),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(16.0, 16.0,
                                                           16.0, 0.0),
                                                   child: SingleChildScrollView(
@@ -1521,7 +1519,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                               24.0),
                                                                 ),
                                                                 child: Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           0.0,
@@ -1557,7 +1555,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       8.0,
                                                                       0.0,
@@ -1568,7 +1566,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                               final filterTabs =
                                                                   (currentUserDocument
                                                                               ?.broadDomains
-                                                                              ?.toList() ??
+                                                                              .toList() ??
                                                                           [])
                                                                       .toList();
                                                               return Row(
@@ -1583,7 +1581,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                       filterTabs[
                                                                           filterTabsIndex];
                                                                   return Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -1633,7 +1631,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         ),
                                                                         child:
                                                                             Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               12.0,
                                                                               0.0,
                                                                               12.0,
@@ -1673,7 +1671,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(24.0, 16.0,
                                                           24.0, 0.0),
                                                   child: Builder(
@@ -1701,7 +1699,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                         itemCount:
                                                             filteredTabs.length,
                                                         separatorBuilder:
-                                                            (_, __) => SizedBox(
+                                                            (_, __) => const SizedBox(
                                                                 height: 12.0),
                                                         itemBuilder: (context,
                                                             filteredTabsIndex) {
@@ -1789,7 +1787,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         .start,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -1803,9 +1801,9 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                       child:
                                                                           CachedNetworkImage(
                                                                         fadeInDuration:
-                                                                            Duration(milliseconds: 500),
+                                                                            const Duration(milliseconds: 500),
                                                                         fadeOutDuration:
-                                                                            Duration(milliseconds: 500),
+                                                                            const Duration(milliseconds: 500),
                                                                         imageUrl: filteredTabsItem
                                                                             .metadata
                                                                             .first
@@ -1834,7 +1832,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                   Expanded(
                                                                     child:
                                                                         Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           8.0,
                                                                           1.0,
                                                                           4.0,
@@ -1869,7 +1867,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                             children: [
                                                                               Flexible(
                                                                                 child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 8.0, 0.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 8.0, 0.0),
                                                                                   child: AutoSizeText(
                                                                                     filteredTabsItem.expertiseArea.maybeHandleOverflow(
                                                                                       maxChars: 70,
@@ -1889,7 +1887,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                               ),
                                                                               Flexible(
                                                                                 child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 0.0, 0.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 0.0, 0.0),
                                                                                   child: AutoSizeText(
                                                                                     dateTimeFormat('MMMEd', filteredTabsItem.metadata.first.publishDate!).maybeHandleOverflow(
                                                                                       maxChars: 70,
@@ -1898,7 +1896,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                     textAlign: TextAlign.start,
                                                                                     style: FlutterFlowTheme.of(context).labelMedium.override(
                                                                                           fontFamily: 'Plus Jakarta Sans',
-                                                                                          color: Color(0xFF57636C),
+                                                                                          color: const Color(0xFF57636C),
                                                                                           fontSize: 12.0,
                                                                                           letterSpacing: 0.0,
                                                                                           fontWeight: FontWeight.w500,
@@ -1926,7 +1924,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                     'For You')
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 24.0,
                                                                 16.0,
@@ -1952,7 +1950,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                               forYou.length,
                                                           separatorBuilder: (_,
                                                                   __) =>
-                                                              SizedBox(
+                                                              const SizedBox(
                                                                   height: 12.0),
                                                           itemBuilder: (context,
                                                               forYouIndex) {
@@ -1961,7 +1959,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     forYouIndex];
                                                             return Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -2050,7 +2048,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             1.0,
                                                                             1.0,
@@ -2062,9 +2060,9 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                           child:
                                                                               CachedNetworkImage(
                                                                             fadeInDuration:
-                                                                                Duration(milliseconds: 500),
+                                                                                const Duration(milliseconds: 500),
                                                                             fadeOutDuration:
-                                                                                Duration(milliseconds: 500),
+                                                                                const Duration(milliseconds: 500),
                                                                             imageUrl:
                                                                                 forYouItem.metadata.first.imageUrl,
                                                                             width:
@@ -2086,7 +2084,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                       Expanded(
                                                                         child:
                                                                             Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               8.0,
                                                                               1.0,
                                                                               4.0,
@@ -2118,7 +2116,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                 children: [
                                                                                   Flexible(
                                                                                     child: Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 8.0, 0.0),
+                                                                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 8.0, 0.0),
                                                                                       child: AutoSizeText(
                                                                                         forYouItem.expertiseArea.maybeHandleOverflow(
                                                                                           maxChars: 70,
@@ -2138,7 +2136,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                   ),
                                                                                   Flexible(
                                                                                     child: Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                                                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                                                                                       child: AutoSizeText(
                                                                                         dateTimeFormat('MMMEd', forYouItem.metadata.first.publishDate!).maybeHandleOverflow(
                                                                                           maxChars: 70,
@@ -2187,7 +2185,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                         Container(
                           width: double.infinity,
                           height: 90.0,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Stack(
                             children: [
                               Column(
@@ -2203,7 +2201,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 10.0,
                                             color: Color(0x1A57636C),
@@ -2242,7 +2240,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.dashboard_rounded,
@@ -2280,7 +2278,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 4.0),
                                         child: Icon(
                                           Icons.newspaper_outlined,
@@ -2318,7 +2316,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 10.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
@@ -2328,7 +2326,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.add,
                                             color: Colors.white,
                                             size: 30.0,
@@ -2364,7 +2362,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.campaign_rounded,
@@ -2415,7 +2413,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.book_rounded,
@@ -2458,16 +2456,16 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                     ),
                     if (MediaQuery.sizeOf(context).width > 500.0)
                       Align(
-                        alignment: AlignmentDirectional(1.0, -1.0),
+                        alignment: const AlignmentDirectional(1.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 33.0, 60.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 10.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -2559,7 +2557,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     badgeColor:
                                         FlutterFlowTheme.of(context).secondary,
                                     elevation: 4.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         6.0, 8.0, 6.0, 8.0),
                                     position: badges.BadgePosition.topEnd(),
                                     animationType:
@@ -2597,7 +2595,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 12.0, 12.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -2634,7 +2632,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                             model: _model.emptyStateModel,
                                             updateCallback: () =>
                                                 setState(() {}),
-                                            child: EmptyStateWidget(
+                                            child: const EmptyStateWidget(
                                               loadingText:
                                                   'You have no new notifications',
                                               imageWidth: 100,
@@ -2643,7 +2641,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 12.0),
                                             child: Text(
                                               'Mark all as read',
@@ -2708,7 +2706,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 0.85,
                       decoration: BoxDecoration(
@@ -2716,7 +2714,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                         borderRadius: BorderRadius.circular(24.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 18.0, 16.0, 18.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -2765,7 +2763,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 0.0),
                               child: Text(
                                 'Select the type of content',
@@ -2787,7 +2785,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -2810,7 +2808,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -2830,7 +2828,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -2880,7 +2878,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -2889,7 +2887,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -2912,7 +2910,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -2932,7 +2930,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -2982,7 +2980,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -2991,7 +2989,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3014,7 +3012,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3034,7 +3032,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3084,7 +3082,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3093,7 +3091,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3116,7 +3114,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3136,7 +3134,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3186,7 +3184,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3195,7 +3193,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3218,7 +3216,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3238,7 +3236,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3288,7 +3286,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3297,7 +3295,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 18.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3320,7 +3318,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3335,7 +3333,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3368,7 +3366,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                 .bodyMediumFamily),
                                                   ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),

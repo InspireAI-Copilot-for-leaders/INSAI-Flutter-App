@@ -3,15 +3,12 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'expertise_area_edit_model.dart';
 export 'expertise_area_edit_model.dart';
 
@@ -75,10 +72,10 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             automaticallyImplyLeading: false,
-            title: Container(
+            title: SizedBox(
               width: double.infinity,
               child: Stack(
-                alignment: AlignmentDirectional(-1.0, 0.0),
+                alignment: const AlignmentDirectional(-1.0, 0.0),
                 children: [
                   InkWell(
                     splashColor: Colors.transparent,
@@ -95,7 +92,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 4.0),
                           child: Icon(
                             Icons.arrow_back_ios_rounded,
@@ -104,7 +101,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               4.0, 4.0, 0.0, 4.0),
                           child: Text(
                             'Back ',
@@ -127,7 +124,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: const AlignmentDirectional(0.0, 1.0),
                     child: Text(
                       'Expertise',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -142,7 +139,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
+                    alignment: const AlignmentDirectional(1.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -165,28 +162,28 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                 ],
               ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
           body: SafeArea(
             top: true,
             child: Align(
-              alignment: AlignmentDirectional(-1.0, -1.0),
+              alignment: const AlignmentDirectional(-1.0, -1.0),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryBackground,
                 ),
                 child: Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 24.0, 24.0, 0.0),
                           child: SingleChildScrollView(
                             child: Column(
@@ -194,11 +191,11 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 4.0),
                                   child: AuthUserStreamWidget(
                                     builder: (context) => AutoSizeText(
-                                      'Hey ${currentUserDocument?.linkedinDetails?.localizedFirstName}!',
+                                      'Hey ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
                                       textAlign: TextAlign.start,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -222,7 +219,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                 Opacity(
                                   opacity: 0.8,
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
                                     child: Text(
                                       'We\'re gonna inspire the world together ;)',
@@ -247,7 +244,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 3.0),
                                   child: Text(
                                     'Your Expertise Areas',
@@ -273,7 +270,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                 Opacity(
                                   opacity: 0.8,
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 12.0),
                                     child: Text(
                                       'Our AI analysed your expertise to be in the following topics. Add more or remove some...',
@@ -299,9 +296,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                 ),
                                 Flexible(
                                   child: Align(
-                                    alignment: AlignmentDirectional(-1.0, -1.0),
+                                    alignment: const AlignmentDirectional(-1.0, -1.0),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: AuthUserStreamWidget(
                                         builder: (context) => Builder(
@@ -309,7 +306,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                             final expertiseAreas =
                                                 (currentUserDocument
                                                             ?.thoughtLeadershipAreas
-                                                            ?.toList() ??
+                                                            .toList() ??
                                                         [])
                                                     .toList();
                                             return Wrap(
@@ -402,7 +399,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                         Flexible(
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         12.0,
                                                                         0.0,
@@ -448,7 +445,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 3.0),
                                   child: Text(
                                     'Add More',
@@ -472,7 +469,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: TextFormField(
                                     controller:
@@ -496,7 +493,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                         .labelMediumFamily),
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 1.0,
                                         ),
@@ -504,7 +501,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                             BorderRadius.circular(24.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFF5A5D5D),
                                           width: 1.0,
                                         ),
@@ -530,7 +527,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                             BorderRadius.circular(24.0),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               16.0, 0.0, 16.0, 0.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
@@ -553,9 +550,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(1.0, 0.0),
+                                  alignment: const AlignmentDirectional(1.0, 0.0),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 4.0, 0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
@@ -647,10 +644,10 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                       text: 'Add',
                                       options: FFButtonOptions(
                                         height: 20.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
@@ -673,7 +670,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 3.0,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -684,9 +681,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
+                                  alignment: const AlignmentDirectional(0.0, 1.0),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 12.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -709,9 +706,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                           opacity: 0.8,
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
                                               child: Text(
@@ -769,7 +766,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                 'broad_domain',
                                                 (currentUserDocument
                                                             ?.thoughtLeadershipAreasMapping
-                                                            ?.toList() ??
+                                                            .toList() ??
                                                         [])
                                                     .map((e) => e.category)
                                                     .toList()),
@@ -807,7 +804,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                 listViewBroadDomainRecordList[
                                                     listViewIndex];
                                             return Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 12.0),
                                               child: Column(
@@ -817,7 +814,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 8.0),
                                                     child: Text(
@@ -850,7 +847,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             -1.0, -1.0),
                                                     child: StreamBuilder<
                                                         List<
@@ -946,7 +943,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                   color:
                                                                       valueOrDefault<
                                                                           Color>(
-                                                                    (currentUserDocument?.thoughtLeadershipAreas?.toList() ??
+                                                                    (currentUserDocument?.thoughtLeadershipAreas.toList() ??
                                                                                 [])
                                                                             .contains(wrapExpertiseAreasRecord
                                                                                 .expertiseArea)
@@ -970,7 +967,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                   ),
                                                                 ),
                                                                 child: Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           8.0,
@@ -979,7 +976,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                   child:
                                                                       Container(
                                                                     decoration:
-                                                                        BoxDecoration(),
+                                                                        const BoxDecoration(),
                                                                     child: Text(
                                                                       wrapExpertiseAreasRecord
                                                                           .expertiseArea,
@@ -1021,11 +1018,11 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                 ),
                                 Flexible(
                                   child: Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Visibility(
                                       visible: (currentUserDocument
                                                       ?.broadDomains
-                                                      ?.toList() ??
+                                                      .toList() ??
                                                   [])
                                               .length <
                                           5,
@@ -1038,7 +1035,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                     'broad_domain',
                                                     (currentUserDocument
                                                             ?.broadDomains
-                                                            ?.toList() ??
+                                                            .toList() ??
                                                         [])),
                                             limit: 3,
                                           ),
@@ -1075,7 +1072,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                     listViewBroadDomainRecordList[
                                                         listViewIndex];
                                                 return Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 12.0),
                                                   child: Column(
@@ -1087,7 +1084,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -1122,7 +1119,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 -1.0, -1.0),
                                                         child: StreamBuilder<
                                                             List<
@@ -1220,7 +1217,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                         BoxDecoration(
                                                                       color: valueOrDefault<
                                                                           Color>(
-                                                                        (currentUserDocument?.thoughtLeadershipAreas?.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
+                                                                        (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
                                                                             ? FlutterFlowTheme.of(context).secondary
                                                                             : Colors.transparent,
                                                                         Colors
@@ -1240,7 +1237,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                     ),
                                                                     child:
                                                                         Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           12.0,
                                                                           8.0,
                                                                           12.0,
@@ -1248,7 +1245,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                       child:
                                                                           Container(
                                                                         decoration:
-                                                                            BoxDecoration(),
+                                                                            const BoxDecoration(),
                                                                         child:
                                                                             Text(
                                                                           wrapExpertiseAreasRecord
@@ -1293,7 +1290,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                           ? MediaQuery.viewInsetsOf(context).bottom > 0
                           : _isKeyboardVisible))
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 12.0, 16.0, 24.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -1307,9 +1304,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 48.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primaryText,
                               textStyle: FlutterFlowTheme.of(context)
@@ -1328,7 +1325,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                 .titleMediumFamily),
                                   ),
                               elevation: 4.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),

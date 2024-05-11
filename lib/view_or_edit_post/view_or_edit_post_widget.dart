@@ -11,20 +11,15 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'view_or_edit_post_model.dart';
 export 'view_or_edit_post_model.dart';
 
@@ -76,8 +71,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 500.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 500.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -109,7 +104,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -122,7 +117,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 12.0, 24.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -134,7 +129,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                   children: [
                                     Builder(
                                       builder: (context) => Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 12.0, 0.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -160,7 +155,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     backgroundColor:
                                                         Colors.transparent,
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                                 0.0, 0.0)
                                                             .resolve(
                                                                 Directionality.of(
@@ -249,19 +244,19 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.all(2.0),
+                                      padding: const EdgeInsets.all(2.0),
                                       child: AuthUserStreamWidget(
                                         builder: (context) => Container(
                                           width: 38.0,
                                           height: 38.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
                                             (currentUserDocument
                                                         ?.profilePictureLinks
-                                                        ?.toList() ??
+                                                        .toList() ??
                                                     [])
                                                 .first,
                                             fit: BoxFit.cover,
@@ -270,7 +265,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -281,7 +276,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         children: [
                                           AuthUserStreamWidget(
                                             builder: (context) => Text(
-                                              '${currentUserDocument?.linkedinDetails?.localizedFirstName}',
+                                              '${currentUserDocument?.linkedinDetails.localizedFirstName}',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .titleLarge
@@ -360,7 +355,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           }
                                         }
                                       },
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.access_time_rounded,
                                         color: Color(0xFF6F6E6E),
                                         size: 24.0,
@@ -406,15 +401,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           (alertDialogContext) {
                                                         return AlertDialog(
                                                           title:
-                                                              Text('Success'),
-                                                          content: Text(
+                                                              const Text('Success'),
+                                                          content: const Text(
                                                               'Your post has been successfully posted!'),
                                                           actions: [
                                                             TextButton(
                                                               onPressed: () =>
                                                                   Navigator.pop(
                                                                       alertDialogContext),
-                                                              child: Text('Ok'),
+                                                              child: const Text('Ok'),
                                                             ),
                                                           ],
                                                         );
@@ -462,15 +457,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   builder:
                                                       (alertDialogContext) {
                                                     return AlertDialog(
-                                                      title: Text('Failed'),
-                                                      content: Text(
+                                                      title: const Text('Failed'),
+                                                      content: const Text(
                                                           'Posting action failed!'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   alertDialogContext),
-                                                          child: Text('Ok'),
+                                                          child: const Text('Ok'),
                                                         ),
                                                       ],
                                                     );
@@ -484,9 +479,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 60.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -508,7 +503,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -662,16 +657,16 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             builder:
                                                                 (alertDialogContext) {
                                                               return AlertDialog(
-                                                                title: Text(
+                                                                title: const Text(
                                                                     'Success'),
-                                                                content: Text(
+                                                                content: const Text(
                                                                     'Your post has been successfully posted!'),
                                                                 actions: [
                                                                   TextButton(
                                                                     onPressed: () =>
                                                                         Navigator.pop(
                                                                             alertDialogContext),
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         'Ok'),
                                                                   ),
                                                                 ],
@@ -741,9 +736,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 60.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -765,7 +760,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -1033,16 +1028,16 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           builder:
                                                               (alertDialogContext) {
                                                             return AlertDialog(
-                                                              title: Text(
+                                                              title: const Text(
                                                                   'Success'),
-                                                              content: Text(
+                                                              content: const Text(
                                                                   'Your post has been successfully posted!'),
                                                               actions: [
                                                                 TextButton(
                                                                   onPressed: () =>
                                                                       Navigator.pop(
                                                                           alertDialogContext),
-                                                                  child: Text(
+                                                                  child: const Text(
                                                                       'Ok'),
                                                                 ),
                                                               ],
@@ -1126,16 +1121,16 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           builder:
                                                               (alertDialogContext) {
                                                             return AlertDialog(
-                                                              title: Text(
+                                                              title: const Text(
                                                                   'Success'),
-                                                              content: Text(
+                                                              content: const Text(
                                                                   'Your post has been successfully posted!'),
                                                               actions: [
                                                                 TextButton(
                                                                   onPressed: () =>
                                                                       Navigator.pop(
                                                                           alertDialogContext),
-                                                                  child: Text(
+                                                                  child: const Text(
                                                                       'Ok'),
                                                                 ),
                                                               ],
@@ -1188,9 +1183,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 60.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1212,7 +1207,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -1313,15 +1308,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           (alertDialogContext) {
                                                         return AlertDialog(
                                                           title:
-                                                              Text('Success'),
-                                                          content: Text(
+                                                              const Text('Success'),
+                                                          content: const Text(
                                                               'Your post has been successfully posted!'),
                                                           actions: [
                                                             TextButton(
                                                               onPressed: () =>
                                                                   Navigator.pop(
                                                                       alertDialogContext),
-                                                              child: Text('Ok'),
+                                                              child: const Text('Ok'),
                                                             ),
                                                           ],
                                                         );
@@ -1382,15 +1377,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   builder:
                                                       (alertDialogContext) {
                                                     return AlertDialog(
-                                                      title: Text('Failed'),
-                                                      content: Text(
+                                                      title: const Text('Failed'),
+                                                      content: const Text(
                                                           'Posting action failed!'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   alertDialogContext),
-                                                          child: Text('Ok'),
+                                                          child: const Text('Ok'),
                                                         ),
                                                       ],
                                                     );
@@ -1404,9 +1399,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 60.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1428,7 +1423,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -1483,15 +1478,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 context: context,
                                                 builder: (alertDialogContext) {
                                                   return AlertDialog(
-                                                    title: Text('Success'),
-                                                    content: Text(
+                                                    title: const Text('Success'),
+                                                    content: const Text(
                                                         'Your post has been successfully scheduled!'),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () =>
                                                             Navigator.pop(
                                                                 alertDialogContext),
-                                                        child: Text('Ok'),
+                                                        child: const Text('Ok'),
                                                       ),
                                                     ],
                                                   );
@@ -1514,9 +1509,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 88.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1538,7 +1533,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -1710,15 +1705,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           (alertDialogContext) {
                                                         return AlertDialog(
                                                           title:
-                                                              Text('Success'),
-                                                          content: Text(
+                                                              const Text('Success'),
+                                                          content: const Text(
                                                               'Your post has been successfully scheduled!'),
                                                           actions: [
                                                             TextButton(
                                                               onPressed: () =>
                                                                   Navigator.pop(
                                                                       alertDialogContext),
-                                                              child: Text('Ok'),
+                                                              child: const Text('Ok'),
                                                             ),
                                                           ],
                                                         );
@@ -1746,9 +1741,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 88.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1770,7 +1765,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -1884,15 +1879,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 context: context,
                                                 builder: (alertDialogContext) {
                                                   return AlertDialog(
-                                                    title: Text('Success'),
-                                                    content: Text(
+                                                    title: const Text('Success'),
+                                                    content: const Text(
                                                         'Your post has been successfully scheduled!'),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () =>
                                                             Navigator.pop(
                                                                 alertDialogContext),
-                                                        child: Text('Ok'),
+                                                        child: const Text('Ok'),
                                                       ),
                                                     ],
                                                   );
@@ -1915,9 +1910,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 88.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1939,7 +1934,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -2230,15 +2225,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   builder:
                                                       (alertDialogContext) {
                                                     return AlertDialog(
-                                                      title: Text('Success'),
-                                                      content: Text(
+                                                      title: const Text('Success'),
+                                                      content: const Text(
                                                           'Your post has been successfully scheduled!'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   alertDialogContext),
-                                                          child: Text('Ok'),
+                                                          child: const Text('Ok'),
                                                         ),
                                                       ],
                                                     );
@@ -2305,15 +2300,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   builder:
                                                       (alertDialogContext) {
                                                     return AlertDialog(
-                                                      title: Text('Success'),
-                                                      content: Text(
+                                                      title: const Text('Success'),
+                                                      content: const Text(
                                                           'Your post has been successfully scheduled!'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   alertDialogContext),
-                                                          child: Text('Ok'),
+                                                          child: const Text('Ok'),
                                                         ),
                                                       ],
                                                     );
@@ -2339,9 +2334,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             options: FFButtonOptions(
                                               width: 88.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -2363,7 +2358,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -2373,7 +2368,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           ),
                                       ],
                                     ),
-                                  ].divide(SizedBox(width: 8.0)),
+                                  ].divide(const SizedBox(width: 8.0)),
                                 ),
                               ],
                             ),
@@ -2400,9 +2395,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                   snapshot.data!;
                               return Container(
                                 width: double.infinity,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 24.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -2410,12 +2405,12 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       if (_model.isScheduled)
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 16.0, 0.0, 12.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Padding(
+                                              const Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 8.0, 0.0),
@@ -2508,7 +2503,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           ),
                                         ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 12.0),
                                         child: TextFormField(
                                           controller: _model.textController1 ??=
@@ -2520,7 +2515,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           onChanged: (_) =>
                                               EasyDebounce.debounce(
                                             '_model.textController1',
-                                            Duration(milliseconds: 2000),
+                                            const Duration(milliseconds: 2000),
                                             () => setState(() {}),
                                           ),
                                           autofocus: false,
@@ -2538,7 +2533,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     .override(
                                                       fontFamily:
                                                           'Plus Jakarta Sans',
-                                                      color: Color(0xFF57636C),
+                                                      color: const Color(0xFF57636C),
                                                       fontSize: 16.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
@@ -2548,53 +2543,53 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           .containsKey(
                                                               'Plus Jakarta Sans'),
                                                     ),
-                                            enabledBorder: OutlineInputBorder(
+                                            enabledBorder: const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0E3E7),
                                                 width: 2.0,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
+                                                  BorderRadius.only(
                                                 topLeft: Radius.circular(4.0),
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
-                                            focusedBorder: OutlineInputBorder(
+                                            focusedBorder: const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0xFF4B39EF),
                                                 width: 2.0,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
+                                                  BorderRadius.only(
                                                 topLeft: Radius.circular(4.0),
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
-                                            errorBorder: OutlineInputBorder(
+                                            errorBorder: const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0xFFFF5963),
                                                 width: 2.0,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
+                                                  BorderRadius.only(
                                                 topLeft: Radius.circular(4.0),
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
                                             focusedErrorBorder:
-                                                OutlineInputBorder(
+                                                const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0xFFFF5963),
                                                 width: 2.0,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
+                                                  BorderRadius.only(
                                                 topLeft: Radius.circular(4.0),
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
                                             contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 8.0, 16.0, 12.0),
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -2614,7 +2609,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               ),
                                           textAlign: TextAlign.start,
                                           maxLines: null,
-                                          cursorColor: Color(0xFF4B39EF),
+                                          cursorColor: const Color(0xFF4B39EF),
                                           validator: _model
                                               .textController1Validator
                                               .asValidator(context),
@@ -2622,9 +2617,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-1.0, -1.0),
+                                            const AlignmentDirectional(-1.0, -1.0),
                                         child: Builder(
-                                          builder: (context) => Container(
+                                          builder: (context) => SizedBox(
                                             width: 1.0,
                                             height: 1.0,
                                             child: custom_widgets
@@ -2652,7 +2647,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         backgroundColor:
                                                             Colors.transparent,
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                     0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
@@ -2741,16 +2736,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 40.0),
                                         child: TextFormField(
                                           controller: _model.textController2 ??=
                                               TextEditingController(
                                             text: containerCreatedPostsRecord
                                                 .content[valueOrDefault<int>(
-                                              widget.oneLinerIndex != null
-                                                  ? widget.oneLinerIndex
-                                                  : 0,
+                                              widget.oneLinerIndex ?? 0,
                                               0,
                                             )],
                                           ),
@@ -2758,7 +2751,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           onChanged: (_) =>
                                               EasyDebounce.debounce(
                                             '_model.textController2',
-                                            Duration(milliseconds: 2000),
+                                            const Duration(milliseconds: 2000),
                                             () => setState(() {}),
                                           ),
                                           autofocus: false,
@@ -2773,7 +2766,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     .override(
                                                       fontFamily:
                                                           'Plus Jakarta Sans',
-                                                      color: Color(0xFF57636C),
+                                                      color: const Color(0xFF57636C),
                                                       fontSize: 16.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
@@ -2806,7 +2799,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               ),
                                           textAlign: TextAlign.start,
                                           maxLines: null,
-                                          cursorColor: Color(0xFF4B39EF),
+                                          cursorColor: const Color(0xFF4B39EF),
                                           validator: _model
                                               .textController2Validator
                                               .asValidator(context),
@@ -2818,7 +2811,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               'multiImage'))
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 16.0),
                                           child: Builder(
                                             builder: (context) {
@@ -2843,11 +2836,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     8.0,
@@ -2888,7 +2881,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             width: 24.0,
                                                             height: 24.0,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               color: Color(
                                                                   0xD4080808),
                                                               shape: BoxShape
@@ -2925,7 +2918,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -2962,7 +2955,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -3000,11 +2993,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     8.0,
@@ -3045,7 +3038,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             width: 24.0,
                                                             height: 24.0,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               color: Color(
                                                                   0xD4080808),
                                                               shape: BoxShape
@@ -3075,7 +3068,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       children: [
                                                         ClipRRect(
                                                           borderRadius:
-                                                              BorderRadius.only(
+                                                              const BorderRadius.only(
                                                             bottomLeft:
                                                                 Radius.circular(
                                                                     0.0),
@@ -3116,7 +3109,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3153,7 +3146,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3193,11 +3186,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     8.0,
@@ -3238,7 +3231,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             width: 24.0,
                                                             height: 24.0,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               color: Color(
                                                                   0xD4080808),
                                                               shape: BoxShape
@@ -3268,7 +3261,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       children: [
                                                         ClipRRect(
                                                           borderRadius:
-                                                              BorderRadius.only(
+                                                              const BorderRadius.only(
                                                             bottomLeft:
                                                                 Radius.circular(
                                                                     0.0),
@@ -3309,7 +3302,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3342,7 +3335,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3375,7 +3368,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3411,11 +3404,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     8.0,
@@ -3456,7 +3449,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             width: 24.0,
                                                             height: 24.0,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               color: Color(
                                                                   0xD4080808),
                                                               shape: BoxShape
@@ -3491,7 +3484,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3524,7 +3517,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3569,7 +3562,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3602,7 +3595,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3635,7 +3628,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3671,11 +3664,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     8.0,
@@ -3716,7 +3709,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             width: 24.0,
                                                             height: 24.0,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               color: Color(
                                                                   0xD4080808),
                                                               shape: BoxShape
@@ -3749,7 +3742,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3782,7 +3775,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3827,7 +3820,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3860,7 +3853,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             Flexible(
                                                               child: ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -3895,7 +3888,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 children: [
                                                                   ClipRRect(
                                                                     borderRadius:
-                                                                        BorderRadius
+                                                                        const BorderRadius
                                                                             .only(
                                                                       bottomLeft:
                                                                           Radius.circular(
@@ -3927,7 +3920,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                     height:
                                                                         100.0,
                                                                     decoration:
-                                                                        BoxDecoration(
+                                                                        const BoxDecoration(
                                                                       color: Color(
                                                                           0xC9080808),
                                                                       borderRadius:
@@ -3946,7 +3939,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                     child:
                                                                         Align(
                                                                       alignment:
-                                                                          AlignmentDirectional(
+                                                                          const AlignmentDirectional(
                                                                               0.0,
                                                                               0.0),
                                                                       child:
@@ -3973,11 +3966,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     8.0,
@@ -4018,7 +4011,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             width: 24.0,
                                                             height: 24.0,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               color: Color(
                                                                   0xD4080808),
                                                               shape: BoxShape
@@ -4044,7 +4037,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       if (_model.typeOfMediaUploaded == 'doc')
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 16.0),
                                           child: Stack(
                                             children: [
@@ -4056,11 +4049,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               ),
                                               Container(
                                                 width: double.infinity,
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                   color: Color(0xB8080808),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 8.0, 8.0, 8.0),
                                                   child: Text(
@@ -4093,10 +4086,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     1.0, -1.0),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 8.0, 0.0),
                                                   child: InkWell(
@@ -4125,7 +4118,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     child: Container(
                                                       width: 24.0,
                                                       height: 24.0,
-                                                      decoration: BoxDecoration(
+                                                      decoration: const BoxDecoration(
                                                         color:
                                                             Color(0xD4080808),
                                                         shape: BoxShape.circle,
@@ -4148,7 +4141,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       if (_model.typeOfMediaUploaded == 'poll')
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 16.0),
                                           child: Stack(
                                             children: [
@@ -4159,12 +4152,12 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       BorderRadius.circular(
                                                           8.0),
                                                   border: Border.all(
-                                                    color: Color(0x65979797),
+                                                    color: const Color(0x65979797),
                                                     width: 2.0,
                                                   ),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 8.0, 8.0, 8.0),
                                                   child: Column(
@@ -4200,7 +4193,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     12.0,
@@ -4219,14 +4212,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 double.infinity,
                                                             height: 28.0,
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         24.0,
                                                                         0.0,
                                                                         24.0,
                                                                         0.0),
                                                             iconPadding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -4274,7 +4267,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     12.0,
@@ -4293,14 +4286,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 double.infinity,
                                                             height: 28.0,
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         24.0,
                                                                         0.0,
                                                                         24.0,
                                                                         0.0),
                                                             iconPadding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -4352,7 +4345,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                               '')
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       12.0,
@@ -4371,14 +4364,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                   .infinity,
                                                               height: 28.0,
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
                                                                           0.0,
                                                                           24.0,
                                                                           0.0),
                                                               iconPadding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -4425,7 +4418,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                               '')
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       12.0,
@@ -4444,14 +4437,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                   .infinity,
                                                               height: 28.0,
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
                                                                           0.0,
                                                                           24.0,
                                                                           0.0),
                                                               iconPadding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -4497,10 +4490,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     1.0, -1.0),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 8.0, 0.0),
                                                   child: InkWell(
@@ -4529,7 +4522,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     child: Container(
                                                       width: 24.0,
                                                       height: 24.0,
-                                                      decoration: BoxDecoration(
+                                                      decoration: const BoxDecoration(
                                                         color:
                                                             Color(0xD4080808),
                                                         shape: BoxShape.circle,
@@ -4559,9 +4552,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1.0, 1.0),
+                      alignment: const AlignmentDirectional(1.0, 1.0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 0.0, 24.0, 12.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -4652,7 +4645,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         .secondaryBackground,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.image_outlined,
                                     color: Color(0xFF535252),
                                     size: 28.0,
@@ -4685,7 +4678,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         child: Padding(
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
-                                          child: Container(
+                                          child: SizedBox(
                                             height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.4,
@@ -4693,20 +4686,20 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               mediaAction:
                                                   (uploadedMedia) async {
                                                 if (uploadedMedia != null &&
-                                                    (uploadedMedia)!
+                                                    (uploadedMedia)
                                                         .isNotEmpty) {
                                                   logFirebaseEvent(
                                                       '_update_page_state');
                                                   setState(() {
                                                     _model.typeOfMediaUploaded =
-                                                        uploadedMedia!.length >
+                                                        uploadedMedia.length >
                                                                 1
                                                             ? 'multiImage'
                                                             : 'singleImage';
                                                     _model.numberOfImagesUploaded =
-                                                        uploadedMedia!.length;
+                                                        uploadedMedia.length;
                                                     _model.uploadedMedia =
-                                                        uploadedMedia!
+                                                        uploadedMedia
                                                             .toList()
                                                             .cast<
                                                                 FFUploadedFile>();
@@ -4762,15 +4755,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   builder:
                                                       (alertDialogContext) {
                                                     return AlertDialog(
-                                                      title: Text('Saved'),
+                                                      title: const Text('Saved'),
                                                       content:
-                                                          Text('Draft Saved'),
+                                                          const Text('Draft Saved'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   alertDialogContext),
-                                                          child: Text('Ok'),
+                                                          child: const Text('Ok'),
                                                         ),
                                                       ],
                                                     );
@@ -4821,21 +4814,21 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         .secondaryBackground,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.add_rounded,
                                     color: Color(0xFF504E4E),
                                     size: 32.0,
                                   ),
                                 ),
                               ),
-                          ].divide(SizedBox(width: 10.0)),
+                          ].divide(const SizedBox(width: 10.0)),
                         ),
                       ),
                     ),
                     if (_model.datePickerVisbile)
                       Container(
                         width: double.infinity,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.transparent,
                         ),
                         child: ClipRRect(
@@ -4876,13 +4869,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                     },
                                     child: Container(
                                       width: double.infinity,
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                     ),
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
@@ -4902,7 +4895,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -4918,7 +4911,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               width: 60.0,
                                               height: 3.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFFE0E3E7),
+                                                color: const Color(0xFFE0E3E7),
                                                 borderRadius:
                                                     BorderRadius.circular(4.0),
                                               ),
@@ -4927,7 +4920,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 16.0, 0.0, 0.0),
                                           child: Text(
                                             'Schedule',
@@ -4935,7 +4928,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 .headlineSmall
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: Color(0xFF14181B),
+                                                  color: const Color(0xFF14181B),
                                                   fontSize: 24.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -4948,7 +4941,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 12.0, 0.0, 4.0),
                                           child: Text(
                                             'Date *',
@@ -4971,7 +4964,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -4983,7 +4976,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   'VIEW_OR_EDIT_POST_Container_ybdkcmpo_ON_');
                                               logFirebaseEvent(
                                                   'Container_date_time_picker');
-                                              final _datePicked1Date =
+                                              final datePicked1Date =
                                                   await showDatePicker(
                                                 context: context,
                                                 initialDate:
@@ -5049,12 +5042,12 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 },
                                               );
 
-                                              if (_datePicked1Date != null) {
+                                              if (datePicked1Date != null) {
                                                 safeSetState(() {
                                                   _model.datePicked1 = DateTime(
-                                                    _datePicked1Date.year,
-                                                    _datePicked1Date.month,
-                                                    _datePicked1Date.day,
+                                                    datePicked1Date.year,
+                                                    datePicked1Date.month,
+                                                    datePicked1Date.day,
                                                   );
                                                 });
                                               }
@@ -5075,11 +5068,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 border: Border.all(
-                                                  color: Color(0xFF3D3D3D),
+                                                  color: const Color(0xFF3D3D3D),
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 8.0, 12.0, 8.0),
                                                 child: Row(
@@ -5112,7 +5105,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                             .bodyMediumFamily),
                                                               ),
                                                     ),
-                                                    Icon(
+                                                    const Icon(
                                                       Icons
                                                           .calendar_month_sharp,
                                                       color: Color(0xFF3F3D3D),
@@ -5126,7 +5119,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 20.0, 0.0, 4.0),
                                           child: Text(
                                             'Time *',
@@ -5149,7 +5142,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -5162,7 +5155,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               logFirebaseEvent(
                                                   'Container_date_time_picker');
 
-                                              final _datePicked2Time =
+                                              final datePicked2Time =
                                                   await showTimePicker(
                                                 context: context,
                                                 initialTime:
@@ -5226,14 +5219,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   );
                                                 },
                                               );
-                                              if (_datePicked2Time != null) {
+                                              if (datePicked2Time != null) {
                                                 safeSetState(() {
                                                   _model.datePicked2 = DateTime(
                                                     getCurrentTimestamp.year,
                                                     getCurrentTimestamp.month,
                                                     getCurrentTimestamp.day,
-                                                    _datePicked2Time.hour,
-                                                    _datePicked2Time.minute,
+                                                    datePicked2Time.hour,
+                                                    datePicked2Time.minute,
                                                   );
                                                 });
                                               }
@@ -5254,11 +5247,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 border: Border.all(
-                                                  color: Color(0xFF3D3D3D),
+                                                  color: const Color(0xFF3D3D3D),
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 8.0, 12.0, 8.0),
                                                 child: Row(
@@ -5291,7 +5284,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                             .bodyMediumFamily),
                                                               ),
                                                     ),
-                                                    Icon(
+                                                    const Icon(
                                                       Icons.access_time_rounded,
                                                       color: Color(0xFF3F3D3D),
                                                       size: 20.0,
@@ -5304,7 +5297,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 16.0, 16.0, 0.0),
                                           child: Text(
                                             '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
@@ -5329,7 +5322,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         if (!_model.isScheduled)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 16.0, 16.0, 44.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
@@ -5357,11 +5350,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 32.0,
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -5382,7 +5375,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                               .containsKey(
                                                                   'Montserrat'),
                                                     ),
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -5394,7 +5387,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         if (_model.isScheduled)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 16.0, 16.0, 44.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -5435,14 +5428,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       width: double.infinity,
                                                       height: 32.0,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
                                                                   0.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -5511,14 +5504,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       width: double.infinity,
                                                       height: 32.0,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
                                                                   0.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -5548,7 +5541,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                     .containsKey(
                                                                         'Montserrat'),
                                                               ),
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1.0,
@@ -5559,7 +5552,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                   ),
                                                 ),
-                                              ].divide(SizedBox(width: 16.0)),
+                                              ].divide(const SizedBox(width: 16.0)),
                                             ),
                                           ),
                                       ],

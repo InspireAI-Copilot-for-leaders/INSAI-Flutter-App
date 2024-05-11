@@ -5,12 +5,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'other_leaders_model.dart';
 export 'other_leaders_model.dart';
 
@@ -61,16 +59,16 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(72.0),
+            preferredSize: const Size.fromHeight(72.0),
             child: AppBar(
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               automaticallyImplyLeading: false,
               title: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
-                child: Container(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                child: SizedBox(
                   width: double.infinity,
                   child: Stack(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
                     children: [
                       InkWell(
                         splashColor: Colors.transparent,
@@ -87,7 +85,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 4.0),
                               child: Icon(
                                 Icons.arrow_back_ios_rounded,
@@ -96,7 +94,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   4.0, 4.0, 0.0, 4.0),
                               child: Text(
                                 'Back ',
@@ -121,7 +119,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Text(
                           'Similar Leaders',
                           style: FlutterFlowTheme.of(context)
@@ -139,7 +137,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, 0.0),
+                        alignment: const AlignmentDirectional(1.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -163,7 +161,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                   ),
                 ),
               ),
-              actions: [],
+              actions: const [],
               centerTitle: false,
               elevation: 2.0,
             ),
@@ -175,14 +173,14 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
               Expanded(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 4.0),
                           child: AutoSizeText(
                             'Your Peers',
@@ -204,7 +202,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 12.0),
                           child: AutoSizeText(
                             'Select 3 or more thought leaders in your field whose content you find insightful. We will take inspiration from them to improve your content.',
@@ -227,7 +225,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                         ),
                         if (_model.contentUrlFields == '2')
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: TextFormField(
                               controller: _model.contentURL2TextController,
@@ -250,7 +248,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                                   .labelMediumFamily),
                                     ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0x7A080808),
                                     width: 1.0,
                                   ),
@@ -277,7 +275,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(24.0),
                                 ),
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -300,7 +298,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                           ),
                         if (_model.contentUrlFields == '3')
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: TextFormField(
                               controller: _model.contentURL3TextController,
@@ -323,7 +321,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                                   .labelMediumFamily),
                                     ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0x7A080808),
                                     width: 1.0,
                                   ),
@@ -350,7 +348,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(24.0),
                                 ),
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -374,7 +372,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                         Flexible(
                           child: Container(
                             width: double.infinity,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: AuthUserStreamWidget(
                               builder: (context) =>
                                   StreamBuilder<List<ThoughtLeadersRecord>>(
@@ -383,7 +381,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                       thoughtLeadersRecord.whereIn(
                                           'broad_domain',
                                           (currentUserDocument?.broadDomains
-                                                  ?.toList() ??
+                                                  .toList() ??
                                               [])),
                                 ),
                                 builder: (context, snapshot) {
@@ -391,7 +389,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 200.0, 0.0, 100.0),
                                         child: SizedBox(
                                           width: 70.0,
@@ -412,7 +410,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     gridDelegate:
-                                        SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                        const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
                                     ),
                                     crossAxisSpacing: 8.0,
@@ -477,7 +475,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 24.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 24.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     logFirebaseEvent('OTHER_LEADERS_PAGE_CONTINUE_BTN_ON_TAP');
@@ -501,9 +499,9 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 48.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primaryText,
                     textStyle: FlutterFlowTheme.of(context)
                         .titleMedium
@@ -518,7 +516,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                               FlutterFlowTheme.of(context).titleMediumFamily),
                         ),
                     elevation: 4.0,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),

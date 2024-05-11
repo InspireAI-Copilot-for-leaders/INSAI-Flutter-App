@@ -3,24 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
 import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -89,7 +81,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
         child: RootPageContext.wrap(
-          appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
+          appStateNotifier.loggedIn ? const DashboardWidget() : const LandingPageWidget(),
           errorRoute: state.uri.toString(),
         ),
       ),
@@ -98,18 +90,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: '_initialize',
           path: '/',
           builder: (context, _) => RootPageContext.wrap(
-            appStateNotifier.loggedIn ? DashboardWidget() : LandingPageWidget(),
+            appStateNotifier.loggedIn ? const DashboardWidget() : const LandingPageWidget(),
           ),
           routes: [
             FFRoute(
               name: 'LandingPage',
               path: 'landingPage',
-              builder: (context, params) => LandingPageWidget(),
+              builder: (context, params) => const LandingPageWidget(),
             ),
             FFRoute(
               name: 'auth_signupOrLogin',
               path: 'auth_signupOrLogin',
-              builder: (context, params) => AuthSignupOrLoginWidget(),
+              builder: (context, params) => const AuthSignupOrLoginWidget(),
             ),
             FFRoute(
               name: 'linkedinConnect',
@@ -125,12 +117,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'phone_number_verify',
               path: 'phoneNumberVerify',
-              builder: (context, params) => PhoneNumberVerifyWidget(),
+              builder: (context, params) => const PhoneNumberVerifyWidget(),
             ),
             FFRoute(
               name: 'forgot_pass',
               path: 'forgot_pass',
-              builder: (context, params) => ForgotPassWidget(),
+              builder: (context, params) => const ForgotPassWidget(),
             ),
             FFRoute(
               name: 'linkedinAuth',
@@ -147,13 +139,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'brandVoice',
               path: 'brandVoice',
               requireAuth: true,
-              builder: (context, params) => BrandVoiceWidget(),
+              builder: (context, params) => const BrandVoiceWidget(),
             ),
             FFRoute(
               name: 'discoverPage',
               path: 'discoverPage',
               requireAuth: true,
-              builder: (context, params) => DiscoverPageWidget(),
+              builder: (context, params) => const DiscoverPageWidget(),
             ),
             FFRoute(
               name: 'articleDetails',
@@ -240,13 +232,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'otherLeaders',
               path: 'otherLeaders',
               requireAuth: true,
-              builder: (context, params) => OtherLeadersWidget(),
+              builder: (context, params) => const OtherLeadersWidget(),
             ),
             FFRoute(
               name: 'ProfileDetails',
               path: 'profileDetails',
               requireAuth: true,
-              builder: (context, params) => ProfileDetailsWidget(),
+              builder: (context, params) => const ProfileDetailsWidget(),
             ),
             FFRoute(
               name: 'postDetailed',
@@ -277,7 +269,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'dashboard',
               path: 'dashboard',
               requireAuth: true,
-              builder: (context, params) => DashboardWidget(),
+              builder: (context, params) => const DashboardWidget(),
             ),
             FFRoute(
               name: 'storiesPage',
@@ -293,12 +285,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'expertiseAreaEdit',
               path: 'expertiseAreaEdit',
               requireAuth: true,
-              builder: (context, params) => ExpertiseAreaEditWidget(),
+              builder: (context, params) => const ExpertiseAreaEditWidget(),
             ),
             FFRoute(
               name: 'support',
               path: 'support',
-              builder: (context, params) => SupportWidget(),
+              builder: (context, params) => const SupportWidget(),
             ),
             FFRoute(
               name: 'postReview',
@@ -338,19 +330,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'editBrandVoice',
               path: 'editBrandVoice',
               requireAuth: true,
-              builder: (context, params) => EditBrandVoiceWidget(),
+              builder: (context, params) => const EditBrandVoiceWidget(),
             ),
             FFRoute(
               name: 'allPostsOverview',
               path: 'allPostsOverview',
               requireAuth: true,
-              builder: (context, params) => AllPostsOverviewWidget(),
+              builder: (context, params) => const AllPostsOverviewWidget(),
             ),
             FFRoute(
               name: 'campaigns',
               path: 'campaigns',
               requireAuth: true,
-              builder: (context, params) => CampaignsWidget(),
+              builder: (context, params) => const CampaignsWidget(),
             ),
             FFRoute(
               name: 'viewScheduledPost',
@@ -370,12 +362,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'payWall',
               path: 'payWall',
-              builder: (context, params) => PayWallWidget(),
+              builder: (context, params) => const PayWallWidget(),
             ),
             FFRoute(
               name: 'accessRequested',
               path: 'accessRequested',
-              builder: (context, params) => AccessRequestedWidget(),
+              builder: (context, params) => const AccessRequestedWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -616,7 +608,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(
+  static TransitionInfo appDefault() => const TransitionInfo(
         hasTransition: true,
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 300),
@@ -625,10 +617,9 @@ class TransitionInfo {
 
 class _RouteErrorBuilder extends StatefulWidget {
   const _RouteErrorBuilder({
-    Key? key,
     required this.state,
     required this.child,
-  }) : super(key: key);
+  });
 
   final GoRouterState state;
   final Widget child;

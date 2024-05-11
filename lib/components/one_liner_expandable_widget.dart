@@ -2,9 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'one_liner_expandable_model.dart';
 export 'one_liner_expandable_model.dart';
 
@@ -76,7 +74,7 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12.0, 16.0, 12.0, 16.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12.0, 16.0, 12.0, 16.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -103,7 +101,7 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
                     child: Stack(
                       children: [
                         Icon(
@@ -130,13 +128,13 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
                 false,
               ))
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
                   child: TextFormField(
                     controller: _model.textController,
                     focusNode: _model.textFieldFocusNode,
                     onChanged: (_) => EasyDebounce.debounce(
                       '_model.textController',
-                      Duration(milliseconds: 2000),
+                      const Duration(milliseconds: 2000),
                       () async {
                         logFirebaseEvent(
                             'ONE_LINER_EXPANDABLE_TextField_29d3mwk0_');

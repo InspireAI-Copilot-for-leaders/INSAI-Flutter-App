@@ -6,11 +6,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'post_review_model.dart';
 export 'post_review_model.dart';
 
@@ -78,14 +75,14 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
               context.pop();
             },
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -103,7 +100,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                         ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: Text(
                       'Please let us know why you didn\'t like the post...',
                       style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -122,7 +119,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                         multiSelectController:
                             _model.dropDownValueController ??=
                                 FormFieldController<List<String>>(null),
-                        options: [
+                        options: const [
                           'Content accuracy issues',
                           'Content formatting issues',
                           'Content style issue',
@@ -153,7 +150,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                         borderColor: Colors.transparent,
                         borderWidth: 0.0,
                         borderRadius: 8.0,
-                        margin: EdgeInsetsDirectional.fromSTEB(
+                        margin: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 4.0, 16.0, 4.0),
                         isOverButton: true,
                         isSearchable: false,
@@ -216,7 +213,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                             ),
                             borderRadius: BorderRadius.circular(0.0),
                           ),
-                          contentPadding: EdgeInsetsDirectional.fromSTEB(
+                          contentPadding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 24.0, 16.0, 12.0),
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -234,12 +231,12 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                             _model.textControllerValidator.asValidator(context),
                       ),
                     ]
-                        .divide(SizedBox(height: 16.0))
-                        .addToStart(SizedBox(height: 12.0)),
+                        .divide(const SizedBox(height: 16.0))
+                        .addToStart(const SizedBox(height: 12.0)),
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent(
@@ -268,7 +265,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                                 color: FlutterFlowTheme.of(context).primaryText,
                               ),
                             ),
-                            duration: Duration(milliseconds: 4000),
+                            duration: const Duration(milliseconds: 4000),
                             backgroundColor:
                                 FlutterFlowTheme.of(context).secondary,
                           ),
@@ -277,16 +274,16 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                         context.safePop();
                       },
                       text: 'Submit Review',
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.receipt_long,
                         size: 15.0,
                       ),
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 54.0,
-                        padding: EdgeInsets.all(0.0),
+                        padding: const EdgeInsets.all(0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -300,7 +297,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                                       .titleSmallFamily),
                             ),
                         elevation: 4.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

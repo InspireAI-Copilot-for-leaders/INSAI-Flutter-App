@@ -2,11 +2,8 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'profile_details_model.dart';
 export 'profile_details_model.dart';
 
@@ -58,7 +55,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
             buttonSize: 60.0,
             icon: Icon(
               Icons.close_rounded,
-              color: FlutterFlowTheme.of(context).primaryBackground,
+              color: FlutterFlowTheme.of(context).alternate,
               size: 30.0,
             ),
             onPressed: () async {
@@ -67,39 +64,39 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
               context.safePop();
             },
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
+              SizedBox(
                 width: 140.0,
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         child: Container(
                           width: 100.0,
                           height: 100.0,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(2.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => ClipRRect(
                                 borderRadius: BorderRadius.circular(50.0),
                                 child: Image.network(
                                   (currentUserDocument?.profilePictureLinks
-                                              ?.toList() ??
+                                              .toList() ??
                                           [])
                                       .first,
                                   width: 100.0,
@@ -113,10 +110,10 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1.0, 0.0),
+                      alignment: const AlignmentDirectional(1.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         child: ClipOval(
                           child: Container(
                             width: 44.0,
@@ -125,12 +122,12 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                               color: Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Color(0xFF57636C),
+                                color: const Color(0xFF57636C),
                                 width: 4.0,
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(4.0),
+                              padding: const EdgeInsets.all(4.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.0),
                                 child: Image.asset(
@@ -152,10 +149,10 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => Text(
-                    '${currentUserDocument?.linkedinDetails?.localizedFirstName} ${currentUserDocument?.linkedinDetails?.localizedLastName}',
+                    '${currentUserDocument?.linkedinDetails.localizedFirstName} ${currentUserDocument?.linkedinDetails.localizedLastName}',
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
                           fontFamily: 'Plus Jakarta Sans',
@@ -170,7 +167,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                 child: Text(
                   'Speaks about',
                   textAlign: TextAlign.center,
@@ -186,12 +183,12 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 36.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 36.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => Builder(
                     builder: (context) {
                       final areas = (currentUserDocument?.thoughtLeadershipAreas
-                                  ?.toList() ??
+                                  .toList() ??
                               [])
                           .toList();
                       return Wrap(
@@ -206,13 +203,13 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                         children: List.generate(areas.length, (areasIndex) {
                           final areasItem = areas[areasIndex];
                           return Text(
-                            '#${areasItem}',
+                            '#$areasItem',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0x6BFFFFFF),
+                                  color: const Color(0x6BFFFFFF),
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -229,7 +226,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
@@ -254,14 +251,14 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 16.0, 24.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 12.0),
                                 child: Text(
                                   'Settings',
@@ -269,7 +266,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       .headlineSmall
                                       .override(
                                         fontFamily: 'Montserrat',
-                                        color: Color(0xFF101213),
+                                        color: const Color(0xFF101213),
                                         fontSize: 22.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
@@ -279,7 +276,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -297,7 +294,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
@@ -309,7 +306,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Expertise Areas',
@@ -318,7 +315,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: Color(0xFF101213),
+                                                  color: const Color(0xFF101213),
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -337,7 +334,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: Color(0xFF4B39EF),
+                                              color: const Color(0xFF4B39EF),
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
@@ -352,7 +349,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -370,7 +367,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
@@ -382,7 +379,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Content Voice',
@@ -391,7 +388,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: Color(0xFF101213),
+                                                  color: const Color(0xFF101213),
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -410,7 +407,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: Color(0xFF4B39EF),
+                                              color: const Color(0xFF4B39EF),
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
@@ -425,7 +422,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -443,7 +440,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
@@ -455,7 +452,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Raise a Support Ticket',
@@ -464,7 +461,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: Color(0xFF101213),
+                                                  color: const Color(0xFF101213),
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -483,7 +480,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: Color(0xFF4B39EF),
+                                              color: const Color(0xFF4B39EF),
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
@@ -498,7 +495,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -514,8 +511,8 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               context: context,
                                               builder: (alertDialogContext) {
                                                 return AlertDialog(
-                                                  title: Text('Logout?'),
-                                                  content: Text(
+                                                  title: const Text('Logout?'),
+                                                  content: const Text(
                                                       'This will log you out of InspireAI completely. Are you sure you want to logout?'),
                                                   actions: [
                                                     TextButton(
@@ -523,7 +520,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                           Navigator.pop(
                                                               alertDialogContext,
                                                               false),
-                                                      child: Text('Cancel'),
+                                                      child: const Text('Cancel'),
                                                     ),
                                                     TextButton(
                                                       onPressed: () =>
@@ -531,7 +528,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                               alertDialogContext,
                                                               true),
                                                       child:
-                                                          Text('Yes, Logout'),
+                                                          const Text('Yes, Logout'),
                                                     ),
                                                   ],
                                                 );
@@ -559,7 +556,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
@@ -571,7 +568,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Log out of account',
@@ -580,7 +577,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: Color(0xFF101213),
+                                                  color: const Color(0xFF101213),
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -599,7 +596,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: Color(0xFF4B39EF),
+                                              color: const Color(0xFF4B39EF),
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
@@ -614,7 +611,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 24.0, 0.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -631,8 +628,8 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               builder: (alertDialogContext) {
                                                 return AlertDialog(
                                                   title:
-                                                      Text('Delete Account?'),
-                                                  content: Text(
+                                                      const Text('Delete Account?'),
+                                                  content: const Text(
                                                       'This will permanantly delete your InspireAI account. Are you sure you want to continue?'),
                                                   actions: [
                                                     TextButton(
@@ -640,7 +637,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                           Navigator.pop(
                                                               alertDialogContext,
                                                               false),
-                                                      child: Text('Cancel'),
+                                                      child: const Text('Cancel'),
                                                     ),
                                                     TextButton(
                                                       onPressed: () =>
@@ -648,7 +645,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                               alertDialogContext,
                                                               true),
                                                       child:
-                                                          Text('Yes, Delete'),
+                                                          const Text('Yes, Delete'),
                                                     ),
                                                   ],
                                                 );
@@ -668,7 +665,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
                                           Icons.delete,
@@ -680,7 +677,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Delete account',

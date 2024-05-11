@@ -3,16 +3,10 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'forgot_pass_model.dart';
 export 'forgot_pass_model.dart';
 
@@ -49,8 +43,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -63,8 +57,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -76,8 +70,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
             curve: Curves.easeOut,
             delay: 100.0.ms,
             duration: 600.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -90,8 +84,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
             curve: Curves.easeOut,
             delay: 100.0.ms,
             duration: 600.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -103,8 +97,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 600.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -117,8 +111,8 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 600.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -137,15 +131,15 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 800.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           MoveEffect(
             curve: Curves.easeInOut,
             delay: 200.0.ms,
             duration: 800.0.ms,
-            begin: Offset(-300.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-300.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -171,14 +165,14 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
+          preferredSize: const Size.fromHeight(100.0),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primary,
             automaticallyImplyLeading: false,
-            actions: [],
+            actions: const [],
             flexibleSpace: FlexibleSpaceBar(
               title: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -199,7 +193,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 25.0, 13.0, 0.0, 13.0),
                             child: Icon(
                               Icons.arrow_back_ios_rounded,
@@ -208,7 +202,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Back ',
@@ -241,18 +235,18 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
           ),
         ),
         body: Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
                 width: double.infinity,
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 570.0,
                 ),
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,13 +257,13 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                         tablet: false,
                       ))
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 44.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 12.0, 0.0),
                                 child: FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
@@ -309,9 +303,9 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                           ),
                         ),
                       Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: RichText(
                             textScaler: MediaQuery.of(context).textScaler,
@@ -351,7 +345,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 8.0, 24.0, 0.0),
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
@@ -396,7 +390,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                             animationsMap['richTextOnPageLoadAnimation2']!),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 0.0),
                         child: TextFormField(
                           controller: _model.forgotPassEmailTextController,
@@ -429,14 +423,14 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                                           .labelMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFE0E3E7),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFF5A5D5D),
                                 width: 2.0,
                               ),
@@ -456,9 +450,9 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 20.0, 24.0, 20.0, 24.0),
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.email_outlined,
                               color: Color(0x9C57636C),
                             ),
@@ -483,9 +477,9 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                             animationsMap['textFieldOnPageLoadAnimation']!),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, 0.0),
+                        alignment: const AlignmentDirectional(1.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 24.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: FlutterFlowTheme.of(context).primary,
@@ -506,7 +500,7 @@ class _ForgotPassWidgetState extends State<ForgotPassWidget>
                               if (_model
                                   .forgotPassEmailTextController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text(
                                       'Email required!',
                                     ),

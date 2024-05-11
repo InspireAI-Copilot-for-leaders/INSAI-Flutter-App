@@ -1,10 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'profile_loading_screen_model.dart';
 export 'profile_loading_screen_model.dart';
 
@@ -12,7 +10,7 @@ class ProfileLoadingScreenWidget extends StatefulWidget {
   const ProfileLoadingScreenWidget({
     super.key,
     String? loadingText,
-  }) : this.loadingText =
+  }) : loadingText =
             loadingText ?? 'This usually takes a minute. Hang tight...';
 
   final String loadingText;
@@ -59,7 +57,7 @@ class _ProfileLoadingScreenWidgetState
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
             child: Lottie.asset(
               'assets/lottie_animations/Animation_-_1706647796241.json',
               width: 180.0,
@@ -71,7 +69,7 @@ class _ProfileLoadingScreenWidgetState
           Opacity(
             opacity: 0.6,
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 30.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 30.0),
               child: Text(
                 widget.loadingText,
                 textAlign: TextAlign.center,

@@ -4,9 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'post_content_options_model.dart';
 export 'post_content_options_model.dart';
 
@@ -65,9 +63,9 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
       child: Align(
-        alignment: AlignmentDirectional(0.0, 1.0),
+        alignment: const AlignmentDirectional(0.0, 1.0),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 20.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 20.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,15 +138,15 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, -1.0),
+                          alignment: const AlignmentDirectional(-1.0, -1.0),
                           child: Container(
                             width: 60.0,
                             height: 60.0,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xFFFFD700),
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.perm_media_outlined,
                               color: Color(0xFF2E2C2C),
                               size: 28.0,
@@ -169,7 +167,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                         .bodyMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(height: 4.0)),
+                      ].divide(const SizedBox(height: 4.0)),
                     ),
                   ),
                   InkWell(
@@ -188,7 +186,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, -1.0),
+                          alignment: const AlignmentDirectional(-1.0, -1.0),
                           child: Container(
                             width: 60.0,
                             height: 60.0,
@@ -196,7 +194,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                               color: FlutterFlowTheme.of(context).accent2,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.save_rounded,
                               color: Color(0xFF2E2C2C),
                               size: 28.0,
@@ -217,10 +215,10 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                         .bodyMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(height: 4.0)),
+                      ].divide(const SizedBox(height: 4.0)),
                     ),
                   ),
-                ].divide(SizedBox(height: 18.0)),
+                ].divide(const SizedBox(height: 18.0)),
               ),
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -242,7 +240,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: Container(
+                            child: SizedBox(
                               height: MediaQuery.sizeOf(context).height * 1.0,
                               child: UploadDocWidget(
                                 uploadDoc: (doc, docTitle) async {
@@ -272,7 +270,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, -1.0),
+                          alignment: const AlignmentDirectional(-1.0, -1.0),
                           child: Container(
                             width: 60.0,
                             height: 60.0,
@@ -280,7 +278,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                               color: FlutterFlowTheme.of(context).accent2,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.document_scanner_outlined,
                               color: Color(0xFF2E2C2C),
                               size: 32.0,
@@ -301,7 +299,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                         .bodyMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(height: 4.0)),
+                      ].divide(const SizedBox(height: 4.0)),
                     ),
                   ),
                   InkWell(
@@ -317,19 +315,19 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                             context: context,
                             builder: (alertDialogContext) {
                               return AlertDialog(
-                                title: Text('Delete?'),
-                                content: Text(
+                                title: const Text('Delete?'),
+                                content: const Text(
                                     'This action will permanatly delete this draft. Continue?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(
                                         alertDialogContext, false),
-                                    child: Text('Cancel'),
+                                    child: const Text('Cancel'),
                                   ),
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.pop(alertDialogContext, true),
-                                    child: Text('Delete'),
+                                    child: const Text('Delete'),
                                   ),
                                 ],
                               );
@@ -348,7 +346,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, -1.0),
+                          alignment: const AlignmentDirectional(-1.0, -1.0),
                           child: Container(
                             width: 60.0,
                             height: 60.0,
@@ -356,7 +354,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                               color: FlutterFlowTheme.of(context).accent2,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.delete_outlined,
                               color: Color(0xFF2E2C2C),
                               size: 32.0,
@@ -377,10 +375,10 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                         .bodyMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(height: 4.0)),
+                      ].divide(const SizedBox(height: 4.0)),
                     ),
                   ),
-                ].divide(SizedBox(height: 18.0)),
+                ].divide(const SizedBox(height: 18.0)),
               ),
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -402,7 +400,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: Container(
+                            child: SizedBox(
                               height: MediaQuery.sizeOf(context).height * 1.0,
                               child: CreatePollWidget(
                                 pollCreate: (question, option1, option2,
@@ -439,7 +437,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, -1.0),
+                          alignment: const AlignmentDirectional(-1.0, -1.0),
                           child: Container(
                             width: 60.0,
                             height: 60.0,
@@ -447,7 +445,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                               color: FlutterFlowTheme.of(context).accent2,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.poll_outlined,
                               color: Color(0xFF2E2C2C),
                               size: 32.0,
@@ -468,10 +466,10 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                         .bodyMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(height: 4.0)),
+                      ].divide(const SizedBox(height: 4.0)),
                     ),
                   ),
-                ].divide(SizedBox(height: 18.0)),
+                ].divide(const SizedBox(height: 18.0)),
               ),
             ],
           ),

@@ -6,9 +6,7 @@ import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:math';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -73,8 +71,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(460.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(460.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -86,8 +84,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(2.0, 2.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.0, 2.0),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -100,15 +98,15 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           MoveEffect(
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.0, 70.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 70.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -120,22 +118,22 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(-335.0, 0.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(-335.0, 0.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0, 0),
-            end: Offset(0, -0.524),
+            begin: const Offset(0, 0),
+            end: const Offset(0, -0.524),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(1.0, 1.0),
-            end: Offset(0.8, 0.8),
+            begin: const Offset(1.0, 1.0),
+            end: const Offset(0.8, 0.8),
           ),
         ],
       ),
@@ -147,15 +145,15 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 800.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 800.0.ms,
-            begin: Offset(8.0, 8.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(8.0, 8.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -167,8 +165,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -181,8 +179,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -193,8 +191,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 1200.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -213,22 +211,22 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
           MoveEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(100.0, -150.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, -150.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(4.0, 4.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(4.0, 4.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -240,8 +238,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(-30.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-30.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -260,8 +258,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(-30.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-30.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -306,7 +304,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
             Container(
               width: double.infinity,
               height: double.infinity,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -315,7 +313,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(120.0, 0.0, 20.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(120.0, 0.0, 20.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -329,7 +327,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 20.0),
                                 child: Image.asset(
                                   'assets/images/InspireAI_LOGO2_(2).png',
@@ -353,7 +351,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     borderRadius: BorderRadius.circular(40.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 12.0, 8.0, 12.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -378,7 +376,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                           ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   4.0, 0.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -443,8 +441,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                         Expanded(
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(1.0, 0.0),
-                                            child: Container(
+                                                const AlignmentDirectional(1.0, 0.0),
+                                            child: SizedBox(
                                               width: 80.0,
                                               height: 40.0,
                                               child: custom_widgets
@@ -526,7 +524,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
               height: double.infinity,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryBackground,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 50.0,
                     color: Color(0x33000000),
@@ -538,7 +536,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                 ],
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                 child: Stack(
                   children: [
                     Column(
@@ -559,7 +557,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 16.0, 14.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -587,13 +585,13 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                           width: 50.0,
                                           height: 50.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
                                             (currentUserDocument
                                                         ?.profilePictureLinks
-                                                        ?.toList() ??
+                                                        .toList() ??
                                                     [])
                                                 .first,
                                             fit: BoxFit.cover,
@@ -719,7 +717,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Stack(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       children: [
                                         Icon(
                                           Icons.menu_rounded,
@@ -751,809 +749,1035 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 16.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 20.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Posts Overview',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .headlineMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        fontSize: 24.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts:
-                                                            GoogleFonts.asMap()
-                                                                .containsKey(
-                                                                    'Montserrat'),
-                                                      ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 16.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          24.0, 20.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Posts Overview',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .headlineMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 24.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts:
+                                                              GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Montserrat'),
+                                                        ),
+                                                  ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 4.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Review the details of all your posts.',
-                                                  textAlign: TextAlign.start,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          24.0, 4.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Review the details of all your posts.',
+                                                    textAlign: TextAlign.start,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color:
+                                                              const Color(0xFF606A85),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts:
+                                                              GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Montserrat'),
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                          ))
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 40.0,
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(0x4D9489F5),
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: const Color(0xFF6F61EF),
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              40.0),
+                                                      child: Image.network(
+                                                        'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+                                                        width: 60.0,
+                                                        height: 60.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 40.0,
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(0x4D9489F5),
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: const Color(0xFF6F61EF),
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              40.0),
+                                                      child: Image.network(
+                                                        'https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2ZpbGUlMjB1c2VyfGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60',
+                                                        width: 60.0,
+                                                        height: 60.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 40.0,
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(0x4D9489F5),
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: const Color(0xFF6F61EF),
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              40.0),
+                                                      child: Image.network(
+                                                        'https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZSUyMHVzZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60',
+                                                        width: 60.0,
+                                                        height: 60.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ].divide(const SizedBox(width: 4.0)),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 12.0, 16.0, 12.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        constraints: const BoxConstraints(
+                                          maxWidth: double.infinity,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFF1F4F8),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: const Color(0xFFE5E7EB),
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 12.0, 12.0, 12.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              FlutterFlowChoiceChips(
+                                                options: const [
+                                                  ChipData('Posted'),
+                                                  ChipData('Scheduled'),
+                                                  ChipData('Drafts')
+                                                ],
+                                                onChanged: (val) => setState(
+                                                    () => _model
+                                                            .choiceChipsValue =
+                                                        val?.firstOrNull),
+                                                selectedChipStyle: ChipStyle(
+                                                  backgroundColor:
+                                                      const Color(0x949532EC),
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily:
-                                                            'Montserrat',
+                                                            'Plus Jakarta Sans',
                                                         color:
-                                                            Color(0xFF606A85),
+                                                            const Color(0xFF15161E),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        useGoogleFonts:
-                                                            GoogleFonts.asMap()
-                                                                .containsKey(
-                                                                    'Montserrat'),
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                'Plus Jakarta Sans'),
                                                       ),
+                                                  iconColor: const Color(0xFF15161E),
+                                                  iconSize: 18.0,
+                                                  elevation: 0.0,
+                                                  borderColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
+                                                  borderWidth: 1.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                 ),
+                                                unselectedChipStyle: ChipStyle(
+                                                  backgroundColor:
+                                                      const Color(0xFFF1F4F8),
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color:
+                                                            const Color(0xFF606A85),
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                'Plus Jakarta Sans'),
+                                                      ),
+                                                  iconColor: const Color(0xFF606A85),
+                                                  iconSize: 18.0,
+                                                  elevation: 0.0,
+                                                  borderColor:
+                                                      const Color(0xFFE5E7EB),
+                                                  borderWidth: 1.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                chipSpacing: 4.0,
+                                                multiselect: false,
+                                                initialized:
+                                                    _model.choiceChipsValue !=
+                                                        null,
+                                                alignment: WrapAlignment.start,
+                                                controller: _model
+                                                        .choiceChipsValueController ??=
+                                                    FormFieldController<
+                                                        List<String>>(
+                                                  ['Drafts'],
+                                                ),
+                                                wrapped: true,
                                               ),
                                             ],
                                           ),
                                         ),
-                                        if (responsiveVisibility(
-                                          context: context,
-                                          phone: false,
-                                        ))
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Container(
-                                                width: 40.0,
-                                                height: 40.0,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0x4D9489F5),
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                    color: Color(0xFF6F61EF),
-                                                    width: 2.0,
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(2.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40.0),
-                                                    child: Image.network(
-                                                      'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
-                                                      width: 60.0,
-                                                      height: 60.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 40.0,
-                                                height: 40.0,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0x4D9489F5),
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                    color: Color(0xFF6F61EF),
-                                                    width: 2.0,
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(2.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40.0),
-                                                    child: Image.network(
-                                                      'https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2ZpbGUlMjB1c2VyfGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60',
-                                                      width: 60.0,
-                                                      height: 60.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 40.0,
-                                                height: 40.0,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0x4D9489F5),
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                    color: Color(0xFF6F61EF),
-                                                    width: 2.0,
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(2.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40.0),
-                                                    child: Image.network(
-                                                      'https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZSUyMHVzZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60',
-                                                      width: 60.0,
-                                                      height: 60.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ].divide(SizedBox(width: 4.0)),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 12.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      constraints: BoxConstraints(
-                                        maxWidth: double.infinity,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFF1F4F8),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        border: Border.all(
-                                          color: Color(0xFFE5E7EB),
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 12.0, 12.0, 12.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            FlutterFlowChoiceChips(
-                                              options: [
-                                                ChipData('Posted'),
-                                                ChipData('Scheduled'),
-                                                ChipData('Drafts')
-                                              ],
-                                              onChanged: (val) => setState(() =>
-                                                  _model.choiceChipsValue =
-                                                      val?.firstOrNull),
-                                              selectedChipStyle: ChipStyle(
-                                                backgroundColor:
-                                                    Color(0x949532EC),
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily:
-                                                          'Plus Jakarta Sans',
-                                                      color: Color(0xFF15161E),
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              'Plus Jakarta Sans'),
-                                                    ),
-                                                iconColor: Color(0xFF15161E),
-                                                iconSize: 18.0,
-                                                elevation: 0.0,
-                                                borderColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                borderWidth: 1.0,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              unselectedChipStyle: ChipStyle(
-                                                backgroundColor:
-                                                    Color(0xFFF1F4F8),
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily:
-                                                          'Plus Jakarta Sans',
-                                                      color: Color(0xFF606A85),
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              'Plus Jakarta Sans'),
-                                                    ),
-                                                iconColor: Color(0xFF606A85),
-                                                iconSize: 18.0,
-                                                elevation: 0.0,
-                                                borderColor: Color(0xFFE5E7EB),
-                                                borderWidth: 1.0,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              chipSpacing: 4.0,
-                                              multiselect: false,
-                                              initialized:
-                                                  _model.choiceChipsValue !=
-                                                      null,
-                                              alignment: WrapAlignment.start,
-                                              controller: _model
-                                                      .choiceChipsValueController ??=
-                                                  FormFieldController<
-                                                      List<String>>(
-                                                ['Drafts'],
-                                              ),
-                                              wrapped: true,
-                                            ),
-                                          ],
-                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 0.0, 16.0, 0.0),
-                                    child:
-                                        StreamBuilder<List<CreatedPostsRecord>>(
-                                      stream: queryCreatedPostsRecord(
-                                        parent: currentUserReference,
-                                        queryBuilder: (createdPostsRecord) =>
-                                            createdPostsRecord.where(
-                                          'status',
-                                          isEqualTo: 'Pending',
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 0.0, 16.0, 0.0),
+                                      child: StreamBuilder<
+                                          List<CreatedPostsRecord>>(
+                                        stream: queryCreatedPostsRecord(
+                                          parent: currentUserReference,
+                                          queryBuilder: (createdPostsRecord) =>
+                                              createdPostsRecord.where(
+                                            'status',
+                                            isEqualTo: 'Pending',
+                                          ),
                                         ),
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 100.0,
-                                              height: 100.0,
-                                              child: SpinKitRipple(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 100.0,
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 100.0,
+                                                height: 100.0,
+                                                child: SpinKitRipple(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  size: 100.0,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<CreatedPostsRecord>
+                                              pendingPostsContainerCreatedPostsRecordList =
+                                              snapshot.data!;
+                                          return Container(
+                                            width: 500.0,
+                                            constraints: const BoxConstraints(
+                                              maxWidth: 570.0,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color: const Color(0xFFE5E7EB),
+                                                width: 1.0,
                                               ),
                                             ),
-                                          );
-                                        }
-                                        List<CreatedPostsRecord>
-                                            pendingPostsContainerCreatedPostsRecordList =
-                                            snapshot.data!;
-                                        return Container(
-                                          width: 500.0,
-                                          constraints: BoxConstraints(
-                                            maxWidth: 570.0,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            border: Border.all(
-                                              color: Color(0xFFE5E7EB),
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          child: Visibility(
-                                            visible:
-                                                pendingPostsContainerCreatedPostsRecordList
-                                                        .length >
-                                                    0,
-                                            child: Padding(
-                                              padding: EdgeInsets.all(4.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    12.0,
-                                                                    0.0,
-                                                                    12.0,
-                                                                    0.0),
-                                                        child: Text(
-                                                          pendingPostsContainerCreatedPostsRecordList
-                                                                      .length ==
-                                                                  1
-                                                              ? 'Writing 1 post for you...'
-                                                              : 'Writing ${pendingPostsContainerCreatedPostsRecordList.length.toString()} posts for you...',
-                                                          textAlign:
-                                                              TextAlign.end,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: Color(
-                                                                    0xFF15161E),
-                                                                fontSize: 18.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        'Outfit'),
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0,
-                                                                    0.0),
-                                                        child: Container(
-                                                          width: 40.0,
-                                                          height: 40.0,
-                                                          decoration:
-                                                              BoxDecoration(),
-                                                          child: Lottie.asset(
-                                                            'assets/lottie_animations/Animation_-_1705682770212_(1).json',
-                                                            width: 150.0,
-                                                            height: 130.0,
-                                                            fit: BoxFit.cover,
-                                                            animate: true,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Divider(
-                                                    height: 2.0,
-                                                    thickness: 1.0,
-                                                    color: Color(0xFFE5E7EB),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(12.0, 8.0,
-                                                                12.0, 4.0),
-                                                    child: Row(
+                                            child: Visibility(
+                                              visible:
+                                                  pendingPostsContainerCreatedPostsRecordList.isNotEmpty,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(4.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment.end,
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        Container(
-                                                          height: 24.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0x450060FF),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12.0),
-                                                            border: Border.all(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
-                                                              width: 2.0,
-                                                            ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      12.0,
+                                                                      0.0,
+                                                                      12.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            pendingPostsContainerCreatedPostsRecordList
+                                                                        .length ==
+                                                                    1
+                                                                ? 'Writing 1 post for you...'
+                                                                : 'Writing ${pendingPostsContainerCreatedPostsRecordList.length.toString()} posts for you...',
+                                                            textAlign:
+                                                                TextAlign.end,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: const Color(
+                                                                      0xFF15161E),
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          'Outfit'),
+                                                                ),
                                                           ),
-                                                          child: Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.0, 0.0),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          8.0,
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                'Getting Created',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Plus Jakarta Sans',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .alternate,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              'Plus Jakarta Sans'),
-                                                                    ),
-                                                              ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0),
+                                                          child: Container(
+                                                            width: 40.0,
+                                                            height: 40.0,
+                                                            decoration:
+                                                                const BoxDecoration(),
+                                                            child: Lottie.asset(
+                                                              'assets/lottie_animations/Animation_-_1705682770212_(1).json',
+                                                              width: 150.0,
+                                                              height: 130.0,
+                                                              fit: BoxFit.cover,
+                                                              animate: true,
                                                             ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.48,
-                                    decoration: BoxDecoration(),
-                                    child: Builder(
-                                      builder: (context) {
-                                        if (_model.choiceChipsValue ==
-                                            'Drafts') {
-                                          return Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: StreamBuilder<
-                                                List<CreatedPostsRecord>>(
-                                              stream: queryCreatedPostsRecord(
-                                                parent: currentUserReference,
-                                                queryBuilder:
-                                                    (createdPostsRecord) =>
-                                                        createdPostsRecord
-                                                            .where(
-                                                              'status',
-                                                              isEqualTo:
-                                                                  'Drafts',
-                                                            )
-                                                            .orderBy(
-                                                                'time_stamp',
-                                                                descending:
-                                                                    true),
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 40.0,
-                                                      height: 40.0,
-                                                      child: SpinKitFoldingCube(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 40.0,
-                                                      ),
+                                                    const Divider(
+                                                      height: 2.0,
+                                                      thickness: 1.0,
+                                                      color: Color(0xFFE5E7EB),
                                                     ),
-                                                  );
-                                                }
-                                                List<CreatedPostsRecord>
-                                                    draftsListViewCreatedPostsRecordList =
-                                                    snapshot.data!;
-                                                if (draftsListViewCreatedPostsRecordList
-                                                    .isEmpty) {
-                                                  return EmptyStateWidget(
-                                                    loadingText:
-                                                        'You have not created any content yet! Click the plus icon below to get started.',
-                                                  );
-                                                }
-                                                return ListView.separated(
-                                                  padding: EdgeInsets.zero,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount:
-                                                      draftsListViewCreatedPostsRecordList
-                                                          .length,
-                                                  separatorBuilder: (_, __) =>
-                                                      SizedBox(height: 4.0),
-                                                  itemBuilder: (context,
-                                                      draftsListViewIndex) {
-                                                    final draftsListViewCreatedPostsRecord =
-                                                        draftsListViewCreatedPostsRecordList[
-                                                            draftsListViewIndex];
-                                                    return Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  16.0,
-                                                                  0.0,
-                                                                  16.0,
-                                                                  0.0),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          logFirebaseEvent(
-                                                              'ALL_POSTS_OVERVIEW_listContainer_ON_TAP');
-                                                          if (draftsListViewCreatedPostsRecord
-                                                                  .content
-                                                                  .length ==
-                                                              1) {
-                                                            logFirebaseEvent(
-                                                                'listContainer_navigate_to');
-
-                                                            context.pushNamed(
-                                                              'viewOrEditPost',
-                                                              queryParameters: {
-                                                                'postText':
-                                                                    serializeParam(
-                                                                  draftsListViewCreatedPostsRecord
-                                                                      .content
-                                                                      .first,
-                                                                  ParamType
-                                                                      .String,
+                                                                  12.0,
+                                                                  8.0,
+                                                                  12.0,
+                                                                  4.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Container(
+                                                            height: 24.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: const Color(
+                                                                  0x450060FF),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12.0),
+                                                              border:
+                                                                  Border.all(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                width: 2.0,
+                                                              ),
+                                                            ),
+                                                            child: Align(
+                                                              alignment:
+                                                                  const AlignmentDirectional(
+                                                                      0.0, 0.0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  'Getting Created',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .alternate,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                      ),
                                                                 ),
-                                                                'postRef':
-                                                                    serializeParam(
-                                                                  draftsListViewCreatedPostsRecord
-                                                                      .reference,
-                                                                  ParamType
-                                                                      .DocumentReference,
-                                                                ),
-                                                                'postTitle':
-                                                                    serializeParam(
-                                                                  draftsListViewCreatedPostsRecord
-                                                                      .topic,
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          } else {
-                                                            logFirebaseEvent(
-                                                                'listContainer_navigate_to');
-
-                                                            context.pushNamed(
-                                                              'viewOrEditOneLiner',
-                                                              queryParameters: {
-                                                                'postText':
-                                                                    serializeParam(
-                                                                  draftsListViewCreatedPostsRecord
-                                                                      .content,
-                                                                  ParamType
-                                                                      .String,
-                                                                  true,
-                                                                ),
-                                                                'postRef':
-                                                                    serializeParam(
-                                                                  draftsListViewCreatedPostsRecord
-                                                                      .reference,
-                                                                  ParamType
-                                                                      .DocumentReference,
-                                                                ),
-                                                                'postTitle':
-                                                                    serializeParam(
-                                                                  draftsListViewCreatedPostsRecord
-                                                                      .topic,
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          width: 500.0,
-                                                          constraints:
-                                                              BoxConstraints(
-                                                            maxWidth: 570.0,
-                                                          ),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                            border: Border.all(
-                                                              color: Color(
-                                                                  0xFFE5E7EB),
-                                                              width: 1.0,
+                                                              ),
                                                             ),
                                                           ),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    4.0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Row(
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Builder(
+                                          builder: (context) {
+                                            if (_model.choiceChipsValue ==
+                                                'Drafts') {
+                                              return Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 16.0, 0.0, 0.0),
+                                                child: StreamBuilder<
+                                                    List<CreatedPostsRecord>>(
+                                                  stream:
+                                                      queryCreatedPostsRecord(
+                                                    parent:
+                                                        currentUserReference,
+                                                    queryBuilder:
+                                                        (createdPostsRecord) =>
+                                                            createdPostsRecord
+                                                                .where(
+                                                                  'status',
+                                                                  isEqualTo:
+                                                                      'Drafts',
+                                                                )
+                                                                .orderBy(
+                                                                    'time_stamp',
+                                                                    descending:
+                                                                        true),
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 40.0,
+                                                          height: 40.0,
+                                                          child:
+                                                              SpinKitFoldingCube(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            size: 40.0,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<CreatedPostsRecord>
+                                                        draftsListViewCreatedPostsRecordList =
+                                                        snapshot.data!;
+                                                    if (draftsListViewCreatedPostsRecordList
+                                                        .isEmpty) {
+                                                      return const EmptyStateWidget(
+                                                        loadingText:
+                                                            'You have not created any content yet! Click the plus icon below to get started.',
+                                                      );
+                                                    }
+                                                    return ListView.separated(
+                                                      padding: EdgeInsets.zero,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount:
+                                                          draftsListViewCreatedPostsRecordList
+                                                              .length,
+                                                      separatorBuilder: (_,
+                                                              __) =>
+                                                          const SizedBox(height: 4.0),
+                                                      itemBuilder: (context,
+                                                          draftsListViewIndex) {
+                                                        final draftsListViewCreatedPostsRecord =
+                                                            draftsListViewCreatedPostsRecordList[
+                                                                draftsListViewIndex];
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      16.0,
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0),
+                                                          child: InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              logFirebaseEvent(
+                                                                  'ALL_POSTS_OVERVIEW_listContainer_ON_TAP');
+                                                              if (draftsListViewCreatedPostsRecord
+                                                                      .content
+                                                                      .length ==
+                                                                  1) {
+                                                                logFirebaseEvent(
+                                                                    'listContainer_navigate_to');
+
+                                                                context
+                                                                    .pushNamed(
+                                                                  'viewOrEditPost',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'postText':
+                                                                        serializeParam(
+                                                                      draftsListViewCreatedPostsRecord
+                                                                          .content
+                                                                          .first,
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                    'postRef':
+                                                                        serializeParam(
+                                                                      draftsListViewCreatedPostsRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                    'postTitle':
+                                                                        serializeParam(
+                                                                      draftsListViewCreatedPostsRecord
+                                                                          .topic,
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              } else {
+                                                                logFirebaseEvent(
+                                                                    'listContainer_navigate_to');
+
+                                                                context
+                                                                    .pushNamed(
+                                                                  'viewOrEditOneLiner',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'postText':
+                                                                        serializeParam(
+                                                                      draftsListViewCreatedPostsRecord
+                                                                          .content,
+                                                                      ParamType
+                                                                          .String,
+                                                                      true,
+                                                                    ),
+                                                                    'postRef':
+                                                                        serializeParam(
+                                                                      draftsListViewCreatedPostsRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                    'postTitle':
+                                                                        serializeParam(
+                                                                      draftsListViewCreatedPostsRecord
+                                                                          .topic,
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 500.0,
+                                                              constraints:
+                                                                  const BoxConstraints(
+                                                                maxWidth: 570.0,
+                                                              ),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: const Color(
+                                                                      0xFFE5E7EB),
+                                                                  width: 1.0,
+                                                                ),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                            4.0),
+                                                                child: Column(
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
                                                                   children: [
-                                                                    Flexible(
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Flexible(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
+                                                                                child: Text(
+                                                                                  draftsListViewCreatedPostsRecord.topic,
+                                                                                  textAlign: TextAlign.start,
+                                                                                  maxLines: 2,
+                                                                                  style: FlutterFlowTheme.of(context).headlineSmall.override(
+                                                                                        fontFamily: 'Outfit',
+                                                                                        color: const Color(0xFF15161E),
+                                                                                        fontSize: 22.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 16.0),
+                                                                                child: Text(
+                                                                                  draftsListViewCreatedPostsRecord.content.first,
+                                                                                  maxLines: 2,
+                                                                                  style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                        fontFamily: 'Plus Jakarta Sans',
+                                                                                        color: const Color(0xFF606A85),
+                                                                                        fontSize: 14.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        FlutterFlowIconButton(
+                                                                          borderRadius:
+                                                                              20.0,
+                                                                          borderWidth:
+                                                                              0.0,
+                                                                          buttonSize:
+                                                                              40.0,
+                                                                          icon:
+                                                                              Icon(
+                                                                            Icons.delete,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).error,
+                                                                            size:
+                                                                                24.0,
+                                                                          ),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            logFirebaseEvent('ALL_POSTS_OVERVIEW_delete_ICN_ON_TAP');
+                                                                            logFirebaseEvent('IconButton_alert_dialog');
+                                                                            var confirmDialogResponse = await showDialog<bool>(
+                                                                                  context: context,
+                                                                                  builder: (alertDialogContext) {
+                                                                                    return AlertDialog(
+                                                                                      title: const Text('Delete?'),
+                                                                                      content: const Text('This action will permanatly delete this draft. Continue?'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                          child: const Text('Cancel'),
+                                                                                        ),
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                          child: const Text('Delete'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  },
+                                                                                ) ??
+                                                                                false;
+                                                                            if (confirmDialogResponse) {
+                                                                              logFirebaseEvent('IconButton_backend_call');
+                                                                              await draftsListViewCreatedPostsRecord.reference.delete();
+                                                                            } else {
+                                                                              logFirebaseEvent('IconButton_close_dialog,_drawer,_etc');
+                                                                              Navigator.pop(context);
+                                                                            }
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    const Divider(
+                                                                      height:
+                                                                          2.0,
+                                                                      thickness:
+                                                                          1.0,
+                                                                      color: Color(
+                                                                          0xFFE5E7EB),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          12.0,
+                                                                          12.0,
+                                                                          12.0,
+                                                                          8.0),
                                                                       child:
-                                                                          Column(
+                                                                          Row(
                                                                         mainAxisSize:
                                                                             MainAxisSize.max,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
                                                                         children: [
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                12.0,
-                                                                                12.0,
-                                                                                12.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Text(
-                                                                              draftsListViewCreatedPostsRecord.topic,
-                                                                              textAlign: TextAlign.start,
-                                                                              maxLines: 2,
-                                                                              style: FlutterFlowTheme.of(context).headlineSmall.override(
-                                                                                    fontFamily: 'Outfit',
-                                                                                    color: Color(0xFF15161E),
-                                                                                    fontSize: 22.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
-                                                                                  ),
-                                                                            ),
+                                                                          Text(
+                                                                            dateTimeFormat('relative',
+                                                                                draftsListViewCreatedPostsRecord.timeStamp!),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  letterSpacing: 0.0,
+                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                ),
                                                                           ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                12.0,
-                                                                                4.0,
-                                                                                12.0,
-                                                                                16.0),
+                                                                          Container(
+                                                                            height:
+                                                                                32.0,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: const Color(0x7CFD3E81),
+                                                                              borderRadius: BorderRadius.circular(12.0),
+                                                                              border: Border.all(
+                                                                                color: FlutterFlowTheme.of(context).accent1,
+                                                                                width: 2.0,
+                                                                              ),
+                                                                            ),
                                                                             child:
-                                                                                Text(
-                                                                              draftsListViewCreatedPostsRecord.content.first,
-                                                                              maxLines: 2,
-                                                                              style: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                    fontFamily: 'Plus Jakarta Sans',
-                                                                                    color: Color(0xFF606A85),
-                                                                                    fontSize: 14.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                  ),
+                                                                                Align(
+                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                                                                                child: Text(
+                                                                                  draftsListViewCreatedPostsRecord.status,
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Plus Jakarta Sans',
+                                                                                        color: FlutterFlowTheme.of(context).accent1,
+                                                                                        fontSize: 14.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                      ),
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                    FlutterFlowIconButton(
-                                                                      borderRadius:
-                                                                          20.0,
-                                                                      borderWidth:
-                                                                          0.0,
-                                                                      buttonSize:
-                                                                          40.0,
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .delete,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .error,
-                                                                        size:
-                                                                            24.0,
-                                                                      ),
-                                                                      onPressed:
-                                                                          () async {
-                                                                        logFirebaseEvent(
-                                                                            'ALL_POSTS_OVERVIEW_delete_ICN_ON_TAP');
-                                                                        logFirebaseEvent(
-                                                                            'IconButton_alert_dialog');
-                                                                        var confirmDialogResponse = await showDialog<bool>(
-                                                                              context: context,
-                                                                              builder: (alertDialogContext) {
-                                                                                return AlertDialog(
-                                                                                  title: Text('Delete?'),
-                                                                                  content: Text('This action will permanatly delete this draft. Continue?'),
-                                                                                  actions: [
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                      child: Text('Cancel'),
-                                                                                    ),
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                      child: Text('Delete'),
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              },
-                                                                            ) ??
-                                                                            false;
-                                                                        if (confirmDialogResponse) {
-                                                                          logFirebaseEvent(
-                                                                              'IconButton_backend_call');
-                                                                          await draftsListViewCreatedPostsRecord
-                                                                              .reference
-                                                                              .delete();
-                                                                        } else {
-                                                                          logFirebaseEvent(
-                                                                              'IconButton_close_dialog,_drawer,_etc');
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        }
-                                                                      },
-                                                                    ),
                                                                   ],
                                                                 ),
-                                                                Divider(
-                                                                  height: 2.0,
-                                                                  thickness:
-                                                                      1.0,
-                                                                  color: Color(
-                                                                      0xFFE5E7EB),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            } else if (_model
+                                                    .choiceChipsValue ==
+                                                'Posted') {
+                                              return Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 16.0, 0.0, 0.0),
+                                                child: PagedListView<
+                                                    DocumentSnapshot<Object?>?,
+                                                    PostedOnLinkedinRecord>.separated(
+                                                  pagingController: _model
+                                                      .setPostedListViewController(
+                                                          PostedOnLinkedinRecord
+                                                              .collection(
+                                                                  currentUserReference),
+                                                          parent:
+                                                              currentUserReference),
+                                                  padding: EdgeInsets.zero,
+                                                  reverse: false,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  separatorBuilder: (_, __) =>
+                                                      const SizedBox(height: 4.0),
+                                                  builderDelegate:
+                                                      PagedChildBuilderDelegate<
+                                                          PostedOnLinkedinRecord>(
+                                                    // Customize what your widget looks like when it's loading the first page.
+                                                    firstPageProgressIndicatorBuilder:
+                                                        (_) => Center(
+                                                      child: SizedBox(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        child:
+                                                            SpinKitFoldingCube(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 40.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Customize what your widget looks like when it's loading another page.
+                                                    newPageProgressIndicatorBuilder:
+                                                        (_) => Center(
+                                                      child: SizedBox(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        child:
+                                                            SpinKitFoldingCube(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 40.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    noItemsFoundIndicatorBuilder:
+                                                        (_) => const EmptyStateWidget(
+                                                      loadingText:
+                                                          'Nothing here. Create your first post now!',
+                                                    ),
+                                                    itemBuilder: (context, _,
+                                                        postedListViewIndex) {
+                                                      final postedListViewPostedOnLinkedinRecord =
+                                                          _model.postedListViewPagingController!
+                                                                  .itemList![
+                                                              postedListViewIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'ALL_POSTS_OVERVIEW_listContainer_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'listContainer_navigate_to');
+
+                                                            context.pushNamed(
+                                                              'postDetailed',
+                                                              queryParameters: {
+                                                                'postRef':
+                                                                    serializeParam(
+                                                                  postedListViewPostedOnLinkedinRecord
+                                                                      .reference,
+                                                                  ParamType
+                                                                      .DocumentReference,
                                                                 ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          12.0,
-                                                                          12.0,
+                                                                'postText':
+                                                                    serializeParam(
+                                                                  postedListViewPostedOnLinkedinRecord
+                                                                      .postText,
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                                'postURN':
+                                                                    serializeParam(
+                                                                  postedListViewPostedOnLinkedinRecord
+                                                                      .postURN,
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                                'postedOn':
+                                                                    serializeParam(
+                                                                  postedListViewPostedOnLinkedinRecord
+                                                                      .postedOn,
+                                                                  ParamType
+                                                                      .DateTime,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width: 500.0,
+                                                            constraints:
+                                                                const BoxConstraints(
+                                                              maxWidth: 570.0,
+                                                            ),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
                                                                           8.0),
-                                                                  child: Row(
+                                                              border:
+                                                                  Border.all(
+                                                                color: const Color(
+                                                                    0xFFE5E7EB),
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(4.0),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
@@ -1561,747 +1785,467 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                         MainAxisAlignment
                                                                             .spaceBetween,
                                                                     children: [
-                                                                      Text(
-                                                                        dateTimeFormat(
-                                                                            'relative',
-                                                                            draftsListViewCreatedPostsRecord.timeStamp!),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                            ),
-                                                                      ),
-                                                                      Container(
-                                                                        height:
-                                                                            32.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              Color(0x7CFD3E81),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(12.0),
-                                                                          border:
-                                                                              Border.all(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).accent1,
-                                                                            width:
-                                                                                2.0,
-                                                                          ),
-                                                                        ),
+                                                                      Flexible(
                                                                         child:
-                                                                            Align(
-                                                                          alignment: AlignmentDirectional(
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                8.0,
-                                                                                0.0,
-                                                                                8.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Text(
-                                                                              draftsListViewCreatedPostsRecord.status,
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Plus Jakarta Sans',
-                                                                                    color: FlutterFlowTheme.of(context).accent1,
-                                                                                    fontSize: 14.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                  ),
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
+                                                                              child: Text(
+                                                                                postedListViewPostedOnLinkedinRecord.postTitle,
+                                                                                textAlign: TextAlign.start,
+                                                                                maxLines: 2,
+                                                                                style: FlutterFlowTheme.of(context).headlineSmall.override(
+                                                                                      fontFamily: 'Outfit',
+                                                                                      color: const Color(0xFF15161E),
+                                                                                      fontSize: 22.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                                    ),
+                                                                              ),
                                                                             ),
-                                                                          ),
+                                                                            Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 16.0),
+                                                                              child: Text(
+                                                                                postedListViewPostedOnLinkedinRecord.postText,
+                                                                                maxLines: 2,
+                                                                                style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                      fontFamily: 'Plus Jakarta Sans',
+                                                                                      color: const Color(0xFF606A85),
+                                                                                      fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        } else if (_model.choiceChipsValue ==
-                                            'Posted') {
-                                          return Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: PagedListView<
-                                                DocumentSnapshot<Object?>?,
-                                                PostedOnLinkedinRecord>.separated(
-                                              pagingController: _model
-                                                  .setPostedListViewController(
-                                                      PostedOnLinkedinRecord
-                                                          .collection(
-                                                              currentUserReference),
-                                                      parent:
-                                                          currentUserReference),
-                                              padding: EdgeInsets.zero,
-                                              reverse: false,
-                                              scrollDirection: Axis.vertical,
-                                              separatorBuilder: (_, __) =>
-                                                  SizedBox(height: 4.0),
-                                              builderDelegate:
-                                                  PagedChildBuilderDelegate<
-                                                      PostedOnLinkedinRecord>(
-                                                // Customize what your widget looks like when it's loading the first page.
-                                                firstPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 40.0,
-                                                    height: 40.0,
-                                                    child: SpinKitFoldingCube(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 40.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                // Customize what your widget looks like when it's loading another page.
-                                                newPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 40.0,
-                                                    height: 40.0,
-                                                    child: SpinKitFoldingCube(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 40.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                noItemsFoundIndicatorBuilder:
-                                                    (_) => EmptyStateWidget(
-                                                  loadingText:
-                                                      'Nothing here. Create your first post now!',
-                                                ),
-                                                itemBuilder: (context, _,
-                                                    postedListViewIndex) {
-                                                  final postedListViewPostedOnLinkedinRecord =
-                                                      _model.postedListViewPagingController!
-                                                              .itemList![
-                                                          postedListViewIndex];
-                                                  return Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                                16.0, 0.0),
-                                                    child: InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        logFirebaseEvent(
-                                                            'ALL_POSTS_OVERVIEW_listContainer_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'listContainer_navigate_to');
-
-                                                        context.pushNamed(
-                                                          'postDetailed',
-                                                          queryParameters: {
-                                                            'postRef':
-                                                                serializeParam(
-                                                              postedListViewPostedOnLinkedinRecord
-                                                                  .reference,
-                                                              ParamType
-                                                                  .DocumentReference,
-                                                            ),
-                                                            'postText':
-                                                                serializeParam(
-                                                              postedListViewPostedOnLinkedinRecord
-                                                                  .postText,
-                                                              ParamType.String,
-                                                            ),
-                                                            'postURN':
-                                                                serializeParam(
-                                                              postedListViewPostedOnLinkedinRecord
-                                                                  .postURN,
-                                                              ParamType.String,
-                                                            ),
-                                                            'postedOn':
-                                                                serializeParam(
-                                                              postedListViewPostedOnLinkedinRecord
-                                                                  .postedOn,
-                                                              ParamType
-                                                                  .DateTime,
-                                                            ),
-                                                          }.withoutNulls,
-                                                        );
-                                                      },
-                                                      child: Container(
-                                                        width: 500.0,
-                                                        constraints:
-                                                            BoxConstraints(
-                                                          maxWidth: 570.0,
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xFFE5E7EB),
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  4.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Flexible(
-                                                                    child:
-                                                                        Column(
+                                                                  const Divider(
+                                                                    height: 2.0,
+                                                                    thickness:
+                                                                        1.0,
+                                                                    color: Color(
+                                                                        0xFFE5E7EB),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            12.0,
+                                                                            12.0,
+                                                                            8.0),
+                                                                    child: Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
                                                                               .max,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
                                                                       children: [
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              12.0,
-                                                                              12.0,
-                                                                              12.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            postedListViewPostedOnLinkedinRecord.postTitle,
-                                                                            textAlign:
-                                                                                TextAlign.start,
-                                                                            maxLines:
-                                                                                2,
-                                                                            style: FlutterFlowTheme.of(context).headlineSmall.override(
-                                                                                  fontFamily: 'Outfit',
-                                                                                  color: Color(0xFF15161E),
-                                                                                  fontSize: 22.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
-                                                                                ),
-                                                                          ),
+                                                                        Text(
+                                                                          dateTimeFormat(
+                                                                              'relative',
+                                                                              postedListViewPostedOnLinkedinRecord.postedOn!),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              ),
                                                                         ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              12.0,
-                                                                              4.0,
-                                                                              12.0,
-                                                                              16.0),
-                                                                          child:
-                                                                              Text(
-                                                                            postedListViewPostedOnLinkedinRecord.postText,
-                                                                            maxLines:
-                                                                                2,
-                                                                            style: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                                  color: Color(0xFF606A85),
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Divider(
-                                                                height: 2.0,
-                                                                thickness: 1.0,
-                                                                color: Color(
-                                                                    0xFFE5E7EB),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        12.0,
-                                                                        12.0,
-                                                                        12.0,
-                                                                        8.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Text(
-                                                                      dateTimeFormat(
-                                                                          'relative',
-                                                                          postedListViewPostedOnLinkedinRecord
-                                                                              .postedOn!),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                          ),
-                                                                    ),
-                                                                    Container(
-                                                                      height:
-                                                                          32.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0x4F249689),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(12.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).success,
-                                                                          width:
-                                                                              2.0,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              0.0,
-                                                                              8.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            'Posted',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                                  color: FlutterFlowTheme.of(context).success,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          );
-                                        } else {
-                                          return Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: PagedListView<
-                                                DocumentSnapshot<Object?>?,
-                                                ScheduledPostsRecord>.separated(
-                                              pagingController: _model
-                                                  .setScheduledListViewController(
-                                                ScheduledPostsRecord.collection
-                                                    .where(
-                                                      'status',
-                                                      isEqualTo: 'pending',
-                                                    )
-                                                    .orderBy('timestamp',
-                                                        descending: true),
-                                              ),
-                                              padding: EdgeInsets.zero,
-                                              reverse: false,
-                                              scrollDirection: Axis.vertical,
-                                              separatorBuilder: (_, __) =>
-                                                  SizedBox(height: 4.0),
-                                              builderDelegate:
-                                                  PagedChildBuilderDelegate<
-                                                      ScheduledPostsRecord>(
-                                                // Customize what your widget looks like when it's loading the first page.
-                                                firstPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 40.0,
-                                                    height: 40.0,
-                                                    child: SpinKitFoldingCube(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 40.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                // Customize what your widget looks like when it's loading another page.
-                                                newPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 40.0,
-                                                    height: 40.0,
-                                                    child: SpinKitFoldingCube(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 40.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                noItemsFoundIndicatorBuilder:
-                                                    (_) => EmptyStateWidget(
-                                                  loadingText:
-                                                      'No scheduled posts!',
-                                                ),
-                                                itemBuilder: (context, _,
-                                                    scheduledListViewIndex) {
-                                                  final scheduledListViewScheduledPostsRecord =
-                                                      _model.scheduledListViewPagingController!
-                                                              .itemList![
-                                                          scheduledListViewIndex];
-                                                  return Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                                16.0, 0.0),
-                                                    child: InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        logFirebaseEvent(
-                                                            'ALL_POSTS_OVERVIEW_listContainer_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'listContainer_navigate_to');
-
-                                                        context.pushNamed(
-                                                          'viewScheduledPost',
-                                                          queryParameters: {
-                                                            'postDocument':
-                                                                serializeParam(
-                                                              scheduledListViewScheduledPostsRecord,
-                                                              ParamType
-                                                                  .Document,
-                                                            ),
-                                                          }.withoutNulls,
-                                                          extra: <String,
-                                                              dynamic>{
-                                                            'postDocument':
-                                                                scheduledListViewScheduledPostsRecord,
-                                                          },
-                                                        );
-                                                      },
-                                                      child: Container(
-                                                        width: 500.0,
-                                                        constraints:
-                                                            BoxConstraints(
-                                                          maxWidth: 570.0,
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xFFE5E7EB),
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  4.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Flexible(
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              12.0,
-                                                                              12.0,
-                                                                              12.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            scheduledListViewScheduledPostsRecord.postTilte,
-                                                                            textAlign:
-                                                                                TextAlign.start,
-                                                                            maxLines:
-                                                                                2,
-                                                                            style: FlutterFlowTheme.of(context).headlineSmall.override(
-                                                                                  fontFamily: 'Outfit',
-                                                                                  color: Color(0xFF15161E),
-                                                                                  fontSize: 22.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              12.0,
-                                                                              4.0,
-                                                                              12.0,
-                                                                              16.0),
-                                                                          child:
-                                                                              Text(
-                                                                            scheduledListViewScheduledPostsRecord.postText,
-                                                                            maxLines:
-                                                                                2,
-                                                                            style: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                                  color: Color(0xFF606A85),
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  FlutterFlowIconButton(
-                                                                    borderRadius:
-                                                                        20.0,
-                                                                    borderWidth:
-                                                                        0.0,
-                                                                    buttonSize:
-                                                                        40.0,
-                                                                    icon: Icon(
-                                                                      Icons
-                                                                          .delete,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error,
-                                                                      size:
-                                                                          24.0,
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      logFirebaseEvent(
-                                                                          'ALL_POSTS_OVERVIEW_delete_ICN_ON_TAP');
-                                                                      logFirebaseEvent(
-                                                                          'IconButton_alert_dialog');
-                                                                      var confirmDialogResponse = await showDialog<
-                                                                              bool>(
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (alertDialogContext) {
-                                                                              return AlertDialog(
-                                                                                title: Text('Delete?'),
-                                                                                content: Text('This action will permanatly delete this draft. Continue?'),
-                                                                                actions: [
-                                                                                  TextButton(
-                                                                                    onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                    child: Text('Cancel'),
-                                                                                  ),
-                                                                                  TextButton(
-                                                                                    onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                    child: Text('Delete'),
-                                                                                  ),
-                                                                                ],
-                                                                              );
-                                                                            },
-                                                                          ) ??
-                                                                          false;
-                                                                      if (confirmDialogResponse) {
-                                                                        logFirebaseEvent(
-                                                                            'IconButton_backend_call');
-                                                                        await scheduledListViewScheduledPostsRecord
-                                                                            .reference
-                                                                            .delete();
-                                                                      } else {
-                                                                        logFirebaseEvent(
-                                                                            'IconButton_close_dialog,_drawer,_etc');
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                      }
-                                                                    },
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Divider(
-                                                                height: 2.0,
-                                                                thickness: 1.0,
-                                                                color: Color(
-                                                                    0xFFE5E7EB),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        12.0,
-                                                                        12.0,
-                                                                        12.0,
-                                                                        8.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Posting on ${dateTimeFormat('MMMEd', scheduledListViewScheduledPostsRecord.timestamp)} at ${dateTimeFormat('jm', scheduledListViewScheduledPostsRecord.timestamp)}.',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        Container(
+                                                                          height:
+                                                                              32.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                const Color(0x4F249689),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(12.0),
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).success,
+                                                                              width: 2.0,
+                                                                            ),
                                                                           ),
-                                                                    ),
-                                                                    Container(
-                                                                      height:
-                                                                          32.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0x39FFD700),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(12.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).accent2,
-                                                                          width:
-                                                                              2.0,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              0.0,
-                                                                              8.0,
-                                                                              0.0),
                                                                           child:
-                                                                              Text(
-                                                                            'Scheduled',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                                  color: FlutterFlowTheme.of(context).accent2,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                ),
+                                                                              Align(
+                                                                            alignment:
+                                                                                const AlignmentDirectional(0.0, 0.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                                                                              child: Text(
+                                                                                'Posted',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Plus Jakarta Sans',
+                                                                                      color: FlutterFlowTheme.of(context).success,
+                                                                                      fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                    ),
+                                                                              ),
+                                                                            ),
                                                                           ),
                                                                         ),
-                                                                      ),
+                                                                      ],
                                                                     ),
-                                                                  ],
-                                                                ),
+                                                                  ),
+                                                                ],
                                                               ),
-                                                            ],
+                                                            ),
                                                           ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              );
+                                            } else {
+                                              return Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 16.0, 0.0, 0.0),
+                                                child: PagedListView<
+                                                    DocumentSnapshot<Object?>?,
+                                                    ScheduledPostsRecord>.separated(
+                                                  pagingController: _model
+                                                      .setScheduledListViewController(
+                                                    ScheduledPostsRecord
+                                                        .collection
+                                                        .where(
+                                                          'status',
+                                                          isEqualTo: 'pending',
+                                                        )
+                                                        .orderBy('timestamp',
+                                                            descending: true),
+                                                  ),
+                                                  padding: EdgeInsets.zero,
+                                                  reverse: false,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  separatorBuilder: (_, __) =>
+                                                      const SizedBox(height: 4.0),
+                                                  builderDelegate:
+                                                      PagedChildBuilderDelegate<
+                                                          ScheduledPostsRecord>(
+                                                    // Customize what your widget looks like when it's loading the first page.
+                                                    firstPageProgressIndicatorBuilder:
+                                                        (_) => Center(
+                                                      child: SizedBox(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        child:
+                                                            SpinKitFoldingCube(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 40.0,
                                                         ),
                                                       ),
                                                     ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      },
+                                                    // Customize what your widget looks like when it's loading another page.
+                                                    newPageProgressIndicatorBuilder:
+                                                        (_) => Center(
+                                                      child: SizedBox(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        child:
+                                                            SpinKitFoldingCube(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 40.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    noItemsFoundIndicatorBuilder:
+                                                        (_) => const EmptyStateWidget(
+                                                      loadingText:
+                                                          'No scheduled posts!',
+                                                    ),
+                                                    itemBuilder: (context, _,
+                                                        scheduledListViewIndex) {
+                                                      final scheduledListViewScheduledPostsRecord =
+                                                          _model.scheduledListViewPagingController!
+                                                                  .itemList![
+                                                              scheduledListViewIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'ALL_POSTS_OVERVIEW_listContainer_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'listContainer_navigate_to');
+
+                                                            context.pushNamed(
+                                                              'viewScheduledPost',
+                                                              queryParameters: {
+                                                                'postDocument':
+                                                                    serializeParam(
+                                                                  scheduledListViewScheduledPostsRecord,
+                                                                  ParamType
+                                                                      .Document,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                'postDocument':
+                                                                    scheduledListViewScheduledPostsRecord,
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width: 500.0,
+                                                            constraints:
+                                                                const BoxConstraints(
+                                                              maxWidth: 570.0,
+                                                            ),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              border:
+                                                                  Border.all(
+                                                                color: const Color(
+                                                                    0xFFE5E7EB),
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(4.0),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Flexible(
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
+                                                                              child: Text(
+                                                                                scheduledListViewScheduledPostsRecord.postTilte,
+                                                                                textAlign: TextAlign.start,
+                                                                                maxLines: 2,
+                                                                                style: FlutterFlowTheme.of(context).headlineSmall.override(
+                                                                                      fontFamily: 'Outfit',
+                                                                                      color: const Color(0xFF15161E),
+                                                                                      fontSize: 22.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 16.0),
+                                                                              child: Text(
+                                                                                scheduledListViewScheduledPostsRecord.postText,
+                                                                                maxLines: 2,
+                                                                                style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                      fontFamily: 'Plus Jakarta Sans',
+                                                                                      color: const Color(0xFF606A85),
+                                                                                      fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      FlutterFlowIconButton(
+                                                                        borderRadius:
+                                                                            20.0,
+                                                                        borderWidth:
+                                                                            0.0,
+                                                                        buttonSize:
+                                                                            40.0,
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .delete,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).error,
+                                                                          size:
+                                                                              24.0,
+                                                                        ),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'ALL_POSTS_OVERVIEW_delete_ICN_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'IconButton_alert_dialog');
+                                                                          var confirmDialogResponse = await showDialog<bool>(
+                                                                                context: context,
+                                                                                builder: (alertDialogContext) {
+                                                                                  return AlertDialog(
+                                                                                    title: const Text('Delete?'),
+                                                                                    content: const Text('This action will permanatly delete this draft. Continue?'),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                        child: const Text('Cancel'),
+                                                                                      ),
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                        child: const Text('Delete'),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              ) ??
+                                                                              false;
+                                                                          if (confirmDialogResponse) {
+                                                                            logFirebaseEvent('IconButton_backend_call');
+                                                                            await scheduledListViewScheduledPostsRecord.reference.delete();
+                                                                          } else {
+                                                                            logFirebaseEvent('IconButton_close_dialog,_drawer,_etc');
+                                                                            Navigator.pop(context);
+                                                                          }
+                                                                        },
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  const Divider(
+                                                                    height: 2.0,
+                                                                    thickness:
+                                                                        1.0,
+                                                                    color: Color(
+                                                                        0xFFE5E7EB),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            12.0,
+                                                                            12.0,
+                                                                            8.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Text(
+                                                                          'Posting on ${dateTimeFormat('MMMEd', scheduledListViewScheduledPostsRecord.timestamp)} at ${dateTimeFormat('jm', scheduledListViewScheduledPostsRecord.timestamp)}.',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              ),
+                                                                        ),
+                                                                        Container(
+                                                                          height:
+                                                                              32.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                const Color(0x39FFD700),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(12.0),
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).accent2,
+                                                                              width: 2.0,
+                                                                            ),
+                                                                          ),
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                const AlignmentDirectional(0.0, 0.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                                                                              child: Text(
+                                                                                'Scheduled',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Plus Jakarta Sans',
+                                                                                      color: FlutterFlowTheme.of(context).accent2,
+                                                                                      fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -2309,7 +2253,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                         Container(
                           width: double.infinity,
                           height: 90.0,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Stack(
                             children: [
                               Column(
@@ -2325,7 +2269,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 10.0,
                                             color: Color(0x1A57636C),
@@ -2364,7 +2308,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.dashboard_rounded,
@@ -2415,7 +2359,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.newspaper_outlined,
@@ -2454,7 +2398,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 10.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
@@ -2464,7 +2408,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.add,
                                             color: Colors.white,
                                             size: 30.0,
@@ -2500,7 +2444,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.campaign_rounded,
@@ -2538,7 +2482,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 4.0),
                                         child: Icon(
                                           Icons.book_rounded,
@@ -2580,16 +2524,16 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                     ),
                     if (MediaQuery.sizeOf(context).width > 500.0)
                       Align(
-                        alignment: AlignmentDirectional(1.0, -1.0),
+                        alignment: const AlignmentDirectional(1.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 33.0, 60.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 10.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -2681,7 +2625,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     badgeColor:
                                         FlutterFlowTheme.of(context).secondary,
                                     elevation: 4.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         6.0, 8.0, 6.0, 8.0),
                                     position: badges.BadgePosition.topEnd(),
                                     animationType:
@@ -2719,7 +2663,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 12.0, 12.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -2756,7 +2700,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                             model: _model.emptyStateModel,
                                             updateCallback: () =>
                                                 setState(() {}),
-                                            child: EmptyStateWidget(
+                                            child: const EmptyStateWidget(
                                               loadingText:
                                                   'You have no new notifications',
                                               imageWidth: 100,
@@ -2765,7 +2709,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 12.0),
                                             child: Text(
                                               'Mark all as read',
@@ -2830,7 +2774,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 0.85,
                       decoration: BoxDecoration(
@@ -2838,7 +2782,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                         borderRadius: BorderRadius.circular(24.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 18.0, 16.0, 18.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -2887,7 +2831,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 0.0),
                               child: Text(
                                 'Select the type of content',
@@ -2909,7 +2853,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -2932,7 +2876,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -2952,7 +2896,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3002,7 +2946,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3011,7 +2955,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3034,7 +2978,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3054,7 +2998,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3104,7 +3048,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3113,7 +3057,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3136,7 +3080,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3156,7 +3100,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3206,7 +3150,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3215,7 +3159,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3238,7 +3182,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3258,7 +3202,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3308,7 +3252,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3317,7 +3261,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3340,7 +3284,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3360,7 +3304,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3410,7 +3354,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -3419,7 +3363,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 18.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -3442,7 +3386,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -3457,7 +3401,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -3490,7 +3434,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                 .bodyMediumFamily),
                                                   ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
