@@ -7,13 +7,10 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'linkedin_connect_model.dart';
 export 'linkedin_connect_model.dart';
 
@@ -58,12 +55,12 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
           context: context,
           builder: (alertDialogContext) {
             return AlertDialog(
-              title: Text('Failed!'),
-              content: Text('LinkedIn Authentication Failed'),
+              title: const Text('Failed!'),
+              content: const Text('LinkedIn Authentication Failed'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(alertDialogContext),
-                  child: Text('Try Again'),
+                  child: const Text('Try Again'),
                 ),
               ],
             );
@@ -94,10 +91,10 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
           key: scaffoldKey,
           backgroundColor: Colors.white,
           body: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Container(
               width: double.infinity,
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 670.0,
               ),
               decoration: BoxDecoration(
@@ -123,9 +120,9 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, 1.0),
+                          alignment: const AlignmentDirectional(-1.0, 1.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 24.0, 0.0, 0.0),
                             child: FlutterFlowIconButton(
                               borderColor: Colors.transparent,
@@ -146,8 +143,8 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                           context: context,
                                           builder: (alertDialogContext) {
                                             return AlertDialog(
-                                              title: Text('Logout?'),
-                                              content: Text(
+                                              title: const Text('Logout?'),
+                                              content: const Text(
                                                   'This will log you out of InspireAI completely. Are you sure you want to logout?'),
                                               actions: [
                                                 TextButton(
@@ -155,14 +152,14 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                                       Navigator.pop(
                                                           alertDialogContext,
                                                           false),
-                                                  child: Text('Cancel'),
+                                                  child: const Text('Cancel'),
                                                 ),
                                                 TextButton(
                                                   onPressed: () =>
                                                       Navigator.pop(
                                                           alertDialogContext,
                                                           true),
-                                                  child: Text('Yes, Logout'),
+                                                  child: const Text('Yes, Logout'),
                                                 ),
                                               ],
                                             );
@@ -188,7 +185,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 36.0, 0.0, 0.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(0.0),
@@ -206,14 +203,14 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 36.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 36.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 8.0),
                               child: AutoSizeText(
                                 'Externalize your thought leadership.',
@@ -236,9 +233,9 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 16.0),
                               child: AutoSizeText(
                                 'To get the best from InspireAI, we need you to connect your LinkedIn account.',
@@ -269,7 +266,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                             color: FlutterFlowTheme.of(context).secondaryText,
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 16.0),
                             child: FFButtonWidget(
                               onPressed: () async {
@@ -288,11 +285,11 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 60.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 12.0, 0.0),
-                                color: Color(0x00FFFFFF),
+                                color: const Color(0x00FFFFFF),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
@@ -306,7 +303,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                           .containsKey('Montserrat'),
                                     ),
                                 elevation: 0.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(50.0),

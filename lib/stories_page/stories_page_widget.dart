@@ -7,7 +7,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'stories_page_model.dart';
 export 'stories_page_model.dart';
@@ -81,7 +80,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                   );
                 }
                 List<ArticleRecord> pageViewArticleRecordList = snapshot.data!;
-                return Container(
+                return SizedBox(
                   width: double.infinity,
                   height: double.infinity,
                   child: Stack(
@@ -114,7 +113,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                             child: Container(
                               width: 100.0,
                               height: 100.0,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [Color(0x9AFFFFFF), Colors.white],
                                   stops: [0.0, 1.0],
@@ -128,7 +127,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 56.0, 24.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -157,7 +156,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 64.0, 16.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -172,7 +171,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                               .displaySmall
                                               .override(
                                                 fontFamily: 'Outfit',
-                                                color: Color(0xFF15161E),
+                                                color: const Color(0xFF15161E),
                                                 fontSize: 36.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
@@ -183,7 +182,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 0.0),
                                           child: Text(
                                             valueOrDefault<String>(
@@ -203,7 +202,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                 .headlineMedium
                                                 .override(
                                                   fontFamily: 'Outfit',
-                                                  color: Color(0xFF15161E),
+                                                  color: const Color(0xFF15161E),
                                                   fontSize: 24.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -216,7 +215,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 0.0),
                                           child: Text(
                                             pageViewArticleRecord
@@ -226,7 +225,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                 .labelMedium
                                                 .override(
                                                   fontFamily: 'Outfit',
-                                                  color: Color(0xFF606A85),
+                                                  color: const Color(0xFF606A85),
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -239,7 +238,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 16.0, 0.0, 24.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -271,21 +270,21 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                       );
                                                     },
                                                     text: 'Share',
-                                                    icon: Icon(
+                                                    icon: const Icon(
                                                       Icons.ios_share,
                                                       size: 15.0,
                                                     ),
                                                     options: FFButtonOptions(
                                                       height: 40.0,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
                                                                   24.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -299,7 +298,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF15161E),
                                                                 fontSize: 16.0,
                                                                 letterSpacing:
@@ -313,7 +312,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                                         'Plus Jakarta Sans'),
                                                               ),
                                                       elevation: 0.0,
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFE5E7EB),
                                                         width: 1.0,
@@ -377,11 +376,11 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     iconPadding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -407,7 +406,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                                       'Plus Jakarta Sans'),
                                                         ),
                                                     elevation: 3.0,
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -417,7 +416,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(SizedBox(width: 16.0)),
+                                            ].divide(const SizedBox(width: 16.0)),
                                           ),
                                         ),
                                       ],
@@ -430,9 +429,9 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                         },
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, -1.0),
+                        alignment: const AlignmentDirectional(0.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 40.0, 0.0, 0.0),
                           child: smooth_page_indicator.SmoothPageIndicator(
                             controller: _model.pageViewController ??=
@@ -448,7 +447,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                             onDotClicked: (i) async {
                               await _model.pageViewController!.animateToPage(
                                 i,
-                                duration: Duration(milliseconds: 500),
+                                duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
                               setState(() {});
@@ -474,7 +473,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
               },
             ),
             Align(
-              alignment: AlignmentDirectional(1.0, 0.0),
+              alignment: const AlignmentDirectional(1.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -484,19 +483,19 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                   logFirebaseEvent('STORIES_PAGE_PAGE_rightContainer_ON_TAP');
                   logFirebaseEvent('rightContainer_page_view');
                   await _model.pageViewController?.nextPage(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.ease,
                   );
                 },
                 child: Container(
                   width: 60.0,
                   height: MediaQuery.sizeOf(context).height * 0.7,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                 ),
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(-1.0, 0.0),
+              alignment: const AlignmentDirectional(-1.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -506,14 +505,14 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                   logFirebaseEvent('STORIES_PAGE_PAGE_leftContainer_ON_TAP');
                   logFirebaseEvent('leftContainer_page_view');
                   await _model.pageViewController?.previousPage(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.ease,
                   );
                 },
                 child: Container(
                   width: 60.0,
                   height: MediaQuery.sizeOf(context).height * 0.7,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                 ),
               ),
             ),

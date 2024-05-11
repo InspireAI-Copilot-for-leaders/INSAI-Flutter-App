@@ -4,12 +4,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'edit_brand_voice_model.dart';
 export 'edit_brand_voice_model.dart';
 
@@ -78,10 +76,10 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             automaticallyImplyLeading: false,
-            title: Container(
+            title: SizedBox(
               width: double.infinity,
               child: Stack(
-                alignment: AlignmentDirectional(-1.0, 0.0),
+                alignment: const AlignmentDirectional(-1.0, 0.0),
                 children: [
                   InkWell(
                     splashColor: Colors.transparent,
@@ -97,7 +95,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 4.0),
                           child: Icon(
                             Icons.arrow_back_ios_rounded,
@@ -106,7 +104,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               4.0, 4.0, 0.0, 4.0),
                           child: Text(
                             'Back ',
@@ -129,7 +127,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: const AlignmentDirectional(0.0, 1.0),
                     child: Text(
                       'User Persona',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -144,7 +142,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
+                    alignment: const AlignmentDirectional(1.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -167,27 +165,27 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                 ],
               ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
           body: SafeArea(
             top: true,
             child: Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Container(
                 width: double.infinity,
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 670.0,
                 ),
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 0.0),
                         child: SingleChildScrollView(
                           child: Column(
@@ -195,7 +193,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 4.0),
                                 child: AutoSizeText(
                                   'Setup your Brand Voice',
@@ -218,7 +216,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 12.0),
                                 child: Text(
                                   'The voice in which your content will be written.',
@@ -246,7 +244,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           12.0, 12.0, 0.0, 0.0),
                                       child: Text(
                                         'URL of content written by you',
@@ -274,7 +272,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                     ),
                                     if (_model.contentUrlFields == '2')
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
@@ -304,7 +302,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                                   .labelMediumFamily),
                                                     ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFFE0E3E7),
                                                 width: 1.0,
                                               ),
@@ -312,7 +310,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                   BorderRadius.circular(24.0),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFF5A5D5D),
                                                 width: 1.0,
                                               ),
@@ -341,7 +339,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                   BorderRadius.circular(24.0),
                                             ),
                                             contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 16.0, 0.0),
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -367,7 +365,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                       ),
                                     if (_model.contentUrlFields == '3')
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
@@ -397,7 +395,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                                   .labelMediumFamily),
                                                     ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFFE0E3E7),
                                                 width: 1.0,
                                               ),
@@ -405,7 +403,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                   BorderRadius.circular(24.0),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFF5A5D5D),
                                                 width: 1.0,
                                               ),
@@ -434,7 +432,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                   BorderRadius.circular(24.0),
                                             ),
                                             contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 16.0, 0.0),
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -459,7 +457,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                         ),
                                       ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
@@ -487,7 +485,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                             .labelMediumFamily),
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFFE0E3E7),
                                               width: 1.0,
                                             ),
@@ -495,7 +493,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                 BorderRadius.circular(24.0),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFF5A5D5D),
                                               width: 1.0,
                                             ),
@@ -524,7 +522,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                 BorderRadius.circular(24.0),
                                           ),
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -549,7 +547,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           8.0, 8.0, 8.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -586,10 +584,10 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                             text: 'Detect',
                                             options: FFButtonOptions(
                                               height: 20.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -615,7 +613,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                                     .titleSmallFamily),
                                                       ),
                                               elevation: 3.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -633,7 +631,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 12.0, 0.0, 0.0),
                                     child: Text(
                                       'Your content voice',
@@ -657,7 +655,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 0.0, 0.0),
                                     child: TextFormField(
                                       controller:
@@ -683,7 +681,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                           .labelMediumFamily),
                                             ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFFE0E3E7),
                                             width: 1.0,
                                           ),
@@ -691,7 +689,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                               BorderRadius.circular(24.0),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFF5A5D5D),
                                             width: 1.0,
                                           ),
@@ -717,7 +715,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                               BorderRadius.circular(24.0),
                                         ),
                                         contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 16.0, 0.0, 16.0, 0.0),
                                       ),
                                       style: FlutterFlowTheme.of(context)
@@ -740,7 +738,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         8.0, 8.0, 8.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -768,10 +766,10 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                           options: FFButtonOptions(
                                             height: 20.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
@@ -796,7 +794,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                                   .titleSmallFamily),
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -810,7 +808,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                   if (_model.typedVoice != null &&
                                       _model.typedVoice != '')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 0.0),
                                       child: Container(
                                         width: double.infinity,
@@ -822,7 +820,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                         ),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 12.0, 12.0, 12.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -850,7 +848,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                         ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 8.0, 0.0, 0.0),
                                                 child: Text(
@@ -884,7 +882,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -905,10 +903,10 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                       opacity: 0.8,
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Text(
                                             'or',
@@ -952,7 +950,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   'Select from pre-defined templates',
@@ -975,7 +973,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: StreamBuilder<List<BrandVoicesRecord>>(
                                   stream: queryBrandVoicesRecord(),
@@ -1043,10 +1041,10 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                               children: [
                                                 Flexible(
                                                   child: Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   12.0,
                                                                   12.0,
@@ -1078,7 +1076,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 12.0, 0.0),
                                                   child: Icon(
@@ -1111,7 +1109,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 12.0, 16.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
@@ -1141,9 +1139,9 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 48.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle: FlutterFlowTheme.of(context)
@@ -1161,7 +1159,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                         .titleMediumFamily),
                               ),
                           elevation: 4.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

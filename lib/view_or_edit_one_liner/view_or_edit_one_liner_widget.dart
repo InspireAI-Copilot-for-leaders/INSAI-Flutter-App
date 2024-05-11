@@ -4,12 +4,10 @@ import '/components/one_liner_expandable_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'view_or_edit_one_liner_model.dart';
 export 'view_or_edit_one_liner_model.dart';
 
@@ -72,15 +70,15 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
             children: [
               Expanded(
                 child: Stack(
-                  alignment: AlignmentDirectional(1.0, 1.0),
+                  alignment: const AlignmentDirectional(1.0, 1.0),
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(-1.0, -1.0),
+                      alignment: const AlignmentDirectional(-1.0, -1.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 12.0, 24.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -91,7 +89,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 12.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -114,19 +112,19 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.all(2.0),
+                                      padding: const EdgeInsets.all(2.0),
                                       child: AuthUserStreamWidget(
                                         builder: (context) => Container(
                                           width: 30.0,
                                           height: 30.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
                                             (currentUserDocument
                                                         ?.profilePictureLinks
-                                                        ?.toList() ??
+                                                        .toList() ??
                                                     [])
                                                 .first,
                                             fit: BoxFit.cover,
@@ -135,7 +133,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -146,7 +144,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                         children: [
                                           AuthUserStreamWidget(
                                             builder: (context) => Text(
-                                              '${currentUserDocument?.linkedinDetails?.localizedFirstName}',
+                                              '${currentUserDocument?.linkedinDetails.localizedFirstName}',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .titleLarge
@@ -202,9 +200,9 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                   options: FFButtonOptions(
                                     width: 100.0,
                                     height: 36.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -219,7 +217,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                               .containsKey('Plus Jakarta Sans'),
                                         ),
                                     elevation: 2.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -252,9 +250,9 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                     snapshot.data!;
                                 return Container(
                                   width: double.infinity,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 8.0, 24.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -263,7 +261,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 16.0, 0.0, 12.0),
                                           child: TextFormField(
                                             controller:
@@ -277,7 +275,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                             onChanged: (_) =>
                                                 EasyDebounce.debounce(
                                               '_model.textController',
-                                              Duration(milliseconds: 2000),
+                                              const Duration(milliseconds: 2000),
                                               () => setState(() {}),
                                             ),
                                             autofocus: false,
@@ -296,7 +294,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            Color(0xFF57636C),
+                                                            const Color(0xFF57636C),
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -306,57 +304,57 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                                             .containsKey(
                                                                 'Plus Jakarta Sans'),
                                                       ),
-                                              enabledBorder: OutlineInputBorder(
+                                              enabledBorder: const OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0xFFE0E3E7),
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    const BorderRadius.only(
+                                                    BorderRadius.only(
                                                   topLeft: Radius.circular(4.0),
                                                   topRight:
                                                       Radius.circular(4.0),
                                                 ),
                                               ),
-                                              focusedBorder: OutlineInputBorder(
+                                              focusedBorder: const OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0xFF4B39EF),
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    const BorderRadius.only(
+                                                    BorderRadius.only(
                                                   topLeft: Radius.circular(4.0),
                                                   topRight:
                                                       Radius.circular(4.0),
                                                 ),
                                               ),
-                                              errorBorder: OutlineInputBorder(
+                                              errorBorder: const OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0xFFFF5963),
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    const BorderRadius.only(
+                                                    BorderRadius.only(
                                                   topLeft: Radius.circular(4.0),
                                                   topRight:
                                                       Radius.circular(4.0),
                                                 ),
                                               ),
                                               focusedErrorBorder:
-                                                  OutlineInputBorder(
+                                                  const OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0xFFFF5963),
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    const BorderRadius.only(
+                                                    BorderRadius.only(
                                                   topLeft: Radius.circular(4.0),
                                                   topRight:
                                                       Radius.circular(4.0),
                                                 ),
                                               ),
                                               contentPadding:
-                                                  EdgeInsetsDirectional
+                                                  const EdgeInsetsDirectional
                                                       .fromSTEB(16.0, 8.0, 16.0,
                                                           12.0),
                                             ),
@@ -378,7 +376,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                                 ),
                                             textAlign: TextAlign.start,
                                             maxLines: null,
-                                            cursorColor: Color(0xFF4B39EF),
+                                            cursorColor: const Color(0xFF4B39EF),
                                             validator: _model
                                                 .textControllerValidator
                                                 .asValidator(context),
@@ -386,7 +384,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 24.0),
                                           child: Text(
                                             'Select any one to edit or post...',
@@ -417,7 +415,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                               final oneLiners =
                                                   widget.postText!.toList();
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   0,
                                                   0,
                                                   0,
@@ -426,7 +424,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                                 scrollDirection: Axis.vertical,
                                                 itemCount: oneLiners.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(height: 12.0),
+                                                    const SizedBox(height: 12.0),
                                                 itemBuilder:
                                                     (context, oneLinersIndex) {
                                                   final oneLinersItem =

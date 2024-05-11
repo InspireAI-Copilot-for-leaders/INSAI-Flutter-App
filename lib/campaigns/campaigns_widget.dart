@@ -2,11 +2,8 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/components/empty_state_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_rive_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:badges/badges.dart' as badges;
 import 'package:rive/rive.dart' hide LinearGradient;
@@ -14,7 +11,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -69,8 +65,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(460.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(460.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -82,8 +78,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(2.0, 2.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.0, 2.0),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -96,15 +92,15 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           MoveEffect(
             curve: Curves.easeOut,
             delay: 400.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.0, 70.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 70.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -116,22 +112,22 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(-335.0, 0.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(-335.0, 0.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0, 0),
-            end: Offset(0, -0.524),
+            begin: const Offset(0, 0),
+            end: const Offset(0, -0.524),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(1.0, 1.0),
-            end: Offset(0.8, 0.8),
+            begin: const Offset(1.0, 1.0),
+            end: const Offset(0.8, 0.8),
           ),
         ],
       ),
@@ -143,15 +139,15 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 800.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 800.0.ms,
-            begin: Offset(8.0, 8.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(8.0, 8.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -163,8 +159,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -177,8 +173,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -189,8 +185,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.elasticOut,
             delay: 0.0.ms,
             duration: 1200.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -209,22 +205,22 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(1.0, 1.0),
           ),
           MoveEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(100.0, -150.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, -150.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(4.0, 4.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(4.0, 4.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -236,8 +232,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(-30.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-30.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -256,8 +252,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(-30.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-30.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -302,7 +298,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
             Container(
               width: double.infinity,
               height: double.infinity,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -311,7 +307,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(120.0, 0.0, 20.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(120.0, 0.0, 20.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -325,7 +321,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 20.0),
                                 child: Image.asset(
                                   'assets/images/InspireAI_LOGO2_(2).png',
@@ -349,7 +345,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     borderRadius: BorderRadius.circular(40.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 12.0, 8.0, 12.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -374,7 +370,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                           ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   4.0, 0.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -439,8 +435,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                         Expanded(
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(1.0, 0.0),
-                                            child: Container(
+                                                const AlignmentDirectional(1.0, 0.0),
+                                            child: SizedBox(
                                               width: 80.0,
                                               height: 40.0,
                                               child: custom_widgets
@@ -522,7 +518,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
               height: double.infinity,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryBackground,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 50.0,
                     color: Color(0x33000000),
@@ -534,7 +530,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                 ],
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                 child: Stack(
                   children: [
                     Column(
@@ -555,7 +551,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 16.0, 14.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -583,13 +579,13 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                           width: 50.0,
                                           height: 50.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
                                             (currentUserDocument
                                                         ?.profilePictureLinks
-                                                        ?.toList() ??
+                                                        .toList() ??
                                                     [])
                                                 .first,
                                             fit: BoxFit.cover,
@@ -715,7 +711,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Stack(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       children: [
                                         Icon(
                                           Icons.menu_rounded,
@@ -754,7 +750,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     MediaQuery.sizeOf(context).height * 0.9,
                                     640.0,
                                   ),
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Color(0xFFFAFAFA),
                                   ),
                                   child: Column(
@@ -784,7 +780,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                           .bodyMediumFamily),
                                             ),
                                       ),
-                                      Container(
+                                      SizedBox(
                                         width: 250.0,
                                         height: 250.0,
                                         child: RiveAnimation.asset(
@@ -796,7 +792,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             36.0, 0.0, 36.0, 0.0),
                                         child: Text(
                                           'Building something awesome',
@@ -830,7 +826,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                         Container(
                           width: double.infinity,
                           height: 90.0,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Stack(
                             children: [
                               Column(
@@ -846,7 +842,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 10.0,
                                             color: Color(0x1A57636C),
@@ -885,7 +881,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.dashboard_rounded,
@@ -936,7 +932,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.newspaper_outlined,
@@ -975,7 +971,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 10.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
@@ -985,7 +981,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.add,
                                             color: Colors.white,
                                             size: 30.0,
@@ -1008,7 +1004,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 4.0),
                                         child: Icon(
                                           Icons.campaign_rounded,
@@ -1058,7 +1054,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 4.0),
                                           child: Icon(
                                             Icons.book_rounded,
@@ -1101,16 +1097,16 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                     ),
                     if (MediaQuery.sizeOf(context).width > 500.0)
                       Align(
-                        alignment: AlignmentDirectional(1.0, -1.0),
+                        alignment: const AlignmentDirectional(1.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 33.0, 60.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 10.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -1202,7 +1198,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     badgeColor:
                                         FlutterFlowTheme.of(context).secondary,
                                     elevation: 4.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         6.0, 8.0, 6.0, 8.0),
                                     position: badges.BadgePosition.topEnd(),
                                     animationType:
@@ -1240,7 +1236,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 12.0, 12.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -1277,7 +1273,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                             model: _model.emptyStateModel,
                                             updateCallback: () =>
                                                 setState(() {}),
-                                            child: EmptyStateWidget(
+                                            child: const EmptyStateWidget(
                                               loadingText:
                                                   'You have no new notifications',
                                               imageWidth: 100,
@@ -1286,7 +1282,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 12.0),
                                             child: Text(
                                               'Mark all as read',
@@ -1351,7 +1347,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 0.85,
                       decoration: BoxDecoration(
@@ -1359,7 +1355,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                         borderRadius: BorderRadius.circular(24.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 18.0, 16.0, 18.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -1408,7 +1404,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 0.0),
                               child: Text(
                                 'Select the type of content',
@@ -1430,7 +1426,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1453,7 +1449,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1473,7 +1469,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1523,7 +1519,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1532,7 +1528,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1555,7 +1551,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1575,7 +1571,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1625,7 +1621,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1634,7 +1630,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1657,7 +1653,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1677,7 +1673,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1727,7 +1723,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1736,7 +1732,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1759,7 +1755,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1779,7 +1775,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1829,7 +1825,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1838,7 +1834,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1861,7 +1857,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1881,7 +1877,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1931,7 +1927,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1940,7 +1936,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 18.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1963,7 +1959,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1978,7 +1974,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -2011,7 +2007,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                 .bodyMediumFamily),
                                                   ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),

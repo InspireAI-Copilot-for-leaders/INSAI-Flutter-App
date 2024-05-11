@@ -4,14 +4,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_poll_model.dart';
 export 'create_poll_model.dart';
 
@@ -69,8 +65,8 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
             curve: Curves.easeInOut,
             delay: 250.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 70.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 70.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -96,12 +92,12 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 670.0,
       ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 3.0,
             color: Color(0x33000000),
@@ -121,13 +117,13 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
         key: _model.formKey,
         autovalidateMode: AutovalidateMode.disabled,
         child: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,14 +142,14 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                             logFirebaseEvent('Icon_bottom_sheet');
                             Navigator.pop(context);
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back_rounded,
                             color: Color(0xB0080808),
                             size: 30.0,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 4.0),
                           child: Text(
                             'Create a poll',
@@ -171,7 +167,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                                 ),
                           ),
                         ),
-                      ].divide(SizedBox(width: 16.0)),
+                      ].divide(const SizedBox(width: 16.0)),
                     ),
                     FFButtonWidget(
                       onPressed: () async {
@@ -200,9 +196,9 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                       options: FFButtonOptions(
                         height: 40.0,
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: Colors.transparent,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -218,18 +214,18 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                                       .titleSmallFamily),
                             ),
                         elevation: 0.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ].divide(SizedBox(width: 16.0)),
+                  ].divide(const SizedBox(width: 16.0)),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: TextFormField(
                   controller: _model.questionTextController,
                   focusNode: _model.questionFocusNode,
@@ -305,7 +301,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                       ),
                     ),
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
+                        const EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
                   ),
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily:
@@ -324,7 +320,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: TextFormField(
                   controller: _model.option1TextController,
                   focusNode: _model.option1FocusNode,
@@ -387,7 +383,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                       ),
                     ),
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
+                        const EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
                   ),
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily:
@@ -406,7 +402,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: TextFormField(
                   controller: _model.option2TextController,
                   focusNode: _model.option2FocusNode,
@@ -469,7 +465,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                       ),
                     ),
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
+                        const EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
                   ),
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily:
@@ -489,12 +485,12 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
               ),
               if (_model.optionFieldsNumber > 2)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                   child: Stack(
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: TextFormField(
                           controller: _model.option3TextController,
                           focusNode: _model.option3FocusNode,
@@ -557,7 +553,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                                 topRight: Radius.circular(4.0),
                               ),
                             ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 12.0, 24.0, 12.0, 24.0),
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -580,7 +576,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, -1.0),
+                        alignment: const AlignmentDirectional(1.0, -1.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -618,12 +614,12 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                 ),
               if (_model.optionFieldsNumber > 3)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                   child: Stack(
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: TextFormField(
                           controller: _model.option4TextController,
                           focusNode: _model.option4FocusNode,
@@ -686,7 +682,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                                 topRight: Radius.circular(4.0),
                               ),
                             ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 12.0, 24.0, 12.0, 24.0),
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -709,7 +705,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, -1.0),
+                        alignment: const AlignmentDirectional(1.0, -1.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -747,7 +743,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                 ),
               if (_model.optionFieldsNumber <= 3)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent(
@@ -762,9 +758,9 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                     options: FFButtonOptions(
                       height: 32.0,
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: Colors.transparent,
                       textStyle: FlutterFlowTheme.of(context)
                           .titleSmall
@@ -788,7 +784,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                   ),
                 ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
                       FormFieldController<String>(
@@ -796,7 +792,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                   ),
                   options: List<String>.from(
                       ['ONE_DAY', 'THREE_DAYS', 'SEVEN_DAYS', 'FOURTEEN_DAYS']),
-                  optionLabels: ['1 day', '3 days', '7 days', '14 days'],
+                  optionLabels: const ['1 day', '3 days', '7 days', '14 days'],
                   onChanged: (val) =>
                       setState(() => _model.dropDownValue = val),
                   width: double.infinity,
@@ -820,7 +816,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                   borderColor: FlutterFlowTheme.of(context).alternate,
                   borderWidth: 2.0,
                   borderRadius: 8.0,
-                  margin: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
+                  margin: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
                   hidesUnderline: true,
                   isOverButton: true,
                   isSearchable: false,
@@ -840,7 +836,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                 child: Text(
                   'Request for political opinions, medical information or other sensitive data is not allowed.',
                   textAlign: TextAlign.start,

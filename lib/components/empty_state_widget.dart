@@ -1,10 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'empty_state_model.dart';
 export 'empty_state_model.dart';
 
@@ -14,10 +12,10 @@ class EmptyStateWidget extends StatefulWidget {
     String? loadingText,
     int? imageWidth,
     int? imageHeight,
-  })  : this.loadingText =
+  })  : loadingText =
             loadingText ?? 'This usually takes a minute. Hang tight...',
-        this.imageWidth = imageWidth ?? 200,
-        this.imageHeight = imageHeight ?? 200;
+        imageWidth = imageWidth ?? 200,
+        imageHeight = imageHeight ?? 200;
 
   final String loadingText;
   final int imageWidth;
@@ -74,7 +72,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
           Opacity(
             opacity: 0.6,
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 30.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 30.0),
               child: Text(
                 widget.loadingText,
                 textAlign: TextAlign.center,

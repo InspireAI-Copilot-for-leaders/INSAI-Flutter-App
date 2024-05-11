@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import '../cloud_functions/cloud_functions.dart';
-import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -35,7 +33,7 @@ class LinkedinProfileDetailsCall {
       apiUrl: '${LinkedInDataGroup.baseUrl}/me',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${authToken}',
+        'Authorization': 'Bearer $authToken',
         'Content-Type': 'application/json',
       },
       params: {},
@@ -58,7 +56,7 @@ class LinkedinProfilePictureCall {
           '${LinkedInDataGroup.baseUrl}/me?projection=(id,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${authToken}',
+        'Authorization': 'Bearer $authToken',
         'Content-Type': 'application/json',
       },
       params: {},
@@ -93,10 +91,10 @@ class FirstDegreeConnectionsSizeCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'First degree connections size',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/connections/${personUrn}',
+      apiUrl: '${LinkedInDataGroup.baseUrl}/connections/$personUrn',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${authToken}',
+        'Authorization': 'Bearer $authToken',
       },
       params: {},
       returnBody: true,
@@ -120,10 +118,10 @@ class FindOtherPeopleCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Find Other People',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/people/(id:${personUrn})',
+      apiUrl: '${LinkedInDataGroup.baseUrl}/people/(id:$personUrn)',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${authToken}',
+        'Authorization': 'Bearer $authToken',
         'X-RestLi-Protocol-Version': '2.0.0',
       },
       params: {},
@@ -166,8 +164,8 @@ class PostOnlyTextCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "author": "${personUrn}",
-  "commentary": "${postText}",
+  "author": "$personUrn",
+  "commentary": "$postText",
   "visibility": "PUBLIC",
   "distribution": {
     "feedDistribution": "MAIN_FEED",
@@ -183,7 +181,7 @@ class PostOnlyTextCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -202,14 +200,14 @@ class PostTextWithMultipleImagesCall {
   Future<ApiCallResponse> call({
     String? personUrn = '',
     String? postText = '',
-    dynamic? imagesJson,
+    dynamic imagesJson,
     String? accessToken = '',
   }) async {
     final images = _serializeJson(imagesJson, true);
     final ffApiRequestBody = '''
 {
-  "author": "${personUrn}",
-  "commentary": "${postText}",
+  "author": "$personUrn",
+  "commentary": "$postText",
   "visibility": "PUBLIC",
   "distribution": {
     "feedDistribution": "MAIN_FEED",
@@ -220,7 +218,7 @@ class PostTextWithMultipleImagesCall {
   "isReshareDisabledByAuthor": false,
   "content": {
     "multiImage": {
-      "images": ${images}
+      "images": $images
     }
   }
 }''';
@@ -230,7 +228,7 @@ class PostTextWithMultipleImagesCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -254,8 +252,8 @@ class PostTextWithMediaCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "author": "${personUrn}",
-  "commentary": "${postText}",
+  "author": "$personUrn",
+  "commentary": "$postText",
   "visibility": "PUBLIC",
   "distribution": {
     "feedDistribution": "MAIN_FEED",
@@ -265,7 +263,7 @@ class PostTextWithMediaCall {
   "content": {
     "media": {
       "title": "title of the video",
-      "id": "${mediaId}"
+      "id": "$mediaId"
     }
   },
   "lifecycleState": "PUBLISHED",
@@ -277,7 +275,7 @@ class PostTextWithMediaCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -297,15 +295,15 @@ class PostTextWithPollCall {
     String? personUrn = '',
     String? postText = '',
     String? question = '',
-    dynamic? optionsJson,
+    dynamic optionsJson,
     String? duration = '',
     String? accessToken = '',
   }) async {
     final options = _serializeJson(optionsJson, true);
     final ffApiRequestBody = '''
 {
-  "author": "${personUrn}",
-  "commentary": "${postText}",
+  "author": "$personUrn",
+  "commentary": "$postText",
   "visibility": "PUBLIC",
   "distribution": {
     "feedDistribution": "MAIN_FEED",
@@ -314,12 +312,12 @@ class PostTextWithPollCall {
   },
   "content": {
     "poll": {
-      "question": "${question}",
+      "question": "$question",
       "options": [
-        ${options}
+        $options
       ],
       "settings": {
-        "duration": "${duration}"
+        "duration": "$duration"
       }
     }
   },
@@ -332,7 +330,7 @@ class PostTextWithPollCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -355,11 +353,11 @@ class GetPostCommentsCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'get post comments',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/${postUrn}/comments',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/$postUrn/comments',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {
@@ -432,11 +430,11 @@ class GetPostLikesCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'get post likes',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/${postUrn}/likes',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/$postUrn/likes',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -461,11 +459,11 @@ class GetSocialMetadataCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get SocialMetadata',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialMetadata/${postUrn}',
+      apiUrl: '${LinkedinPostGroup.baseUrl}/socialMetadata/$postUrn',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -488,7 +486,7 @@ class PeopleCall {
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -510,8 +508,8 @@ class ExpertiseOfPersonCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "uid": "${uid}",
-  "linkedin_profile_url": "${linkedinUrl}"
+  "uid": "$uid",
+  "linkedin_profile_url": "$linkedinUrl"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Expertise of Person',
@@ -599,19 +597,19 @@ class InspireAIContentFromTopicsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "insight": "${insight}",
-  "type": "${contentType}",
-  "topic": "${topic}",
-  "anthropic_api_key": "${anthropicKey}",
-  "brand_voice": "${brandVoice}",
-  "number_of_words": ${numberOfWords},
-  "context_size": ${numberOfWords},
+  "insight": "$insight",
+  "type": "$contentType",
+  "topic": "$topic",
+  "anthropic_api_key": "$anthropicKey",
+  "brand_voice": "$brandVoice",
+  "number_of_words": $numberOfWords,
+  "context_size": $numberOfWords,
   "similarity_top_k": 1,
-  "uid": "${uid}",
-  "notification_title": "${notificationTitle}",
-  "notification_text": "${notificationText}",
-  "notification_image_url": "${notificationImageUrl}",
-  "initial_page_name": "${initialPageName}",
+  "uid": "$uid",
+  "notification_title": "$notificationTitle",
+  "notification_text": "$notificationText",
+  "notification_image_url": "$notificationImageUrl",
+  "initial_page_name": "$initialPageName",
   "notificationSound": "default"
 }''';
     return ApiManager.instance.makeApiCall(
@@ -649,19 +647,19 @@ class InspireAIContentFromContxtCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "insight": "${insight}",
-  "type": "${contentType}",
-  "anthropic_api_key": "${anthropicKey}",
-  "topic": "${topic}",
-  "brand_voice": "${brandVoice}",
-  "number_of_words": ${numberOfWords},
-  "context": "${context}",
-  "uid": "${uid}",
-  "broad_domain": "${broadDomain}",
-  "notification_title": "${notificationTitle}",
-  "notification_text": "${notificationText}",
-  "notification_image_url": "${notificationImageUrl}",
-  "initial_page_name": "${initialPageName}",
+  "insight": "$insight",
+  "type": "$contentType",
+  "anthropic_api_key": "$anthropicKey",
+  "topic": "$topic",
+  "brand_voice": "$brandVoice",
+  "number_of_words": $numberOfWords,
+  "context": "$context",
+  "uid": "$uid",
+  "broad_domain": "$broadDomain",
+  "notification_title": "$notificationTitle",
+  "notification_text": "$notificationText",
+  "notification_image_url": "$notificationImageUrl",
+  "initial_page_name": "$initialPageName",
   "notificationSound": "default"
 }''';
     return ApiManager.instance.makeApiCall(
@@ -689,7 +687,7 @@ class GetImageUploadUrlFromLinkedinCall {
     final ffApiRequestBody = '''
 {
   "initializeUploadRequest": {
-    "owner": "${urn}"
+    "owner": "$urn"
   }
 }''';
     return ApiManager.instance.makeApiCall(
@@ -698,7 +696,7 @@ class GetImageUploadUrlFromLinkedinCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -734,7 +732,7 @@ class GetDocUploadUrlFromLinkedinCall {
     final ffApiRequestBody = '''
 {
   "initializeUploadRequest": {
-    "owner": "${urn}"
+    "owner": "$urn"
   }
 }''';
     return ApiManager.instance.makeApiCall(
@@ -743,7 +741,7 @@ class GetDocUploadUrlFromLinkedinCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -778,13 +776,13 @@ class UploadImageToLinkedinCall {
     String? imageToBeUploaded = '',
   }) async {
     final ffApiRequestBody = '''
-<p>"${imageToBeUploaded}"</p>''';
+<p>"$imageToBeUploaded"</p>''';
     return ApiManager.instance.makeApiCall(
       callName: 'uploadImageToLinkedin',
-      apiUrl: '${uploadUrl}',
+      apiUrl: '$uploadUrl',
       callType: ApiCallType.PUT,
       headers: {
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},
@@ -806,13 +804,13 @@ class UploadDocToLinkedinCall {
     String? docToBeUploaded = '',
   }) async {
     final ffApiRequestBody = '''
-<p>"${docToBeUploaded}"</p>''';
+<p>"$docToBeUploaded"</p>''';
     return ApiManager.instance.makeApiCall(
       callName: 'uploadDocToLinkedin',
-      apiUrl: '${uploadUrl}',
+      apiUrl: '$uploadUrl',
       callType: ApiCallType.PUT,
       headers: {
-        'Authorization': 'Bearer ${accessToken}',
+        'Authorization': 'Bearer $accessToken',
         'LinkedIn-Version': '202402',
       },
       params: {},

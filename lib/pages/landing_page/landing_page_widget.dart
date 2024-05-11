@@ -2,16 +2,13 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'landing_page_model.dart';
 export 'landing_page_model.dart';
 
@@ -69,8 +66,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 400.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -83,15 +80,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 400.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           MoveEffect(
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 400.0.ms,
-            begin: Offset(-100.0, 20.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-100.0, 20.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -111,8 +108,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 600.0.ms,
             duration: 200.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -124,15 +121,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 820.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 820.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -151,15 +148,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 960.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 960.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -178,15 +175,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 1100.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 1100.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -205,15 +202,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 1240.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 1240.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -232,15 +229,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 1380.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 1380.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -260,15 +257,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -288,15 +285,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 340.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 340.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -316,15 +313,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 480.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 480.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -344,15 +341,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 620.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 620.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -372,15 +369,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 760.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 760.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -400,15 +397,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -428,15 +425,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 340.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 340.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -456,15 +453,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 480.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 480.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -484,15 +481,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 620.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 620.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -512,15 +509,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 760.0.ms,
             duration: 420.0.ms,
-            begin: Offset(100.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
           BlurEffect(
             curve: Curves.easeOut,
             delay: 760.0.ms,
             duration: 420.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -540,8 +537,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 200.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -554,8 +551,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 200.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -587,10 +584,10 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 88.0, 24.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 88.0, 24.0, 0.0),
             child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(0.0),
                 child: Image.asset(
@@ -600,7 +597,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                   width: 161.0,
                   height: 25.0,
                   fit: BoxFit.contain,
-                  alignment: Alignment(-1.0, 0.0),
+                  alignment: const Alignment(-1.0, 0.0),
                 ),
               ).animateOnActionTrigger(
                 animationsMap['imageOnActionTriggerAnimation']!,
@@ -609,11 +606,11 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
               child: Container(
                 height: 360.0,
-                decoration: BoxDecoration(),
-                child: Container(
+                decoration: const BoxDecoration(),
+                child: SizedBox(
                   width: double.infinity,
                   child: Stack(
                     children: [
@@ -712,9 +709,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                         scrollDirection: Axis.horizontal,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 30.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -741,7 +738,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                         'textOnPageLoadAnimation1']!),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: AutoSizeText(
                                       'effortless,',
                                       textAlign: TextAlign.start,
@@ -765,7 +762,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                     opacity: 0.8,
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          const AlignmentDirectional(-1.0, 0.0),
                                       child: AutoSizeText(
                                         'effective and,',
                                         textAlign: TextAlign.start,
@@ -792,7 +789,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                     opacity: 0.6,
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          const AlignmentDirectional(-1.0, 0.0),
                                       child: AutoSizeText(
                                         'empowering',
                                         textAlign: TextAlign.start,
@@ -819,7 +816,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                     opacity: 0.6,
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          const AlignmentDirectional(-1.0, 0.0),
                                       child: AutoSizeText(
                                         'storytelling.',
                                         textAlign: TextAlign.start,
@@ -847,7 +844,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -875,7 +872,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, 0.0),
+                                  alignment: const AlignmentDirectional(-1.0, 0.0),
                                   child: AutoSizeText(
                                     'authentic',
                                     textAlign: TextAlign.start,
@@ -899,7 +896,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                 Opacity(
                                   opacity: 0.8,
                                   child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: AutoSizeText(
                                       'narratives with',
                                       textAlign: TextAlign.start,
@@ -924,7 +921,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                 Opacity(
                                   opacity: 0.6,
                                   child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: AutoSizeText(
                                       'cutting-edge',
                                       textAlign: TextAlign.start,
@@ -949,7 +946,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                 Opacity(
                                   opacity: 0.6,
                                   child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: AutoSizeText(
                                       'technology.',
                                       textAlign: TextAlign.start,
@@ -975,7 +972,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -1003,7 +1000,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, 0.0),
+                                  alignment: const AlignmentDirectional(-1.0, 0.0),
                                   child: AutoSizeText(
                                     'content',
                                     textAlign: TextAlign.start,
@@ -1028,7 +1025,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                 Opacity(
                                   opacity: 0.8,
                                   child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: AutoSizeText(
                                       'creation for',
                                       textAlign: TextAlign.start,
@@ -1054,7 +1051,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                 Opacity(
                                   opacity: 0.6,
                                   child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: AutoSizeText(
                                       'unmatched',
                                       textAlign: TextAlign.start,
@@ -1080,7 +1077,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                 Opacity(
                                   opacity: 0.6,
                                   child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: AutoSizeText(
                                       'engagement.',
                                       textAlign: TextAlign.start,
@@ -1109,9 +1106,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                         ],
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 16.0),
                           child: smooth_page_indicator.SmoothPageIndicator(
                             controller: _model.pageViewController ??=
@@ -1121,7 +1118,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                             onDotClicked: (i) async {
                               await _model.pageViewController!.animateToPage(
                                 i,
-                                duration: Duration(milliseconds: 500),
+                                duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
                               setState(() {});
@@ -1150,7 +1147,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 32.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 32.0),
             child: FFButtonWidget(
               onPressed: () async {
                 logFirebaseEvent('LANDING_PAGE_PAGE_GET_STARTED_BTN_ON_TAP');
@@ -1159,7 +1156,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                 context.pushNamed(
                   'auth_signupOrLogin',
                   extra: <String, dynamic>{
-                    kTransitionInfoKey: TransitionInfo(
+                    kTransitionInfoKey: const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 500),
@@ -1171,8 +1168,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 48.0,
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).alternate,
                 textStyle: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily:
@@ -1185,7 +1182,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                           FlutterFlowTheme.of(context).labelMediumFamily),
                     ),
                 elevation: 3.0,
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1.0,
                 ),

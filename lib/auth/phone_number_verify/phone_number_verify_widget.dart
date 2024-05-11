@@ -4,15 +4,11 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -47,11 +43,10 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
       logFirebaseEvent('PHONE_NUMBER_VERIFY_phone_number_verify_');
       logFirebaseEvent('phone_number_verify_auth');
       final phoneNumberVal = FFAppState().userPhoneNumber;
-      if (phoneNumberVal == null ||
-          phoneNumberVal.isEmpty ||
+      if (phoneNumberVal.isEmpty ||
           !phoneNumberVal.startsWith('+')) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Phone Number is required and has to start with +.'),
           ),
         );
@@ -81,8 +76,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -95,8 +90,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -108,8 +103,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 100.0.ms,
             duration: 600.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -122,8 +117,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 100.0.ms,
             duration: 600.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -135,8 +130,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 600.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -149,8 +144,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 600.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -162,8 +157,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 600.0.ms,
-            begin: Offset(2.5, 2.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(2.5, 2.5),
+            end: const Offset(1.0, 1.0),
           ),
           FadeEffect(
             curve: Curves.easeOut,
@@ -176,8 +171,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 600.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -195,15 +190,15 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 800.0.ms,
-            begin: Offset(10.0, 10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(10.0, 10.0),
+            end: const Offset(0.0, 0.0),
           ),
           MoveEffect(
             curve: Curves.easeInOut,
             delay: 200.0.ms,
             duration: 800.0.ms,
-            begin: Offset(-300.0, 0.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(-300.0, 0.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -231,14 +226,14 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
+          preferredSize: const Size.fromHeight(100.0),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primary,
             automaticallyImplyLeading: false,
-            actions: [],
+            actions: const [],
             flexibleSpace: FlexibleSpaceBar(
               title: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -259,7 +254,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 25.0, 13.0, 0.0, 13.0),
                             child: Icon(
                               Icons.arrow_back_ios_rounded,
@@ -268,7 +263,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Back ',
@@ -301,26 +296,26 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
           ),
         ),
         body: Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
                 width: double.infinity,
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 570.0,
                 ),
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 0.0, 0.0),
                           child: Text(
                             'OTP Verification',
@@ -345,13 +340,13 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                         tablet: false,
                       ))
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 44.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 12.0, 0.0),
                                 child: FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
@@ -391,7 +386,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                           ),
                         ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 8.0, 24.0, 0.0),
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
@@ -446,7 +441,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                             animationsMap['richTextOnPageLoadAnimation1']!),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 0.0),
                         child: PinCodeTextField(
                           autoDisposeControllers: false,
@@ -477,7 +472,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                             fieldHeight: 48.0,
                             fieldWidth: 48.0,
                             borderWidth: 2.0,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(8.0),
                               bottomRight: Radius.circular(8.0),
                               topLeft: Radius.circular(8.0),
@@ -486,12 +481,12 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                             shape: PinCodeFieldShape.box,
                             activeColor:
                                 FlutterFlowTheme.of(context).primaryText,
-                            inactiveColor: Color(0xA757636C),
+                            inactiveColor: const Color(0xA757636C),
                             selectedColor:
                                 FlutterFlowTheme.of(context).secondary,
                             activeFillColor:
                                 FlutterFlowTheme.of(context).primaryText,
-                            inactiveFillColor: Color(0xA757636C),
+                            inactiveFillColor: const Color(0xA757636C),
                             selectedFillColor:
                                 FlutterFlowTheme.of(context).secondary,
                           ),
@@ -504,9 +499,9 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                             animationsMap['pinCodeOnPageLoadAnimation']!),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           child: RichText(
                             textScaler: MediaQuery.of(context).textScaler,
@@ -530,13 +525,13 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                                     .bodyMediumFamily),
                                       ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: ' ',
                                   style: TextStyle(),
                                 ),
                                 TextSpan(
                                   text: 'Send Again',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                   ),
                                   mouseCursor: SystemMouseCursors.click,
@@ -547,12 +542,11 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                       logFirebaseEvent('RichTextSpan_auth');
                                       final phoneNumberVal =
                                           FFAppState().userPhoneNumber;
-                                      if (phoneNumberVal == null ||
-                                          phoneNumberVal.isEmpty ||
+                                      if (phoneNumberVal.isEmpty ||
                                           !phoneNumberVal.startsWith('+')) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                             content: Text(
                                                 'Phone Number is required and has to start with +.'),
                                           ),
@@ -591,9 +585,9 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, 0.0),
+                        alignment: const AlignmentDirectional(1.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 40.0, 24.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: FlutterFlowTheme.of(context).primary,
@@ -613,9 +607,9 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                               logFirebaseEvent('IconButton_auth');
                               GoRouter.of(context).prepareAuthEvent(true);
                               final smsCodeVal = _model.phoneOTPcode!.text;
-                              if (smsCodeVal == null || smsCodeVal.isEmpty) {
+                              if (smsCodeVal.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content:
                                         Text('Enter SMS verification code.'),
                                   ),
@@ -635,17 +629,8 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                               currentUserDocument
                                                   ?.onboardingStatus,
                                               '') ==
-                                          null ||
-                                      valueOrDefault(
-                                              currentUserDocument
-                                                  ?.onboardingStatus,
-                                              '') ==
                                           '') ||
                                   (valueOrDefault(
-                                              currentUserDocument?.accessType,
-                                              '') ==
-                                          null ||
-                                      valueOrDefault(
                                               currentUserDocument?.accessType,
                                               '') ==
                                           '')) {
@@ -741,15 +726,15 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                           context: context,
                                           builder: (alertDialogContext) {
                                             return AlertDialog(
-                                              title: Text('Failed!'),
-                                              content: Text(
+                                              title: const Text('Failed!'),
+                                              content: const Text(
                                                   'All validation conditions failed.'),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () =>
                                                       Navigator.pop(
                                                           alertDialogContext),
-                                                  child: Text('Ok'),
+                                                  child: const Text('Ok'),
                                                 ),
                                               ],
                                             );

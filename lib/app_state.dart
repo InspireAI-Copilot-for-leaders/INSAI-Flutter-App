@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
-import 'backend/api_requests/api_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
 import 'package:synchronized/synchronized.dart';
-import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -23,7 +19,7 @@ class FFAppState extends ChangeNotifier {
   }
 
   Future initializePersistedState() async {
-    secureStorage = FlutterSecureStorage();
+    secureStorage = const FlutterSecureStorage();
     await _safeInitAsync(() async {
       _onesignalappid =
           await secureStorage.getString('ff_onesignalappid') ?? _onesignalappid;
@@ -64,33 +60,33 @@ class FFAppState extends ChangeNotifier {
 
   String _userPhoneNumber = '';
   String get userPhoneNumber => _userPhoneNumber;
-  set userPhoneNumber(String _value) {
-    _userPhoneNumber = _value;
+  set userPhoneNumber(String value) {
+    _userPhoneNumber = value;
   }
 
   bool _drawer = false;
   bool get drawer => _drawer;
-  set drawer(bool _value) {
-    _drawer = _value;
+  set drawer(bool value) {
+    _drawer = value;
   }
 
   bool _isNotificationsVisible = false;
   bool get isNotificationsVisible => _isNotificationsVisible;
-  set isNotificationsVisible(bool _value) {
-    _isNotificationsVisible = _value;
+  set isNotificationsVisible(bool value) {
+    _isNotificationsVisible = value;
   }
 
   bool _storyVisible = false;
   bool get storyVisible => _storyVisible;
-  set storyVisible(bool _value) {
-    _storyVisible = _value;
+  set storyVisible(bool value) {
+    _storyVisible = value;
   }
 
   String _onesignalappid = '81645fb1-17aa-4ebc-908f-5ccc07499ec5';
   String get onesignalappid => _onesignalappid;
-  set onesignalappid(String _value) {
-    _onesignalappid = _value;
-    secureStorage.setString('ff_onesignalappid', _value);
+  set onesignalappid(String value) {
+    _onesignalappid = value;
+    secureStorage.setString('ff_onesignalappid', value);
   }
 
   void deleteOnesignalappid() {
@@ -99,9 +95,9 @@ class FFAppState extends ChangeNotifier {
 
   String _apifytoken = 'apify_api_yJdWtJercdZZdUUWDXlgDvniyTzSdI0lWKBg';
   String get apifytoken => _apifytoken;
-  set apifytoken(String _value) {
-    _apifytoken = _value;
-    secureStorage.setString('ff_apifytoken', _value);
+  set apifytoken(String value) {
+    _apifytoken = value;
+    secureStorage.setString('ff_apifytoken', value);
   }
 
   void deleteApifytoken() {
@@ -110,9 +106,9 @@ class FFAppState extends ChangeNotifier {
 
   bool _notificationPopupVisible = true;
   bool get notificationPopupVisible => _notificationPopupVisible;
-  set notificationPopupVisible(bool _value) {
-    _notificationPopupVisible = _value;
-    secureStorage.setBool('ff_notificationPopupVisible', _value);
+  set notificationPopupVisible(bool value) {
+    _notificationPopupVisible = value;
+    secureStorage.setBool('ff_notificationPopupVisible', value);
   }
 
   void deleteNotificationPopupVisible() {
@@ -122,9 +118,9 @@ class FFAppState extends ChangeNotifier {
   String _anthropicKey =
       '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';
   String get anthropicKey => _anthropicKey;
-  set anthropicKey(String _value) {
-    _anthropicKey = _value;
-    secureStorage.setString('ff_anthropicKey', _value);
+  set anthropicKey(String value) {
+    _anthropicKey = value;
+    secureStorage.setString('ff_anthropicKey', value);
   }
 
   void deleteAnthropicKey() {
@@ -133,9 +129,9 @@ class FFAppState extends ChangeNotifier {
 
   bool _shouldOverideDiscoverCache = false;
   bool get shouldOverideDiscoverCache => _shouldOverideDiscoverCache;
-  set shouldOverideDiscoverCache(bool _value) {
-    _shouldOverideDiscoverCache = _value;
-    secureStorage.setBool('ff_shouldOverideDiscoverCache', _value);
+  set shouldOverideDiscoverCache(bool value) {
+    _shouldOverideDiscoverCache = value;
+    secureStorage.setBool('ff_shouldOverideDiscoverCache', value);
   }
 
   void deleteShouldOverideDiscoverCache() {
@@ -144,11 +140,11 @@ class FFAppState extends ChangeNotifier {
 
   DateTime? _lastDiscoverCachedTime;
   DateTime? get lastDiscoverCachedTime => _lastDiscoverCachedTime;
-  set lastDiscoverCachedTime(DateTime? _value) {
-    _lastDiscoverCachedTime = _value;
-    _value != null
+  set lastDiscoverCachedTime(DateTime? value) {
+    _lastDiscoverCachedTime = value;
+    value != null
         ? secureStorage.setInt(
-            'ff_lastDiscoverCachedTime', _value.millisecondsSinceEpoch)
+            'ff_lastDiscoverCachedTime', value.millisecondsSinceEpoch)
         : secureStorage.remove('ff_lastDiscoverCachedTime');
   }
 
@@ -217,12 +213,12 @@ extension FlutterSecureStorageExtensions on FlutterSecureStorage {
         if (result == null || result.isEmpty) {
           return null;
         }
-        return CsvToListConverter()
+        return const CsvToListConverter()
             .convert(result)
             .first
             .map((e) => e.toString())
             .toList();
       });
   Future<void> setStringList(String key, List<String> value) async =>
-      await writeSync(key: key, value: ListToCsvConverter().convert([value]));
+      await writeSync(key: key, value: const ListToCsvConverter().convert([value]));
 }

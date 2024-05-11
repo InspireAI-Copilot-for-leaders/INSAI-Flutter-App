@@ -5,17 +5,13 @@ import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:async';
-import '/backend/schema/structs/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'linkedin_auth_model.dart';
 export 'linkedin_auth_model.dart';
 
@@ -85,7 +81,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
             logFirebaseEvent('linkedinAuth_backend_call');
             _model.getExpertiseWorflow = await ExpertiseOfPersonCall.call(
               linkedinUrl:
-                  'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails?.vanityName}',
+                  'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
               uid: currentUserUid,
             );
             if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
@@ -181,16 +177,16 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
         child: Scaffold(
           key: scaffoldKey,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(72.0),
+            preferredSize: const Size.fromHeight(72.0),
             child: AppBar(
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               automaticallyImplyLeading: false,
               title: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
-                child: Container(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                child: SizedBox(
                   width: double.infinity,
                   child: Stack(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
                     children: [
                       InkWell(
                         splashColor: Colors.transparent,
@@ -205,19 +201,19 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: Text('Logout?'),
-                                    content: Text(
+                                    title: const Text('Logout?'),
+                                    content: const Text(
                                         'This will log you out of InspireAI completely. Are you sure you want to logout?'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, false),
-                                        child: Text('Cancel'),
+                                        child: const Text('Cancel'),
                                       ),
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, true),
-                                        child: Text('Yes, Logout'),
+                                        child: const Text('Yes, Logout'),
                                       ),
                                     ],
                                   );
@@ -243,7 +239,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 4.0),
                               child: Icon(
                                 Icons.arrow_back_ios_rounded,
@@ -252,7 +248,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   4.0, 4.0, 0.0, 4.0),
                               child: Text(
                                 'Back ',
@@ -277,7 +273,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Text(
                           'Expertise',
                           style: FlutterFlowTheme.of(context)
@@ -295,7 +291,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, 0.0),
+                        alignment: const AlignmentDirectional(1.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -319,7 +315,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                   ),
                 ),
               ),
-              actions: [],
+              actions: const [],
               centerTitle: false,
               elevation: 2.0,
             ),
@@ -327,7 +323,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           body: SafeArea(
             top: true,
             child: Align(
-              alignment: AlignmentDirectional(-1.0, -1.0),
+              alignment: const AlignmentDirectional(-1.0, -1.0),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -336,14 +332,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 24.0, 24.0, 0.0),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -351,11 +347,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 4.0),
                                       child: AuthUserStreamWidget(
                                         builder: (context) => AutoSizeText(
-                                          'Welcome ${currentUserDocument?.linkedinDetails?.localizedFirstName}!',
+                                          'Welcome ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
                                           textAlign: TextAlign.start,
                                           maxLines: 2,
                                           style: FlutterFlowTheme.of(context)
@@ -380,7 +376,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                     Opacity(
                                       opacity: 0.8,
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: Text(
                                           'We\'re gonna inspire the world together ;)',
@@ -408,7 +404,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 3.0),
                                       child: Text(
                                         'Your Expertise Areas',
@@ -437,7 +433,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                     Opacity(
                                       opacity: 0.8,
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 12.0),
                                         child: Text(
                                           'Our AI analysed your expertise to be in the following topics. Add more or remove some...',
@@ -467,10 +463,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                     Flexible(
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(-1.0, -1.0),
+                                            const AlignmentDirectional(-1.0, -1.0),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 16.0),
                                           child: AuthUserStreamWidget(
                                             builder: (context) => Builder(
@@ -478,7 +474,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                 final thoughtLeadershipAre =
                                                     (currentUserDocument
                                                                 ?.thoughtLeadershipAreas
-                                                                ?.toList() ??
+                                                                .toList() ??
                                                             [])
                                                         .toList();
                                                 return Wrap(
@@ -573,7 +569,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           children: [
                                                             Flexible(
                                                               child: Padding(
-                                                                padding: EdgeInsetsDirectional
+                                                                padding: const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         12.0,
                                                                         0.0,
@@ -614,7 +610,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 3.0),
                                       child: Text(
                                         'Add More',
@@ -641,7 +637,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
@@ -668,7 +664,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                             .labelMediumFamily),
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFFE0E3E7),
                                               width: 1.0,
                                             ),
@@ -676,7 +672,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                 BorderRadius.circular(24.0),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFF5A5D5D),
                                               width: 1.0,
                                             ),
@@ -705,7 +701,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                 BorderRadius.circular(24.0),
                                           ),
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -730,9 +726,9 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      alignment: const AlignmentDirectional(1.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 4.0, 0.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -818,10 +814,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                           options: FFButtonOptions(
                                             height: 20.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
@@ -846,7 +842,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                   .titleSmallFamily),
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -857,9 +853,9 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 1.0),
+                                      alignment: const AlignmentDirectional(0.0, 1.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 12.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -881,10 +877,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             Opacity(
                                               opacity: 0.8,
                                               child: Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   child: Text(
@@ -942,7 +938,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     'broad_domain',
                                                     (currentUserDocument
                                                                 ?.thoughtLeadershipAreasMapping
-                                                                ?.toList() ??
+                                                                .toList() ??
                                                             [])
                                                         .map((e) => e.category)
                                                         .toList()),
@@ -980,7 +976,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     listViewBroadDomainRecordList[
                                                         listViewIndex];
                                                 return Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 12.0),
                                                   child: Column(
@@ -992,7 +988,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -1027,7 +1023,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 -1.0, -1.0),
                                                         child: StreamBuilder<
                                                             List<
@@ -1129,7 +1125,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                         BoxDecoration(
                                                                       color: valueOrDefault<
                                                                           Color>(
-                                                                        (currentUserDocument?.thoughtLeadershipAreas?.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
+                                                                        (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
                                                                             ? FlutterFlowTheme.of(context).secondary
                                                                             : Colors.transparent,
                                                                         Colors
@@ -1149,7 +1145,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                     ),
                                                                     child:
                                                                         Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           12.0,
                                                                           8.0,
                                                                           12.0,
@@ -1157,7 +1153,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                       child:
                                                                           Container(
                                                                         decoration:
-                                                                            BoxDecoration(),
+                                                                            const BoxDecoration(),
                                                                         child:
                                                                             Text(
                                                                           wrapExpertiseAreasRecord
@@ -1192,11 +1188,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Visibility(
                                         visible: (currentUserDocument
                                                         ?.broadDomains
-                                                        ?.toList() ??
+                                                        .toList() ??
                                                     [])
                                                 .length <
                                             5,
@@ -1209,7 +1205,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       'broad_domain',
                                                       (currentUserDocument
                                                               ?.broadDomains
-                                                              ?.toList() ??
+                                                              .toList() ??
                                                           [])),
                                               limit: 3,
                                             ),
@@ -1248,7 +1244,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           listViewIndex];
                                                   return Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 12.0),
                                                     child: Column(
@@ -1260,7 +1256,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -1296,7 +1292,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1.0, -1.0),
                                                           child: StreamBuilder<
                                                               List<
@@ -1405,7 +1401,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                           BoxDecoration(
                                                                         color: valueOrDefault<
                                                                             Color>(
-                                                                          (currentUserDocument?.thoughtLeadershipAreas?.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
+                                                                          (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
                                                                               ? FlutterFlowTheme.of(context).secondary
                                                                               : Colors.transparent,
                                                                           Colors
@@ -1423,7 +1419,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                       ),
                                                                       child:
                                                                           Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
                                                                             8.0,
                                                                             12.0,
@@ -1431,7 +1427,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                         child:
                                                                             Container(
                                                                           decoration:
-                                                                              BoxDecoration(),
+                                                                              const BoxDecoration(),
                                                                           child:
                                                                               Text(
                                                                             wrapExpertiseAreasRecord.expertiseArea,
@@ -1472,7 +1468,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                               ? MediaQuery.viewInsetsOf(context).bottom > 0
                               : _isKeyboardVisible))
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 12.0, 16.0, 24.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -1486,9 +1482,9 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 48.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
@@ -1508,7 +1504,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     .titleMediumFamily),
                                       ),
                                   elevation: 4.0,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),
@@ -1523,7 +1519,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                       wrapWithModel(
                         model: _model.profileLoadingScreenModel,
                         updateCallback: () => setState(() {}),
-                        child: ProfileLoadingScreenWidget(
+                        child: const ProfileLoadingScreenWidget(
                           loadingText:
                               'Setting up your profile. This usually takes a minute. Hang Tight...',
                         ),

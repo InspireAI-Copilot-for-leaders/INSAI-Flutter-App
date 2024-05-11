@@ -1,20 +1,15 @@
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import 'article_details_model.dart';
 export 'article_details_model.dart';
 
@@ -72,12 +67,12 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
         key: scaffoldKey,
         backgroundColor: Colors.white,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(68.0),
+          preferredSize: const Size.fromHeight(68.0),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             automaticallyImplyLeading: false,
             title: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 4.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 4.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +96,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                 ],
               ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: true,
             elevation: 2.0,
           ),
@@ -124,7 +119,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 24.0, 24.0, 0.0),
                             child: SelectionArea(
                                 child: Text(
@@ -148,7 +143,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                             )),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 28.0, 24.0, 0.0),
                             child: Container(
                               decoration: BoxDecoration(
@@ -158,20 +153,20 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                               child: Container(
                                 width: double.infinity,
-                                color: Color(0x00000000),
+                                color: const Color(0x00000000),
                                 child: ExpandableNotifier(
                                   controller:
                                       _model.expandableExpandableController,
                                   child: ExpandablePanel(
                                     header: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 0.0, 0.0, 0.0),
                                             child: Icon(
                                               Icons.checklist_rtl_rounded,
@@ -183,7 +178,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Sources',
@@ -221,13 +216,13 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     ),
                                     expanded: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 16.0),
                                       child: Builder(
                                         builder: (context) {
                                           final sources = widget
                                                   .articleDocument?.metadata
-                                                  ?.toList() ??
+                                                  .toList() ??
                                               [];
                                           return SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
@@ -275,7 +270,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   12.0,
                                                                   12.0,
@@ -319,7 +314,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         4.0,
                                                                         0.0,
@@ -336,7 +331,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                   clipBehavior:
                                                                       Clip.antiAlias,
                                                                   decoration:
-                                                                      BoxDecoration(
+                                                                      const BoxDecoration(
                                                                     shape: BoxShape
                                                                         .circle,
                                                                   ),
@@ -351,7 +346,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                 Flexible(
                                                                   child:
                                                                       Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             4.0,
                                                                             0.0,
@@ -390,11 +385,11 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                   ),
                                                 );
                                               })
-                                                  .divide(SizedBox(width: 8.0))
+                                                  .divide(const SizedBox(width: 8.0))
                                                   .addToStart(
-                                                      SizedBox(width: 16.0))
+                                                      const SizedBox(width: 16.0))
                                                   .addToEnd(
-                                                      SizedBox(width: 16.0)),
+                                                      const SizedBox(width: 16.0)),
                                             ),
                                           );
                                         },
@@ -418,12 +413,12 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 24.0, 24.0, 0.0),
                             child: Container(
                               width: double.infinity,
                               height: 150.0,
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
@@ -586,7 +581,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 16.0, 24.0, 0.0),
                             child: SelectionArea(
                                 child: Text(
@@ -609,7 +604,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                             )),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 24.0, 24.0, 24.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -624,9 +619,9 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     ),
                                   ),
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           8.0, 8.0, 8.0, 8.0),
                                       child: Text(
                                         'GPT - 4',
@@ -651,7 +646,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 0.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -674,7 +669,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 0.0, 0.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -701,7 +696,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                             ),
                                           ),
                                           duration:
-                                              Duration(milliseconds: 4000),
+                                              const Duration(milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
@@ -725,10 +720,10 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 24.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 24.0),
                     child: Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -746,9 +741,9 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               text: 'Post with your thoughts',
                               options: FFButtonOptions(
                                 height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -767,7 +762,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                   .titleSmallFamily),
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -799,7 +794,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 0.85,
                       decoration: BoxDecoration(
@@ -807,7 +802,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                         borderRadius: BorderRadius.circular(24.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 18.0, 16.0, 18.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -856,7 +851,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 0.0),
                               child: Text(
                                 'Select the type of content',
@@ -878,7 +873,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -913,7 +908,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -933,7 +928,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -983,7 +978,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -992,7 +987,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1027,7 +1022,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1047,7 +1042,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1097,7 +1092,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1106,7 +1101,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1141,7 +1136,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1161,7 +1156,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1211,7 +1206,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1220,7 +1215,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1255,7 +1250,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1275,7 +1270,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1325,7 +1320,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1334,7 +1329,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 14.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1369,7 +1364,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1389,7 +1384,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     ),
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1439,7 +1434,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                     .bodyMediumFamily),
                                                       ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),
@@ -1448,7 +1443,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 18.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -1483,7 +1478,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
+                                      kTransitionInfoKey: const TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
                                             PageTransitionType.rightToLeft,
@@ -1498,7 +1493,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1531,7 +1526,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                                 .bodyMediumFamily),
                                                   ),
                                             ),
-                                          ].divide(SizedBox(height: 4.0)),
+                                          ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ),

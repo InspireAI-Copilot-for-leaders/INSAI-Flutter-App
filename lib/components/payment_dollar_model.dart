@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'exit_dialog_widget.dart' show ExitDialogWidget;
+import 'payment_dollar_widget.dart' show PaymentDollarWidget;
 import 'package:flutter/material.dart';
 
-class ExitDialogModel extends FlutterFlowModel<ExitDialogWidget> {
+class PaymentDollarModel extends FlutterFlowModel<PaymentDollarWidget> {
   @override
   void initState(BuildContext context) {}
 

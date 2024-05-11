@@ -5,19 +5,14 @@ import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'view_scheduled_post_model.dart';
 export 'view_scheduled_post_model.dart';
 
@@ -111,8 +106,8 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 500.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 500.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -144,7 +139,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -157,7 +152,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 12.0, 24.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -168,7 +163,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 12.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -191,19 +186,19 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.all(2.0),
+                                      padding: const EdgeInsets.all(2.0),
                                       child: AuthUserStreamWidget(
                                         builder: (context) => Container(
                                           width: 38.0,
                                           height: 38.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
                                             (currentUserDocument
                                                         ?.profilePictureLinks
-                                                        ?.toList() ??
+                                                        .toList() ??
                                                     [])
                                                 .first,
                                             fit: BoxFit.cover,
@@ -212,7 +207,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -223,7 +218,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         children: [
                                           AuthUserStreamWidget(
                                             builder: (context) => Text(
-                                              '${currentUserDocument?.linkedinDetails?.localizedFirstName}',
+                                              '${currentUserDocument?.linkedinDetails.localizedFirstName}',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .titleLarge
@@ -279,9 +274,9 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                             options: FFButtonOptions(
                                               width: 100.0,
                                               height: 32.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -303,7 +298,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                                 'Plus Jakarta Sans'),
                                                       ),
                                               elevation: 2.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -316,27 +311,27 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                           ),
                                       ],
                                     ),
-                                  ].divide(SizedBox(width: 8.0)),
+                                  ].divide(const SizedBox(width: 8.0)),
                                 ),
                               ],
                             ),
                           ),
                           Container(
                             width: double.infinity,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 24.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 12.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Padding(
+                                        const Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 8.0, 0.0),
@@ -419,14 +414,14 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 12.0),
                                     child: TextFormField(
                                       controller: _model.textController1,
                                       focusNode: _model.textFieldFocusNode1,
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.textController1',
-                                        Duration(milliseconds: 2000),
+                                        const Duration(milliseconds: 2000),
                                         () => setState(() {}),
                                       ),
                                       autofocus: false,
@@ -442,7 +437,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                             .labelLarge
                                             .override(
                                               fontFamily: 'Plus Jakarta Sans',
-                                              color: Color(0xFF57636C),
+                                              color: const Color(0xFF57636C),
                                               fontSize: 16.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
@@ -451,48 +446,48 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                       .containsKey(
                                                           'Plus Jakarta Sans'),
                                             ),
-                                        enabledBorder: OutlineInputBorder(
+                                        enabledBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0xFFE0E3E7),
                                             width: 2.0,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        focusedBorder: OutlineInputBorder(
+                                        focusedBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0xFF4B39EF),
                                             width: 2.0,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        errorBorder: OutlineInputBorder(
+                                        errorBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2.0,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        focusedErrorBorder: OutlineInputBorder(
+                                        focusedErrorBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2.0,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
                                         contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 16.0, 8.0, 16.0, 12.0),
                                       ),
                                       style: FlutterFlowTheme.of(context)
@@ -510,13 +505,13 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                           ),
                                       textAlign: TextAlign.start,
                                       maxLines: null,
-                                      cursorColor: Color(0xFF4B39EF),
+                                      cursorColor: const Color(0xFF4B39EF),
                                       validator: _model.textController1Validator
                                           .asValidator(context),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 40.0),
                                     child: TextFormField(
                                       controller: _model.textController2,
@@ -532,7 +527,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                             .labelLarge
                                             .override(
                                               fontFamily: 'Plus Jakarta Sans',
-                                              color: Color(0xFF57636C),
+                                              color: const Color(0xFF57636C),
                                               fontSize: 16.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
@@ -561,7 +556,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                           ),
                                       textAlign: TextAlign.start,
                                       maxLines: null,
-                                      cursorColor: Color(0xFF4B39EF),
+                                      cursorColor: const Color(0xFF4B39EF),
                                       validator: _model.textController2Validator
                                           .asValidator(context),
                                     ),
@@ -571,7 +566,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                       (_model.typeOfMediaUploaded ==
                                           'multiImage'))
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: Builder(
                                         builder: (context) {
@@ -608,7 +603,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                     Flexible(
                                                       child: ClipRRect(
                                                         borderRadius:
-                                                            BorderRadius.only(
+                                                            const BorderRadius.only(
                                                           bottomLeft:
                                                               Radius.circular(
                                                                   8.0),
@@ -638,7 +633,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                     Flexible(
                                                       child: ClipRRect(
                                                         borderRadius:
-                                                            BorderRadius.only(
+                                                            const BorderRadius.only(
                                                           bottomLeft:
                                                               Radius.circular(
                                                                   0.0),
@@ -680,7 +675,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   children: [
                                                     ClipRRect(
                                                       borderRadius:
-                                                          BorderRadius.only(
+                                                          const BorderRadius.only(
                                                         bottomLeft:
                                                             Radius.circular(
                                                                 0.0),
@@ -715,7 +710,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -748,7 +743,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -796,7 +791,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   children: [
                                                     ClipRRect(
                                                       borderRadius:
-                                                          BorderRadius.only(
+                                                          const BorderRadius.only(
                                                         bottomLeft:
                                                             Radius.circular(
                                                                 0.0),
@@ -831,7 +826,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -859,7 +854,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -887,7 +882,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -935,7 +930,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -964,7 +959,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1004,7 +999,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1032,7 +1027,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1060,7 +1055,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1106,7 +1101,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1135,7 +1130,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1175,7 +1170,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1203,7 +1198,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         Flexible(
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -1233,7 +1228,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                             children: [
                                                               ClipRRect(
                                                                 borderRadius:
-                                                                    BorderRadius
+                                                                    const BorderRadius
                                                                         .only(
                                                                   bottomLeft: Radius
                                                                       .circular(
@@ -1263,7 +1258,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                                     .infinity,
                                                                 height: 100.0,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   color: Color(
                                                                       0xC9080808),
                                                                   borderRadius:
@@ -1285,7 +1280,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                                 ),
                                                                 child: Align(
                                                                   alignment:
-                                                                      AlignmentDirectional(
+                                                                      const AlignmentDirectional(
                                                                           0.0,
                                                                           0.0),
                                                                   child: Text(
@@ -1323,7 +1318,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                     ),
                                   if (_model.typeOfMediaUploaded == 'doc')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: Stack(
                                         children: [
@@ -1334,11 +1329,11 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                           ),
                                           Container(
                                             width: double.infinity,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Color(0xB8080808),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 8.0, 8.0, 8.0),
                                               child: Text(
                                                 valueOrDefault<String>(
@@ -1374,7 +1369,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                     ),
                                   if (_model.typeOfMediaUploaded == 'poll')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: Stack(
                                         children: [
@@ -1384,12 +1379,12 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                               border: Border.all(
-                                                color: Color(0x65979797),
+                                                color: const Color(0x65979797),
                                                 width: 2.0,
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 8.0, 8.0, 8.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -1420,7 +1415,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 12.0,
                                                                 0.0, 0.0),
                                                     child: FFButtonWidget(
@@ -1433,14 +1428,14 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         width: double.infinity,
                                                         height: 28.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -1487,7 +1482,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 12.0,
                                                                 0.0, 0.0),
                                                     child: FFButtonWidget(
@@ -1500,14 +1495,14 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                         width: double.infinity,
                                                         height: 28.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -1557,7 +1552,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                       _model.pollOption3 != '')
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   12.0,
@@ -1576,14 +1571,14 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                               double.infinity,
                                                           height: 28.0,
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       24.0,
                                                                       0.0,
                                                                       24.0,
                                                                       0.0),
                                                           iconPadding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -1634,7 +1629,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                       _model.pollOption4 != '')
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   12.0,
@@ -1653,14 +1648,14 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                               double.infinity,
                                                           height: 28.0,
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       24.0,
                                                                       0.0,
                                                                       24.0,
                                                                       0.0),
                                                           iconPadding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -1723,7 +1718,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                     if (_model.datePickerVisbile)
                       Container(
                         width: double.infinity,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.transparent,
                         ),
                         child: ClipRRect(
@@ -1764,13 +1759,13 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                     },
                                     child: Container(
                                       width: double.infinity,
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                     ),
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
@@ -1790,7 +1785,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -1806,7 +1801,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                               width: 60.0,
                                               height: 3.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFFE0E3E7),
+                                                color: const Color(0xFFE0E3E7),
                                                 borderRadius:
                                                     BorderRadius.circular(4.0),
                                               ),
@@ -1815,7 +1810,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 16.0, 0.0, 0.0),
                                           child: Text(
                                             'Change scheduled time',
@@ -1823,7 +1818,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                 .headlineSmall
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: Color(0xFF14181B),
+                                                  color: const Color(0xFF14181B),
                                                   fontSize: 20.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
@@ -1836,7 +1831,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 12.0, 0.0, 4.0),
                                           child: Text(
                                             'Date *',
@@ -1859,7 +1854,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -1871,7 +1866,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   'VIEW_SCHEDULED_POST_Container_8ndfqd33_O');
                                               logFirebaseEvent(
                                                   'Container_date_time_picker');
-                                              final _datePicked1Date =
+                                              final datePicked1Date =
                                                   await showDatePicker(
                                                 context: context,
                                                 initialDate:
@@ -1937,12 +1932,12 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                 },
                                               );
 
-                                              if (_datePicked1Date != null) {
+                                              if (datePicked1Date != null) {
                                                 safeSetState(() {
                                                   _model.datePicked1 = DateTime(
-                                                    _datePicked1Date.year,
-                                                    _datePicked1Date.month,
-                                                    _datePicked1Date.day,
+                                                    datePicked1Date.year,
+                                                    datePicked1Date.month,
+                                                    datePicked1Date.day,
                                                   );
                                                 });
                                               }
@@ -1963,11 +1958,11 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 border: Border.all(
-                                                  color: Color(0xFF3D3D3D),
+                                                  color: const Color(0xFF3D3D3D),
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 8.0, 12.0, 8.0),
                                                 child: Row(
@@ -2000,7 +1995,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                                             .bodyMediumFamily),
                                                               ),
                                                     ),
-                                                    Icon(
+                                                    const Icon(
                                                       Icons
                                                           .calendar_month_sharp,
                                                       color: Color(0xFF3F3D3D),
@@ -2014,7 +2009,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 20.0, 0.0, 4.0),
                                           child: Text(
                                             'Time *',
@@ -2037,7 +2032,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -2050,7 +2045,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                               logFirebaseEvent(
                                                   'Container_date_time_picker');
 
-                                              final _datePicked2Time =
+                                              final datePicked2Time =
                                                   await showTimePicker(
                                                 context: context,
                                                 initialTime:
@@ -2114,14 +2109,14 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   );
                                                 },
                                               );
-                                              if (_datePicked2Time != null) {
+                                              if (datePicked2Time != null) {
                                                 safeSetState(() {
                                                   _model.datePicked2 = DateTime(
                                                     getCurrentTimestamp.year,
                                                     getCurrentTimestamp.month,
                                                     getCurrentTimestamp.day,
-                                                    _datePicked2Time.hour,
-                                                    _datePicked2Time.minute,
+                                                    datePicked2Time.hour,
+                                                    datePicked2Time.minute,
                                                   );
                                                 });
                                               }
@@ -2142,11 +2137,11 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 border: Border.all(
-                                                  color: Color(0xFF3D3D3D),
+                                                  color: const Color(0xFF3D3D3D),
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 8.0, 12.0, 8.0),
                                                 child: Row(
@@ -2179,7 +2174,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                                             .bodyMediumFamily),
                                                               ),
                                                     ),
-                                                    Icon(
+                                                    const Icon(
                                                       Icons.access_time_rounded,
                                                       color: Color(0xFF3F3D3D),
                                                       size: 20.0,
@@ -2192,7 +2187,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 16.0, 16.0, 0.0),
                                           child: Text(
                                             '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
@@ -2217,7 +2212,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         if (!_model.reschedule)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 16.0, 16.0, 44.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
@@ -2245,11 +2240,11 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 32.0,
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -2270,7 +2265,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                               .containsKey(
                                                                   'Montserrat'),
                                                     ),
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),

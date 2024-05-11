@@ -5,11 +5,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'post_detailed_model.dart';
 export 'post_detailed_model.dart';
 
@@ -90,7 +88,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                 borderRadius: 30.0,
                 borderWidth: 1.0,
                 buttonSize: 60.0,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_rounded,
                   color: Color(0xFF101213),
                   size: 30.0,
@@ -105,7 +103,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                 'Post Details',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Montserrat',
-                      color: Color(0xFF101213),
+                      color: const Color(0xFF101213),
                       fontSize: 24.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w500,
@@ -113,7 +111,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                           GoogleFonts.asMap().containsKey('Montserrat'),
                     ),
               ),
-              actions: [],
+              actions: const [],
               centerTitle: false,
               elevation: 0.0,
             ),
@@ -126,7 +124,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,7 +135,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF57636C),
+                                  color: const Color(0xFF57636C),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -150,14 +148,14 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Text(
                         postDetailedPostedOnLinkedinRecord.likesNumber
                             .toString(),
                         style:
                             FlutterFlowTheme.of(context).displayLarge.override(
                                   fontFamily: 'Outfit',
-                                  color: Color(0xFF101213),
+                                  color: const Color(0xFF101213),
                                   fontSize: 64.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -168,14 +166,14 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 24.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -187,7 +185,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                         .labelSmall
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
+                                          color: const Color(0xFF57636C),
                                           fontSize: 12.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
@@ -196,7 +194,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                         ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 0.0, 0.0),
                                     child: Text(
                                       postDetailedPostedOnLinkedinRecord
@@ -206,7 +204,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                           .titleLarge
                                           .override(
                                             fontFamily: 'Outfit',
-                                            color: Color(0xFF101213),
+                                            color: const Color(0xFF101213),
                                             fontSize: 18.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
@@ -230,7 +228,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                       .labelSmall
                                       .override(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF57636C),
+                                        color: const Color(0xFF57636C),
                                         fontSize: 12.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
@@ -239,7 +237,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                       ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: Text(
                                     dateTimeFormat('yMMMd', widget.postedOn),
@@ -247,7 +245,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                         .titleLarge
                                         .override(
                                           fontFamily: 'Outfit',
-                                          color: Color(0xFF101213),
+                                          color: const Color(0xFF101213),
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
@@ -263,9 +261,9 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1.0, 0.0),
+                      alignment: const AlignmentDirectional(1.0, 0.0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 4.0, 24.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
@@ -336,7 +334,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                           .primaryText,
                                     ),
                                   ),
-                                  duration: Duration(milliseconds: 4000),
+                                  duration: const Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).secondary,
                                 ),
@@ -352,9 +350,9 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                           text: 'Refresh',
                           options: FFButtonOptions(
                             height: 30.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -370,7 +368,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 3.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -381,23 +379,23 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                     if (_model.infoVisible)
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 8.0, 24.0, 0.0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Color(0xCB1E1E1E),
+                            color: const Color(0xCB1E1E1E),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 12.0, 12.0, 12.0, 12.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Flexible(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 8.0, 0.0),
                                     child: Text(
                                       'Due to rate limits, the refresh button will currently only work 2 times a day.',
@@ -418,7 +416,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(1.0, -1.0),
+                                  alignment: const AlignmentDirectional(1.0, -1.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -448,12 +446,12 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                       ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
                       child: Text(
                         'Content',
                         style: FlutterFlowTheme.of(context).labelSmall.override(
                               fontFamily: 'Plus Jakarta Sans',
-                              color: Color(0xFF57636C),
+                              color: const Color(0xFF57636C),
                               fontSize: 12.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
@@ -464,7 +462,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
                           widget.postText,
@@ -472,7 +470,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Plus Jakarta Sans',
-                              color: Color(0xFF101213),
+                              color: const Color(0xFF101213),
                               fontSize: 14.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,

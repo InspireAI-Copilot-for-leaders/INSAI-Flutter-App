@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -7,14 +6,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'support_model.dart';
 export 'support_model.dart';
@@ -64,8 +58,8 @@ class _SupportWidgetState extends State<SupportWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 110.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 110.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -83,8 +77,8 @@ class _SupportWidgetState extends State<SupportWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 110.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 110.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -102,8 +96,8 @@ class _SupportWidgetState extends State<SupportWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 110.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 110.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -162,14 +156,14 @@ class _SupportWidgetState extends State<SupportWidget>
                       FlutterFlowTheme.of(context).titleLargeFamily),
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -186,7 +180,7 @@ class _SupportWidgetState extends State<SupportWidget>
                         ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: Text(
                       'Submit a Ticket/Report a Bug',
                       style:
@@ -205,7 +199,7 @@ class _SupportWidgetState extends State<SupportWidget>
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -223,7 +217,7 @@ class _SupportWidgetState extends State<SupportWidget>
                             },
                             child: Container(
                               width: 120.0,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 maxWidth: 500.0,
                               ),
                               decoration: BoxDecoration(
@@ -236,7 +230,7 @@ class _SupportWidgetState extends State<SupportWidget>
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     8.0, 16.0, 8.0, 16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -250,7 +244,7 @@ class _SupportWidgetState extends State<SupportWidget>
                                       size: 36.0,
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 0.0),
                                       child: Text(
                                         'Call Us',
@@ -281,7 +275,7 @@ class _SupportWidgetState extends State<SupportWidget>
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -299,7 +293,7 @@ class _SupportWidgetState extends State<SupportWidget>
                             },
                             child: Container(
                               width: 120.0,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 maxWidth: 500.0,
                               ),
                               decoration: BoxDecoration(
@@ -312,7 +306,7 @@ class _SupportWidgetState extends State<SupportWidget>
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     8.0, 16.0, 8.0, 16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -326,7 +320,7 @@ class _SupportWidgetState extends State<SupportWidget>
                                       size: 36.0,
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 0.0),
                                       child: Text(
                                         'Email Us',
@@ -355,11 +349,11 @@ class _SupportWidgetState extends State<SupportWidget>
                               animationsMap['containerOnPageLoadAnimation2']!),
                         ),
                       ),
-                    ].divide(SizedBox(width: 12.0)),
+                    ].divide(const SizedBox(width: 12.0)),
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -418,7 +412,7 @@ class _SupportWidgetState extends State<SupportWidget>
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 12.0, 16.0, 12.0),
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -490,7 +484,7 @@ class _SupportWidgetState extends State<SupportWidget>
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 12.0, 16.0, 12.0),
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -563,7 +557,7 @@ class _SupportWidgetState extends State<SupportWidget>
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 24.0, 16.0, 12.0),
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -582,12 +576,12 @@ class _SupportWidgetState extends State<SupportWidget>
                           validator: _model.textController3Validator
                               .asValidator(context),
                         ),
-                      ].divide(SizedBox(height: 12.0)),
+                      ].divide(const SizedBox(height: 12.0)),
                     ),
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -654,7 +648,7 @@ class _SupportWidgetState extends State<SupportWidget>
                       },
                       child: Container(
                         width: double.infinity,
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxWidth: 500.0,
                         ),
                         decoration: BoxDecoration(
@@ -667,7 +661,7 @@ class _SupportWidgetState extends State<SupportWidget>
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -677,7 +671,7 @@ class _SupportWidgetState extends State<SupportWidget>
                                 size: 32.0,
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   'Upload Screenshot',
@@ -702,10 +696,10 @@ class _SupportWidgetState extends State<SupportWidget>
                     ).animateOnPageLoad(
                         animationsMap['containerOnPageLoadAnimation3']!),
                   ),
-                  if (_model.uploadedFileUrls.length > 0)
+                  if (_model.uploadedFileUrls.isNotEmpty)
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                       child: Builder(
                         builder: (context) {
                           final uploaded = _model.uploadedFileUrls.toList();
@@ -732,14 +726,14 @@ class _SupportWidgetState extends State<SupportWidget>
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
                               );
-                            }).divide(SizedBox(width: 8.0)),
+                            }).divide(const SizedBox(width: 8.0)),
                           );
                         },
                       ),
                     ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent(
@@ -768,7 +762,7 @@ class _SupportWidgetState extends State<SupportWidget>
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            duration: Duration(milliseconds: 4000),
+                            duration: const Duration(milliseconds: 4000),
                             backgroundColor:
                                 FlutterFlowTheme.of(context).success,
                           ),
@@ -778,16 +772,16 @@ class _SupportWidgetState extends State<SupportWidget>
                         context.goNamed('dashboard');
                       },
                       text: 'Submit Ticket',
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.receipt_long,
                         size: 15.0,
                       ),
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 48.0,
-                        padding: EdgeInsets.all(0.0),
+                        padding: const EdgeInsets.all(0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -801,7 +795,7 @@ class _SupportWidgetState extends State<SupportWidget>
                                       .titleSmallFamily),
                             ),
                         elevation: 4.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

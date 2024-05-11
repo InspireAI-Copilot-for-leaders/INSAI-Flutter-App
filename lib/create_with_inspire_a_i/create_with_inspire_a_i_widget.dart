@@ -10,7 +10,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_with_inspire_a_i_model.dart';
@@ -23,8 +22,8 @@ class CreateWithInspireAIWidget extends StatefulWidget {
     this.topicForContent,
     String? contentType,
     String? broadDomain,
-  })  : this.contentType = contentType ?? 'value_providing_insightful',
-        this.broadDomain = broadDomain ?? 'all things technical';
+  })  : contentType = contentType ?? 'value_providing_insightful',
+        broadDomain = broadDomain ?? 'all things technical';
 
   final String? contextForContent;
   final String? topicForContent;
@@ -105,38 +104,38 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                     FlutterFlowTheme.of(context).headlineMediumFamily),
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 2.0,
       ),
       body: SafeArea(
         top: true,
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: Container(
                           width: double.infinity,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -145,16 +144,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 0.0, 0.0),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0x50B8F2E6),
+                                              color: const Color(0x50B8F2E6),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 12.0, 12.0, 12.0),
                                               child: Row(
@@ -263,16 +262,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 0.0, 0.0),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0x50B8F2E6),
+                                              color: const Color(0x50B8F2E6),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 12.0, 12.0, 12.0),
                                               child: Row(
@@ -380,16 +379,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 0.0, 0.0),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0x50B8F2E6),
+                                              color: const Color(0x50B8F2E6),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 12.0, 12.0, 12.0),
                                               child: Row(
@@ -498,17 +497,17 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 0.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
                                             decoration: BoxDecoration(
-                                              color: Color(0x50B8F2E6),
+                                              color: const Color(0x50B8F2E6),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 6.0, 12.0, 8.0),
                                               child: Row(
@@ -521,7 +520,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                             int>(null),
                                                     options: List<int>.from(
                                                         [80, 170, 270, 101]),
-                                                    optionLabels: [
+                                                    optionLabels: const [
                                                       'Short commentary (50-100 words)',
                                                       'Brief Description (150-200 words)',
                                                       'Long Analysis (250-300 words)',
@@ -568,7 +567,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                     borderWidth: 2.0,
                                                     borderRadius: 8.0,
                                                     margin:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 4.0,
                                                                 0.0, 4.0),
                                                     hidesUnderline: true,
@@ -593,7 +592,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           logFirebaseEvent(
@@ -605,9 +604,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                               _model.contentfromtopic =
                                   await InspireAIContentFromTopicsCall.call(
                                 topic: _model.textController1.text,
-                                brandVoice: _model.textController3.text ==
-                                            null ||
-                                        _model.textController3.text == ''
+                                brandVoice: _model.textController3.text == ''
                                     ? valueOrDefault(
                                         currentUserDocument?.contentVoice, '')
                                     : _model.textController3.text,
@@ -646,13 +643,13 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: Text('Failed Request!'),
-                                      content: Text('Request Failed'),
+                                      title: const Text('Failed Request!'),
+                                      content: const Text('Request Failed'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
+                                          child: const Text('Ok'),
                                         ),
                                       ],
                                     );
@@ -664,9 +661,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                               _model.contentfromcontext =
                                   await InspireAIContentFromContxtCall.call(
                                 topic: _model.textController1.text,
-                                brandVoice: _model.textController3.text ==
-                                            null ||
-                                        _model.textController3.text == ''
+                                brandVoice: _model.textController3.text == ''
                                     ? valueOrDefault(
                                         currentUserDocument?.contentVoice, '')
                                     : _model.textController3.text,
@@ -708,13 +703,13 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: Text('Failed Request!'),
-                                      content: Text('Request Failed'),
+                                      title: const Text('Failed Request!'),
+                                      content: const Text('Request Failed'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
+                                          child: const Text('Ok'),
                                         ),
                                       ],
                                     );
@@ -733,7 +728,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         .primaryText,
                                   ),
                                 ),
-                                duration: Duration(milliseconds: 4000),
+                                duration: const Duration(milliseconds: 4000),
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).secondary,
                               ),
@@ -746,9 +741,9 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 48.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle: FlutterFlowTheme.of(context)
@@ -766,7 +761,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         .titleSmallFamily),
                               ),
                           elevation: 3.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                           ),
                           borderRadius: BorderRadius.circular(24.0),
