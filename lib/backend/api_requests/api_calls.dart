@@ -1,6 +1,8 @@
 import 'dart:convert';
 import '../cloud_functions/cloud_functions.dart';
 
+import 'package:flutter/foundation.dart';
+
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
@@ -11,7 +13,10 @@ const _kPrivateApiFunctionName = 'InspirePrivateAPIs';
 /// Start LinkedInData Group Code
 
 class LinkedInDataGroup {
-  static String baseUrl = 'https://api.linkedin.com/v2';
+  static String getBaseUrl({
+    String? authToken = '',
+  }) =>
+      'https://api.linkedin.com/v2';
   static Map<String, String> headers = {
     'Authorization': 'Bearer [auth_token]',
   };
@@ -28,9 +33,13 @@ class LinkedinProfileDetailsCall {
   Future<ApiCallResponse> call({
     String? authToken = '',
   }) async {
+    final baseUrl = LinkedInDataGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'Linkedin Profile Details',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/me',
+      apiUrl: '$baseUrl/me',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer $authToken',
@@ -50,10 +59,14 @@ class LinkedinProfilePictureCall {
   Future<ApiCallResponse> call({
     String? authToken = '',
   }) async {
+    final baseUrl = LinkedInDataGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'Linkedin Profile Picture',
       apiUrl:
-          '${LinkedInDataGroup.baseUrl}/me?projection=(id,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
+          '$baseUrl/me?projection=(id,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer $authToken',
@@ -89,9 +102,13 @@ class FirstDegreeConnectionsSizeCall {
     String? personUrn = '',
     String? authToken = '',
   }) async {
+    final baseUrl = LinkedInDataGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'First degree connections size',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/connections/$personUrn',
+      apiUrl: '$baseUrl/connections/$personUrn',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer $authToken',
@@ -116,9 +133,13 @@ class FindOtherPeopleCall {
     String? personUrn = '',
     String? authToken = '',
   }) async {
+    final baseUrl = LinkedInDataGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'Find Other People',
-      apiUrl: '${LinkedInDataGroup.baseUrl}/people/(id:$personUrn)',
+      apiUrl: '$baseUrl/people/(id:$personUrn)',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer $authToken',
@@ -139,7 +160,10 @@ class FindOtherPeopleCall {
 /// Start linkedinPost Group Code
 
 class LinkedinPostGroup {
-  static String baseUrl = 'https://api.linkedin.com/rest';
+  static String getBaseUrl({
+    String? accessToken = '',
+  }) =>
+      'https://api.linkedin.com/rest';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer [access_token]',
@@ -162,6 +186,10 @@ class PostOnlyTextCall {
     String? postText = '',
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     final ffApiRequestBody = '''
 {
   "author": "$personUrn",
@@ -177,7 +205,7 @@ class PostOnlyTextCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'postOnlyText',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
+      apiUrl: '$baseUrl/posts',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -203,6 +231,10 @@ class PostTextWithMultipleImagesCall {
     dynamic imagesJson,
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     final images = _serializeJson(imagesJson, true);
     final ffApiRequestBody = '''
 {
@@ -224,7 +256,7 @@ class PostTextWithMultipleImagesCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'postTextWithMultipleImages',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
+      apiUrl: '$baseUrl/posts',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -250,6 +282,10 @@ class PostTextWithMediaCall {
     String? mediaId = '',
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     final ffApiRequestBody = '''
 {
   "author": "$personUrn",
@@ -271,7 +307,7 @@ class PostTextWithMediaCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'postTextWithMedia',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
+      apiUrl: '$baseUrl/posts',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -299,6 +335,10 @@ class PostTextWithPollCall {
     String? duration = '',
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     final options = _serializeJson(optionsJson, true);
     final ffApiRequestBody = '''
 {
@@ -326,7 +366,7 @@ class PostTextWithPollCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'postTextWithPoll',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/posts',
+      apiUrl: '$baseUrl/posts',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -351,9 +391,13 @@ class GetPostCommentsCall {
     String? personUrn = '',
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'get post comments',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/$postUrn/comments',
+      apiUrl: '$baseUrl/socialActions/$postUrn/comments',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
@@ -428,9 +472,13 @@ class GetPostLikesCall {
     String? personUrn = '',
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'get post likes',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialActions/$postUrn/likes',
+      apiUrl: '$baseUrl/socialActions/$postUrn/likes',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
@@ -457,9 +505,13 @@ class GetSocialMetadataCall {
     String? postUrn = '',
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'Get SocialMetadata',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/socialMetadata/$postUrn',
+      apiUrl: '$baseUrl/socialMetadata/$postUrn',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
@@ -480,9 +532,13 @@ class PeopleCall {
   Future<ApiCallResponse> call({
     String? accessToken = '',
   }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
     return ApiManager.instance.makeApiCall(
       callName: 'people',
-      apiUrl: '${LinkedinPostGroup.baseUrl}/people',
+      apiUrl: '$baseUrl/people',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
@@ -846,6 +902,9 @@ String _serializeList(List? list) {
   try {
     return json.encode(list);
   } catch (_) {
+    if (kDebugMode) {
+      print("List serialization failed. Returning empty list.");
+    }
     return '[]';
   }
 }
@@ -855,6 +914,9 @@ String _serializeJson(dynamic jsonVar, [bool isList = false]) {
   try {
     return json.encode(jsonVar);
   } catch (_) {
+    if (kDebugMode) {
+      print("Json serialization failed. Returning empty json.");
+    }
     return isList ? '[]' : '{}';
   }
 }
