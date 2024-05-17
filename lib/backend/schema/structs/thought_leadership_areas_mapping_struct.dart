@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-import '/backend/algolia/serialization_util.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -74,25 +74,6 @@ class ThoughtLeadershipAreasMappingStruct extends FFFirebaseStruct {
           data['sub_categories'],
           ParamType.String,
           true,
-        ),
-      );
-
-  static ThoughtLeadershipAreasMappingStruct fromAlgoliaData(
-          Map<String, dynamic> data) =>
-      ThoughtLeadershipAreasMappingStruct(
-        category: convertAlgoliaParam(
-          data['category'],
-          ParamType.String,
-          false,
-        ),
-        subCategories: convertAlgoliaParam<String>(
-          data['sub_categories'],
-          ParamType.String,
-          true,
-        ),
-        firestoreUtilData: const FirestoreUtilData(
-          clearUnsetFields: false,
-          create: true,
         ),
       );
 

@@ -25,7 +25,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  algolia: 1.1.1
   auto_size_text: 3.0.0
   badges: 2.0.2
   cached_network_image: 3.3.1
@@ -130,7 +129,6 @@ dependencies:
   switcher_button:
   synchronized: 3.1.0
   timeago: 3.2.2
-  universal_io: 2.2.2
   url_launcher: 6.2.5
   url_launcher_android: 6.3.0
   url_launcher_ios: 6.2.5
