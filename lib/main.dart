@@ -33,8 +33,8 @@ void main() async {
   await appState.initializePersistedState();
 
   await revenue_cat.initialize(
-    "",
-    "testKey",
+    "appl_tKisNTDlMBqYjaulSlxBCXfzKJm",
+    "goog_RSehdLHVFDfEOhFZyebRwzECdA",
     debugLogEnabled: true,
     loadDataAfterLaunch: true,
   );

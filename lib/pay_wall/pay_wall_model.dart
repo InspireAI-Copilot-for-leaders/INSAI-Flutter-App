@@ -7,10 +7,18 @@ class PayWallModel extends FlutterFlowModel<PayWallWidget> {
 
   bool paymentLoading = false;
 
+  bool isYearly = true;
+
+  bool specialAccessClicked = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [RevenueCat - Purchase] action in Button widget.
+  bool? yearlySubs;
+  // Stores action output result for [RevenueCat - Purchase] action in Button widget.
+  bool? monthlySubs;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
