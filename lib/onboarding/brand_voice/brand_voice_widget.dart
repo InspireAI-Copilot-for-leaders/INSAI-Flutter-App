@@ -1099,18 +1099,44 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 12.0, 0.0),
-                                                child: Icon(
-                                                  Icons.circle_outlined,
-                                                  color: _model.selectedVoice ==
-                                                          listViewBrandVoicesRecord
-                                                              .voice
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent3
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent4,
-                                                  size: 24.0,
+                                                child: Container(
+                                                  width: 28.0,
+                                                  height: 28.0,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                    ),
+                                                  ),
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Visibility(
+                                                    visible: _model
+                                                            .selectedVoice ==
+                                                        listViewBrandVoicesRecord
+                                                            .voice,
+                                                    child: Container(
+                                                      width: 20.0,
+                                                      height: 20.0,
+                                                      decoration: const BoxDecoration(
+                                                        color:
+                                                            Color(0xFFB46AF4),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: const Icon(
+                                                        Icons.done_rounded,
+                                                        color: Colors.white,
+                                                        size: 16.0,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ],

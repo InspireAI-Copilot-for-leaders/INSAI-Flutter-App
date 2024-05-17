@@ -650,6 +650,9 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
@@ -926,6 +929,9 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
