@@ -35,7 +35,6 @@ void main() async {
   await revenue_cat.initialize(
     "appl_tKisNTDlMBqYjaulSlxBCXfzKJm",
     "goog_RSehdLHVFDfEOhFZyebRwzECdA",
-    debugLogEnabled: true,
     loadDataAfterLaunch: true,
   );
 
@@ -117,7 +116,6 @@ class _MyAppState extends State<MyApp> {
           trackVisibility: MaterialStateProperty.all(false),
           interactive: false,
         ),
-        useMaterial3: false,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -126,7 +124,6 @@ class _MyAppState extends State<MyApp> {
           trackVisibility: MaterialStateProperty.all(false),
           interactive: false,
         ),
-        useMaterial3: false,
       ),
       themeMode: _themeMode,
       routerConfig: _router,

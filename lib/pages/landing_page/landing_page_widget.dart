@@ -583,32 +583,38 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 88.0, 24.0, 0.0),
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(0.0),
-                child: Image.asset(
-                  Theme.of(context).brightness == Brightness.dark
-                      ? 'assets/images/InspireAI_LOGO2_(1).png'
-                      : 'assets/images/InspireAI_LOGO2_(1).png',
-                  width: 161.0,
-                  height: 25.0,
-                  fit: BoxFit.contain,
-                  alignment: const Alignment(-1.0, 0.0),
-                ),
-              ).animateOnActionTrigger(
-                animationsMap['imageOnActionTriggerAnimation']!,
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                width: double.infinity,
+                height: MediaQuery.sizeOf(context).height * 0.12,
+                decoration: const BoxDecoration(),
               ),
-            ),
+              Container(
+                width: MediaQuery.sizeOf(context).width * 0.87,
+                decoration: const BoxDecoration(),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(0.0),
+                  child: Image.asset(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? 'assets/images/InspireAI_LOGO2_(1).png'
+                        : 'assets/images/InspireAI_LOGO2_(1).png',
+                    height: MediaQuery.sizeOf(context).height * 0.03,
+                    fit: BoxFit.contain,
+                    alignment: const Alignment(-1.0, 0.0),
+                  ),
+                ).animateOnActionTrigger(
+                  animationsMap['imageOnActionTriggerAnimation']!,
+                ),
+              ),
+            ],
           ),
           Flexible(
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
               child: Container(
-                height: 360.0,
+                height: MediaQuery.sizeOf(context).height * 0.5,
                 decoration: const BoxDecoration(),
                 child: SizedBox(
                   width: double.infinity,
@@ -732,6 +738,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
+                                            lineHeight: 1.25,
                                           ),
                                       minFontSize: 30.0,
                                     ).animateOnPageLoad(animationsMap[

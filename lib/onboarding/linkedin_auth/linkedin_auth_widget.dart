@@ -320,94 +320,65 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
               elevation: 2.0,
             ),
           ),
-          body: SafeArea(
-            top: true,
-            child: Align(
-              alignment: const AlignmentDirectional(-1.0, -1.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                ),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 24.0, 24.0, 0.0),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 4.0),
-                                      child: AuthUserStreamWidget(
-                                        builder: (context) => AutoSizeText(
-                                          'Welcome ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
-                                          textAlign: TextAlign.start,
-                                          maxLines: 2,
-                                          style: FlutterFlowTheme.of(context)
-                                              .displayMedium
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .displayMediumFamily,
-                                                fontSize: 30.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(FlutterFlowTheme
-                                                            .of(context)
-                                                        .displayMediumFamily),
-                                              ),
-                                          minFontSize: 26.0,
-                                        ),
+          body: Align(
+            alignment: const AlignmentDirectional(-1.0, -1.0),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).primaryBackground,
+              ),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                24.0, 24.0, 24.0, 0.0),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 4.0),
+                                    child: AuthUserStreamWidget(
+                                      builder: (context) => AutoSizeText(
+                                        'Welcome ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
+                                        textAlign: TextAlign.start,
+                                        maxLines: 2,
+                                        style: FlutterFlowTheme.of(context)
+                                            .displayMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .displayMediumFamily,
+                                              fontSize: 30.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .displayMediumFamily),
+                                            ),
+                                        minFontSize: 26.0,
                                       ),
                                     ),
-                                    Opacity(
-                                      opacity: 0.8,
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 16.0),
-                                        child: Text(
-                                          'We\'re gonna inspire the world together ;)',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelLargeFamily),
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
+                                  ),
+                                  Opacity(
+                                    opacity: 0.8,
+                                    child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 3.0),
+                                          0.0, 0.0, 0.0, 16.0),
                                       child: Text(
-                                        'Your Expertise Areas',
+                                        'We\'re gonna inspire the world together ;)',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -417,300 +388,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       .labelLargeFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .secondaryText,
                                               fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeFamily),
-                                            ),
-                                      ),
-                                    ),
-                                    Opacity(
-                                      opacity: 0.8,
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 12.0),
-                                        child: Text(
-                                          'Our AI analysed your expertise to be in the following topics. Add more or remove some...',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelLargeFamily),
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Align(
-                                        alignment:
-                                            const AlignmentDirectional(-1.0, -1.0),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 16.0),
-                                          child: AuthUserStreamWidget(
-                                            builder: (context) => Builder(
-                                              builder: (context) {
-                                                final thoughtLeadershipAre =
-                                                    (currentUserDocument
-                                                                ?.thoughtLeadershipAreas
-                                                                .toList() ??
-                                                            [])
-                                                        .toList();
-                                                return Wrap(
-                                                  spacing: 4.0,
-                                                  runSpacing: 4.0,
-                                                  alignment:
-                                                      WrapAlignment.start,
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.start,
-                                                  direction: Axis.horizontal,
-                                                  runAlignment:
-                                                      WrapAlignment.start,
-                                                  verticalDirection:
-                                                      VerticalDirection.down,
-                                                  clipBehavior: Clip.none,
-                                                  children: List.generate(
-                                                      thoughtLeadershipAre
-                                                          .length,
-                                                      (thoughtLeadershipAreIndex) {
-                                                    final thoughtLeadershipAreItem =
-                                                        thoughtLeadershipAre[
-                                                            thoughtLeadershipAreIndex];
-                                                    return Container(
-                                                      height: 40.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(48.0),
-                                                      ),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          logFirebaseEvent(
-                                                              'LINKEDIN_AUTH_PAGE_Row_l7iwstls_ON_TAP');
-                                                          logFirebaseEvent(
-                                                              'Row_backend_call');
-
-                                                          await currentUserReference!
-                                                              .update({
-                                                            ...mapToFirestore(
-                                                              {
-                                                                'thought_leadership_areas':
-                                                                    FieldValue
-                                                                        .arrayRemove([
-                                                                  thoughtLeadershipAreItem
-                                                                ]),
-                                                              },
-                                                            ),
-                                                          });
-                                                          logFirebaseEvent(
-                                                              'Row_backend_call');
-
-                                                          await currentUserReference!
-                                                              .update({
-                                                            ...mapToFirestore(
-                                                              {
-                                                                'thought_leadership_areas_mapping':
-                                                                    FieldValue
-                                                                        .arrayRemove([
-                                                                  getThoughtLeadershipAreasMappingFirestoreData(
-                                                                    createThoughtLeadershipAreasMappingStruct(
-                                                                      fieldValues: {
-                                                                        'sub_categories':
-                                                                            FieldValue.arrayRemove([
-                                                                          thoughtLeadershipAreItem
-                                                                        ]),
-                                                                      },
-                                                                      clearUnsetFields:
-                                                                          false,
-                                                                    ),
-                                                                    true,
-                                                                  )
-                                                                ]),
-                                                              },
-                                                            ),
-                                                          });
-                                                        },
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Flexible(
-                                                              child: Padding(
-                                                                padding: const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        12.0,
-                                                                        0.0,
-                                                                        12.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  thoughtLeadershipAreItem,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryBackground,
-                                                                        fontSize:
-                                                                            12.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 3.0),
-                                      child: Text(
-                                        'Add More',
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeFamily),
-                                            ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 8.0, 0.0, 0.0),
-                                      child: TextFormField(
-                                        controller:
-                                            _model.contentURL1TextController,
-                                        focusNode: _model.contentURL1FocusNode,
-                                        autofocus: false,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          hintText: 'Type to add custom',
-                                          hintStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .labelMedium
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumFamily),
-                                              ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFE0E3E7),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFF5A5D5D),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          contentPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 0.0, 16.0, 0.0),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              fontSize: 18.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts: GoogleFonts
@@ -718,230 +397,813 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   .containsKey(
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyMediumFamily),
+                                                          .labelLargeFamily),
                                             ),
-                                        validator: _model
-                                            .contentURL1TextControllerValidator
-                                            .asValidator(context),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 4.0, 0.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            logFirebaseEvent(
-                                                'LINKEDIN_AUTH_PAGE_ADD_BTN_ON_TAP');
-                                            logFirebaseEvent(
-                                                'Button_backend_call');
-
-                                            await currentUserReference!.update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'thought_leadership_areas':
-                                                      FieldValue.arrayUnion([
-                                                    _model
-                                                        .contentURL1TextController
-                                                        .text
-                                                  ]),
-                                                },
-                                              ),
-                                            });
-                                            logFirebaseEvent(
-                                                'Button_backend_call');
-
-                                            await currentUserReference!.update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'thought_leadership_areas_mapping':
-                                                      FieldValue.arrayUnion([
-                                                    getThoughtLeadershipAreasMappingFirestoreData(
-                                                      createThoughtLeadershipAreasMappingStruct(
-                                                        category:
-                                                            'Miscellaneous',
-                                                        fieldValues: {
-                                                          'sub_categories':
-                                                              FieldValue
-                                                                  .arrayUnion([
-                                                            _model
-                                                                .contentURL1TextController
-                                                                .text
-                                                          ]),
-                                                        },
-                                                        clearUnsetFields: false,
-                                                      ),
-                                                      true,
-                                                    )
-                                                  ]),
-                                                },
-                                              ),
-                                            });
-                                            logFirebaseEvent(
-                                                'Button_firestore_query');
-                                            _model.toBeReviewedDoc =
-                                                await queryToBeReviewedRecordOnce(
-                                              queryBuilder:
-                                                  (toBeReviewedRecord) =>
-                                                      toBeReviewedRecord.where(
-                                                'uid',
-                                                isEqualTo: currentUserUid,
-                                              ),
-                                              singleRecord: true,
-                                            ).then((s) => s.firstOrNull);
-                                            logFirebaseEvent(
-                                                'Button_backend_call');
-
-                                            await _model
-                                                .toBeReviewedDoc!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'addedByUser':
-                                                      FieldValue.arrayUnion([
-                                                    _model
-                                                        .contentURL1TextController
-                                                        .text
-                                                  ]),
-                                                },
-                                              ),
-                                            });
-
-                                            setState(() {});
-                                          },
-                                          text: 'Add',
-                                          options: FFButtonOptions(
-                                            height: 20.0,
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 3.0),
+                                    child: Text(
+                                      'Your Expertise Areas',
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLargeFamily,
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily:
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLargeFamily),
+                                          ),
+                                    ),
+                                  ),
+                                  Opacity(
+                                    opacity: 0.8,
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 12.0),
+                                      child: Text(
+                                        'Our AI analysed your expertise to be in the following topics. Add more or remove some...',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLargeFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              fontSize: 12.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLargeFamily),
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Align(
+                                      alignment:
+                                          const AlignmentDirectional(-1.0, -1.0),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Builder(
+                                            builder: (context) {
+                                              final thoughtLeadershipAre =
+                                                  (currentUserDocument
+                                                              ?.thoughtLeadershipAreas
+                                                              .toList() ??
+                                                          [])
+                                                      .toList();
+                                              return Wrap(
+                                                spacing: 4.0,
+                                                runSpacing: 4.0,
+                                                alignment: WrapAlignment.start,
+                                                crossAxisAlignment:
+                                                    WrapCrossAlignment.start,
+                                                direction: Axis.horizontal,
+                                                runAlignment:
+                                                    WrapAlignment.start,
+                                                verticalDirection:
+                                                    VerticalDirection.down,
+                                                clipBehavior: Clip.none,
+                                                children: List.generate(
+                                                    thoughtLeadershipAre.length,
+                                                    (thoughtLeadershipAreIndex) {
+                                                  final thoughtLeadershipAreItem =
+                                                      thoughtLeadershipAre[
+                                                          thoughtLeadershipAreIndex];
+                                                  return Container(
+                                                    height: 40.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .titleSmallFamily,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily),
+                                                              .secondary,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              48.0),
                                                     ),
-                                            elevation: 3.0,
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'LINKEDIN_AUTH_PAGE_Row_l7iwstls_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Row_backend_call');
+
+                                                        await currentUserReference!
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'thought_leadership_areas':
+                                                                  FieldValue
+                                                                      .arrayRemove([
+                                                                thoughtLeadershipAreItem
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+                                                        logFirebaseEvent(
+                                                            'Row_backend_call');
+
+                                                        await currentUserReference!
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'thought_leadership_areas_mapping':
+                                                                  FieldValue
+                                                                      .arrayRemove([
+                                                                getThoughtLeadershipAreasMappingFirestoreData(
+                                                                  createThoughtLeadershipAreasMappingStruct(
+                                                                    fieldValues: {
+                                                                      'sub_categories':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        thoughtLeadershipAreItem
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                  true,
+                                                                )
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+                                                      },
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Flexible(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          12.0,
+                                                                          0.0,
+                                                                          12.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                thoughtLeadershipAreItem,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0.0, 1.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 16.0, 0.0, 12.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Opacity(
-                                              opacity: 0.4,
-                                              child: Container(
-                                                width: 65.0,
-                                                height: 1.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                ),
-                                              ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 3.0),
+                                    child: Text(
+                                      'Add More',
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLargeFamily),
+                                          ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: TextFormField(
+                                      controller:
+                                          _model.contentURL1TextController,
+                                      focusNode: _model.contentURL1FocusNode,
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        hintText: 'Type to add custom',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMediumFamily,
+                                              fontSize: 12.0,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumFamily),
                                             ),
-                                            Opacity(
-                                              opacity: 0.8,
-                                              child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          16.0, 0.0, 16.0, 0.0),
-                                                  child: Text(
-                                                    'or select from below',
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .labelLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelLargeFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelLargeFamily),
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0xFFE0E3E7),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0xFF5A5D5D),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsetsDirectional.fromSTEB(
+                                                16.0, 0.0, 16.0, 0.0),
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily,
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
+                                          ),
+                                      validator: _model
+                                          .contentURL1TextControllerValidator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(1.0, 0.0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 4.0, 0.0, 0.0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          logFirebaseEvent(
+                                              'LINKEDIN_AUTH_PAGE_ADD_BTN_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
+                                          await currentUserReference!.update({
+                                            ...mapToFirestore(
+                                              {
+                                                'thought_leadership_areas':
+                                                    FieldValue.arrayUnion([
+                                                  _model
+                                                      .contentURL1TextController
+                                                      .text
+                                                ]),
+                                              },
                                             ),
-                                            Opacity(
-                                              opacity: 0.4,
-                                              child: Container(
-                                                width: 65.0,
-                                                height: 1.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                ),
-                                              ),
+                                          });
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
+                                          await currentUserReference!.update({
+                                            ...mapToFirestore(
+                                              {
+                                                'thought_leadership_areas_mapping':
+                                                    FieldValue.arrayUnion([
+                                                  getThoughtLeadershipAreasMappingFirestoreData(
+                                                    createThoughtLeadershipAreasMappingStruct(
+                                                      category: 'Miscellaneous',
+                                                      fieldValues: {
+                                                        'sub_categories':
+                                                            FieldValue
+                                                                .arrayUnion([
+                                                          _model
+                                                              .contentURL1TextController
+                                                              .text
+                                                        ]),
+                                                      },
+                                                      clearUnsetFields: false,
+                                                    ),
+                                                    true,
+                                                  )
+                                                ]),
+                                              },
                                             ),
-                                          ],
+                                          });
+                                          logFirebaseEvent(
+                                              'Button_firestore_query');
+                                          _model.toBeReviewedDoc =
+                                              await queryToBeReviewedRecordOnce(
+                                            queryBuilder:
+                                                (toBeReviewedRecord) =>
+                                                    toBeReviewedRecord.where(
+                                              'uid',
+                                              isEqualTo: currentUserUid,
+                                            ),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
+                                          await _model
+                                              .toBeReviewedDoc!.reference
+                                              .update({
+                                            ...mapToFirestore(
+                                              {
+                                                'addedByUser':
+                                                    FieldValue.arrayUnion([
+                                                  _model
+                                                      .contentURL1TextController
+                                                      .text
+                                                ]),
+                                              },
+                                            ),
+                                          });
+
+                                          setState(() {});
+                                        },
+                                        text: 'Add',
+                                        options: FFButtonOptions(
+                                          height: 20.0,
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmallFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmallFamily),
+                                              ),
+                                          elevation: 3.0,
+                                          borderSide: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
                                       ),
                                     ),
-                                    Flexible(
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, 1.0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 16.0, 0.0, 12.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Opacity(
+                                            opacity: 0.4,
+                                            child: Container(
+                                              width: 65.0,
+                                              height: 1.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                              ),
+                                            ),
+                                          ),
+                                          Opacity(
+                                            opacity: 0.8,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
+                                                child: Text(
+                                                  'or select from below',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLargeFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLargeFamily),
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Opacity(
+                                            opacity: 0.4,
+                                            child: Container(
+                                              width: 65.0,
+                                              height: 1.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: AuthUserStreamWidget(
+                                      builder: (context) => StreamBuilder<
+                                          List<BroadDomainRecord>>(
+                                        stream: queryBroadDomainRecord(
+                                          queryBuilder: (broadDomainRecord) =>
+                                              broadDomainRecord.whereIn(
+                                                  'broad_domain',
+                                                  (currentUserDocument
+                                                              ?.thoughtLeadershipAreasMapping
+                                                              .toList() ??
+                                                          [])
+                                                      .map((e) => e.category)
+                                                      .toList()),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 100.0,
+                                                height: 100.0,
+                                                child: SpinKitRipple(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  size: 100.0,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<BroadDomainRecord>
+                                              listViewBroadDomainRecordList =
+                                              snapshot.data!;
+                                          return ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            primary: false,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount:
+                                                listViewBroadDomainRecordList
+                                                    .length,
+                                            itemBuilder:
+                                                (context, listViewIndex) {
+                                              final listViewBroadDomainRecord =
+                                                  listViewBroadDomainRecordList[
+                                                      listViewIndex];
+                                              return Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 12.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  8.0),
+                                                      child: Text(
+                                                        listViewBroadDomainRecord
+                                                            .broadDomain,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.0, -1.0),
+                                                      child: StreamBuilder<
+                                                          List<
+                                                              ExpertiseAreasRecord>>(
+                                                        stream:
+                                                            queryExpertiseAreasRecord(
+                                                          parent:
+                                                              listViewBroadDomainRecord
+                                                                  .reference,
+                                                          limit: 10,
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 100.0,
+                                                                height: 100.0,
+                                                                child:
+                                                                    SpinKitRipple(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
+                                                                  size: 100.0,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<ExpertiseAreasRecord>
+                                                              wrapExpertiseAreasRecordList =
+                                                              snapshot.data!;
+                                                          return Wrap(
+                                                            spacing: 4.0,
+                                                            runSpacing: 4.0,
+                                                            alignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                WrapCrossAlignment
+                                                                    .start,
+                                                            direction:
+                                                                Axis.horizontal,
+                                                            runAlignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            verticalDirection:
+                                                                VerticalDirection
+                                                                    .down,
+                                                            clipBehavior:
+                                                                Clip.none,
+                                                            children: List.generate(
+                                                                wrapExpertiseAreasRecordList
+                                                                    .length,
+                                                                (wrapIndex) {
+                                                              final wrapExpertiseAreasRecord =
+                                                                  wrapExpertiseAreasRecordList[
+                                                                      wrapIndex];
+                                                              return InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'LINKEDIN_AUTH_Container_p2frkdlp_ON_TAP');
+                                                                  logFirebaseEvent(
+                                                                      'Container_backend_call');
+
+                                                                  await currentUserReference!
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'thought_leadership_areas':
+                                                                            FieldValue.arrayUnion([
+                                                                          wrapExpertiseAreasRecord
+                                                                              .expertiseArea
+                                                                        ]),
+                                                                        'broad_domains':
+                                                                            FieldValue.arrayUnion([
+                                                                          listViewBroadDomainRecord
+                                                                              .broadDomain
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  height: 40.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: valueOrDefault<
+                                                                        Color>(
+                                                                      (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(wrapExpertiseAreasRecord
+                                                                              .expertiseArea)
+                                                                          ? FlutterFlowTheme.of(context)
+                                                                              .secondary
+                                                                          : Colors
+                                                                              .transparent,
+                                                                      Colors
+                                                                          .transparent,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            48.0),
+                                                                    border:
+                                                                        Border
+                                                                            .all(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      width:
+                                                                          2.0,
+                                                                    ),
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            8.0,
+                                                                            12.0,
+                                                                            8.0),
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          const BoxDecoration(),
+                                                                      child:
+                                                                          Text(
+                                                                        wrapExpertiseAreasRecord
+                                                                            .expertiseArea,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              fontSize: 14.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(),
+                                    child: Visibility(
+                                      visible: (currentUserDocument
+                                                      ?.broadDomains
+                                                      .toList() ??
+                                                  [])
+                                              .length <
+                                          5,
                                       child: AuthUserStreamWidget(
                                         builder: (context) => StreamBuilder<
                                             List<BroadDomainRecord>>(
                                           stream: queryBroadDomainRecord(
                                             queryBuilder: (broadDomainRecord) =>
-                                                broadDomainRecord.whereIn(
+                                                broadDomainRecord.whereNotIn(
                                                     'broad_domain',
                                                     (currentUserDocument
-                                                                ?.thoughtLeadershipAreasMapping
-                                                                .toList() ??
-                                                            [])
-                                                        .map((e) => e.category)
-                                                        .toList()),
+                                                            ?.broadDomains
+                                                            .toList() ??
+                                                        [])),
+                                            limit: 3,
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -1097,7 +1359,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
-                                                                        'LINKEDIN_AUTH_Container_p2frkdlp_ON_TAP');
+                                                                        'LINKEDIN_AUTH_Container_xuuy1erv_ON_TAP');
                                                                     logFirebaseEvent(
                                                                         'Container_backend_call');
 
@@ -1187,345 +1449,72 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      decoration: const BoxDecoration(),
-                                      child: Visibility(
-                                        visible: (currentUserDocument
-                                                        ?.broadDomains
-                                                        .toList() ??
-                                                    [])
-                                                .length <
-                                            5,
-                                        child: AuthUserStreamWidget(
-                                          builder: (context) => StreamBuilder<
-                                              List<BroadDomainRecord>>(
-                                            stream: queryBroadDomainRecord(
-                                              queryBuilder: (broadDomainRecord) =>
-                                                  broadDomainRecord.whereNotIn(
-                                                      'broad_domain',
-                                                      (currentUserDocument
-                                                              ?.broadDomains
-                                                              .toList() ??
-                                                          [])),
-                                              limit: 3,
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 100.0,
-                                                    height: 100.0,
-                                                    child: SpinKitRipple(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondary,
-                                                      size: 100.0,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              List<BroadDomainRecord>
-                                                  listViewBroadDomainRecordList =
-                                                  snapshot.data!;
-                                              return ListView.builder(
-                                                padding: EdgeInsets.zero,
-                                                primary: false,
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.vertical,
-                                                itemCount:
-                                                    listViewBroadDomainRecordList
-                                                        .length,
-                                                itemBuilder:
-                                                    (context, listViewIndex) {
-                                                  final listViewBroadDomainRecord =
-                                                      listViewBroadDomainRecordList[
-                                                          listViewIndex];
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 12.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0),
-                                                          child: Text(
-                                                            listViewBroadDomainRecord
-                                                                .broadDomain,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Align(
-                                                          alignment:
-                                                              const AlignmentDirectional(
-                                                                  -1.0, -1.0),
-                                                          child: StreamBuilder<
-                                                              List<
-                                                                  ExpertiseAreasRecord>>(
-                                                            stream:
-                                                                queryExpertiseAreasRecord(
-                                                              parent:
-                                                                  listViewBroadDomainRecord
-                                                                      .reference,
-                                                              limit: 10,
-                                                            ),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              // Customize what your widget looks like when it's loading.
-                                                              if (!snapshot
-                                                                  .hasData) {
-                                                                return Center(
-                                                                  child:
-                                                                      SizedBox(
-                                                                    width:
-                                                                        100.0,
-                                                                    height:
-                                                                        100.0,
-                                                                    child:
-                                                                        SpinKitRipple(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary,
-                                                                      size:
-                                                                          100.0,
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }
-                                                              List<ExpertiseAreasRecord>
-                                                                  wrapExpertiseAreasRecordList =
-                                                                  snapshot
-                                                                      .data!;
-                                                              return Wrap(
-                                                                spacing: 4.0,
-                                                                runSpacing: 4.0,
-                                                                alignment:
-                                                                    WrapAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    WrapCrossAlignment
-                                                                        .start,
-                                                                direction: Axis
-                                                                    .horizontal,
-                                                                runAlignment:
-                                                                    WrapAlignment
-                                                                        .start,
-                                                                verticalDirection:
-                                                                    VerticalDirection
-                                                                        .down,
-                                                                clipBehavior:
-                                                                    Clip.none,
-                                                                children: List.generate(
-                                                                    wrapExpertiseAreasRecordList
-                                                                        .length,
-                                                                    (wrapIndex) {
-                                                                  final wrapExpertiseAreasRecord =
-                                                                      wrapExpertiseAreasRecordList[
-                                                                          wrapIndex];
-                                                                  return InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      logFirebaseEvent(
-                                                                          'LINKEDIN_AUTH_Container_xuuy1erv_ON_TAP');
-                                                                      logFirebaseEvent(
-                                                                          'Container_backend_call');
-
-                                                                      await currentUserReference!
-                                                                          .update({
-                                                                        ...mapToFirestore(
-                                                                          {
-                                                                            'thought_leadership_areas':
-                                                                                FieldValue.arrayUnion([
-                                                                              wrapExpertiseAreasRecord.expertiseArea
-                                                                            ]),
-                                                                            'broad_domains':
-                                                                                FieldValue.arrayUnion([
-                                                                              listViewBroadDomainRecord.broadDomain
-                                                                            ]),
-                                                                          },
-                                                                        ),
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          40.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: valueOrDefault<
-                                                                            Color>(
-                                                                          (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(wrapExpertiseAreasRecord.expertiseArea)
-                                                                              ? FlutterFlowTheme.of(context).secondary
-                                                                              : Colors.transparent,
-                                                                          Colors
-                                                                              .transparent,
-                                                                        ),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(48.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondary,
-                                                                          width:
-                                                                              2.0,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                            12.0,
-                                                                            8.0,
-                                                                            12.0,
-                                                                            8.0),
-                                                                        child:
-                                                                            Container(
-                                                                          decoration:
-                                                                              const BoxDecoration(),
-                                                                          child:
-                                                                              Text(
-                                                                            wrapExpertiseAreasRecord.expertiseArea,
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }),
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          if (!(isWeb
-                              ? MediaQuery.viewInsetsOf(context).bottom > 0
-                              : _isKeyboardVisible))
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 12.0, 16.0, 24.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'LINKEDIN_AUTH_PAGE_CONTINUE_BTN_ON_TAP');
-                                  logFirebaseEvent('Button_navigate_to');
+                        ),
+                        if (!(isWeb
+                            ? MediaQuery.viewInsetsOf(context).bottom > 0
+                            : _isKeyboardVisible))
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 12.0, 16.0, 24.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'LINKEDIN_AUTH_PAGE_CONTINUE_BTN_ON_TAP');
+                                logFirebaseEvent('Button_navigate_to');
 
-                                  context.pushNamed('brandVoice');
-                                },
-                                text: 'Continue',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 48.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleMediumFamily),
-                                      ),
-                                  elevation: 4.0,
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50.0),
+                                context.pushNamed('brandVoice');
+                              },
+                              text: 'Continue',
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 48.0,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleMediumFamily),
+                                    ),
+                                elevation: 4.0,
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
                                 ),
+                                borderRadius: BorderRadius.circular(50.0),
                               ),
                             ),
-                        ],
+                          ),
+                      ],
+                    ),
+                  ),
+                  if (_model.isLoading ? true : false)
+                    wrapWithModel(
+                      model: _model.profileLoadingScreenModel,
+                      updateCallback: () => setState(() {}),
+                      child: const ProfileLoadingScreenWidget(
+                        loadingText:
+                            'Setting up your profile. This usually takes a minute. Hang Tight...',
                       ),
                     ),
-                    if (_model.isLoading ? true : false)
-                      wrapWithModel(
-                        model: _model.profileLoadingScreenModel,
-                        updateCallback: () => setState(() {}),
-                        child: const ProfileLoadingScreenWidget(
-                          loadingText:
-                              'Setting up your profile. This usually takes a minute. Hang Tight...',
-                        ),
-                      ),
-                  ],
-                ),
+                ],
               ),
             ),
           ),

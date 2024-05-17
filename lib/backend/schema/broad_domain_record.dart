@@ -1,13 +1,10 @@
 import 'dart:async';
 
-import '/backend/algolia/serialization_util.dart';
-import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class BroadDomainRecord extends FirestoreRecord {
   BroadDomainRecord._(
@@ -52,37 +49,6 @@ class BroadDomainRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       BroadDomainRecord._(reference, mapFromFirestore(data));
-
-  static BroadDomainRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
-      BroadDomainRecord.getDocumentFromData(
-        {
-          'broad_domain': snapshot.data['broad_domain'],
-          'created_at': convertAlgoliaParam(
-            snapshot.data['created_at'],
-            ParamType.DateTime,
-            false,
-          ),
-        },
-        BroadDomainRecord.collection.doc(snapshot.objectID),
-      );
-
-  static Future<List<BroadDomainRecord>> search({
-    String? term,
-    FutureOr<LatLng>? location,
-    int? maxResults,
-    double? searchRadiusMeters,
-    bool useCache = false,
-  }) =>
-      FFAlgoliaManager.instance
-          .algoliaQuery(
-            index: 'broad_domain',
-            term: term,
-            maxResults: maxResults,
-            location: location,
-            searchRadiusMeters: searchRadiusMeters,
-            useCache: useCache,
-          )
-          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>
