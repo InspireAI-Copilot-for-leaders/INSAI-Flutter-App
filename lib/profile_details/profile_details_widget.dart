@@ -190,6 +190,8 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                       final areas = (currentUserDocument?.thoughtLeadershipAreas
                                   .toList() ??
                               [])
+                          .toList()
+                          .take(10)
                           .toList();
                       return Wrap(
                         spacing: 4.0,

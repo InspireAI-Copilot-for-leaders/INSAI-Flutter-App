@@ -24,9 +24,15 @@ class BroadDomainRecord extends FirestoreRecord {
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
+  // "iconUrl" field.
+  String? _iconUrl;
+  String get iconUrl => _iconUrl ?? '';
+  bool hasIconUrl() => _iconUrl != null;
+
   void _initializeFields() {
     _broadDomain = snapshotData['broad_domain'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
+    _iconUrl = snapshotData['iconUrl'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -66,11 +72,13 @@ class BroadDomainRecord extends FirestoreRecord {
 Map<String, dynamic> createBroadDomainRecordData({
   String? broadDomain,
   DateTime? createdAt,
+  String? iconUrl,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'broad_domain': broadDomain,
       'created_at': createdAt,
+      'iconUrl': iconUrl,
     }.withoutNulls,
   );
 
@@ -82,12 +90,14 @@ class BroadDomainRecordDocumentEquality implements Equality<BroadDomainRecord> {
 
   @override
   bool equals(BroadDomainRecord? e1, BroadDomainRecord? e2) {
-    return e1?.broadDomain == e2?.broadDomain && e1?.createdAt == e2?.createdAt;
+    return e1?.broadDomain == e2?.broadDomain &&
+        e1?.createdAt == e2?.createdAt &&
+        e1?.iconUrl == e2?.iconUrl;
   }
 
   @override
   int hash(BroadDomainRecord? e) =>
-      const ListEquality().hash([e?.broadDomain, e?.createdAt]);
+      const ListEquality().hash([e?.broadDomain, e?.createdAt, e?.iconUrl]);
 
   @override
   bool isValidKey(Object? o) => o is BroadDomainRecord;

@@ -1765,9 +1765,10 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    boxShadow: [
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 7.0,
                                         color: Color(0x33000000),
@@ -1777,7 +1778,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                       )
                                     ],
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(0.0),
                                       bottomRight: Radius.circular(0.0),
                                       topLeft: Radius.circular(16.0),
@@ -1811,14 +1812,16 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 0.0, 0.0),
+                                                  16.0, 24.0, 0.0, 0.0),
                                           child: Text(
                                             'Change scheduled time',
                                             style: FlutterFlowTheme.of(context)
                                                 .headlineSmall
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: const Color(0xFF14181B),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
                                                   fontSize: 20.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,

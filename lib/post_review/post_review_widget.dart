@@ -79,234 +79,222 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
           centerTitle: false,
           elevation: 0.0,
         ),
-        body: SafeArea(
-          top: true,
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Created Post Review',
-                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+        body: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Created Post Review',
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).headlineMediumFamily,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).headlineMediumFamily),
+                      ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                  child: Text(
+                    'Please let us know why you didn\'t like the post...',
+                    style: FlutterFlowTheme.of(context).labelLarge.override(
                           fontFamily:
-                              FlutterFlowTheme.of(context).headlineMediumFamily,
+                              FlutterFlowTheme.of(context).labelLargeFamily,
                           letterSpacing: 0.0,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context)
-                                  .headlineMediumFamily),
+                              FlutterFlowTheme.of(context).labelLargeFamily),
                         ),
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                    child: Text(
-                      'Please let us know why you didn\'t like the post...',
-                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    FlutterFlowDropDown<String>(
+                      multiSelectController: _model.dropDownValueController ??=
+                          FormFieldController<List<String>>(null),
+                      options: const [
+                        'Content accuracy issues',
+                        'Content formatting issues',
+                        'Content style issue',
+                        'Other'
+                      ],
+                      width: double.infinity,
+                      height: 60.0,
+                      textStyle: FlutterFlowTheme.of(context)
+                          .bodyMedium
+                          .override(
                             fontFamily:
-                                FlutterFlowTheme.of(context).labelLargeFamily,
+                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                            fontSize: 16.0,
                             letterSpacing: 0.0,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).labelLargeFamily),
+                                FlutterFlowTheme.of(context).bodyMediumFamily),
                           ),
+                      hintText: 'Choose a reason...',
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 24.0,
+                      ),
+                      fillColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
+                      elevation: 2.0,
+                      borderColor: Colors.transparent,
+                      borderWidth: 0.0,
+                      borderRadius: 8.0,
+                      margin:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
+                      isOverButton: true,
+                      isSearchable: false,
+                      isMultiSelect: true,
+                      onMultiSelectChanged: (val) =>
+                          setState(() => _model.dropDownValue = val),
                     ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      FlutterFlowDropDown<String>(
-                        multiSelectController:
-                            _model.dropDownValueController ??=
-                                FormFieldController<List<String>>(null),
-                        options: const [
-                          'Content accuracy issues',
-                          'Content formatting issues',
-                          'Content style issue',
-                          'Other'
-                        ],
-                        width: double.infinity,
-                        height: 60.0,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .bodyMedium
-                            .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily),
-                            ),
-                        hintText: 'Choose a reason...',
-                        icon: Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24.0,
+                    TextFormField(
+                      controller: _model.textController,
+                      focusNode: _model.textFieldFocusNode,
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .labelMediumFamily,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .labelMediumFamily),
+                                ),
+                        hintText: 'Please ellaborate on the problem...',
+                        hintStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .labelMediumFamily,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .labelMediumFamily),
+                                ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(0.0),
                         ),
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        elevation: 2.0,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0.0,
-                        borderRadius: 8.0,
-                        margin: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 4.0, 16.0, 4.0),
-                        isOverButton: true,
-                        isSearchable: false,
-                        isMultiSelect: true,
-                        onMultiSelectChanged: (val) =>
-                            setState(() => _model.dropDownValue = val),
-                      ),
-                      TextFormField(
-                        controller: _model.textController,
-                        focusNode: _model.textFieldFocusNode,
-                        autofocus: true,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelStyle: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .labelMediumFamily,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
-                              ),
-                          hintText: 'Please ellaborate on the problem...',
-                          hintStyle: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .labelMediumFamily,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
-                              ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(0.0),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).primary,
+                            width: 2.0,
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(0.0),
-                          ),
-                          errorBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(0.0),
-                          ),
-                          focusedErrorBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(0.0),
-                          ),
-                          contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 24.0, 16.0, 12.0),
+                          borderRadius: BorderRadius.circular(0.0),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily),
-                            ),
-                        maxLines: 16,
-                        minLines: 6,
-                        cursorColor: FlutterFlowTheme.of(context).primary,
-                        validator:
-                            _model.textControllerValidator.asValidator(context),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(0.0),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(0.0),
+                        ),
+                        contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 24.0, 16.0, 12.0),
                       ),
-                    ]
-                        .divide(const SizedBox(height: 16.0))
-                        .addToStart(const SizedBox(height: 12.0)),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        logFirebaseEvent(
-                            'POST_REVIEW_SUBMIT_REVIEW_BTN_ON_TAP');
-                        logFirebaseEvent('Button_backend_call');
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                            letterSpacing: 0.0,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).bodyMediumFamily),
+                          ),
+                      maxLines: 16,
+                      minLines: 6,
+                      cursorColor: FlutterFlowTheme.of(context).primary,
+                      validator:
+                          _model.textControllerValidator.asValidator(context),
+                    ),
+                  ]
+                      .divide(const SizedBox(height: 16.0))
+                      .addToStart(const SizedBox(height: 12.0)),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent('POST_REVIEW_SUBMIT_REVIEW_BTN_ON_TAP');
+                      logFirebaseEvent('Button_backend_call');
 
-                        await PostReviewsRecord.collection.doc().set({
-                          ...createPostReviewsRecordData(
-                            postRef: widget.postRef,
-                            userRef: currentUserReference,
-                            problemDescription: _model.textController.text,
-                            timestamp: getCurrentTimestamp,
-                          ),
-                          ...mapToFirestore(
-                            {
-                              'problems': _model.dropDownValue,
-                            },
-                          ),
-                        });
-                        logFirebaseEvent('Button_show_snack_bar');
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Review has been submitted!',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: const Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
-                        logFirebaseEvent('Button_navigate_back');
-                        context.safePop();
-                      },
-                      text: 'Submit Review',
-                      icon: const Icon(
-                        Icons.receipt_long,
-                        size: 15.0,
-                      ),
-                      options: FFButtonOptions(
-                        width: double.infinity,
-                        height: 54.0,
-                        padding: const EdgeInsets.all(0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .titleSmall
-                            .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).titleSmallFamily,
-                              color: Colors.white,
-                              letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleSmallFamily),
-                            ),
-                        elevation: 4.0,
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                      await PostReviewsRecord.collection.doc().set({
+                        ...createPostReviewsRecordData(
+                          postRef: widget.postRef,
+                          userRef: currentUserReference,
+                          problemDescription: _model.textController.text,
+                          timestamp: getCurrentTimestamp,
                         ),
-                        borderRadius: BorderRadius.circular(12.0),
+                        ...mapToFirestore(
+                          {
+                            'problems': _model.dropDownValue,
+                          },
+                        ),
+                      });
+                      logFirebaseEvent('Button_show_snack_bar');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Review has been submitted!',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
+                      logFirebaseEvent('Button_navigate_back');
+                      context.safePop();
+                    },
+                    text: 'Submit Review',
+                    icon: const Icon(
+                      Icons.receipt_long,
+                      size: 15.0,
+                    ),
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      height: 54.0,
+                      padding: const EdgeInsets.all(0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleSmall
+                          .override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).titleSmallFamily,
+                            color: Colors.white,
+                            letterSpacing: 0.0,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).titleSmallFamily),
+                          ),
+                      elevation: 4.0,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
                       ),
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

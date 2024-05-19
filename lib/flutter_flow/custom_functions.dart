@@ -118,3 +118,11 @@ String? getValueFromJson(
     return 'Error: ${e.toString()}';
   }
 }
+
+int getIndexFromList(
+  List<String> listOfItems,
+  String indexRequiredItem,
+) {
+  // get the index of a particular item from a list of strings
+  return listOfItems.indexOf(indexRequiredItem);
+}

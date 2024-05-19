@@ -282,12 +282,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'expertiseAreaEdit',
-              path: 'expertiseAreaEdit',
-              requireAuth: true,
-              builder: (context, params) => const ExpertiseAreaEditWidget(),
-            ),
-            FFRoute(
               name: 'support',
               path: 'support',
               builder: (context, params) => const SupportWidget(),
@@ -368,6 +362,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'accessRequested',
               path: 'accessRequested',
               builder: (context, params) => const AccessRequestedWidget(),
+            ),
+            FFRoute(
+              name: 'expertiseAreaEdit',
+              path: 'expertiseAreaEdit',
+              requireAuth: true,
+              builder: (context, params) => const ExpertiseAreaEditWidget(),
+            ),
+            FFRoute(
+              name: 'test',
+              path: 'test',
+              builder: (context, params) => const TestWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

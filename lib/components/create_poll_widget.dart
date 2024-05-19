@@ -142,9 +142,9 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                             logFirebaseEvent('Icon_bottom_sheet');
                             Navigator.pop(context);
                           },
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_back_rounded,
-                            color: Color(0xB0080808),
+                            color: FlutterFlowTheme.of(context).primaryText,
                             size: 30.0,
                           ),
                         ),
@@ -826,7 +826,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                       FlutterFlowTheme.of(context).labelMedium.override(
                             fontFamily:
                                 FlutterFlowTheme.of(context).labelMediumFamily,
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: FlutterFlowTheme.of(context).primaryText,
                             fontSize: 18.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,

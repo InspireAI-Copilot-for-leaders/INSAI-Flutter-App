@@ -49,19 +49,77 @@ class _DashboardWidgetState extends State<DashboardWidget>
         return;
       }
       logFirebaseEvent('DASHBOARD_PAGE_dashboard_ON_INIT_STATE');
-      if (valueOrDefault(currentUserDocument?.onboardingStatus, '') !=
-          'completed') {
-        logFirebaseEvent('dashboard_navigate_to');
+      await Future.wait([
+        Future(() async {}),
+        Future(() async {
+          if ((valueOrDefault(currentUserDocument?.accessType, '') ==
+                  'noAccess') ||
+              (valueOrDefault(currentUserDocument?.accessType, '') ==
+                  'paidWaitlist')) {
+            logFirebaseEvent('dashboard_navigate_to');
 
-        context.goNamed('linkedinConnect');
-      } else {
-        logFirebaseEvent('dashboard_widget_animation');
-        if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
-          animationsMap['iconOnActionTriggerAnimation1']!
-              .controller
-              .forward(from: 0.0);
-        }
-      }
+            context.goNamed('payWall');
+          } else {
+            if (valueOrDefault(currentUserDocument?.accessType, '') ==
+                'specialWaitlist') {
+              logFirebaseEvent('dashboard_navigate_to');
+
+              context.goNamed('accessRequested');
+            } else {
+              if ((valueOrDefault(currentUserDocument?.accessType, '') ==
+                      'specialGranted') &&
+                  (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
+                      'notStarted')) {
+                logFirebaseEvent('dashboard_navigate_to');
+
+                context.goNamed('linkedinConnect');
+              } else {
+                if ((valueOrDefault(currentUserDocument?.accessType, '') ==
+                        'specialGranted') &&
+                    (valueOrDefault(
+                            currentUserDocument?.onboardingStatus, '') ==
+                        'inProgress')) {
+                  logFirebaseEvent('dashboard_navigate_to');
+
+                  context.goNamed('linkedinAuth');
+                } else {
+                  if ((valueOrDefault(currentUserDocument?.accessType, '') ==
+                          'specialGranted') &&
+                      (valueOrDefault(
+                              currentUserDocument?.onboardingStatus, '') ==
+                          'completed')) {
+                    logFirebaseEvent('dashboard_widget_animation');
+                    if (animationsMap['iconOnActionTriggerAnimation1'] !=
+                        null) {
+                      animationsMap['iconOnActionTriggerAnimation1']!
+                          .controller
+                          .forward(from: 0.0);
+                    }
+                  } else {
+                    logFirebaseEvent('dashboard_alert_dialog');
+                    await showDialog(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          title: const Text('Failed!'),
+                          content: const Text('All validation conditions failed.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext),
+                              child: const Text('Ok'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }),
+      ]);
     });
 
     animationsMap.addAll({
@@ -1201,27 +1259,42 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Social Analytics',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          fontSize: 18.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'DASHBOARD_PAGE_Text_0kzgx7ng_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'Text_navigate_to');
+
+                                                  context.pushNamed('test');
+                                                },
+                                                child: Text(
+                                                  'Social Analytics',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        fontSize: 18.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                ),
                                               ),
                                               Padding(
                                                 padding: const EdgeInsetsDirectional

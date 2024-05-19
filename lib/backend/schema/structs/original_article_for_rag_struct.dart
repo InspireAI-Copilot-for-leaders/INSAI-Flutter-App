@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -104,6 +104,35 @@ class OriginalArticleForRagStruct extends FFFirebaseStruct {
           data['title'],
           ParamType.String,
           false,
+        ),
+      );
+
+  static OriginalArticleForRagStruct fromAlgoliaData(
+          Map<String, dynamic> data) =>
+      OriginalArticleForRagStruct(
+        description: convertAlgoliaParam(
+          data['description'],
+          ParamType.String,
+          false,
+        ),
+        domain: convertAlgoliaParam(
+          data['domain'],
+          ParamType.String,
+          false,
+        ),
+        text: convertAlgoliaParam(
+          data['text'],
+          ParamType.String,
+          false,
+        ),
+        title: convertAlgoliaParam(
+          data['title'],
+          ParamType.String,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 
