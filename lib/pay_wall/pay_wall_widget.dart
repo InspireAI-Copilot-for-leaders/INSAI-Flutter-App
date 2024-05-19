@@ -54,6 +54,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Container(
           width: double.infinity,
+          height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
@@ -265,7 +266,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                           fontFamily: 'Montserrat',
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          fontSize: 14.0,
+                                          fontSize: 12.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -302,7 +303,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                           fontFamily: 'Montserrat',
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          fontSize: 14.0,
+                                          fontSize: 12.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -339,7 +340,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                           fontFamily: 'Montserrat',
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          fontSize: 14.0,
+                                          fontSize: 12.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -1039,35 +1040,24 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   await revenue_cat.purchasePackage(revenue_cat
                                       .offerings!.current!.annual!.identifier);
                               if (_model.yearlySubs!) {
-                                logFirebaseEvent('Button_show_snack_bar');
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'yay',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    duration: const Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                );
+                                logFirebaseEvent('Button_navigate_to');
+
+                                context.pushNamed('dashboard');
                               } else {
                                 logFirebaseEvent('Button_show_snack_bar');
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'noyay',
+                                      'Payment Action failed!',
                                       style: TextStyle(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                            .primaryBackground,
                                       ),
                                     ),
                                     duration: const Duration(milliseconds: 4000),
                                     backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FlutterFlowTheme.of(context)
+                                            .primaryText,
                                   ),
                                 );
                               }
@@ -1077,35 +1067,24 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   await revenue_cat.purchasePackage(revenue_cat
                                       .offerings!.current!.monthly!.identifier);
                               if (_model.monthlySubs!) {
-                                logFirebaseEvent('Button_show_snack_bar');
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'yay',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    duration: const Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                );
+                                logFirebaseEvent('Button_navigate_to');
+
+                                context.pushNamed('dashboard');
                               } else {
                                 logFirebaseEvent('Button_show_snack_bar');
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'noyay',
+                                      'Payment Action failed!',
                                       style: TextStyle(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                            .primaryBackground,
                                       ),
                                     ),
                                     duration: const Duration(milliseconds: 4000),
                                     backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FlutterFlowTheme.of(context)
+                                            .primaryText,
                                   ),
                                 );
                               }
@@ -1145,10 +1124,47 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                         ),
                       ),
                       Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 12.0, 0.0, 0.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              logFirebaseEvent(
+                                  'PAY_WALL_PAGE_Text_olxuobfs_ON_TAP');
+                              logFirebaseEvent('Text_revenue_cat');
+                              await revenue_cat.restorePurchases();
+                            },
+                            child: Text(
+                              'Restore purchases',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily,
+                                    color: const Color(0xFF525151),
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMediumFamily),
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
                         alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 12.0, 0.0, 8.0),
+                              0.0, 16.0, 0.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -1376,7 +1392,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                                 ),
                                           ),
                                           Text(
-                                            'We\'re thrilled to offer you an exclusive opportunity to be part of a vetted group of users recieving priority access to InspireAI resources.\n\nPlease provide your linkedin profile below to request to recieve special access. ',
+                                            'For a limited time, we\'re offering executives, business leaders and influencers an exclusive opportunity to receive access to InspireAI absolutely free.\n\nPlease provide your linkedin profile below to request to recieve special access. ',
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge

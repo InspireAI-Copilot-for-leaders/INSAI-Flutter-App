@@ -833,8 +833,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
 
                                                 while (_model
                                                         .noOfImagesUploadedToFirebase <
-                                                    (_model.numberOfImagesUploaded -
-                                                        1)) {
+                                                    _model
+                                                        .numberOfImagesUploaded) {
                                                   logFirebaseEvent(
                                                       'imageButton_backend_call');
                                                   _model.imageUrl =
@@ -2005,8 +2005,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
 
                                               while (_model
                                                       .noOfImagesUploadedToFirebase <
-                                                  (_model.numberOfImagesUploaded -
-                                                      1)) {
+                                                  _model
+                                                      .numberOfImagesUploaded) {
                                                 logFirebaseEvent(
                                                     'scheduleImage_backend_call');
                                                 _model.imageUrlSch =
@@ -2101,11 +2101,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       logFirebaseEvent(
                                                           'scheduleImage_backend_call');
 
-                                                      var scheduledPostsRecordReference1 =
+                                                      var scheduledPostsRecordReference =
                                                           ScheduledPostsRecord
                                                               .collection
                                                               .doc();
-                                                      await scheduledPostsRecordReference1
+                                                      await scheduledPostsRecordReference
                                                           .set({
                                                         ...mapToFirestore(
                                                           {
@@ -2161,7 +2161,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             ],
                                                           },
                                                         ),
-                                                      }, scheduledPostsRecordReference1);
+                                                      }, scheduledPostsRecordReference);
                                                       logFirebaseEvent(
                                                           'scheduleImage_update_page_state');
                                                       setState(() {
@@ -2170,7 +2170,52 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 1;
                                                       });
                                                     }
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'scheduleImage_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              const Text('Failed!'),
+                                                          content: const Text(
+                                                              'Image upload to linkedin failed.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
                                                   }
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'scheduleImage_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text('Failed!'),
+                                                        content: const Text(
+                                                            'Image upload url from linkedin failed.'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: const Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
                                                 }
                                               }
                                               if (_model
@@ -2179,45 +2224,43 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 logFirebaseEvent(
                                                     'scheduleImage_backend_call');
 
-                                                await ScheduledPostsRecord
-                                                    .collection
-                                                    .doc()
-                                                    .set(
+                                                await _model
+                                                    .createdDocRefrenceSch!
+                                                    .reference
+                                                    .update(
                                                         createScheduledPostsRecordData(
-                                                      userRef:
-                                                          currentUserReference,
-                                                      timestamp: functions
-                                                          .combineDateTime(
-                                                              _model
-                                                                  .scheduledDate!,
-                                                              _model
-                                                                  .scheduledTime!),
-                                                      timeOfCreation:
-                                                          getCurrentTimestamp,
-                                                      postType: _model
-                                                          .typeOfMediaUploaded,
-                                                      personUrn: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinUrn,
-                                                          ''),
-                                                      accessToken: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinAccess,
-                                                          ''),
-                                                      postText: _model
-                                                          .textController2.text,
-                                                      imagesJson: functions
-                                                          .valueToJsonMapList(
-                                                              _model
-                                                                  .createdDocRefrenceSch!
-                                                                  .imageUrns
-                                                                  .toList(),
-                                                              'id')
-                                                          .toString(),
-                                                      postTilte: _model
-                                                          .textController1.text,
-                                                      status: 'pending',
-                                                    ));
+                                                  userRef: currentUserReference,
+                                                  timestamp:
+                                                      functions.combineDateTime(
+                                                          _model.scheduledDate!,
+                                                          _model
+                                                              .scheduledTime!),
+                                                  timeOfCreation:
+                                                      getCurrentTimestamp,
+                                                  postType: _model
+                                                      .typeOfMediaUploaded,
+                                                  personUrn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                  postText: _model
+                                                      .textController2.text,
+                                                  imagesJson: functions
+                                                      .valueToJsonMapList(
+                                                          _model
+                                                              .createdDocRefrenceSch!
+                                                              .imageUrns
+                                                              .toList(),
+                                                          'id')
+                                                      .toString(),
+                                                  mediaTitle: _model
+                                                      .textController1.text,
+                                                  status: 'pending',
+                                                ));
                                                 logFirebaseEvent(
                                                     'scheduleImage_alert_dialog');
                                                 await showDialog(
@@ -2255,44 +2298,42 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 logFirebaseEvent(
                                                     'scheduleImage_backend_call');
 
-                                                await ScheduledPostsRecord
-                                                    .collection
-                                                    .doc()
-                                                    .set(
+                                                await _model
+                                                    .createdDocRefrenceSch!
+                                                    .reference
+                                                    .update(
                                                         createScheduledPostsRecordData(
-                                                      userRef:
-                                                          currentUserReference,
-                                                      timestamp: functions
-                                                          .combineDateTime(
-                                                              _model
-                                                                  .scheduledDate!,
-                                                              _model
-                                                                  .scheduledTime!),
-                                                      timeOfCreation:
-                                                          getCurrentTimestamp,
-                                                      postType: _model
-                                                          .typeOfMediaUploaded,
-                                                      personUrn: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinUrn,
-                                                          ''),
-                                                      accessToken: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinAccess,
-                                                          ''),
-                                                      postText: _model
-                                                          .textController2.text,
-                                                      mediaId:
-                                                          GetImageUploadUrlFromLinkedinCall
-                                                              .imageURN(
-                                                        (_model.imageUrlSch
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      postTilte: _model
-                                                          .textController1.text,
-                                                      status: 'pending',
-                                                    ));
+                                                  userRef: currentUserReference,
+                                                  timestamp:
+                                                      functions.combineDateTime(
+                                                          _model.scheduledDate!,
+                                                          _model
+                                                              .scheduledTime!),
+                                                  timeOfCreation:
+                                                      getCurrentTimestamp,
+                                                  postType: _model
+                                                      .typeOfMediaUploaded,
+                                                  personUrn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                  postText: _model
+                                                      .textController2.text,
+                                                  mediaTitle: _model
+                                                      .textController1.text,
+                                                  status: 'pending',
+                                                  mediaId:
+                                                      GetImageUploadUrlFromLinkedinCall
+                                                          .imageURN(
+                                                    (_model.imageUrlSch
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                  ),
+                                                ));
                                                 logFirebaseEvent(
                                                     'scheduleImage_alert_dialog');
                                                 await showDialog(
@@ -4875,9 +4916,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    boxShadow: [
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 7.0,
                                         color: Color(0x33000000),
@@ -4887,7 +4929,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         ),
                                       )
                                     ],
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(0.0),
                                       bottomRight: Radius.circular(0.0),
                                       topLeft: Radius.circular(16.0),
@@ -4928,7 +4970,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 .headlineSmall
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: const Color(0xFF14181B),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
                                                   fontSize: 24.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,

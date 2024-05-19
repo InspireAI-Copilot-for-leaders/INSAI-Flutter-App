@@ -35,8 +35,6 @@ class ViewScheduledPostModel extends FlutterFlowModel<ViewScheduledPostWidget> {
 
   String? uploadedDocTitle;
 
-  int noOfImagesUploadedToFirebase = 0;
-
   List<String> pollOptionsList = [];
   void addToPollOptionsList(String item) => pollOptionsList.add(item);
   void removeFromPollOptionsList(String item) => pollOptionsList.remove(item);

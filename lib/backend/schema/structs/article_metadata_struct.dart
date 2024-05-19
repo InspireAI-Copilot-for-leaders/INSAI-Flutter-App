@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -149,6 +149,45 @@ class ArticleMetadataStruct extends FFFirebaseStruct {
           ParamType.DataStruct,
           false,
           structBuilder: OriginalArticleForRagStruct.fromSerializableMap,
+        ),
+      );
+
+  static ArticleMetadataStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ArticleMetadataStruct(
+        favicon: convertAlgoliaParam(
+          data['favicon'],
+          ParamType.String,
+          false,
+        ),
+        imageUrl: convertAlgoliaParam(
+          data['image_url'],
+          ParamType.String,
+          false,
+        ),
+        publishDate: convertAlgoliaParam(
+          data['publish_date'],
+          ParamType.DateTime,
+          false,
+        ),
+        sourceUrl: convertAlgoliaParam(
+          data['source_url'],
+          ParamType.String,
+          false,
+        ),
+        url: convertAlgoliaParam(
+          data['url'],
+          ParamType.String,
+          false,
+        ),
+        orginialArticleUsedForRag: convertAlgoliaParam(
+          data['orginial_article_used_for_rag'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: OriginalArticleForRagStruct.fromAlgoliaData,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

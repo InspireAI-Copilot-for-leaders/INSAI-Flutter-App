@@ -610,7 +610,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     : _model.textController3.text,
                                 numberOfWords: _model.dropDownValue,
                                 uid: currentUserUid,
-                                insight: _model.textController2.text,
+                                insight: functions.formatStringforNormalJson(
+                                    _model.textController2.text),
                                 contentType: widget.contentType,
                                 notificationTitle: 'Content Created!',
                                 notificationText:
@@ -667,7 +668,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     : _model.textController3.text,
                                 numberOfWords: _model.dropDownValue,
                                 uid: currentUserUid,
-                                insight: _model.textController2.text,
+                                insight: functions.formatStringforNormalJson(
+                                    _model.textController2.text),
                                 contentType: widget.contentType,
                                 broadDomain: widget.broadDomain,
                                 notificationTitle: 'Content Created!',

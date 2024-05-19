@@ -22,8 +22,6 @@ export '/profile_details/profile_details_widget.dart' show ProfileDetailsWidget;
 export '/post_detailed/post_detailed_widget.dart' show PostDetailedWidget;
 export '/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/stories_page/stories_page_widget.dart' show StoriesPageWidget;
-export '/expertise_area_edit/expertise_area_edit_widget.dart'
-    show ExpertiseAreaEditWidget;
 export '/support/support_widget.dart' show SupportWidget;
 export '/post_review/post_review_widget.dart' show PostReviewWidget;
 export '/view_or_edit_one_liner/view_or_edit_one_liner_widget.dart'
@@ -38,3 +36,6 @@ export '/view_scheduled_post/view_scheduled_post_widget.dart'
 export '/pay_wall/pay_wall_widget.dart' show PayWallWidget;
 export '/access_requested/access_requested_widget.dart'
     show AccessRequestedWidget;
+export '/expertise_area_edit/expertise_area_edit_widget.dart'
+    show ExpertiseAreaEditWidget;
+export '/test/test_widget.dart' show TestWidget;

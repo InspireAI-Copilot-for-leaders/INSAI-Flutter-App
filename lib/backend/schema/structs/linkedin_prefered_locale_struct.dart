@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -66,6 +66,25 @@ class LinkedinPreferedLocaleStruct extends FFFirebaseStruct {
           data['language'],
           ParamType.String,
           false,
+        ),
+      );
+
+  static LinkedinPreferedLocaleStruct fromAlgoliaData(
+          Map<String, dynamic> data) =>
+      LinkedinPreferedLocaleStruct(
+        country: convertAlgoliaParam(
+          data['country'],
+          ParamType.String,
+          false,
+        ),
+        language: convertAlgoliaParam(
+          data['language'],
+          ParamType.String,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

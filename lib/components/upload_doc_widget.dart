@@ -129,9 +129,9 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                             logFirebaseEvent('Icon_bottom_sheet');
                             Navigator.pop(context);
                           },
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_back_rounded,
-                            color: Color(0xB0080808),
+                            color: FlutterFlowTheme.of(context).primaryText,
                             size: 30.0,
                           ),
                         ),

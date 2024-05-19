@@ -175,7 +175,6 @@ final parametersBuilderMap =
           'domain': getParameter<String>(data, 'domain'),
         },
       ),
-  'expertiseAreaEdit': ParameterData.none(),
   'support': ParameterData.none(),
   'postReview': (data) async => ParameterData(
         allParams: {
@@ -199,6 +198,8 @@ final parametersBuilderMap =
       ),
   'payWall': ParameterData.none(),
   'accessRequested': ParameterData.none(),
+  'expertiseAreaEdit': ParameterData.none(),
+  'test': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

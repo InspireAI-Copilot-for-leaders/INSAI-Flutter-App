@@ -94,5 +94,19 @@ service cloud.firestore {
       allow write: if request.auth != null;
       allow delete: if false;
     }
+
+    match /expertiseAreasCollection/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /preDefinedUsers/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
   }
 }

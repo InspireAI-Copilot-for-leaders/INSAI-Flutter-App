@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -89,6 +89,29 @@ class IdentifiersStruct extends FFFirebaseStruct {
           data['mediaType'],
           ParamType.String,
           false,
+        ),
+      );
+
+  static IdentifiersStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      IdentifiersStruct(
+        identifier: convertAlgoliaParam(
+          data['identifier'],
+          ParamType.String,
+          false,
+        ),
+        identifierExpiresInSeconds: convertAlgoliaParam(
+          data['identifierExpiresInSeconds'],
+          ParamType.int,
+          false,
+        ),
+        mediaType: convertAlgoliaParam(
+          data['mediaType'],
+          ParamType.String,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -605,7 +606,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                               logFirebaseEvent(
                                   'PHONE_NUMBER_VERIFY_arrowRight_ICN_ON_TA');
                               logFirebaseEvent('IconButton_auth');
-                              GoRouter.of(context).prepareAuthEvent(true);
+                              GoRouter.of(context).prepareAuthEvent();
                               final smsCodeVal = _model.phoneOTPcode!.text;
                               if (smsCodeVal.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -642,46 +643,44 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                   accessType: 'noAccess',
                                 ));
                               }
-                              if ((valueOrDefault(
-                                          currentUserDocument?.accessType,
-                                          '') ==
-                                      'noAccess') ||
-                                  (valueOrDefault(
-                                          currentUserDocument?.accessType,
-                                          '') ==
-                                      'paidWaitlist')) {
+                              logFirebaseEvent('IconButton_revenue_cat');
+                              final isEntitled = await revenue_cat
+                                      .isEntitled(' premium-full-access') ??
+                                  false;
+                              if (!isEntitled) {
+                                await revenue_cat.loadOfferings();
+                              }
+
+                              if (isEntitled) {
                                 logFirebaseEvent('IconButton_navigate_to');
 
                                 context.goNamedAuth(
-                                  'payWall',
-                                  context.mounted,
-                                  ignoreRedirect: true,
-                                );
+                                    'dashboard', context.mounted);
                               } else {
-                                if (valueOrDefault(
-                                        currentUserDocument?.accessType, '') ==
-                                    'specialWaitlist') {
+                                if ((valueOrDefault(
+                                            currentUserDocument?.accessType,
+                                            '') ==
+                                        'noAccess') ||
+                                    (valueOrDefault(
+                                            currentUserDocument?.accessType,
+                                            '') ==
+                                        'paidWaitlist')) {
                                   logFirebaseEvent('IconButton_navigate_to');
 
                                   context.goNamedAuth(
-                                    'accessRequested',
+                                    'payWall',
                                     context.mounted,
                                     ignoreRedirect: true,
                                   );
                                 } else {
-                                  if ((valueOrDefault(
-                                              currentUserDocument?.accessType,
-                                              '') ==
-                                          'specialGranted') &&
-                                      (valueOrDefault(
-                                              currentUserDocument
-                                                  ?.onboardingStatus,
-                                              '') ==
-                                          'notStarted')) {
+                                  if (valueOrDefault(
+                                          currentUserDocument?.accessType,
+                                          '') ==
+                                      'specialWaitlist') {
                                     logFirebaseEvent('IconButton_navigate_to');
 
                                     context.goNamedAuth(
-                                      'linkedinConnect',
+                                      'accessRequested',
                                       context.mounted,
                                       ignoreRedirect: true,
                                     );
@@ -694,12 +693,12 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                                 currentUserDocument
                                                     ?.onboardingStatus,
                                                 '') ==
-                                            'inProgress')) {
+                                            'notStarted')) {
                                       logFirebaseEvent(
                                           'IconButton_navigate_to');
 
                                       context.goNamedAuth(
-                                        'linkedinAuth',
+                                        'linkedinConnect',
                                         context.mounted,
                                         ignoreRedirect: true,
                                       );
@@ -713,33 +712,53 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                                   currentUserDocument
                                                       ?.onboardingStatus,
                                                   '') ==
-                                              'completed')) {
+                                              'inProgress')) {
                                         logFirebaseEvent(
                                             'IconButton_navigate_to');
 
                                         context.goNamedAuth(
-                                            'dashboard', context.mounted);
-                                      } else {
-                                        logFirebaseEvent(
-                                            'IconButton_alert_dialog');
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: const Text('Failed!'),
-                                              content: const Text(
-                                                  'All validation conditions failed.'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: const Text('Ok'),
-                                                ),
-                                              ],
-                                            );
-                                          },
+                                          'linkedinAuth',
+                                          context.mounted,
+                                          ignoreRedirect: true,
                                         );
+                                      } else {
+                                        if ((valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.accessType,
+                                                    '') ==
+                                                'specialGranted') &&
+                                            (valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.onboardingStatus,
+                                                    '') ==
+                                                'completed')) {
+                                          logFirebaseEvent(
+                                              'IconButton_navigate_to');
+
+                                          context.goNamedAuth(
+                                              'dashboard', context.mounted);
+                                        } else {
+                                          logFirebaseEvent(
+                                              'IconButton_alert_dialog');
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: const Text('Failed!'),
+                                                content: const Text(
+                                                    'All validation conditions failed.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: const Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
                                       }
                                     }
                                   }

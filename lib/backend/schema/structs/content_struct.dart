@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -44,6 +44,19 @@ class ContentStruct extends FFFirebaseStruct {
           data['content'],
           ParamType.String,
           false,
+        ),
+      );
+
+  static ContentStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ContentStruct(
+        content: convertAlgoliaParam(
+          data['content'],
+          ParamType.String,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

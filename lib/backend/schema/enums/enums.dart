@@ -23,6 +23,13 @@ enum NewsCategories {
   tourism,
 }
 
+enum PastelColors {
+  fcd5ce,
+  fae1dd,
+  f8edeb,
+  e8e8e4,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -38,6 +45,8 @@ T? deserializeEnum<T>(String? value) {
       return SocialPlatforms.values.deserialize(value) as T?;
     case (NewsCategories):
       return NewsCategories.values.deserialize(value) as T?;
+    case (PastelColors):
+      return PastelColors.values.deserialize(value) as T?;
     default:
       return null;
   }
