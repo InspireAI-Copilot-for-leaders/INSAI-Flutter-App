@@ -30,20 +30,20 @@ class PreDefinedUsersRecord extends FirestoreRecord {
   List<String> get broadDomains => _broadDomains ?? const [];
   bool hasBroadDomains() => _broadDomains != null;
 
-  // "thought_leadership_area_mapping" field.
-  List<ThoughtLeadershipAreasMappingStruct>? _thoughtLeadershipAreaMapping;
-  List<ThoughtLeadershipAreasMappingStruct> get thoughtLeadershipAreaMapping =>
-      _thoughtLeadershipAreaMapping ?? const [];
-  bool hasThoughtLeadershipAreaMapping() =>
-      _thoughtLeadershipAreaMapping != null;
+  // "thought_leadership_areas_mapping" field.
+  List<ThoughtLeadershipAreasMappingStruct>? _thoughtLeadershipAreasMapping;
+  List<ThoughtLeadershipAreasMappingStruct> get thoughtLeadershipAreasMapping =>
+      _thoughtLeadershipAreasMapping ?? const [];
+  bool hasThoughtLeadershipAreasMapping() =>
+      _thoughtLeadershipAreasMapping != null;
 
   void _initializeFields() {
     _linkedinUrl = snapshotData['linkedinUrl'] as String?;
     _thoughtLeadershipAreas =
         getDataList(snapshotData['thought_leadership_areas']);
     _broadDomains = getDataList(snapshotData['broad_domains']);
-    _thoughtLeadershipAreaMapping = getStructList(
-      snapshotData['thought_leadership_area_mapping'],
+    _thoughtLeadershipAreasMapping = getStructList(
+      snapshotData['thought_leadership_areas_mapping'],
       ThoughtLeadershipAreasMappingStruct.fromMap,
     );
   }
@@ -105,8 +105,8 @@ class PreDefinedUsersRecordDocumentEquality
         listEquality.equals(
             e1?.thoughtLeadershipAreas, e2?.thoughtLeadershipAreas) &&
         listEquality.equals(e1?.broadDomains, e2?.broadDomains) &&
-        listEquality.equals(
-            e1?.thoughtLeadershipAreaMapping, e2?.thoughtLeadershipAreaMapping);
+        listEquality.equals(e1?.thoughtLeadershipAreasMapping,
+            e2?.thoughtLeadershipAreasMapping);
   }
 
   @override
@@ -114,7 +114,7 @@ class PreDefinedUsersRecordDocumentEquality
         e?.linkedinUrl,
         e?.thoughtLeadershipAreas,
         e?.broadDomains,
-        e?.thoughtLeadershipAreaMapping
+        e?.thoughtLeadershipAreasMapping
       ]);
 
   @override
