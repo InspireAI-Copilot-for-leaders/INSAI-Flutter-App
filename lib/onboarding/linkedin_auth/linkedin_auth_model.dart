@@ -43,6 +43,8 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
 
   bool emptySearch = false;
 
+  PreDefinedUsersRecord? preDefinedUserDoc;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -52,7 +54,7 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
   // Stores action output result for [Backend Call - API (Linkedin Profile Details)] action in linkedinAuth widget.
   ApiCallResponse? lIprofileDetails;
   // Stores action output result for [Firestore Query - Query a collection] action in linkedinAuth widget.
-  PreDefinedUsersRecord? wannabeUser;
+  List<PreDefinedUsersRecord>? wannabeUser;
   // Stores action output result for [Backend Call - API (Expertise of Person)] action in linkedinAuth widget.
   ApiCallResponse? getExpertiseWorflow;
   // State field(s) for contentURL1 widget.

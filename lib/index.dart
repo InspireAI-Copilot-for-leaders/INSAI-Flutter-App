@@ -38,3 +38,4 @@ export '/access_requested/access_requested_widget.dart'
     show AccessRequestedWidget;
 export '/expertise_area_edit/expertise_area_edit_widget.dart'
     show ExpertiseAreaEditWidget;
+export '/payment_success/payment_success_widget.dart' show PaymentSuccessWidget;

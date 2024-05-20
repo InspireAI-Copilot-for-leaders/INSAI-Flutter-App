@@ -11,7 +11,6 @@ import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -96,21 +95,24 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                 isEqualTo:
                     'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
               ),
-              singleRecord: true,
-            ).then((s) => s.firstOrNull);
-            if (_model.wannabeUser != null) {
+            );
+            if (_model.wannabeUser!.isNotEmpty) {
+              logFirebaseEvent('linkedinAuth_update_page_state');
+              setState(() {
+                _model.preDefinedUserDoc = _model.wannabeUser?.first;
+              });
               logFirebaseEvent('linkedinAuth_backend_call');
 
               await currentUserReference!.update({
                 ...mapToFirestore(
                   {
                     'thought_leadership_areas':
-                        _model.wannabeUser?.thoughtLeadershipAreas,
+                        _model.preDefinedUserDoc?.thoughtLeadershipAreas,
                     'thought_leadership_areas_mapping':
                         getThoughtLeadershipAreasMappingListFirestoreData(
-                      _model.wannabeUser?.thoughtLeadershipAreaMapping,
+                      _model.preDefinedUserDoc?.thoughtLeadershipAreaMapping,
                     ),
-                    'broad_domains': _model.wannabeUser?.broadDomains,
+                    'broad_domains': _model.preDefinedUserDoc?.broadDomains,
                   },
                 ),
               });

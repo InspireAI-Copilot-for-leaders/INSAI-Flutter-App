@@ -1413,7 +1413,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           logFirebaseEvent(
                                                               'email_loginContinue_auth');
                                                           GoRouter.of(context)
-                                                              .prepareAuthEvent();
+                                                              .prepareAuthEvent(
+                                                                  true);
 
                                                           final user =
                                                               await authManager
@@ -1443,13 +1444,78 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           }
 
                                                           if (isEntitled) {
-                                                            logFirebaseEvent(
-                                                                'email_loginContinue_navigate_to');
+                                                            if (valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.onboardingStatus,
+                                                                    '') ==
+                                                                'notStarted') {
+                                                              logFirebaseEvent(
+                                                                  'email_loginContinue_navigate_to');
 
-                                                            context.goNamedAuth(
-                                                                'dashboard',
+                                                              context
+                                                                  .goNamedAuth(
+                                                                'paymentSuccess',
+                                                                context.mounted,
+                                                                ignoreRedirect:
+                                                                    true,
+                                                              );
+                                                            } else {
+                                                              if (valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.onboardingStatus,
+                                                                      '') ==
+                                                                  'inProgress') {
+                                                                logFirebaseEvent(
+                                                                    'email_loginContinue_navigate_to');
+
                                                                 context
-                                                                    .mounted);
+                                                                    .goNamedAuth(
+                                                                  'linkedinAuth',
+                                                                  context
+                                                                      .mounted,
+                                                                  ignoreRedirect:
+                                                                      true,
+                                                                );
+                                                              } else {
+                                                                if (valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.onboardingStatus,
+                                                                        '') ==
+                                                                    'completed') {
+                                                                  logFirebaseEvent(
+                                                                      'email_loginContinue_navigate_to');
+
+                                                                  context.goNamedAuth(
+                                                                      'dashboard',
+                                                                      context
+                                                                          .mounted);
+                                                                } else {
+                                                                  logFirebaseEvent(
+                                                                      'email_loginContinue_alert_dialog');
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        title: const Text(
+                                                                            'Failed!'),
+                                                                        content:
+                                                                            const Text('All validation conditions failed.'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                            child:
+                                                                                const Text('Ok'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
+                                                              }
+                                                            }
                                                           } else {
                                                             if ((valueOrDefault(
                                                                         currentUserDocument
@@ -1987,7 +2053,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 logFirebaseEvent(
                                                     'googleAuthButton_auth');
                                                 GoRouter.of(context)
-                                                    .prepareAuthEvent();
+                                                    .prepareAuthEvent(true);
                                                 final user = await authManager
                                                     .signInWithGoogle(context);
                                                 if (user == null) {
@@ -2026,12 +2092,72 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 }
 
                                                 if (isEntitled) {
-                                                  logFirebaseEvent(
-                                                      'googleAuthButton_navigate_to');
+                                                  if (valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.onboardingStatus,
+                                                          '') ==
+                                                      'notStarted') {
+                                                    logFirebaseEvent(
+                                                        'googleAuthButton_navigate_to');
 
-                                                  context.goNamedAuth(
-                                                      'dashboard',
-                                                      context.mounted);
+                                                    context.goNamedAuth(
+                                                      'paymentSuccess',
+                                                      context.mounted,
+                                                      ignoreRedirect: true,
+                                                    );
+                                                  } else {
+                                                    if (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.onboardingStatus,
+                                                            '') ==
+                                                        'inProgress') {
+                                                      logFirebaseEvent(
+                                                          'googleAuthButton_navigate_to');
+
+                                                      context.goNamedAuth(
+                                                        'linkedinAuth',
+                                                        context.mounted,
+                                                        ignoreRedirect: true,
+                                                      );
+                                                    } else {
+                                                      if (valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.onboardingStatus,
+                                                              '') ==
+                                                          'completed') {
+                                                        logFirebaseEvent(
+                                                            'googleAuthButton_navigate_to');
+
+                                                        context.goNamedAuth(
+                                                            'dashboard',
+                                                            context.mounted);
+                                                      } else {
+                                                        logFirebaseEvent(
+                                                            'googleAuthButton_alert_dialog');
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Failed!'),
+                                                              content: const Text(
+                                                                  'All validation conditions failed.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: const Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }
+                                                    }
+                                                  }
                                                 } else {
                                                   if ((valueOrDefault(
                                                               currentUserDocument
@@ -2181,7 +2307,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 logFirebaseEvent(
                                                     'appleAuthButton_auth');
                                                 GoRouter.of(context)
-                                                    .prepareAuthEvent();
+                                                    .prepareAuthEvent(true);
                                                 final user = await authManager
                                                     .signInWithApple(context);
                                                 if (user == null) {
@@ -2220,12 +2346,72 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 }
 
                                                 if (isEntitled) {
-                                                  logFirebaseEvent(
-                                                      'appleAuthButton_navigate_to');
+                                                  if (valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.onboardingStatus,
+                                                          '') ==
+                                                      'notStarted') {
+                                                    logFirebaseEvent(
+                                                        'appleAuthButton_navigate_to');
 
-                                                  context.goNamedAuth(
-                                                      'dashboard',
-                                                      context.mounted);
+                                                    context.goNamedAuth(
+                                                      'paymentSuccess',
+                                                      context.mounted,
+                                                      ignoreRedirect: true,
+                                                    );
+                                                  } else {
+                                                    if (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.onboardingStatus,
+                                                            '') ==
+                                                        'inProgress') {
+                                                      logFirebaseEvent(
+                                                          'appleAuthButton_navigate_to');
+
+                                                      context.goNamedAuth(
+                                                        'linkedinAuth',
+                                                        context.mounted,
+                                                        ignoreRedirect: true,
+                                                      );
+                                                    } else {
+                                                      if (valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.onboardingStatus,
+                                                              '') ==
+                                                          'completed') {
+                                                        logFirebaseEvent(
+                                                            'appleAuthButton_navigate_to');
+
+                                                        context.goNamedAuth(
+                                                            'dashboard',
+                                                            context.mounted);
+                                                      } else {
+                                                        logFirebaseEvent(
+                                                            'appleAuthButton_alert_dialog');
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Failed!'),
+                                                              content: const Text(
+                                                                  'All validation conditions failed.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: const Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }
+                                                    }
+                                                  }
                                                 } else {
                                                   if ((valueOrDefault(
                                                               currentUserDocument

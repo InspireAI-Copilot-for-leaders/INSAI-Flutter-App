@@ -1040,9 +1040,15 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   await revenue_cat.purchasePackage(revenue_cat
                                       .offerings!.current!.annual!.identifier);
                               if (_model.yearlySubs!) {
+                                logFirebaseEvent('Button_backend_call');
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  accessType: 'paidGranted',
+                                ));
                                 logFirebaseEvent('Button_navigate_to');
 
-                                context.pushNamed('dashboard');
+                                context.goNamed('paymentSuccess');
                               } else {
                                 logFirebaseEvent('Button_show_snack_bar');
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -1067,9 +1073,15 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   await revenue_cat.purchasePackage(revenue_cat
                                       .offerings!.current!.monthly!.identifier);
                               if (_model.monthlySubs!) {
+                                logFirebaseEvent('Button_backend_call');
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  accessType: 'paidGranted',
+                                ));
                                 logFirebaseEvent('Button_navigate_to');
 
-                                context.pushNamed('dashboard');
+                                context.goNamed('paymentSuccess');
                               } else {
                                 logFirebaseEvent('Button_show_snack_bar');
                                 ScaffoldMessenger.of(context).showSnackBar(

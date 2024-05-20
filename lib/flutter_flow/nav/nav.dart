@@ -368,6 +368,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'expertiseAreaEdit',
               requireAuth: true,
               builder: (context, params) => const ExpertiseAreaEditWidget(),
+            ),
+            FFRoute(
+              name: 'paymentSuccess',
+              path: 'paymentSuccess',
+              builder: (context, params) => const PaymentSuccessWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
