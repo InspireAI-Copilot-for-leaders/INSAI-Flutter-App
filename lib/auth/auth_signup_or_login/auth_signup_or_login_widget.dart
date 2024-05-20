@@ -1431,25 +1431,46 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                             return;
                                                           }
 
-                                                          await Future.wait([
-                                                            Future(() async {}),
-                                                            Future(() async {
-                                                              if ((valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.accessType,
-                                                                          '') ==
-                                                                      'noAccess') ||
-                                                                  (valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.accessType,
-                                                                          '') ==
-                                                                      'paidWaitlist')) {
+                                                          logFirebaseEvent(
+                                                              'email_loginContinue_revenue_cat');
+                                                          final isEntitled =
+                                                              await revenue_cat
+                                                                      .isEntitled(
+                                                                          'premium-full-access') ??
+                                                                  false;
+                                                          if (!isEntitled) {
+                                                            await revenue_cat
+                                                                .loadOfferings();
+                                                          }
+
+                                                          if (isEntitled) {
+                                                            if (valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.onboardingStatus,
+                                                                    '') ==
+                                                                'notStarted') {
+                                                              logFirebaseEvent(
+                                                                  'email_loginContinue_navigate_to');
+
+                                                              context
+                                                                  .goNamedAuth(
+                                                                'paymentSuccess',
+                                                                context.mounted,
+                                                                ignoreRedirect:
+                                                                    true,
+                                                              );
+                                                            } else {
+                                                              if (valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.onboardingStatus,
+                                                                      '') ==
+                                                                  'inProgress') {
                                                                 logFirebaseEvent(
                                                                     'email_loginContinue_navigate_to');
 
                                                                 context
                                                                     .goNamedAuth(
-                                                                  'payWall',
+                                                                  'linkedinAuth',
                                                                   context
                                                                       .mounted,
                                                                   ignoreRedirect:
@@ -1458,9 +1479,96 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               } else {
                                                                 if (valueOrDefault(
                                                                         currentUserDocument
+                                                                            ?.onboardingStatus,
+                                                                        '') ==
+                                                                    'completed') {
+                                                                  logFirebaseEvent(
+                                                                      'email_loginContinue_widget_animation');
+                                                                  if (animationsMap[
+                                                                          'iconOnActionTriggerAnimation1'] !=
+                                                                      null) {
+                                                                    animationsMap[
+                                                                            'iconOnActionTriggerAnimation1']!
+                                                                        .controller
+                                                                        .forward(
+                                                                            from:
+                                                                                0.0);
+                                                                  }
+                                                                } else {
+                                                                  logFirebaseEvent(
+                                                                      'email_loginContinue_alert_dialog');
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        title: const Text(
+                                                                            'Failed!'),
+                                                                        content:
+                                                                            const Text('All validation conditions failed.'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                            child:
+                                                                                const Text('Ok'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
+                                                              }
+                                                            }
+                                                          } else {
+                                                            if ((valueOrDefault(
+                                                                        currentUserDocument
                                                                             ?.accessType,
                                                                         '') ==
-                                                                    'specialWaitlist') {
+                                                                    'noAccess') ||
+                                                                (valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.accessType,
+                                                                        '') ==
+                                                                    'paidWaitlist')) {
+                                                              logFirebaseEvent(
+                                                                  'email_loginContinue_navigate_to');
+
+                                                              context
+                                                                  .goNamedAuth(
+                                                                'payWall',
+                                                                context.mounted,
+                                                                ignoreRedirect:
+                                                                    true,
+                                                              );
+                                                            } else {
+                                                              if (valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.accessType,
+                                                                      '') ==
+                                                                  'specialWaitlist') {
+                                                                logFirebaseEvent(
+                                                                    'email_loginContinue_navigate_to');
+
+                                                                context
+                                                                    .goNamedAuth(
+                                                                  'accessRequested',
+                                                                  context
+                                                                      .mounted,
+                                                                  ignoreRedirect:
+                                                                      true,
+                                                                );
+                                                              } else {
+                                                                if ((valueOrDefault(
+                                                                            currentUserDocument
+                                                                                ?.accessType,
+                                                                            '') ==
+                                                                        'specialGranted') &&
+                                                                    (valueOrDefault(
+                                                                            currentUserDocument?.onboardingStatus,
+                                                                            '') ==
+                                                                        'notStarted')) {
                                                                   logFirebaseEvent(
                                                                       'email_loginContinue_navigate_to');
 
@@ -1481,13 +1589,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                       (valueOrDefault(
                                                                               currentUserDocument?.onboardingStatus,
                                                                               '') ==
-                                                                          'notStarted')) {
+                                                                          'inProgress')) {
                                                                     logFirebaseEvent(
                                                                         'email_loginContinue_navigate_to');
 
                                                                     context
                                                                         .goNamedAuth(
-                                                                      'accessRequested',
+                                                                      'linkedinAuth',
                                                                       context
                                                                           .mounted,
                                                                       ignoreRedirect:
@@ -1498,56 +1606,30 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                             'specialGranted') &&
                                                                         (valueOrDefault(currentUserDocument?.onboardingStatus,
                                                                                 '') ==
-                                                                            'inProgress')) {
+                                                                            'completed')) {
+                                                                      logFirebaseEvent(
+                                                                          'email_loginContinue_widget_animation');
+                                                                      if (animationsMap[
+                                                                              'iconOnActionTriggerAnimation1'] !=
+                                                                          null) {
+                                                                        animationsMap['iconOnActionTriggerAnimation1']!
+                                                                            .controller
+                                                                            .forward(from: 0.0);
+                                                                      }
+                                                                    } else {
                                                                       logFirebaseEvent(
                                                                           'email_loginContinue_navigate_to');
 
-                                                                      context
-                                                                          .goNamedAuth(
-                                                                        'linkedinAuth',
-                                                                        context
-                                                                            .mounted,
-                                                                        ignoreRedirect:
-                                                                            true,
-                                                                      );
-                                                                    } else {
-                                                                      if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                                                                              'specialGranted') &&
-                                                                          (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
-                                                                              'completed')) {
-                                                                        logFirebaseEvent(
-                                                                            'email_loginContinue_navigate_to');
-
-                                                                        context.goNamedAuth(
-                                                                            'dashboard',
-                                                                            context.mounted);
-                                                                      } else {
-                                                                        logFirebaseEvent(
-                                                                            'email_loginContinue_alert_dialog');
-                                                                        await showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (alertDialogContext) {
-                                                                            return AlertDialog(
-                                                                              title: const Text('Failed!'),
-                                                                              content: const Text('All validation conditions failed.'),
-                                                                              actions: [
-                                                                                TextButton(
-                                                                                  onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                  child: const Text('Ok'),
-                                                                                ),
-                                                                              ],
-                                                                            );
-                                                                          },
-                                                                        );
-                                                                      }
+                                                                      context.goNamedAuth(
+                                                                          'subsExpired',
+                                                                          context
+                                                                              .mounted);
                                                                     }
                                                                   }
                                                                 }
                                                               }
-                                                            }),
-                                                          ]);
+                                                            }
+                                                          }
                                                         },
                                                         text: 'Continue',
                                                         options:
@@ -1995,7 +2077,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     'googleAuthButton_revenue_cat');
                                                 final isEntitled =
                                                     await revenue_cat.isEntitled(
-                                                            ' premium-full-access') ??
+                                                            'premium-full-access') ??
                                                         false;
                                                 if (!isEntitled) {
                                                   await revenue_cat
@@ -2161,27 +2243,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                     .mounted);
                                                           } else {
                                                             logFirebaseEvent(
-                                                                'googleAuthButton_alert_dialog');
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: const Text(
-                                                                      'Failed!'),
-                                                                  content: const Text(
-                                                                      'All validation conditions failed.'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: const Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
+                                                                'googleAuthButton_navigate_to');
+
+                                                            context.goNamedAuth(
+                                                              'subsExpired',
+                                                              context.mounted,
+                                                              ignoreRedirect:
+                                                                  true,
                                                             );
                                                           }
                                                         }
@@ -2249,7 +2317,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     'appleAuthButton_revenue_cat');
                                                 final isEntitled =
                                                     await revenue_cat.isEntitled(
-                                                            ' premium-full-access') ??
+                                                            'premium-full-access') ??
                                                         false;
                                                 if (!isEntitled) {
                                                   await revenue_cat
@@ -2415,28 +2483,12 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                     .mounted);
                                                           } else {
                                                             logFirebaseEvent(
-                                                                'appleAuthButton_alert_dialog');
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: const Text(
-                                                                      'Failed!'),
-                                                                  content: const Text(
-                                                                      'All validation conditions failed.'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: const Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            );
+                                                                'appleAuthButton_navigate_to');
+
+                                                            context.goNamedAuth(
+                                                                'subsExpired',
+                                                                context
+                                                                    .mounted);
                                                           }
                                                         }
                                                       }

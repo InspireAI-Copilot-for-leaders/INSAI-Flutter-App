@@ -373,6 +373,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'paymentSuccess',
               path: 'paymentSuccess',
               builder: (context, params) => const PaymentSuccessWidget(),
+            ),
+            FFRoute(
+              name: 'subsExpired',
+              path: 'subsExpired',
+              builder: (context, params) => const SubsExpiredWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

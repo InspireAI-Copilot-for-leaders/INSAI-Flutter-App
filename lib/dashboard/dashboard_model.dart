@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/allow_notification_popup_widget.dart';
 import '/components/empty_state_widget.dart';
+import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dashboard_widget.dart' show DashboardWidget;
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   ///  Local state fields for this page.
 
   bool createContentDialogVisible = false;
+
+  bool isLoading = true;
 
   ///  State fields for stateful widgets in this page.
 
@@ -23,6 +26,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   late EmptyStateModel emptyStateModel2;
   // Model for Allow_notification_popup component.
   late AllowNotificationPopupModel allowNotificationPopupModel;
+  // Model for profileLoadingScreen component.
+  late ProfileLoadingScreenModel profileLoadingScreenModel;
 
   @override
   void initState(BuildContext context) {
@@ -30,6 +35,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
     emptyStateModel2 = createModel(context, () => EmptyStateModel());
     allowNotificationPopupModel =
         createModel(context, () => AllowNotificationPopupModel());
+    profileLoadingScreenModel =
+        createModel(context, () => ProfileLoadingScreenModel());
   }
 
   @override
@@ -38,5 +45,6 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
     emptyStateModel1.dispose();
     emptyStateModel2.dispose();
     allowNotificationPopupModel.dispose();
+    profileLoadingScreenModel.dispose();
   }
 }

@@ -200,6 +200,7 @@ final parametersBuilderMap =
   'accessRequested': ParameterData.none(),
   'expertiseAreaEdit': ParameterData.none(),
   'paymentSuccess': ParameterData.none(),
+  'subsExpired': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

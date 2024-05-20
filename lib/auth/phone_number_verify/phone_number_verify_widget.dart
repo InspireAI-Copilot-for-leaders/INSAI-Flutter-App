@@ -645,7 +645,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                               }
                               logFirebaseEvent('IconButton_revenue_cat');
                               final isEntitled = await revenue_cat
-                                      .isEntitled(' premium-full-access') ??
+                                      .isEntitled('premium-full-access') ??
                                   false;
                               if (!isEntitled) {
                                 await revenue_cat.loadOfferings();
@@ -792,25 +792,10 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                               'dashboard', context.mounted);
                                         } else {
                                           logFirebaseEvent(
-                                              'IconButton_alert_dialog');
-                                          await showDialog(
-                                            context: context,
-                                            builder: (alertDialogContext) {
-                                              return AlertDialog(
-                                                title: const Text('Failed!'),
-                                                content: const Text(
-                                                    'All validation conditions failed.'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext),
-                                                    child: const Text('Ok'),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
+                                              'IconButton_navigate_to');
+
+                                          context.goNamedAuth(
+                                              'subsExpired', context.mounted);
                                         }
                                       }
                                     }

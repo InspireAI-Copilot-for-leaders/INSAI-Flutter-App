@@ -277,6 +277,89 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       ),
                                 ),
                               ),
+                              if (valueOrDefault(
+                                      currentUserDocument?.accessType, '') !=
+                                  'specialGranted')
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: AuthUserStreamWidget(
+                                    builder: (context) => InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'PROFILE_DETAILS_PAGE_Row_xhoggcdg_ON_TAP');
+                                        logFirebaseEvent('Row_launch_u_r_l');
+                                        await launchURL(isiOS
+                                            ? 'https://apps.apple.com/account/subscriptions'
+                                            : 'https://play.google.com/store/account/subscriptions');
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 8.0, 16.0, 8.0),
+                                            child: Icon(
+                                              Icons.monetization_on_outlined,
+                                              color: Color(0xFF57636C),
+                                              size: 24.0,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 12.0, 0.0),
+                                              child: Text(
+                                                'Manage Subscription',
+                                                textAlign: TextAlign.start,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color: const Color(0xFF101213),
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts:
+                                                          GoogleFonts.asMap()
+                                                              .containsKey(
+                                                                  'Montserrat'),
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Manage',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: const Color(0xFF4B39EF),
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey(
+                                                              'Montserrat'),
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
@@ -287,7 +370,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
-                                        'PROFILE_DETAILS_PAGE_Row_xhoggcdg_ON_TAP');
+                                        'PROFILE_DETAILS_PAGE_Row_kii2jhic_ON_TAP');
                                     logFirebaseEvent('Row_navigate_to');
 
                                     context.pushNamed('expertiseAreaEdit');

@@ -74,7 +74,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -192,17 +192,23 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                           },
                         ),
                       ),
-                      Text(
-                        'A ghostwriter \nat your fingertips.',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.of(context).primary,
-                              fontSize: 28.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              useGoogleFonts:
-                                  GoogleFonts.asMap().containsKey('Poppins'),
-                            ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                        child: Text(
+                          'A ghostwriter \nat your fingertips.',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 24.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
+                                useGoogleFonts:
+                                    GoogleFonts.asMap().containsKey('Poppins'),
+                              ),
+                        ),
                       ),
                       Padding(
                         padding:
@@ -1008,7 +1014,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 18.0, 0.0, 0.0),
                           child: Text(
-                            'Change plans or cancel anytime.',
+                            'Auto Renewing\nChange plans or cancel anytime.',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium

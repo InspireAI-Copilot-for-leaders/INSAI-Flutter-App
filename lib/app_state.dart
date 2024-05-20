@@ -152,6 +152,12 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_lastDiscoverCachedTime');
   }
 
+  bool _dashboardLoading = true;
+  bool get dashboardLoading => _dashboardLoading;
+  set dashboardLoading(bool value) {
+    _dashboardLoading = value;
+  }
+
   final _discoverManager = FutureRequestManager<List<ArticleRecord>>();
   Future<List<ArticleRecord>> discover({
     String? uniqueQueryKey,
