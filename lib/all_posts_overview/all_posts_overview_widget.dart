@@ -438,7 +438,9 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                         ),
                                         Expanded(
                                           child: Switch.adaptive(
-                                            value: _model.switchValue ??= false,
+                                            value: _model.switchValue ??=
+                                                Theme.of(context).brightness ==
+                                                    Brightness.dark,
                                             onChanged: (newValue) async {
                                               setState(() => _model
                                                   .switchValue = newValue);

@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/empty_state_widget.dart';
-import '/components/profile_loading_screen_widget.dart';
+import '/components/news_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -519,7 +519,9 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                         ),
                                         Expanded(
                                           child: Switch.adaptive(
-                                            value: _model.switchValue ??= false,
+                                            value: _model.switchValue ??=
+                                                Theme.of(context).brightness ==
+                                                    Brightness.dark,
                                             onChanged: (newValue) async {
                                               setState(() => _model
                                                   .switchValue = newValue);
@@ -865,8 +867,10 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                             return const Center(
                                               child: SizedBox(
                                                 height: 700.0,
-                                                child:
-                                                    ProfileLoadingScreenWidget(),
+                                                child: NewsLoadingScreenWidget(
+                                                  loadingText:
+                                                      'Getting the latest trends. Hang on...',
+                                                ),
                                               ),
                                             );
                                           }

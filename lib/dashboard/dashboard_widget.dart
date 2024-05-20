@@ -4,6 +4,7 @@ import '/backend/backend.dart';
 import '/backend/cloud_functions/cloud_functions.dart';
 import '/components/allow_notification_popup_widget.dart';
 import '/components/empty_state_widget.dart';
+import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -51,7 +52,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
       logFirebaseEvent('DASHBOARD_PAGE_dashboard_ON_INIT_STATE');
       logFirebaseEvent('dashboard_revenue_cat');
       final isEntitled =
-          await revenue_cat.isEntitled(' premium-full-access') ?? false;
+          await revenue_cat.isEntitled('premium-full-access') ?? false;
       if (!isEntitled) {
         await revenue_cat.loadOfferings();
       }
@@ -77,6 +78,10 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     .controller
                     .forward(from: 0.0);
               }
+              logFirebaseEvent('dashboard_update_app_state');
+              setState(() {
+                FFAppState().dashboardLoading = false;
+              });
             } else {
               logFirebaseEvent('dashboard_alert_dialog');
               await showDialog(
@@ -139,23 +144,14 @@ class _DashboardWidgetState extends State<DashboardWidget>
                         .controller
                         .forward(from: 0.0);
                   }
+                  logFirebaseEvent('dashboard_update_app_state');
+                  setState(() {
+                    FFAppState().dashboardLoading = false;
+                  });
                 } else {
-                  logFirebaseEvent('dashboard_alert_dialog');
-                  await showDialog(
-                    context: context,
-                    builder: (alertDialogContext) {
-                      return AlertDialog(
-                        title: const Text('Failed!'),
-                        content: const Text('All validation conditions failed.'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(alertDialogContext),
-                            child: const Text('Ok'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  logFirebaseEvent('dashboard_navigate_to');
+
+                  context.goNamed('subsExpired');
                 }
               }
             }
@@ -607,7 +603,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           Expanded(
                                             child: Switch.adaptive(
                                               value: _model.switchValue ??=
-                                                  false,
+                                                  Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark,
                                               onChanged: (newValue) async {
                                                 setState(() => _model
                                                     .switchValue = newValue);
@@ -3188,6 +3186,14 @@ class _DashboardWidgetState extends State<DashboardWidget>
                       ),
                     ),
                   ],
+                ),
+              if (FFAppState().dashboardLoading)
+                wrapWithModel(
+                  model: _model.profileLoadingScreenModel,
+                  updateCallback: () => setState(() {}),
+                  child: const ProfileLoadingScreenWidget(
+                    loadingText: 'Loading your dashboard. Just a sec...',
+                  ),
                 ),
             ],
           ),
