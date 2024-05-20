@@ -1627,6 +1627,13 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                       queryPostedOnLinkedinRecord(
                                                     parent:
                                                         currentUserReference,
+                                                    queryBuilder:
+                                                        (postedOnLinkedinRecord) =>
+                                                            postedOnLinkedinRecord
+                                                                .orderBy(
+                                                                    'postedOn',
+                                                                    descending:
+                                                                        true),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -1657,6 +1664,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     }
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
+                                                      shrinkWrap: true,
                                                       scrollDirection:
                                                           Axis.vertical,
                                                       itemCount:
@@ -1842,6 +1850,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               dateTimeFormat('relative', postedListViewPostedOnLinkedinRecord.postedOn!),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
                                                                                     letterSpacing: 0.0,
                                                                                     useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
@@ -2159,7 +2168,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               'Posting on ${dateTimeFormat('MMMEd', scheduledListViewScheduledPostsRecord.timestamp)} at ${dateTimeFormat('jm', scheduledListViewScheduledPostsRecord.timestamp)}.',
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
                                                                                     letterSpacing: 0.0,
                                                                                     useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
