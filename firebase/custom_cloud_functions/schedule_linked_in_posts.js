@@ -166,9 +166,10 @@ exports.scheduleLinkedInPosts = functions.pubsub
         // Create a document in the subcollection after successful posting
         await post.userRef.collection("postedOnLinkedin").add({
           postText: post.postText,
-          timestamp: admin.firestore.Timestamp.now(),
+          postTitle: post.postTitle,
+          postedOn: admin.firestore.Timestamp.now(),
           response: result.data,
-          linkedInId: result.linkedInId, // Store the LinkedIn ID
+          postURN: result.linkedInId, // Store the LinkedIn ID
           postData: postDataWithoutSensitive, // Store filtered postData
         });
 

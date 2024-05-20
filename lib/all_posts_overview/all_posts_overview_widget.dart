@@ -1627,6 +1627,13 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                       queryPostedOnLinkedinRecord(
                                                     parent:
                                                         currentUserReference,
+                                                    queryBuilder:
+                                                        (postedOnLinkedinRecord) =>
+                                                            postedOnLinkedinRecord
+                                                                .orderBy(
+                                                                    'postedOn',
+                                                                    descending:
+                                                                        true),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -1657,6 +1664,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     }
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
+                                                      shrinkWrap: true,
                                                       scrollDirection:
                                                           Axis.vertical,
                                                       itemCount:
