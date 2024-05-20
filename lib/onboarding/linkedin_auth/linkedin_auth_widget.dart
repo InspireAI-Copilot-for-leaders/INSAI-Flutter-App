@@ -110,7 +110,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                         _model.preDefinedUserDoc?.thoughtLeadershipAreas,
                     'thought_leadership_areas_mapping':
                         getThoughtLeadershipAreasMappingListFirestoreData(
-                      _model.preDefinedUserDoc?.thoughtLeadershipAreaMapping,
+                      _model.preDefinedUserDoc?.thoughtLeadershipAreasMapping,
                     ),
                     'broad_domains': _model.preDefinedUserDoc?.broadDomains,
                   },
