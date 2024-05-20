@@ -150,6 +150,55 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
               ),
             ),
           ),
+          SizedBox(
+            width: 1.0,
+            height: 1.0,
+            child: custom_widgets.BackButtonOverrider(
+              width: 1.0,
+              height: 1.0,
+              onBack: () async {
+                logFirebaseEvent('ACCESS_REQUESTED_Container_vos67xp4_CALL');
+                logFirebaseEvent('BackButtonOverrider_alert_dialog');
+                var confirmDialogResponse = await showDialog<bool>(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          title: const Text('Logout?'),
+                          content: const Text(
+                              'This will log you out of InspireAI completely. Are you sure you want to logout?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, false),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, true),
+                              child: const Text('Yes, Logout'),
+                            ),
+                          ],
+                        );
+                      },
+                    ) ??
+                    false;
+                if (confirmDialogResponse) {
+                  logFirebaseEvent('BackButtonOverrider_auth');
+                  GoRouter.of(context).prepareAuthEvent(true);
+                  await authManager.signOut();
+                  GoRouter.of(context).clearRedirectLocation();
+
+                  logFirebaseEvent('BackButtonOverrider_navigate_to');
+
+                  context.goNamedAuth(
+                    'LandingPage',
+                    context.mounted,
+                    ignoreRedirect: true,
+                  );
+                }
+              },
+            ),
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
             child: AuthUserStreamWidget(
@@ -278,101 +327,56 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: 1.0,
-                    height: 1.0,
-                    child: custom_widgets.BackButtonOverrider(
-                      width: 1.0,
-                      height: 1.0,
-                      onBack: () async {
-                        logFirebaseEvent(
-                            'ACCESS_REQUESTED_Container_vos67xp4_CALL');
-                        logFirebaseEvent('BackButtonOverrider_alert_dialog');
-                        var confirmDialogResponse = await showDialog<bool>(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: const Text('Logout?'),
-                                  content: const Text(
-                                      'This will log you out of InspireAI completely. Are you sure you want to logout?'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(
-                                          alertDialogContext, false),
-                                      child: const Text('Cancel'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(
-                                          alertDialogContext, true),
-                                      child: const Text('Yes, Logout'),
-                                    ),
-                                  ],
-                                );
+            child: Align(
+              alignment: const AlignmentDirectional(0.0, 1.0),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 24.0),
+                child: AuthUserStreamWidget(
+                  builder: (context) => FFButtonWidget(
+                    onPressed:
+                        (valueOrDefault(currentUserDocument?.accessType, '') !=
+                                'specialGranted')
+                            ? null
+                            : () async {
+                                logFirebaseEvent(
+                                    'ACCESS_REQUESTED_START_ONBOARDING_BTN_ON');
+                                logFirebaseEvent('Button_navigate_to');
+
+                                context.pushNamed('linkedinConnect');
                               },
-                            ) ??
-                            false;
-                        if (confirmDialogResponse) {
-                          logFirebaseEvent('BackButtonOverrider_auth');
-                          GoRouter.of(context).prepareAuthEvent(true);
-                          await authManager.signOut();
-                          GoRouter.of(context).clearRedirectLocation();
-
-                          logFirebaseEvent('BackButtonOverrider_navigate_to');
-
-                          context.goNamedAuth(
-                            'LandingPage',
-                            context.mounted,
-                            ignoreRedirect: true,
-                          );
-                        }
-                      },
+                    text: 'Start Onboarding',
+                    options: FFButtonOptions(
+                      width: 300.0,
+                      height: 50.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      textStyle: FlutterFlowTheme.of(context)
+                          .bodyLarge
+                          .override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).bodyLargeFamily,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).bodyLargeFamily),
+                          ),
+                      elevation: 0.0,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                      disabledColor: const Color(0xAEA9A9A9),
+                      disabledTextColor:
+                          FlutterFlowTheme.of(context).secondaryText,
                     ),
                   ),
-                  if (valueOrDefault(currentUserDocument?.accessType, '') ==
-                      'specialGranted')
-                    AuthUserStreamWidget(
-                      builder: (context) => FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
-                        },
-                        text: 'Start Onboarding',
-                        options: FFButtonOptions(
-                          width: 300.0,
-                          height: 50.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          textStyle: FlutterFlowTheme.of(context)
-                              .bodyLarge
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyLargeFamily,
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily),
-                              ),
-                          elevation: 0.0,
-                          borderSide: const BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                      ),
-                    ),
-                ],
+                ),
               ),
             ),
           ),

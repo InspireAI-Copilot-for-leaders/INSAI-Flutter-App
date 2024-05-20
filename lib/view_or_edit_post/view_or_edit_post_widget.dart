@@ -776,404 +776,398 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_imageButton_ON_TAP');
-                                              if (_model.typeOfMediaUploaded ==
-                                                  'image') {
-                                                logFirebaseEvent(
-                                                    'imageButton_upload_media_to_firebase');
-                                                {
-                                                  setState(() => _model
-                                                      .isDataUploading2 = true);
-                                                  var selectedUploadedFiles =
-                                                      <FFUploadedFile>[];
-                                                  var selectedMedia =
-                                                      <SelectedFile>[];
-                                                  var downloadUrls = <String>[];
-                                                  try {
-                                                    selectedUploadedFiles =
-                                                        _model.uploadedMedia;
-                                                    selectedMedia =
-                                                        selectedFilesFromUploadedFiles(
-                                                      selectedUploadedFiles,
-                                                      isMultiData: true,
-                                                    );
-                                                    downloadUrls = (await Future
-                                                            .wait(
-                                                      selectedMedia.map(
-                                                        (m) async =>
-                                                            await uploadData(
-                                                                m.storagePath,
-                                                                m.bytes),
-                                                      ),
-                                                    ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
-                                                  } finally {
-                                                    _model.isDataUploading2 =
-                                                        false;
-                                                  }
-                                                  if (selectedUploadedFiles
-                                                              .length ==
-                                                          selectedMedia
-                                                              .length &&
-                                                      downloadUrls.length ==
-                                                          selectedMedia
-                                                              .length) {
-                                                    setState(() {
-                                                      _model.uploadedLocalFiles2 =
-                                                          selectedUploadedFiles;
-                                                      _model.uploadedFileUrls2 =
-                                                          downloadUrls;
-                                                    });
-                                                  } else {
-                                                    setState(() {});
-                                                    return;
-                                                  }
-                                                }
-
-                                                while (_model
-                                                        .noOfImagesUploadedToFirebase <
-                                                    _model
-                                                        .numberOfImagesUploaded) {
-                                                  logFirebaseEvent(
-                                                      'imageButton_backend_call');
-                                                  _model.imageUrl =
-                                                      await GetImageUploadUrlFromLinkedinCall
-                                                          .call(
-                                                    urn: valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.linkedinUrn,
-                                                        ''),
-                                                    accessToken: valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.linkedinAccess,
-                                                        ''),
+                                              logFirebaseEvent(
+                                                  'imageButton_upload_media_to_firebase');
+                                              {
+                                                setState(() => _model
+                                                    .isDataUploading2 = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
+                                                var selectedMedia =
+                                                    <SelectedFile>[];
+                                                var downloadUrls = <String>[];
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      _model.uploadedMedia;
+                                                  selectedMedia =
+                                                      selectedFilesFromUploadedFiles(
+                                                    selectedUploadedFiles,
+                                                    isMultiData: true,
                                                   );
-                                                  if ((_model.imageUrl
-                                                          ?.succeeded ??
-                                                      true)) {
-                                                    logFirebaseEvent(
-                                                        'imageButton_backend_call');
-                                                    _model.imageUploaded =
-                                                        await UploadImageToLinkedinCall
-                                                            .call(
-                                                      accessToken: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinAccess,
-                                                          ''),
-                                                      uploadUrl:
-                                                          GetImageUploadUrlFromLinkedinCall
-                                                              .uploadURL(
-                                                        (_model.imageUrl
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      imageToBeUploaded: _model
-                                                              .uploadedFileUrls2[
-                                                          _model
-                                                              .noOfImagesUploadedToFirebase],
-                                                    );
-                                                    if ((_model.imageUploaded
-                                                            ?.succeeded ??
-                                                        true)) {
-                                                      if (_model
-                                                              .noOfImagesUploadedToFirebase >=
-                                                          1) {
-                                                        logFirebaseEvent(
-                                                            'imageButton_backend_call');
-
-                                                        await _model
-                                                            .createdDocRefrence!
-                                                            .reference
-                                                            .update({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'imageUrns':
-                                                                  FieldValue
-                                                                      .arrayUnion([
-                                                                GetImageUploadUrlFromLinkedinCall
-                                                                    .imageURN(
-                                                                  (_model.imageUrl
-                                                                          ?.jsonBody ??
-                                                                      ''),
-                                                                )
-                                                              ]),
-                                                              'uploadedImageUrls':
-                                                                  FieldValue
-                                                                      .arrayUnion([
-                                                                GetImageUploadUrlFromLinkedinCall
-                                                                    .uploadURL(
-                                                                  (_model.imageUrl
-                                                                          ?.jsonBody ??
-                                                                      ''),
-                                                                )
-                                                              ]),
-                                                            },
-                                                          ),
-                                                        });
-                                                        logFirebaseEvent(
-                                                            'imageButton_update_page_state');
-                                                        setState(() {
-                                                          _model.noOfImagesUploadedToFirebase =
-                                                              _model.noOfImagesUploadedToFirebase +
-                                                                  1;
-                                                        });
-                                                      } else {
-                                                        logFirebaseEvent(
-                                                            'imageButton_backend_call');
-
-                                                        var postedOnLinkedinRecordReference =
-                                                            PostedOnLinkedinRecord
-                                                                .createDoc(
-                                                                    currentUserReference!);
-                                                        await postedOnLinkedinRecordReference
-                                                            .set({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'imageUrns': [
-                                                                GetImageUploadUrlFromLinkedinCall
-                                                                    .imageURN(
-                                                                  (_model.imageUrl
-                                                                          ?.jsonBody ??
-                                                                      ''),
-                                                                )
-                                                              ],
-                                                              'uploadedImageUrls':
-                                                                  [
-                                                                GetImageUploadUrlFromLinkedinCall
-                                                                    .uploadURL(
-                                                                  (_model.imageUrl
-                                                                          ?.jsonBody ??
-                                                                      ''),
-                                                                )
-                                                              ],
-                                                            },
-                                                          ),
-                                                        });
-                                                        _model.createdDocRefrence =
-                                                            PostedOnLinkedinRecord
-                                                                .getDocumentFromData({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'imageUrns': [
-                                                                GetImageUploadUrlFromLinkedinCall
-                                                                    .imageURN(
-                                                                  (_model.imageUrl
-                                                                          ?.jsonBody ??
-                                                                      ''),
-                                                                )
-                                                              ],
-                                                              'uploadedImageUrls':
-                                                                  [
-                                                                GetImageUploadUrlFromLinkedinCall
-                                                                    .uploadURL(
-                                                                  (_model.imageUrl
-                                                                          ?.jsonBody ??
-                                                                      ''),
-                                                                )
-                                                              ],
-                                                            },
-                                                          ),
-                                                        }, postedOnLinkedinRecordReference);
-                                                        logFirebaseEvent(
-                                                            'imageButton_update_page_state');
-                                                        setState(() {
-                                                          _model.noOfImagesUploadedToFirebase =
-                                                              _model.noOfImagesUploadedToFirebase +
-                                                                  1;
-                                                        });
-                                                      }
-                                                    }
-                                                  }
+                                                  downloadUrls =
+                                                      (await Future.wait(
+                                                    selectedMedia.map(
+                                                      (m) async =>
+                                                          await uploadData(
+                                                              m.storagePath,
+                                                              m.bytes),
+                                                    ),
+                                                  ))
+                                                          .where(
+                                                              (u) => u != null)
+                                                          .map((u) => u!)
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading2 =
+                                                      false;
                                                 }
-                                                if (_model
-                                                        .numberOfImagesUploaded >
-                                                    1) {
-                                                  logFirebaseEvent(
-                                                      'imageButton_backend_call');
-                                                  _model.multiImgPosted =
-                                                      await LinkedinPostGroup
-                                                          .postTextWithMultipleImagesCall
-                                                          .call(
-                                                    personUrn: valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.linkedinUrn,
-                                                        ''),
-                                                    postText: functions
-                                                        .formatStringForLIJson(
-                                                            _model
-                                                                .textController2
-                                                                .text),
-                                                    imagesJson: functions
-                                                        .valueToJsonMapList(
-                                                            _model
-                                                                .createdDocRefrence!
-                                                                .imageUrns
-                                                                .toList(),
-                                                            'id'),
-                                                    accessToken: valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.linkedinAccess,
-                                                        ''),
-                                                  );
-                                                  if ((_model.multiImgPosted
-                                                          ?.succeeded ??
-                                                      true)) {
-                                                    logFirebaseEvent(
-                                                        'imageButton_alert_dialog');
-                                                    unawaited(
-                                                      () async {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title: const Text(
-                                                                  'Success'),
-                                                              content: const Text(
-                                                                  'Your post has been successfully posted!'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: const Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
-                                                      }(),
-                                                    );
-                                                    logFirebaseEvent(
-                                                        'imageButton_backend_call');
-
-                                                    await widget.postRef!.update(
-                                                        createCreatedPostsRecordData(
-                                                      status: 'Posted',
-                                                    ));
-                                                    logFirebaseEvent(
-                                                        'imageButton_backend_call');
-
-                                                    await _model
-                                                        .createdDocRefrence!
-                                                        .reference
-                                                        .update(
-                                                            createPostedOnLinkedinRecordData(
-                                                      postURN: (_model
-                                                              .multiImgPosted
-                                                              ?.getHeader(
-                                                                  'x-linkedin-id') ??
-                                                          ''),
-                                                      postedOn:
-                                                          getCurrentTimestamp,
-                                                      postText: _model
-                                                          .textController2.text,
-                                                      postTitle: _model
-                                                          .textController1.text,
-                                                      typeOfPost: 'multiImage',
-                                                      reactionRefreshQuota: 2,
-                                                    ));
-                                                    logFirebaseEvent(
-                                                        'imageButton_navigate_to');
-
-                                                    context.goNamed(
-                                                        'allPostsOverview');
-                                                  }
+                                                if (selectedUploadedFiles
+                                                            .length ==
+                                                        selectedMedia.length &&
+                                                    downloadUrls.length ==
+                                                        selectedMedia.length) {
+                                                  setState(() {
+                                                    _model.uploadedLocalFiles2 =
+                                                        selectedUploadedFiles;
+                                                    _model.uploadedFileUrls2 =
+                                                        downloadUrls;
+                                                  });
                                                 } else {
+                                                  setState(() {});
+                                                  return;
+                                                }
+                                              }
+
+                                              while (_model
+                                                      .noOfImagesUploadedToFirebase <
+                                                  _model
+                                                      .numberOfImagesUploaded) {
+                                                logFirebaseEvent(
+                                                    'imageButton_backend_call');
+                                                _model.imageUrl =
+                                                    await GetImageUploadUrlFromLinkedinCall
+                                                        .call(
+                                                  urn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                );
+                                                if ((_model
+                                                        .imageUrl?.succeeded ??
+                                                    true)) {
                                                   logFirebaseEvent(
                                                       'imageButton_backend_call');
-                                                  _model.singleImgPosted =
-                                                      await LinkedinPostGroup
-                                                          .postTextWithMediaCall
+                                                  _model.imageUploaded =
+                                                      await UploadImageToLinkedinCall
                                                           .call(
-                                                    personUrn: valueOrDefault(
+                                                    accessToken: valueOrDefault(
                                                         currentUserDocument
-                                                            ?.linkedinUrn,
+                                                            ?.linkedinAccess,
                                                         ''),
-                                                    postText: functions
-                                                        .formatStringForLIJson(
-                                                            _model
-                                                                .textController2
-                                                                .text),
-                                                    mediaId:
+                                                    uploadUrl:
                                                         GetImageUploadUrlFromLinkedinCall
-                                                            .imageURN(
+                                                            .uploadURL(
                                                       (_model.imageUrl
                                                               ?.jsonBody ??
                                                           ''),
                                                     ),
-                                                    accessToken: valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.linkedinAccess,
-                                                        ''),
+                                                    imageToBeUploaded: _model
+                                                            .uploadedFileUrls2[
+                                                        _model
+                                                            .noOfImagesUploadedToFirebase],
                                                   );
-                                                  if ((_model.singleImgPosted
+                                                  if ((_model.imageUploaded
                                                           ?.succeeded ??
                                                       true)) {
-                                                    logFirebaseEvent(
-                                                        'imageButton_alert_dialog');
-                                                    unawaited(
-                                                      () async {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title: const Text(
-                                                                  'Success'),
-                                                              content: const Text(
-                                                                  'Your post has been successfully posted!'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: const Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            );
+                                                    if (_model
+                                                            .noOfImagesUploadedToFirebase >=
+                                                        1) {
+                                                      logFirebaseEvent(
+                                                          'imageButton_backend_call');
+
+                                                      await _model
+                                                          .createdDocRefrence!
+                                                          .reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'imageUrns':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .imageURN(
+                                                                (_model.imageUrl
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ]),
+                                                            'uploadedImageUrls':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .uploadURL(
+                                                                (_model.imageUrl
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ]),
                                                           },
-                                                        );
-                                                      }(),
-                                                    );
-                                                    logFirebaseEvent(
-                                                        'imageButton_backend_call');
+                                                        ),
+                                                      });
+                                                      logFirebaseEvent(
+                                                          'imageButton_update_page_state');
+                                                      setState(() {
+                                                        _model.noOfImagesUploadedToFirebase =
+                                                            _model.noOfImagesUploadedToFirebase +
+                                                                1;
+                                                      });
+                                                    } else {
+                                                      logFirebaseEvent(
+                                                          'imageButton_backend_call');
 
-                                                    await widget.postRef!.update(
-                                                        createCreatedPostsRecordData(
-                                                      status: 'Posted',
-                                                    ));
-                                                    logFirebaseEvent(
-                                                        'imageButton_backend_call');
-
-                                                    await _model
-                                                        .createdDocRefrence!
-                                                        .reference
-                                                        .update(
-                                                            createPostedOnLinkedinRecordData(
-                                                      postURN: (_model
-                                                              .singleImgPosted
-                                                              ?.getHeader(
-                                                                  'x-linkedin-id') ??
-                                                          ''),
-                                                      postedOn:
-                                                          getCurrentTimestamp,
-                                                      postText: _model
-                                                          .textController2.text,
-                                                      postTitle: _model
-                                                          .textController1.text,
-                                                      typeOfPost: 'singleImage',
-                                                      reactionRefreshQuota: 2,
-                                                    ));
-                                                    logFirebaseEvent(
-                                                        'imageButton_navigate_to');
-
-                                                    context.goNamed(
-                                                        'allPostsOverview');
+                                                      var postedOnLinkedinRecordReference =
+                                                          PostedOnLinkedinRecord
+                                                              .createDoc(
+                                                                  currentUserReference!);
+                                                      await postedOnLinkedinRecordReference
+                                                          .set({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'imageUrns': [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .imageURN(
+                                                                (_model.imageUrl
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                            'uploadedImageUrls':
+                                                                [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .uploadURL(
+                                                                (_model.imageUrl
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                          },
+                                                        ),
+                                                      });
+                                                      _model.createdDocRefrence =
+                                                          PostedOnLinkedinRecord
+                                                              .getDocumentFromData({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'imageUrns': [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .imageURN(
+                                                                (_model.imageUrl
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                            'uploadedImageUrls':
+                                                                [
+                                                              GetImageUploadUrlFromLinkedinCall
+                                                                  .uploadURL(
+                                                                (_model.imageUrl
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )
+                                                            ],
+                                                          },
+                                                        ),
+                                                      }, postedOnLinkedinRecordReference);
+                                                      logFirebaseEvent(
+                                                          'imageButton_update_page_state');
+                                                      setState(() {
+                                                        _model.noOfImagesUploadedToFirebase =
+                                                            _model.noOfImagesUploadedToFirebase +
+                                                                1;
+                                                      });
+                                                    }
                                                   }
+                                                }
+                                              }
+                                              if (_model
+                                                      .numberOfImagesUploaded >
+                                                  1) {
+                                                logFirebaseEvent(
+                                                    'imageButton_backend_call');
+                                                _model.multiImgPosted =
+                                                    await LinkedinPostGroup
+                                                        .postTextWithMultipleImagesCall
+                                                        .call(
+                                                  personUrn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  postText: functions
+                                                      .formatStringForLIJson(
+                                                          _model.textController2
+                                                              .text),
+                                                  imagesJson: functions
+                                                      .valueToJsonMapList(
+                                                          _model
+                                                              .createdDocRefrence!
+                                                              .imageUrns
+                                                              .toList(),
+                                                          'id'),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                );
+                                                if ((_model.multiImgPosted
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'imageButton_alert_dialog');
+                                                  unawaited(
+                                                    () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title:
+                                                                const Text('Success'),
+                                                            content: const Text(
+                                                                'Your post has been successfully posted!'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    const Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    }(),
+                                                  );
+                                                  logFirebaseEvent(
+                                                      'imageButton_backend_call');
+
+                                                  await widget.postRef!.update(
+                                                      createCreatedPostsRecordData(
+                                                    status: 'Posted',
+                                                  ));
+                                                  logFirebaseEvent(
+                                                      'imageButton_backend_call');
+
+                                                  await _model
+                                                      .createdDocRefrence!
+                                                      .reference
+                                                      .update(
+                                                          createPostedOnLinkedinRecordData(
+                                                    postURN: (_model
+                                                            .multiImgPosted
+                                                            ?.getHeader(
+                                                                'x-linkedin-id') ??
+                                                        ''),
+                                                    postedOn:
+                                                        getCurrentTimestamp,
+                                                    postText: _model
+                                                        .textController2.text,
+                                                    postTitle: _model
+                                                        .textController1.text,
+                                                    typeOfPost: 'multiImage',
+                                                    reactionRefreshQuota: 2,
+                                                  ));
+                                                  logFirebaseEvent(
+                                                      'imageButton_navigate_to');
+
+                                                  context.goNamed(
+                                                      'allPostsOverview');
+                                                }
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'imageButton_backend_call');
+                                                _model.singleImgPosted =
+                                                    await LinkedinPostGroup
+                                                        .postTextWithMediaCall
+                                                        .call(
+                                                  personUrn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  postText: functions
+                                                      .formatStringForLIJson(
+                                                          _model.textController2
+                                                              .text),
+                                                  mediaId:
+                                                      GetImageUploadUrlFromLinkedinCall
+                                                          .imageURN(
+                                                    (_model.imageUrl
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                  ),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                );
+                                                if ((_model.singleImgPosted
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'imageButton_alert_dialog');
+                                                  unawaited(
+                                                    () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title:
+                                                                const Text('Success'),
+                                                            content: const Text(
+                                                                'Your post has been successfully posted!'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    const Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    }(),
+                                                  );
+                                                  logFirebaseEvent(
+                                                      'imageButton_backend_call');
+
+                                                  await widget.postRef!.update(
+                                                      createCreatedPostsRecordData(
+                                                    status: 'Posted',
+                                                  ));
+                                                  logFirebaseEvent(
+                                                      'imageButton_backend_call');
+
+                                                  await _model
+                                                      .createdDocRefrence!
+                                                      .reference
+                                                      .update(
+                                                          createPostedOnLinkedinRecordData(
+                                                    postURN: (_model
+                                                            .singleImgPosted
+                                                            ?.getHeader(
+                                                                'x-linkedin-id') ??
+                                                        ''),
+                                                    postedOn:
+                                                        getCurrentTimestamp,
+                                                    postText: _model
+                                                        .textController2.text,
+                                                    postTitle: _model
+                                                        .textController1.text,
+                                                    typeOfPost: 'singleImage',
+                                                    reactionRefreshQuota: 2,
+                                                  ));
+                                                  logFirebaseEvent(
+                                                      'imageButton_navigate_to');
+
+                                                  context.goNamed(
+                                                      'allPostsOverview');
                                                 }
                                               }
 
@@ -2462,60 +2456,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   size: 16.0,
                                                 ),
                                               ),
-                                              Text(
-                                                'Posting on ${dateTimeFormat('MMMEd', _model.scheduledDate)} at ${dateTimeFormat('jm', _model.scheduledTime)}.',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              ),
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  logFirebaseEvent(
-                                                      'VIEW_OR_EDIT_POST_Text_141qennn_ON_TAP');
-                                                  logFirebaseEvent(
-                                                      'Text_update_page_state');
-                                                  setState(() {
-                                                    _model.datePickerVisbile =
-                                                        true;
-                                                  });
-                                                  logFirebaseEvent(
-                                                      'Text_wait__delay');
-                                                  await Future.delayed(
-                                                      const Duration(
-                                                          milliseconds: 100));
-                                                  logFirebaseEvent(
-                                                      'Text_widget_animation');
-                                                  if (animationsMap[
-                                                          'containerOnActionTriggerAnimation'] !=
-                                                      null) {
-                                                    await animationsMap[
-                                                            'containerOnActionTriggerAnimation']!
-                                                        .controller
-                                                        .forward(from: 0.0);
-                                                  }
-                                                },
+                                              Flexible(
                                                 child: Text(
-                                                  ' Edit.',
+                                                  'Posting on ${dateTimeFormat('MMMEd', _model.scheduledDate)} at ${dateTimeFormat('jm', _model.scheduledTime)}.',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -2524,13 +2467,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMediumFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                            FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
@@ -2538,6 +2477,67 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                         context)
                                                                     .bodyMediumFamily),
                                                       ),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'VIEW_OR_EDIT_POST_Text_141qennn_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Text_update_page_state');
+                                                    setState(() {
+                                                      _model.datePickerVisbile =
+                                                          true;
+                                                    });
+                                                    logFirebaseEvent(
+                                                        'Text_wait__delay');
+                                                    await Future.delayed(
+                                                        const Duration(
+                                                            milliseconds: 100));
+                                                    logFirebaseEvent(
+                                                        'Text_widget_animation');
+                                                    if (animationsMap[
+                                                            'containerOnActionTriggerAnimation'] !=
+                                                        null) {
+                                                      await animationsMap[
+                                                              'containerOnActionTriggerAnimation']!
+                                                          .controller
+                                                          .forward(from: 0.0);
+                                                    }
+                                                  },
+                                                  child: Text(
+                                                    ' Edit.',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ),
                                                 ),
                                               ),
                                             ],

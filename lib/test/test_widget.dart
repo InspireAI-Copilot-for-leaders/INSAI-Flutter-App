@@ -195,8 +195,9 @@ class _TestWidgetState extends State<TestWidget> {
                                               _model.loopIndex]
                                           .reference
                                           .update(createBroadDomainRecordData(
-                                            iconUrl: _model.uploadedFileUrls[
-                                                _model.loopIndex],
+                                            iconUrlDarkMode:
+                                                _model.uploadedFileUrls[
+                                                    _model.loopIndex],
                                           ));
                                       logFirebaseEvent(
                                           'Button_update_page_state');

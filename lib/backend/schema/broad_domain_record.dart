@@ -29,10 +29,16 @@ class BroadDomainRecord extends FirestoreRecord {
   String get iconUrl => _iconUrl ?? '';
   bool hasIconUrl() => _iconUrl != null;
 
+  // "iconUrlDarkMode" field.
+  String? _iconUrlDarkMode;
+  String get iconUrlDarkMode => _iconUrlDarkMode ?? '';
+  bool hasIconUrlDarkMode() => _iconUrlDarkMode != null;
+
   void _initializeFields() {
     _broadDomain = snapshotData['broad_domain'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
     _iconUrl = snapshotData['iconUrl'] as String?;
+    _iconUrlDarkMode = snapshotData['iconUrlDarkMode'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -73,12 +79,14 @@ Map<String, dynamic> createBroadDomainRecordData({
   String? broadDomain,
   DateTime? createdAt,
   String? iconUrl,
+  String? iconUrlDarkMode,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'broad_domain': broadDomain,
       'created_at': createdAt,
       'iconUrl': iconUrl,
+      'iconUrlDarkMode': iconUrlDarkMode,
     }.withoutNulls,
   );
 
@@ -92,12 +100,13 @@ class BroadDomainRecordDocumentEquality implements Equality<BroadDomainRecord> {
   bool equals(BroadDomainRecord? e1, BroadDomainRecord? e2) {
     return e1?.broadDomain == e2?.broadDomain &&
         e1?.createdAt == e2?.createdAt &&
-        e1?.iconUrl == e2?.iconUrl;
+        e1?.iconUrl == e2?.iconUrl &&
+        e1?.iconUrlDarkMode == e2?.iconUrlDarkMode;
   }
 
   @override
-  int hash(BroadDomainRecord? e) =>
-      const ListEquality().hash([e?.broadDomain, e?.createdAt, e?.iconUrl]);
+  int hash(BroadDomainRecord? e) => const ListEquality()
+      .hash([e?.broadDomain, e?.createdAt, e?.iconUrl, e?.iconUrlDarkMode]);
 
   @override
   bool isValidKey(Object? o) => o is BroadDomainRecord;

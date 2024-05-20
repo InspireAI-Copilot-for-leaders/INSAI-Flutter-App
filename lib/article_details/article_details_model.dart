@@ -8,6 +8,8 @@ class ArticleDetailsModel extends FlutterFlowModel<ArticleDetailsWidget> {
 
   bool createContentDialogVisible = false;
 
+  int? numberOfImgaes;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

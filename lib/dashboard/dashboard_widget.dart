@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -563,47 +562,40 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             ),
                                           ),
                                           Expanded(
-                                            child: Align(
-                                              alignment: const AlignmentDirectional(
-                                                  1.0, 0.0),
-                                              child: SizedBox(
-                                                width: 80.0,
-                                                height: 40.0,
-                                                child: custom_widgets
-                                                    .SatisfyingSwitch(
-                                                  width: 60.0,
-                                                  height: 30.0,
-                                                  size: 10.0,
-                                                  onColor: FlutterFlowTheme.of(
-                                                          context)
+                                            child: Switch.adaptive(
+                                              value: _model.switchValue ??=
+                                                  false,
+                                              onChanged: (newValue) async {
+                                                setState(() => _model
+                                                    .switchValue = newValue);
+                                                if (newValue) {
+                                                  logFirebaseEvent(
+                                                      'DASHBOARD_Switch_99zqym7p_ON_TOGGLE_ON');
+                                                  logFirebaseEvent(
+                                                      'Switch_set_dark_mode_settings');
+                                                  setDarkModeSetting(
+                                                      context, ThemeMode.dark);
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'DASHBOARD_Switch_99zqym7p_ON_TOGGLE_OFF');
+                                                  logFirebaseEvent(
+                                                      'Switch_set_dark_mode_settings');
+                                                  setDarkModeSetting(
+                                                      context, ThemeMode.light);
+                                                }
+                                              },
+                                              activeColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              activeTrackColor:
+                                                  FlutterFlowTheme.of(context)
                                                       .primaryText,
-                                                  offColor: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  value: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark,
-                                                  onChange: () async {
-                                                    logFirebaseEvent(
-                                                        'DASHBOARD_Container_9ta3htwg_CALLBACK');
-                                                    if (Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark) {
-                                                      logFirebaseEvent(
-                                                          'SatisfyingSwitch_set_dark_mode_settings');
-                                                      setDarkModeSetting(
-                                                          context,
-                                                          ThemeMode.light);
-                                                    } else {
-                                                      logFirebaseEvent(
-                                                          'SatisfyingSwitch_set_dark_mode_settings');
-                                                      setDarkModeSetting(
-                                                          context,
-                                                          ThemeMode.dark);
-                                                    }
-                                                  },
-                                                ),
-                                              ),
+                                              inactiveTrackColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              inactiveThumbColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                             ),
                                           ),
                                         ],
@@ -621,7 +613,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              'Version 1.0.1',
+                              'Version 4.0.1',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -1259,42 +1251,27 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  logFirebaseEvent(
-                                                      'DASHBOARD_PAGE_Text_0kzgx7ng_ON_TAP');
-                                                  logFirebaseEvent(
-                                                      'Text_navigate_to');
-
-                                                  context.pushNamed('test');
-                                                },
-                                                child: Text(
-                                                  'Social Analytics',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
-                                                ),
+                                              Text(
+                                                'Social Analytics',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
                                               ),
                                               Padding(
                                                 padding: const EdgeInsetsDirectional

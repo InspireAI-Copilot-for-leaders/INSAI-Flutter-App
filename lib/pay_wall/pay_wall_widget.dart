@@ -1519,25 +1519,27 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                                           8.0),
                                                 ),
                                               ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts: GoogleFonts
+                                                            .asMap()
+                                                        .containsKey(
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyMediumFamily,
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
+                                                                .bodyMediumFamily),
+                                                  ),
                                               maxLines: null,
                                               validator: _model
                                                   .textControllerValidator

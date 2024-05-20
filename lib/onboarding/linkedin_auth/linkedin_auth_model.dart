@@ -41,6 +41,8 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
 
   bool addNewArea = false;
 
+  bool emptySearch = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

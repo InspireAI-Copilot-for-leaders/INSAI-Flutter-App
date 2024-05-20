@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:badges/badges.dart' as badges;
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -433,45 +432,39 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                           ),
                                         ),
                                         Expanded(
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
-                                            child: SizedBox(
-                                              width: 80.0,
-                                              height: 40.0,
-                                              child: custom_widgets
-                                                  .SatisfyingSwitch(
-                                                width: 60.0,
-                                                height: 30.0,
-                                                size: 10.0,
-                                                onColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                offColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                value: Theme.of(context)
-                                                        .brightness ==
-                                                    Brightness.dark,
-                                                onChange: () async {
-                                                  logFirebaseEvent(
-                                                      'CAMPAIGNS_Container_2fgdytzm_CALLBACK');
-                                                  if (Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark) {
-                                                    logFirebaseEvent(
-                                                        'SatisfyingSwitch_set_dark_mode_settings');
-                                                    setDarkModeSetting(context,
-                                                        ThemeMode.light);
-                                                  } else {
-                                                    logFirebaseEvent(
-                                                        'SatisfyingSwitch_set_dark_mode_settings');
-                                                    setDarkModeSetting(context,
-                                                        ThemeMode.dark);
-                                                  }
-                                                },
-                                              ),
-                                            ),
+                                          child: Switch.adaptive(
+                                            value: _model.switchValue ??= false,
+                                            onChanged: (newValue) async {
+                                              setState(() => _model
+                                                  .switchValue = newValue);
+                                              if (newValue) {
+                                                logFirebaseEvent(
+                                                    'CAMPAIGNS_Switch_ajoe5rho_ON_TOGGLE_ON');
+                                                logFirebaseEvent(
+                                                    'Switch_set_dark_mode_settings');
+                                                setDarkModeSetting(
+                                                    context, ThemeMode.dark);
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'CAMPAIGNS_Switch_ajoe5rho_ON_TOGGLE_OFF');
+                                                logFirebaseEvent(
+                                                    'Switch_set_dark_mode_settings');
+                                                setDarkModeSetting(
+                                                    context, ThemeMode.light);
+                                              }
+                                            },
+                                            activeColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            activeTrackColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            inactiveTrackColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            inactiveThumbColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryText,
                                           ),
                                         ),
                                       ],
@@ -489,7 +482,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            'Version 1.0.1',
+                            'Version 4.0.1',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

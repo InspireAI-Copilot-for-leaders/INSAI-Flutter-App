@@ -37,6 +37,8 @@ class ExpertiseAreaEditModel extends FlutterFlowModel<ExpertiseAreaEditWidget> {
           int index, Function(String) updateFn) =>
       addExpertiseAreaList[index] = updateFn(addExpertiseAreaList[index]);
 
+  bool emptySearch = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,6 +46,15 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'articleDetails'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('ARTICLE_DETAILS_articleDetails_ON_INIT_S');
+      logFirebaseEvent('articleDetails_update_page_state');
+      setState(() {
+        _model.numberOfImgaes = widget.articleDocument?.metadata.length;
+      });
+    });
+
     _model.expandableExpandableController =
         ExpandableController(initialExpanded: false);
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -463,9 +473,13 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                           child: Image.network(
                                             widget.articleDocument!.metadata
                                                 .first.imageUrl,
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.434,
+                                            width: _model.numberOfImgaes! > 1
+                                                ? (MediaQuery.sizeOf(context)
+                                                        .width *
+                                                    0.4335)
+                                                : (MediaQuery.sizeOf(context)
+                                                        .width *
+                                                    0.867),
                                             height: 150.0,
                                             fit: BoxFit.cover,
                                           ),
@@ -478,102 +492,109 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent(
-                                              'ARTICLE_DETAILS_Image_gd8p3f8s_ON_TAP');
-                                          logFirebaseEvent(
-                                              'Image_expand_image');
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child:
-                                                  FlutterFlowExpandedImageView(
-                                                image: Image.network(
-                                                  widget.articleDocument!
+                                      if (_model.numberOfImgaes! >= 2)
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'ARTICLE_DETAILS_Image_gd8p3f8s_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Image_expand_image');
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child:
+                                                    FlutterFlowExpandedImageView(
+                                                  image: Image.network(
+                                                    widget.articleDocument!
+                                                        .metadata[1].imageUrl,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                  allowRotation: false,
+                                                  tag: widget.articleDocument!
                                                       .metadata[1].imageUrl,
-                                                  fit: BoxFit.contain,
+                                                  useHeroAnimation: true,
                                                 ),
-                                                allowRotation: false,
-                                                tag: widget.articleDocument!
+                                              ),
+                                            );
+                                          },
+                                          child: Hero(
+                                            tag: widget.articleDocument!
+                                                .metadata[1].imageUrl,
+                                            transitionOnUserGestures: true,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                widget.articleDocument!
                                                     .metadata[1].imageUrl,
-                                                useHeroAnimation: true,
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        0.42,
+                                                height:
+                                                    _model.numberOfImgaes == 2
+                                                        ? 150.0
+                                                        : 73.0,
+                                                fit: BoxFit.cover,
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: widget.articleDocument!
-                                              .metadata[1].imageUrl,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.network(
-                                              widget.articleDocument!
-                                                  .metadata[1].imageUrl,
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.42,
-                                              height: 73.0,
-                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent(
-                                              'ARTICLE_DETAILS_Image_7ci7x81s_ON_TAP');
-                                          logFirebaseEvent(
-                                              'Image_expand_image');
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child:
-                                                  FlutterFlowExpandedImageView(
-                                                image: Image.network(
-                                                  widget.articleDocument!
+                                      if (_model.numberOfImgaes! >= 3)
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'ARTICLE_DETAILS_Image_7ci7x81s_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Image_expand_image');
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child:
+                                                    FlutterFlowExpandedImageView(
+                                                  image: Image.network(
+                                                    widget.articleDocument!
+                                                        .metadata.last.imageUrl,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                  allowRotation: false,
+                                                  tag: widget.articleDocument!
                                                       .metadata.last.imageUrl,
-                                                  fit: BoxFit.contain,
+                                                  useHeroAnimation: true,
                                                 ),
-                                                allowRotation: false,
-                                                tag: widget.articleDocument!
-                                                    .metadata.last.imageUrl,
-                                                useHeroAnimation: true,
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: widget.articleDocument!.metadata
-                                              .last.imageUrl,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.network(
-                                              widget.articleDocument!.metadata
-                                                  .last.imageUrl,
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.42,
-                                              height: 73.0,
-                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                          child: Hero(
+                                            tag: widget.articleDocument!
+                                                .metadata.last.imageUrl,
+                                            transitionOnUserGestures: true,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                widget.articleDocument!.metadata
+                                                    .last.imageUrl,
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        0.42,
+                                                height: 73.0,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
                                     ],
                                   ),
                                 ],
