@@ -15,6 +15,8 @@ class DiscoverPageModel extends FlutterFlowModel<DiscoverPageWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - isOverrideCacheAction] action in discoverPage widget.
   bool? isCacheOverride;
+  // State field(s) for Switch widget.
+  bool? switchValue;
   // State field(s) for PageView widget.
   PageController? pageViewController;
 

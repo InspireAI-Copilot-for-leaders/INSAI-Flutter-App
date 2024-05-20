@@ -554,6 +554,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       .toList();
                                               return ListView.separated(
                                                 padding: EdgeInsets.zero,
+                                                primary: false,
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
                                                 itemCount:
@@ -607,26 +608,45 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                     MainAxisSize
                                                                         .max,
                                                                 children: [
-                                                                  ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
-                                                                    child: Image
-                                                                        .network(
-                                                                      linkedinAuthBroadDomainRecordList
-                                                                          .where((e) =>
-                                                                              e.broadDomain ==
-                                                                              thoughtLeadershipAreasItem.category)
-                                                                          .toList()
-                                                                          .first
-                                                                          .iconUrl,
-                                                                      width:
-                                                                          36.0,
-                                                                      height:
-                                                                          36.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    ),
+                                                                  Stack(
+                                                                    children: [
+                                                                      if (Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .light)
+                                                                        ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(8.0),
+                                                                          child:
+                                                                              Image.network(
+                                                                            linkedinAuthBroadDomainRecordList.where((e) => e.broadDomain == thoughtLeadershipAreasItem.category).toList().first.iconUrl,
+                                                                            width:
+                                                                                36.0,
+                                                                            height:
+                                                                                36.0,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
+                                                                      if (Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark)
+                                                                        ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(8.0),
+                                                                          child:
+                                                                              Image.network(
+                                                                            linkedinAuthBroadDomainRecordList.where((e) => e.broadDomain == thoughtLeadershipAreasItem.category).toList().first.iconUrlDarkMode,
+                                                                            width:
+                                                                                36.0,
+                                                                            height:
+                                                                                36.0,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
+                                                                    ],
                                                                   ),
                                                                   Flexible(
                                                                     child:
@@ -779,7 +799,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                   '#$expertiseAreaItem',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                        color: FlutterFlowTheme.of(context).alternate,
                                                                                         fontSize: 12.0,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w500,
@@ -797,7 +817,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                               ),
                                                             ),
                                                             theme:
-                                                                const ExpandableThemeData(
+                                                                ExpandableThemeData(
                                                               tapHeaderToExpand:
                                                                   true,
                                                               tapBodyToExpand:
@@ -808,6 +828,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                   ExpandablePanelHeaderAlignment
                                                                       .center,
                                                               hasIcon: true,
+                                                              iconColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
                                                             ),
                                                           ),
                                                         ),
@@ -917,23 +941,57 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             () async {
                                               logFirebaseEvent(
                                                   'LINKEDIN_AUTH_contentURL1_ON_TEXTFIELD_C');
-                                              logFirebaseEvent(
-                                                  'contentURL1_algolia_search');
-                                              safeSetState(() => _model
-                                                  .algoliaSearchResults = null);
-                                              await ExpertiseAreasCollectionRecord
-                                                      .search(
-                                                term: _model
-                                                    .contentURL1TextController
-                                                    .text,
-                                              )
-                                                  .then((r) => _model
-                                                      .algoliaSearchResults = r)
-                                                  .onError((_, __) => _model
-                                                          .algoliaSearchResults =
-                                                      [])
-                                                  .whenComplete(
-                                                      () => setState(() {}));
+                                              if (_model.contentURL1TextController
+                                                          .text !=
+                                                      '') {
+                                                logFirebaseEvent(
+                                                    'contentURL1_algolia_search');
+                                                safeSetState(() => _model
+                                                        .algoliaSearchResults =
+                                                    null);
+                                                await ExpertiseAreasCollectionRecord
+                                                        .search(
+                                                  term: _model
+                                                      .contentURL1TextController
+                                                      .text,
+                                                )
+                                                    .then((r) => _model
+                                                            .algoliaSearchResults =
+                                                        r)
+                                                    .onError((_, __) => _model
+                                                            .algoliaSearchResults =
+                                                        [])
+                                                    .whenComplete(
+                                                        () => setState(() {}));
+
+                                                if (_model.algoliaSearchResults !=
+                                                        null &&
+                                                    (_model.algoliaSearchResults)!
+                                                        .isNotEmpty) {
+                                                  logFirebaseEvent(
+                                                      'contentURL1_update_page_state');
+                                                  setState(() {
+                                                    _model.emptySearch = false;
+                                                  });
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'contentURL1_wait__delay');
+                                                  await Future.delayed(
+                                                      const Duration(
+                                                          milliseconds: 1000));
+                                                  logFirebaseEvent(
+                                                      'contentURL1_update_page_state');
+                                                  setState(() {
+                                                    _model.emptySearch = true;
+                                                  });
+                                                }
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'contentURL1_update_page_state');
+                                                setState(() {
+                                                  _model.emptySearch = false;
+                                                });
+                                              }
                                             },
                                           ),
                                           autofocus: false,
@@ -1024,677 +1082,697 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                               .asValidator(context),
                                         ),
                                       ),
-                                      Builder(
-                                        builder: (context) {
-                                          if (_model.contentURL1TextController
-                                                      .text ==
-                                                  '') {
-                                            return Container(
-                                              decoration: const BoxDecoration(),
-                                              child: Builder(
-                                                builder: (context) {
-                                                  final broadDomainList =
-                                                      linkedinAuthBroadDomainRecordList
-                                                          .toList();
-                                                  return ListView.separated(
-                                                    padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    itemCount:
-                                                        broadDomainList.length,
-                                                    separatorBuilder: (_, __) =>
-                                                        const SizedBox(height: 4.0),
-                                                    itemBuilder: (context,
-                                                        broadDomainListIndex) {
-                                                      final broadDomainListItem =
-                                                          broadDomainList[
-                                                              broadDomainListIndex];
-                                                      return StreamBuilder<
-                                                          List<
-                                                              ExpertiseAreasRecord>>(
-                                                        stream:
-                                                            queryExpertiseAreasRecord(
-                                                          parent:
-                                                              broadDomainListItem
-                                                                  .reference,
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 100.0,
-                                                                height: 100.0,
-                                                                child:
-                                                                    SpinKitRipple(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondary,
-                                                                  size: 100.0,
-                                                                ),
+                                      Stack(
+                                        children: [
+                                          if (!_model.emptySearch)
+                                            Builder(
+                                              builder: (context) {
+                                                if (_model.contentURL1TextController
+                                                            .text ==
+                                                        '') {
+                                                  return Container(
+                                                    decoration: const BoxDecoration(),
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        final broadDomainList =
+                                                            linkedinAuthBroadDomainRecordList
+                                                                .toList();
+                                                        return ListView
+                                                            .separated(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          primary: false,
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          itemCount:
+                                                              broadDomainList
+                                                                  .length,
+                                                          separatorBuilder: (_,
+                                                                  __) =>
+                                                              const SizedBox(
+                                                                  height: 4.0),
+                                                          itemBuilder: (context,
+                                                              broadDomainListIndex) {
+                                                            final broadDomainListItem =
+                                                                broadDomainList[
+                                                                    broadDomainListIndex];
+                                                            return StreamBuilder<
+                                                                List<
+                                                                    ExpertiseAreasRecord>>(
+                                                              stream:
+                                                                  queryExpertiseAreasRecord(
+                                                                parent:
+                                                                    broadDomainListItem
+                                                                        .reference,
                                                               ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          100.0,
+                                                                      height:
+                                                                          100.0,
+                                                                      child:
+                                                                          SpinKitRipple(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        size:
+                                                                            100.0,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                List<ExpertiseAreasRecord>
+                                                                    containerExpertiseAreasRecordList =
+                                                                    snapshot
+                                                                        .data!;
+                                                                return Material(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  elevation:
+                                                                      1.0,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            12.0),
+                                                                  ),
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              12.0),
+                                                                    ),
+                                                                    child:
+                                                                        Container(
+                                                                      width: double
+                                                                          .infinity,
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      child:
+                                                                          ExpandableNotifier(
+                                                                        initialExpanded:
+                                                                            true,
+                                                                        child:
+                                                                            ExpandablePanel(
+                                                                          header:
+                                                                              Padding(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                                12.0,
+                                                                                8.0,
+                                                                                0.0,
+                                                                                8.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Stack(
+                                                                                  children: [
+                                                                                    if (Theme.of(context).brightness == Brightness.light)
+                                                                                      ClipRRect(
+                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                        child: Image.network(
+                                                                                          broadDomainListItem.iconUrl,
+                                                                                          width: 36.0,
+                                                                                          height: 36.0,
+                                                                                          fit: BoxFit.cover,
+                                                                                          errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                            'assets/images/error_image.png',
+                                                                                            width: 36.0,
+                                                                                            height: 36.0,
+                                                                                            fit: BoxFit.cover,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    if (Theme.of(context).brightness == Brightness.dark)
+                                                                                      ClipRRect(
+                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                        child: Image.network(
+                                                                                          broadDomainListItem.iconUrlDarkMode,
+                                                                                          width: 36.0,
+                                                                                          height: 36.0,
+                                                                                          fit: BoxFit.cover,
+                                                                                          errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                            'assets/images/error_image.png',
+                                                                                            width: 36.0,
+                                                                                            height: 36.0,
+                                                                                            fit: BoxFit.cover,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                  ],
+                                                                                ),
+                                                                                Flexible(
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      valueOrDefault<String>(
+                                                                                        broadDomainListItem.broadDomain,
+                                                                                        'BroadDomain',
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).displaySmall.override(
+                                                                                            fontFamily: FlutterFlowTheme.of(context).displaySmallFamily,
+                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                            fontSize: 14.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).displaySmallFamily),
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                          collapsed:
+                                                                              Container(
+                                                                            width:
+                                                                                MediaQuery.sizeOf(context).width * 1.0,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                            ),
+                                                                          ),
+                                                                          expanded:
+                                                                              Align(
+                                                                            alignment:
+                                                                                const AlignmentDirectional(-1.0, -1.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 12.0),
+                                                                              child: Builder(
+                                                                                builder: (context) {
+                                                                                  final expertiseAreaNoSearch = containerExpertiseAreasRecordList.toList();
+                                                                                  return Wrap(
+                                                                                    spacing: 4.0,
+                                                                                    runSpacing: 4.0,
+                                                                                    alignment: WrapAlignment.start,
+                                                                                    crossAxisAlignment: WrapCrossAlignment.start,
+                                                                                    direction: Axis.horizontal,
+                                                                                    runAlignment: WrapAlignment.start,
+                                                                                    verticalDirection: VerticalDirection.down,
+                                                                                    clipBehavior: Clip.none,
+                                                                                    children: List.generate(expertiseAreaNoSearch.length, (expertiseAreaNoSearchIndex) {
+                                                                                      final expertiseAreaNoSearchItem = expertiseAreaNoSearch[expertiseAreaNoSearchIndex];
+                                                                                      return AuthUserStreamWidget(
+                                                                                        builder: (context) => InkWell(
+                                                                                          splashColor: Colors.transparent,
+                                                                                          focusColor: Colors.transparent,
+                                                                                          hoverColor: Colors.transparent,
+                                                                                          highlightColor: Colors.transparent,
+                                                                                          onTap: () async {
+                                                                                            logFirebaseEvent('LINKEDIN_AUTH_Container_nc4vam80_ON_TAP');
+                                                                                            if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
+                                                                                              logFirebaseEvent('Container_update_page_state');
+                                                                                              setState(() {
+                                                                                                _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                                _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
+                                                                                              });
+                                                                                              if ((currentUserDocument?.broadDomains.toList() ?? []).contains(broadDomainListItem.broadDomain)) {
+                                                                                                logFirebaseEvent('Container_update_page_state');
+                                                                                                setState(() {
+                                                                                                  _model.updateLeadershipAreasMappingAtIndex(
+                                                                                                    functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListItem.broadDomain),
+                                                                                                    (e) => e
+                                                                                                      ..updateSubCategories(
+                                                                                                        (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
+                                                                                                      ),
+                                                                                                  );
+                                                                                                });
+                                                                                                logFirebaseEvent('Container_backend_call');
+
+                                                                                                await currentUserReference!.update({
+                                                                                                  ...mapToFirestore(
+                                                                                                    {
+                                                                                                      'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
+                                                                                                        _model.leadershipAreasMapping,
+                                                                                                      ),
+                                                                                                      'thought_leadership_areas': FieldValue.arrayUnion([
+                                                                                                        expertiseAreaNoSearchItem.expertiseArea
+                                                                                                      ]),
+                                                                                                    },
+                                                                                                  ),
+                                                                                                });
+                                                                                              } else {
+                                                                                                logFirebaseEvent('Container_update_page_state');
+                                                                                                setState(() {
+                                                                                                  _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
+                                                                                                    category: broadDomainListItem.broadDomain,
+                                                                                                    subCategories: _model.addExpertiseAreaList,
+                                                                                                  ));
+                                                                                                });
+                                                                                                logFirebaseEvent('Container_backend_call');
+
+                                                                                                await currentUserReference!.update({
+                                                                                                  ...mapToFirestore(
+                                                                                                    {
+                                                                                                      'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
+                                                                                                        _model.leadershipAreasMapping,
+                                                                                                      ),
+                                                                                                      'thought_leadership_areas': FieldValue.arrayUnion([
+                                                                                                        expertiseAreaNoSearchItem.expertiseArea
+                                                                                                      ]),
+                                                                                                      'broad_domains': FieldValue.arrayUnion([
+                                                                                                        broadDomainListItem.broadDomain
+                                                                                                      ]),
+                                                                                                    },
+                                                                                                  ),
+                                                                                                });
+                                                                                              }
+
+                                                                                              logFirebaseEvent('Container_update_page_state');
+                                                                                              setState(() {
+                                                                                                _model.addExpertiseAreaList = [];
+                                                                                              });
+                                                                                            }
+                                                                                          },
+                                                                                          child: Container(
+                                                                                            height: 30.0,
+                                                                                            decoration: BoxDecoration(
+                                                                                              color: (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea) ? FlutterFlowTheme.of(context).secondary : const Color(0x00000000),
+                                                                                              borderRadius: BorderRadius.circular(48.0),
+                                                                                              border: Border.all(
+                                                                                                color: FlutterFlowTheme.of(context).secondary,
+                                                                                                width: 2.0,
+                                                                                              ),
+                                                                                            ),
+                                                                                            child: Padding(
+                                                                                              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
+                                                                                              child: Container(
+                                                                                                decoration: const BoxDecoration(),
+                                                                                                child: Text(
+                                                                                                  '#${expertiseAreaNoSearchItem.expertiseArea}',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                        color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                        fontSize: 12.0,
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FontWeight.w600,
+                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      );
+                                                                                    }),
+                                                                                  );
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          theme:
+                                                                              ExpandableThemeData(
+                                                                            tapHeaderToExpand:
+                                                                                true,
+                                                                            tapBodyToExpand:
+                                                                                false,
+                                                                            tapBodyToCollapse:
+                                                                                false,
+                                                                            headerAlignment:
+                                                                                ExpandablePanelHeaderAlignment.center,
+                                                                            hasIcon:
+                                                                                true,
+                                                                            iconColor:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
                                                             );
-                                                          }
-                                                          List<ExpertiseAreasRecord>
-                                                              containerExpertiseAreasRecordList =
-                                                              snapshot.data!;
-                                                          return Material(
-                                                            color: Colors
-                                                                .transparent,
-                                                            elevation: 1.0,
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          12.0),
-                                                            ),
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                } else {
+                                                  return Container(
+                                                    decoration: const BoxDecoration(),
+                                                    child: StreamBuilder<
+                                                        List<
+                                                            BroadDomainRecord>>(
+                                                      stream:
+                                                          queryBroadDomainRecord(
+                                                        queryBuilder: (broadDomainRecord) =>
+                                                            broadDomainRecord.whereIn(
+                                                                'broad_domain',
+                                                                _model
+                                                                    .algoliaSearchResults
+                                                                    ?.map((e) => e
+                                                                        .broadDomain
+                                                                        ?.id)
+                                                                    .withoutNulls
+                                                                    .toList()),
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 100.0,
+                                                              height: 100.0,
+                                                              child:
+                                                                  SpinKitRipple(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryBackground,
+                                                                    .secondary,
+                                                                size: 100.0,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        List<BroadDomainRecord>
+                                                            listViewBroadDomainRecordList =
+                                                            snapshot.data!;
+                                                        if (listViewBroadDomainRecordList
+                                                            .isEmpty) {
+                                                          return const EmptyStateWidget();
+                                                        }
+                                                        return ListView
+                                                            .separated(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          primary: false,
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          itemCount:
+                                                              listViewBroadDomainRecordList
+                                                                  .length,
+                                                          separatorBuilder: (_,
+                                                                  __) =>
+                                                              const SizedBox(
+                                                                  height: 4.0),
+                                                          itemBuilder: (context,
+                                                              listViewIndex) {
+                                                            final listViewBroadDomainRecord =
+                                                                listViewBroadDomainRecordList[
+                                                                    listViewIndex];
+                                                            return Material(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              elevation: 1.0,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
                                                                             12.0),
                                                               ),
                                                               child: Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                color: Colors
-                                                                    .transparent,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.0),
+                                                                ),
                                                                 child:
-                                                                    ExpandableNotifier(
-                                                                  initialExpanded:
-                                                                      true,
+                                                                    Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  color: Colors
+                                                                      .transparent,
                                                                   child:
-                                                                      ExpandablePanel(
-                                                                    header:
-                                                                        Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                          12.0,
-                                                                          8.0,
-                                                                          0.0,
-                                                                          8.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(8.0),
-                                                                            child:
-                                                                                Image.network(
-                                                                              broadDomainListItem.iconUrl,
-                                                                              width: 36.0,
-                                                                              height: 36.0,
-                                                                              fit: BoxFit.cover,
-                                                                              errorBuilder: (context, error, stackTrace) => Image.asset(
-                                                                                'assets/images/error_image.png',
-                                                                                width: 36.0,
-                                                                                height: 36.0,
-                                                                                fit: BoxFit.cover,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                          Flexible(
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                                                                              child: Text(
-                                                                                valueOrDefault<String>(
-                                                                                  broadDomainListItem.broadDomain,
-                                                                                  'BroadDomain',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).displaySmall.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).displaySmallFamily,
-                                                                                      color: Colors.black,
-                                                                                      fontSize: 14.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).displaySmallFamily),
-                                                                                    ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    collapsed:
-                                                                        Container(
-                                                                      width: MediaQuery.sizeOf(context)
-                                                                              .width *
-                                                                          1.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                      ),
-                                                                    ),
-                                                                    expanded:
-                                                                        Align(
-                                                                      alignment: const AlignmentDirectional(
-                                                                          -1.0,
-                                                                          -1.0),
-                                                                      child:
+                                                                      ExpandableNotifier(
+                                                                    initialExpanded:
+                                                                        true,
+                                                                    child:
+                                                                        ExpandablePanel(
+                                                                      header:
                                                                           Padding(
                                                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
-                                                                            4.0,
-                                                                            12.0,
-                                                                            12.0),
+                                                                            8.0,
+                                                                            0.0,
+                                                                            8.0),
                                                                         child:
-                                                                            Builder(
-                                                                          builder:
-                                                                              (context) {
-                                                                            final expertiseAreaNoSearch =
-                                                                                containerExpertiseAreasRecordList.toList();
-                                                                            return Wrap(
-                                                                              spacing: 4.0,
-                                                                              runSpacing: 4.0,
-                                                                              alignment: WrapAlignment.start,
-                                                                              crossAxisAlignment: WrapCrossAlignment.start,
-                                                                              direction: Axis.horizontal,
-                                                                              runAlignment: WrapAlignment.start,
-                                                                              verticalDirection: VerticalDirection.down,
-                                                                              clipBehavior: Clip.none,
-                                                                              children: List.generate(expertiseAreaNoSearch.length, (expertiseAreaNoSearchIndex) {
-                                                                                final expertiseAreaNoSearchItem = expertiseAreaNoSearch[expertiseAreaNoSearchIndex];
-                                                                                return AuthUserStreamWidget(
-                                                                                  builder: (context) => InkWell(
-                                                                                    splashColor: Colors.transparent,
-                                                                                    focusColor: Colors.transparent,
-                                                                                    hoverColor: Colors.transparent,
-                                                                                    highlightColor: Colors.transparent,
-                                                                                    onTap: () async {
-                                                                                      logFirebaseEvent('LINKEDIN_AUTH_Container_nc4vam80_ON_TAP');
-                                                                                      if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
-                                                                                        logFirebaseEvent('Container_update_page_state');
-                                                                                        setState(() {
-                                                                                          _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                          _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
-                                                                                        });
-                                                                                        if ((currentUserDocument?.broadDomains.toList() ?? []).contains(broadDomainListItem.broadDomain)) {
-                                                                                          logFirebaseEvent('Container_update_page_state');
-                                                                                          setState(() {
-                                                                                            _model.updateLeadershipAreasMappingAtIndex(
-                                                                                              functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListItem.broadDomain),
-                                                                                              (e) => e
-                                                                                                ..updateSubCategories(
-                                                                                                  (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
-                                                                                                ),
-                                                                                            );
-                                                                                          });
-                                                                                          logFirebaseEvent('Container_backend_call');
-
-                                                                                          await currentUserReference!.update({
-                                                                                            ...mapToFirestore(
-                                                                                              {
-                                                                                                'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
-                                                                                                  _model.leadershipAreasMapping,
-                                                                                                ),
-                                                                                                'thought_leadership_areas': FieldValue.arrayUnion([
-                                                                                                  expertiseAreaNoSearchItem.expertiseArea
-                                                                                                ]),
-                                                                                              },
-                                                                                            ),
-                                                                                          });
-                                                                                        } else {
-                                                                                          logFirebaseEvent('Container_update_page_state');
-                                                                                          setState(() {
-                                                                                            _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
-                                                                                              category: broadDomainListItem.broadDomain,
-                                                                                              subCategories: _model.addExpertiseAreaList,
-                                                                                            ));
-                                                                                          });
-                                                                                          logFirebaseEvent('Container_backend_call');
-
-                                                                                          await currentUserReference!.update({
-                                                                                            ...mapToFirestore(
-                                                                                              {
-                                                                                                'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
-                                                                                                  _model.leadershipAreasMapping,
-                                                                                                ),
-                                                                                                'thought_leadership_areas': FieldValue.arrayUnion([
-                                                                                                  expertiseAreaNoSearchItem.expertiseArea
-                                                                                                ]),
-                                                                                                'broad_domains': FieldValue.arrayUnion([
-                                                                                                  broadDomainListItem.broadDomain
-                                                                                                ]),
-                                                                                              },
-                                                                                            ),
-                                                                                          });
-                                                                                        }
-
-                                                                                        logFirebaseEvent('Container_update_page_state');
-                                                                                        setState(() {
-                                                                                          _model.addExpertiseAreaList = [];
-                                                                                        });
-                                                                                      }
-                                                                                    },
-                                                                                    child: Container(
-                                                                                      height: 30.0,
-                                                                                      decoration: BoxDecoration(
-                                                                                        color: (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea) ? FlutterFlowTheme.of(context).secondary : const Color(0x00000000),
-                                                                                        borderRadius: BorderRadius.circular(48.0),
-                                                                                        border: Border.all(
-                                                                                          color: FlutterFlowTheme.of(context).secondary,
-                                                                                          width: 2.0,
-                                                                                        ),
-                                                                                      ),
-                                                                                      child: Padding(
-                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                                                                                        child: Container(
-                                                                                          decoration: const BoxDecoration(),
-                                                                                          child: Text(
-                                                                                            '#${expertiseAreaNoSearchItem.expertiseArea}',
-                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                  fontSize: 12.0,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                  fontWeight: FontWeight.w600,
-                                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                                ),
-                                                                                          ),
-                                                                                        ),
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Stack(
+                                                                              children: [
+                                                                                if (Theme.of(context).brightness == Brightness.light)
+                                                                                  ClipRRect(
+                                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                                    child: Image.network(
+                                                                                      listViewBroadDomainRecord.iconUrl,
+                                                                                      width: 36.0,
+                                                                                      height: 36.0,
+                                                                                      fit: BoxFit.cover,
+                                                                                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                        'assets/images/error_image.png',
+                                                                                        width: 36.0,
+                                                                                        height: 36.0,
+                                                                                        fit: BoxFit.cover,
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                );
-                                                                              }),
-                                                                            );
-                                                                          },
+                                                                                if (Theme.of(context).brightness == Brightness.dark)
+                                                                                  ClipRRect(
+                                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                                    child: Image.network(
+                                                                                      listViewBroadDomainRecord.iconUrlDarkMode,
+                                                                                      width: 36.0,
+                                                                                      height: 36.0,
+                                                                                      fit: BoxFit.cover,
+                                                                                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                        'assets/images/error_image.png',
+                                                                                        width: 36.0,
+                                                                                        height: 36.0,
+                                                                                        fit: BoxFit.cover,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                              ],
+                                                                            ),
+                                                                            Flexible(
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                child: Text(
+                                                                                  listViewBroadDomainRecord.broadDomain,
+                                                                                  style: FlutterFlowTheme.of(context).displaySmall.override(
+                                                                                        fontFamily: FlutterFlowTheme.of(context).displaySmallFamily,
+                                                                                        color: FlutterFlowTheme.of(context).primaryText,
+                                                                                        fontSize: 14.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).displaySmallFamily),
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                    theme:
-                                                                        const ExpandableThemeData(
-                                                                      tapHeaderToExpand:
-                                                                          true,
-                                                                      tapBodyToExpand:
-                                                                          false,
-                                                                      tapBodyToCollapse:
-                                                                          false,
-                                                                      headerAlignment:
-                                                                          ExpandablePanelHeaderAlignment
-                                                                              .center,
-                                                                      hasIcon:
-                                                                          true,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          } else if ((_model.contentURL1TextController
-                                                          .text !=
-                                                      '') &&
-                                              (_model.algoliaSearchResults!.isNotEmpty)) {
-                                            return Container(
-                                              decoration: const BoxDecoration(),
-                                              child: StreamBuilder<
-                                                  List<BroadDomainRecord>>(
-                                                stream: queryBroadDomainRecord(
-                                                  queryBuilder: (broadDomainRecord) =>
-                                                      broadDomainRecord.whereIn(
-                                                          'broad_domain',
-                                                          _model
-                                                              .algoliaSearchResults
-                                                              ?.map((e) => e
-                                                                  .broadDomain
-                                                                  ?.id)
-                                                              .withoutNulls
-                                                              .toList()),
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 100.0,
-                                                        height: 100.0,
-                                                        child: SpinKitRipple(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          size: 100.0,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<BroadDomainRecord>
-                                                      listViewBroadDomainRecordList =
-                                                      snapshot.data!;
-                                                  if (listViewBroadDomainRecordList
-                                                      .isEmpty) {
-                                                    return const EmptyStateWidget();
-                                                  }
-                                                  return ListView.separated(
-                                                    padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    itemCount:
-                                                        listViewBroadDomainRecordList
-                                                            .length,
-                                                    separatorBuilder: (_, __) =>
-                                                        const SizedBox(height: 4.0),
-                                                    itemBuilder: (context,
-                                                        listViewIndex) {
-                                                      final listViewBroadDomainRecord =
-                                                          listViewBroadDomainRecordList[
-                                                              listViewIndex];
-                                                      return Material(
-                                                        color:
-                                                            Colors.transparent,
-                                                        elevation: 1.0,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      12.0),
-                                                        ),
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12.0),
-                                                          ),
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            color: Colors
-                                                                .transparent,
-                                                            child:
-                                                                ExpandableNotifier(
-                                                              initialExpanded:
-                                                                  true,
-                                                              child:
-                                                                  ExpandablePanel(
-                                                                header: Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          8.0,
-                                                                          0.0,
-                                                                          8.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      ClipRRect(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
-                                                                        child: Image
-                                                                            .network(
-                                                                          listViewBroadDomainRecord
-                                                                              .iconUrl,
-                                                                          width:
-                                                                              36.0,
-                                                                          height:
-                                                                              36.0,
-                                                                          fit: BoxFit
-                                                                              .cover,
-                                                                          errorBuilder: (context, error, stackTrace) =>
-                                                                              Image.asset(
-                                                                            'assets/images/error_image.png',
-                                                                            width:
-                                                                                36.0,
-                                                                            height:
-                                                                                36.0,
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                          ),
+                                                                      collapsed:
+                                                                          Container(
+                                                                        width: MediaQuery.sizeOf(context).width *
+                                                                            1.0,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
                                                                         ),
                                                                       ),
-                                                                      Flexible(
+                                                                      expanded:
+                                                                          Align(
+                                                                        alignment: const AlignmentDirectional(
+                                                                            -1.0,
+                                                                            -1.0),
                                                                         child:
                                                                             Padding(
                                                                           padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               12.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
+                                                                              4.0,
+                                                                              12.0,
+                                                                              12.0),
                                                                           child:
-                                                                              Text(
-                                                                            listViewBroadDomainRecord.broadDomain,
-                                                                            style: FlutterFlowTheme.of(context).displaySmall.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).displaySmallFamily,
-                                                                                  color: Colors.black,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).displaySmallFamily),
-                                                                                ),
+                                                                              Builder(
+                                                                            builder:
+                                                                                (context) {
+                                                                              if (_model.algoliaSearchResults?.where((e) => e.broadDomain == listViewBroadDomainRecord.reference).toList() == null) {
+                                                                                return Center(
+                                                                                  child: SizedBox(
+                                                                                    width: 100.0,
+                                                                                    height: 100.0,
+                                                                                    child: SpinKitRipple(
+                                                                                      color: FlutterFlowTheme.of(context).secondary,
+                                                                                      size: 100.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                );
+                                                                              }
+                                                                              final expertiseAreaSearch = _model.algoliaSearchResults?.where((e) => e.broadDomain == listViewBroadDomainRecord.reference).toList().toList() ?? [];
+                                                                              return Wrap(
+                                                                                spacing: 4.0,
+                                                                                runSpacing: 4.0,
+                                                                                alignment: WrapAlignment.start,
+                                                                                crossAxisAlignment: WrapCrossAlignment.start,
+                                                                                direction: Axis.horizontal,
+                                                                                runAlignment: WrapAlignment.start,
+                                                                                verticalDirection: VerticalDirection.down,
+                                                                                clipBehavior: Clip.none,
+                                                                                children: List.generate(expertiseAreaSearch.length, (expertiseAreaSearchIndex) {
+                                                                                  final expertiseAreaSearchItem = expertiseAreaSearch[expertiseAreaSearchIndex];
+                                                                                  return AuthUserStreamWidget(
+                                                                                    builder: (context) => InkWell(
+                                                                                      splashColor: Colors.transparent,
+                                                                                      focusColor: Colors.transparent,
+                                                                                      hoverColor: Colors.transparent,
+                                                                                      highlightColor: Colors.transparent,
+                                                                                      onTap: () async {
+                                                                                        logFirebaseEvent('LINKEDIN_AUTH_Container_43go6gof_ON_TAP');
+                                                                                        if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
+                                                                                          logFirebaseEvent('Container_update_page_state');
+                                                                                          setState(() {
+                                                                                            _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                            _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
+                                                                                          });
+                                                                                          if ((currentUserDocument?.broadDomains.toList() ?? []).contains(listViewBroadDomainRecord.broadDomain)) {
+                                                                                            logFirebaseEvent('Container_update_page_state');
+                                                                                            setState(() {
+                                                                                              _model.updateLeadershipAreasMappingAtIndex(
+                                                                                                functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), listViewBroadDomainRecord.broadDomain),
+                                                                                                (e) => e
+                                                                                                  ..updateSubCategories(
+                                                                                                    (e) => e.add(expertiseAreaSearchItem.expertiseArea),
+                                                                                                  ),
+                                                                                              );
+                                                                                            });
+                                                                                            logFirebaseEvent('Container_backend_call');
+
+                                                                                            await currentUserReference!.update({
+                                                                                              ...mapToFirestore(
+                                                                                                {
+                                                                                                  'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
+                                                                                                    _model.leadershipAreasMapping,
+                                                                                                  ),
+                                                                                                  'thought_leadership_areas': FieldValue.arrayUnion([
+                                                                                                    expertiseAreaSearchItem.expertiseArea
+                                                                                                  ]),
+                                                                                                },
+                                                                                              ),
+                                                                                            });
+                                                                                          } else {
+                                                                                            logFirebaseEvent('Container_update_page_state');
+                                                                                            setState(() {
+                                                                                              _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
+                                                                                                category: listViewBroadDomainRecord.broadDomain,
+                                                                                                subCategories: _model.addExpertiseAreaList,
+                                                                                              ));
+                                                                                            });
+                                                                                            logFirebaseEvent('Container_backend_call');
+
+                                                                                            await currentUserReference!.update({
+                                                                                              ...mapToFirestore(
+                                                                                                {
+                                                                                                  'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
+                                                                                                    _model.leadershipAreasMapping,
+                                                                                                  ),
+                                                                                                  'thought_leadership_areas': FieldValue.arrayUnion([
+                                                                                                    expertiseAreaSearchItem.expertiseArea
+                                                                                                  ]),
+                                                                                                  'broad_domains': FieldValue.arrayUnion([
+                                                                                                    listViewBroadDomainRecord.broadDomain
+                                                                                                  ]),
+                                                                                                },
+                                                                                              ),
+                                                                                            });
+                                                                                          }
+
+                                                                                          logFirebaseEvent('Container_update_page_state');
+                                                                                          setState(() {
+                                                                                            _model.addExpertiseAreaList = [];
+                                                                                          });
+                                                                                        }
+                                                                                      },
+                                                                                      child: Container(
+                                                                                        height: 30.0,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea) ? FlutterFlowTheme.of(context).secondary : const Color(0x00000000),
+                                                                                          borderRadius: BorderRadius.circular(48.0),
+                                                                                          border: Border.all(
+                                                                                            color: FlutterFlowTheme.of(context).secondary,
+                                                                                            width: 2.0,
+                                                                                          ),
+                                                                                        ),
+                                                                                        child: Padding(
+                                                                                          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
+                                                                                          child: Container(
+                                                                                            decoration: const BoxDecoration(),
+                                                                                            child: Text(
+                                                                                              '#${expertiseAreaSearchItem.expertiseArea}',
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                    fontSize: 12.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FontWeight.w600,
+                                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  );
+                                                                                }),
+                                                                              );
+                                                                            },
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                collapsed:
-                                                                    Container(
-                                                                  width: MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width *
-                                                                      1.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                  ),
-                                                                ),
-                                                                expanded: Align(
-                                                                  alignment:
-                                                                      const AlignmentDirectional(
-                                                                          -1.0,
-                                                                          -1.0),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12.0,
-                                                                            4.0,
-                                                                            12.0,
-                                                                            12.0),
-                                                                    child:
-                                                                        Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                        if (_model.algoliaSearchResults?.where((e) => e.broadDomain == listViewBroadDomainRecord.reference).toList() ==
-                                                                            null) {
-                                                                          return Center(
-                                                                            child:
-                                                                                SizedBox(
-                                                                              width: 100.0,
-                                                                              height: 100.0,
-                                                                              child: SpinKitRipple(
-                                                                                color: FlutterFlowTheme.of(context).secondary,
-                                                                                size: 100.0,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        }
-                                                                        final expertiseAreaSearch =
-                                                                            _model.algoliaSearchResults?.where((e) => e.broadDomain == listViewBroadDomainRecord.reference).toList().toList() ??
-                                                                                [];
-                                                                        return Wrap(
-                                                                          spacing:
-                                                                              4.0,
-                                                                          runSpacing:
-                                                                              4.0,
-                                                                          alignment:
-                                                                              WrapAlignment.start,
-                                                                          crossAxisAlignment:
-                                                                              WrapCrossAlignment.start,
-                                                                          direction:
-                                                                              Axis.horizontal,
-                                                                          runAlignment:
-                                                                              WrapAlignment.start,
-                                                                          verticalDirection:
-                                                                              VerticalDirection.down,
-                                                                          clipBehavior:
-                                                                              Clip.none,
-                                                                          children: List.generate(
-                                                                              expertiseAreaSearch.length,
-                                                                              (expertiseAreaSearchIndex) {
-                                                                            final expertiseAreaSearchItem =
-                                                                                expertiseAreaSearch[expertiseAreaSearchIndex];
-                                                                            return AuthUserStreamWidget(
-                                                                              builder: (context) => InkWell(
-                                                                                splashColor: Colors.transparent,
-                                                                                focusColor: Colors.transparent,
-                                                                                hoverColor: Colors.transparent,
-                                                                                highlightColor: Colors.transparent,
-                                                                                onTap: () async {
-                                                                                  logFirebaseEvent('LINKEDIN_AUTH_Container_lb8vnzse_ON_TAP');
-                                                                                  if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
-                                                                                    logFirebaseEvent('Container_update_page_state');
-                                                                                    setState(() {
-                                                                                      _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                      _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
-                                                                                    });
-                                                                                    if ((currentUserDocument?.broadDomains.toList() ?? []).contains(listViewBroadDomainRecord.broadDomain)) {
-                                                                                      logFirebaseEvent('Container_update_page_state');
-                                                                                      setState(() {
-                                                                                        _model.updateLeadershipAreasMappingAtIndex(
-                                                                                          functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), listViewBroadDomainRecord.broadDomain),
-                                                                                          (e) => e
-                                                                                            ..updateSubCategories(
-                                                                                              (e) => e.add(expertiseAreaSearchItem.expertiseArea),
-                                                                                            ),
-                                                                                        );
-                                                                                      });
-                                                                                      logFirebaseEvent('Container_backend_call');
-
-                                                                                      await currentUserReference!.update({
-                                                                                        ...mapToFirestore(
-                                                                                          {
-                                                                                            'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
-                                                                                              _model.leadershipAreasMapping,
-                                                                                            ),
-                                                                                            'thought_leadership_areas': FieldValue.arrayUnion([
-                                                                                              expertiseAreaSearchItem.expertiseArea
-                                                                                            ]),
-                                                                                          },
-                                                                                        ),
-                                                                                      });
-                                                                                    } else {
-                                                                                      logFirebaseEvent('Container_update_page_state');
-                                                                                      setState(() {
-                                                                                        _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
-                                                                                          category: listViewBroadDomainRecord.broadDomain,
-                                                                                          subCategories: _model.addExpertiseAreaList,
-                                                                                        ));
-                                                                                      });
-                                                                                      logFirebaseEvent('Container_backend_call');
-
-                                                                                      await currentUserReference!.update({
-                                                                                        ...mapToFirestore(
-                                                                                          {
-                                                                                            'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
-                                                                                              _model.leadershipAreasMapping,
-                                                                                            ),
-                                                                                            'thought_leadership_areas': FieldValue.arrayUnion([
-                                                                                              expertiseAreaSearchItem.expertiseArea
-                                                                                            ]),
-                                                                                            'broad_domains': FieldValue.arrayUnion([
-                                                                                              listViewBroadDomainRecord.broadDomain
-                                                                                            ]),
-                                                                                          },
-                                                                                        ),
-                                                                                      });
-                                                                                    }
-
-                                                                                    logFirebaseEvent('Container_update_page_state');
-                                                                                    setState(() {
-                                                                                      _model.addExpertiseAreaList = [];
-                                                                                    });
-                                                                                  }
-                                                                                },
-                                                                                child: Container(
-                                                                                  height: 30.0,
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: (currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea) ? FlutterFlowTheme.of(context).secondary : const Color(0x00000000),
-                                                                                    borderRadius: BorderRadius.circular(48.0),
-                                                                                    border: Border.all(
-                                                                                      color: FlutterFlowTheme.of(context).secondary,
-                                                                                      width: 2.0,
-                                                                                    ),
-                                                                                  ),
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                                                                                    child: Container(
-                                                                                      decoration: const BoxDecoration(),
-                                                                                      child: Text(
-                                                                                        '#${expertiseAreaSearchItem.expertiseArea}',
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                                              fontSize: 12.0,
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FontWeight.w600,
-                                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          }),
-                                                                        );
-                                                                      },
+                                                                      theme:
+                                                                          ExpandableThemeData(
+                                                                        tapHeaderToExpand:
+                                                                            true,
+                                                                        tapBodyToExpand:
+                                                                            false,
+                                                                        tapBodyToCollapse:
+                                                                            false,
+                                                                        headerAlignment:
+                                                                            ExpandablePanelHeaderAlignment.center,
+                                                                        hasIcon:
+                                                                            true,
+                                                                        iconColor:
+                                                                            FlutterFlowTheme.of(context).primaryText,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                theme:
-                                                                    const ExpandableThemeData(
-                                                                  tapHeaderToExpand:
-                                                                      true,
-                                                                  tapBodyToExpand:
-                                                                      false,
-                                                                  tapBodyToCollapse:
-                                                                      false,
-                                                                  headerAlignment:
-                                                                      ExpandablePanelHeaderAlignment
-                                                                          .center,
-                                                                  hasIcon: true,
-                                                                ),
                                                               ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
                                                   );
-                                                },
-                                              ),
-                                            );
-                                          } else {
-                                            return Stack(
+                                                }
+                                              },
+                                            ),
+                                          if (_model.emptySearch)
+                                            Stack(
                                               alignment: const AlignmentDirectional(
                                                   0.0, 1.0),
                                               children: [
@@ -1775,9 +1853,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   ),
                                                 ),
                                               ],
-                                            );
-                                          }
-                                        },
+                                            ),
+                                        ],
                                       ),
                                     ],
                                   ),

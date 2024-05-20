@@ -247,68 +247,67 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                   children: [
                                     Stack(
                                       children: [
-                                        if (_model.typeOfMediaUploaded ==
-                                            'onlyText')
-                                          FFButtonWidget(
-                                            onPressed: _model.reschedule
-                                                ? null
-                                                : () async {
-                                                    logFirebaseEvent(
-                                                        'VIEW_SCHEDULED_POST_onlyTextButton_ON_TA');
-                                                    logFirebaseEvent(
-                                                        'onlyTextButton_backend_call');
+                                        FFButtonWidget(
+                                          onPressed: _model.reschedule
+                                              ? null
+                                              : () async {
+                                                  logFirebaseEvent(
+                                                      'VIEW_SCHEDULED_POST_onlyTextButton_ON_TA');
+                                                  logFirebaseEvent(
+                                                      'onlyTextButton_backend_call');
 
-                                                    await widget
-                                                        .postDocument!.reference
-                                                        .update(
-                                                            createScheduledPostsRecordData(
-                                                      timestamp: functions
-                                                          .combineDateTime(
-                                                              _model
-                                                                  .scheduledDate!,
-                                                              _model
-                                                                  .scheduledTime!),
-                                                    ));
-                                                  },
-                                            text: 'Reschedule',
-                                            options: FFButtonOptions(
-                                              width: 100.0,
-                                              height: 32.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color: Colors.white,
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                'Plus Jakarta Sans'),
-                                                      ),
-                                              elevation: 2.0,
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              disabledColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
+                                                  await widget
+                                                      .postDocument!.reference
+                                                      .update(
+                                                          createScheduledPostsRecordData(
+                                                    timestamp: functions
+                                                        .combineDateTime(
+                                                            _model
+                                                                .scheduledDate!,
+                                                            _model
+                                                                .scheduledTime!),
+                                                  ));
+                                                },
+                                          text: 'Reschedule',
+                                          options: FFButtonOptions(
+                                            width: 100.0,
+                                            height: 32.0,
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily:
+                                                          'Plus Jakarta Sans',
+                                                      color: Colors.white,
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts: GoogleFonts
+                                                              .asMap()
+                                                          .containsKey(
+                                                              'Plus Jakarta Sans'),
+                                                    ),
+                                            elevation: 2.0,
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            disabledColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryText,
                                           ),
+                                        ),
                                       ],
                                     ),
                                   ].divide(const SizedBox(width: 8.0)),
@@ -341,54 +340,9 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                             size: 16.0,
                                           ),
                                         ),
-                                        Text(
-                                          'Posting on ${dateTimeFormat('yMMMd', widget.postDocument?.timestamp)} at ${dateTimeFormat('jm', widget.postDocument?.timestamp)}.',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
-                                              ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            logFirebaseEvent(
-                                                'VIEW_SCHEDULED_POST_Text_ukolvmwt_ON_TAP');
-                                            logFirebaseEvent(
-                                                'Text_update_page_state');
-                                            setState(() {
-                                              _model.datePickerVisbile = true;
-                                            });
-                                            logFirebaseEvent(
-                                                'Text_wait__delay');
-                                            await Future.delayed(const Duration(
-                                                milliseconds: 100));
-                                            logFirebaseEvent(
-                                                'Text_widget_animation');
-                                            if (animationsMap[
-                                                    'containerOnActionTriggerAnimation'] !=
-                                                null) {
-                                              await animationsMap[
-                                                      'containerOnActionTriggerAnimation']!
-                                                  .controller
-                                                  .forward(from: 0.0);
-                                            }
-                                          },
+                                        Flexible(
                                           child: Text(
-                                            ' Change.',
+                                            'Posting on ${dateTimeFormat('yMMMd', widget.postDocument?.timestamp)} at ${dateTimeFormat('jm', widget.postDocument?.timestamp)}.',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -396,11 +350,8 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .bodyMediumFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondary,
                                                   letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
+                                                  fontWeight: FontWeight.w500,
                                                   useGoogleFonts: GoogleFonts
                                                           .asMap()
                                                       .containsKey(
@@ -408,6 +359,61 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                                   context)
                                                               .bodyMediumFamily),
                                                 ),
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_SCHEDULED_POST_Text_ukolvmwt_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'Text_update_page_state');
+                                              setState(() {
+                                                _model.datePickerVisbile = true;
+                                              });
+                                              logFirebaseEvent(
+                                                  'Text_wait__delay');
+                                              await Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 100));
+                                              logFirebaseEvent(
+                                                  'Text_widget_animation');
+                                              if (animationsMap[
+                                                      'containerOnActionTriggerAnimation'] !=
+                                                  null) {
+                                                await animationsMap[
+                                                        'containerOnActionTriggerAnimation']!
+                                                    .controller
+                                                    .forward(from: 0.0);
+                                              }
+                                            },
+                                            child: Text(
+                                              ' Change.',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    useGoogleFonts: GoogleFonts
+                                                            .asMap()
+                                                        .containsKey(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily),
+                                                  ),
+                                            ),
                                           ),
                                         ),
                                       ],

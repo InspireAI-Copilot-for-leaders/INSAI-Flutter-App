@@ -13,6 +13,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // State field(s) for Switch widget.
+  bool? switchValue;
   // Stores action output result for [Backend Call - API (First degree connections size)] action in Icon widget.
   ApiCallResponse? firstConnectionSize;
   // Model for emptyState component.
