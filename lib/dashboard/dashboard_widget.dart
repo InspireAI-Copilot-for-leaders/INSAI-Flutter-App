@@ -57,11 +57,45 @@ class _DashboardWidgetState extends State<DashboardWidget>
       }
 
       if (isEntitled) {
-        logFirebaseEvent('dashboard_widget_animation');
-        if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
-          animationsMap['iconOnActionTriggerAnimation1']!
-              .controller
-              .forward(from: 0.0);
+        if (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
+            'notStarted') {
+          logFirebaseEvent('dashboard_navigate_to');
+
+          context.goNamed('paymentSuccess');
+        } else {
+          if (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
+              'inProgress') {
+            logFirebaseEvent('dashboard_navigate_to');
+
+            context.goNamed('linkedinAuth');
+          } else {
+            if (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
+                'completed') {
+              logFirebaseEvent('dashboard_widget_animation');
+              if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
+                animationsMap['iconOnActionTriggerAnimation1']!
+                    .controller
+                    .forward(from: 0.0);
+              }
+            } else {
+              logFirebaseEvent('dashboard_alert_dialog');
+              await showDialog(
+                context: context,
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    title: const Text('Failed!'),
+                    content: const Text('All validation conditions failed.'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          }
         }
       } else {
         if ((valueOrDefault(currentUserDocument?.accessType, '') ==

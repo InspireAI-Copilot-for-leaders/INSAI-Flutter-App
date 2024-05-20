@@ -606,7 +606,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                               logFirebaseEvent(
                                   'PHONE_NUMBER_VERIFY_arrowRight_ICN_ON_TA');
                               logFirebaseEvent('IconButton_auth');
-                              GoRouter.of(context).prepareAuthEvent();
+                              GoRouter.of(context).prepareAuthEvent(true);
                               final smsCodeVal = _model.phoneOTPcode!.text;
                               if (smsCodeVal.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -652,10 +652,63 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                               }
 
                               if (isEntitled) {
-                                logFirebaseEvent('IconButton_navigate_to');
+                                if (valueOrDefault(
+                                        currentUserDocument?.onboardingStatus,
+                                        '') ==
+                                    'notStarted') {
+                                  logFirebaseEvent('IconButton_navigate_to');
 
-                                context.goNamedAuth(
-                                    'dashboard', context.mounted);
+                                  context.goNamedAuth(
+                                    'paymentSuccess',
+                                    context.mounted,
+                                    ignoreRedirect: true,
+                                  );
+                                } else {
+                                  if (valueOrDefault(
+                                          currentUserDocument?.onboardingStatus,
+                                          '') ==
+                                      'inProgress') {
+                                    logFirebaseEvent('IconButton_navigate_to');
+
+                                    context.goNamedAuth(
+                                      'linkedinAuth',
+                                      context.mounted,
+                                      ignoreRedirect: true,
+                                    );
+                                  } else {
+                                    if (valueOrDefault(
+                                            currentUserDocument
+                                                ?.onboardingStatus,
+                                            '') ==
+                                        'completed') {
+                                      logFirebaseEvent(
+                                          'IconButton_navigate_to');
+
+                                      context.goNamedAuth(
+                                          'dashboard', context.mounted);
+                                    } else {
+                                      logFirebaseEvent(
+                                          'IconButton_alert_dialog');
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: const Text('Failed!'),
+                                            content: const Text(
+                                                'All validation conditions failed.'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  }
+                                }
                               } else {
                                 if ((valueOrDefault(
                                             currentUserDocument?.accessType,

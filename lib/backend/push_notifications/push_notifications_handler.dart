@@ -199,6 +199,7 @@ final parametersBuilderMap =
   'payWall': ParameterData.none(),
   'accessRequested': ParameterData.none(),
   'expertiseAreaEdit': ParameterData.none(),
+  'paymentSuccess': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {
