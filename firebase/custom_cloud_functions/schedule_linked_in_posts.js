@@ -7,7 +7,7 @@ const axios = require("axios");
 function formatStringForLIJson(input) {
   let output = input;
 
-  output = output.replace(/#(\w+)/g, (match, p1) => `{hashtag\\|#\\|${p1}}`);
+  //output = output.replace(/#(\w+)/g, (match, p1) => `{hashtag\\|#\\|${p1}}`);
 
   return output;
 }

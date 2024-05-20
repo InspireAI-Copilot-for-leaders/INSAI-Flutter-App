@@ -22,13 +22,12 @@ String? formatStringForLIJson(String input) {
       .replaceAll('\b', '\\b')
       .replaceAll('\f', '\\f')
       .replaceAll('"', '\\"')
-      .replaceAll('(', '\\(')
       .replaceAll(')', '\\)');
   ;
 
   // Change hashtag element to {hashtag|#|SingleWord}
-  output = output.replaceAllMapped(
-      RegExp(r'#(\w+)'), (match) => '{hashtag|#|${match.group(1)}}');
+  //output = output.replaceAllMapped(
+  //    RegExp(r'#(\w+)'), (match) => '{hashtag\|\\#\|${match.group(1)}}');
 
   return output;
 }
