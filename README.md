@@ -1,4 +1,4 @@
-# InspireAI
+# Inspire AI
 
 A new Flutter project.
 
