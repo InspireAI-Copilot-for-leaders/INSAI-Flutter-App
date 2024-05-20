@@ -1842,6 +1842,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               dateTimeFormat('relative', postedListViewPostedOnLinkedinRecord.postedOn!),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
                                                                                     letterSpacing: 0.0,
                                                                                     useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
@@ -2159,7 +2160,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               'Posting on ${dateTimeFormat('MMMEd', scheduledListViewScheduledPostsRecord.timestamp)} at ${dateTimeFormat('jm', scheduledListViewScheduledPostsRecord.timestamp)}.',
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
                                                                                     letterSpacing: 0.0,
                                                                                     useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
