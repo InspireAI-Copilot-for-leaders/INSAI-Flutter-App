@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/permissions_util.dart';
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -48,19 +49,39 @@ class _DashboardWidgetState extends State<DashboardWidget>
         return;
       }
       logFirebaseEvent('DASHBOARD_PAGE_dashboard_ON_INIT_STATE');
-      await Future.wait([
-        Future(() async {}),
-        Future(() async {
-          if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                  'noAccess') ||
-              (valueOrDefault(currentUserDocument?.accessType, '') ==
-                  'paidWaitlist')) {
+      logFirebaseEvent('dashboard_revenue_cat');
+      final isEntitled =
+          await revenue_cat.isEntitled(' premium-full-access') ?? false;
+      if (!isEntitled) {
+        await revenue_cat.loadOfferings();
+      }
+
+      if (isEntitled) {
+        logFirebaseEvent('dashboard_widget_animation');
+        if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
+          animationsMap['iconOnActionTriggerAnimation1']!
+              .controller
+              .forward(from: 0.0);
+        }
+      } else {
+        if ((valueOrDefault(currentUserDocument?.accessType, '') ==
+                'noAccess') ||
+            (valueOrDefault(currentUserDocument?.accessType, '') ==
+                'paidWaitlist')) {
+          logFirebaseEvent('dashboard_navigate_to');
+
+          context.goNamed('payWall');
+        } else {
+          if (valueOrDefault(currentUserDocument?.accessType, '') ==
+              'specialWaitlist') {
             logFirebaseEvent('dashboard_navigate_to');
 
-            context.goNamed('payWall');
+            context.goNamed('accessRequested');
           } else {
-            if (valueOrDefault(currentUserDocument?.accessType, '') ==
-                'specialWaitlist') {
+            if ((valueOrDefault(currentUserDocument?.accessType, '') ==
+                    'specialGranted') &&
+                (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
+                    'notStarted')) {
               logFirebaseEvent('dashboard_navigate_to');
 
               context.goNamed('accessRequested');
@@ -68,57 +89,45 @@ class _DashboardWidgetState extends State<DashboardWidget>
               if ((valueOrDefault(currentUserDocument?.accessType, '') ==
                       'specialGranted') &&
                   (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
-                      'notStarted')) {
+                      'inProgress')) {
                 logFirebaseEvent('dashboard_navigate_to');
 
-                context.goNamed('linkedinConnect');
+                context.goNamed('linkedinAuth');
               } else {
                 if ((valueOrDefault(currentUserDocument?.accessType, '') ==
                         'specialGranted') &&
                     (valueOrDefault(
                             currentUserDocument?.onboardingStatus, '') ==
-                        'inProgress')) {
-                  logFirebaseEvent('dashboard_navigate_to');
-
-                  context.goNamed('linkedinAuth');
-                } else {
-                  if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                          'specialGranted') &&
-                      (valueOrDefault(
-                              currentUserDocument?.onboardingStatus, '') ==
-                          'completed')) {
-                    logFirebaseEvent('dashboard_widget_animation');
-                    if (animationsMap['iconOnActionTriggerAnimation1'] !=
-                        null) {
-                      animationsMap['iconOnActionTriggerAnimation1']!
-                          .controller
-                          .forward(from: 0.0);
-                    }
-                  } else {
-                    logFirebaseEvent('dashboard_alert_dialog');
-                    await showDialog(
-                      context: context,
-                      builder: (alertDialogContext) {
-                        return AlertDialog(
-                          title: const Text('Failed!'),
-                          content: const Text('All validation conditions failed.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext),
-                              child: const Text('Ok'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                        'completed')) {
+                  logFirebaseEvent('dashboard_widget_animation');
+                  if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
+                    animationsMap['iconOnActionTriggerAnimation1']!
+                        .controller
+                        .forward(from: 0.0);
                   }
+                } else {
+                  logFirebaseEvent('dashboard_alert_dialog');
+                  await showDialog(
+                    context: context,
+                    builder: (alertDialogContext) {
+                      return AlertDialog(
+                        title: const Text('Failed!'),
+                        content: const Text('All validation conditions failed.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: const Text('Ok'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
               }
             }
           }
-        }),
-      ]);
+        }
+      }
     });
 
     animationsMap.addAll({
