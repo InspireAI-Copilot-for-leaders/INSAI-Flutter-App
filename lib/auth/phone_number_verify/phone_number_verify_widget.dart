@@ -698,7 +698,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                           'IconButton_navigate_to');
 
                                       context.goNamedAuth(
-                                        'linkedinConnect',
+                                        'accessRequested',
                                         context.mounted,
                                         ignoreRedirect: true,
                                       );
