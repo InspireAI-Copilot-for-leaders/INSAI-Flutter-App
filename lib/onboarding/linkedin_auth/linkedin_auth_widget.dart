@@ -76,17 +76,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           );
           if ((_model.lIprofileDetails?.succeeded ?? true)) {
             logFirebaseEvent('linkedinAuth_backend_call');
-            unawaited(
-              () async {
-                await currentUserReference!.update(createUsersRecordData(
-                  linkedinDetails: updateLinkedinDetailsAuthStruct(
-                    LinkedinDetailsAuthStruct.maybeFromMap(
-                        (_model.lIprofileDetails?.jsonBody ?? '')),
-                    clearUnsetFields: false,
-                  ),
-                ));
-              }(),
-            );
+
+            await currentUserReference!.update(createUsersRecordData(
+              linkedinDetails: updateLinkedinDetailsAuthStruct(
+                LinkedinDetailsAuthStruct.maybeFromMap(
+                    (_model.lIprofileDetails?.jsonBody ?? '')),
+                clearUnsetFields: false,
+              ),
+            ));
             logFirebaseEvent('linkedinAuth_firestore_query');
             _model.wannabeUser = await queryPreDefinedUsersRecordOnce(
               queryBuilder: (preDefinedUsersRecord) =>
@@ -793,22 +790,43 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                               ),
                                                                             ),
                                                                             child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.min,
+                                                                              children: [
                                                                                 Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                                                                              child: Container(
-                                                                                decoration: const BoxDecoration(),
-                                                                                child: Text(
-                                                                                  '#$expertiseAreaItem',
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                        color: FlutterFlowTheme.of(context).alternate,
-                                                                                        fontSize: 12.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        fontWeight: FontWeight.w500,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                      ),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                  child: Container(
+                                                                                    width: 16.0,
+                                                                                    height: 16.0,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                      shape: BoxShape.circle,
+                                                                                    ),
+                                                                                    child: Icon(
+                                                                                      Icons.close,
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      size: 12.0,
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
-                                                                              ),
+                                                                                Padding(
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 8.0, 4.0),
+                                                                                  child: Container(
+                                                                                    decoration: const BoxDecoration(),
+                                                                                    child: Text(
+                                                                                      expertiseAreaItem,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
+                                                                                            fontSize: 12.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
                                                                             ),
                                                                           ),
                                                                         );
@@ -1369,22 +1387,44 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                                 width: 2.0,
                                                                                               ),
                                                                                             ),
-                                                                                            child: Padding(
-                                                                                              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                                                                                              child: Container(
-                                                                                                decoration: const BoxDecoration(),
-                                                                                                child: Text(
-                                                                                                  '#${expertiseAreaNoSearchItem.expertiseArea}',
-                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                                        color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                        fontSize: 12.0,
-                                                                                                        letterSpacing: 0.0,
-                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                            child: Row(
+                                                                                              mainAxisSize: MainAxisSize.min,
+                                                                                              children: [
+                                                                                                if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea))
+                                                                                                  Padding(
+                                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                                    child: Container(
+                                                                                                      width: 20.0,
+                                                                                                      height: 20.0,
+                                                                                                      decoration: BoxDecoration(
+                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                        shape: BoxShape.circle,
                                                                                                       ),
+                                                                                                      child: Icon(
+                                                                                                        Icons.close,
+                                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                        size: 12.0,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 8.0, 4.0),
+                                                                                                  child: Container(
+                                                                                                    decoration: const BoxDecoration(),
+                                                                                                    child: Text(
+                                                                                                      expertiseAreaNoSearchItem.expertiseArea,
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            fontSize: 12.0,
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FontWeight.w600,
+                                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ),
                                                                                                 ),
-                                                                                              ),
+                                                                                              ],
                                                                                             ),
                                                                                           ),
                                                                                         ),
@@ -1724,7 +1764,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                           child: Container(
                                                                                             decoration: const BoxDecoration(),
                                                                                             child: Text(
-                                                                                              '#${expertiseAreaSearchItem.expertiseArea}',
+                                                                                              expertiseAreaSearchItem.expertiseArea,
                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                     color: FlutterFlowTheme.of(context).primaryText,
