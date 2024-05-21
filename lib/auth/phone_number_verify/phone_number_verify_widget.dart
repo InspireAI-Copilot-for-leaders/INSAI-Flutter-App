@@ -226,21 +226,21 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100.0),
-          child: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primary,
-            automaticallyImplyLeading: false,
-            actions: const [],
-            flexibleSpace: FlexibleSpaceBar(
-              title: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          actions: const [],
+          flexibleSpace: FlexibleSpaceBar(
+            title: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                    child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
                       hoverColor: Colors.transparent,
@@ -287,14 +287,14 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              centerTitle: false,
-              expandedTitleScale: 1.0,
             ),
-            elevation: 2.0,
+            centerTitle: false,
+            expandedTitleScale: 1.0,
           ),
+          elevation: 2.0,
         ),
         body: Align(
           alignment: const AlignmentDirectional(0.0, 0.0),
