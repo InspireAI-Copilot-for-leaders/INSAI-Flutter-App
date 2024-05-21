@@ -1483,17 +1483,12 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         '') ==
                                                                     'completed') {
                                                                   logFirebaseEvent(
-                                                                      'email_loginContinue_widget_animation');
-                                                                  if (animationsMap[
-                                                                          'iconOnActionTriggerAnimation1'] !=
-                                                                      null) {
-                                                                    animationsMap[
-                                                                            'iconOnActionTriggerAnimation1']!
-                                                                        .controller
-                                                                        .forward(
-                                                                            from:
-                                                                                0.0);
-                                                                  }
+                                                                      'email_loginContinue_navigate_to');
+
+                                                                  context.goNamedAuth(
+                                                                      'dashboard',
+                                                                      context
+                                                                          .mounted);
                                                                 } else {
                                                                   logFirebaseEvent(
                                                                       'email_loginContinue_alert_dialog');
@@ -1608,14 +1603,12 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                                 '') ==
                                                                             'completed')) {
                                                                       logFirebaseEvent(
-                                                                          'email_loginContinue_widget_animation');
-                                                                      if (animationsMap[
-                                                                              'iconOnActionTriggerAnimation1'] !=
-                                                                          null) {
-                                                                        animationsMap['iconOnActionTriggerAnimation1']!
-                                                                            .controller
-                                                                            .forward(from: 0.0);
-                                                                      }
+                                                                          'email_loginContinue_navigate_to');
+
+                                                                      context.goNamedAuth(
+                                                                          'dashboard',
+                                                                          context
+                                                                              .mounted);
                                                                     } else {
                                                                       logFirebaseEvent(
                                                                           'email_loginContinue_navigate_to');

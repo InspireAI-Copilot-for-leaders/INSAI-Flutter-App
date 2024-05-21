@@ -11,8 +11,6 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
 
   bool createContentDialogVisible = false;
 
-  bool isLoading = true;
-
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
