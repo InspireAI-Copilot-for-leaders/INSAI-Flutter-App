@@ -76,17 +76,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           );
           if ((_model.lIprofileDetails?.succeeded ?? true)) {
             logFirebaseEvent('linkedinAuth_backend_call');
-            unawaited(
-              () async {
-                await currentUserReference!.update(createUsersRecordData(
-                  linkedinDetails: updateLinkedinDetailsAuthStruct(
-                    LinkedinDetailsAuthStruct.maybeFromMap(
-                        (_model.lIprofileDetails?.jsonBody ?? '')),
-                    clearUnsetFields: false,
-                  ),
-                ));
-              }(),
-            );
+
+            await currentUserReference!.update(createUsersRecordData(
+              linkedinDetails: updateLinkedinDetailsAuthStruct(
+                LinkedinDetailsAuthStruct.maybeFromMap(
+                    (_model.lIprofileDetails?.jsonBody ?? '')),
+                clearUnsetFields: false,
+              ),
+            ));
             logFirebaseEvent('linkedinAuth_firestore_query');
             _model.wannabeUser = await queryPreDefinedUsersRecordOnce(
               queryBuilder: (preDefinedUsersRecord) =>
