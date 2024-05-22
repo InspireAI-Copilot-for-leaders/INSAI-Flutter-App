@@ -22,8 +22,8 @@ String? formatStringForLIJson(String input) {
       .replaceAll('\b', '\\b')
       .replaceAll('\f', '\\f')
       .replaceAll('"', '\\"')
-      .replaceAll(')', '\\)')
-      .replaceAll('(', '\\(');
+      .replaceAll(')', '\\\\)')
+      .replaceAll('(', '\\\\(');
   ;
 
   // Change hashtag element to {hashtag|#|SingleWord}
