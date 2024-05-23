@@ -213,7 +213,7 @@ class _SubsExpiredWidgetState extends State<SubsExpiredWidget> {
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
               child: Text(
-                'Your subscription has expired. Your access to InspireAI has been revoked. Renew your subscription to continue using the power of cutting edge-AI!',
+                'Your subscription has expired. Your access to InspireAI has been revoked. Renew your subscription to continue using the power of cutting edge-AI!\n\nNote: Your account will be auto-deleted after 20 days if you don\'t renew the subscription.',
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).labelLarge.override(
                       fontFamily: 'Plus Jakarta Sans',

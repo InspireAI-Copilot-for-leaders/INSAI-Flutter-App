@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -272,9 +273,55 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'LINKEDIN_CONNECT_CONNECT_LINKED_IN_BTN_O');
-                                logFirebaseEvent('Button_launch_u_r_l');
-                                await launchURL(
-                                    'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867aib47yndmjx&redirect_uri=https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth&scope=r_basicprofile%20w_member_social%20w_member_social_feed%20r_1st_connections_size');
+                                if (currentUserEmail ==
+                                    'admindemo@inspireai.com') {
+                                  logFirebaseEvent('Button_firestore_query');
+                                  _model.yesss = await queryUsersRecordOnce(
+                                    queryBuilder: (usersRecord) =>
+                                        usersRecord.where(
+                                      'email',
+                                      isEqualTo: 'admindemo',
+                                    ),
+                                    singleRecord: true,
+                                  ).then((s) => s.firstOrNull);
+                                  logFirebaseEvent('Button_backend_call');
+
+                                  await currentUserReference!.update({
+                                    ...createUsersRecordData(
+                                      linkedinDetails:
+                                          updateLinkedinDetailsAuthStruct(
+                                        _model.yesss?.linkedinDetails,
+                                        clearUnsetFields: false,
+                                      ),
+                                      linkedinAccess:
+                                          _model.yesss?.linkedinAccess,
+                                      linkedinUrn: _model.yesss?.linkedinUrn,
+                                      followers: _model.yesss?.followers,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'thought_leadership_areas': _model
+                                            .yesss?.thoughtLeadershipAreas,
+                                        'broad_domains':
+                                            _model.yesss?.broadDomains,
+                                        'thought_leadership_areas_mapping':
+                                            getThoughtLeadershipAreasMappingListFirestoreData(
+                                          _model.yesss
+                                              ?.thoughtLeadershipAreasMapping,
+                                        ),
+                                      },
+                                    ),
+                                  });
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.goNamed('linkedinAuth');
+                                } else {
+                                  logFirebaseEvent('Button_launch_u_r_l');
+                                  await launchURL(
+                                      'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867aib47yndmjx&redirect_uri=https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth&scope=r_basicprofile%20w_member_social%20w_member_social_feed%20r_1st_connections_size');
+                                }
+
+                                setState(() {});
                               },
                               text: 'Connect LinkedIn',
                               icon: FaIcon(

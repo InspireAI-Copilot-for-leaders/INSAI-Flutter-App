@@ -52,84 +52,74 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
       logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
       if (valueOrDefault(currentUserDocument?.onboardingStatus, '') !=
           'inProgress') {
-        logFirebaseEvent('linkedinAuth_backend_call');
-        _model.linkedintokens = await LinkedinTokensCall.call(
-          authCodeRecieved: widget.code,
-        );
-        if ((_model.linkedintokens?.succeeded ?? true)) {
+        if (currentUserEmail == 'admindemo@inspireai.com') {
+          logFirebaseEvent('linkedinAuth_update_page_state');
+          setState(() {
+            _model.isLoading = false;
+          });
+        } else {
           logFirebaseEvent('linkedinAuth_backend_call');
-
-          await currentUserReference!.update(createUsersRecordData(
-            linkedinAccess: getJsonField(
-              (_model.linkedintokens?.jsonBody ?? ''),
-              r'''$.access_token''',
-            ).toString().toString(),
-            linkedinRefresh: getJsonField(
-              (_model.linkedintokens?.jsonBody ?? ''),
-              r'''$.refresh_token''',
-            ).toString().toString(),
-          ));
-          logFirebaseEvent('linkedinAuth_backend_call');
-          _model.lIprofileDetails =
-              await LinkedInDataGroup.linkedinProfileDetailsCall.call(
-            authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+          _model.linkedintokens = await LinkedinTokensCall.call(
+            authCodeRecieved: widget.code,
           );
-          if ((_model.lIprofileDetails?.succeeded ?? true)) {
+          if ((_model.linkedintokens?.succeeded ?? true)) {
             logFirebaseEvent('linkedinAuth_backend_call');
 
             await currentUserReference!.update(createUsersRecordData(
-              linkedinDetails: updateLinkedinDetailsAuthStruct(
-                LinkedinDetailsAuthStruct.maybeFromMap(
-                    (_model.lIprofileDetails?.jsonBody ?? '')),
-                clearUnsetFields: false,
-              ),
+              linkedinAccess: getJsonField(
+                (_model.linkedintokens?.jsonBody ?? ''),
+                r'''$.access_token''',
+              ).toString().toString(),
+              linkedinRefresh: getJsonField(
+                (_model.linkedintokens?.jsonBody ?? ''),
+                r'''$.refresh_token''',
+              ).toString().toString(),
             ));
-            logFirebaseEvent('linkedinAuth_firestore_query');
-            _model.wannabeUser = await queryPreDefinedUsersRecordOnce(
-              queryBuilder: (preDefinedUsersRecord) =>
-                  preDefinedUsersRecord.where(
-                'linkedinUrl',
-                isEqualTo:
-                    'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
-              ),
+            logFirebaseEvent('linkedinAuth_backend_call');
+            _model.lIprofileDetails =
+                await LinkedInDataGroup.linkedinProfileDetailsCall.call(
+              authToken:
+                  valueOrDefault(currentUserDocument?.linkedinAccess, ''),
             );
-            if (_model.wannabeUser!.isNotEmpty) {
-              logFirebaseEvent('linkedinAuth_update_page_state');
-              setState(() {
-                _model.preDefinedUserDoc = _model.wannabeUser?.first;
-              });
-              logFirebaseEvent('linkedinAuth_backend_call');
-
-              await currentUserReference!.update({
-                ...mapToFirestore(
-                  {
-                    'thought_leadership_areas':
-                        _model.preDefinedUserDoc?.thoughtLeadershipAreas,
-                    'thought_leadership_areas_mapping':
-                        getThoughtLeadershipAreasMappingListFirestoreData(
-                      _model.preDefinedUserDoc?.thoughtLeadershipAreasMapping,
-                    ),
-                    'broad_domains': _model.preDefinedUserDoc?.broadDomains,
-                  },
-                ),
-              });
-              logFirebaseEvent('linkedinAuth_update_page_state');
-              setState(() {
-                _model.isLoading = false;
-              });
+            if ((_model.lIprofileDetails?.succeeded ?? true)) {
               logFirebaseEvent('linkedinAuth_backend_call');
 
               await currentUserReference!.update(createUsersRecordData(
-                onboardingStatus: 'inProgress',
+                linkedinDetails: updateLinkedinDetailsAuthStruct(
+                  LinkedinDetailsAuthStruct.maybeFromMap(
+                      (_model.lIprofileDetails?.jsonBody ?? '')),
+                  clearUnsetFields: false,
+                ),
               ));
-            } else {
-              logFirebaseEvent('linkedinAuth_backend_call');
-              _model.getExpertiseWorflow = await ExpertiseOfPersonCall.call(
-                linkedinUrl:
-                    'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
-                uid: currentUserUid,
+              logFirebaseEvent('linkedinAuth_firestore_query');
+              _model.wannabeUser = await queryPreDefinedUsersRecordOnce(
+                queryBuilder: (preDefinedUsersRecord) =>
+                    preDefinedUsersRecord.where(
+                  'linkedinUrl',
+                  isEqualTo:
+                      'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
+                ),
               );
-              if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
+              if (_model.wannabeUser!.isNotEmpty) {
+                logFirebaseEvent('linkedinAuth_update_page_state');
+                setState(() {
+                  _model.preDefinedUserDoc = _model.wannabeUser?.first;
+                });
+                logFirebaseEvent('linkedinAuth_backend_call');
+
+                await currentUserReference!.update({
+                  ...mapToFirestore(
+                    {
+                      'thought_leadership_areas':
+                          _model.preDefinedUserDoc?.thoughtLeadershipAreas,
+                      'thought_leadership_areas_mapping':
+                          getThoughtLeadershipAreasMappingListFirestoreData(
+                        _model.preDefinedUserDoc?.thoughtLeadershipAreasMapping,
+                      ),
+                      'broad_domains': _model.preDefinedUserDoc?.broadDomains,
+                    },
+                  ),
+                });
                 logFirebaseEvent('linkedinAuth_update_page_state');
                 setState(() {
                   _model.isLoading = false;
@@ -140,18 +130,48 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                   onboardingStatus: 'inProgress',
                 ));
               } else {
-                logFirebaseEvent('linkedinAuth_navigate_to');
-
-                context.goNamed(
-                  'linkedinConnect',
-                  queryParameters: {
-                    'connectSuccess': serializeParam(
-                      false,
-                      ParamType.bool,
-                    ),
-                  }.withoutNulls,
+                logFirebaseEvent('linkedinAuth_backend_call');
+                _model.getExpertiseWorflow = await ExpertiseOfPersonCall.call(
+                  linkedinUrl:
+                      'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
+                  uid: currentUserUid,
                 );
+                if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
+                  logFirebaseEvent('linkedinAuth_update_page_state');
+                  setState(() {
+                    _model.isLoading = false;
+                  });
+                  logFirebaseEvent('linkedinAuth_backend_call');
+
+                  await currentUserReference!.update(createUsersRecordData(
+                    onboardingStatus: 'inProgress',
+                  ));
+                } else {
+                  logFirebaseEvent('linkedinAuth_navigate_to');
+
+                  context.goNamed(
+                    'linkedinConnect',
+                    queryParameters: {
+                      'connectSuccess': serializeParam(
+                        false,
+                        ParamType.bool,
+                      ),
+                    }.withoutNulls,
+                  );
+                }
               }
+            } else {
+              logFirebaseEvent('linkedinAuth_navigate_to');
+
+              context.goNamed(
+                'linkedinConnect',
+                queryParameters: {
+                  'connectSuccess': serializeParam(
+                    false,
+                    ParamType.bool,
+                  ),
+                }.withoutNulls,
+              );
             }
           } else {
             logFirebaseEvent('linkedinAuth_navigate_to');
@@ -166,18 +186,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
               }.withoutNulls,
             );
           }
-        } else {
-          logFirebaseEvent('linkedinAuth_navigate_to');
-
-          context.goNamed(
-            'linkedinConnect',
-            queryParameters: {
-              'connectSuccess': serializeParam(
-                false,
-                ParamType.bool,
-              ),
-            }.withoutNulls,
-          );
         }
       } else {
         logFirebaseEvent('linkedinAuth_update_page_state');
