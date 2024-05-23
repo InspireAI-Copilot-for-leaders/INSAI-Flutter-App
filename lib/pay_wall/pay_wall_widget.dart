@@ -132,7 +132,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                 }
                               },
                               child: Icon(
-                                Icons.close_rounded,
+                                Icons.arrow_back_rounded,
                                 color: FlutterFlowTheme.of(context).primary,
                                 size: 32.0,
                               ),
