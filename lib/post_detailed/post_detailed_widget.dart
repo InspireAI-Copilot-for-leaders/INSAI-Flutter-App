@@ -398,7 +398,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 8.0, 0.0),
                                     child: Text(
-                                      'Due to rate limits, the refresh button will currently only work 2 times a day.',
+                                      'Due to data storage requirements, This data will only be saved for 2 days.',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
