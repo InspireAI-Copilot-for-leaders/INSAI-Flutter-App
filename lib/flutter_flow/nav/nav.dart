@@ -296,6 +296,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   isList: false,
                   collectionNamePath: ['users', 'created_posts'],
                 ),
+                campaignPostRef: params.getParam(
+                  'campaignPostRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users', 'campaign'],
+                ),
               ),
             ),
             FFRoute(
@@ -378,6 +384,82 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'subsExpired',
               path: 'subsExpired',
               builder: (context, params) => const SubsExpiredWidget(),
+            ),
+            FFRoute(
+              name: 'campaignLoading',
+              path: 'campaignLoading',
+              builder: (context, params) => const CampaignLoadingWidget(),
+            ),
+            FFRoute(
+              name: 'valueProvidingCampaign',
+              path: 'valueProvidingCampaign',
+              requireAuth: true,
+              builder: (context, params) => const ValueProvidingCampaignWidget(),
+            ),
+            FFRoute(
+              name: 'companyCampaign',
+              path: 'companyCampaign',
+              requireAuth: true,
+              builder: (context, params) => const CompanyCampaignWidget(),
+            ),
+            FFRoute(
+              name: 'trendsCampaign',
+              path: 'trendsCampaign',
+              requireAuth: true,
+              builder: (context, params) => const TrendsCampaignWidget(),
+            ),
+            FFRoute(
+              name: 'AIcreatedCampaign',
+              path: 'AIcreatedCampaign',
+              requireAuth: true,
+              builder: (context, params) => const AIcreatedCampaignWidget(),
+            ),
+            FFRoute(
+              name: 'camapignDetails',
+              path: 'camapignDetails',
+              builder: (context, params) => CamapignDetailsWidget(
+                campaignID: params.getParam(
+                  'campaignID',
+                  ParamType.String,
+                ),
+                campaignTitle: params.getParam(
+                  'campaignTitle',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'viewOrEditCampaignPost',
+              path: 'viewOrEditCampaignPost',
+              requireAuth: true,
+              builder: (context, params) => ViewOrEditCampaignPostWidget(
+                postText: params.getParam(
+                  'postText',
+                  ParamType.String,
+                ),
+                postRef: params.getParam(
+                  'postRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users', 'campaign'],
+                ),
+                postTitle: params.getParam(
+                  'postTitle',
+                  ParamType.String,
+                ),
+                status: params.getParam(
+                  'status',
+                  ParamType.String,
+                ),
+                scheduledTime: params.getParam(
+                  'scheduledTime',
+                  ParamType.DateTime,
+                ),
+                indexInList: params.getParam(
+                  'indexInList',
+                  ParamType.int,
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

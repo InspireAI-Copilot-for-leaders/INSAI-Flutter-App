@@ -21,14 +21,18 @@ class ThoughtLeadershipAreasMappingStruct extends FFFirebaseStruct {
   String? _category;
   String get category => _category ?? '';
   set category(String? val) => _category = val;
+
   bool hasCategory() => _category != null;
 
   // "sub_categories" field.
   List<String>? _subCategories;
   List<String> get subCategories => _subCategories ?? const [];
   set subCategories(List<String>? val) => _subCategories = val;
-  void updateSubCategories(Function(List<String>) updateFn) =>
-      updateFn(_subCategories ??= []);
+
+  void updateSubCategories(Function(List<String>) updateFn) {
+    updateFn(subCategories ??= []);
+  }
+
   bool hasSubCategories() => _subCategories != null;
 
   static ThoughtLeadershipAreasMappingStruct fromMap(
@@ -58,7 +62,7 @@ class ThoughtLeadershipAreasMappingStruct extends FFFirebaseStruct {
         'sub_categories': serializeParam(
           _subCategories,
           ParamType.String,
-          true,
+          isList: true,
         ),
       }.withoutNulls;
 

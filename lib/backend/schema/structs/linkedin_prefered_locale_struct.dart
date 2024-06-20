@@ -19,12 +19,14 @@ class LinkedinPreferedLocaleStruct extends FFFirebaseStruct {
   String? _country;
   String get country => _country ?? '';
   set country(String? val) => _country = val;
+
   bool hasCountry() => _country != null;
 
   // "language" field.
   String? _language;
   String get language => _language ?? '';
   set language(String? val) => _language = val;
+
   bool hasLanguage() => _language != null;
 
   static LinkedinPreferedLocaleStruct fromMap(Map<String, dynamic> data) =>

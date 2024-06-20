@@ -50,6 +50,7 @@ class LinkedinProfileDetailsCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -77,6 +78,7 @@ class LinkedinProfilePictureCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -118,6 +120,7 @@ class FirstDegreeConnectionsSizeCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -150,6 +153,7 @@ class FindOtherPeopleCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -219,6 +223,7 @@ class PostOnlyTextCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -270,6 +275,7 @@ class PostTextWithMultipleImagesCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -321,6 +327,7 @@ class PostTextWithMediaCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -380,6 +387,7 @@ class PostTextWithPollCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -411,6 +419,7 @@ class GetPostCommentsCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -490,6 +499,7 @@ class GetPostLikesCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -523,6 +533,7 @@ class GetSocialMetadataCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -550,6 +561,7 @@ class PeopleCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -579,6 +591,7 @@ class ExpertiseOfPersonCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -680,6 +693,7 @@ class InspireAIContentFromTopicsCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -730,6 +744,7 @@ class InspireAIContentFromContxtCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -762,6 +777,7 @@ class GetImageUploadUrlFromLinkedinCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -807,6 +823,7 @@ class GetDocUploadUrlFromLinkedinCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -848,6 +865,7 @@ class UploadImageToLinkedinCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -876,6 +894,108 @@ class UploadDocToLinkedinCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class DomainThoughtLeaderhipCampaignCall {
+  static Future<ApiCallResponse> call({
+    String? uid = '',
+    List<String>? expertiseareasList,
+    String? campaignId = '',
+    int? noOfPosts,
+  }) async {
+    final expertiseareas = _serializeList(expertiseareasList);
+
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid",
+  "expertise_areas": $expertiseareas,
+  "campaign_id": "$campaignId",
+  "num_of_posts": $noOfPosts
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Domain Thought leaderhip Campaign',
+      apiUrl:
+          'https://campaign-general-5qpvtpji4a-em.a.run.app/create_campaign',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class CompanyThoughtLeaderhipCampaignCall {
+  static Future<ApiCallResponse> call({
+    String? uid = '',
+    String? companyName = '',
+    String? campaignId = '',
+    int? noOfPosts,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid",
+  "company_name": "$companyName",
+  "campaign_id": "$campaignId",
+  "num_of_posts": $noOfPosts
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Company Thought leaderhip Campaign',
+      apiUrl:
+          'https://campaign-company-5qpvtpji4a-em.a.run.app/create_company_campaign',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class CurrentEventsCampaignCall {
+  static Future<ApiCallResponse> call({
+    String? uid = '',
+    String? expertiseArea = '',
+    String? campaignId = '',
+    int? noOfPosts,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid",
+  "expertise_area": "$expertiseArea",
+  "campaign_id": "$campaignId",
+  "num_of_posts": $noOfPosts
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Current events Campaign',
+      apiUrl:
+          'https://campaign-current-events-5qpvtpji4a-em.a.run.app/create_current_events_campaign',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -897,10 +1017,17 @@ class ApiPagingParams {
       'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }
 
+String _toEncodable(dynamic item) {
+  if (item is DocumentReference) {
+    return item.path;
+  }
+  return item;
+}
+
 String _serializeList(List? list) {
   list ??= <String>[];
   try {
-    return json.encode(list);
+    return json.encode(list, toEncodable: _toEncodable);
   } catch (_) {
     if (kDebugMode) {
       print("List serialization failed. Returning empty list.");
@@ -912,7 +1039,7 @@ String _serializeList(List? list) {
 String _serializeJson(dynamic jsonVar, [bool isList = false]) {
   jsonVar ??= (isList ? [] : {});
   try {
-    return json.encode(jsonVar);
+    return json.encode(jsonVar, toEncodable: _toEncodable);
   } catch (_) {
     if (kDebugMode) {
       print("Json serialization failed. Returning empty json.");

@@ -50,9 +50,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('ARTICLE_DETAILS_articleDetails_ON_INIT_S');
       logFirebaseEvent('articleDetails_update_page_state');
-      setState(() {
-        _model.numberOfImgaes = widget.articleDocument?.metadata.length;
-      });
+      _model.numberOfImgaes = widget.articleDocument?.metadata.length;
+      setState(() {});
     });
 
     _model.expandableExpandableController =
@@ -755,9 +754,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                 logFirebaseEvent(
                                     'ARTICLE_DETAILS_POST_WITH_YOUR_THOUGHTS_');
                                 logFirebaseEvent('Button_update_page_state');
-                                setState(() {
-                                  _model.createContentDialogVisible = true;
-                                });
+                                _model.createContentDialogVisible = true;
+                                setState(() {});
                               },
                               text: 'Post with your thoughts',
                               options: FFButtonOptions(
@@ -858,9 +856,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     logFirebaseEvent(
                                         'ARTICLE_DETAILS_Icon_mxsu0nob_ON_TAP');
                                     logFirebaseEvent('Icon_update_page_state');
-                                    setState(() {
-                                      _model.createContentDialogVisible = false;
-                                    });
+                                    _model.createContentDialogVisible = false;
+                                    setState(() {});
                                   },
                                   child: Icon(
                                     Icons.close,

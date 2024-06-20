@@ -607,9 +607,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     if (FFAppState().drawer) {
                                       logFirebaseEvent(
                                           'Container_update_app_state');
-                                      setState(() {
-                                        FFAppState().drawer = false;
-                                      });
+                                      FFAppState().drawer = false;
+                                      setState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -656,9 +655,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     } else {
                                       logFirebaseEvent(
                                           'Container_update_app_state');
-                                      setState(() {
-                                        FFAppState().drawer = true;
-                                      });
+                                      FFAppState().drawer = true;
+                                      setState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -780,7 +778,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                           fontSize: 24.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FontWeight.w500,
+                                                              FontWeight.w600,
                                                           useGoogleFonts:
                                                               GoogleFonts
                                                                       .asMap()
@@ -1383,7 +1381,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                           .content,
                                                                       ParamType
                                                                           .String,
-                                                                      true,
+                                                                      isList:
+                                                                          true,
                                                                     ),
                                                                     'postRef':
                                                                         serializeParam(
@@ -1529,9 +1528,6 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                             if (confirmDialogResponse) {
                                                                               logFirebaseEvent('IconButton_backend_call');
                                                                               await draftsListViewCreatedPostsRecord.reference.delete();
-                                                                            } else {
-                                                                              logFirebaseEvent('IconButton_close_dialog,_drawer,_etc');
-                                                                              Navigator.pop(context);
                                                                             }
                                                                           },
                                                                         ),
@@ -2135,9 +2131,6 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                             if (confirmDialogResponse) {
                                                                               logFirebaseEvent('IconButton_backend_call');
                                                                               await scheduledListViewScheduledPostsRecord.reference.delete();
-                                                                            } else {
-                                                                              logFirebaseEvent('IconButton_close_dialog,_drawer,_etc');
-                                                                              Navigator.pop(context);
                                                                             }
                                                                           },
                                                                         ),
@@ -2400,10 +2393,9 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                 'ALL_POSTS_OVERVIEW_MiddleButton_ON_TAP');
                                             logFirebaseEvent(
                                                 'MiddleButton_update_page_state');
-                                            setState(() {
-                                              _model.createContentDialogVisible =
-                                                  true;
-                                            });
+                                            _model.createContentDialogVisible =
+                                                true;
+                                            setState(() {});
                                           },
                                         ),
                                       ),
@@ -2538,17 +2530,15 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       }
                                       logFirebaseEvent(
                                           'Badge_update_app_state');
-                                      setState(() {
-                                        FFAppState().isNotificationsVisible =
-                                            false;
-                                      });
+                                      FFAppState().isNotificationsVisible =
+                                          false;
+                                      setState(() {});
                                     } else {
                                       logFirebaseEvent(
                                           'Badge_update_app_state');
-                                      setState(() {
-                                        FFAppState().isNotificationsVisible =
-                                            true;
-                                      });
+                                      FFAppState().isNotificationsVisible =
+                                          true;
+                                      setState(() {});
                                       logFirebaseEvent('Badge_wait__delay');
                                       await Future.delayed(
                                           const Duration(milliseconds: 100));
@@ -2799,9 +2789,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                     logFirebaseEvent(
                                         'ALL_POSTS_OVERVIEW_Icon_prc3bg3d_ON_TAP');
                                     logFirebaseEvent('Icon_update_page_state');
-                                    setState(() {
-                                      _model.createContentDialogVisible = false;
-                                    });
+                                    _model.createContentDialogVisible = false;
+                                    setState(() {});
                                   },
                                   child: Icon(
                                     Icons.close,

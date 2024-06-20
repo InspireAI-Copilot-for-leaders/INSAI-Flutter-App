@@ -34,10 +34,8 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('EDIT_BRAND_VOICE_editBrandVoice_ON_INIT_');
       logFirebaseEvent('editBrandVoice_update_page_state');
-      setState(() {
-        _model.typedVoice =
-            valueOrDefault(currentUserDocument?.contentVoice, '');
-      });
+      _model.typedVoice = valueOrDefault(currentUserDocument?.contentVoice, '');
+      setState(() {});
     });
 
     _model.contentURL2TextController ??= TextEditingController();
@@ -750,11 +748,10 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                 'EDIT_BRAND_VOICE_PAGE_ADD_BTN_ON_TAP');
                                             logFirebaseEvent(
                                                 'Button_update_page_state');
-                                            setState(() {
-                                              _model.typedVoice = _model
-                                                  .contentURL1TextController2
-                                                  .text;
-                                            });
+                                            _model.typedVoice = _model
+                                                .contentURL1TextController2
+                                                .text;
+                                            setState(() {});
                                             logFirebaseEvent(
                                                 'Button_clear_text_fields_pin_codes');
                                             setState(() {
@@ -1016,12 +1013,10 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                 'EDIT_BRAND_VOICE_Card_1tyexo4l_ON_TAP');
                                             logFirebaseEvent(
                                                 'Card_update_page_state');
-                                            setState(() {
-                                              _model.selectedVoice =
-                                                  listViewBrandVoicesRecord
-                                                      .voice;
-                                              _model.typedVoice = null;
-                                            });
+                                            _model.selectedVoice =
+                                                listViewBrandVoicesRecord.voice;
+                                            _model.typedVoice = null;
+                                            setState(() {});
                                           },
                                           child: Card(
                                             clipBehavior:

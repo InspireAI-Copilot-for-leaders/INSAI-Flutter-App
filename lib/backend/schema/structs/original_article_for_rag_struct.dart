@@ -23,24 +23,28 @@ class OriginalArticleForRagStruct extends FFFirebaseStruct {
   String? _description;
   String get description => _description ?? '';
   set description(String? val) => _description = val;
+
   bool hasDescription() => _description != null;
 
   // "domain" field.
   String? _domain;
   String get domain => _domain ?? '';
   set domain(String? val) => _domain = val;
+
   bool hasDomain() => _domain != null;
 
   // "text" field.
   String? _text;
   String get text => _text ?? '';
   set text(String? val) => _text = val;
+
   bool hasText() => _text != null;
 
   // "title" field.
   String? _title;
   String get title => _title ?? '';
   set title(String? val) => _title = val;
+
   bool hasTitle() => _title != null;
 
   static OriginalArticleForRagStruct fromMap(Map<String, dynamic> data) =>

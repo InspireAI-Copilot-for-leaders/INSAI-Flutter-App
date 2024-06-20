@@ -456,12 +456,11 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                                           'VIEW_OR_EDIT_ONE_LINER_Container_qtfvikw');
                                                       logFirebaseEvent(
                                                           'oneLinerExpandable_update_page_state');
-                                                      setState(() {
-                                                        _model.whichIndexExpanded =
-                                                            oneLinersIndex;
-                                                        _model.oneLinerText =
-                                                            oneLinersItem;
-                                                      });
+                                                      _model.whichIndexExpanded =
+                                                          oneLinersIndex;
+                                                      _model.oneLinerText =
+                                                          oneLinersItem;
+                                                      setState(() {});
                                                     },
                                                   );
                                                 },

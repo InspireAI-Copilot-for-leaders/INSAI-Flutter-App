@@ -399,9 +399,8 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   logFirebaseEvent(
                                       'PAY_WALL_PAGE_Stack_gz47nd9t_ON_TAP');
                                   logFirebaseEvent('Stack_update_page_state');
-                                  setState(() {
-                                    _model.isYearly = true;
-                                  });
+                                  _model.isYearly = true;
+                                  setState(() {});
                                 },
                                 child: SizedBox(
                                   height: 145.0,
@@ -758,9 +757,8 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   logFirebaseEvent(
                                       'PAY_WALL_PAGE_Stack_8p8echjj_ON_TAP');
                                   logFirebaseEvent('Stack_update_page_state');
-                                  setState(() {
-                                    _model.isYearly = false;
-                                  });
+                                  _model.isYearly = false;
+                                  setState(() {});
                                 },
                                 child: SizedBox(
                                   height: 145.0,
@@ -1251,9 +1249,8 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                             logFirebaseEvent(
                                 'PAY_WALL_REQUEST_SPECIAL_ACCESS_BTN_ON_T');
                             logFirebaseEvent('Button_update_page_state');
-                            setState(() {
-                              _model.specialAccessClicked = true;
-                            });
+                            _model.specialAccessClicked = true;
+                            setState(() {});
                           },
                           text: 'Request Special Access',
                           options: FFButtonOptions(
@@ -1648,10 +1645,9 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                                   'PAY_WALL_PAGE_CANCEL_BTN_ON_TAP');
                                               logFirebaseEvent(
                                                   'Button_update_page_state');
-                                              setState(() {
-                                                _model.specialAccessClicked =
-                                                    false;
-                                              });
+                                              _model.specialAccessClicked =
+                                                  false;
+                                              setState(() {});
                                             },
                                             text: 'Cancel',
                                             options: FFButtonOptions(

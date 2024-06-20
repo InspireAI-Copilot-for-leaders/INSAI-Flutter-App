@@ -20,8 +20,11 @@ class PrefferedLocaleStruct extends FFFirebaseStruct {
       _preferredLocale ?? LinkedinPreferedLocaleStruct();
   set preferredLocale(LinkedinPreferedLocaleStruct? val) =>
       _preferredLocale = val;
-  void updatePreferredLocale(Function(LinkedinPreferedLocaleStruct) updateFn) =>
-      updateFn(_preferredLocale ??= LinkedinPreferedLocaleStruct());
+
+  void updatePreferredLocale(Function(LinkedinPreferedLocaleStruct) updateFn) {
+    updateFn(preferredLocale ??= LinkedinPreferedLocaleStruct());
+  }
+
   bool hasPreferredLocale() => _preferredLocale != null;
 
   static PrefferedLocaleStruct fromMap(Map<String, dynamic> data) =>

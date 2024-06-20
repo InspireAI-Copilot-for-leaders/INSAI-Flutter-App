@@ -125,3 +125,24 @@ int getIndexFromList(
   // get the index of a particular item from a list of strings
   return listOfItems.indexOf(indexRequiredItem);
 }
+
+DateTime? combineDateTimeStr(
+  DateTime date,
+  String timeString,
+) {
+  // Parse the time string using DateFormat
+  DateFormat timeFormat = DateFormat("HH:mm:ss");
+  DateTime time = timeFormat.parse(timeString);
+
+  // Combine the date and time
+  return DateTime(
+    date.year,
+    date.month,
+    date.day,
+    time.hour,
+    time.minute,
+    time.second,
+    time.millisecond,
+    time.microsecond,
+  );
+}

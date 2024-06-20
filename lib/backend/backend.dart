@@ -19,6 +19,8 @@ import 'schema/post_reviews_record.dart';
 import 'schema/scheduled_posts_record.dart';
 import 'schema/expertise_areas_collection_record.dart';
 import 'schema/pre_defined_users_record.dart';
+import 'schema/campaigns_details_record.dart';
+import 'schema/campaign_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -41,6 +43,8 @@ export 'schema/post_reviews_record.dart';
 export 'schema/scheduled_posts_record.dart';
 export 'schema/expertise_areas_collection_record.dart';
 export 'schema/pre_defined_users_record.dart';
+export 'schema/campaigns_details_record.dart';
+export 'schema/campaign_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -566,6 +570,86 @@ Future<List<PreDefinedUsersRecord>> queryPreDefinedUsersRecordOnce({
     queryCollectionOnce(
       PreDefinedUsersRecord.collection,
       PreDefinedUsersRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query CampaignsDetailsRecords (as a Stream and as a Future).
+Future<int> queryCampaignsDetailsRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      CampaignsDetailsRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<CampaignsDetailsRecord>> queryCampaignsDetailsRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      CampaignsDetailsRecord.collection(parent),
+      CampaignsDetailsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<CampaignsDetailsRecord>> queryCampaignsDetailsRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      CampaignsDetailsRecord.collection(parent),
+      CampaignsDetailsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query CampaignRecords (as a Stream and as a Future).
+Future<int> queryCampaignRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      CampaignRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<CampaignRecord>> queryCampaignRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      CampaignRecord.collection(parent),
+      CampaignRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<CampaignRecord>> queryCampaignRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      CampaignRecord.collection(parent),
+      CampaignRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

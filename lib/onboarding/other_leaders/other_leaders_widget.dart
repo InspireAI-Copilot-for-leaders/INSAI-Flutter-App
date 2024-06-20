@@ -446,19 +446,17 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                                   .reference)) {
                                             logFirebaseEvent(
                                                 'leaderDisplayCard_update_page_state');
-                                            setState(() {
-                                              _model.removeFromLeadersSelected(
-                                                  staggeredViewThoughtLeadersRecord
-                                                      .reference);
-                                            });
+                                            _model.removeFromLeadersSelected(
+                                                staggeredViewThoughtLeadersRecord
+                                                    .reference);
+                                            setState(() {});
                                           } else {
                                             logFirebaseEvent(
                                                 'leaderDisplayCard_update_page_state');
-                                            setState(() {
-                                              _model.addToLeadersSelected(
-                                                  staggeredViewThoughtLeadersRecord
-                                                      .reference);
-                                            });
+                                            _model.addToLeadersSelected(
+                                                staggeredViewThoughtLeadersRecord
+                                                    .reference);
+                                            setState(() {});
                                           }
                                         },
                                       );

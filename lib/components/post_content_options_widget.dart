@@ -245,10 +245,9 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                               child: UploadDocWidget(
                                 uploadDoc: (doc, docTitle) async {
                                   logFirebaseEvent('_update_component_state');
-                                  setState(() {
-                                    _model.uploadedDoc = doc;
-                                    _model.docTitle = docTitle;
-                                  });
+                                  _model.uploadedDoc = doc;
+                                  _model.docTitle = docTitle;
+                                  setState(() {});
                                 },
                               ),
                             ),
@@ -406,14 +405,13 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                 pollCreate: (question, option1, option2,
                                     pollDuration, option3, option4) async {
                                   logFirebaseEvent('_update_component_state');
-                                  setState(() {
-                                    _model.pollQuestion = question;
-                                    _model.pollOption1 = option1;
-                                    _model.pollOption2 = option2;
-                                    _model.pollDuration = pollDuration;
-                                    _model.pollOption3 = option3;
-                                    _model.pollOption4 = option4;
-                                  });
+                                  _model.pollQuestion = question;
+                                  _model.pollOption1 = option1;
+                                  _model.pollOption2 = option2;
+                                  _model.pollDuration = pollDuration;
+                                  _model.pollOption3 = option3;
+                                  _model.pollOption4 = option4;
+                                  setState(() {});
                                 },
                               ),
                             ),

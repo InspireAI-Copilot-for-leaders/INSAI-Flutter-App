@@ -179,6 +179,8 @@ final parametersBuilderMap =
   'postReview': (data) async => ParameterData(
         allParams: {
           'postRef': getParameter<DocumentReference>(data, 'postRef'),
+          'campaignPostRef':
+              getParameter<DocumentReference>(data, 'campaignPostRef'),
         },
       ),
   'viewOrEditOneLiner': (data) async => ParameterData(
@@ -201,6 +203,27 @@ final parametersBuilderMap =
   'expertiseAreaEdit': ParameterData.none(),
   'paymentSuccess': ParameterData.none(),
   'subsExpired': ParameterData.none(),
+  'campaignLoading': ParameterData.none(),
+  'valueProvidingCampaign': ParameterData.none(),
+  'companyCampaign': ParameterData.none(),
+  'trendsCampaign': ParameterData.none(),
+  'AIcreatedCampaign': ParameterData.none(),
+  'camapignDetails': (data) async => ParameterData(
+        allParams: {
+          'campaignID': getParameter<String>(data, 'campaignID'),
+          'campaignTitle': getParameter<String>(data, 'campaignTitle'),
+        },
+      ),
+  'viewOrEditCampaignPost': (data) async => ParameterData(
+        allParams: {
+          'postText': getParameter<String>(data, 'postText'),
+          'postRef': getParameter<DocumentReference>(data, 'postRef'),
+          'postTitle': getParameter<String>(data, 'postTitle'),
+          'status': getParameter<String>(data, 'status'),
+          'scheduledTime': getParameter<DateTime>(data, 'scheduledTime'),
+          'indexInList': getParameter<int>(data, 'indexInList'),
+        },
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

@@ -3,9 +3,7 @@ import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
-import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class IdentifiersStruct extends FFFirebaseStruct {
@@ -23,20 +21,24 @@ class IdentifiersStruct extends FFFirebaseStruct {
   String? _identifier;
   String get identifier => _identifier ?? '';
   set identifier(String? val) => _identifier = val;
+
   bool hasIdentifier() => _identifier != null;
 
   // "identifierExpiresInSeconds" field.
   int? _identifierExpiresInSeconds;
   int get identifierExpiresInSeconds => _identifierExpiresInSeconds ?? 0;
   set identifierExpiresInSeconds(int? val) => _identifierExpiresInSeconds = val;
+
   void incrementIdentifierExpiresInSeconds(int amount) =>
-      _identifierExpiresInSeconds = identifierExpiresInSeconds + amount;
+      identifierExpiresInSeconds = identifierExpiresInSeconds + amount;
+
   bool hasIdentifierExpiresInSeconds() => _identifierExpiresInSeconds != null;
 
   // "mediaType" field.
   String? _mediaType;
   String get mediaType => _mediaType ?? '';
   set mediaType(String? val) => _mediaType = val;
+
   bool hasMediaType() => _mediaType != null;
 
   static IdentifiersStruct fromMap(Map<String, dynamic> data) =>

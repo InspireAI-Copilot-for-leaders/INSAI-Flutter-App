@@ -32,54 +32,68 @@ class LinkedinDetailsAuthStruct extends FFFirebaseStruct {
   String? _localizedFirstName;
   String get localizedFirstName => _localizedFirstName ?? '';
   set localizedFirstName(String? val) => _localizedFirstName = val;
+
   bool hasLocalizedFirstName() => _localizedFirstName != null;
 
   // "firstName" field.
   PrefferedLocaleStruct? _firstName;
   PrefferedLocaleStruct get firstName => _firstName ?? PrefferedLocaleStruct();
   set firstName(PrefferedLocaleStruct? val) => _firstName = val;
-  void updateFirstName(Function(PrefferedLocaleStruct) updateFn) =>
-      updateFn(_firstName ??= PrefferedLocaleStruct());
+
+  void updateFirstName(Function(PrefferedLocaleStruct) updateFn) {
+    updateFn(firstName ??= PrefferedLocaleStruct());
+  }
+
   bool hasFirstName() => _firstName != null;
 
   // "localizedLastName" field.
   String? _localizedLastName;
   String get localizedLastName => _localizedLastName ?? '';
   set localizedLastName(String? val) => _localizedLastName = val;
+
   bool hasLocalizedLastName() => _localizedLastName != null;
 
   // "lastName" field.
   PrefferedLocaleStruct? _lastName;
   PrefferedLocaleStruct get lastName => _lastName ?? PrefferedLocaleStruct();
   set lastName(PrefferedLocaleStruct? val) => _lastName = val;
-  void updateLastName(Function(PrefferedLocaleStruct) updateFn) =>
-      updateFn(_lastName ??= PrefferedLocaleStruct());
+
+  void updateLastName(Function(PrefferedLocaleStruct) updateFn) {
+    updateFn(lastName ??= PrefferedLocaleStruct());
+  }
+
   bool hasLastName() => _lastName != null;
 
   // "localizedHeadline" field.
   String? _localizedHeadline;
   String get localizedHeadline => _localizedHeadline ?? '';
   set localizedHeadline(String? val) => _localizedHeadline = val;
+
   bool hasLocalizedHeadline() => _localizedHeadline != null;
 
   // "headline" field.
   PrefferedLocaleStruct? _headline;
   PrefferedLocaleStruct get headline => _headline ?? PrefferedLocaleStruct();
   set headline(PrefferedLocaleStruct? val) => _headline = val;
-  void updateHeadline(Function(PrefferedLocaleStruct) updateFn) =>
-      updateFn(_headline ??= PrefferedLocaleStruct());
+
+  void updateHeadline(Function(PrefferedLocaleStruct) updateFn) {
+    updateFn(headline ??= PrefferedLocaleStruct());
+  }
+
   bool hasHeadline() => _headline != null;
 
   // "vanityName" field.
   String? _vanityName;
   String get vanityName => _vanityName ?? '';
   set vanityName(String? val) => _vanityName = val;
+
   bool hasVanityName() => _vanityName != null;
 
   // "id" field.
   String? _id;
   String get id => _id ?? '';
   set id(String? val) => _id = val;
+
   bool hasId() => _id != null;
 
   static LinkedinDetailsAuthStruct fromMap(Map<String, dynamic> data) =>

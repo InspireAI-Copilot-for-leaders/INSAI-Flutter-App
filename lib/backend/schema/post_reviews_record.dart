@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import '/backend/schema/util/firestore_util.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class PostReviewsRecord extends FirestoreRecord {
   PostReviewsRecord._(
@@ -39,12 +40,18 @@ class PostReviewsRecord extends FirestoreRecord {
   List<String> get problems => _problems ?? const [];
   bool hasProblems() => _problems != null;
 
+  // "campaignPostRef" field.
+  DocumentReference? _campaignPostRef;
+  DocumentReference? get campaignPostRef => _campaignPostRef;
+  bool hasCampaignPostRef() => _campaignPostRef != null;
+
   void _initializeFields() {
     _postRef = snapshotData['postRef'] as DocumentReference?;
     _userRef = snapshotData['userRef'] as DocumentReference?;
     _problemDescription = snapshotData['problemDescription'] as String?;
     _timestamp = snapshotData['timestamp'] as DateTime?;
     _problems = getDataList(snapshotData['problems']);
+    _campaignPostRef = snapshotData['campaignPostRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -86,6 +93,7 @@ Map<String, dynamic> createPostReviewsRecordData({
   DocumentReference? userRef,
   String? problemDescription,
   DateTime? timestamp,
+  DocumentReference? campaignPostRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -93,6 +101,7 @@ Map<String, dynamic> createPostReviewsRecordData({
       'userRef': userRef,
       'problemDescription': problemDescription,
       'timestamp': timestamp,
+      'campaignPostRef': campaignPostRef,
     }.withoutNulls,
   );
 
@@ -109,7 +118,8 @@ class PostReviewsRecordDocumentEquality implements Equality<PostReviewsRecord> {
         e1?.userRef == e2?.userRef &&
         e1?.problemDescription == e2?.problemDescription &&
         e1?.timestamp == e2?.timestamp &&
-        listEquality.equals(e1?.problems, e2?.problems);
+        listEquality.equals(e1?.problems, e2?.problems) &&
+        e1?.campaignPostRef == e2?.campaignPostRef;
   }
 
   @override
@@ -118,7 +128,8 @@ class PostReviewsRecordDocumentEquality implements Equality<PostReviewsRecord> {
         e?.userRef,
         e?.problemDescription,
         e?.timestamp,
-        e?.problems
+        e?.problems,
+        e?.campaignPostRef
       ]);
 
   @override

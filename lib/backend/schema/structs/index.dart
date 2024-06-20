@@ -1,5 +1,6 @@
 export '/backend/schema/util/schema_util.dart';
 
+export 'active_companies_struct.dart';
 export 'article_metadata_struct.dart';
 export 'content_struct.dart';
 export 'elements_struct.dart';

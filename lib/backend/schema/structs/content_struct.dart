@@ -17,6 +17,7 @@ class ContentStruct extends FFFirebaseStruct {
   String? _content;
   String get content => _content ?? '';
   set content(String? val) => _content = val;
+
   bool hasContent() => _content != null;
 
   static ContentStruct fromMap(Map<String, dynamic> data) => ContentStruct(

@@ -54,14 +54,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           'inProgress') {
         if (currentUserEmail == 'admindemo@inspireai.com') {
           logFirebaseEvent('linkedinAuth_update_page_state');
-          setState(() {
-            _model.isLoading = false;
-          });
+          _model.isLoading = false;
+          setState(() {});
         } else {
           logFirebaseEvent('linkedinAuth_backend_call');
           _model.linkedintokens = await LinkedinTokensCall.call(
             authCodeRecieved: widget.code,
           );
+
           if ((_model.linkedintokens?.succeeded ?? true)) {
             logFirebaseEvent('linkedinAuth_backend_call');
 
@@ -81,6 +81,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
               authToken:
                   valueOrDefault(currentUserDocument?.linkedinAccess, ''),
             );
+
             if ((_model.lIprofileDetails?.succeeded ?? true)) {
               logFirebaseEvent('linkedinAuth_backend_call');
 
@@ -102,9 +103,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
               );
               if (_model.wannabeUser!.isNotEmpty) {
                 logFirebaseEvent('linkedinAuth_update_page_state');
-                setState(() {
-                  _model.preDefinedUserDoc = _model.wannabeUser?.first;
-                });
+                _model.preDefinedUserDoc = _model.wannabeUser?.first;
+                setState(() {});
                 logFirebaseEvent('linkedinAuth_backend_call');
 
                 await currentUserReference!.update({
@@ -121,9 +121,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                   ),
                 });
                 logFirebaseEvent('linkedinAuth_update_page_state');
-                setState(() {
-                  _model.isLoading = false;
-                });
+                _model.isLoading = false;
+                setState(() {});
                 logFirebaseEvent('linkedinAuth_backend_call');
 
                 await currentUserReference!.update(createUsersRecordData(
@@ -136,11 +135,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                       'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
                   uid: currentUserUid,
                 );
+
                 if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
                   logFirebaseEvent('linkedinAuth_update_page_state');
-                  setState(() {
-                    _model.isLoading = false;
-                  });
+                  _model.isLoading = false;
+                  setState(() {});
                   logFirebaseEvent('linkedinAuth_backend_call');
 
                   await currentUserReference!.update(createUsersRecordData(
@@ -189,9 +188,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
         }
       } else {
         logFirebaseEvent('linkedinAuth_update_page_state');
-        setState(() {
-          _model.isLoading = false;
-        });
+        _model.isLoading = false;
+        setState(() {});
       }
     });
 
@@ -756,19 +754,18 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                               () async {
                                                                             logFirebaseEvent('LINKEDIN_AUTH_Container_dxz8mxil_ON_TAP');
                                                                             logFirebaseEvent('Container_update_page_state');
-                                                                            setState(() {
-                                                                              _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                            });
+                                                                            _model.leadershipAreasMapping =
+                                                                                (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                            setState(() {});
                                                                             logFirebaseEvent('Container_update_page_state');
-                                                                            setState(() {
-                                                                              _model.updateLeadershipAreasMappingAtIndex(
-                                                                                thoughtLeadershipAreasIndex,
-                                                                                (e) => e
-                                                                                  ..updateSubCategories(
-                                                                                    (e) => e.remove(expertiseAreaItem),
-                                                                                  ),
-                                                                              );
-                                                                            });
+                                                                            _model.updateLeadershipAreasMappingAtIndex(
+                                                                              thoughtLeadershipAreasIndex,
+                                                                              (e) => e
+                                                                                ..updateSubCategories(
+                                                                                  (e) => e.remove(expertiseAreaItem),
+                                                                                ),
+                                                                            );
+                                                                            setState(() {});
                                                                             logFirebaseEvent('Container_backend_call');
 
                                                                             await currentUserReference!.update({
@@ -998,9 +995,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                         .isNotEmpty) {
                                                   logFirebaseEvent(
                                                       'contentURL1_update_page_state');
-                                                  setState(() {
-                                                    _model.emptySearch = false;
-                                                  });
+                                                  _model.emptySearch = false;
+                                                  setState(() {});
                                                 } else {
                                                   logFirebaseEvent(
                                                       'contentURL1_wait__delay');
@@ -1009,16 +1005,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           milliseconds: 1000));
                                                   logFirebaseEvent(
                                                       'contentURL1_update_page_state');
-                                                  setState(() {
-                                                    _model.emptySearch = true;
-                                                  });
+                                                  _model.emptySearch = true;
+                                                  setState(() {});
                                                 }
                                               } else {
                                                 logFirebaseEvent(
                                                     'contentURL1_update_page_state');
-                                                setState(() {
-                                                  _model.emptySearch = false;
-                                                });
+                                                _model.emptySearch = false;
+                                                setState(() {});
                                               }
                                             },
                                           ),
@@ -1323,21 +1317,19 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                             logFirebaseEvent('LINKEDIN_AUTH_Container_nc4vam80_ON_TAP');
                                                                                             if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
                                                                                               logFirebaseEvent('Container_update_page_state');
-                                                                                              setState(() {
-                                                                                                _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                                _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
-                                                                                              });
+                                                                                              _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                              _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
+                                                                                              setState(() {});
                                                                                               if ((currentUserDocument?.broadDomains.toList() ?? []).contains(broadDomainListItem.broadDomain)) {
                                                                                                 logFirebaseEvent('Container_update_page_state');
-                                                                                                setState(() {
-                                                                                                  _model.updateLeadershipAreasMappingAtIndex(
-                                                                                                    functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListItem.broadDomain),
-                                                                                                    (e) => e
-                                                                                                      ..updateSubCategories(
-                                                                                                        (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
-                                                                                                      ),
-                                                                                                  );
-                                                                                                });
+                                                                                                _model.updateLeadershipAreasMappingAtIndex(
+                                                                                                  functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListItem.broadDomain),
+                                                                                                  (e) => e
+                                                                                                    ..updateSubCategories(
+                                                                                                      (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
+                                                                                                    ),
+                                                                                                );
+                                                                                                setState(() {});
                                                                                                 logFirebaseEvent('Container_backend_call');
 
                                                                                                 await currentUserReference!.update({
@@ -1354,12 +1346,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                                 });
                                                                                               } else {
                                                                                                 logFirebaseEvent('Container_update_page_state');
-                                                                                                setState(() {
-                                                                                                  _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
-                                                                                                    category: broadDomainListItem.broadDomain,
-                                                                                                    subCategories: _model.addExpertiseAreaList,
-                                                                                                  ));
-                                                                                                });
+                                                                                                _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
+                                                                                                  category: broadDomainListItem.broadDomain,
+                                                                                                  subCategories: _model.addExpertiseAreaList,
+                                                                                                ));
+                                                                                                setState(() {});
                                                                                                 logFirebaseEvent('Container_backend_call');
 
                                                                                                 await currentUserReference!.update({
@@ -1380,9 +1371,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                               }
 
                                                                                               logFirebaseEvent('Container_update_page_state');
-                                                                                              setState(() {
-                                                                                                _model.addExpertiseAreaList = [];
-                                                                                              });
+                                                                                              _model.addExpertiseAreaList = [];
+                                                                                              setState(() {});
                                                                                             }
                                                                                           },
                                                                                           child: Container(
@@ -1695,21 +1685,19 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                         logFirebaseEvent('LINKEDIN_AUTH_Container_43go6gof_ON_TAP');
                                                                                         if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
                                                                                           logFirebaseEvent('Container_update_page_state');
-                                                                                          setState(() {
-                                                                                            _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                            _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
-                                                                                          });
+                                                                                          _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                          _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
+                                                                                          setState(() {});
                                                                                           if ((currentUserDocument?.broadDomains.toList() ?? []).contains(listViewBroadDomainRecord.broadDomain)) {
                                                                                             logFirebaseEvent('Container_update_page_state');
-                                                                                            setState(() {
-                                                                                              _model.updateLeadershipAreasMappingAtIndex(
-                                                                                                functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), listViewBroadDomainRecord.broadDomain),
-                                                                                                (e) => e
-                                                                                                  ..updateSubCategories(
-                                                                                                    (e) => e.add(expertiseAreaSearchItem.expertiseArea),
-                                                                                                  ),
-                                                                                              );
-                                                                                            });
+                                                                                            _model.updateLeadershipAreasMappingAtIndex(
+                                                                                              functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), listViewBroadDomainRecord.broadDomain),
+                                                                                              (e) => e
+                                                                                                ..updateSubCategories(
+                                                                                                  (e) => e.add(expertiseAreaSearchItem.expertiseArea),
+                                                                                                ),
+                                                                                            );
+                                                                                            setState(() {});
                                                                                             logFirebaseEvent('Container_backend_call');
 
                                                                                             await currentUserReference!.update({
@@ -1726,12 +1714,11 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                             });
                                                                                           } else {
                                                                                             logFirebaseEvent('Container_update_page_state');
-                                                                                            setState(() {
-                                                                                              _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
-                                                                                                category: listViewBroadDomainRecord.broadDomain,
-                                                                                                subCategories: _model.addExpertiseAreaList,
-                                                                                              ));
-                                                                                            });
+                                                                                            _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
+                                                                                              category: listViewBroadDomainRecord.broadDomain,
+                                                                                              subCategories: _model.addExpertiseAreaList,
+                                                                                            ));
+                                                                                            setState(() {});
                                                                                             logFirebaseEvent('Container_backend_call');
 
                                                                                             await currentUserReference!.update({
@@ -1752,9 +1739,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                           }
 
                                                                                           logFirebaseEvent('Container_update_page_state');
-                                                                                          setState(() {
-                                                                                            _model.addExpertiseAreaList = [];
-                                                                                          });
+                                                                                          _model.addExpertiseAreaList = [];
+                                                                                          setState(() {});
                                                                                         }
                                                                                       },
                                                                                       child: Container(
@@ -1845,10 +1831,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           'LINKEDIN_AUTH_PAGE_+_ADD_NEW_BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
-                                                      setState(() {
-                                                        _model.addNewArea =
-                                                            true;
-                                                      });
+                                                      _model.addNewArea = true;
+                                                      setState(() {});
                                                     },
                                                     text: '+ Add New',
                                                     options: FFButtonOptions(
@@ -2292,20 +2276,18 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           'LINKEDIN_AUTH_ADD_EXPERTISE_AREA_BTN_ON_');
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
-                                                      setState(() {
-                                                        _model.leadershipAreasMapping =
-                                                            (currentUserDocument
-                                                                        ?.thoughtLeadershipAreasMapping
-                                                                        .toList() ??
-                                                                    [])
-                                                                .toList()
-                                                                .cast<
-                                                                    ThoughtLeadershipAreasMappingStruct>();
-                                                        _model.addToAddExpertiseAreaList(
-                                                            _model
-                                                                .textController2
-                                                                .text);
-                                                      });
+                                                      _model.leadershipAreasMapping =
+                                                          (currentUserDocument
+                                                                      ?.thoughtLeadershipAreasMapping
+                                                                      .toList() ??
+                                                                  [])
+                                                              .toList()
+                                                              .cast<
+                                                                  ThoughtLeadershipAreasMappingStruct>();
+                                                      _model.addToAddExpertiseAreaList(
+                                                          _model.textController2
+                                                              .text);
+                                                      setState(() {});
                                                       if ((currentUserDocument
                                                                   ?.broadDomains
                                                                   .toList() ??
@@ -2314,24 +2296,22 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                               .dropDownValue)) {
                                                         logFirebaseEvent(
                                                             'Button_update_page_state');
-                                                        setState(() {
-                                                          _model
-                                                              .updateLeadershipAreasMappingAtIndex(
-                                                            functions.getIndexFromList(
-                                                                (currentUserDocument
-                                                                            ?.broadDomains
-                                                                            .toList() ??
-                                                                        [])
-                                                                    .toList(),
-                                                                _model
-                                                                    .dropDownValue!),
-                                                            (e) => e
-                                                              ..subCategories =
-                                                                  _model
-                                                                      .addExpertiseAreaList
-                                                                      .toList(),
-                                                          );
-                                                        });
+                                                        _model
+                                                            .updateLeadershipAreasMappingAtIndex(
+                                                          functions.getIndexFromList(
+                                                              (currentUserDocument
+                                                                          ?.broadDomains
+                                                                          .toList() ??
+                                                                      [])
+                                                                  .toList(),
+                                                              _model
+                                                                  .dropDownValue!),
+                                                          (e) => e
+                                                            ..subCategories = _model
+                                                                .addExpertiseAreaList
+                                                                .toList(),
+                                                        );
+                                                        setState(() {});
                                                         logFirebaseEvent(
                                                             'Button_backend_call');
 
@@ -2357,15 +2337,14 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                       } else {
                                                         logFirebaseEvent(
                                                             'Button_update_page_state');
-                                                        setState(() {
-                                                          _model.addToLeadershipAreasMapping(
-                                                              ThoughtLeadershipAreasMappingStruct(
-                                                            category: _model
-                                                                .dropDownValue,
-                                                            subCategories: _model
-                                                                .addExpertiseAreaList,
-                                                          ));
-                                                        });
+                                                        _model.addToLeadershipAreasMapping(
+                                                            ThoughtLeadershipAreasMappingStruct(
+                                                          category: _model
+                                                              .dropDownValue,
+                                                          subCategories: _model
+                                                              .addExpertiseAreaList,
+                                                        ));
+                                                        setState(() {});
                                                         logFirebaseEvent(
                                                             'Button_backend_call');
 
@@ -2398,12 +2377,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
 
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
-                                                      setState(() {
-                                                        _model.addNewArea =
-                                                            false;
-                                                        _model.addExpertiseAreaList =
-                                                            [];
-                                                      });
+                                                      _model.addNewArea = false;
+                                                      _model.addExpertiseAreaList =
+                                                          [];
+                                                      setState(() {});
                                                       logFirebaseEvent(
                                                           'Button_clear_text_fields_pin_codes');
                                                       setState(() {
@@ -2481,10 +2458,8 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                           'LINKEDIN_AUTH_PAGE_CANCEL_BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
-                                                      setState(() {
-                                                        _model.addNewArea =
-                                                            false;
-                                                      });
+                                                      _model.addNewArea = false;
+                                                      setState(() {});
                                                     },
                                                     text: 'Cancel',
                                                     options: FFButtonOptions(
