@@ -290,6 +290,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                       0,
                                       16.0,
                                     ),
+                                    primary: false,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     children: [

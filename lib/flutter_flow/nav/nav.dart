@@ -447,6 +447,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   'postTitle',
                   ParamType.String,
                 ),
+                status: params.getParam(
+                  'status',
+                  ParamType.String,
+                ),
+                scheduledTime: params.getParam(
+                  'scheduledTime',
+                  ParamType.DateTime,
+                ),
+                indexInList: params.getParam(
+                  'indexInList',
+                  ParamType.int,
+                ),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),

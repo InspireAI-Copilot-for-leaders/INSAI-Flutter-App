@@ -288,6 +288,9 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                               BorderRadius.circular(12.0),
                                         ),
                                         child: Container(
+                                          constraints: const BoxConstraints(
+                                            maxHeight: 280.0,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
@@ -295,7 +298,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                 BorderRadius.circular(12.0),
                                           ),
                                           child: Column(
-                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisSize: MainAxisSize.min,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
@@ -326,49 +329,34 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                       ),
                                                 ),
                                               ),
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    -1.0, -1.0),
+                                              Expanded(
                                                 child: Padding(
                                                   padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(12.0, 12.0,
-                                                          12.0, 12.0),
+                                                      .fromSTEB(12.0, 8.0, 12.0,
+                                                          12.0),
                                                   child: AuthUserStreamWidget(
                                                     builder: (context) =>
                                                         Builder(
                                                       builder: (context) {
-                                                        final broadDomainsList =
+                                                        final broadDomains =
                                                             (currentUserDocument
                                                                         ?.broadDomains
                                                                         .toList() ??
                                                                     [])
                                                                 .toList();
-                                                        return Wrap(
-                                                          spacing: 4.0,
-                                                          runSpacing: 4.0,
-                                                          alignment:
-                                                              WrapAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              WrapCrossAlignment
-                                                                  .start,
-                                                          direction:
-                                                              Axis.horizontal,
-                                                          runAlignment:
-                                                              WrapAlignment
-                                                                  .start,
-                                                          verticalDirection:
-                                                              VerticalDirection
-                                                                  .down,
-                                                          clipBehavior:
-                                                              Clip.none,
-                                                          children: List.generate(
-                                                              broadDomainsList
+                                                        return ListView.builder(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          itemCount:
+                                                              broadDomains
                                                                   .length,
-                                                              (broadDomainsListIndex) {
-                                                            final broadDomainsListItem =
-                                                                broadDomainsList[
-                                                                    broadDomainsListIndex];
+                                                          itemBuilder: (context,
+                                                              broadDomainsIndex) {
+                                                            final broadDomainsItem =
+                                                                broadDomains[
+                                                                    broadDomainsIndex];
                                                             return InkWell(
                                                               splashColor: Colors
                                                                   .transparent,
@@ -385,7 +373,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                                 logFirebaseEvent(
                                                                     'Container_update_page_state');
                                                                 _model.selectedCompanyIndex =
-                                                                    broadDomainsListIndex;
+                                                                    broadDomainsIndex;
                                                                 setState(() {});
                                                               },
                                                               child: Material(
@@ -405,7 +393,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                                       .infinity,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: broadDomainsListIndex ==
+                                                                    color: broadDomainsIndex ==
                                                                             _model
                                                                                 .selectedCompanyIndex
                                                                         ? FlutterFlowTheme.of(context)
@@ -446,7 +434,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                                                 Padding(
                                                                               padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
                                                                               child: Text(
-                                                                                broadDomainsListItem,
+                                                                                broadDomainsItem,
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                       color: FlutterFlowTheme.of(context).primaryText,
@@ -465,7 +453,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                                 ),
                                                               ),
                                                             );
-                                                          }),
+                                                          },
                                                         );
                                                       },
                                                     ),
@@ -681,6 +669,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                 campaignId:
                                     '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
                                 createdOn: getCurrentTimestamp,
+                                campaignTitle: _model.textController.text,
                               ));
                               _model.apiResult7vv =
                                   CampaignsDetailsRecord.getDocumentFromData(
@@ -688,6 +677,8 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                         campaignId:
                                             '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
                                         createdOn: getCurrentTimestamp,
+                                        campaignTitle:
+                                            _model.textController.text,
                                       ),
                                       campaignsDetailsRecordReference);
                               logFirebaseEvent('Button_backend_call');

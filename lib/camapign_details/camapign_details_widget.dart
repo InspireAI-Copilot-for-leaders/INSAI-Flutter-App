@@ -203,7 +203,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                 logFirebaseEvent(
                                     'CAMAPIGN_DETAILS_Container_ocxohmtc_ON_T');
                                 if (listViewCampaignRecord.status !=
-                                    'pending') {
+                                    'Pending') {
                                   logFirebaseEvent('Container_navigate_to');
 
                                   context.pushNamed(
@@ -220,6 +220,18 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                       'postTitle': serializeParam(
                                         widget.campaignTitle,
                                         ParamType.String,
+                                      ),
+                                      'status': serializeParam(
+                                        listViewCampaignRecord.status,
+                                        ParamType.String,
+                                      ),
+                                      'scheduledTime': serializeParam(
+                                        listViewCampaignRecord.scheduledTime,
+                                        ParamType.DateTime,
+                                      ),
+                                      'indexInList': serializeParam(
+                                        listViewIndex,
+                                        ParamType.int,
                                       ),
                                     }.withoutNulls,
                                   );
@@ -243,10 +255,10 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                         CrossAxisAlignment.start,
                                     children: [
                                       if (listViewCampaignRecord.status !=
-                                          'pending')
+                                          'Pending')
                                         Text(
                                           listViewCampaignRecord.finalPost,
-                                          maxLines: 3,
+                                          maxLines: 2,
                                           style: FlutterFlowTheme.of(context)
                                               .headlineSmall
                                               .override(
@@ -261,7 +273,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                               ),
                                         ),
                                       if (listViewCampaignRecord.status ==
-                                          'pending')
+                                          'Pending')
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -372,37 +384,39 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                                 ),
                                               ),
                                             ),
-                                          Container(
-                                            width: 100.0,
-                                            height: 32.0,
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFF81E1D7),
-                                              borderRadius:
-                                                  BorderRadius.circular(32.0),
-                                            ),
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              listViewCampaignRecord.status ==
-                                                      'scheduled'
-                                                  ? 'Scheduled'
-                                                  : 'To be Approved',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color: Colors.white,
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                'Plus Jakarta Sans'),
-                                                      ),
+                                          Flexible(
+                                            child: Container(
+                                              height: 32.0,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFF81E1D7),
+                                                borderRadius:
+                                                    BorderRadius.circular(32.0),
+                                              ),
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                listViewCampaignRecord.status ==
+                                                        'scheduled'
+                                                    ? 'Scheduled'
+                                                    : 'To be Approved',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color: Colors.white,
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts:
+                                                              GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Plus Jakarta Sans'),
+                                                        ),
+                                              ),
                                             ),
                                           ),
                                         ],

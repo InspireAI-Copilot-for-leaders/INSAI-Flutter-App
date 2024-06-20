@@ -10,6 +10,7 @@ import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,11 +24,17 @@ class ViewOrEditCampaignPostWidget extends StatefulWidget {
     required this.postText,
     required this.postRef,
     required this.postTitle,
+    this.status,
+    this.scheduledTime,
+    this.indexInList,
   });
 
   final String? postText;
   final DocumentReference? postRef;
   final String? postTitle;
+  final String? status;
+  final DateTime? scheduledTime;
+  final int? indexInList;
 
   @override
   State<ViewOrEditCampaignPostWidget> createState() =>
@@ -49,6 +56,17 @@ class _ViewOrEditCampaignPostWidgetState
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'viewOrEditCampaignPost'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('VIEW_OR_EDIT_CAMPAIGN_POST_viewOrEditCam');
+      if (widget.status == 'scheduled') {
+        logFirebaseEvent('viewOrEditCampaignPost_update_page_state');
+        _model.isScheduled = true;
+        _model.scheduledDate = widget.scheduledTime;
+        _model.scheduledTime = widget.scheduledTime;
+        setState(() {});
+      }
+    });
 
     _model.textFieldFocusNode ??= FocusNode();
 
@@ -477,6 +495,24 @@ class _ViewOrEditCampaignPostWidgetState
                                                         logFirebaseEvent(
                                                             'Button_backend_call');
 
+                                                        await widget.postRef!
+                                                            .update(
+                                                                createCampaignRecordData(
+                                                          status: 'scheduled',
+                                                          scheduledTime: functions
+                                                              .combineDateTimeStr(
+                                                                  functions.modifiedDateTime(
+                                                                      getCurrentTimestamp,
+                                                                      0,
+                                                                      0,
+                                                                      (widget.indexInList!) +
+                                                                          1,
+                                                                      true)!,
+                                                                  '9:47:00'),
+                                                        ));
+                                                        logFirebaseEvent(
+                                                            'Button_backend_call');
+
                                                         await ScheduledPostsRecord
                                                             .collection
                                                             .doc()
@@ -514,32 +550,29 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   .postTitle,
                                                             ));
                                                         logFirebaseEvent(
-                                                            'Button_backend_call');
-
-                                                        await widget.postRef!
-                                                            .update(
-                                                                createCampaignRecordData(
-                                                          status: 'scheduled',
-                                                          scheduledTime: functions
-                                                              .combineDateTimeStr(
-                                                                  functions.modifiedDateTime(
-                                                                      getCurrentTimestamp,
-                                                                      0,
-                                                                      0,
-                                                                      1,
-                                                                      true)!,
-                                                                  '9:47:00'),
-                                                        ));
-                                                        logFirebaseEvent(
                                                             'Button_update_page_state');
                                                         _model.isScheduled =
                                                             true;
-                                                        _model.scheduledTime =
-                                                            containerCampaignRecord
-                                                                .scheduledTime;
-                                                        _model.scheduledDate =
-                                                            containerCampaignRecord
-                                                                .scheduledTime;
+                                                        _model.scheduledTime = functions
+                                                            .combineDateTimeStr(
+                                                                functions.modifiedDateTime(
+                                                                    getCurrentTimestamp,
+                                                                    0,
+                                                                    0,
+                                                                    (widget.indexInList!) +
+                                                                        1,
+                                                                    true)!,
+                                                                '9:47:00');
+                                                        _model.scheduledDate = functions
+                                                            .combineDateTimeStr(
+                                                                functions.modifiedDateTime(
+                                                                    getCurrentTimestamp,
+                                                                    0,
+                                                                    0,
+                                                                    (widget.indexInList!) +
+                                                                        1,
+                                                                    true)!,
+                                                                '9:47:00');
                                                         setState(() {});
                                                       },
                                                       text: 'Approve',

@@ -254,8 +254,8 @@ class _CampaignLoadingWidgetState extends State<CampaignLoadingWidget>
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
-                      child: Lottie.network(
-                        'https://lottie.host/ccc1daad-8ea0-4c88-a10a-f4d484d709c5/SEpK5Wczix.json',
+                      child: Lottie.asset(
+                        'assets/lottie_animations/Animation_-_1718652427523.json',
                         width: 250.0,
                         height: 130.0,
                         fit: BoxFit.cover,

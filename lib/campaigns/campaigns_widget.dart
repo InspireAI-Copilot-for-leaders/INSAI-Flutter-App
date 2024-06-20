@@ -2370,81 +2370,133 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                           0.0,
                                                                           12.0),
                                                                   child:
-                                                                      Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.0),
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: const Color(
-                                                                            0xFFE0E3E7),
-                                                                        width:
-                                                                            2.0,
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              12.0),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      logFirebaseEvent(
+                                                                          'CAMPAIGNS_PAGE_Container_wgueqzg4_ON_TAP');
+                                                                      logFirebaseEvent(
+                                                                          'Container_navigate_to');
+
+                                                                      context
+                                                                          .pushNamed(
+                                                                        'camapignDetails',
+                                                                        queryParameters:
+                                                                            {
+                                                                          'campaignID':
+                                                                              serializeParam(
+                                                                            listViewCampaignsDetailsRecord.campaignId,
+                                                                            ParamType.String,
+                                                                          ),
+                                                                          'campaignTitle':
+                                                                              serializeParam(
                                                                             listViewCampaignsDetailsRecord.campaignTitle,
-                                                                            style: FlutterFlowTheme.of(context).headlineSmall.override(
-                                                                                  fontFamily: 'Outfit',
-                                                                                  color: const Color(0xFF0F1113),
-                                                                                  fontSize: 20.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.normal,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                            ParamType.String,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                      );
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width: double
+                                                                          .infinity,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12.0),
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              const Color(0xFFE0E3E7),
+                                                                          width:
+                                                                              2.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(12.0),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              listViewCampaignsDetailsRecord.campaignTitle,
+                                                                              style: FlutterFlowTheme.of(context).headlineSmall.override(
+                                                                                    fontFamily: 'Outfit',
+                                                                                    color: const Color(0xFF0F1113),
+                                                                                    fontSize: 20.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                                  ),
+                                                                            ),
+                                                                            const Divider(
+                                                                              height: 24.0,
+                                                                              thickness: 1.0,
+                                                                              color: Color(0xFFE0E3E7),
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(
+                                                                                  'Created on',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Plus Jakarta Sans',
+                                                                                        color: const Color(0xFF0F1113),
+                                                                                        fontSize: 14.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                      ),
                                                                                 ),
-                                                                          ),
-                                                                          const Divider(
-                                                                            height:
-                                                                                24.0,
-                                                                            thickness:
-                                                                                1.0,
-                                                                            color:
-                                                                                Color(0xFFE0E3E7),
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Created on',
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Plus Jakarta Sans',
-                                                                                      color: const Color(0xFF0F1113),
-                                                                                      fontSize: 14.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                Expanded(
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      dateTimeFormat('MMMEd', listViewCampaignsDetailsRecord.createdOn!),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Plus Jakarta Sans',
+                                                                                            color: const Color(0xFF827AE1),
+                                                                                            fontSize: 14.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                                          ),
                                                                                     ),
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                  ),
+                                                                                ),
+                                                                                Container(
+                                                                                  width: 100.0,
+                                                                                  height: 32.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: const Color(0xFF81E1D7),
+                                                                                    borderRadius: BorderRadius.circular(32.0),
+                                                                                  ),
+                                                                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    dateTimeFormat('MMMEd', listViewCampaignsDetailsRecord.createdOn!),
+                                                                                    'In Progress',
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: 'Plus Jakarta Sans',
-                                                                                          color: const Color(0xFF827AE1),
+                                                                                          color: Colors.white,
                                                                                           fontSize: 14.0,
                                                                                           letterSpacing: 0.0,
                                                                                           fontWeight: FontWeight.w500,
@@ -2452,30 +2504,10 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                                         ),
                                                                                   ),
                                                                                 ),
-                                                                              ),
-                                                                              Container(
-                                                                                width: 100.0,
-                                                                                height: 32.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: const Color(0xFF81E1D7),
-                                                                                  borderRadius: BorderRadius.circular(32.0),
-                                                                                ),
-                                                                                alignment: const AlignmentDirectional(0.0, 0.0),
-                                                                                child: Text(
-                                                                                  'In Progress',
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Plus Jakarta Sans',
-                                                                                        color: Colors.white,
-                                                                                        fontSize: 14.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        fontWeight: FontWeight.w500,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ).animateOnPageLoad(
