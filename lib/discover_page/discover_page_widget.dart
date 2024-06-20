@@ -57,9 +57,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
       }
       if (FFAppState().lastDiscoverCachedTime == null) {
         logFirebaseEvent('discoverPage_update_app_state');
-        setState(() {
-          FFAppState().lastDiscoverCachedTime = getCurrentTimestamp;
-        });
+        FFAppState().lastDiscoverCachedTime = getCurrentTimestamp;
+        setState(() {});
       }
       logFirebaseEvent('discoverPage_custom_action');
       _model.isCacheOverride = actions.isOverrideCacheAction(
@@ -67,18 +66,16 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
       );
       if (_model.isCacheOverride!) {
         logFirebaseEvent('discoverPage_update_app_state');
-        setState(() {
-          FFAppState().shouldOverideDiscoverCache = true;
-          FFAppState().lastDiscoverCachedTime = getCurrentTimestamp;
-        });
+        FFAppState().shouldOverideDiscoverCache = true;
+        FFAppState().lastDiscoverCachedTime = getCurrentTimestamp;
+        setState(() {});
         logFirebaseEvent('discoverPage_clear_query_cache');
         FFAppState().clearDiscoverCacheKey(currentUserUid);
         logFirebaseEvent('discoverPage_wait__delay');
         await Future.delayed(const Duration(milliseconds: 1000));
         logFirebaseEvent('discoverPage_update_app_state');
-        setState(() {
-          FFAppState().shouldOverideDiscoverCache = false;
-        });
+        FFAppState().shouldOverideDiscoverCache = false;
+        setState(() {});
       }
     });
 
@@ -688,9 +685,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     if (FFAppState().drawer) {
                                       logFirebaseEvent(
                                           'Container_update_app_state');
-                                      setState(() {
-                                        FFAppState().drawer = false;
-                                      });
+                                      FFAppState().drawer = false;
+                                      setState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -737,9 +733,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     } else {
                                       logFirebaseEvent(
                                           'Container_update_app_state');
-                                      setState(() {
-                                        FFAppState().drawer = true;
-                                      });
+                                      FFAppState().drawer = true;
+                                      setState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -1488,10 +1483,9 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     'DISCOVER_Container_g1ddbls6_ON_TAP');
                                                                 logFirebaseEvent(
                                                                     'Container_update_page_state');
-                                                                setState(() {
-                                                                  _model.filteredTabView =
-                                                                      'For You';
-                                                                });
+                                                                _model.filteredTabView =
+                                                                    'For You';
+                                                                setState(() {});
                                                               },
                                                               child: Container(
                                                                 height: 32.0,
@@ -1604,11 +1598,10 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                             'DISCOVER_Container_1py88yyo_ON_TAP');
                                                                         logFirebaseEvent(
                                                                             'Container_update_page_state');
+                                                                        _model.filteredTabView =
+                                                                            filterTabsItem;
                                                                         setState(
-                                                                            () {
-                                                                          _model.filteredTabView =
-                                                                              filterTabsItem;
-                                                                        });
+                                                                            () {});
                                                                       },
                                                                       child:
                                                                           Container(
@@ -2333,10 +2326,9 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                 'DISCOVER_PAGE_PAGE_MiddleButton_ON_TAP');
                                             logFirebaseEvent(
                                                 'MiddleButton_update_page_state');
-                                            setState(() {
-                                              _model.createContentDialogVisible =
-                                                  true;
-                                            });
+                                            _model.createContentDialogVisible =
+                                                true;
+                                            setState(() {});
                                           },
                                         ),
                                       ),
@@ -2485,17 +2477,15 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       }
                                       logFirebaseEvent(
                                           'Badge_update_app_state');
-                                      setState(() {
-                                        FFAppState().isNotificationsVisible =
-                                            false;
-                                      });
+                                      FFAppState().isNotificationsVisible =
+                                          false;
+                                      setState(() {});
                                     } else {
                                       logFirebaseEvent(
                                           'Badge_update_app_state');
-                                      setState(() {
-                                        FFAppState().isNotificationsVisible =
-                                            true;
-                                      });
+                                      FFAppState().isNotificationsVisible =
+                                          true;
+                                      setState(() {});
                                       logFirebaseEvent('Badge_wait__delay');
                                       await Future.delayed(
                                           const Duration(milliseconds: 100));
@@ -2746,9 +2736,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                     logFirebaseEvent(
                                         'DISCOVER_PAGE_PAGE_Icon_cily0l7t_ON_TAP');
                                     logFirebaseEvent('Icon_update_page_state');
-                                    setState(() {
-                                      _model.createContentDialogVisible = false;
-                                    });
+                                    _model.createContentDialogVisible = false;
+                                    setState(() {});
                                   },
                                   child: Icon(
                                     Icons.close,

@@ -586,10 +586,9 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                             logFirebaseEvent(
                                 'CREATE_POLL_COMP_Text_vmivgjhs_ON_TAP');
                             logFirebaseEvent('Text_update_component_state');
-                            setState(() {
-                              _model.optionFieldsNumber =
-                                  _model.optionFieldsNumber + -1;
-                            });
+                            _model.optionFieldsNumber =
+                                _model.optionFieldsNumber + -1;
+                            setState(() {});
                           },
                           child: Text(
                             'Remove',
@@ -715,10 +714,9 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                             logFirebaseEvent(
                                 'CREATE_POLL_COMP_Text_nejoqu11_ON_TAP');
                             logFirebaseEvent('Text_update_component_state');
-                            setState(() {
-                              _model.optionFieldsNumber =
-                                  _model.optionFieldsNumber + -1;
-                            });
+                            _model.optionFieldsNumber =
+                                _model.optionFieldsNumber + -1;
+                            setState(() {});
                           },
                           child: Text(
                             'Remove',
@@ -749,10 +747,8 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                       logFirebaseEvent(
                           'CREATE_POLL_COMP_+_ADD_OPTION_BTN_ON_TAP');
                       logFirebaseEvent('Button_update_component_state');
-                      setState(() {
-                        _model.optionFieldsNumber =
-                            _model.optionFieldsNumber + 1;
-                      });
+                      _model.optionFieldsNumber = _model.optionFieldsNumber + 1;
+                      setState(() {});
                     },
                     text: '+ Add Option',
                     options: FFButtonOptions(

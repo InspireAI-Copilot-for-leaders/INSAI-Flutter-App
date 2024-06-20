@@ -423,9 +423,8 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                                 'UPLOAD_DOC_Container_kh46wjpx_ON_TAP');
                             logFirebaseEvent(
                                 'Container_update_component_state');
-                            setState(() {
-                              _model.fileUploaded = false;
-                            });
+                            _model.fileUploaded = false;
+                            setState(() {});
                           },
                           child: Container(
                             width: 24.0,

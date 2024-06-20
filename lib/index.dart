@@ -40,3 +40,16 @@ export '/expertise_area_edit/expertise_area_edit_widget.dart'
     show ExpertiseAreaEditWidget;
 export '/payment_success/payment_success_widget.dart' show PaymentSuccessWidget;
 export '/subs_expired/subs_expired_widget.dart' show SubsExpiredWidget;
+export '/campaign_loading/campaign_loading_widget.dart'
+    show CampaignLoadingWidget;
+export '/value_providing_campaign/value_providing_campaign_widget.dart'
+    show ValueProvidingCampaignWidget;
+export '/company_campaign/company_campaign_widget.dart'
+    show CompanyCampaignWidget;
+export '/trends_campaign/trends_campaign_widget.dart' show TrendsCampaignWidget;
+export '/a_icreated_campaign/a_icreated_campaign_widget.dart'
+    show AIcreatedCampaignWidget;
+export '/camapign_details/camapign_details_widget.dart'
+    show CamapignDetailsWidget;
+export '/view_or_edit_campaign_post/view_or_edit_campaign_post_widget.dart'
+    show ViewOrEditCampaignPostWidget;

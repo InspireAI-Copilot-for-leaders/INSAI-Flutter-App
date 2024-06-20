@@ -619,12 +619,12 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 initialPageName: 'viewOrEditPostCopy',
                                 anthropicKey: FFAppState().anthropicKey,
                               );
+
                               if ((_model.contentfromtopic?.succeeded ??
                                   true)) {
                                 logFirebaseEvent('Button_update_page_state');
-                                setState(() {
-                                  _model.loadingScreenVisible = true;
-                                });
+                                _model.loadingScreenVisible = true;
+                                setState(() {});
                                 logFirebaseEvent(
                                     'Button_clear_text_fields_pin_codes');
                                 setState(() {
@@ -680,12 +680,12 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     widget.contextForContent!),
                                 anthropicKey: FFAppState().anthropicKey,
                               );
+
                               if ((_model.contentfromcontext?.succeeded ??
                                   true)) {
                                 logFirebaseEvent('Button_update_page_state');
-                                setState(() {
-                                  _model.loadingScreenVisible = true;
-                                });
+                                _model.loadingScreenVisible = true;
+                                setState(() {});
                                 logFirebaseEvent(
                                     'Button_clear_text_fields_pin_codes');
                                 setState(() {

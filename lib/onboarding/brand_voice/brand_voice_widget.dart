@@ -38,6 +38,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
           await LinkedInDataGroup.linkedinProfilePictureCall.call(
         authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
       );
+
       if ((_model.profilePicture?.succeeded ?? true)) {
         logFirebaseEvent('brandVoice_backend_call');
 
@@ -63,6 +64,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
         authToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
         personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
       );
+
       if ((_model.firstConnectionSize?.succeeded ?? true)) {
         logFirebaseEvent('brandVoice_backend_call');
 
@@ -779,11 +781,9 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                               'BRAND_VOICE_PAGE_ADD_BTN_ON_TAP');
                                           logFirebaseEvent(
                                               'Button_update_page_state');
-                                          setState(() {
-                                            _model.typedVoice = _model
-                                                .contentURL1TextController2
-                                                .text;
-                                          });
+                                          _model.typedVoice = _model
+                                              .contentURL1TextController2.text;
+                                          setState(() {});
                                           logFirebaseEvent(
                                               'Button_clear_text_fields_pin_codes');
                                           setState(() {
@@ -1039,11 +1039,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                               'BRAND_VOICE_PAGE_Card_cnx2sfut_ON_TAP');
                                           logFirebaseEvent(
                                               'Card_update_page_state');
-                                          setState(() {
-                                            _model.selectedVoice =
-                                                listViewBrandVoicesRecord.voice;
-                                            _model.typedVoice = null;
-                                          });
+                                          _model.selectedVoice =
+                                              listViewBrandVoicesRecord.voice;
+                                          _model.typedVoice = null;
+                                          setState(() {});
                                         },
                                         child: Card(
                                           clipBehavior:

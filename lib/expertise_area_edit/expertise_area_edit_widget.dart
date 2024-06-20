@@ -551,21 +551,19 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                 hoverColor: Colors.transparent,
                                                                                 highlightColor: Colors.transparent,
                                                                                 onTap: () async {
-                                                                                  logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_mpbje49l_O');
+                                                                                  logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_vfwsle37_O');
                                                                                   logFirebaseEvent('Container_update_page_state');
-                                                                                  setState(() {
-                                                                                    _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                  });
+                                                                                  _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                  setState(() {});
                                                                                   logFirebaseEvent('Container_update_page_state');
-                                                                                  setState(() {
-                                                                                    _model.updateLeadershipAreasMappingAtIndex(
-                                                                                      thoughtLeadershipAreasIndex,
-                                                                                      (e) => e
-                                                                                        ..updateSubCategories(
-                                                                                          (e) => e.remove(expertiseAreaItem),
-                                                                                        ),
-                                                                                    );
-                                                                                  });
+                                                                                  _model.updateLeadershipAreasMappingAtIndex(
+                                                                                    thoughtLeadershipAreasIndex,
+                                                                                    (e) => e
+                                                                                      ..updateSubCategories(
+                                                                                        (e) => e.remove(expertiseAreaItem),
+                                                                                      ),
+                                                                                  );
+                                                                                  setState(() {});
                                                                                   logFirebaseEvent('Container_backend_call');
 
                                                                                   await currentUserReference!.update({
@@ -591,22 +589,43 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                       width: 2.0,
                                                                                     ),
                                                                                   ),
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                                                                                    child: Container(
-                                                                                      decoration: const BoxDecoration(),
-                                                                                      child: Text(
-                                                                                        '#$expertiseAreaItem',
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                              fontSize: 12.0,
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                            ),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.min,
+                                                                                    children: [
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                        child: Container(
+                                                                                          width: 16.0,
+                                                                                          height: 16.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                            shape: BoxShape.circle,
+                                                                                          ),
+                                                                                          child: Icon(
+                                                                                            Icons.close,
+                                                                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                            size: 12.0,
+                                                                                          ),
+                                                                                        ),
                                                                                       ),
-                                                                                    ),
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 8.0, 4.0),
+                                                                                        child: Container(
+                                                                                          decoration: const BoxDecoration(),
+                                                                                          child: Text(
+                                                                                            expertiseAreaItem,
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                                                                  fontSize: 12.0,
+                                                                                                  letterSpacing: 0.0,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                                ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -777,10 +796,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                               .isNotEmpty) {
                                                         logFirebaseEvent(
                                                             'contentURL1_update_page_state');
-                                                        setState(() {
-                                                          _model.emptySearch =
-                                                              false;
-                                                        });
+                                                        _model.emptySearch =
+                                                            false;
+                                                        setState(() {});
                                                       } else {
                                                         logFirebaseEvent(
                                                             'contentURL1_wait__delay');
@@ -790,18 +808,16 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                     1000));
                                                         logFirebaseEvent(
                                                             'contentURL1_update_page_state');
-                                                        setState(() {
-                                                          _model.emptySearch =
-                                                              true;
-                                                        });
+                                                        _model.emptySearch =
+                                                            true;
+                                                        setState(() {});
                                                       }
                                                     } else {
                                                       logFirebaseEvent(
                                                           'contentURL1_update_page_state');
-                                                      setState(() {
-                                                        _model.emptySearch =
-                                                            false;
-                                                      });
+                                                      _model.emptySearch =
+                                                          false;
+                                                      setState(() {});
                                                     }
                                                   },
                                                 ),
@@ -1105,24 +1121,22 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                 hoverColor: Colors.transparent,
                                                                                                 highlightColor: Colors.transparent,
                                                                                                 onTap: () async {
-                                                                                                  logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_9waa3bi1_O');
+                                                                                                  logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_cjtebcjm_O');
                                                                                                   if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
                                                                                                     logFirebaseEvent('Container_update_page_state');
-                                                                                                    setState(() {
-                                                                                                      _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                                      _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
-                                                                                                    });
+                                                                                                    _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                                    _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
+                                                                                                    setState(() {});
                                                                                                     if ((currentUserDocument?.broadDomains.toList() ?? []).contains(broadDomainListItem.broadDomain)) {
                                                                                                       logFirebaseEvent('Container_update_page_state');
-                                                                                                      setState(() {
-                                                                                                        _model.updateLeadershipAreasMappingAtIndex(
-                                                                                                          functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListItem.broadDomain),
-                                                                                                          (e) => e
-                                                                                                            ..updateSubCategories(
-                                                                                                              (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
-                                                                                                            ),
-                                                                                                        );
-                                                                                                      });
+                                                                                                      _model.updateLeadershipAreasMappingAtIndex(
+                                                                                                        functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListItem.broadDomain),
+                                                                                                        (e) => e
+                                                                                                          ..updateSubCategories(
+                                                                                                            (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
+                                                                                                          ),
+                                                                                                      );
+                                                                                                      setState(() {});
                                                                                                       logFirebaseEvent('Container_backend_call');
 
                                                                                                       await currentUserReference!.update({
@@ -1139,12 +1153,11 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                       });
                                                                                                     } else {
                                                                                                       logFirebaseEvent('Container_update_page_state');
-                                                                                                      setState(() {
-                                                                                                        _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
-                                                                                                          category: broadDomainListItem.broadDomain,
-                                                                                                          subCategories: _model.addExpertiseAreaList,
-                                                                                                        ));
-                                                                                                      });
+                                                                                                      _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
+                                                                                                        category: broadDomainListItem.broadDomain,
+                                                                                                        subCategories: _model.addExpertiseAreaList,
+                                                                                                      ));
+                                                                                                      setState(() {});
                                                                                                       logFirebaseEvent('Container_backend_call');
 
                                                                                                       await currentUserReference!.update({
@@ -1165,9 +1178,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                     }
 
                                                                                                     logFirebaseEvent('Container_update_page_state');
-                                                                                                    setState(() {
-                                                                                                      _model.addExpertiseAreaList = [];
-                                                                                                    });
+                                                                                                    _model.addExpertiseAreaList = [];
+                                                                                                    setState(() {});
                                                                                                   }
                                                                                                 },
                                                                                                 child: Container(
@@ -1180,22 +1192,44 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                       width: 2.0,
                                                                                                     ),
                                                                                                   ),
-                                                                                                  child: Padding(
-                                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                                                                                                    child: Container(
-                                                                                                      decoration: const BoxDecoration(),
-                                                                                                      child: Text(
-                                                                                                        '#${expertiseAreaNoSearchItem.expertiseArea}',
-                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                              fontSize: 12.0,
-                                                                                                              letterSpacing: 0.0,
-                                                                                                              fontWeight: FontWeight.w600,
-                                                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                                  child: Row(
+                                                                                                    mainAxisSize: MainAxisSize.min,
+                                                                                                    children: [
+                                                                                                      if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea))
+                                                                                                        Padding(
+                                                                                                          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                                          child: Container(
+                                                                                                            width: 20.0,
+                                                                                                            height: 20.0,
+                                                                                                            decoration: BoxDecoration(
+                                                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                              shape: BoxShape.circle,
                                                                                                             ),
+                                                                                                            child: Icon(
+                                                                                                              Icons.close,
+                                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                              size: 12.0,
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      Padding(
+                                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 8.0, 4.0),
+                                                                                                        child: Container(
+                                                                                                          decoration: const BoxDecoration(),
+                                                                                                          child: Text(
+                                                                                                            expertiseAreaNoSearchItem.expertiseArea,
+                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                                  fontSize: 12.0,
+                                                                                                                  letterSpacing: 0.0,
+                                                                                                                  fontWeight: FontWeight.w600,
+                                                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                                                ),
+                                                                                                          ),
+                                                                                                        ),
                                                                                                       ),
-                                                                                                    ),
+                                                                                                    ],
                                                                                                   ),
                                                                                                 ),
                                                                                               ),
@@ -1438,24 +1472,22 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                             hoverColor: Colors.transparent,
                                                                                             highlightColor: Colors.transparent,
                                                                                             onTap: () async {
-                                                                                              logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_hhqiba5w_O');
+                                                                                              logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_9ugqtd1o_O');
                                                                                               if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
                                                                                                 logFirebaseEvent('Container_update_page_state');
-                                                                                                setState(() {
-                                                                                                  _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                                  _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
-                                                                                                });
+                                                                                                _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                                _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
+                                                                                                setState(() {});
                                                                                                 if ((currentUserDocument?.broadDomains.toList() ?? []).contains(listViewBroadDomainRecord.broadDomain)) {
                                                                                                   logFirebaseEvent('Container_update_page_state');
-                                                                                                  setState(() {
-                                                                                                    _model.updateLeadershipAreasMappingAtIndex(
-                                                                                                      functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), listViewBroadDomainRecord.broadDomain),
-                                                                                                      (e) => e
-                                                                                                        ..updateSubCategories(
-                                                                                                          (e) => e.add(expertiseAreaSearchItem.expertiseArea),
-                                                                                                        ),
-                                                                                                    );
-                                                                                                  });
+                                                                                                  _model.updateLeadershipAreasMappingAtIndex(
+                                                                                                    functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), listViewBroadDomainRecord.broadDomain),
+                                                                                                    (e) => e
+                                                                                                      ..updateSubCategories(
+                                                                                                        (e) => e.add(expertiseAreaSearchItem.expertiseArea),
+                                                                                                      ),
+                                                                                                  );
+                                                                                                  setState(() {});
                                                                                                   logFirebaseEvent('Container_backend_call');
 
                                                                                                   await currentUserReference!.update({
@@ -1472,12 +1504,11 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                   });
                                                                                                 } else {
                                                                                                   logFirebaseEvent('Container_update_page_state');
-                                                                                                  setState(() {
-                                                                                                    _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
-                                                                                                      category: listViewBroadDomainRecord.broadDomain,
-                                                                                                      subCategories: _model.addExpertiseAreaList,
-                                                                                                    ));
-                                                                                                  });
+                                                                                                  _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
+                                                                                                    category: listViewBroadDomainRecord.broadDomain,
+                                                                                                    subCategories: _model.addExpertiseAreaList,
+                                                                                                  ));
+                                                                                                  setState(() {});
                                                                                                   logFirebaseEvent('Container_backend_call');
 
                                                                                                   await currentUserReference!.update({
@@ -1498,9 +1529,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                 }
 
                                                                                                 logFirebaseEvent('Container_update_page_state');
-                                                                                                setState(() {
-                                                                                                  _model.addExpertiseAreaList = [];
-                                                                                                });
+                                                                                                _model.addExpertiseAreaList = [];
+                                                                                                setState(() {});
                                                                                               }
                                                                                             },
                                                                                             child: Container(
@@ -1518,7 +1548,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                 child: Container(
                                                                                                   decoration: const BoxDecoration(),
                                                                                                   child: Text(
-                                                                                                    '#${expertiseAreaSearchItem.expertiseArea}',
+                                                                                                    expertiseAreaSearchItem.expertiseArea,
                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                           fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                           color: FlutterFlowTheme.of(context).primaryText,
@@ -1587,10 +1617,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                 'EXPERTISE_AREA_EDIT_+_ADD_NEW_BTN_ON_TAP');
                                                             logFirebaseEvent(
                                                                 'Button_update_page_state');
-                                                            setState(() {
-                                                              _model.addNewArea =
-                                                                  true;
-                                                            });
+                                                            _model.addNewArea =
+                                                                true;
+                                                            setState(() {});
                                                           },
                                                           text: '+ Add New',
                                                           options:
@@ -2037,21 +2066,19 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                       'EXPERTISE_AREA_EDIT_ADD_EXPERTISE_AREA_B');
                                                   logFirebaseEvent(
                                                       'Button_update_page_state');
-                                                  setState(() {
-                                                    _model.leadershipAreasMapping =
-                                                        (currentUserDocument
-                                                                    ?.thoughtLeadershipAreasMapping
-                                                                    .toList() ??
-                                                                [])
-                                                            .toList()
-                                                            .cast<
-                                                                ThoughtLeadershipAreasMappingStruct>();
-                                                    _model
-                                                        .addToAddExpertiseAreaList(
-                                                            _model
-                                                                .textController2
-                                                                .text);
-                                                  });
+                                                  _model.leadershipAreasMapping =
+                                                      (currentUserDocument
+                                                                  ?.thoughtLeadershipAreasMapping
+                                                                  .toList() ??
+                                                              [])
+                                                          .toList()
+                                                          .cast<
+                                                              ThoughtLeadershipAreasMappingStruct>();
+                                                  _model
+                                                      .addToAddExpertiseAreaList(
+                                                          _model.textController2
+                                                              .text);
+                                                  setState(() {});
                                                   if ((currentUserDocument
                                                               ?.broadDomains
                                                               .toList() ??
@@ -2060,25 +2087,24 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                           .dropDownValue)) {
                                                     logFirebaseEvent(
                                                         'Button_update_page_state');
-                                                    setState(() {
-                                                      _model
-                                                          .updateLeadershipAreasMappingAtIndex(
-                                                        functions.getIndexFromList(
-                                                            (currentUserDocument
-                                                                        ?.broadDomains
-                                                                        .toList() ??
-                                                                    [])
-                                                                .toList(),
-                                                            _model
-                                                                .dropDownValue!),
-                                                        (e) => e
-                                                          ..updateSubCategories(
-                                                            (e) => e.add(_model
-                                                                .textController2
-                                                                .text),
-                                                          ),
-                                                      );
-                                                    });
+                                                    _model
+                                                        .updateLeadershipAreasMappingAtIndex(
+                                                      functions.getIndexFromList(
+                                                          (currentUserDocument
+                                                                      ?.broadDomains
+                                                                      .toList() ??
+                                                                  [])
+                                                              .toList(),
+                                                          _model
+                                                              .dropDownValue!),
+                                                      (e) => e
+                                                        ..updateSubCategories(
+                                                          (e) => e.add(_model
+                                                              .textController2
+                                                              .text),
+                                                        ),
+                                                    );
+                                                    setState(() {});
                                                     logFirebaseEvent(
                                                         'Button_backend_call');
 
@@ -2104,15 +2130,14 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                   } else {
                                                     logFirebaseEvent(
                                                         'Button_update_page_state');
-                                                    setState(() {
-                                                      _model.addToLeadershipAreasMapping(
-                                                          ThoughtLeadershipAreasMappingStruct(
-                                                        category: _model
-                                                            .dropDownValue,
-                                                        subCategories: _model
-                                                            .addExpertiseAreaList,
-                                                      ));
-                                                    });
+                                                    _model.addToLeadershipAreasMapping(
+                                                        ThoughtLeadershipAreasMappingStruct(
+                                                      category:
+                                                          _model.dropDownValue,
+                                                      subCategories: _model
+                                                          .addExpertiseAreaList,
+                                                    ));
+                                                    setState(() {});
                                                     logFirebaseEvent(
                                                         'Button_backend_call');
 
@@ -2144,11 +2169,10 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
 
                                                   logFirebaseEvent(
                                                       'Button_update_page_state');
-                                                  setState(() {
-                                                    _model.addNewArea = false;
-                                                    _model.addExpertiseAreaList =
-                                                        [];
-                                                  });
+                                                  _model.addNewArea = false;
+                                                  _model.addExpertiseAreaList =
+                                                      [];
+                                                  setState(() {});
                                                   logFirebaseEvent(
                                                       'Button_clear_text_fields_pin_codes');
                                                   setState(() {
@@ -2217,9 +2241,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                       'EXPERTISE_AREA_EDIT_CANCEL_BTN_ON_TAP');
                                                   logFirebaseEvent(
                                                       'Button_update_page_state');
-                                                  setState(() {
-                                                    _model.addNewArea = false;
-                                                  });
+                                                  _model.addNewArea = false;
+                                                  setState(() {});
                                                 },
                                                 text: 'Cancel',
                                                 options: FFButtonOptions(

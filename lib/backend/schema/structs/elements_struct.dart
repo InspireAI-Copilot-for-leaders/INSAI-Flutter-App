@@ -22,20 +22,25 @@ class ElementsStruct extends FFFirebaseStruct {
   String? _artifact;
   String get artifact => _artifact ?? '';
   set artifact(String? val) => _artifact = val;
+
   bool hasArtifact() => _artifact != null;
 
   // "authorizationMethod" field.
   String? _authorizationMethod;
   String get authorizationMethod => _authorizationMethod ?? '';
   set authorizationMethod(String? val) => _authorizationMethod = val;
+
   bool hasAuthorizationMethod() => _authorizationMethod != null;
 
   // "identifiers" field.
   IdentifiersStruct? _identifiers;
   IdentifiersStruct get identifiers => _identifiers ?? IdentifiersStruct();
   set identifiers(IdentifiersStruct? val) => _identifiers = val;
-  void updateIdentifiers(Function(IdentifiersStruct) updateFn) =>
-      updateFn(_identifiers ??= IdentifiersStruct());
+
+  void updateIdentifiers(Function(IdentifiersStruct) updateFn) {
+    updateFn(identifiers ??= IdentifiersStruct());
+  }
+
   bool hasIdentifiers() => _identifiers != null;
 
   static ElementsStruct fromMap(Map<String, dynamic> data) => ElementsStruct(

@@ -61,9 +61,8 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
       onTap: () async {
         logFirebaseEvent('LEADER_DISPLAY_CARD_Container_t593micf_O');
         logFirebaseEvent('Container_update_component_state');
-        setState(() {
-          _model.isSelected = !_model.isSelected;
-        });
+        _model.isSelected = !_model.isSelected;
+        setState(() {});
         logFirebaseEvent('Container_execute_callback');
         await widget.addToPageStateAction?.call();
       },

@@ -31,48 +31,56 @@ class ScrapedArticleDataStruct extends FFFirebaseStruct {
   String? _description;
   String get description => _description ?? '';
   set description(String? val) => _description = val;
+
   bool hasDescription() => _description != null;
 
   // "publish_date" field.
   String? _publishDate;
   String get publishDate => _publishDate ?? '';
   set publishDate(String? val) => _publishDate = val;
+
   bool hasPublishDate() => _publishDate != null;
 
   // "scraped_at" field.
   String? _scrapedAt;
   String get scrapedAt => _scrapedAt ?? '';
   set scrapedAt(String? val) => _scrapedAt = val;
+
   bool hasScrapedAt() => _scrapedAt != null;
 
   // "source_url" field.
   String? _sourceUrl;
   String get sourceUrl => _sourceUrl ?? '';
   set sourceUrl(String? val) => _sourceUrl = val;
+
   bool hasSourceUrl() => _sourceUrl != null;
 
   // "text" field.
   String? _text;
   String get text => _text ?? '';
   set text(String? val) => _text = val;
+
   bool hasText() => _text != null;
 
   // "title" field.
   String? _title;
   String get title => _title ?? '';
   set title(String? val) => _title = val;
+
   bool hasTitle() => _title != null;
 
   // "top_image" field.
   String? _topImage;
   String get topImage => _topImage ?? '';
   set topImage(String? val) => _topImage = val;
+
   bool hasTopImage() => _topImage != null;
 
   // "url" field.
   String? _url;
   String get url => _url ?? '';
   set url(String? val) => _url = val;
+
   bool hasUrl() => _url != null;
 
   static ScrapedArticleDataStruct fromMap(Map<String, dynamic> data) =>

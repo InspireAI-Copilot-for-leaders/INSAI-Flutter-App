@@ -79,9 +79,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     .forward(from: 0.0);
               }
               logFirebaseEvent('dashboard_update_app_state');
-              setState(() {
-                FFAppState().dashboardLoading = false;
-              });
+              FFAppState().dashboardLoading = false;
+              setState(() {});
             } else {
               logFirebaseEvent('dashboard_alert_dialog');
               await showDialog(
@@ -145,9 +144,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                         .forward(from: 0.0);
                   }
                   logFirebaseEvent('dashboard_update_app_state');
-                  setState(() {
-                    FFAppState().dashboardLoading = false;
-                  });
+                  FFAppState().dashboardLoading = false;
+                  setState(() {});
                 } else {
                   logFirebaseEvent('dashboard_navigate_to');
 
@@ -778,9 +776,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       if (FFAppState().drawer) {
                                         logFirebaseEvent(
                                             'Container_update_app_state');
-                                        setState(() {
-                                          FFAppState().drawer = false;
-                                        });
+                                        FFAppState().drawer = false;
+                                        setState(() {});
                                         logFirebaseEvent(
                                             'Container_widget_animation');
                                         if (animationsMap[
@@ -828,9 +825,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       } else {
                                         logFirebaseEvent(
                                             'Container_update_app_state');
-                                        setState(() {
-                                          FFAppState().drawer = true;
-                                        });
+                                        FFAppState().drawer = true;
+                                        setState(() {});
                                         logFirebaseEvent(
                                             'Container_widget_animation');
                                         if (animationsMap[
@@ -1381,6 +1377,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                         ?.linkedinUrn,
                                                     ''),
                                               );
+
                                               if ((_model.firstConnectionSize
                                                       ?.succeeded ??
                                                   true)) {
@@ -2028,10 +2025,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                   'DASHBOARD_PAGE_MiddleButton_ON_TAP');
                                               logFirebaseEvent(
                                                   'MiddleButton_update_page_state');
-                                              setState(() {
-                                                _model.createContentDialogVisible =
-                                                    true;
-                                              });
+                                              _model.createContentDialogVisible =
+                                                  true;
+                                              setState(() {});
                                             },
                                           ),
                                         ),
@@ -2184,17 +2180,15 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                         }
                                         logFirebaseEvent(
                                             'Badge_update_app_state');
-                                        setState(() {
-                                          FFAppState().isNotificationsVisible =
-                                              false;
-                                        });
+                                        FFAppState().isNotificationsVisible =
+                                            false;
+                                        setState(() {});
                                       } else {
                                         logFirebaseEvent(
                                             'Badge_update_app_state');
-                                        setState(() {
-                                          FFAppState().isNotificationsVisible =
-                                              true;
-                                        });
+                                        FFAppState().isNotificationsVisible =
+                                            true;
+                                        setState(() {});
                                         logFirebaseEvent('Badge_wait__delay');
                                         await Future.delayed(
                                             const Duration(milliseconds: 100));
@@ -2452,10 +2446,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           'DASHBOARD_PAGE_Icon_fely8v7u_ON_TAP');
                                       logFirebaseEvent(
                                           'Icon_update_page_state');
-                                      setState(() {
-                                        _model.createContentDialogVisible =
-                                            false;
-                                      });
+                                      _model.createContentDialogVisible = false;
+                                      setState(() {});
                                     },
                                     child: Icon(
                                       Icons.close,
@@ -3133,9 +3125,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
 
                           logFirebaseEvent(
                               'Allow_notification_popup_update_app_stat');
-                          setState(() {
-                            FFAppState().notificationPopupVisible = false;
-                          });
+                          FFAppState().notificationPopupVisible = false;
+                          setState(() {});
                           logFirebaseEvent(
                               'Allow_notification_popup_backend_call');
 
@@ -3168,9 +3159,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
 
                           logFirebaseEvent(
                               'Allow_notification_popup_update_app_stat');
-                          setState(() {
-                            FFAppState().notificationPopupVisible = false;
-                          });
+                          FFAppState().notificationPopupVisible = false;
+                          setState(() {});
                           logFirebaseEvent(
                               'Allow_notification_popup_backend_call');
 
@@ -3187,7 +3177,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     ),
                   ],
                 ),
-              if (FFAppState().dashboardLoading)
+              if (!FFAppState().dashboardLoading)
                 wrapWithModel(
                   model: _model.profileLoadingScreenModel,
                   updateCallback: () => setState(() {}),

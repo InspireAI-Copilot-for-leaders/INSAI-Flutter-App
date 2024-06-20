@@ -279,6 +279,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                 accessToken: valueOrDefault(
                                     currentUserDocument?.linkedinAccess, ''),
                               );
+
                               logFirebaseEvent('Button_backend_call');
                               _model.comments = await LinkedinPostGroup
                                   .getPostCommentsCall
@@ -287,6 +288,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                 accessToken: valueOrDefault(
                                     currentUserDocument?.linkedinAccess, ''),
                               );
+
                               logFirebaseEvent('Button_backend_call');
 
                               await widget.postRef!
@@ -320,9 +322,8 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                 ),
                               });
                               logFirebaseEvent('Button_update_page_state');
-                              setState(() {
-                                _model.infoVisible = true;
-                              });
+                              _model.infoVisible = true;
+                              setState(() {});
                             } else {
                               logFirebaseEvent('Button_show_snack_bar');
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -340,9 +341,8 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                 ),
                               );
                               logFirebaseEvent('Button_update_page_state');
-                              setState(() {
-                                _model.infoVisible = true;
-                              });
+                              _model.infoVisible = true;
+                              setState(() {});
                             }
 
                             setState(() {});
@@ -427,9 +427,8 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                           'POST_DETAILED_PAGE_Icon_ikohtqz1_ON_TAP');
                                       logFirebaseEvent(
                                           'Icon_update_page_state');
-                                      setState(() {
-                                        _model.infoVisible = false;
-                                      });
+                                      _model.infoVisible = false;
+                                      setState(() {});
                                     },
                                     child: Icon(
                                       Icons.close_sharp,

@@ -111,8 +111,6 @@ dependencies:
   plugin_platform_interface: 2.1.8
   provider: 6.0.5
   purchases_flutter: 6.0.0
-  rive: 0.12.2
-  rive_common: 0.2.8
   rxdart: 0.27.7
   share_plus: 7.2.1
   shared_preferences: 2.2.2

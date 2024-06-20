@@ -151,6 +151,12 @@ class UsersRecord extends FirestoreRecord {
   String get onboardingStatus => _onboardingStatus ?? '';
   bool hasOnboardingStatus() => _onboardingStatus != null;
 
+  // "active_companies" field.
+  List<ActiveCompaniesStruct>? _activeCompanies;
+  List<ActiveCompaniesStruct> get activeCompanies =>
+      _activeCompanies ?? const [];
+  bool hasActiveCompanies() => _activeCompanies != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -188,6 +194,10 @@ class UsersRecord extends FirestoreRecord {
     _linkedinForSpecialAccess =
         snapshotData['linkedinForSpecialAccess'] as String?;
     _onboardingStatus = snapshotData['onboardingStatus'] as String?;
+    _activeCompanies = getStructList(
+      snapshotData['active_companies'],
+      ActiveCompaniesStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -317,7 +327,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.totalComments == e2?.totalComments &&
         e1?.accessType == e2?.accessType &&
         e1?.linkedinForSpecialAccess == e2?.linkedinForSpecialAccess &&
-        e1?.onboardingStatus == e2?.onboardingStatus;
+        e1?.onboardingStatus == e2?.onboardingStatus &&
+        listEquality.equals(e1?.activeCompanies, e2?.activeCompanies);
   }
 
   @override
@@ -347,7 +358,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.totalComments,
         e?.accessType,
         e?.linkedinForSpecialAccess,
-        e?.onboardingStatus
+        e?.onboardingStatus,
+        e?.activeCompanies
       ]);
 
   @override

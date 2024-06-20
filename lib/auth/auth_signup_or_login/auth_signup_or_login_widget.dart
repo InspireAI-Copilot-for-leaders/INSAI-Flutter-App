@@ -1145,6 +1145,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                           'AUTH_SIGNUP_OR_LOGIN_Container_ion0jaq4_');
                                                       logFirebaseEvent(
                                                           'CountryCodePickerWidget_update_app_state');
+
                                                       setState(() {});
                                                     },
                                                   ),
@@ -1785,9 +1786,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         if (_model.authType == 'signup_email') {
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
-                                          setState(() {
-                                            _model.authType = 'login_email';
-                                          });
+                                          _model.authType = 'login_email';
+                                          setState(() {});
                                           logFirebaseEvent(
                                               'createAccount_wait__delay');
                                           await Future.delayed(const Duration(
@@ -1828,15 +1828,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               milliseconds: 200));
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
-                                          setState(() {
-                                            _model.loginBtnVisible = true;
-                                          });
+                                          _model.loginBtnVisible = true;
+                                          setState(() {});
                                         } else {
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
-                                          setState(() {
-                                            _model.loginBtnVisible = false;
-                                          });
+                                          _model.loginBtnVisible = false;
+                                          setState(() {});
                                           logFirebaseEvent(
                                               'createAccount_wait__delay');
                                           await Future.delayed(const Duration(
@@ -1873,9 +1871,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           }
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
-                                          setState(() {
-                                            _model.authType = 'signup_email';
-                                          });
+                                          _model.authType = 'signup_email';
+                                          setState(() {});
                                           logFirebaseEvent(
                                               'createAccount_widget_animation');
                                           if (animationsMap[
@@ -2584,9 +2581,8 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
 
                                                 logFirebaseEvent(
                                                     'phoneAuthButton_update_page_state');
-                                                setState(() {
-                                                  _model.authType = 'phone';
-                                                });
+                                                _model.authType = 'phone';
+                                                setState(() {});
                                                 logFirebaseEvent(
                                                     'phoneAuthButton_wait__delay');
                                                 await Future.delayed(
@@ -2636,10 +2632,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 }
                                                 logFirebaseEvent(
                                                     'emailAuthButton_update_page_state');
-                                                setState(() {
-                                                  _model.authType =
-                                                      'signup_email';
-                                                });
+                                                _model.authType =
+                                                    'signup_email';
+                                                setState(() {});
                                                 logFirebaseEvent(
                                                     'emailAuthButton_wait__delay');
                                                 await Future.delayed(

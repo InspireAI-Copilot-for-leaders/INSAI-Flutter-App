@@ -14,10 +14,12 @@ export 'post_review_model.dart';
 class PostReviewWidget extends StatefulWidget {
   const PostReviewWidget({
     super.key,
-    required this.postRef,
+    this.postRef,
+    this.campaignPostRef,
   });
 
   final DocumentReference? postRef;
+  final DocumentReference? campaignPostRef;
 
   @override
   State<PostReviewWidget> createState() => _PostReviewWidgetState();
@@ -114,7 +116,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                   children: [
                     FlutterFlowDropDown<String>(
                       multiSelectController: _model.dropDownValueController ??=
-                          FormFieldController<List<String>>(null),
+                          FormListFieldController<String>(null),
                       options: const [
                         'Content accuracy issues',
                         'Content formatting issues',
@@ -239,6 +241,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                           userRef: currentUserReference,
                           problemDescription: _model.textController.text,
                           timestamp: getCurrentTimestamp,
+                          campaignPostRef: widget.campaignPostRef,
                         ),
                         ...mapToFirestore(
                           {

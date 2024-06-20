@@ -314,9 +314,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         if (_model.isScheduled) {
                                           logFirebaseEvent(
                                               'Icon_update_page_state');
-                                          setState(() {
-                                            _model.datePickerVisbile = true;
-                                          });
+                                          _model.datePickerVisbile = true;
+                                          setState(() {});
                                           logFirebaseEvent('Icon_wait__delay');
                                           await Future.delayed(const Duration(
                                               milliseconds: 100));
@@ -333,13 +332,12 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         } else {
                                           logFirebaseEvent(
                                               'Icon_update_page_state');
-                                          setState(() {
-                                            _model.scheduledTime =
-                                                getCurrentTimestamp;
-                                            _model.scheduledDate =
-                                                getCurrentTimestamp;
-                                            _model.datePickerVisbile = true;
-                                          });
+                                          _model.scheduledTime =
+                                              getCurrentTimestamp;
+                                          _model.scheduledDate =
+                                              getCurrentTimestamp;
+                                          _model.datePickerVisbile = true;
+                                          setState(() {});
                                           logFirebaseEvent('Icon_wait__delay');
                                           await Future.delayed(const Duration(
                                               milliseconds: 100));
@@ -388,6 +386,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         ?.linkedinAccess,
                                                     ''),
                                               );
+
                                               if ((_model.linkedinPost
                                                       ?.succeeded ??
                                                   true)) {
@@ -593,6 +592,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                 );
+
                                                 if ((_model
                                                         .liDocURL?.succeeded ??
                                                     true)) {
@@ -615,6 +615,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     docToBeUploaded:
                                                         _model.uploadedFileUrl1,
                                                   );
+
                                                   if ((_model.docUploaded
                                                           ?.succeeded ??
                                                       true)) {
@@ -645,6 +646,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                               ?.linkedinAccess,
                                                           ''),
                                                     );
+
                                                     if ((_model.apiResult9vv
                                                             ?.succeeded ??
                                                         true)) {
@@ -846,6 +848,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                 );
+
                                                 if ((_model
                                                         .imageUrl?.succeeded ??
                                                     true)) {
@@ -870,6 +873,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         _model
                                                             .noOfImagesUploadedToFirebase],
                                                   );
+
                                                   if ((_model.imageUploaded
                                                           ?.succeeded ??
                                                       true)) {
@@ -910,11 +914,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       });
                                                       logFirebaseEvent(
                                                           'imageButton_update_page_state');
-                                                      setState(() {
-                                                        _model.noOfImagesUploadedToFirebase =
-                                                            _model.noOfImagesUploadedToFirebase +
-                                                                1;
-                                                      });
+                                                      _model.noOfImagesUploadedToFirebase =
+                                                          _model.noOfImagesUploadedToFirebase +
+                                                              1;
+                                                      setState(() {});
                                                     } else {
                                                       logFirebaseEvent(
                                                           'imageButton_backend_call');
@@ -974,11 +977,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       }, postedOnLinkedinRecordReference);
                                                       logFirebaseEvent(
                                                           'imageButton_update_page_state');
-                                                      setState(() {
-                                                        _model.noOfImagesUploadedToFirebase =
-                                                            _model.noOfImagesUploadedToFirebase +
-                                                                1;
-                                                      });
+                                                      _model.noOfImagesUploadedToFirebase =
+                                                          _model.noOfImagesUploadedToFirebase +
+                                                              1;
+                                                      setState(() {});
                                                     }
                                                   }
                                                 }
@@ -1012,6 +1014,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                 );
+
                                                 if ((_model.multiImgPosted
                                                         ?.succeeded ??
                                                     true)) {
@@ -1104,6 +1107,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                 );
+
                                                 if ((_model.singleImgPosted
                                                         ?.succeeded ??
                                                     true)) {
@@ -1219,18 +1223,16 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 Future(() async {
                                                   logFirebaseEvent(
                                                       'pollButton_update_page_state');
-                                                  setState(() {
-                                                    _model.addToPollOptionsList(
-                                                        _model.pollOption1!);
-                                                  });
+                                                  _model.addToPollOptionsList(
+                                                      _model.pollOption1!);
+                                                  setState(() {});
                                                 }),
                                                 Future(() async {
                                                   logFirebaseEvent(
                                                       'pollButton_update_page_state');
-                                                  setState(() {
-                                                    _model.addToPollOptionsList(
-                                                        _model.pollOption2!);
-                                                  });
+                                                  _model.addToPollOptionsList(
+                                                      _model.pollOption2!);
+                                                  setState(() {});
                                                 }),
                                                 Future(() async {
                                                   if (_model.pollOption3 !=
@@ -1239,12 +1241,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           '') {
                                                     logFirebaseEvent(
                                                         'pollButton_update_page_state');
-                                                    setState(() {
-                                                      _model
-                                                          .addToPollOptionsList(
-                                                              _model
-                                                                  .pollOption3!);
-                                                    });
+                                                    _model.addToPollOptionsList(
+                                                        _model.pollOption3!);
+                                                    setState(() {});
                                                   }
                                                 }),
                                                 Future(() async {
@@ -1254,12 +1253,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           '') {
                                                     logFirebaseEvent(
                                                         'pollButton_update_page_state');
-                                                    setState(() {
-                                                      _model
-                                                          .addToPollOptionsList(
-                                                              _model
-                                                                  .pollOption4!);
-                                                    });
+                                                    _model.addToPollOptionsList(
+                                                        _model.pollOption4!);
+                                                    setState(() {});
                                                   }
                                                 }),
                                               ]);
@@ -1289,6 +1285,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             .toList(),
                                                         'text'),
                                               );
+
                                               if ((_model.linkedinPollPost
                                                       ?.succeeded ??
                                                   true)) {
@@ -1619,6 +1616,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                 );
+
                                                 if ((_model.liDocURLSche
                                                         ?.succeeded ??
                                                     true)) {
@@ -1641,6 +1639,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     docToBeUploaded:
                                                         _model.uploadedFileUrl3,
                                                   );
+
                                                   if ((_model.docUploadedSche
                                                           ?.succeeded ??
                                                       true)) {
@@ -1778,18 +1777,16 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 Future(() async {
                                                   logFirebaseEvent(
                                                       'schedulePoll_update_page_state');
-                                                  setState(() {
-                                                    _model.addToPollOptionsList(
-                                                        _model.pollOption1!);
-                                                  });
+                                                  _model.addToPollOptionsList(
+                                                      _model.pollOption1!);
+                                                  setState(() {});
                                                 }),
                                                 Future(() async {
                                                   logFirebaseEvent(
                                                       'schedulePoll_update_page_state');
-                                                  setState(() {
-                                                    _model.addToPollOptionsList(
-                                                        _model.pollOption2!);
-                                                  });
+                                                  _model.addToPollOptionsList(
+                                                      _model.pollOption2!);
+                                                  setState(() {});
                                                 }),
                                                 Future(() async {
                                                   if (_model.pollOption3 !=
@@ -1798,12 +1795,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           '') {
                                                     logFirebaseEvent(
                                                         'schedulePoll_update_page_state');
-                                                    setState(() {
-                                                      _model
-                                                          .addToPollOptionsList(
-                                                              _model
-                                                                  .pollOption3!);
-                                                    });
+                                                    _model.addToPollOptionsList(
+                                                        _model.pollOption3!);
+                                                    setState(() {});
                                                   }
                                                 }),
                                                 Future(() async {
@@ -1813,12 +1807,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           '') {
                                                     logFirebaseEvent(
                                                         'schedulePoll_update_page_state');
-                                                    setState(() {
-                                                      _model
-                                                          .addToPollOptionsList(
-                                                              _model
-                                                                  .pollOption4!);
-                                                    });
+                                                    _model.addToPollOptionsList(
+                                                        _model.pollOption4!);
+                                                    setState(() {});
                                                   }
                                                 }),
                                               ]);
@@ -2015,6 +2006,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                 );
+
                                                 if ((_model.imageUrlSch
                                                         ?.succeeded ??
                                                     true)) {
@@ -2039,6 +2031,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         _model
                                                             .noOfImagesUploadedToFirebase],
                                                   );
+
                                                   if ((_model.imageUploadedSch
                                                           ?.succeeded ??
                                                       true)) {
@@ -2086,11 +2079,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       });
                                                       logFirebaseEvent(
                                                           'scheduleImage_update_page_state');
-                                                      setState(() {
-                                                        _model.noOfImagesUploadedToFirebase =
-                                                            _model.noOfImagesUploadedToFirebase +
-                                                                1;
-                                                      });
+                                                      _model.noOfImagesUploadedToFirebase =
+                                                          _model.noOfImagesUploadedToFirebase +
+                                                              1;
+                                                      setState(() {});
                                                     } else {
                                                       logFirebaseEvent(
                                                           'scheduleImage_backend_call');
@@ -2158,11 +2150,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       }, scheduledPostsRecordReference);
                                                       logFirebaseEvent(
                                                           'scheduleImage_update_page_state');
-                                                      setState(() {
-                                                        _model.noOfImagesUploadedToFirebase =
-                                                            _model.noOfImagesUploadedToFirebase +
-                                                                1;
-                                                      });
+                                                      _model.noOfImagesUploadedToFirebase =
+                                                          _model.noOfImagesUploadedToFirebase +
+                                                              1;
+                                                      setState(() {});
                                                     }
                                                   } else {
                                                     logFirebaseEvent(
@@ -2494,10 +2485,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         'VIEW_OR_EDIT_POST_Text_141qennn_ON_TAP');
                                                     logFirebaseEvent(
                                                         'Text_update_page_state');
-                                                    setState(() {
-                                                      _model.datePickerVisbile =
-                                                          true;
-                                                    });
+                                                    _model.datePickerVisbile =
+                                                        true;
+                                                    setState(() {});
                                                     logFirebaseEvent(
                                                         'Text_wait__delay');
                                                     await Future.delayed(
@@ -2901,14 +2891,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'VIEW_OR_EDIT_POST_Container_v934ugdk_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
-                                                            setState(() {
-                                                              _model.typeOfMediaUploaded =
-                                                                  'onlyText';
-                                                              _model.numberOfImagesUploaded =
-                                                                  0;
-                                                              _model.uploadedMedia =
-                                                                  [];
-                                                            });
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
                                                             setState(() {
@@ -3058,14 +3047,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'VIEW_OR_EDIT_POST_Container_slssatjt_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
-                                                            setState(() {
-                                                              _model.typeOfMediaUploaded =
-                                                                  'onlyText';
-                                                              _model.numberOfImagesUploaded =
-                                                                  0;
-                                                              _model.uploadedMedia =
-                                                                  [];
-                                                            });
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
                                                             setState(() {
@@ -3251,14 +3239,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'VIEW_OR_EDIT_POST_Container_wkc6dtpu_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
-                                                            setState(() {
-                                                              _model.typeOfMediaUploaded =
-                                                                  'onlyText';
-                                                              _model.numberOfImagesUploaded =
-                                                                  0;
-                                                              _model.uploadedMedia =
-                                                                  [];
-                                                            });
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
                                                             setState(() {
@@ -3469,14 +3456,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'VIEW_OR_EDIT_POST_Container_ck0y6275_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
-                                                            setState(() {
-                                                              _model.typeOfMediaUploaded =
-                                                                  'onlyText';
-                                                              _model.numberOfImagesUploaded =
-                                                                  0;
-                                                              _model.uploadedMedia =
-                                                                  [];
-                                                            });
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
                                                             setState(() {
@@ -3729,14 +3715,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'VIEW_OR_EDIT_POST_Container_acr90kd8_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
-                                                            setState(() {
-                                                              _model.typeOfMediaUploaded =
-                                                                  'onlyText';
-                                                              _model.numberOfImagesUploaded =
-                                                                  0;
-                                                              _model.uploadedMedia =
-                                                                  [];
-                                                            });
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
                                                             setState(() {
@@ -4031,14 +4016,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 'VIEW_OR_EDIT_POST_Container_67l3jnnx_ON_');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
-                                                            setState(() {
-                                                              _model.typeOfMediaUploaded =
-                                                                  'onlyText';
-                                                              _model.numberOfImagesUploaded =
-                                                                  0;
-                                                              _model.uploadedMedia =
-                                                                  [];
-                                                            });
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
                                                             setState(() {
@@ -4147,14 +4131,12 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           'VIEW_OR_EDIT_POST_Container_vjgs4iqm_ON_');
                                                       logFirebaseEvent(
                                                           'Container_update_page_state');
-                                                      setState(() {
-                                                        _model.typeOfMediaUploaded =
-                                                            'onlyText';
-                                                        _model.uploadedDoc =
-                                                            null;
-                                                        _model.uploadedDocTitle =
-                                                            null;
-                                                      });
+                                                      _model.typeOfMediaUploaded =
+                                                          'onlyText';
+                                                      _model.uploadedDoc = null;
+                                                      _model.uploadedDocTitle =
+                                                          null;
+                                                      setState(() {});
                                                     },
                                                     child: Container(
                                                       width: 24.0,
@@ -4551,14 +4533,12 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           'VIEW_OR_EDIT_POST_Container_534orpla_ON_');
                                                       logFirebaseEvent(
                                                           'Container_update_page_state');
-                                                      setState(() {
-                                                        _model.typeOfMediaUploaded =
-                                                            'onlyText';
-                                                        _model.numberOfImagesUploaded =
-                                                            0;
-                                                        _model.uploadedMedia =
-                                                            [];
-                                                      });
+                                                      _model.typeOfMediaUploaded =
+                                                          'onlyText';
+                                                      _model.numberOfImagesUploaded =
+                                                          0;
+                                                      _model.uploadedMedia = [];
+                                                      setState(() {});
                                                     },
                                                     child: Container(
                                                       width: 24.0,
@@ -4664,18 +4644,17 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                   if (_model.uploadedLocalFiles5.isNotEmpty) {
                                     logFirebaseEvent(
                                         'Container_update_page_state');
-                                    setState(() {
-                                      _model.typeOfMediaUploaded =
-                                          _model.uploadedLocalFiles5.length > 1
-                                              ? 'multiImage'
-                                              : 'singleImage';
-                                      _model.numberOfImagesUploaded =
-                                          _model.uploadedLocalFiles5.length;
-                                      _model.uploadedMedia = _model
-                                          .uploadedLocalFiles5
-                                          .toList()
-                                          .cast<FFUploadedFile>();
-                                    });
+                                    _model.typeOfMediaUploaded =
+                                        _model.uploadedLocalFiles5.length > 1
+                                            ? 'multiImage'
+                                            : 'singleImage';
+                                    _model.numberOfImagesUploaded =
+                                        _model.uploadedLocalFiles5.length;
+                                    _model.uploadedMedia = _model
+                                        .uploadedLocalFiles5
+                                        .toList()
+                                        .cast<FFUploadedFile>();
+                                    setState(() {});
                                   }
                                 },
                                 child: Container(
@@ -4731,33 +4710,30 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         .isNotEmpty) {
                                                   logFirebaseEvent(
                                                       '_update_page_state');
-                                                  setState(() {
-                                                    _model.typeOfMediaUploaded =
-                                                        uploadedMedia.length >
-                                                                1
-                                                            ? 'multiImage'
-                                                            : 'singleImage';
-                                                    _model.numberOfImagesUploaded =
-                                                        uploadedMedia.length;
-                                                    _model.uploadedMedia =
-                                                        uploadedMedia
-                                                            .toList()
-                                                            .cast<
-                                                                FFUploadedFile>();
-                                                  });
+                                                  _model.typeOfMediaUploaded =
+                                                      uploadedMedia.length > 1
+                                                          ? 'multiImage'
+                                                          : 'singleImage';
+                                                  _model.numberOfImagesUploaded =
+                                                      uploadedMedia.length;
+                                                  _model.uploadedMedia =
+                                                      uploadedMedia
+                                                          .toList()
+                                                          .cast<
+                                                              FFUploadedFile>();
+                                                  setState(() {});
                                                 }
                                               },
                                               documentAction:
                                                   (docURL, docTitle) async {
                                                 logFirebaseEvent(
                                                     '_update_page_state');
-                                                setState(() {
-                                                  _model.typeOfMediaUploaded =
-                                                      'doc';
-                                                  _model.uploadedDoc = docURL;
-                                                  _model.uploadedDocTitle =
-                                                      docTitle;
-                                                });
+                                                _model.typeOfMediaUploaded =
+                                                    'doc';
+                                                _model.uploadedDoc = docURL;
+                                                _model.uploadedDocTitle =
+                                                    docTitle;
+                                                setState(() {});
                                               },
                                               saveAction: () async {
                                                 logFirebaseEvent(
@@ -4827,18 +4803,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   duration) async {
                                                 logFirebaseEvent(
                                                     '_update_page_state');
-                                                setState(() {
-                                                  _model.typeOfMediaUploaded =
-                                                      'poll';
-                                                  _model.pollQuestion =
-                                                      question;
-                                                  _model.pollOption1 = option1;
-                                                  _model.pollOption2 = option2;
-                                                  _model.pollOption3 = option3;
-                                                  _model.pollOption4 = option4;
-                                                  _model.pollDuration =
-                                                      duration;
-                                                });
+                                                _model.typeOfMediaUploaded =
+                                                    'poll';
+                                                _model.pollQuestion = question;
+                                                _model.pollOption1 = option1;
+                                                _model.pollOption2 = option2;
+                                                _model.pollOption3 = option3;
+                                                _model.pollOption4 = option4;
+                                                _model.pollDuration = duration;
+                                                setState(() {});
                                               },
                                             ),
                                           ),
@@ -4904,9 +4877,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       }
                                       logFirebaseEvent(
                                           'Container_update_page_state');
-                                      setState(() {
-                                        _model.datePickerVisbile = false;
-                                      });
+                                      _model.datePickerVisbile = false;
+                                      setState(() {});
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -5097,10 +5069,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               }
                                               logFirebaseEvent(
                                                   'Container_update_page_state');
-                                              setState(() {
-                                                _model.scheduledDate =
-                                                    _model.datePicked1;
-                                              });
+                                              _model.scheduledDate =
+                                                  _model.datePicked1;
+                                              setState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -5276,10 +5247,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               }
                                               logFirebaseEvent(
                                                   'Container_update_page_state');
-                                              setState(() {
-                                                _model.scheduledTime =
-                                                    _model.datePicked2;
-                                              });
+                                              _model.scheduledTime =
+                                                  _model.datePicked2;
+                                              setState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -5384,11 +5354,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 }
                                                 logFirebaseEvent(
                                                     'Button_update_page_state');
-                                                setState(() {
-                                                  _model.isScheduled = true;
-                                                  _model.datePickerVisbile =
-                                                      false;
-                                                });
+                                                _model.isScheduled = true;
+                                                _model.datePickerVisbile =
+                                                    false;
+                                                setState(() {});
                                               },
                                               text: 'Next',
                                               options: FFButtonOptions(
@@ -5456,16 +5425,15 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       }
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
-                                                      setState(() {
-                                                        _model.scheduledTime =
-                                                            null;
-                                                        _model.scheduledDate =
-                                                            null;
-                                                        _model.isScheduled =
-                                                            false;
-                                                        _model.datePickerVisbile =
-                                                            false;
-                                                      });
+                                                      _model.scheduledTime =
+                                                          null;
+                                                      _model.scheduledDate =
+                                                          null;
+                                                      _model.isScheduled =
+                                                          false;
+                                                      _model.datePickerVisbile =
+                                                          false;
+                                                      setState(() {});
                                                     },
                                                     text: 'Clear',
                                                     options: FFButtonOptions(
@@ -5538,10 +5506,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       }
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
-                                                      setState(() {
-                                                        _model.datePickerVisbile =
-                                                            false;
-                                                      });
+                                                      _model.datePickerVisbile =
+                                                          false;
+                                                      setState(() {});
                                                     },
                                                     text: 'Next',
                                                     options: FFButtonOptions(

@@ -48,41 +48,37 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('VIEW_SCHEDULED_POST_viewScheduledPost_ON');
       logFirebaseEvent('viewScheduledPost_update_page_state');
-      setState(() {
-        _model.typeOfMediaUploaded = widget.postDocument!.postType;
-        _model.scheduledTime = widget.postDocument?.timestamp;
-        _model.scheduledDate = widget.postDocument?.timestamp;
-      });
+      _model.typeOfMediaUploaded = widget.postDocument!.postType;
+      _model.scheduledTime = widget.postDocument?.timestamp;
+      _model.scheduledDate = widget.postDocument?.timestamp;
+      setState(() {});
       if ((widget.postDocument?.postType == 'singleImage') ||
           (widget.postDocument?.postType == 'multiImage')) {
         logFirebaseEvent('viewScheduledPost_update_page_state');
-        setState(() {
-          _model.numberOfImagesUploaded = widget.postDocument!.imageUrns.length;
-          _model.uploadedMedia =
-              widget.postDocument!.firebaseImgUrls.toList().cast<String>();
-        });
+        _model.numberOfImagesUploaded = widget.postDocument!.imageUrns.length;
+        _model.uploadedMedia =
+            widget.postDocument!.firebaseImgUrls.toList().cast<String>();
+        setState(() {});
       } else {
         if (widget.postDocument?.postType == 'doc') {
           logFirebaseEvent('viewScheduledPost_update_page_state');
-          setState(() {
-            _model.uploadedDocTitle = widget.postDocument?.mediaTitle;
-            _model.uploadedDoc = widget.postDocument?.docFirebaseUrl;
-          });
+          _model.uploadedDocTitle = widget.postDocument?.mediaTitle;
+          _model.uploadedDoc = widget.postDocument?.docFirebaseUrl;
+          setState(() {});
         } else {
           if (widget.postDocument?.postType == 'poll') {
             logFirebaseEvent('viewScheduledPost_update_page_state');
-            setState(() {
-              _model.pollQuestion = widget.postDocument?.question;
-              _model.pollDuration = widget.postDocument?.duration;
-              _model.pollOption1 = functions.getValueFromJson(
-                  widget.postDocument!.optionsJson, 0);
-              _model.pollOption2 = functions.getValueFromJson(
-                  widget.postDocument!.optionsJson, 1);
-              _model.pollOption3 = functions.getValueFromJson(
-                  widget.postDocument!.optionsJson, 2);
-              _model.pollOption4 = functions.getValueFromJson(
-                  widget.postDocument!.optionsJson, 3);
-            });
+            _model.pollQuestion = widget.postDocument?.question;
+            _model.pollDuration = widget.postDocument?.duration;
+            _model.pollOption1 =
+                functions.getValueFromJson(widget.postDocument!.optionsJson, 0);
+            _model.pollOption2 =
+                functions.getValueFromJson(widget.postDocument!.optionsJson, 1);
+            _model.pollOption3 =
+                functions.getValueFromJson(widget.postDocument!.optionsJson, 2);
+            _model.pollOption4 =
+                functions.getValueFromJson(widget.postDocument!.optionsJson, 3);
+            setState(() {});
           }
         }
       }
@@ -372,9 +368,8 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   'VIEW_SCHEDULED_POST_Text_ukolvmwt_ON_TAP');
                                               logFirebaseEvent(
                                                   'Text_update_page_state');
-                                              setState(() {
-                                                _model.datePickerVisbile = true;
-                                              });
+                                              _model.datePickerVisbile = true;
+                                              setState(() {});
                                               logFirebaseEvent(
                                                   'Text_wait__delay');
                                               await Future.delayed(
@@ -1759,9 +1754,8 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                       }
                                       logFirebaseEvent(
                                           'Container_update_page_state');
-                                      setState(() {
-                                        _model.datePickerVisbile = false;
-                                      });
+                                      _model.datePickerVisbile = false;
+                                      setState(() {});
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -1952,10 +1946,9 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                               }
                                               logFirebaseEvent(
                                                   'Container_update_page_state');
-                                              setState(() {
-                                                _model.scheduledDate =
-                                                    _model.datePicked1;
-                                              });
+                                              _model.scheduledDate =
+                                                  _model.datePicked1;
+                                              setState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -2131,10 +2124,9 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                               }
                                               logFirebaseEvent(
                                                   'Container_update_page_state');
-                                              setState(() {
-                                                _model.scheduledTime =
-                                                    _model.datePicked2;
-                                              });
+                                              _model.scheduledTime =
+                                                  _model.datePicked2;
+                                              setState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -2239,11 +2231,10 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                 }
                                                 logFirebaseEvent(
                                                     'Button_update_page_state');
-                                                setState(() {
-                                                  _model.datePickerVisbile =
-                                                      false;
-                                                  _model.reschedule = true;
-                                                });
+                                                _model.datePickerVisbile =
+                                                    false;
+                                                _model.reschedule = true;
+                                                setState(() {});
                                               },
                                               text: 'Next',
                                               options: FFButtonOptions(

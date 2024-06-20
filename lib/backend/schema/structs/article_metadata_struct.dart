@@ -28,30 +28,35 @@ class ArticleMetadataStruct extends FFFirebaseStruct {
   String? _favicon;
   String get favicon => _favicon ?? '';
   set favicon(String? val) => _favicon = val;
+
   bool hasFavicon() => _favicon != null;
 
   // "image_url" field.
   String? _imageUrl;
   String get imageUrl => _imageUrl ?? '';
   set imageUrl(String? val) => _imageUrl = val;
+
   bool hasImageUrl() => _imageUrl != null;
 
   // "publish_date" field.
   DateTime? _publishDate;
   DateTime? get publishDate => _publishDate;
   set publishDate(DateTime? val) => _publishDate = val;
+
   bool hasPublishDate() => _publishDate != null;
 
   // "source_url" field.
   String? _sourceUrl;
   String get sourceUrl => _sourceUrl ?? '';
   set sourceUrl(String? val) => _sourceUrl = val;
+
   bool hasSourceUrl() => _sourceUrl != null;
 
   // "url" field.
   String? _url;
   String get url => _url ?? '';
   set url(String? val) => _url = val;
+
   bool hasUrl() => _url != null;
 
   // "orginial_article_used_for_rag" field.
@@ -60,9 +65,12 @@ class ArticleMetadataStruct extends FFFirebaseStruct {
       _orginialArticleUsedForRag ?? OriginalArticleForRagStruct();
   set orginialArticleUsedForRag(OriginalArticleForRagStruct? val) =>
       _orginialArticleUsedForRag = val;
+
   void updateOrginialArticleUsedForRag(
-          Function(OriginalArticleForRagStruct) updateFn) =>
-      updateFn(_orginialArticleUsedForRag ??= OriginalArticleForRagStruct());
+      Function(OriginalArticleForRagStruct) updateFn) {
+    updateFn(orginialArticleUsedForRag ??= OriginalArticleForRagStruct());
+  }
+
   bool hasOrginialArticleUsedForRag() => _orginialArticleUsedForRag != null;
 
   static ArticleMetadataStruct fromMap(Map<String, dynamic> data) =>

@@ -3,9 +3,7 @@ import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
-import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class NotificationPopupStruct extends FFFirebaseStruct {
@@ -21,12 +19,14 @@ class NotificationPopupStruct extends FFFirebaseStruct {
   bool? _notificationPopupVisible;
   bool get notificationPopupVisible => _notificationPopupVisible ?? true;
   set notificationPopupVisible(bool? val) => _notificationPopupVisible = val;
+
   bool hasNotificationPopupVisible() => _notificationPopupVisible != null;
 
   // "subsToNoti" field.
   bool? _subsToNoti;
   bool get subsToNoti => _subsToNoti ?? false;
   set subsToNoti(bool? val) => _subsToNoti = val;
+
   bool hasSubsToNoti() => _subsToNoti != null;
 
   static NotificationPopupStruct fromMap(Map<String, dynamic> data) =>
