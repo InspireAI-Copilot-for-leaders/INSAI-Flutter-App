@@ -3177,12 +3177,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     ),
                   ],
                 ),
-              if (!FFAppState().dashboardLoading &&
-                  responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                  ))
+              if (!FFAppState().dashboardLoading)
                 wrapWithModel(
                   model: _model.profileLoadingScreenModel,
                   updateCallback: () => setState(() {}),
