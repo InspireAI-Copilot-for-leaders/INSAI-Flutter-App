@@ -112,6 +112,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 1,
+                  minFontSize: 14.0,
                   style: FlutterFlowTheme.of(context).bodyLarge.override(
                         fontFamily: 'Plus Jakarta Sans',
                         color: FlutterFlowTheme.of(context).primaryText,
@@ -121,7 +122,6 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                         useGoogleFonts: GoogleFonts.asMap()
                             .containsKey('Plus Jakarta Sans'),
                       ),
-                  minFontSize: 14.0,
                 ),
               ),
               Flexible(
@@ -134,6 +134,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                     ),
                     textAlign: TextAlign.center,
                     maxLines: 3,
+                    minFontSize: 10.0,
                     style: FlutterFlowTheme.of(context).labelSmall.override(
                           fontFamily: 'Plus Jakarta Sans',
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -143,7 +144,6 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                           useGoogleFonts: GoogleFonts.asMap()
                               .containsKey('Plus Jakarta Sans'),
                         ),
-                    minFontSize: 10.0,
                   ),
                 ),
               ),

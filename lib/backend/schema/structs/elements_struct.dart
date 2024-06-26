@@ -38,7 +38,7 @@ class ElementsStruct extends FFFirebaseStruct {
   set identifiers(IdentifiersStruct? val) => _identifiers = val;
 
   void updateIdentifiers(Function(IdentifiersStruct) updateFn) {
-    updateFn(identifiers ??= IdentifiersStruct());
+    updateFn(_identifiers ??= IdentifiersStruct());
   }
 
   bool hasIdentifiers() => _identifiers != null;

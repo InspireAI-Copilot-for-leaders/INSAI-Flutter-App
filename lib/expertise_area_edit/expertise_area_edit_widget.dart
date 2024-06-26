@@ -244,6 +244,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                   'Hey ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
                                                   textAlign: TextAlign.start,
                                                   maxLines: 2,
+                                                  minFontSize: 26.0,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .displayMedium
@@ -263,7 +264,6 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                         context)
                                                                     .displayMediumFamily),
                                                       ),
-                                                  minFontSize: 26.0,
                                                 ),
                                               ),
                                             ),

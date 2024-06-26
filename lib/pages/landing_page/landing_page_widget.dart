@@ -728,19 +728,19 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                       'Inspire with the power of',
                                       textAlign: TextAlign.start,
                                       maxLines: 2,
+                                      minFontSize: 30.0,
                                       style: FlutterFlowTheme.of(context)
                                           .displayLarge
                                           .override(
                                             fontFamily: 'Montserrat',
                                             color: Colors.white,
-                                            fontSize: 40.0,
+                                            fontSize: 42.0,
                                             letterSpacing: 1.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                             lineHeight: 1.25,
                                           ),
-                                      minFontSize: 30.0,
                                     ).animateOnPageLoad(animationsMap[
                                         'textOnPageLoadAnimation1']!),
                                   ),
@@ -750,18 +750,18 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                       'effortless,',
                                       textAlign: TextAlign.start,
                                       maxLines: 1,
+                                      minFontSize: 30.0,
                                       style: FlutterFlowTheme.of(context)
                                           .displayLarge
                                           .override(
                                             fontFamily: 'Montserrat',
                                             color: Colors.white,
-                                            fontSize: 40.0,
+                                            fontSize: 42.0,
                                             letterSpacing: 1.0,
                                             fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                           ),
-                                      minFontSize: 30.0,
                                     ).animateOnPageLoad(animationsMap[
                                         'textOnPageLoadAnimation2']!),
                                   ),
@@ -774,12 +774,13 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                         'effective and,',
                                         textAlign: TextAlign.start,
                                         maxLines: 1,
+                                        minFontSize: 30.0,
                                         style: FlutterFlowTheme.of(context)
                                             .displayLarge
                                             .override(
                                               fontFamily: 'Montserrat',
                                               color: Colors.white,
-                                              fontSize: 40.0,
+                                              fontSize: 42.0,
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
@@ -787,7 +788,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                                       .containsKey(
                                                           'Montserrat'),
                                             ),
-                                        minFontSize: 30.0,
                                       ).animateOnPageLoad(animationsMap[
                                           'textOnPageLoadAnimation3']!),
                                     ),
@@ -801,12 +801,13 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                         'empowering',
                                         textAlign: TextAlign.start,
                                         maxLines: 1,
+                                        minFontSize: 30.0,
                                         style: FlutterFlowTheme.of(context)
                                             .displayLarge
                                             .override(
                                               fontFamily: 'Montserrat',
                                               color: Colors.white,
-                                              fontSize: 40.0,
+                                              fontSize: 42.0,
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
@@ -814,7 +815,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                                       .containsKey(
                                                           'Montserrat'),
                                             ),
-                                        minFontSize: 30.0,
                                       ).animateOnPageLoad(animationsMap[
                                           'textOnPageLoadAnimation4']!),
                                     ),
@@ -828,12 +828,13 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                         'storytelling.',
                                         textAlign: TextAlign.start,
                                         maxLines: 1,
+                                        minFontSize: 30.0,
                                         style: FlutterFlowTheme.of(context)
                                             .displayLarge
                                             .override(
                                               fontFamily: 'Montserrat',
                                               color: Colors.white,
-                                              fontSize: 40.0,
+                                              fontSize: 42.0,
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
@@ -841,7 +842,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                                       .containsKey(
                                                           'Montserrat'),
                                             ),
-                                        minFontSize: 30.0,
                                       ).animateOnPageLoad(animationsMap[
                                           'textOnPageLoadAnimation5']!),
                                     ),
@@ -861,6 +861,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                     'Transform your ideas into',
                                     textAlign: TextAlign.start,
                                     maxLines: 2,
+                                    minFontSize: 30.0,
                                     style: FlutterFlowTheme.of(context)
                                         .displayLarge
                                         .override(
@@ -872,7 +873,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Montserrat'),
                                         ),
-                                    minFontSize: 30.0,
                                   ).animateOnActionTrigger(
                                     animationsMap[
                                         'textOnActionTriggerAnimation1']!,
@@ -989,6 +989,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                     'Harness the future of',
                                     textAlign: TextAlign.start,
                                     maxLines: 2,
+                                    minFontSize: 30.0,
                                     style: FlutterFlowTheme.of(context)
                                         .displayLarge
                                         .override(
@@ -1000,7 +1001,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Montserrat'),
                                         ),
-                                    minFontSize: 30.0,
                                   ).animateOnActionTrigger(
                                     animationsMap[
                                         'textOnActionTriggerAnimation6']!,
@@ -1012,6 +1012,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                     'content',
                                     textAlign: TextAlign.start,
                                     maxLines: 1,
+                                    minFontSize: 30.0,
                                     style: FlutterFlowTheme.of(context)
                                         .displayLarge
                                         .override(
@@ -1023,7 +1024,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey('Montserrat'),
                                         ),
-                                    minFontSize: 30.0,
                                   ).animateOnActionTrigger(
                                     animationsMap[
                                         'textOnActionTriggerAnimation7']!,
@@ -1037,6 +1037,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                       'creation for',
                                       textAlign: TextAlign.start,
                                       maxLines: 1,
+                                      minFontSize: 30.0,
                                       style: FlutterFlowTheme.of(context)
                                           .displayLarge
                                           .override(
@@ -1048,7 +1049,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                           ),
-                                      minFontSize: 30.0,
                                     ).animateOnActionTrigger(
                                       animationsMap[
                                           'textOnActionTriggerAnimation8']!,
@@ -1063,6 +1063,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                       'unmatched',
                                       textAlign: TextAlign.start,
                                       maxLines: 1,
+                                      minFontSize: 30.0,
                                       style: FlutterFlowTheme.of(context)
                                           .displayLarge
                                           .override(
@@ -1074,7 +1075,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                           ),
-                                      minFontSize: 30.0,
                                     ).animateOnActionTrigger(
                                       animationsMap[
                                           'textOnActionTriggerAnimation9']!,
@@ -1089,6 +1089,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                       'engagement.',
                                       textAlign: TextAlign.start,
                                       maxLines: 1,
+                                      minFontSize: 30.0,
                                       style: FlutterFlowTheme.of(context)
                                           .displayLarge
                                           .override(
@@ -1100,7 +1101,6 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey('Montserrat'),
                                           ),
-                                      minFontSize: 30.0,
                                     ).animateOnActionTrigger(
                                       animationsMap[
                                           'textOnActionTriggerAnimation10']!,

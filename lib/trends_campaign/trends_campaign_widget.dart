@@ -33,7 +33,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'trendsCampaign'});
-    _model.textController ??= TextEditingController();
+    _model.textController ??= TextEditingController(text: 'My Trends Campaign');
     _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -89,233 +89,111 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
           centerTitle: false,
           elevation: 2.0,
         ),
-        body: SafeArea(
-          top: true,
-          child: SizedBox(
-            height: double.infinity,
-            child: Stack(
-              children: [
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: const BoxDecoration(),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 16.0, 0.0, 16.0),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Trending Events Insights',
+        body: SizedBox(
+          height: double.infinity,
+          child: Stack(
+            children: [
+              Align(
+                alignment: const AlignmentDirectional(0.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: const BoxDecoration(),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 16.0),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Trending Events Insights',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMediumFamily,
+                                          fontSize: 20.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily),
+                                        ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 4.0, 0.0, 12.0),
+                                    child: Text(
+                                      'Insights, trends, and expert opinions specific to your industry to establish authority and influence within that domain.',
+                                      textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .override(
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily,
-                                            fontSize: 20.0,
+                                                    .labelLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            fontSize: 12.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w500,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily),
+                                                        .labelLargeFamily),
                                           ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 4.0, 0.0, 12.0),
-                                      child: Text(
-                                        'Insights, trends, and expert opinions specific to your industry to establish authority and influence within that domain.',
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeFamily),
-                                            ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 12.0, 0.0, 0.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 12.0, 12.0, 12.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: TextFormField(
-                                                  controller:
-                                                      _model.textController,
-                                                  focusNode:
-                                                      _model.textFieldFocusNode,
-                                                  autofocus: false,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    isDense: true,
-                                                    labelText: 'Campaign Title',
-                                                    labelStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMediumFamily),
-                                                        ),
-                                                    hintText:
-                                                        'Enter a title for this campaign...',
-                                                    hintStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMediumFamily,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMediumFamily),
-                                                        ),
-                                                    enabledBorder:
-                                                        InputBorder.none,
-                                                    focusedBorder:
-                                                        InputBorder.none,
-                                                    errorBorder:
-                                                        InputBorder.none,
-                                                    focusedErrorBorder:
-                                                        InputBorder.none,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 12.0, 12.0, 12.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: TextFormField(
+                                                controller:
+                                                    _model.textController,
+                                                focusNode:
+                                                    _model.textFieldFocusNode,
+                                                autofocus: false,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  labelText: 'Campaign Title',
+                                                  labelStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .labelMedium
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyMediumFamily,
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
-                                                  maxLines: null,
-                                                  maxLength: 120,
-                                                  maxLengthEnforcement:
-                                                      MaxLengthEnforcement
-                                                          .enforced,
-                                                  buildCounter: (context,
-                                                          {required currentLength,
-                                                          required isFocused,
-                                                          maxLength}) =>
-                                                      null,
-                                                  validator: _model
-                                                      .textControllerValidator
-                                                      .asValidator(context),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 8.0, 0.0, 0.0),
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        elevation: 1.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        child: Container(
-                                          constraints: const BoxConstraints(
-                                            maxHeight: 280.0,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        12.0, 12.0, 12.0, 0.0),
-                                                child: Text(
-                                                  'Company to create content',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
+                                                                .labelMediumFamily,
+                                                        color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyMediumFamily,
+                                                                .primaryText,
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -325,464 +203,570 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMediumFamily),
+                                                                    .labelMediumFamily),
                                                       ),
+                                                  hintText:
+                                                      'Enter a title for this campaign...',
+                                                  hintStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily,
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMediumFamily),
+                                                          ),
+                                                  enabledBorder:
+                                                      InputBorder.none,
+                                                  focusedBorder:
+                                                      InputBorder.none,
+                                                  errorBorder: InputBorder.none,
+                                                  focusedErrorBorder:
+                                                      InputBorder.none,
                                                 ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                maxLines: null,
+                                                maxLength: 120,
+                                                maxLengthEnforcement:
+                                                    MaxLengthEnforcement
+                                                        .enforced,
+                                                buildCounter: (context,
+                                                        {required currentLength,
+                                                        required isFocused,
+                                                        maxLength}) =>
+                                                    null,
+                                                validator: _model
+                                                    .textControllerValidator
+                                                    .asValidator(context),
                                               ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(12.0, 8.0, 12.0,
-                                                          12.0),
-                                                  child: AuthUserStreamWidget(
-                                                    builder: (context) =>
-                                                        Builder(
-                                                      builder: (context) {
-                                                        final broadDomains =
-                                                            (currentUserDocument
-                                                                        ?.broadDomains
-                                                                        .toList() ??
-                                                                    [])
-                                                                .toList();
-                                                        return ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              broadDomains
-                                                                  .length,
-                                                          itemBuilder: (context,
-                                                              broadDomainsIndex) {
-                                                            final broadDomainsItem =
-                                                                broadDomains[
-                                                                    broadDomainsIndex];
-                                                            return InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                logFirebaseEvent(
-                                                                    'TRENDS_CAMPAIGN_Container_a456los6_ON_TA');
-                                                                logFirebaseEvent(
-                                                                    'Container_update_page_state');
-                                                                _model.selectedCompanyIndex =
-                                                                    broadDomainsIndex;
-                                                                setState(() {});
-                                                              },
-                                                              child: Material(
-                                                                color: Colors
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 1.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      child: Container(
+                                        constraints: const BoxConstraints(
+                                          maxHeight: 280.0,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 12.0, 12.0, 0.0),
+                                              child: Text(
+                                                'Company to create content',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 8.0, 12.0, 12.0),
+                                                child: AuthUserStreamWidget(
+                                                  builder: (context) => Builder(
+                                                    builder: (context) {
+                                                      final broadDomains =
+                                                          (currentUserDocument
+                                                                      ?.broadDomains
+                                                                      .toList() ??
+                                                                  [])
+                                                              .toList();
+                                                      return ListView.builder(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            broadDomains.length,
+                                                        itemBuilder: (context,
+                                                            broadDomainsIndex) {
+                                                          final broadDomainsItem =
+                                                              broadDomains[
+                                                                  broadDomainsIndex];
+                                                          return InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
                                                                     .transparent,
-                                                                elevation: 2.0,
-                                                                shape:
-                                                                    RoundedRectangleBorder(
+                                                            onTap: () async {
+                                                              logFirebaseEvent(
+                                                                  'TRENDS_CAMPAIGN_Container_a456los6_ON_TA');
+                                                              logFirebaseEvent(
+                                                                  'Container_update_page_state');
+                                                              _model.selectedCompanyIndex =
+                                                                  broadDomainsIndex;
+                                                              setState(() {});
+                                                            },
+                                                            child: Material(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              elevation: 2.0,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            12.0),
+                                                              ),
+                                                              child: Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: broadDomainsIndex ==
+                                                                          _model
+                                                                              .selectedCompanyIndex
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
                                                                               12.0),
-                                                                ),
-                                                                child:
-                                                                    Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: broadDomainsIndex ==
-                                                                            _model
-                                                                                .selectedCompanyIndex
-                                                                        ? FlutterFlowTheme.of(context)
-                                                                            .secondary
-                                                                        : FlutterFlowTheme.of(context)
-                                                                            .primaryBackground,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryBackground,
-                                                                      width:
-                                                                          0.0,
-                                                                    ),
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    width: 0.0,
                                                                   ),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    children: [
-                                                                      Flexible(
+                                                                ),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            4.0,
+                                                                            4.0,
+                                                                            8.0,
+                                                                            4.0),
                                                                         child:
-                                                                            Padding(
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                              4.0,
-                                                                              4.0,
-                                                                              8.0,
-                                                                              4.0),
+                                                                            Container(
+                                                                          decoration:
+                                                                              const BoxDecoration(),
                                                                           child:
-                                                                              Container(
-                                                                            decoration:
-                                                                                const BoxDecoration(),
+                                                                              Padding(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                                8.0,
+                                                                                8.0,
+                                                                                8.0,
+                                                                                8.0),
                                                                             child:
-                                                                                Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                                                              child: Text(
-                                                                                broadDomainsItem,
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                      color: FlutterFlowTheme.of(context).primaryText,
-                                                                                      fontSize: 18.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                    ),
-                                                                              ),
+                                                                                Text(
+                                                                              broadDomainsItem,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    fontSize: 14.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                  ),
                                                                             ),
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                    ],
-                                                                  ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
                                                   ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 6.0, 12.0, 8.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              FlutterFlowDropDown<int>(
-                                                controller: _model
-                                                        .dropDownValueController1 ??=
-                                                    FormFieldController<int>(
-                                                        null),
-                                                options: List<int>.from(
-                                                    [1, 2, 3, 4]),
-                                                optionLabels: const [
-                                                  '1 week',
-                                                  '2 weeks',
-                                                  '3 weeks',
-                                                  '4 weeks'
-                                                ],
-                                                onChanged: (val) => setState(
-                                                    () => _model
-                                                        .dropDownValue1 = val),
-                                                width: 286.0,
-                                                height: 50.0,
-                                                textStyle:
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 12.0, 0.0, 0.0),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 6.0, 12.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            FlutterFlowDropDown<int>(
+                                              controller: _model
+                                                      .dropDownValueController1 ??=
+                                                  FormFieldController<int>(
+                                                      null),
+                                              options: List<int>.from([1, 2]),
+                                              optionLabels: const [
+                                                '1 week',
+                                                '2 weeks'
+                                              ],
+                                              onChanged: (val) => setState(() =>
+                                                  _model.dropDownValue1 = val),
+                                              width: 286.0,
+                                              height: 50.0,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                              hintText:
+                                                  'Duration of the campaign',
+                                              icon: Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_rounded,
+                                                color:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                hintText:
-                                                    'Duration of the campaign',
-                                                icon: Icon(
-                                                  Icons
-                                                      .keyboard_arrow_down_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 2.0,
-                                                borderRadius: 8.0,
-                                                margin: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 4.0, 0.0, 4.0),
-                                                hidesUnderline: true,
-                                                isOverButton: true,
-                                                isSearchable: false,
-                                                isMultiSelect: false,
+                                                        .secondaryText,
+                                                size: 24.0,
                                               ),
-                                            ],
-                                          ),
+                                              elevation: 2.0,
+                                              borderColor: Colors.transparent,
+                                              borderWidth: 2.0,
+                                              borderRadius: 8.0,
+                                              margin: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 4.0, 0.0, 4.0),
+                                              hidesUnderline: true,
+                                              isOverButton: true,
+                                              isSearchable: false,
+                                              isMultiSelect: false,
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 6.0, 12.0, 8.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              FlutterFlowDropDown<int>(
-                                                controller: _model
-                                                        .dropDownValueController2 ??=
-                                                    FormFieldController<int>(
-                                                        null),
-                                                options: List<int>.from(
-                                                    [1, 2, 3, 5]),
-                                                optionLabels: const [
-                                                  'Once per week',
-                                                  'Twice per week',
-                                                  '3 times a week',
-                                                  '5 times a week'
-                                                ],
-                                                onChanged: (val) => setState(
-                                                    () => _model
-                                                        .dropDownValue2 = val),
-                                                width: 286.0,
-                                                height: 50.0,
-                                                textStyle:
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 12.0, 0.0, 0.0),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 6.0, 12.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            FlutterFlowDropDown<int>(
+                                              controller: _model
+                                                      .dropDownValueController2 ??=
+                                                  FormFieldController<int>(
+                                                      null),
+                                              options:
+                                                  List<int>.from([1, 2, 3]),
+                                              optionLabels: const [
+                                                'Once per week',
+                                                'Twice per week',
+                                                '3 times a week'
+                                              ],
+                                              onChanged: (val) => setState(() =>
+                                                  _model.dropDownValue2 = val),
+                                              width: 286.0,
+                                              height: 50.0,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                              hintText: 'Frequency of posting',
+                                              icon: Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_rounded,
+                                                color:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                hintText:
-                                                    'Frequency of posting',
-                                                icon: Icon(
-                                                  Icons
-                                                      .keyboard_arrow_down_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 2.0,
-                                                borderRadius: 8.0,
-                                                margin: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 4.0, 0.0, 4.0),
-                                                hidesUnderline: true,
-                                                isOverButton: true,
-                                                isSearchable: false,
-                                                isMultiSelect: false,
+                                                        .secondaryText,
+                                                size: 24.0,
                                               ),
-                                            ],
-                                          ),
+                                              elevation: 2.0,
+                                              borderColor: Colors.transparent,
+                                              borderWidth: 2.0,
+                                              borderRadius: 8.0,
+                                              margin: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 4.0, 0.0, 4.0),
+                                              hidesUnderline: true,
+                                              isOverButton: true,
+                                              isSearchable: false,
+                                              isMultiSelect: false,
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 24.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            logFirebaseEvent(
-                                'TRENDS_CAMPAIGN_DO_THE_INSPIRE_A_I_MAGIC');
-                            if ((_model.dropDownValue1 == null) ||
-                                (_model.dropDownValue2 == null)) {
-                              logFirebaseEvent('Button_show_snack_bar');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'One or more of the required fields is empty!',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'TRENDS_CAMPAIGN_DO_THE_INSPIRE_A_I_MAGIC');
+                          if ((_model.dropDownValue1 == null) ||
+                              (_model.dropDownValue2 == null)) {
+                            logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'One or more of the required fields is empty!',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                   ),
-                                  duration: const Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
                                 ),
-                              );
+                                duration: const Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          } else {
+                            logFirebaseEvent('Button_backend_call');
+
+                            var campaignsDetailsRecordReference =
+                                CampaignsDetailsRecord.createDoc(
+                                    currentUserReference!);
+                            await campaignsDetailsRecordReference
+                                .set(createCampaignsDetailsRecordData(
+                              campaignId:
+                                  '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                              createdOn: getCurrentTimestamp,
+                              campaignTitle: _model.textController.text,
+                            ));
+                            _model.apiResult7vv =
+                                CampaignsDetailsRecord.getDocumentFromData(
+                                    createCampaignsDetailsRecordData(
+                                      campaignId:
+                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      createdOn: getCurrentTimestamp,
+                                      campaignTitle: _model.textController.text,
+                                    ),
+                                    campaignsDetailsRecordReference);
+                            logFirebaseEvent('Button_backend_call');
+                            _model.apiResulttd4 =
+                                await CurrentEventsCampaignCall.call(
+                              uid: currentUserUid,
+                              expertiseArea: (currentUserDocument?.broadDomains
+                                      .toList() ??
+                                  [])[_model.selectedCompanyIndex],
+                              campaignId:
+                                  '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                              noOfPosts: (_model.dropDownValue1!) *
+                                  (_model.dropDownValue2!),
+                            );
+
+                            if ((_model.apiResulttd4?.succeeded ?? true)) {
+                              logFirebaseEvent('Button_update_page_state');
+                              _model.loadingScreenVisible = true;
+                              setState(() {});
+                              logFirebaseEvent('Button_wait__delay');
+                              await Future.delayed(
+                                  const Duration(milliseconds: 4000));
+                              logFirebaseEvent('Button_navigate_to');
+
+                              context.goNamed('campaigns');
                             } else {
-                              logFirebaseEvent('Button_backend_call');
-
-                              var campaignsDetailsRecordReference =
-                                  CampaignsDetailsRecord.createDoc(
-                                      currentUserReference!);
-                              await campaignsDetailsRecordReference
-                                  .set(createCampaignsDetailsRecordData(
-                                campaignId:
-                                    '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                createdOn: getCurrentTimestamp,
-                                campaignTitle: _model.textController.text,
-                              ));
-                              _model.apiResult7vv =
-                                  CampaignsDetailsRecord.getDocumentFromData(
-                                      createCampaignsDetailsRecordData(
-                                        campaignId:
-                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                        createdOn: getCurrentTimestamp,
-                                        campaignTitle:
-                                            _model.textController.text,
+                              logFirebaseEvent('Button_alert_dialog');
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: const Text('Request Failed!'),
+                                    content: const Text(
+                                        'Campaign creation request failed.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: const Text('Ok'),
                                       ),
-                                      campaignsDetailsRecordReference);
-                              logFirebaseEvent('Button_backend_call');
-                              _model.apiResulttd4 =
-                                  await CurrentEventsCampaignCall.call(
-                                uid: currentUserUid,
-                                expertiseArea: (currentUserDocument
-                                        ?.broadDomains
-                                        .toList() ??
-                                    [])[_model.selectedCompanyIndex],
-                                campaignId:
-                                    '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                noOfPosts: (_model.dropDownValue1!) *
-                                    (_model.dropDownValue2!),
+                                    ],
+                                  );
+                                },
                               );
-
-                              if ((_model.apiResulttd4?.succeeded ?? true)) {
-                                logFirebaseEvent('Button_update_page_state');
-                                _model.loadingScreenVisible = true;
-                                setState(() {});
-                                logFirebaseEvent('Button_wait__delay');
-                                await Future.delayed(
-                                    const Duration(milliseconds: 4000));
-                                logFirebaseEvent('Button_navigate_to');
-
-                                context.goNamed('campaigns');
-                              } else {
-                                logFirebaseEvent('Button_alert_dialog');
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: const Text('Request Failed!'),
-                                      content: const Text(
-                                          'Campaign creation request failed.'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: const Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
                             }
+                          }
 
-                            setState(() {});
-                          },
-                          text: 'Do the InspireAI magic',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 48.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleSmallFamily),
-                                ),
-                            elevation: 3.0,
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                            ),
-                            borderRadius: BorderRadius.circular(24.0),
+                          setState(() {});
+                        },
+                        text: 'Do the InspireAI magic',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 48.0,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .titleSmallFamily,
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .titleSmallFamily),
+                              ),
+                          elevation: 3.0,
+                          borderSide: const BorderSide(
+                            color: Colors.transparent,
                           ),
+                          borderRadius: BorderRadius.circular(24.0),
                         ),
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              if (_model.loadingScreenVisible == true)
+                wrapWithModel(
+                  model: _model.loadingScreenModel,
+                  updateCallback: () => setState(() {}),
+                  child: LoadingScreenWidget(
+                    loadingText:
+                        'Configuring your campaign. Will take around 2-3 minutes. You can leave this page...',
+                    callToActionVisible: true,
+                    buttonText: 'Go to Campaigns',
+                    callToAction: () async {
+                      logFirebaseEvent(
+                          'TRENDS_CAMPAIGN_Container_qagtsnc6_CALLB');
+                      logFirebaseEvent('LoadingScreen_navigate_to');
+
+                      context.goNamed('campaigns');
+                    },
                   ),
                 ),
-                if (_model.loadingScreenVisible == true)
-                  wrapWithModel(
-                    model: _model.loadingScreenModel,
-                    updateCallback: () => setState(() {}),
-                    child: LoadingScreenWidget(
-                      loadingText:
-                          'Configuring your campaign. Will take around 2-3 minutes. You can leave this page...',
-                      callToActionVisible: true,
-                      buttonText: 'Go to Campaigns',
-                      callToAction: () async {
-                        logFirebaseEvent(
-                            'TRENDS_CAMPAIGN_Container_qagtsnc6_CALLB');
-                        logFirebaseEvent('LoadingScreen_navigate_to');
-
-                        context.goNamed('campaigns');
-                      },
-                    ),
-                  ),
-              ],
-            ),
+            ],
           ),
         ),
       ),

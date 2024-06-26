@@ -100,15 +100,15 @@ class ScheduledPostsRecord extends FirestoreRecord {
   String get status => _status ?? '';
   bool hasStatus() => _status != null;
 
-  // "postTilte" field.
-  String? _postTilte;
-  String get postTilte => _postTilte ?? '';
-  bool hasPostTilte() => _postTilte != null;
-
   // "docFirebaseUrl" field.
   String? _docFirebaseUrl;
   String get docFirebaseUrl => _docFirebaseUrl ?? '';
   bool hasDocFirebaseUrl() => _docFirebaseUrl != null;
+
+  // "postTitle" field.
+  String? _postTitle;
+  String get postTitle => _postTitle ?? '';
+  bool hasPostTitle() => _postTitle != null;
 
   void _initializeFields() {
     _userRef = snapshotData['userRef'] as DocumentReference?;
@@ -128,8 +128,8 @@ class ScheduledPostsRecord extends FirestoreRecord {
     _linkedinImgUrls = getDataList(snapshotData['linkedinImgUrls']);
     _firebaseImgUrls = getDataList(snapshotData['firebaseImgUrls']);
     _status = snapshotData['status'] as String?;
-    _postTilte = snapshotData['postTilte'] as String?;
     _docFirebaseUrl = snapshotData['docFirebaseUrl'] as String?;
+    _postTitle = snapshotData['postTitle'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -181,8 +181,8 @@ Map<String, dynamic> createScheduledPostsRecordData({
   String? optionsJson,
   String? duration,
   String? status,
-  String? postTilte,
   String? docFirebaseUrl,
+  String? postTitle,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -200,8 +200,8 @@ Map<String, dynamic> createScheduledPostsRecordData({
       'optionsJson': optionsJson,
       'duration': duration,
       'status': status,
-      'postTilte': postTilte,
       'docFirebaseUrl': docFirebaseUrl,
+      'postTitle': postTitle,
     }.withoutNulls,
   );
 
@@ -232,8 +232,8 @@ class ScheduledPostsRecordDocumentEquality
         listEquality.equals(e1?.linkedinImgUrls, e2?.linkedinImgUrls) &&
         listEquality.equals(e1?.firebaseImgUrls, e2?.firebaseImgUrls) &&
         e1?.status == e2?.status &&
-        e1?.postTilte == e2?.postTilte &&
-        e1?.docFirebaseUrl == e2?.docFirebaseUrl;
+        e1?.docFirebaseUrl == e2?.docFirebaseUrl &&
+        e1?.postTitle == e2?.postTitle;
   }
 
   @override
@@ -255,8 +255,8 @@ class ScheduledPostsRecordDocumentEquality
         e?.linkedinImgUrls,
         e?.firebaseImgUrls,
         e?.status,
-        e?.postTilte,
-        e?.docFirebaseUrl
+        e?.docFirebaseUrl,
+        e?.postTitle
       ]);
 
   @override

@@ -1827,6 +1827,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                       textAlign:
                                                           TextAlign.center,
                                                       maxLines: 1,
+                                                      minFontSize: 12.0,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1847,7 +1848,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                         FlutterFlowTheme.of(context)
                                                                             .titleSmallFamily),
                                                               ),
-                                                      minFontSize: 12.0,
                                                     ),
                                                   ],
                                                 ),

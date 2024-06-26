@@ -254,11 +254,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            (currentUserDocument
-                                                        ?.profilePictureLinks
-                                                        .toList() ??
-                                                    [])
-                                                .first,
+                                            valueOrDefault<String>(
+                                              (currentUserDocument
+                                                          ?.profilePictureLinks
+                                                          .toList() ??
+                                                      [])
+                                                  .first,
+                                              'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                            ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -1459,9 +1462,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         ''),
                                                     postText: _model
                                                         .textController2.text,
-                                                    postTilte: _model
-                                                        .textController1.text,
                                                     status: 'pending',
+                                                    postTitle: _model
+                                                        .textController1.text,
                                                   ));
                                               logFirebaseEvent(
                                                   'scheduleOnlyText_alert_dialog');
@@ -1684,11 +1687,11 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           mediaTitle: _model
                                                               .uploadedDocTitle,
                                                           status: 'pending',
-                                                          postTilte: _model
-                                                              .textController1
-                                                              .text,
                                                           docFirebaseUrl: _model
                                                               .uploadedFileUrl3,
+                                                          postTitle: _model
+                                                              .textController1
+                                                              .text,
                                                         ));
                                                     logFirebaseEvent(
                                                         'scheduleDoc_alert_dialog');
@@ -1854,9 +1857,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         .toString(),
                                                     duration:
                                                         _model.pollDuration,
-                                                    postTilte: _model
-                                                        .textController1.text,
                                                     status: 'pending',
+                                                    postTitle: _model
+                                                        .textController1.text,
                                                   ));
                                               logFirebaseEvent(
                                                   'schedulePoll_alert_dialog');

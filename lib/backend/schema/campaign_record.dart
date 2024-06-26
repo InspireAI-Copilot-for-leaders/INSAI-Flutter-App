@@ -40,6 +40,31 @@ class CampaignRecord extends FirestoreRecord {
   DateTime? get scheduledTime => _scheduledTime;
   bool hasScheduledTime() => _scheduledTime != null;
 
+  // "type" field.
+  String? _type;
+  String get type => _type ?? '';
+  bool hasType() => _type != null;
+
+  // "company_name" field.
+  String? _companyName;
+  String get companyName => _companyName ?? '';
+  bool hasCompanyName() => _companyName != null;
+
+  // "domain" field.
+  String? _domain;
+  String get domain => _domain ?? '';
+  bool hasDomain() => _domain != null;
+
+  // "expertise_area" field.
+  String? _expertiseArea;
+  String get expertiseArea => _expertiseArea ?? '';
+  bool hasExpertiseArea() => _expertiseArea != null;
+
+  // "scheduledPostRef" field.
+  DocumentReference? _scheduledPostRef;
+  DocumentReference? get scheduledPostRef => _scheduledPostRef;
+  bool hasScheduledPostRef() => _scheduledPostRef != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -48,6 +73,11 @@ class CampaignRecord extends FirestoreRecord {
     _status = snapshotData['status'] as String?;
     _finalPost = snapshotData['final_post'] as String?;
     _scheduledTime = snapshotData['scheduledTime'] as DateTime?;
+    _type = snapshotData['type'] as String?;
+    _companyName = snapshotData['company_name'] as String?;
+    _domain = snapshotData['domain'] as String?;
+    _expertiseArea = snapshotData['expertise_area'] as String?;
+    _scheduledPostRef = snapshotData['scheduledPostRef'] as DocumentReference?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -95,6 +125,11 @@ Map<String, dynamic> createCampaignRecordData({
   String? status,
   String? finalPost,
   DateTime? scheduledTime,
+  String? type,
+  String? companyName,
+  String? domain,
+  String? expertiseArea,
+  DocumentReference? scheduledPostRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -103,6 +138,11 @@ Map<String, dynamic> createCampaignRecordData({
       'status': status,
       'final_post': finalPost,
       'scheduledTime': scheduledTime,
+      'type': type,
+      'company_name': companyName,
+      'domain': domain,
+      'expertise_area': expertiseArea,
+      'scheduledPostRef': scheduledPostRef,
     }.withoutNulls,
   );
 
@@ -118,12 +158,27 @@ class CampaignRecordDocumentEquality implements Equality<CampaignRecord> {
         e1?.content == e2?.content &&
         e1?.status == e2?.status &&
         e1?.finalPost == e2?.finalPost &&
-        e1?.scheduledTime == e2?.scheduledTime;
+        e1?.scheduledTime == e2?.scheduledTime &&
+        e1?.type == e2?.type &&
+        e1?.companyName == e2?.companyName &&
+        e1?.domain == e2?.domain &&
+        e1?.expertiseArea == e2?.expertiseArea &&
+        e1?.scheduledPostRef == e2?.scheduledPostRef;
   }
 
   @override
-  int hash(CampaignRecord? e) => const ListEquality().hash(
-      [e?.campaignId, e?.content, e?.status, e?.finalPost, e?.scheduledTime]);
+  int hash(CampaignRecord? e) => const ListEquality().hash([
+        e?.campaignId,
+        e?.content,
+        e?.status,
+        e?.finalPost,
+        e?.scheduledTime,
+        e?.type,
+        e?.companyName,
+        e?.domain,
+        e?.expertiseArea,
+        e?.scheduledPostRef
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is CampaignRecord;

@@ -434,6 +434,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             'Hey ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
                                             textAlign: TextAlign.start,
                                             maxLines: 2,
+                                            minFontSize: 26.0,
                                             style: FlutterFlowTheme.of(context)
                                                 .displayMedium
                                                 .override(
@@ -450,7 +451,6 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                               .of(context)
                                                           .displayMediumFamily),
                                                 ),
-                                            minFontSize: 26.0,
                                           ),
                                         ),
                                       ),

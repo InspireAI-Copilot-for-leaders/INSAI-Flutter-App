@@ -363,6 +363,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       'Lead the Digital Era',
                                       textAlign: TextAlign.center,
                                       maxLines: 1,
+                                      minFontSize: 18.0,
                                       style: FlutterFlowTheme.of(context)
                                           .displaySmall
                                           .override(
@@ -377,7 +378,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .displaySmallFamily),
                                           ),
-                                      minFontSize: 18.0,
                                     ),
                                   ),
                                   Align(
@@ -389,6 +389,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                         'Your Ideas, Amplified.',
                                         textAlign: TextAlign.start,
                                         maxLines: 1,
+                                        minFontSize: 18.0,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
@@ -408,7 +409,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                               context)
                                                           .labelLargeFamily),
                                             ),
-                                        minFontSize: 18.0,
                                       ),
                                     ),
                                   ),

@@ -1,16 +1,20 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/exit_dialog_widget.dart';
+import '/components/post_content_options_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,17 +28,15 @@ class ViewOrEditCampaignPostWidget extends StatefulWidget {
     required this.postText,
     required this.postRef,
     required this.postTitle,
-    this.status,
-    this.scheduledTime,
     this.indexInList,
+    this.scheduledTime,
   });
 
   final String? postText;
   final DocumentReference? postRef;
   final String? postTitle;
-  final String? status;
-  final DateTime? scheduledTime;
   final int? indexInList;
+  final DateTime? scheduledTime;
 
   @override
   State<ViewOrEditCampaignPostWidget> createState() =>
@@ -56,17 +58,6 @@ class _ViewOrEditCampaignPostWidgetState
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'viewOrEditCampaignPost'});
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('VIEW_OR_EDIT_CAMPAIGN_POST_viewOrEditCam');
-      if (widget.status == 'scheduled') {
-        logFirebaseEvent('viewOrEditCampaignPost_update_page_state');
-        _model.isScheduled = true;
-        _model.scheduledDate = widget.scheduledTime;
-        _model.scheduledTime = widget.scheduledTime;
-        setState(() {});
-      }
-    });
 
     _model.textFieldFocusNode ??= FocusNode();
 
@@ -147,7 +138,7 @@ class _ViewOrEditCampaignPostWidgetState
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             logFirebaseEvent(
-                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Icon_bye5c0sm');
+                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Icon_1fy2u6xk');
                                             if (_model.textController.text !=
                                                 widget.postText) {
                                               logFirebaseEvent(
@@ -184,19 +175,6 @@ class _ViewOrEditCampaignPostWidgetState
                                                               '_backend_call');
 
                                                           await widget.postRef!
-                                                              .update({
-                                                            ...mapToFirestore(
-                                                              {
-                                                                'content':
-                                                                    FieldValue
-                                                                        .delete(),
-                                                              },
-                                                            ),
-                                                          });
-                                                          logFirebaseEvent(
-                                                              '_backend_call');
-
-                                                          await widget.postRef!
                                                               .update(
                                                                   createCampaignRecordData(
                                                             finalPost: _model
@@ -207,7 +185,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                               '_navigate_to');
 
                                                           context.goNamed(
-                                                              'allPostsOverview');
+                                                              'campaigns');
                                                         },
                                                         discardAction:
                                                             () async {
@@ -249,11 +227,14 @@ class _ViewOrEditCampaignPostWidgetState
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            (currentUserDocument
-                                                        ?.profilePictureLinks
-                                                        .toList() ??
-                                                    [])
-                                                .first,
+                                            valueOrDefault<String>(
+                                              (currentUserDocument
+                                                          ?.profilePictureLinks
+                                                          .toList() ??
+                                                      [])
+                                                  .first,
+                                              'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                            ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -298,9 +279,8 @@ class _ViewOrEditCampaignPostWidgetState
                               ],
                             ),
                           ),
-                          FutureBuilder<CampaignRecord>(
-                            future:
-                                CampaignRecord.getDocumentOnce(widget.postRef!),
+                          StreamBuilder<CampaignRecord>(
+                            stream: CampaignRecord.getDocument(widget.postRef!),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
@@ -369,68 +349,166 @@ class _ViewOrEditCampaignPostWidgetState
                                                 ),
                                               ),
                                               Flexible(
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'VIEW_OR_EDIT_CAMPAIGN_POST_Text_nvz3lqaw');
-                                                    logFirebaseEvent(
-                                                        'Text_update_page_state');
-                                                    _model.datePickerVisbile =
-                                                        true;
-                                                    setState(() {});
-                                                    logFirebaseEvent(
-                                                        'Text_wait__delay');
-                                                    await Future.delayed(
-                                                        const Duration(
-                                                            milliseconds: 100));
-                                                    logFirebaseEvent(
-                                                        'Text_widget_animation');
-                                                    if (animationsMap[
-                                                            'containerOnActionTriggerAnimation'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'containerOnActionTriggerAnimation']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                  },
-                                                  child: Text(
-                                                    ' Edit.',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          4.0, 0.0, 0.0, 0.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Text_rdn7vrnx');
+                                                      logFirebaseEvent(
+                                                          'Text_update_page_state');
+                                                      _model.datePickerVisbile =
+                                                          true;
+                                                      setState(() {});
+                                                      logFirebaseEvent(
+                                                          'Text_wait__delay');
+                                                      await Future.delayed(
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  100));
+                                                      logFirebaseEvent(
+                                                          'Text_widget_animation');
+                                                      if (animationsMap[
+                                                              'containerOnActionTriggerAnimation'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'containerOnActionTriggerAnimation']!
+                                                            .controller
+                                                            .forward(from: 0.0);
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      'Change.',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(-1.0, -1.0),
+                                        child: Builder(
+                                          builder: (context) => SizedBox(
+                                            width: 1.0,
+                                            height: 1.0,
+                                            child: custom_widgets
+                                                .BackButtonOverrider(
+                                              width: 1.0,
+                                              height: 1.0,
+                                              onBack: () async {
+                                                logFirebaseEvent(
+                                                    'VIEW_OR_EDIT_CAMPAIGN_POST_Container_gri');
+                                                if (_model
+                                                        .textController.text !=
+                                                    widget.postText) {
+                                                  logFirebaseEvent(
+                                                      'BackButtonOverrider_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) {
+                                                      return Dialog(
+                                                        elevation: 0,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                        child: GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child:
+                                                              ExitDialogWidget(
+                                                            saveAction:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  '_backend_call');
+
+                                                              await widget
+                                                                  .postRef!
+                                                                  .update(
+                                                                      createCampaignRecordData(
+                                                                finalPost: _model
+                                                                    .textController
+                                                                    .text,
+                                                              ));
+                                                              logFirebaseEvent(
+                                                                  '_navigate_to');
+
+                                                              context.goNamed(
+                                                                  'campaigns');
+                                                            },
+                                                            discardAction:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  '_navigate_to');
+
+                                                              context.goNamed(
+                                                                  'allPostsOverview');
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      setState(() {}));
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'BackButtonOverrider_navigate_back');
+                                                  context.safePop();
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                       if (!_model.isScheduled)
                                         Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -488,144 +566,1263 @@ class _ViewOrEditCampaignPostWidgetState
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Expanded(
-                                                    child: FFButtonWidget(
-                                                      onPressed: () async {
-                                                        logFirebaseEvent(
-                                                            'VIEW_OR_EDIT_CAMPAIGN_POST_APPROVE_BTN_O');
-                                                        logFirebaseEvent(
-                                                            'Button_backend_call');
+                                                    child: Stack(
+                                                      children: [
+                                                        if (_model
+                                                                .typeOfMediaUploaded ==
+                                                            'onlyText')
+                                                          FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_onlyTextSched');
+                                                              logFirebaseEvent(
+                                                                  'onlyTextSchedule_backend_call');
 
-                                                        await widget.postRef!
-                                                            .update(
-                                                                createCampaignRecordData(
-                                                          status: 'scheduled',
-                                                          scheduledTime: functions
-                                                              .combineDateTimeStr(
-                                                                  functions.modifiedDateTime(
-                                                                      getCurrentTimestamp,
-                                                                      0,
-                                                                      0,
-                                                                      (widget.indexInList!) +
-                                                                          1,
-                                                                      true)!,
-                                                                  '9:47:00'),
-                                                        ));
-                                                        logFirebaseEvent(
-                                                            'Button_backend_call');
+                                                              var scheduledPostsRecordReference =
+                                                                  ScheduledPostsRecord
+                                                                      .collection
+                                                                      .doc();
+                                                              await scheduledPostsRecordReference
+                                                                  .set(
+                                                                      createScheduledPostsRecordData(
+                                                                userRef:
+                                                                    currentUserReference,
+                                                                timestamp: functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00'),
+                                                                timeOfCreation:
+                                                                    getCurrentTimestamp,
+                                                                postType: _model
+                                                                    .typeOfMediaUploaded,
+                                                                personUrn: valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.linkedinUrn,
+                                                                    ''),
+                                                                accessToken:
+                                                                    valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.linkedinAccess,
+                                                                        ''),
+                                                                postText: _model
+                                                                    .textController
+                                                                    .text,
+                                                                status:
+                                                                    'pending',
+                                                                postTitle: widget
+                                                                    .postTitle,
+                                                              ));
+                                                              _model.scheduledDocOnlyText =
+                                                                  ScheduledPostsRecord
+                                                                      .getDocumentFromData(
+                                                                          createScheduledPostsRecordData(
+                                                                            userRef:
+                                                                                currentUserReference,
+                                                                            timestamp:
+                                                                                functions.combineDateTimeStr(functions.modifiedDateTime(getCurrentTimestamp, 0, 0, (widget.indexInList!) + 1, true)!, '9:47:00'),
+                                                                            timeOfCreation:
+                                                                                getCurrentTimestamp,
+                                                                            postType:
+                                                                                _model.typeOfMediaUploaded,
+                                                                            personUrn:
+                                                                                valueOrDefault(currentUserDocument?.linkedinUrn, ''),
+                                                                            accessToken:
+                                                                                valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+                                                                            postText:
+                                                                                _model.textController.text,
+                                                                            status:
+                                                                                'pending',
+                                                                            postTitle:
+                                                                                widget.postTitle,
+                                                                          ),
+                                                                          scheduledPostsRecordReference);
+                                                              logFirebaseEvent(
+                                                                  'onlyTextSchedule_backend_call');
 
-                                                        await ScheduledPostsRecord
-                                                            .collection
-                                                            .doc()
-                                                            .set(
-                                                                createScheduledPostsRecordData(
-                                                              userRef:
-                                                                  currentUserReference,
-                                                              timestamp: functions
-                                                                  .combineDateTimeStr(
+                                                              await widget
+                                                                  .postRef!
+                                                                  .update(
+                                                                      createCampaignRecordData(
+                                                                status:
+                                                                    'scheduled',
+                                                                scheduledTime: functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00'),
+                                                                scheduledPostRef: _model
+                                                                    .scheduledDocOnlyText
+                                                                    ?.reference,
+                                                              ));
+                                                              logFirebaseEvent(
+                                                                  'onlyTextSchedule_update_page_state');
+                                                              _model.isScheduled =
+                                                                  true;
+                                                              _model.scheduledTime =
+                                                                  functions.combineDateTimeStr(
                                                                       functions.modifiedDateTime(
                                                                           getCurrentTimestamp,
                                                                           0,
                                                                           0,
-                                                                          1,
+                                                                          (widget.indexInList!) +
+                                                                              1,
+                                                                          true)!,
+                                                                      '9:47:00');
+                                                              _model.scheduledDate =
+                                                                  functions.combineDateTimeStr(
+                                                                      functions.modifiedDateTime(
+                                                                          getCurrentTimestamp,
+                                                                          0,
+                                                                          0,
+                                                                          (widget.indexInList!) +
+                                                                              1,
+                                                                          true)!,
+                                                                      '9:47:00');
+                                                              _model.scheduledDocument =
+                                                                  _model
+                                                                      .scheduledDocOnlyText
+                                                                      ?.reference;
+                                                              setState(() {});
+
+                                                              setState(() {});
+                                                            },
+                                                            text: 'Approve',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 30.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                              elevation: 3.0,
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1.0,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                        if ((_model.typeOfMediaUploaded ==
+                                                                'singleImage') ||
+                                                            (_model.typeOfMediaUploaded ==
+                                                                'multiImage'))
+                                                          FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_ImageSchedule');
+                                                              logFirebaseEvent(
+                                                                  'ImageSchedule_upload_media_to_firebase');
+                                                              {
+                                                                setState(() =>
+                                                                    _model.isDataUploading1 =
+                                                                        true);
+                                                                var selectedUploadedFiles =
+                                                                    <FFUploadedFile>[];
+                                                                var selectedMedia =
+                                                                    <SelectedFile>[];
+                                                                var downloadUrls =
+                                                                    <String>[];
+                                                                try {
+                                                                  selectedUploadedFiles =
+                                                                      _model
+                                                                          .uploadedMedia;
+                                                                  selectedMedia =
+                                                                      selectedFilesFromUploadedFiles(
+                                                                    selectedUploadedFiles,
+                                                                    isMultiData:
+                                                                        true,
+                                                                  );
+                                                                  downloadUrls = (await Future
+                                                                          .wait(
+                                                                    selectedMedia
+                                                                        .map(
+                                                                      (m) async => await uploadData(
+                                                                          m.storagePath,
+                                                                          m.bytes),
+                                                                    ),
+                                                                  ))
+                                                                      .where((u) =>
+                                                                          u !=
+                                                                          null)
+                                                                      .map((u) =>
+                                                                          u!)
+                                                                      .toList();
+                                                                } finally {
+                                                                  _model.isDataUploading1 =
+                                                                      false;
+                                                                }
+                                                                if (selectedUploadedFiles
+                                                                            .length ==
+                                                                        selectedMedia
+                                                                            .length &&
+                                                                    downloadUrls
+                                                                            .length ==
+                                                                        selectedMedia
+                                                                            .length) {
+                                                                  setState(() {
+                                                                    _model.uploadedLocalFiles1 =
+                                                                        selectedUploadedFiles;
+                                                                    _model.uploadedFileUrls1 =
+                                                                        downloadUrls;
+                                                                  });
+                                                                } else {
+                                                                  setState(
+                                                                      () {});
+                                                                  return;
+                                                                }
+                                                              }
+
+                                                              while (_model
+                                                                      .noOfImagesUploadedToFirebase <
+                                                                  _model
+                                                                      .numberOfImagesUploaded) {
+                                                                logFirebaseEvent(
+                                                                    'ImageSchedule_backend_call');
+                                                                _model.imageUrlSchCamp =
+                                                                    await GetImageUploadUrlFromLinkedinCall
+                                                                        .call(
+                                                                  urn: valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.linkedinUrn,
+                                                                      ''),
+                                                                  accessToken:
+                                                                      valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinAccess,
+                                                                          ''),
+                                                                );
+
+                                                                if ((_model
+                                                                        .imageUrlSchCamp
+                                                                        ?.succeeded ??
+                                                                    true)) {
+                                                                  logFirebaseEvent(
+                                                                      'ImageSchedule_backend_call');
+                                                                  _model.imageUploadedSchCamp =
+                                                                      await UploadImageToLinkedinCall
+                                                                          .call(
+                                                                    accessToken:
+                                                                        valueOrDefault(
+                                                                            currentUserDocument?.linkedinAccess,
+                                                                            ''),
+                                                                    uploadUrl:
+                                                                        GetImageUploadUrlFromLinkedinCall
+                                                                            .uploadURL(
+                                                                      (_model.imageUrlSchCamp
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ),
+                                                                    imageToBeUploaded: _model
+                                                                            .uploadedFileUrls1[
+                                                                        _model
+                                                                            .noOfImagesUploadedToFirebase],
+                                                                  );
+
+                                                                  if ((_model
+                                                                          .imageUploadedSchCamp
+                                                                          ?.succeeded ??
+                                                                      true)) {
+                                                                    if (_model
+                                                                            .noOfImagesUploadedToFirebase >=
+                                                                        1) {
+                                                                      logFirebaseEvent(
+                                                                          'ImageSchedule_backend_call');
+
+                                                                      await _model
+                                                                          .scheduledDocImage!
+                                                                          .reference
+                                                                          .update({
+                                                                        ...mapToFirestore(
+                                                                          {
+                                                                            'imageUrns':
+                                                                                FieldValue.arrayUnion([
+                                                                              GetImageUploadUrlFromLinkedinCall.imageURN(
+                                                                                (_model.imageUrlSchCamp?.jsonBody ?? ''),
+                                                                              )
+                                                                            ]),
+                                                                            'linkedinImgUrls':
+                                                                                FieldValue.arrayUnion([
+                                                                              GetImageUploadUrlFromLinkedinCall.uploadURL(
+                                                                                (_model.imageUrlSchCamp?.jsonBody ?? ''),
+                                                                              )
+                                                                            ]),
+                                                                            'firebaseImgUrls':
+                                                                                FieldValue.arrayUnion([
+                                                                              _model.uploadedFileUrls1[_model.noOfImagesUploadedToFirebase]
+                                                                            ]),
+                                                                          },
+                                                                        ),
+                                                                      });
+                                                                      logFirebaseEvent(
+                                                                          'ImageSchedule_update_page_state');
+                                                                      _model.noOfImagesUploadedToFirebase =
+                                                                          _model.noOfImagesUploadedToFirebase +
+                                                                              1;
+                                                                      setState(
+                                                                          () {});
+                                                                    } else {
+                                                                      logFirebaseEvent(
+                                                                          'ImageSchedule_backend_call');
+
+                                                                      var scheduledPostsRecordReference = ScheduledPostsRecord
+                                                                          .collection
+                                                                          .doc();
+                                                                      await scheduledPostsRecordReference
+                                                                          .set({
+                                                                        ...mapToFirestore(
+                                                                          {
+                                                                            'imageUrns':
+                                                                                [
+                                                                              GetImageUploadUrlFromLinkedinCall.imageURN(
+                                                                                (_model.imageUrlSchCamp?.jsonBody ?? ''),
+                                                                              )
+                                                                            ],
+                                                                            'linkedinImgUrls':
+                                                                                [
+                                                                              GetImageUploadUrlFromLinkedinCall.uploadURL(
+                                                                                (_model.imageUrlSchCamp?.jsonBody ?? ''),
+                                                                              )
+                                                                            ],
+                                                                            'firebaseImgUrls':
+                                                                                [
+                                                                              _model.uploadedFileUrls1[_model.noOfImagesUploadedToFirebase]
+                                                                            ],
+                                                                          },
+                                                                        ),
+                                                                      });
+                                                                      _model.scheduledDocImage =
+                                                                          ScheduledPostsRecord
+                                                                              .getDocumentFromData({
+                                                                        ...mapToFirestore(
+                                                                          {
+                                                                            'imageUrns':
+                                                                                [
+                                                                              GetImageUploadUrlFromLinkedinCall.imageURN(
+                                                                                (_model.imageUrlSchCamp?.jsonBody ?? ''),
+                                                                              )
+                                                                            ],
+                                                                            'linkedinImgUrls':
+                                                                                [
+                                                                              GetImageUploadUrlFromLinkedinCall.uploadURL(
+                                                                                (_model.imageUrlSchCamp?.jsonBody ?? ''),
+                                                                              )
+                                                                            ],
+                                                                            'firebaseImgUrls':
+                                                                                [
+                                                                              _model.uploadedFileUrls1[_model.noOfImagesUploadedToFirebase]
+                                                                            ],
+                                                                          },
+                                                                        ),
+                                                                      }, scheduledPostsRecordReference);
+                                                                      logFirebaseEvent(
+                                                                          'ImageSchedule_update_page_state');
+                                                                      _model.noOfImagesUploadedToFirebase =
+                                                                          _model.noOfImagesUploadedToFirebase +
+                                                                              1;
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+                                                                  } else {
+                                                                    logFirebaseEvent(
+                                                                        'ImageSchedule_alert_dialog');
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (alertDialogContext) {
+                                                                        return AlertDialog(
+                                                                          title:
+                                                                              const Text('Failed!'),
+                                                                          content:
+                                                                              const Text('Image upload to linkedin failed.'),
+                                                                          actions: [
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                              child: const Text('Ok'),
+                                                                            ),
+                                                                          ],
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  }
+                                                                } else {
+                                                                  logFirebaseEvent(
+                                                                      'ImageSchedule_alert_dialog');
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        title: const Text(
+                                                                            'Failed!'),
+                                                                        content:
+                                                                            const Text('Image upload url from linkedin failed.'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                            child:
+                                                                                const Text('Ok'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
+                                                              }
+                                                              if (_model
+                                                                      .numberOfImagesUploaded >
+                                                                  1) {
+                                                                logFirebaseEvent(
+                                                                    'ImageSchedule_backend_call');
+
+                                                                await widget
+                                                                    .postRef!
+                                                                    .update(
+                                                                        createCampaignRecordData(
+                                                                  status:
+                                                                      'scheduled',
+                                                                  scheduledTime: functions.combineDateTimeStr(
+                                                                      functions.modifiedDateTime(
+                                                                          getCurrentTimestamp,
+                                                                          0,
+                                                                          0,
+                                                                          (widget.indexInList!) +
+                                                                              1,
                                                                           true)!,
                                                                       '9:47:00'),
-                                                              timeOfCreation:
-                                                                  getCurrentTimestamp,
-                                                              postType:
-                                                                  'onlyText',
-                                                              personUrn: valueOrDefault(
-                                                                  currentUserDocument
-                                                                      ?.linkedinUrn,
-                                                                  ''),
-                                                              accessToken:
-                                                                  valueOrDefault(
+                                                                  scheduledPostRef: _model
+                                                                      .scheduledDocImage
+                                                                      ?.reference,
+                                                                ));
+                                                                logFirebaseEvent(
+                                                                    'ImageSchedule_backend_call');
+
+                                                                await _model
+                                                                    .scheduledDocImage!
+                                                                    .reference
+                                                                    .update(
+                                                                        createScheduledPostsRecordData(
+                                                                  userRef:
+                                                                      currentUserReference,
+                                                                  timestamp: functions.combineDateTimeStr(
+                                                                      functions.modifiedDateTime(
+                                                                          getCurrentTimestamp,
+                                                                          0,
+                                                                          0,
+                                                                          (widget.indexInList!) +
+                                                                              1,
+                                                                          true)!,
+                                                                      '9:47:00'),
+                                                                  timeOfCreation:
+                                                                      getCurrentTimestamp,
+                                                                  postType: _model
+                                                                      .typeOfMediaUploaded,
+                                                                  personUrn: valueOrDefault(
                                                                       currentUserDocument
-                                                                          ?.linkedinAccess,
+                                                                          ?.linkedinUrn,
                                                                       ''),
-                                                              postText: _model
-                                                                  .textController
-                                                                  .text,
-                                                              status: 'pending',
-                                                              postTilte: widget
-                                                                  .postTitle,
-                                                            ));
-                                                        logFirebaseEvent(
-                                                            'Button_update_page_state');
-                                                        _model.isScheduled =
-                                                            true;
-                                                        _model.scheduledTime = functions
-                                                            .combineDateTimeStr(
-                                                                functions.modifiedDateTime(
-                                                                    getCurrentTimestamp,
-                                                                    0,
-                                                                    0,
-                                                                    (widget.indexInList!) +
-                                                                        1,
-                                                                    true)!,
-                                                                '9:47:00');
-                                                        _model.scheduledDate = functions
-                                                            .combineDateTimeStr(
-                                                                functions.modifiedDateTime(
-                                                                    getCurrentTimestamp,
-                                                                    0,
-                                                                    0,
-                                                                    (widget.indexInList!) +
-                                                                        1,
-                                                                    true)!,
-                                                                '9:47:00');
-                                                        setState(() {});
-                                                      },
-                                                      text: 'Approve',
-                                                      options: FFButtonOptions(
-                                                        height: 30.0,
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    24.0,
-                                                                    0.0,
-                                                                    24.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .success,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                  accessToken:
+                                                                      valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinAccess,
+                                                                          ''),
+                                                                  postText: _model
+                                                                      .textController
+                                                                      .text,
+                                                                  imagesJson: functions
+                                                                      .valueToJsonMapList(
+                                                                          _model
+                                                                              .scheduledDocImage!
+                                                                              .imageUrns
+                                                                              .toList(),
+                                                                          'id')
+                                                                      .toString(),
+                                                                  mediaTitle: widget
+                                                                      .postTitle,
+                                                                  status:
+                                                                      'pending',
+                                                                ));
+                                                                logFirebaseEvent(
+                                                                    'ImageSchedule_update_page_state');
+                                                                _model.isScheduled =
+                                                                    true;
+                                                                _model.scheduledTime = functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00');
+                                                                _model.scheduledDate = functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00');
+                                                                _model.scheduledDocument = _model
+                                                                    .scheduledDocImage
+                                                                    ?.reference;
+                                                                setState(() {});
+                                                              } else {
+                                                                logFirebaseEvent(
+                                                                    'ImageSchedule_backend_call');
+
+                                                                await widget
+                                                                    .postRef!
+                                                                    .update(
+                                                                        createCampaignRecordData(
+                                                                  status:
+                                                                      'scheduled',
+                                                                  scheduledTime: functions.combineDateTimeStr(
+                                                                      functions.modifiedDateTime(
+                                                                          getCurrentTimestamp,
+                                                                          0,
+                                                                          0,
+                                                                          (widget.indexInList!) +
+                                                                              1,
+                                                                          true)!,
+                                                                      '9:47:00'),
+                                                                  scheduledPostRef: _model
+                                                                      .scheduledDocImage
+                                                                      ?.reference,
+                                                                ));
+                                                                logFirebaseEvent(
+                                                                    'ImageSchedule_backend_call');
+
+                                                                await _model
+                                                                    .scheduledDocImage!
+                                                                    .reference
+                                                                    .update(
+                                                                        createScheduledPostsRecordData(
+                                                                  userRef:
+                                                                      currentUserReference,
+                                                                  timestamp: functions.combineDateTimeStr(
+                                                                      functions.modifiedDateTime(
+                                                                          getCurrentTimestamp,
+                                                                          0,
+                                                                          0,
+                                                                          (widget.indexInList!) +
+                                                                              1,
+                                                                          true)!,
+                                                                      '9:47:00'),
+                                                                  timeOfCreation:
+                                                                      getCurrentTimestamp,
+                                                                  postType: _model
+                                                                      .typeOfMediaUploaded,
+                                                                  personUrn: valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.linkedinUrn,
+                                                                      ''),
+                                                                  accessToken:
+                                                                      valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinAccess,
+                                                                          ''),
+                                                                  postText: _model
+                                                                      .textController
+                                                                      .text,
+                                                                  mediaTitle: widget
+                                                                      .postTitle,
+                                                                  status:
+                                                                      'pending',
+                                                                  mediaId:
+                                                                      GetImageUploadUrlFromLinkedinCall
+                                                                          .imageURN(
+                                                                    (_model.imageUrlSchCamp
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  ),
+                                                                ));
+                                                                logFirebaseEvent(
+                                                                    'ImageSchedule_update_page_state');
+                                                                _model.isScheduled =
+                                                                    true;
+                                                                _model.scheduledTime = functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00');
+                                                                _model.scheduledDate = functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00');
+                                                                _model.scheduledDocument = _model
+                                                                    .scheduledDocImage
+                                                                    ?.reference;
+                                                                setState(() {});
+                                                              }
+
+                                                              setState(() {});
+                                                            },
+                                                            text: 'Approve',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 30.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
                                                                           context)
-                                                                      .titleSmallFamily,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleSmallFamily),
-                                                                ),
-                                                        elevation: 3.0,
-                                                        borderSide: const BorderSide(
-                                                          color: Colors
-                                                              .transparent,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                              elevation: 3.0,
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1.0,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                        if (_model
+                                                                .typeOfMediaUploaded ==
+                                                            'doc')
+                                                          FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_docSchedule_O');
+                                                              if (_model
+                                                                      .typeOfMediaUploaded ==
+                                                                  'doc') {
+                                                                logFirebaseEvent(
+                                                                    'docSchedule_upload_file_to_firebase');
+                                                                {
+                                                                  setState(() =>
+                                                                      _model.isDataUploading2 =
+                                                                          true);
+                                                                  var selectedUploadedFiles =
+                                                                      <FFUploadedFile>[];
+                                                                  var selectedFiles =
+                                                                      <SelectedFile>[];
+                                                                  var downloadUrls =
+                                                                      <String>[];
+                                                                  try {
+                                                                    selectedUploadedFiles = _model
+                                                                            .uploadedDoc!
+                                                                            .bytes!
+                                                                            .isNotEmpty
+                                                                        ? [
+                                                                            _model.uploadedDoc!
+                                                                          ]
+                                                                        : <FFUploadedFile>[];
+                                                                    selectedFiles =
+                                                                        selectedFilesFromUploadedFiles(
+                                                                      selectedUploadedFiles,
+                                                                    );
+                                                                    downloadUrls = (await Future
+                                                                            .wait(
+                                                                      selectedFiles
+                                                                          .map(
+                                                                        (f) async => await uploadData(
+                                                                            f.storagePath,
+                                                                            f.bytes),
+                                                                      ),
+                                                                    ))
+                                                                        .where((u) =>
+                                                                            u !=
+                                                                            null)
+                                                                        .map((u) =>
+                                                                            u!)
+                                                                        .toList();
+                                                                  } finally {
+                                                                    _model.isDataUploading2 =
+                                                                        false;
+                                                                  }
+                                                                  if (selectedUploadedFiles
+                                                                              .length ==
+                                                                          selectedFiles
+                                                                              .length &&
+                                                                      downloadUrls
+                                                                              .length ==
+                                                                          selectedFiles
+                                                                              .length) {
+                                                                    setState(
+                                                                        () {
+                                                                      _model.uploadedLocalFile2 =
+                                                                          selectedUploadedFiles
+                                                                              .first;
+                                                                      _model.uploadedFileUrl2 =
+                                                                          downloadUrls
+                                                                              .first;
+                                                                    });
+                                                                  } else {
+                                                                    setState(
+                                                                        () {});
+                                                                    return;
+                                                                  }
+                                                                }
+
+                                                                logFirebaseEvent(
+                                                                    'docSchedule_backend_call');
+                                                                _model.liDocURLScheCopy =
+                                                                    await GetDocUploadUrlFromLinkedinCall
+                                                                        .call(
+                                                                  urn: valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.linkedinUrn,
+                                                                      ''),
+                                                                  accessToken:
+                                                                      valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinAccess,
+                                                                          ''),
+                                                                );
+
+                                                                if ((_model
+                                                                        .liDocURLScheCopy
+                                                                        ?.succeeded ??
+                                                                    true)) {
+                                                                  logFirebaseEvent(
+                                                                      'docSchedule_backend_call');
+                                                                  _model.docUploadedScheCopy =
+                                                                      await UploadDocToLinkedinCall
+                                                                          .call(
+                                                                    accessToken:
+                                                                        valueOrDefault(
+                                                                            currentUserDocument?.linkedinAccess,
+                                                                            ''),
+                                                                    uploadUrl:
+                                                                        GetDocUploadUrlFromLinkedinCall
+                                                                            .uploadURL(
+                                                                      (_model.liDocURLScheCopy
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ),
+                                                                    docToBeUploaded:
+                                                                        _model
+                                                                            .uploadedFileUrl2,
+                                                                  );
+
+                                                                  if ((_model
+                                                                          .docUploadedScheCopy
+                                                                          ?.succeeded ??
+                                                                      true)) {
+                                                                    logFirebaseEvent(
+                                                                        'docSchedule_backend_call');
+
+                                                                    var scheduledPostsRecordReference =
+                                                                        ScheduledPostsRecord
+                                                                            .collection
+                                                                            .doc();
+                                                                    await scheduledPostsRecordReference
+                                                                        .set(
+                                                                            createScheduledPostsRecordData(
+                                                                      userRef:
+                                                                          currentUserReference,
+                                                                      timestamp: functions.combineDateTimeStr(
+                                                                          functions.modifiedDateTime(
+                                                                              getCurrentTimestamp,
+                                                                              0,
+                                                                              0,
+                                                                              (widget.indexInList!) + 1,
+                                                                              true)!,
+                                                                          '9:47:00'),
+                                                                      timeOfCreation:
+                                                                          getCurrentTimestamp,
+                                                                      postType:
+                                                                          _model
+                                                                              .typeOfMediaUploaded,
+                                                                      personUrn: valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinUrn,
+                                                                          ''),
+                                                                      accessToken: valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinAccess,
+                                                                          ''),
+                                                                      postText: _model
+                                                                          .textController
+                                                                          .text,
+                                                                      mediaId:
+                                                                          GetDocUploadUrlFromLinkedinCall
+                                                                              .docURN(
+                                                                        (_model.liDocURLScheCopy?.jsonBody ??
+                                                                            ''),
+                                                                      ),
+                                                                      mediaTitle:
+                                                                          _model
+                                                                              .uploadedDocTitle,
+                                                                      status:
+                                                                          'pending',
+                                                                      docFirebaseUrl:
+                                                                          _model
+                                                                              .uploadedFileUrl2,
+                                                                      postTitle:
+                                                                          widget
+                                                                              .postTitle,
+                                                                    ));
+                                                                    _model.scheduledDocDoc =
+                                                                        ScheduledPostsRecord.getDocumentFromData(
+                                                                            createScheduledPostsRecordData(
+                                                                              userRef: currentUserReference,
+                                                                              timestamp: functions.combineDateTimeStr(functions.modifiedDateTime(getCurrentTimestamp, 0, 0, (widget.indexInList!) + 1, true)!, '9:47:00'),
+                                                                              timeOfCreation: getCurrentTimestamp,
+                                                                              postType: _model.typeOfMediaUploaded,
+                                                                              personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
+                                                                              accessToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+                                                                              postText: _model.textController.text,
+                                                                              mediaId: GetDocUploadUrlFromLinkedinCall.docURN(
+                                                                                (_model.liDocURLScheCopy?.jsonBody ?? ''),
+                                                                              ),
+                                                                              mediaTitle: _model.uploadedDocTitle,
+                                                                              status: 'pending',
+                                                                              docFirebaseUrl: _model.uploadedFileUrl2,
+                                                                              postTitle: widget.postTitle,
+                                                                            ),
+                                                                            scheduledPostsRecordReference);
+                                                                    logFirebaseEvent(
+                                                                        'docSchedule_backend_call');
+
+                                                                    await widget
+                                                                        .postRef!
+                                                                        .update(
+                                                                            createCampaignRecordData(
+                                                                      status:
+                                                                          'scheduled',
+                                                                      scheduledTime: functions.combineDateTimeStr(
+                                                                          functions.modifiedDateTime(
+                                                                              getCurrentTimestamp,
+                                                                              0,
+                                                                              0,
+                                                                              (widget.indexInList!) + 1,
+                                                                              true)!,
+                                                                          '9:47:00'),
+                                                                      scheduledPostRef: _model
+                                                                          .scheduledDocDoc
+                                                                          ?.reference,
+                                                                    ));
+                                                                    logFirebaseEvent(
+                                                                        'docSchedule_update_page_state');
+                                                                    _model.isScheduled =
+                                                                        true;
+                                                                    _model.scheduledTime = functions.combineDateTimeStr(
+                                                                        functions.modifiedDateTime(
+                                                                            getCurrentTimestamp,
+                                                                            0,
+                                                                            0,
+                                                                            (widget.indexInList!) +
+                                                                                1,
+                                                                            true)!,
+                                                                        '9:47:00');
+                                                                    _model.scheduledDate = functions.combineDateTimeStr(
+                                                                        functions.modifiedDateTime(
+                                                                            getCurrentTimestamp,
+                                                                            0,
+                                                                            0,
+                                                                            (widget.indexInList!) +
+                                                                                1,
+                                                                            true)!,
+                                                                        '9:47:00');
+                                                                    _model.scheduledDocument = _model
+                                                                        .scheduledDocDoc
+                                                                        ?.reference;
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                }
+                                                              }
+
+                                                              setState(() {});
+                                                            },
+                                                            text: 'Approve',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 30.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                              elevation: 3.0,
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1.0,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                        if (_model
+                                                                .typeOfMediaUploaded ==
+                                                            'poll')
+                                                          FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_pollSchedule_');
+                                                              await Future
+                                                                  .wait([
+                                                                Future(
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'pollSchedule_update_page_state');
+                                                                  _model.addToPollOptionsList(
+                                                                      _model
+                                                                          .pollOption1!);
+                                                                  setState(
+                                                                      () {});
+                                                                }),
+                                                                Future(
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'pollSchedule_update_page_state');
+                                                                  _model.addToPollOptionsList(
+                                                                      _model
+                                                                          .pollOption2!);
+                                                                  setState(
+                                                                      () {});
+                                                                }),
+                                                                Future(
+                                                                    () async {
+                                                                  if (_model.pollOption3 !=
+                                                                          null &&
+                                                                      _model.pollOption3 !=
+                                                                          '') {
+                                                                    logFirebaseEvent(
+                                                                        'pollSchedule_update_page_state');
+                                                                    _model.addToPollOptionsList(
+                                                                        _model
+                                                                            .pollOption3!);
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                }),
+                                                                Future(
+                                                                    () async {
+                                                                  if (_model.pollOption4 !=
+                                                                          null &&
+                                                                      _model.pollOption4 !=
+                                                                          '') {
+                                                                    logFirebaseEvent(
+                                                                        'pollSchedule_update_page_state');
+                                                                    _model.addToPollOptionsList(
+                                                                        _model
+                                                                            .pollOption4!);
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                }),
+                                                              ]);
+                                                              logFirebaseEvent(
+                                                                  'pollSchedule_backend_call');
+
+                                                              var scheduledPostsRecordReference =
+                                                                  ScheduledPostsRecord
+                                                                      .collection
+                                                                      .doc();
+                                                              await scheduledPostsRecordReference
+                                                                  .set(
+                                                                      createScheduledPostsRecordData(
+                                                                userRef:
+                                                                    currentUserReference,
+                                                                timestamp: functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00'),
+                                                                timeOfCreation:
+                                                                    getCurrentTimestamp,
+                                                                postType: _model
+                                                                    .typeOfMediaUploaded,
+                                                                personUrn: valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.linkedinUrn,
+                                                                    ''),
+                                                                accessToken:
+                                                                    valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.linkedinAccess,
+                                                                        ''),
+                                                                postText: _model
+                                                                    .textController
+                                                                    .text,
+                                                                question: _model
+                                                                    .pollQuestion,
+                                                                optionsJson: functions
+                                                                    .valueToJsonMapList(
+                                                                        _model
+                                                                            .pollOptionsList
+                                                                            .toList(),
+                                                                        'text')
+                                                                    .toString(),
+                                                                duration: _model
+                                                                    .pollDuration,
+                                                                status:
+                                                                    'pending',
+                                                                postTitle: widget
+                                                                    .postTitle,
+                                                              ));
+                                                              _model.scheduledDocOnlyPoll =
+                                                                  ScheduledPostsRecord
+                                                                      .getDocumentFromData(
+                                                                          createScheduledPostsRecordData(
+                                                                            userRef:
+                                                                                currentUserReference,
+                                                                            timestamp:
+                                                                                functions.combineDateTimeStr(functions.modifiedDateTime(getCurrentTimestamp, 0, 0, (widget.indexInList!) + 1, true)!, '9:47:00'),
+                                                                            timeOfCreation:
+                                                                                getCurrentTimestamp,
+                                                                            postType:
+                                                                                _model.typeOfMediaUploaded,
+                                                                            personUrn:
+                                                                                valueOrDefault(currentUserDocument?.linkedinUrn, ''),
+                                                                            accessToken:
+                                                                                valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+                                                                            postText:
+                                                                                _model.textController.text,
+                                                                            question:
+                                                                                _model.pollQuestion,
+                                                                            optionsJson:
+                                                                                functions.valueToJsonMapList(_model.pollOptionsList.toList(), 'text').toString(),
+                                                                            duration:
+                                                                                _model.pollDuration,
+                                                                            status:
+                                                                                'pending',
+                                                                            postTitle:
+                                                                                widget.postTitle,
+                                                                          ),
+                                                                          scheduledPostsRecordReference);
+                                                              logFirebaseEvent(
+                                                                  'pollSchedule_backend_call');
+
+                                                              await widget
+                                                                  .postRef!
+                                                                  .update(
+                                                                      createCampaignRecordData(
+                                                                status:
+                                                                    'scheduled',
+                                                                scheduledTime: functions.combineDateTimeStr(
+                                                                    functions.modifiedDateTime(
+                                                                        getCurrentTimestamp,
+                                                                        0,
+                                                                        0,
+                                                                        (widget.indexInList!) +
+                                                                            1,
+                                                                        true)!,
+                                                                    '9:47:00'),
+                                                                scheduledPostRef: _model
+                                                                    .scheduledDocOnlyPoll
+                                                                    ?.reference,
+                                                              ));
+                                                              logFirebaseEvent(
+                                                                  'pollSchedule_update_page_state');
+                                                              _model.isScheduled =
+                                                                  true;
+                                                              _model.scheduledTime =
+                                                                  functions.combineDateTimeStr(
+                                                                      functions.modifiedDateTime(
+                                                                          getCurrentTimestamp,
+                                                                          0,
+                                                                          0,
+                                                                          (widget.indexInList!) +
+                                                                              1,
+                                                                          true)!,
+                                                                      '9:47:00');
+                                                              _model.scheduledDate =
+                                                                  functions.combineDateTimeStr(
+                                                                      functions.modifiedDateTime(
+                                                                          getCurrentTimestamp,
+                                                                          0,
+                                                                          0,
+                                                                          (widget.indexInList!) +
+                                                                              1,
+                                                                          true)!,
+                                                                      '9:47:00');
+                                                              _model.scheduledDocument =
+                                                                  _model
+                                                                      .scheduledDocOnlyPoll
+                                                                      ?.reference;
+                                                              setState(() {});
+
+                                                              setState(() {});
+                                                            },
+                                                            text: 'Approve',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 30.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                              elevation: 3.0,
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1.0,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                      ],
                                                     ),
                                                   ),
                                                   Expanded(
@@ -728,111 +1925,6 @@ class _ViewOrEditCampaignPostWidgetState
                                             ),
                                           ],
                                         ),
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(-1.0, -1.0),
-                                        child: Builder(
-                                          builder: (context) => SizedBox(
-                                            width: 1.0,
-                                            height: 1.0,
-                                            child: custom_widgets
-                                                .BackButtonOverrider(
-                                              width: 1.0,
-                                              height: 1.0,
-                                              onBack: () async {
-                                                logFirebaseEvent(
-                                                    'VIEW_OR_EDIT_CAMPAIGN_POST_Container_d6z');
-                                                if (_model
-                                                        .textController.text !=
-                                                    widget.postText) {
-                                                  logFirebaseEvent(
-                                                      'BackButtonOverrider_alert_dialog');
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        child: GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
-                                                                  .unfocus(),
-                                                          child:
-                                                              ExitDialogWidget(
-                                                            saveAction:
-                                                                () async {
-                                                              logFirebaseEvent(
-                                                                  '_backend_call');
-
-                                                              await widget
-                                                                  .postRef!
-                                                                  .update({
-                                                                ...mapToFirestore(
-                                                                  {
-                                                                    'content':
-                                                                        FieldValue
-                                                                            .delete(),
-                                                                  },
-                                                                ),
-                                                              });
-                                                              logFirebaseEvent(
-                                                                  '_backend_call');
-
-                                                              await widget
-                                                                  .postRef!
-                                                                  .update(
-                                                                      createCampaignRecordData(
-                                                                finalPost: _model
-                                                                    .textController
-                                                                    .text,
-                                                              ));
-                                                              logFirebaseEvent(
-                                                                  '_navigate_to');
-
-                                                              context.goNamed(
-                                                                  'allPostsOverview');
-                                                            },
-                                                            discardAction:
-                                                                () async {
-                                                              logFirebaseEvent(
-                                                                  '_navigate_to');
-
-                                                              context.goNamed(
-                                                                  'allPostsOverview');
-                                                            },
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      setState(() {}));
-                                                } else {
-                                                  logFirebaseEvent(
-                                                      'BackButtonOverrider_navigate_back');
-                                                  context.safePop();
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 40.0),
@@ -900,6 +1992,1733 @@ class _ViewOrEditCampaignPostWidgetState
                                               .asValidator(context),
                                         ),
                                       ),
+                                      if ((_model.typeOfMediaUploaded ==
+                                              'singleImage') ||
+                                          (_model.typeOfMediaUploaded ==
+                                              'multiImage'))
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 16.0),
+                                          child: Builder(
+                                            builder: (context) {
+                                              if (_model
+                                                      .numberOfImagesUploaded ==
+                                                  1) {
+                                                return Stack(
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.memory(
+                                                        _model.uploadedMedia
+                                                                .first.bytes ??
+                                                            Uint8List.fromList(
+                                                                []),
+                                                        width: double.infinity,
+                                                        height: 250.0,
+                                                        fit: BoxFit.none,
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_sa6');
+                                                            logFirebaseEvent(
+                                                                'Container_update_page_state');
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading3 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles3 =
+                                                                  [];
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            width: 24.0,
+                                                            height: 24.0,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xD4080808),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              } else if (_model
+                                                      .numberOfImagesUploaded ==
+                                                  2) {
+                                                return Stack(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Flexible(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              bottomLeft: Radius
+                                                                  .circular(
+                                                                      8.0),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      8.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      0.0),
+                                                            ),
+                                                            child: Image.memory(
+                                                              _model
+                                                                      .uploadedMedia
+                                                                      .first
+                                                                      .bytes ??
+                                                                  Uint8List
+                                                                      .fromList(
+                                                                          []),
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width *
+                                                                  0.5,
+                                                              height: 250.0,
+                                                              fit: BoxFit.none,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Flexible(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              bottomLeft: Radius
+                                                                  .circular(
+                                                                      0.0),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      0.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      8.0),
+                                                            ),
+                                                            child: Image.memory(
+                                                              _model
+                                                                      .uploadedMedia[
+                                                                          1]
+                                                                      .bytes ??
+                                                                  Uint8List
+                                                                      .fromList(
+                                                                          []),
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width *
+                                                                  0.5,
+                                                              height: 250.0,
+                                                              fit: BoxFit.none,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_sih');
+                                                            logFirebaseEvent(
+                                                                'Container_update_page_state');
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading3 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles3 =
+                                                                  [];
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            width: 24.0,
+                                                            height: 24.0,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xD4080808),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              } else if (_model
+                                                      .numberOfImagesUploaded ==
+                                                  3) {
+                                                return Stack(
+                                                  children: [
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              const BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    0.0),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    0.0),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    8.0),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    8.0),
+                                                          ),
+                                                          child: Image.memory(
+                                                            _model
+                                                                    .uploadedMedia
+                                                                    .first
+                                                                    .bytes ??
+                                                                Uint8List
+                                                                    .fromList(
+                                                                        []),
+                                                            width:
+                                                                double.infinity,
+                                                            height: 150.0,
+                                                            fit: BoxFit.none,
+                                                          ),
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              1]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  width: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width *
+                                                                      0.5,
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              2]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  width: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width *
+                                                                      0.5,
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_cbb');
+                                                            logFirebaseEvent(
+                                                                'Container_update_page_state');
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading3 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles3 =
+                                                                  [];
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            width: 24.0,
+                                                            height: 24.0,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xD4080808),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              } else if (_model
+                                                      .numberOfImagesUploaded ==
+                                                  4) {
+                                                return Stack(
+                                                  children: [
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              const BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    0.0),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    0.0),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    8.0),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    8.0),
+                                                          ),
+                                                          child: Image.memory(
+                                                            _model
+                                                                    .uploadedMedia
+                                                                    .first
+                                                                    .bytes ??
+                                                                Uint8List
+                                                                    .fromList(
+                                                                        []),
+                                                            width:
+                                                                double.infinity,
+                                                            height: 150.0,
+                                                            fit: BoxFit.none,
+                                                          ),
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              1]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              2]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              3]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_pc0');
+                                                            logFirebaseEvent(
+                                                                'Container_update_page_state');
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading3 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles3 =
+                                                                  [];
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            width: 24.0,
+                                                            height: 24.0,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xD4080808),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              } else if (_model
+                                                      .numberOfImagesUploaded ==
+                                                  5) {
+                                                return Stack(
+                                                  children: [
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia
+                                                                          .first
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 150.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              1]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 150.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              2]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              3]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              4]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_cad');
+                                                            logFirebaseEvent(
+                                                                'Container_update_page_state');
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading3 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles3 =
+                                                                  [];
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            width: 24.0,
+                                                            height: 24.0,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xD4080808),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              } else {
+                                                return Stack(
+                                                  children: [
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia
+                                                                          .first
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 150.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              1]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 150.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              2]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia[
+                                                                              3]
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  height: 100.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: Stack(
+                                                                children: [
+                                                                  ClipRRect(
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      bottomLeft:
+                                                                          Radius.circular(
+                                                                              0.0),
+                                                                      bottomRight:
+                                                                          Radius.circular(
+                                                                              8.0),
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              0.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              0.0),
+                                                                    ),
+                                                                    child: Image
+                                                                        .memory(
+                                                                      _model.uploadedMedia[4]
+                                                                              .bytes ??
+                                                                          Uint8List.fromList([]),
+                                                                      height:
+                                                                          100.0,
+                                                                      fit: BoxFit
+                                                                          .none,
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height:
+                                                                        100.0,
+                                                                    decoration:
+                                                                        const BoxDecoration(
+                                                                      color: Color(
+                                                                          0xC9080808),
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(8.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          const AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        '+${(_model.numberOfImagesUploaded - 5).toString()}',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              fontSize: 18.0,
+                                                                              letterSpacing: 0.0,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_e2w');
+                                                            logFirebaseEvent(
+                                                                'Container_update_page_state');
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
+                                                            logFirebaseEvent(
+                                                                'Container_clear_uploaded_data');
+                                                            setState(() {
+                                                              _model.isDataUploading3 =
+                                                                  false;
+                                                              _model.uploadedLocalFiles3 =
+                                                                  [];
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            width: 24.0,
+                                                            height: 24.0,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xD4080808),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      if (_model.typeOfMediaUploaded == 'doc')
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 16.0),
+                                          child: Stack(
+                                            children: [
+                                              FlutterFlowPdfViewer(
+                                                fileBytes:
+                                                    _model.uploadedDoc?.bytes,
+                                                height: 300.0,
+                                                horizontalScroll: true,
+                                              ),
+                                              Container(
+                                                width: double.infinity,
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xB8080808),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 8.0, 8.0, 8.0),
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      _model.uploadedDocTitle,
+                                                      'Title',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    1.0, -1.0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 8.0, 0.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Container_jlu');
+                                                      logFirebaseEvent(
+                                                          'Container_update_page_state');
+                                                      _model.typeOfMediaUploaded =
+                                                          'onlyText';
+                                                      _model.uploadedDoc = null;
+                                                      _model.uploadedDocTitle =
+                                                          null;
+                                                      setState(() {});
+                                                    },
+                                                    child: Container(
+                                                      width: 24.0,
+                                                      height: 24.0,
+                                                      decoration: const BoxDecoration(
+                                                        color:
+                                                            Color(0xD4080808),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        size: 16.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      if (_model.typeOfMediaUploaded == 'poll')
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 16.0),
+                                          child: Stack(
+                                            children: [
+                                              Container(
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  border: Border.all(
+                                                    color: const Color(0x65979797),
+                                                    width: 2.0,
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 8.0, 8.0, 8.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        '${_model.pollQuestion}?',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () {
+                                                            print(
+                                                                'Button pressed ...');
+                                                          },
+                                                          text: _model
+                                                              .pollOption1!,
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 28.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            color: Colors
+                                                                .transparent,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                    ),
+                                                            elevation: 0.0,
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondary,
+                                                              width: 1.5,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        18.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () {
+                                                            print(
+                                                                'Button pressed ...');
+                                                          },
+                                                          text: _model
+                                                              .pollOption2!,
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 28.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            color: Colors
+                                                                .transparent,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                    ),
+                                                            elevation: 0.0,
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondary,
+                                                              width: 1.5,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        18.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      if (_model.pollOption3 !=
+                                                              null &&
+                                                          _model.pollOption3 !=
+                                                              '')
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      12.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: FFButtonWidget(
+                                                            onPressed: () {
+                                                              print(
+                                                                  'Button pressed ...');
+                                                            },
+                                                            text: _model
+                                                                .pollOption3!,
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 28.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: Colors
+                                                                  .transparent,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                              elevation: 0.0,
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                width: 1.5,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          18.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      if (_model.pollOption4 !=
+                                                              null &&
+                                                          _model.pollOption4 !=
+                                                              '')
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      12.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: FFButtonWidget(
+                                                            onPressed: () {
+                                                              print(
+                                                                  'Button pressed ...');
+                                                            },
+                                                            text: _model
+                                                                .pollOption4!,
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 28.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: Colors
+                                                                  .transparent,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                              elevation: 0.0,
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                width: 1.5,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          18.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    1.0, -1.0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 8.0, 0.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Container_j8i');
+                                                      logFirebaseEvent(
+                                                          'Container_update_page_state');
+                                                      _model.typeOfMediaUploaded =
+                                                          'onlyText';
+                                                      _model.numberOfImagesUploaded =
+                                                          0;
+                                                      _model.uploadedMedia = [];
+                                                      setState(() {});
+                                                    },
+                                                    child: Container(
+                                                      width: 24.0,
+                                                      height: 24.0,
+                                                      decoration: const BoxDecoration(
+                                                        color:
+                                                            Color(0xD4080808),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        size: 16.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -909,744 +3728,956 @@ class _ViewOrEditCampaignPostWidgetState
                         ],
                       ),
                     ),
+                    Align(
+                      alignment: const AlignmentDirectional(1.0, 1.0),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 24.0, 12.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (_model.typeOfMediaUploaded == 'onlyText')
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_eq0');
+                                  logFirebaseEvent(
+                                      'Container_store_media_for_upload');
+                                  final selectedMedia = await selectMedia(
+                                    mediaSource: MediaSource.photoGallery,
+                                    multiImage: true,
+                                  );
+                                  if (selectedMedia != null &&
+                                      selectedMedia.every((m) =>
+                                          validateFileFormat(
+                                              m.storagePath, context))) {
+                                    setState(
+                                        () => _model.isDataUploading3 = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
+
+                                    try {
+                                      showUploadMessage(
+                                        context,
+                                        'Uploading file...',
+                                        showLoading: true,
+                                      );
+                                      selectedUploadedFiles = selectedMedia
+                                          .map((m) => FFUploadedFile(
+                                                name: m.storagePath
+                                                    .split('/')
+                                                    .last,
+                                                bytes: m.bytes,
+                                                height: m.dimensions?.height,
+                                                width: m.dimensions?.width,
+                                                blurHash: m.blurHash,
+                                              ))
+                                          .toList();
+                                    } finally {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      _model.isDataUploading3 = false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                        selectedMedia.length) {
+                                      setState(() {
+                                        _model.uploadedLocalFiles3 =
+                                            selectedUploadedFiles;
+                                      });
+                                      showUploadMessage(context, 'Success!');
+                                    } else {
+                                      setState(() {});
+                                      showUploadMessage(
+                                          context, 'Failed to upload data');
+                                      return;
+                                    }
+                                  }
+
+                                  if (_model.uploadedLocalFiles3.isNotEmpty) {
+                                    logFirebaseEvent(
+                                        'Container_update_page_state');
+                                    _model.typeOfMediaUploaded =
+                                        _model.uploadedLocalFiles3.length > 1
+                                            ? 'multiImage'
+                                            : 'singleImage';
+                                    _model.numberOfImagesUploaded =
+                                        _model.uploadedLocalFiles3.length;
+                                    _model.uploadedMedia = _model
+                                        .uploadedLocalFiles3
+                                        .toList()
+                                        .cast<FFUploadedFile>();
+                                    setState(() {});
+                                  }
+                                },
+                                child: Container(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.image_outlined,
+                                    color: Color(0xFF535252),
+                                    size: 28.0,
+                                  ),
+                                ),
+                              ),
+                            if (_model.typeOfMediaUploaded == 'onlyText')
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_dm9');
+                                  logFirebaseEvent('Container_bottom_sheet');
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: SizedBox(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.4,
+                                            child: PostContentOptionsWidget(
+                                              mediaAction:
+                                                  (uploadedMedia) async {
+                                                if (uploadedMedia != null &&
+                                                    (uploadedMedia)
+                                                        .isNotEmpty) {
+                                                  logFirebaseEvent(
+                                                      '_update_page_state');
+                                                  _model.typeOfMediaUploaded =
+                                                      uploadedMedia.length > 1
+                                                          ? 'multiImage'
+                                                          : 'singleImage';
+                                                  _model.numberOfImagesUploaded =
+                                                      uploadedMedia.length;
+                                                  _model.uploadedMedia =
+                                                      uploadedMedia
+                                                          .toList()
+                                                          .cast<
+                                                              FFUploadedFile>();
+                                                  setState(() {});
+                                                }
+                                              },
+                                              documentAction:
+                                                  (docURL, docTitle) async {
+                                                logFirebaseEvent(
+                                                    '_update_page_state');
+                                                _model.typeOfMediaUploaded =
+                                                    'doc';
+                                                _model.uploadedDoc = docURL;
+                                                _model.uploadedDocTitle =
+                                                    docTitle;
+                                                setState(() {});
+                                              },
+                                              saveAction: () async {
+                                                logFirebaseEvent(
+                                                    '_backend_call');
+
+                                                await widget.postRef!.update(
+                                                    createCampaignRecordData(
+                                                  finalPost: _model
+                                                      .textController.text,
+                                                ));
+                                                logFirebaseEvent(
+                                                    '_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: const Text('Saved'),
+                                                      content:
+                                                          const Text('Draft Saved'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: const Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              deleteAction: () async {
+                                                logFirebaseEvent(
+                                                    '_backend_call');
+                                                await widget.postRef!.delete();
+                                                logFirebaseEvent(
+                                                    '_navigate_back');
+                                                context.safePop();
+                                              },
+                                              pollAction: (question,
+                                                  option1,
+                                                  option2,
+                                                  option3,
+                                                  option4,
+                                                  duration) async {
+                                                logFirebaseEvent(
+                                                    '_update_page_state');
+                                                _model.typeOfMediaUploaded =
+                                                    'poll';
+                                                _model.pollQuestion = question;
+                                                _model.pollOption1 = option1;
+                                                _model.pollOption2 = option2;
+                                                _model.pollOption3 = option3;
+                                                _model.pollOption4 = option4;
+                                                _model.pollDuration = duration;
+                                                setState(() {});
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                child: Container(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.add_rounded,
+                                    color: Color(0xFF504E4E),
+                                    size: 32.0,
+                                  ),
+                                ),
+                              ),
+                          ].divide(const SizedBox(width: 10.0)),
+                        ),
+                      ),
+                    ),
                     if (_model.datePickerVisbile)
                       Container(
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           color: Colors.transparent,
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(0.0),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(
-                              sigmaX: 2.0,
-                              sigmaY: 2.0,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      logFirebaseEvent(
-                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Container_eww');
-                                      logFirebaseEvent(
-                                          'Container_widget_animation');
-                                      if (animationsMap[
-                                              'containerOnActionTriggerAnimation'] !=
-                                          null) {
-                                        await animationsMap[
-                                                'containerOnActionTriggerAnimation']!
-                                            .controller
-                                            .reverse();
-                                      }
-                                      logFirebaseEvent(
-                                          'Container_update_page_state');
-                                      _model.datePickerVisbile = false;
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: const BoxDecoration(),
-                                    ),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 2.0,
+                            sigmaY: 2.0,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'VIEW_OR_EDIT_CAMPAIGN_POST_Container_ae9');
+                                    logFirebaseEvent(
+                                        'Container_widget_animation');
+                                    if (animationsMap[
+                                            'containerOnActionTriggerAnimation'] !=
+                                        null) {
+                                      await animationsMap[
+                                              'containerOnActionTriggerAnimation']!
+                                          .controller
+                                          .reverse();
+                                    }
+                                    logFirebaseEvent(
+                                        'Container_update_page_state');
+                                    _model.datePickerVisbile = false;
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: const BoxDecoration(),
                                   ),
                                 ),
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        blurRadius: 7.0,
-                                        color: Color(0x33000000),
-                                        offset: Offset(
-                                          0.0,
-                                          -2.0,
-                                        ),
-                                      )
-                                    ],
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(0.0),
-                                      bottomRight: Radius.circular(0.0),
-                                      topLeft: Radius.circular(16.0),
-                                      topRight: Radius.circular(16.0),
-                                    ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 7.0,
+                                      color: Color(0x33000000),
+                                      offset: Offset(
+                                        0.0,
+                                        -2.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(0.0),
+                                    bottomRight: Radius.circular(0.0),
+                                    topLeft: Radius.circular(16.0),
+                                    topRight: Radius.circular(16.0),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 60.0,
-                                              height: 3.0,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFE0E3E7),
-                                                borderRadius:
-                                                    BorderRadius.circular(4.0),
-                                              ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 8.0, 0.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 60.0,
+                                            height: 3.0,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFE0E3E7),
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
                                             ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 0.0, 0.0),
-                                          child: Text(
-                                            'Schedule',
-                                            style: FlutterFlowTheme.of(context)
-                                                .headlineSmall
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  fontSize: 24.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts:
-                                                      GoogleFonts.asMap()
-                                                          .containsKey(
-                                                              'Montserrat'),
-                                                ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 12.0, 0.0, 4.0),
-                                          child: Text(
-                                            'Date *',
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelMedium
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  fontSize: 14.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts:
-                                                      GoogleFonts.asMap()
-                                                          .containsKey(
-                                                              'Montserrat'),
-                                                ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 0.0, 16.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_Container_n7p');
-                                              logFirebaseEvent(
-                                                  'Container_date_time_picker');
-                                              final datePicked1Date =
-                                                  await showDatePicker(
-                                                context: context,
-                                                initialDate:
-                                                    getCurrentTimestamp,
-                                                firstDate: getCurrentTimestamp,
-                                                lastDate: DateTime(2050),
-                                                builder: (context, child) {
-                                                  return wrapInMaterialDatePickerTheme(
-                                                    context,
-                                                    child!,
-                                                    headerBackgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    headerForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryBackground,
-                                                    headerTextStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .headlineLarge
-                                                            .override(
-                                                              fontFamily:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLargeFamily,
-                                                              fontSize: 32.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              useGoogleFonts: GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineLargeFamily),
-                                                            ),
-                                                    pickerBackgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryBackground,
-                                                    pickerForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryText,
-                                                    selectedDateTimeBackgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
-                                                    selectedDateTimeForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    actionButtonForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryText,
-                                                    iconSize: 24.0,
-                                                  );
-                                                },
-                                              );
-
-                                              if (datePicked1Date != null) {
-                                                safeSetState(() {
-                                                  _model.datePicked1 = DateTime(
-                                                    datePicked1Date.year,
-                                                    datePicked1Date.month,
-                                                    datePicked1Date.day,
-                                                  );
-                                                });
-                                              }
-                                              logFirebaseEvent(
-                                                  'Container_update_page_state');
-                                              _model.scheduledDate =
-                                                  _model.datePicked1;
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: 44.0,
-                                              decoration: BoxDecoration(
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Schedule',
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineSmall
+                                              .override(
+                                                fontFamily: 'Montserrat',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                border: Border.all(
-                                                  color: const Color(0xFF3D3D3D),
-                                                ),
+                                                        .primaryText,
+                                                fontSize: 24.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts:
+                                                    GoogleFonts.asMap()
+                                                        .containsKey(
+                                                            'Montserrat'),
                                               ),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        12.0, 8.0, 12.0, 8.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      dateTimeFormat('yMMMd',
-                                                          _model.scheduledDate),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                    const Icon(
-                                                      Icons
-                                                          .calendar_month_sharp,
-                                                      color: Color(0xFF3F3D3D),
-                                                      size: 20.0,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 20.0, 0.0, 4.0),
-                                          child: Text(
-                                            'Time *',
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelMedium
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  fontSize: 14.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts:
-                                                      GoogleFonts.asMap()
-                                                          .containsKey(
-                                                              'Montserrat'),
-                                                ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 0.0, 16.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_Container_pru');
-                                              logFirebaseEvent(
-                                                  'Container_date_time_picker');
-
-                                              final datePicked2Time =
-                                                  await showTimePicker(
-                                                context: context,
-                                                initialTime:
-                                                    TimeOfDay.fromDateTime(
-                                                        getCurrentTimestamp),
-                                                builder: (context, child) {
-                                                  return wrapInMaterialTimePickerTheme(
-                                                    context,
-                                                    child!,
-                                                    headerBackgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    headerForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryBackground,
-                                                    headerTextStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .headlineLarge
-                                                            .override(
-                                                              fontFamily:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLargeFamily,
-                                                              fontSize: 32.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              useGoogleFonts: GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineLargeFamily),
-                                                            ),
-                                                    pickerBackgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryBackground,
-                                                    pickerForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryText,
-                                                    selectedDateTimeBackgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
-                                                    selectedDateTimeForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    actionButtonForegroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryText,
-                                                    iconSize: 24.0,
-                                                  );
-                                                },
-                                              );
-                                              if (datePicked2Time != null) {
-                                                safeSetState(() {
-                                                  _model.datePicked2 = DateTime(
-                                                    getCurrentTimestamp.year,
-                                                    getCurrentTimestamp.month,
-                                                    getCurrentTimestamp.day,
-                                                    datePicked2Time.hour,
-                                                    datePicked2Time.minute,
-                                                  );
-                                                });
-                                              }
-                                              logFirebaseEvent(
-                                                  'Container_update_page_state');
-                                              _model.scheduledTime =
-                                                  _model.datePicked2;
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: 44.0,
-                                              decoration: BoxDecoration(
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 12.0, 0.0, 4.0),
+                                        child: Text(
+                                          'Date *',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Montserrat',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                border: Border.all(
-                                                  color: const Color(0xFF3D3D3D),
-                                                ),
+                                                        .primaryText,
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts:
+                                                    GoogleFonts.asMap()
+                                                        .containsKey(
+                                                            'Montserrat'),
                                               ),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        12.0, 8.0, 12.0, 8.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      valueOrDefault<String>(
-                                                        dateTimeFormat(
-                                                            'jm',
-                                                            _model
-                                                                .scheduledTime),
-                                                        '9:47 AM',
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                    const Icon(
-                                                      Icons.access_time_rounded,
-                                                      color: Color(0xFF3F3D3D),
-                                                      size: 20.0,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 16.0, 0.0),
-                                          child: Text(
-                                            '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_m63');
+                                            logFirebaseEvent(
+                                                'Container_date_time_picker');
+                                            final datePicked1Date =
+                                                await showDatePicker(
+                                              context: context,
+                                              initialDate: getCurrentTimestamp,
+                                              firstDate: getCurrentTimestamp,
+                                              lastDate: DateTime(2050),
+                                              builder: (context, child) {
+                                                return wrapInMaterialDatePickerTheme(
+                                                  context,
+                                                  child!,
+                                                  headerBackgroundColor:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyMediumFamily,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMediumFamily),
-                                                ),
-                                          ),
-                                        ),
-                                        if (!_model.isScheduled)
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 16.0, 16.0, 44.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                logFirebaseEvent(
-                                                    'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
-                                                logFirebaseEvent(
-                                                    'Button_widget_animation');
-                                                if (animationsMap[
-                                                        'containerOnActionTriggerAnimation'] !=
-                                                    null) {
-                                                  await animationsMap[
-                                                          'containerOnActionTriggerAnimation']!
-                                                      .controller
-                                                      .reverse();
-                                                }
-                                                logFirebaseEvent(
-                                                    'Button_update_page_state');
-                                                _model.isScheduled = true;
-                                                _model.datePickerVisbile =
-                                                    false;
-                                                setState(() {});
+                                                          .primary,
+                                                  headerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryBackground,
+                                                  headerTextStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineLarge
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLargeFamily,
+                                                            fontSize: 32.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLargeFamily),
+                                                          ),
+                                                  pickerBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  pickerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  selectedDateTimeBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
+                                                  selectedDateTimeForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  actionButtonForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  iconSize: 24.0,
+                                                );
                                               },
-                                              text: 'Next',
-                                              options: FFButtonOptions(
-                                                width: double.infinity,
-                                                height: 32.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Colors.white,
-                                                      fontSize: 16.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      useGoogleFonts:
-                                                          GoogleFonts.asMap()
+                                            );
+
+                                            if (datePicked1Date != null) {
+                                              safeSetState(() {
+                                                _model.datePicked1 = DateTime(
+                                                  datePicked1Date.year,
+                                                  datePicked1Date.month,
+                                                  datePicked1Date.day,
+                                                );
+                                              });
+                                            }
+                                            logFirebaseEvent(
+                                                'Container_update_page_state');
+                                            _model.scheduledDate =
+                                                _model.datePicked1;
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 44.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color: const Color(0xFF3D3D3D),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 8.0, 12.0, 8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    dateTimeFormat('yMMMd',
+                                                        _model.scheduledDate),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
                                                               .containsKey(
-                                                                  'Montserrat'),
-                                                    ),
-                                                borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ),
+                                                  const Icon(
+                                                    Icons.calendar_month_sharp,
+                                                    color: Color(0xFF3F3D3D),
+                                                    size: 20.0,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        if (_model.isScheduled)
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 16.0, 16.0, 44.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: FFButtonWidget(
-                                                    onPressed: () async {
-                                                      logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_CAMPAIGN_POST_CLEAR_BTN_ON_');
-                                                      logFirebaseEvent(
-                                                          'Button_widget_animation');
-                                                      if (animationsMap[
-                                                              'containerOnActionTriggerAnimation'] !=
-                                                          null) {
-                                                        animationsMap[
-                                                                'containerOnActionTriggerAnimation']!
-                                                            .controller
-                                                            .reverse();
-                                                      }
-                                                      logFirebaseEvent(
-                                                          'Button_update_page_state');
-                                                      _model.scheduledTime =
-                                                          null;
-                                                      _model.scheduledDate =
-                                                          null;
-                                                      _model.isScheduled =
-                                                          false;
-                                                      _model.datePickerVisbile =
-                                                          false;
-                                                      setState(() {});
-                                                    },
-                                                    text: 'Clear',
-                                                    options: FFButtonOptions(
-                                                      width: double.infinity,
-                                                      height: 32.0,
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color: Colors.transparent,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: FlutterFlowTheme.of(
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 20.0, 0.0, 4.0),
+                                        child: Text(
+                                          'Time *',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts:
+                                                    GoogleFonts.asMap()
+                                                        .containsKey(
+                                                            'Montserrat'),
+                                              ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_n0h');
+                                            logFirebaseEvent(
+                                                'Container_date_time_picker');
+
+                                            final datePicked2Time =
+                                                await showTimePicker(
+                                              context: context,
+                                              initialTime:
+                                                  TimeOfDay.fromDateTime(
+                                                      getCurrentTimestamp),
+                                              builder: (context, child) {
+                                                return wrapInMaterialTimePickerTheme(
+                                                  context,
+                                                  child!,
+                                                  headerBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  headerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryBackground,
+                                                  headerTextStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineLarge
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondary,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        'Montserrat'),
-                                                              ),
-                                                      elevation: 0.0,
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24.0),
-                                                    ),
+                                                                    .headlineLargeFamily,
+                                                            fontSize: 32.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLargeFamily),
+                                                          ),
+                                                  pickerBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  pickerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  selectedDateTimeBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
+                                                  selectedDateTimeForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  actionButtonForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  iconSize: 24.0,
+                                                );
+                                              },
+                                            );
+                                            if (datePicked2Time != null) {
+                                              safeSetState(() {
+                                                _model.datePicked2 = DateTime(
+                                                  getCurrentTimestamp.year,
+                                                  getCurrentTimestamp.month,
+                                                  getCurrentTimestamp.day,
+                                                  datePicked2Time.hour,
+                                                  datePicked2Time.minute,
+                                                );
+                                              });
+                                            }
+                                            logFirebaseEvent(
+                                                'Container_update_page_state');
+                                            _model.scheduledTime =
+                                                _model.datePicked2;
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 44.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color: const Color(0xFF3D3D3D),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 8.0, 12.0, 8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    dateTimeFormat('jm',
+                                                        _model.scheduledTime),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
                                                   ),
-                                                ),
-                                                Expanded(
-                                                  child: FFButtonWidget(
-                                                    onPressed: () async {
-                                                      logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
-                                                      logFirebaseEvent(
-                                                          'Button_widget_animation');
-                                                      if (animationsMap[
-                                                              'containerOnActionTriggerAnimation'] !=
-                                                          null) {
-                                                        await animationsMap[
-                                                                'containerOnActionTriggerAnimation']!
-                                                            .controller
-                                                            .reverse();
-                                                      }
-                                                      logFirebaseEvent(
-                                                          'Button_update_page_state');
-                                                      _model.datePickerVisbile =
-                                                          false;
-                                                      setState(() {});
-                                                    },
-                                                    text: 'Next',
-                                                    options: FFButtonOptions(
-                                                      width: double.infinity,
-                                                      height: 32.0,
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                  const Icon(
+                                                    Icons.access_time_rounded,
+                                                    color: Color(0xFF3F3D3D),
+                                                    size: 20.0,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 16.0, 0.0),
+                                        child: Text(
+                                          '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                      ),
+                                      if (!_model.isScheduled)
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 16.0, 16.0, 44.0),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
+                                              logFirebaseEvent(
+                                                  'Button_widget_animation');
+                                              if (animationsMap[
+                                                      'containerOnActionTriggerAnimation'] !=
+                                                  null) {
+                                                await animationsMap[
+                                                        'containerOnActionTriggerAnimation']!
+                                                    .controller
+                                                    .reverse();
+                                              }
+                                              logFirebaseEvent(
+                                                  'Button_update_page_state');
+                                              _model.isScheduled = true;
+                                              _model.datePickerVisbile = false;
+                                              setState(() {});
+                                            },
+                                            text: 'Next',
+                                            options: FFButtonOptions(
+                                              width: double.infinity,
+                                              height: 32.0,
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Montserrat'),
+                                                  ),
+                                              borderSide: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                          ),
+                                        ),
+                                      if (_model.isScheduled)
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 16.0, 16.0, 44.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: FFButtonWidget(
+                                                  onPressed: () async {
+                                                    logFirebaseEvent(
+                                                        'VIEW_OR_EDIT_CAMPAIGN_POST_CANCEL_SCHEDU');
+                                                    logFirebaseEvent(
+                                                        'Button_widget_animation');
+                                                    if (animationsMap[
+                                                            'containerOnActionTriggerAnimation'] !=
+                                                        null) {
+                                                      animationsMap[
+                                                              'containerOnActionTriggerAnimation']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'Button_update_page_state');
+                                                    _model.scheduledTime = null;
+                                                    _model.scheduledDate = null;
+                                                    _model.isScheduled = false;
+                                                    _model.datePickerVisbile =
+                                                        false;
+                                                    setState(() {});
+                                                    logFirebaseEvent(
+                                                        'Button_backend_call');
+                                                    await _model
+                                                        .scheduledDocument!
+                                                        .delete();
+                                                  },
+                                                  text: 'Cancel Schedule',
+                                                  options: FFButtonOptions(
+                                                    width: double.infinity,
+                                                    height: 32.0,
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: Colors.transparent,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts:
+                                                              GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Montserrat'),
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderSide: BorderSide(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .secondary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        'Montserrat'),
-                                                              ),
-                                                      borderSide: const BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24.0),
+                                                      width: 1.0,
                                                     ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            24.0),
                                                   ),
                                                 ),
-                                              ].divide(const SizedBox(width: 16.0)),
-                                            ),
+                                              ),
+                                              Expanded(
+                                                child: FFButtonWidget(
+                                                  onPressed: () async {
+                                                    logFirebaseEvent(
+                                                        'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
+                                                    logFirebaseEvent(
+                                                        'Button_backend_call');
+
+                                                    await _model
+                                                        .scheduledDocument!
+                                                        .update(
+                                                            createScheduledPostsRecordData(
+                                                      timestamp: functions
+                                                          .combineDateTime(
+                                                              _model
+                                                                  .scheduledDate!,
+                                                              _model
+                                                                  .scheduledTime!),
+                                                    ));
+                                                    logFirebaseEvent(
+                                                        'Button_widget_animation');
+                                                    if (animationsMap[
+                                                            'containerOnActionTriggerAnimation'] !=
+                                                        null) {
+                                                      await animationsMap[
+                                                              'containerOnActionTriggerAnimation']!
+                                                          .controller
+                                                          .reverse();
+                                                    }
+                                                    logFirebaseEvent(
+                                                        'Button_update_page_state');
+                                                    _model.datePickerVisbile =
+                                                        false;
+                                                    setState(() {});
+                                                  },
+                                                  text: 'Next',
+                                                  options: FFButtonOptions(
+                                                    width: double.infinity,
+                                                    height: 32.0,
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: Colors.white,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts:
+                                                              GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Montserrat'),
+                                                        ),
+                                                    borderSide: const BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            24.0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ].divide(const SizedBox(width: 16.0)),
                                           ),
-                                      ],
-                                    ),
+                                        ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ).animateOnActionTrigger(

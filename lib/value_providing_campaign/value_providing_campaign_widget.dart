@@ -47,7 +47,7 @@ class _ValueProvidingCampaignWidgetState
       setState(() {});
     });
 
-    _model.textController ??= TextEditingController();
+    _model.textController ??= TextEditingController(text: 'My Campaign');
     _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

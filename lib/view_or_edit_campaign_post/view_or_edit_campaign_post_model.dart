@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'view_or_edit_campaign_post_widget.dart'
     show ViewOrEditCampaignPostWidget;
@@ -59,13 +61,43 @@ class ViewOrEditCampaignPostModel
 
   bool datePickerVisbile = false;
 
+  DocumentReference? scheduledDocument;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - Create Document] action in onlyTextSchedule widget.
+  ScheduledPostsRecord? scheduledDocOnlyText;
+  bool isDataUploading1 = false;
+  List<FFUploadedFile> uploadedLocalFiles1 = [];
+  List<String> uploadedFileUrls1 = [];
+
+  // Stores action output result for [Backend Call - API (getImageUploadUrlFromLinkedin)] action in ImageSchedule widget.
+  ApiCallResponse? imageUrlSchCamp;
+  // Stores action output result for [Backend Call - API (uploadImageToLinkedin)] action in ImageSchedule widget.
+  ApiCallResponse? imageUploadedSchCamp;
+  // Stores action output result for [Backend Call - Create Document] action in ImageSchedule widget.
+  ScheduledPostsRecord? scheduledDocImage;
+  bool isDataUploading2 = false;
+  FFUploadedFile uploadedLocalFile2 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl2 = '';
+
+  // Stores action output result for [Backend Call - API (getDocUploadUrlFromLinkedin)] action in docSchedule widget.
+  ApiCallResponse? liDocURLScheCopy;
+  // Stores action output result for [Backend Call - API (uploadDocToLinkedin)] action in docSchedule widget.
+  ApiCallResponse? docUploadedScheCopy;
+  // Stores action output result for [Backend Call - Create Document] action in docSchedule widget.
+  ScheduledPostsRecord? scheduledDocDoc;
+  // Stores action output result for [Backend Call - Create Document] action in pollSchedule widget.
+  ScheduledPostsRecord? scheduledDocOnlyPoll;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  bool isDataUploading3 = false;
+  List<FFUploadedFile> uploadedLocalFiles3 = [];
+
   DateTime? datePicked1;
   DateTime? datePicked2;
 

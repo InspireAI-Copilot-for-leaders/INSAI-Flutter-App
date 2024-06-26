@@ -661,11 +661,14 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            (currentUserDocument
-                                                        ?.profilePictureLinks
-                                                        .toList() ??
-                                                    [])
-                                                .first,
+                                            valueOrDefault<String>(
+                                              (currentUserDocument
+                                                          ?.profilePictureLinks
+                                                          .toList() ??
+                                                      [])
+                                                  .first,
+                                              'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                            ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -1093,31 +1096,47 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                   height: 70.0,
                                                                                   decoration: BoxDecoration(
                                                                                     color: FlutterFlowTheme.of(context).alternate,
-                                                                                    image: DecorationImage(
-                                                                                      fit: BoxFit.cover,
-                                                                                      image: Image.network(
-                                                                                        containerArticleRecord!.metadata.first.imageUrl,
-                                                                                      ).image,
-                                                                                    ),
                                                                                     shape: BoxShape.circle,
+                                                                                  ),
+                                                                                  child: Container(
+                                                                                    width: 300.0,
+                                                                                    height: 300.0,
+                                                                                    clipBehavior: Clip.antiAlias,
+                                                                                    decoration: const BoxDecoration(
+                                                                                      shape: BoxShape.circle,
+                                                                                    ),
+                                                                                    child: Image.network(
+                                                                                      containerArticleRecord!.metadata.first.imageUrl,
+                                                                                      fit: BoxFit.cover,
+                                                                                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                        'assets/images/error_image.png',
+                                                                                        fit: BoxFit.cover,
+                                                                                      ),
+                                                                                    ),
                                                                                   ),
                                                                                 ),
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                          Text(
-                                                                            storiesItem,
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                            maxLines:
-                                                                                2,
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                  fontSize: 8.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                ),
+                                                                          Padding(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                2.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              storiesItem,
+                                                                              textAlign: TextAlign.center,
+                                                                              maxLines: 2,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                    fontSize: 11.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                  ),
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1193,10 +1212,11 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                             .cover,
                                                                         image: Image
                                                                             .network(
-                                                                          highlightItem
-                                                                              .metadata
-                                                                              .first
-                                                                              .imageUrl,
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            highlightItem.metadata.first.imageUrl,
+                                                                            'https://image.cnbcfm.com/api/v1/image/107337925-1700665463759-gettyimages-1258459705-AFP_33GZ636.jpeg?v=1718827509&w=1920&h=1080',
+                                                                          ),
                                                                         ).image,
                                                                       ),
                                                                       borderRadius:
@@ -1306,7 +1326,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                       color: FlutterFlowTheme.of(context).primary,
-                                                                                                      fontSize: 10.0,
+                                                                                                      fontSize: 12.0,
                                                                                                       letterSpacing: 0.0,
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -1502,7 +1522,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                             .secondaryBackground,
                                                                     FlutterFlowTheme.of(
                                                                             context)
-                                                                        .secondaryBackground,
+                                                                        .secondary,
                                                                   ),
                                                                   borderRadius:
                                                                       BorderRadius
@@ -1529,7 +1549,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                               fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                               color: valueOrDefault<Color>(
                                                                                 _model.filteredTabView == 'For You' ? FlutterFlowTheme.of(context).primaryBackground : FlutterFlowTheme.of(context).secondaryText,
-                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
                                                                               ),
                                                                               fontSize: 12.0,
                                                                               letterSpacing: 0.0,

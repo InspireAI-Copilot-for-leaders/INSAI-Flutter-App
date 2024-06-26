@@ -2058,7 +2058,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                               Padding(
                                                                                 padding: const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
                                                                                 child: Text(
-                                                                                  scheduledListViewScheduledPostsRecord.postTilte,
+                                                                                  scheduledListViewScheduledPostsRecord.postTitle,
                                                                                   textAlign: TextAlign.start,
                                                                                   maxLines: 2,
                                                                                   style: FlutterFlowTheme.of(context).headlineSmall.override(

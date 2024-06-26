@@ -4,6 +4,8 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -100,71 +102,566 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).secondaryText,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              logFirebaseEvent('CAMAPIGN_DETAILS_arrow_back_rounded_ICN_');
-              logFirebaseEvent('IconButton_navigate_back');
-              context.pop();
-            },
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 0.0,
+    return StreamBuilder<List<CampaignRecord>>(
+      stream: queryCampaignRecord(
+        parent: currentUserReference,
+        queryBuilder: (campaignRecord) => campaignRecord.where(
+          'campaign_id',
+          isEqualTo: widget.campaignID,
         ),
-        body: SafeArea(
-          top: true,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      widget.campaignTitle,
-                      'Campaign',
-                    ),
-                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).headlineMediumFamily,
-                          letterSpacing: 0.0,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context)
-                                  .headlineMediumFamily),
-                        ),
-                  ),
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 100.0,
+                height: 100.0,
+                child: SpinKitRipple(
+                  color: FlutterFlowTheme.of(context).secondary,
+                  size: 100.0,
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
-                  child: StreamBuilder<List<CampaignRecord>>(
+              ),
+            ),
+          );
+        }
+        List<CampaignRecord> camapignDetailsCampaignRecordList = snapshot.data!;
+        return GestureDetector(
+          onTap: () => _model.unfocusNode.canRequestFocus
+              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+              : FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+            appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+              automaticallyImplyLeading: false,
+              leading: FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30.0,
+                borderWidth: 1.0,
+                buttonSize: 60.0,
+                icon: Icon(
+                  Icons.arrow_back_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 30.0,
+                ),
+                onPressed: () async {
+                  logFirebaseEvent('CAMAPIGN_DETAILS_arrow_back_rounded_ICN_');
+                  logFirebaseEvent('IconButton_navigate_back');
+                  context.pop();
+                },
+              ),
+              actions: const [],
+              centerTitle: true,
+              elevation: 0.0,
+            ),
+            body: SafeArea(
+              top: true,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 4.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              widget.campaignTitle,
+                              'Campaign',
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .headlineMediumFamily,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .headlineMediumFamily),
+                                ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24.0, 12.0, 24.0, 12.0),
+                          child: Builder(
+                            builder: (context) {
+                              final camapignDetailsVar =
+                                  camapignDetailsCampaignRecordList.toList();
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: camapignDetailsVar.length,
+                                itemBuilder:
+                                    (context, camapignDetailsVarIndex) {
+                                  final camapignDetailsVarItem =
+                                      camapignDetailsVar[
+                                          camapignDetailsVarIndex];
+                                  return Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 12.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'CAMAPIGN_DETAILS_Container_ocxohmtc_ON_T');
+                                        if (camapignDetailsVarItem.status !=
+                                            'Pending') {
+                                          if (camapignDetailsVarItem.status ==
+                                              'scheduled') {
+                                            logFirebaseEvent(
+                                                'Container_backend_call');
+                                            _model.scheduleddoc =
+                                                await ScheduledPostsRecord
+                                                    .getDocumentOnce(
+                                                        camapignDetailsVarItem
+                                                            .scheduledPostRef!);
+                                            logFirebaseEvent(
+                                                'Container_navigate_to');
+
+                                            context.pushNamed(
+                                              'viewScheduledPost',
+                                              queryParameters: {
+                                                'postDocument': serializeParam(
+                                                  _model.scheduleddoc,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'postDocument':
+                                                    _model.scheduleddoc,
+                                              },
+                                            );
+                                          } else {
+                                            logFirebaseEvent(
+                                                'Container_navigate_to');
+
+                                            context.pushNamed(
+                                              'viewOrEditCampaignPost',
+                                              queryParameters: {
+                                                'postText': serializeParam(
+                                                  camapignDetailsVarItem
+                                                      .finalPost,
+                                                  ParamType.String,
+                                                ),
+                                                'postRef': serializeParam(
+                                                  camapignDetailsVarItem
+                                                      .reference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                                'postTitle': serializeParam(
+                                                  widget.campaignTitle,
+                                                  ParamType.String,
+                                                ),
+                                                'indexInList': serializeParam(
+                                                  camapignDetailsVarIndex,
+                                                  ParamType.int,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+                                          }
+                                        }
+
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          border: Border.all(
+                                            color: const Color(0xFFE0E3E7),
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      () {
+                                                        if (camapignDetailsVarItem
+                                                                .type ==
+                                                            'domain_thought_leadership') {
+                                                          return camapignDetailsVarItem
+                                                              .expertiseArea;
+                                                        } else if (camapignDetailsVarItem
+                                                                .type ==
+                                                            'trends_commentry') {
+                                                          return camapignDetailsVarItem
+                                                              .domain;
+                                                        } else {
+                                                          return camapignDetailsVarItem
+                                                              .companyName;
+                                                        }
+                                                      }(),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .accent2,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    height: 30.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  8.0,
+                                                                  0.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        2.0,
+                                                                        0.0),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .local_fire_department_outlined,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .accent2,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            () {
+                                                              if (camapignDetailsVarItem
+                                                                      .type ==
+                                                                  'domain_thought_leadership') {
+                                                                return 'Domain Related';
+                                                              } else if (camapignDetailsVarItem
+                                                                      .type ==
+                                                                  'trends_commentry') {
+                                                                return 'Trending Event';
+                                                              } else {
+                                                                return 'Company Related';
+                                                              }
+                                                            }(),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              if (camapignDetailsVarItem
+                                                      .status !=
+                                                  'Pending')
+                                                Text(
+                                                  camapignDetailsVarItem
+                                                      .finalPost,
+                                                  maxLines: 2,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color:
+                                                            const Color(0xFF0F1113),
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        useGoogleFonts:
+                                                            GoogleFonts.asMap()
+                                                                .containsKey(
+                                                                    'Outfit'),
+                                                      ),
+                                                ),
+                                              if (camapignDetailsVarItem
+                                                      .status ==
+                                                  'Pending')
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Writing your post...',
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .headlineSmall
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Outfit',
+                                                              color: const Color(
+                                                                  0xFF15161E),
+                                                              fontSize: 18.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              useGoogleFonts: GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Outfit'),
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        child: Lottie.asset(
+                                                          'assets/lottie_animations/Animation_-_1705682770212_(1).json',
+                                                          width: 150.0,
+                                                          height: 130.0,
+                                                          fit: BoxFit.cover,
+                                                          animate: true,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              const Divider(
+                                                height: 24.0,
+                                                thickness: 1.0,
+                                                color: Color(0xFFE0E3E7),
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  if (camapignDetailsVarItem
+                                                          .status ==
+                                                      'scheduled')
+                                                    Text(
+                                                      'Due',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Plus Jakarta Sans',
+                                                            color: const Color(
+                                                                0xFF0F1113),
+                                                            fontSize: 14.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            useGoogleFonts:
+                                                                GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        'Plus Jakarta Sans'),
+                                                          ),
+                                                    ),
+                                                  if (camapignDetailsVarItem
+                                                          .status ==
+                                                      'scheduled')
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          dateTimeFormat(
+                                                              'MMMEd',
+                                                              camapignDetailsVarItem
+                                                                  .scheduledTime!),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Plus Jakarta Sans',
+                                                                color: const Color(
+                                                                    0xFF827AE1),
+                                                                fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        'Plus Jakarta Sans'),
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  Flexible(
+                                                    child: Container(
+                                                      height: 32.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            const Color(0xFF81E1D7),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(32.0),
+                                                      ),
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Text(
+                                                        camapignDetailsVarItem
+                                                                    .status ==
+                                                                'scheduled'
+                                                            ? 'Scheduled'
+                                                            : 'To be Approved',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Plus Jakarta Sans',
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 14.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              useGoogleFonts: GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Plus Jakarta Sans'),
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'containerOnPageLoadAnimation1']!),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  StreamBuilder<List<CampaignRecord>>(
                     stream: queryCampaignRecord(
                       parent: currentUserReference,
-                      queryBuilder: (campaignRecord) => campaignRecord.where(
-                        'campaign_id',
-                        isEqualTo: widget.campaignID,
-                      ),
-                      limit: 5,
+                      queryBuilder: (campaignRecord) =>
+                          campaignRecord.where(Filter.or(
+                        Filter(
+                          'campaign_id',
+                          isEqualTo: widget.campaignID,
+                        ),
+                        Filter(
+                          'status',
+                          isEqualTo: 'Pending',
+                        ),
+                      )),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -180,264 +677,92 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                           ),
                         );
                       }
-                      List<CampaignRecord> listViewCampaignRecordList =
+                      List<CampaignRecord> containerCampaignRecordList =
                           snapshot.data!;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        primary: false,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewCampaignRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewCampaignRecord =
-                              listViewCampaignRecordList[listViewIndex];
-                          return Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                logFirebaseEvent(
-                                    'CAMAPIGN_DETAILS_Container_ocxohmtc_ON_T');
-                                if (listViewCampaignRecord.status !=
-                                    'Pending') {
-                                  logFirebaseEvent('Container_navigate_to');
-
-                                  context.pushNamed(
-                                    'viewOrEditCampaignPost',
-                                    queryParameters: {
-                                      'postText': serializeParam(
-                                        listViewCampaignRecord.finalPost,
-                                        ParamType.String,
-                                      ),
-                                      'postRef': serializeParam(
-                                        listViewCampaignRecord.reference,
-                                        ParamType.DocumentReference,
-                                      ),
-                                      'postTitle': serializeParam(
-                                        widget.campaignTitle,
-                                        ParamType.String,
-                                      ),
-                                      'status': serializeParam(
-                                        listViewCampaignRecord.status,
-                                        ParamType.String,
-                                      ),
-                                      'scheduledTime': serializeParam(
-                                        listViewCampaignRecord.scheduledTime,
-                                        ParamType.DateTime,
-                                      ),
-                                      'indexInList': serializeParam(
-                                        listViewIndex,
-                                        ParamType.int,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                }
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                    color: const Color(0xFFE0E3E7),
-                                    width: 2.0,
+                      return Container(
+                        decoration: const BoxDecoration(),
+                        child: Visibility(
+                          visible: containerCampaignRecordList.isNotEmpty,
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 4.0,
+                              sigmaY: 4.0,
+                            ),
+                            child: Stack(
+                              children: [
+                                Opacity(
+                                  opacity: 0.6,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
                                   ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      if (listViewCampaignRecord.status !=
-                                          'Pending')
-                                        Text(
-                                          listViewCampaignRecord.finalPost,
-                                          maxLines: 2,
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                color: const Color(0xFF0F1113),
-                                                fontSize: 20.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.normal,
-                                                useGoogleFonts:
-                                                    GoogleFonts.asMap()
-                                                        .containsKey('Outfit'),
-                                              ),
-                                        ),
-                                      if (listViewCampaignRecord.status ==
-                                          'Pending')
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 0.0, 12.0, 0.0),
-                                              child: Text(
-                                                'Writing your post...',
-                                                textAlign: TextAlign.end,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .headlineSmall
-                                                    .override(
-                                                      fontFamily: 'Outfit',
-                                                      color: const Color(0xFF15161E),
-                                                      fontSize: 18.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      useGoogleFonts:
-                                                          GoogleFonts.asMap()
-                                                              .containsKey(
-                                                                  'Outfit'),
-                                                    ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 16.0, 0.0),
-                                              child: Container(
-                                                width: 40.0,
-                                                height: 40.0,
-                                                decoration: const BoxDecoration(),
-                                                child: Lottie.asset(
-                                                  'assets/lottie_animations/Animation_-_1705682770212_(1).json',
-                                                  width: 150.0,
-                                                  height: 130.0,
-                                                  fit: BoxFit.cover,
-                                                  animate: true,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      const Divider(
-                                        height: 24.0,
-                                        thickness: 1.0,
-                                        color: Color(0xFFE0E3E7),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          if (listViewCampaignRecord.status ==
-                                              'scheduled')
-                                            Text(
-                                              'Due',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily:
-                                                        'Plus Jakarta Sans',
-                                                    color: const Color(0xFF0F1113),
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                    useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                        .containsKey(
-                                                            'Plus Jakarta Sans'),
-                                                  ),
-                                            ),
-                                          if (listViewCampaignRecord.status ==
-                                              'scheduled')
-                                            Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 0.0, 0.0, 0.0),
-                                                child: Text(
-                                                  dateTimeFormat(
-                                                      'MMMEd',
-                                                      listViewCampaignRecord
-                                                          .scheduledTime!),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            const Color(0xFF827AE1),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                'Plus Jakarta Sans'),
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          Flexible(
-                                            child: Container(
-                                              height: 32.0,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFF81E1D7),
-                                                borderRadius:
-                                                    BorderRadius.circular(32.0),
-                                              ),
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Text(
-                                                listViewCampaignRecord.status ==
-                                                        'scheduled'
-                                                    ? 'Scheduled'
-                                                    : 'To be Approved',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color: Colors.white,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts:
-                                                              GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      'Plus Jakarta Sans'),
-                                                        ),
-                                              ),
-                                            ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    const Align(
+                                      alignment:
+                                          AlignmentDirectional(0.0, -1.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 50.0, 0.0, 0.0),
+                                        child: SizedBox(
+                                          width: 300.0,
+                                          height: 500.0,
+                                          child: custom_widgets
+                                              .CustomProgressIndicator(
+                                            width: 300.0,
+                                            height: 500.0,
+                                            duration: 300,
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      child: Text(
+                                        'Creating your campaign...',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 20.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
+                                            ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ).animateOnPageLoad(animationsMap[
-                                'containerOnPageLoadAnimation1']!),
-                          );
-                        },
+                              ],
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

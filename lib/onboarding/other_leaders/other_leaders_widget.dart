@@ -186,6 +186,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                             'Your Peers',
                             textAlign: TextAlign.start,
                             maxLines: 1,
+                            minFontSize: 24.0,
                             style: FlutterFlowTheme.of(context)
                                 .displayMedium
                                 .override(
@@ -198,7 +199,6 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .displayMediumFamily),
                                 ),
-                            minFontSize: 24.0,
                           ),
                         ),
                         Padding(
@@ -208,6 +208,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                             'Select 3 or more thought leaders in your field whose content you find insightful. We will take inspiration from them to improve your content.',
                             textAlign: TextAlign.start,
                             maxLines: 3,
+                            minFontSize: 10.0,
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
@@ -220,7 +221,6 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .labelLargeFamily),
                                 ),
-                            minFontSize: 10.0,
                           ),
                         ),
                         if (_model.contentUrlFields == '2')

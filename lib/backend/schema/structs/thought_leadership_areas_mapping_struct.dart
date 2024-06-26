@@ -30,7 +30,7 @@ class ThoughtLeadershipAreasMappingStruct extends FFFirebaseStruct {
   set subCategories(List<String>? val) => _subCategories = val;
 
   void updateSubCategories(Function(List<String>) updateFn) {
-    updateFn(subCategories ??= []);
+    updateFn(_subCategories ??= []);
   }
 
   bool hasSubCategories() => _subCategories != null;
