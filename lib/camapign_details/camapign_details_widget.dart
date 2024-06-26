@@ -717,7 +717,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                               .CustomProgressIndicator(
                                             width: 300.0,
                                             height: 500.0,
-                                            duration: 300,
+                                            duration: 240,
                                           ),
                                         ),
                                       ),
