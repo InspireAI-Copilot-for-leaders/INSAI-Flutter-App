@@ -938,7 +938,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                               const BoxDecoration(),
                                                           child: Builder(
                                                             builder: (context) {
-                                                              final broadDomainList =
+                                                              final broadDomainListNoSearch =
                                                                   expertiseAreaEditBroadDomainRecordList
                                                                       .toList();
                                                               return ListView
@@ -952,7 +952,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                 scrollDirection:
                                                                     Axis.vertical,
                                                                 itemCount:
-                                                                    broadDomainList
+                                                                    broadDomainListNoSearch
                                                                         .length,
                                                                 separatorBuilder: (_,
                                                                         __) =>
@@ -961,16 +961,16 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                             4.0),
                                                                 itemBuilder:
                                                                     (context,
-                                                                        broadDomainListIndex) {
-                                                                  final broadDomainListItem =
-                                                                      broadDomainList[
-                                                                          broadDomainListIndex];
+                                                                        broadDomainListNoSearchIndex) {
+                                                                  final broadDomainListNoSearchItem =
+                                                                      broadDomainListNoSearch[
+                                                                          broadDomainListNoSearchIndex];
                                                                   return StreamBuilder<
                                                                       List<
                                                                           ExpertiseAreasRecord>>(
                                                                     stream:
                                                                         queryExpertiseAreasRecord(
-                                                                      parent: broadDomainListItem
+                                                                      parent: broadDomainListNoSearchItem
                                                                           .reference,
                                                                     ),
                                                                     builder:
@@ -1038,7 +1038,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                             ClipRRect(
                                                                                               borderRadius: BorderRadius.circular(8.0),
                                                                                               child: Image.network(
-                                                                                                broadDomainListItem.iconUrl,
+                                                                                                broadDomainListNoSearchItem.iconUrl,
                                                                                                 width: 36.0,
                                                                                                 height: 36.0,
                                                                                                 fit: BoxFit.cover,
@@ -1054,7 +1054,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                             ClipRRect(
                                                                                               borderRadius: BorderRadius.circular(8.0),
                                                                                               child: Image.network(
-                                                                                                broadDomainListItem.iconUrlDarkMode,
+                                                                                                broadDomainListNoSearchItem.iconUrlDarkMode,
                                                                                                 width: 36.0,
                                                                                                 height: 36.0,
                                                                                                 fit: BoxFit.cover,
@@ -1073,7 +1073,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                           padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                                                                                           child: Text(
                                                                                             valueOrDefault<String>(
-                                                                                              broadDomainListItem.broadDomain,
+                                                                                              broadDomainListNoSearchItem.broadDomain,
                                                                                               'BroadDomain',
                                                                                             ),
                                                                                             style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -1122,15 +1122,42 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                 highlightColor: Colors.transparent,
                                                                                                 onTap: () async {
                                                                                                   logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_cjtebcjm_O');
-                                                                                                  if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
+                                                                                                  if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
+                                                                                                    logFirebaseEvent('Container_update_page_state');
+                                                                                                    _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                                    setState(() {});
+                                                                                                    logFirebaseEvent('Container_update_page_state');
+                                                                                                    _model.updateLeadershipAreasMappingAtIndex(
+                                                                                                      broadDomainListNoSearchIndex,
+                                                                                                      (e) => e
+                                                                                                        ..updateSubCategories(
+                                                                                                          (e) => e.remove(expertiseAreaNoSearchItem.expertiseArea),
+                                                                                                        ),
+                                                                                                    );
+                                                                                                    setState(() {});
+                                                                                                    logFirebaseEvent('Container_backend_call');
+
+                                                                                                    await currentUserReference!.update({
+                                                                                                      ...mapToFirestore(
+                                                                                                        {
+                                                                                                          'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
+                                                                                                            _model.leadershipAreasMapping,
+                                                                                                          ),
+                                                                                                          'thought_leadership_areas': FieldValue.arrayRemove([
+                                                                                                            expertiseAreaNoSearchItem.expertiseArea
+                                                                                                          ]),
+                                                                                                        },
+                                                                                                      ),
+                                                                                                    });
+                                                                                                  } else {
                                                                                                     logFirebaseEvent('Container_update_page_state');
                                                                                                     _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
                                                                                                     _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
                                                                                                     setState(() {});
-                                                                                                    if ((currentUserDocument?.broadDomains.toList() ?? []).contains(broadDomainListItem.broadDomain)) {
+                                                                                                    if ((currentUserDocument?.broadDomains.toList() ?? []).contains(broadDomainListNoSearchItem.broadDomain)) {
                                                                                                       logFirebaseEvent('Container_update_page_state');
                                                                                                       _model.updateLeadershipAreasMappingAtIndex(
-                                                                                                        functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListItem.broadDomain),
+                                                                                                        functions.getIndexFromList((currentUserDocument?.broadDomains.toList() ?? []).toList(), broadDomainListNoSearchItem.broadDomain),
                                                                                                         (e) => e
                                                                                                           ..updateSubCategories(
                                                                                                             (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
@@ -1154,7 +1181,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                     } else {
                                                                                                       logFirebaseEvent('Container_update_page_state');
                                                                                                       _model.addToLeadershipAreasMapping(ThoughtLeadershipAreasMappingStruct(
-                                                                                                        category: broadDomainListItem.broadDomain,
+                                                                                                        category: broadDomainListNoSearchItem.broadDomain,
                                                                                                         subCategories: _model.addExpertiseAreaList,
                                                                                                       ));
                                                                                                       setState(() {});
@@ -1170,7 +1197,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                               expertiseAreaNoSearchItem.expertiseArea
                                                                                                             ]),
                                                                                                             'broad_domains': FieldValue.arrayUnion([
-                                                                                                              broadDomainListItem.broadDomain
+                                                                                                              broadDomainListNoSearchItem.broadDomain
                                                                                                             ]),
                                                                                                           },
                                                                                                         ),
@@ -1473,7 +1500,34 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                             highlightColor: Colors.transparent,
                                                                                             onTap: () async {
                                                                                               logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_9ugqtd1o_O');
-                                                                                              if (!(currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
+                                                                                              if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
+                                                                                                logFirebaseEvent('Container_update_page_state');
+                                                                                                _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
+                                                                                                setState(() {});
+                                                                                                logFirebaseEvent('Container_update_page_state');
+                                                                                                _model.updateLeadershipAreasMappingAtIndex(
+                                                                                                  listViewIndex,
+                                                                                                  (e) => e
+                                                                                                    ..updateSubCategories(
+                                                                                                      (e) => e.remove(expertiseAreaSearchItem.expertiseArea),
+                                                                                                    ),
+                                                                                                );
+                                                                                                setState(() {});
+                                                                                                logFirebaseEvent('Container_backend_call');
+
+                                                                                                await currentUserReference!.update({
+                                                                                                  ...mapToFirestore(
+                                                                                                    {
+                                                                                                      'thought_leadership_areas_mapping': getThoughtLeadershipAreasMappingListFirestoreData(
+                                                                                                        _model.leadershipAreasMapping,
+                                                                                                      ),
+                                                                                                      'thought_leadership_areas': FieldValue.arrayRemove([
+                                                                                                        expertiseAreaSearchItem.expertiseArea
+                                                                                                      ]),
+                                                                                                    },
+                                                                                                  ),
+                                                                                                });
+                                                                                              } else {
                                                                                                 logFirebaseEvent('Container_update_page_state');
                                                                                                 _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
                                                                                                 _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
@@ -1543,22 +1597,44 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                   width: 2.0,
                                                                                                 ),
                                                                                               ),
-                                                                                              child: Padding(
-                                                                                                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                                                                                                child: Container(
-                                                                                                  decoration: const BoxDecoration(),
-                                                                                                  child: Text(
-                                                                                                    expertiseAreaSearchItem.expertiseArea,
-                                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          fontSize: 12.0,
-                                                                                                          letterSpacing: 0.0,
-                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                              child: Row(
+                                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                                children: [
+                                                                                                  if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea))
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                                      child: Container(
+                                                                                                        width: 20.0,
+                                                                                                        height: 20.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          shape: BoxShape.circle,
                                                                                                         ),
+                                                                                                        child: Icon(
+                                                                                                          Icons.close,
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                          size: 12.0,
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  Padding(
+                                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 8.0, 4.0),
+                                                                                                    child: Container(
+                                                                                                      decoration: const BoxDecoration(),
+                                                                                                      child: Text(
+                                                                                                        expertiseAreaSearchItem.expertiseArea,
+                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                              fontSize: 12.0,
+                                                                                                              letterSpacing: 0.0,
+                                                                                                              fontWeight: FontWeight.w600,
+                                                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                                            ),
+                                                                                                      ),
+                                                                                                    ),
                                                                                                   ),
-                                                                                                ),
+                                                                                                ],
                                                                                               ),
                                                                                             ),
                                                                                           ),
