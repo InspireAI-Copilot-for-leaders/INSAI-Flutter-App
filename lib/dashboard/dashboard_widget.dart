@@ -3177,7 +3177,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     ),
                   ],
                 ),
-              if (FFAppState().dashboardLoading)
+              if (!FFAppState().dashboardLoading)
                 wrapWithModel(
                   model: _model.profileLoadingScreenModel,
                   updateCallback: () => setState(() {}),

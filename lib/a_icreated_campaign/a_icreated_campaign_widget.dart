@@ -441,31 +441,51 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0,
-                                                                          4.0),
-                                                              child: RichText(
-                                                                textScaler: MediaQuery.of(
-                                                                        context)
-                                                                    .textScaler,
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    const TextSpan(
-                                                                      text:
-                                                                          'Company thought  leadership for ',
-                                                                      style:
-                                                                          TextStyle(),
-                                                                    ),
-                                                                    TextSpan(
-                                                                      text: (currentUserDocument?.activeCompanies.toList() ??
-                                                                              [])
-                                                                          .first
-                                                                          .companyName,
+                                                            if ((currentUserDocument
+                                                                        ?.activeCompanies
+                                                                        .toList() ??
+                                                                    [])
+                                                                .isNotEmpty)
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0,
+                                                                            4.0),
+                                                                child:
+                                                                    AuthUserStreamWidget(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          RichText(
+                                                                    textScaler:
+                                                                        MediaQuery.of(context)
+                                                                            .textScaler,
+                                                                    text:
+                                                                        TextSpan(
+                                                                      children: [
+                                                                        const TextSpan(
+                                                                          text:
+                                                                              'Company thought  leadership for ',
+                                                                          style:
+                                                                              TextStyle(),
+                                                                        ),
+                                                                        TextSpan(
+                                                                          text: (currentUserDocument?.activeCompanies.toList() ?? [])
+                                                                              .first
+                                                                              .companyName,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .labelMedium
+                                                                              .override(
+                                                                                fontFamily: 'Plus Jakarta Sans',
+                                                                                color: FlutterFlowTheme.of(context).secondary,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                              ),
+                                                                        )
+                                                                      ],
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .labelMedium
@@ -473,36 +493,20 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                                             fontFamily:
                                                                                 'Plus Jakarta Sans',
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).secondary,
+                                                                                const Color(0xFF606A85),
+                                                                            fontSize:
+                                                                                14.0,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
-                                                                                FontWeight.bold,
+                                                                                FontWeight.w500,
                                                                             useGoogleFonts:
                                                                                 GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                           ),
-                                                                    )
-                                                                  ],
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Plus Jakarta Sans',
-                                                                        color: const Color(
-                                                                            0xFF606A85),
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
                                                             Padding(
                                                               padding:
                                                                   const EdgeInsetsDirectional
