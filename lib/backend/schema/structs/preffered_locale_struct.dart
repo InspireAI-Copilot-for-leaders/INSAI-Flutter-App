@@ -22,7 +22,7 @@ class PrefferedLocaleStruct extends FFFirebaseStruct {
       _preferredLocale = val;
 
   void updatePreferredLocale(Function(LinkedinPreferedLocaleStruct) updateFn) {
-    updateFn(preferredLocale ??= LinkedinPreferedLocaleStruct());
+    updateFn(_preferredLocale ??= LinkedinPreferedLocaleStruct());
   }
 
   bool hasPreferredLocale() => _preferredLocale != null;

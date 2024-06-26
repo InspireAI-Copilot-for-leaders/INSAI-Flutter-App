@@ -68,7 +68,7 @@ class ArticleMetadataStruct extends FFFirebaseStruct {
 
   void updateOrginialArticleUsedForRag(
       Function(OriginalArticleForRagStruct) updateFn) {
-    updateFn(orginialArticleUsedForRag ??= OriginalArticleForRagStruct());
+    updateFn(_orginialArticleUsedForRag ??= OriginalArticleForRagStruct());
   }
 
   bool hasOrginialArticleUsedForRag() => _orginialArticleUsedForRag != null;

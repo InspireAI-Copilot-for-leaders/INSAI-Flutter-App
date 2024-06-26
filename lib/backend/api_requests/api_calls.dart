@@ -919,7 +919,7 @@ class DomainThoughtLeaderhipCampaignCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Domain Thought leaderhip Campaign',
       apiUrl:
-          'https://campaign-general-5qpvtpji4a-em.a.run.app/create_campaign',
+          'https://campaign-5qpvtpji4a-em.a.run.app/campaign/domain_thought_leadership',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -952,7 +952,7 @@ class CompanyThoughtLeaderhipCampaignCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Company Thought leaderhip Campaign',
       apiUrl:
-          'https://campaign-company-5qpvtpji4a-em.a.run.app/create_company_campaign',
+          'https://campaign-5qpvtpji4a-em.a.run.app/campaign/company_thought_leadership',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -978,14 +978,14 @@ class CurrentEventsCampaignCall {
     final ffApiRequestBody = '''
 {
   "uid": "$uid",
-  "expertise_area": "$expertiseArea",
+  "domain": "$expertiseArea",
   "campaign_id": "$campaignId",
   "num_of_posts": $noOfPosts
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Current events Campaign',
       apiUrl:
-          'https://campaign-current-events-5qpvtpji4a-em.a.run.app/create_current_events_campaign',
+          'https://campaign-5qpvtpji4a-em.a.run.app/campaign/trends_commentry',
       callType: ApiCallType.POST,
       headers: {},
       params: {},

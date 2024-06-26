@@ -217,6 +217,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                 'Externalize your thought leadership.',
                                 textAlign: TextAlign.start,
                                 maxLines: 3,
+                                minFontSize: 30.0,
                                 style: FlutterFlowTheme.of(context)
                                     .displayMedium
                                     .override(
@@ -229,7 +230,6 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey('Montserrat'),
                                     ),
-                                minFontSize: 30.0,
                               ),
                             ),
                           ),
@@ -241,6 +241,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                               child: AutoSizeText(
                                 'To get the best from InspireAI, we need you to connect your LinkedIn account.',
                                 maxLines: 3,
+                                minFontSize: 14.0,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -256,7 +257,6 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily),
                                     ),
-                                minFontSize: 14.0,
                               ),
                             ),
                           ),

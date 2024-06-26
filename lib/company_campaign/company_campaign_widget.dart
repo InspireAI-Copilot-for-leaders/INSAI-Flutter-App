@@ -33,7 +33,8 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'companyCampaign'});
-    _model.textController ??= TextEditingController();
+    _model.textController ??=
+        TextEditingController(text: 'My Company Campaign');
     _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -478,7 +479,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primaryText,
-                                                                                    fontSize: 18.0,
+                                                                                    fontSize: 14.0,
                                                                                     letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.w500,
                                                                                     useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -527,13 +528,10 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                         .dropDownValueController1 ??=
                                                     FormFieldController<int>(
                                                         null),
-                                                options: List<int>.from(
-                                                    [1, 2, 3, 4]),
+                                                options: List<int>.from([1, 2]),
                                                 optionLabels: const [
                                                   '1 week',
-                                                  '2 weeks',
-                                                  '3 weeks',
-                                                  '4 weeks'
+                                                  '2 weeks'
                                                 ],
                                                 onChanged: (val) => setState(
                                                     () => _model
@@ -608,13 +606,12 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                         .dropDownValueController2 ??=
                                                     FormFieldController<int>(
                                                         null),
-                                                options: List<int>.from(
-                                                    [1, 2, 3, 5]),
+                                                options:
+                                                    List<int>.from([1, 2, 3]),
                                                 optionLabels: const [
                                                   'Once per week',
                                                   'Twice per week',
-                                                  '3 times a week',
-                                                  '5 times a week'
+                                                  '3 times a week'
                                                 ],
                                                 onChanged: (val) => setState(
                                                     () => _model

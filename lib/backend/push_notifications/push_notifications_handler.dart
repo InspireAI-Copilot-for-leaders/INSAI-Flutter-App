@@ -219,9 +219,8 @@ final parametersBuilderMap =
           'postText': getParameter<String>(data, 'postText'),
           'postRef': getParameter<DocumentReference>(data, 'postRef'),
           'postTitle': getParameter<String>(data, 'postTitle'),
-          'status': getParameter<String>(data, 'status'),
-          'scheduledTime': getParameter<DateTime>(data, 'scheduledTime'),
           'indexInList': getParameter<int>(data, 'indexInList'),
+          'scheduledTime': getParameter<DateTime>(data, 'scheduledTime'),
         },
       ),
 };

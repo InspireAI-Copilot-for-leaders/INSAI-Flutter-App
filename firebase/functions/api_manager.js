@@ -29,6 +29,7 @@ async function _linkedinTokensCall(context, ffVariables) {
       bodyType: "X_WWW_FORM_URL_ENCODED",
     }),
     returnBody: true,
+    isStreamingApi: false,
   });
 }
 async function _linkedinRefreshTokenCall(context, ffVariables) {
@@ -58,6 +59,7 @@ async function _linkedinRefreshTokenCall(context, ffVariables) {
       bodyType: "X_WWW_FORM_URL_ENCODED",
     }),
     returnBody: true,
+    isStreamingApi: false,
   });
 }
 
@@ -91,6 +93,7 @@ async function makeApiRequest({
   params,
   body,
   returnBody,
+  isStreamingApi,
 }) {
   return axios
     .request({
@@ -98,6 +101,7 @@ async function makeApiRequest({
       url: url,
       headers: headers,
       params: params,
+      responseType: isStreamingApi ? "stream" : "json",
       ...(body && { data: body }),
     })
     .then((response) => {
@@ -105,6 +109,7 @@ async function makeApiRequest({
         statusCode: response.status,
         headers: response.headers,
         ...(returnBody && { body: response.data }),
+        isStreamingApi: isStreamingApi,
       };
     })
     .catch(function (error) {

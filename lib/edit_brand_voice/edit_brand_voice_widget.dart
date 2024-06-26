@@ -197,6 +197,7 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                   'Setup your Brand Voice',
                                   textAlign: TextAlign.start,
                                   maxLines: 2,
+                                  minFontSize: 24.0,
                                   style: FlutterFlowTheme.of(context)
                                       .displayMedium
                                       .override(
@@ -210,7 +211,6 @@ class _EditBrandVoiceWidgetState extends State<EditBrandVoiceWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .displayMediumFamily),
                                       ),
-                                  minFontSize: 24.0,
                                 ),
                               ),
                               Padding(

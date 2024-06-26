@@ -41,7 +41,7 @@ class LinkedinDetailsAuthStruct extends FFFirebaseStruct {
   set firstName(PrefferedLocaleStruct? val) => _firstName = val;
 
   void updateFirstName(Function(PrefferedLocaleStruct) updateFn) {
-    updateFn(firstName ??= PrefferedLocaleStruct());
+    updateFn(_firstName ??= PrefferedLocaleStruct());
   }
 
   bool hasFirstName() => _firstName != null;
@@ -59,7 +59,7 @@ class LinkedinDetailsAuthStruct extends FFFirebaseStruct {
   set lastName(PrefferedLocaleStruct? val) => _lastName = val;
 
   void updateLastName(Function(PrefferedLocaleStruct) updateFn) {
-    updateFn(lastName ??= PrefferedLocaleStruct());
+    updateFn(_lastName ??= PrefferedLocaleStruct());
   }
 
   bool hasLastName() => _lastName != null;
@@ -77,7 +77,7 @@ class LinkedinDetailsAuthStruct extends FFFirebaseStruct {
   set headline(PrefferedLocaleStruct? val) => _headline = val;
 
   void updateHeadline(Function(PrefferedLocaleStruct) updateFn) {
-    updateFn(headline ??= PrefferedLocaleStruct());
+    updateFn(_headline ??= PrefferedLocaleStruct());
   }
 
   bool hasHeadline() => _headline != null;

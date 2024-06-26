@@ -85,7 +85,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
     });
 
     _model.textController1 ??=
-        TextEditingController(text: widget.postDocument?.postTilte);
+        TextEditingController(text: widget.postDocument?.postTitle);
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??=
