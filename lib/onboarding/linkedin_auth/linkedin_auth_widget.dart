@@ -117,6 +117,9 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                         _model.preDefinedUserDoc?.thoughtLeadershipAreasMapping,
                       ),
                       'broad_domains': _model.preDefinedUserDoc?.broadDomains,
+                      'active_companies': getActiveCompaniesListFirestoreData(
+                        _model.preDefinedUserDoc?.activeCompanies,
+                      ),
                     },
                   ),
                 });
