@@ -8,7 +8,6 @@ import 'schema/util/firestore_util.dart';
 import 'schema/users_record.dart';
 import 'schema/created_posts_record.dart';
 import 'schema/thought_leaders_record.dart';
-import 'schema/brand_voices_record.dart';
 import 'schema/posted_on_linkedin_record.dart';
 import 'schema/broad_domain_record.dart';
 import 'schema/expertise_areas_record.dart';
@@ -21,6 +20,7 @@ import 'schema/expertise_areas_collection_record.dart';
 import 'schema/pre_defined_users_record.dart';
 import 'schema/campaigns_details_record.dart';
 import 'schema/campaign_record.dart';
+import 'schema/personas_for_content_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -32,7 +32,6 @@ export 'schema/util/schema_util.dart';
 export 'schema/users_record.dart';
 export 'schema/created_posts_record.dart';
 export 'schema/thought_leaders_record.dart';
-export 'schema/brand_voices_record.dart';
 export 'schema/posted_on_linkedin_record.dart';
 export 'schema/broad_domain_record.dart';
 export 'schema/expertise_areas_record.dart';
@@ -45,6 +44,7 @@ export 'schema/expertise_areas_collection_record.dart';
 export 'schema/pre_defined_users_record.dart';
 export 'schema/campaigns_details_record.dart';
 export 'schema/campaign_record.dart';
+export 'schema/personas_for_content_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -155,43 +155,6 @@ Future<List<ThoughtLeadersRecord>> queryThoughtLeadersRecordOnce({
     queryCollectionOnce(
       ThoughtLeadersRecord.collection,
       ThoughtLeadersRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query BrandVoicesRecords (as a Stream and as a Future).
-Future<int> queryBrandVoicesRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      BrandVoicesRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<BrandVoicesRecord>> queryBrandVoicesRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      BrandVoicesRecord.collection,
-      BrandVoicesRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<BrandVoicesRecord>> queryBrandVoicesRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      BrandVoicesRecord.collection,
-      BrandVoicesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -650,6 +613,43 @@ Future<List<CampaignRecord>> queryCampaignRecordOnce({
     queryCollectionOnce(
       CampaignRecord.collection(parent),
       CampaignRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query PersonasForContentRecords (as a Stream and as a Future).
+Future<int> queryPersonasForContentRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      PersonasForContentRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<PersonasForContentRecord>> queryPersonasForContentRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PersonasForContentRecord.collection,
+      PersonasForContentRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PersonasForContentRecord>> queryPersonasForContentRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PersonasForContentRecord.collection,
+      PersonasForContentRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

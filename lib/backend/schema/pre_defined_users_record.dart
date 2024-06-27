@@ -44,6 +44,16 @@ class PreDefinedUsersRecord extends FirestoreRecord {
       _activeCompanies ?? const [];
   bool hasActiveCompanies() => _activeCompanies != null;
 
+  // "personaAuto" field.
+  String? _personaAuto;
+  String get personaAuto => _personaAuto ?? '';
+  bool hasPersonaAuto() => _personaAuto != null;
+
+  // "followers" field.
+  int? _followers;
+  int get followers => _followers ?? 0;
+  bool hasFollowers() => _followers != null;
+
   void _initializeFields() {
     _linkedinUrl = snapshotData['linkedinUrl'] as String?;
     _thoughtLeadershipAreas =
@@ -57,6 +67,8 @@ class PreDefinedUsersRecord extends FirestoreRecord {
       snapshotData['active_companies'],
       ActiveCompaniesStruct.fromMap,
     );
+    _personaAuto = snapshotData['personaAuto'] as String?;
+    _followers = castToType<int>(snapshotData['followers']);
   }
 
   static CollectionReference get collection =>
@@ -95,10 +107,14 @@ class PreDefinedUsersRecord extends FirestoreRecord {
 
 Map<String, dynamic> createPreDefinedUsersRecordData({
   String? linkedinUrl,
+  String? personaAuto,
+  int? followers,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'linkedinUrl': linkedinUrl,
+      'personaAuto': personaAuto,
+      'followers': followers,
     }.withoutNulls,
   );
 
@@ -118,7 +134,9 @@ class PreDefinedUsersRecordDocumentEquality
         listEquality.equals(e1?.broadDomains, e2?.broadDomains) &&
         listEquality.equals(e1?.thoughtLeadershipAreasMapping,
             e2?.thoughtLeadershipAreasMapping) &&
-        listEquality.equals(e1?.activeCompanies, e2?.activeCompanies);
+        listEquality.equals(e1?.activeCompanies, e2?.activeCompanies) &&
+        e1?.personaAuto == e2?.personaAuto &&
+        e1?.followers == e2?.followers;
   }
 
   @override
@@ -127,7 +145,9 @@ class PreDefinedUsersRecordDocumentEquality
         e?.thoughtLeadershipAreas,
         e?.broadDomains,
         e?.thoughtLeadershipAreasMapping,
-        e?.activeCompanies
+        e?.activeCompanies,
+        e?.personaAuto,
+        e?.followers
       ]);
 
   @override

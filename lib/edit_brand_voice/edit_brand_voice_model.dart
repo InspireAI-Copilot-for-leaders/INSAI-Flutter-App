@@ -26,6 +26,14 @@ class EditBrandVoiceModel extends FlutterFlowModel<EditBrandVoiceWidget> {
   FocusNode? contentURL1FocusNode1;
   TextEditingController? contentURL1TextController1;
   String? Function(BuildContext, String?)? contentURL1TextController1Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode1;
+  TextEditingController? textController4;
+  String? Function(BuildContext, String?)? textController4Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode2;
+  TextEditingController? textController5;
+  String? Function(BuildContext, String?)? textController5Validator;
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode2;
   TextEditingController? contentURL1TextController2;
@@ -45,6 +53,12 @@ class EditBrandVoiceModel extends FlutterFlowModel<EditBrandVoiceWidget> {
 
     contentURL1FocusNode1?.dispose();
     contentURL1TextController1?.dispose();
+
+    textFieldFocusNode1?.dispose();
+    textController4?.dispose();
+
+    textFieldFocusNode2?.dispose();
+    textController5?.dispose();
 
     contentURL1FocusNode2?.dispose();
     contentURL1TextController2?.dispose();

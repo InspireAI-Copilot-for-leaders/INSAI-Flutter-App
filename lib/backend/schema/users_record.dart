@@ -57,11 +57,6 @@ class UsersRecord extends FirestoreRecord {
   String get linkedinUrn => _linkedinUrn ?? '';
   bool hasLinkedinUrn() => _linkedinUrn != null;
 
-  // "content_voice" field.
-  String? _contentVoice;
-  String get contentVoice => _contentVoice ?? '';
-  bool hasContentVoice() => _contentVoice != null;
-
   // "first_degree_connections_size" field.
   int? _firstDegreeConnectionsSize;
   int get firstDegreeConnectionsSize => _firstDegreeConnectionsSize ?? 0;
@@ -157,6 +152,16 @@ class UsersRecord extends FirestoreRecord {
       _activeCompanies ?? const [];
   bool hasActiveCompanies() => _activeCompanies != null;
 
+  // "personaAuto" field.
+  String? _personaAuto;
+  String get personaAuto => _personaAuto ?? '';
+  bool hasPersonaAuto() => _personaAuto != null;
+
+  // "personaForContent" field.
+  String? _personaForContent;
+  String get personaForContent => _personaForContent ?? '';
+  bool hasPersonaForContent() => _personaForContent != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -168,7 +173,6 @@ class UsersRecord extends FirestoreRecord {
     _thoughtLeadershipAreas =
         getDataList(snapshotData['thought_leadership_areas']);
     _linkedinUrn = snapshotData['linkedin_urn'] as String?;
-    _contentVoice = snapshotData['content_voice'] as String?;
     _firstDegreeConnectionsSize =
         castToType<int>(snapshotData['first_degree_connections_size']);
     _followers = castToType<int>(snapshotData['followers']);
@@ -198,6 +202,8 @@ class UsersRecord extends FirestoreRecord {
       snapshotData['active_companies'],
       ActiveCompaniesStruct.fromMap,
     );
+    _personaAuto = snapshotData['personaAuto'] as String?;
+    _personaForContent = snapshotData['personaForContent'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -241,7 +247,6 @@ Map<String, dynamic> createUsersRecordData({
   LinkedinDetailsAuthStruct? linkedinDetails,
   String? phoneNumber,
   String? linkedinUrn,
-  String? contentVoice,
   int? firstDegreeConnectionsSize,
   int? followers,
   DateTime? createdTime,
@@ -255,6 +260,8 @@ Map<String, dynamic> createUsersRecordData({
   String? accessType,
   String? linkedinForSpecialAccess,
   String? onboardingStatus,
+  String? personaAuto,
+  String? personaForContent,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -265,7 +272,6 @@ Map<String, dynamic> createUsersRecordData({
       'linkedin_details': LinkedinDetailsAuthStruct().toMap(),
       'phone_number': phoneNumber,
       'linkedin_urn': linkedinUrn,
-      'content_voice': contentVoice,
       'first_degree_connections_size': firstDegreeConnectionsSize,
       'followers': followers,
       'created_time': createdTime,
@@ -279,6 +285,8 @@ Map<String, dynamic> createUsersRecordData({
       'accessType': accessType,
       'linkedinForSpecialAccess': linkedinForSpecialAccess,
       'onboardingStatus': onboardingStatus,
+      'personaAuto': personaAuto,
+      'personaForContent': personaForContent,
     }.withoutNulls,
   );
 
@@ -308,7 +316,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         listEquality.equals(
             e1?.thoughtLeadershipAreas, e2?.thoughtLeadershipAreas) &&
         e1?.linkedinUrn == e2?.linkedinUrn &&
-        e1?.contentVoice == e2?.contentVoice &&
         e1?.firstDegreeConnectionsSize == e2?.firstDegreeConnectionsSize &&
         e1?.followers == e2?.followers &&
         listEquality.equals(e1?.profilePictureLinks, e2?.profilePictureLinks) &&
@@ -328,7 +335,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.accessType == e2?.accessType &&
         e1?.linkedinForSpecialAccess == e2?.linkedinForSpecialAccess &&
         e1?.onboardingStatus == e2?.onboardingStatus &&
-        listEquality.equals(e1?.activeCompanies, e2?.activeCompanies);
+        listEquality.equals(e1?.activeCompanies, e2?.activeCompanies) &&
+        e1?.personaAuto == e2?.personaAuto &&
+        e1?.personaForContent == e2?.personaForContent;
   }
 
   @override
@@ -341,7 +350,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.thoughtLeadershipAreas,
         e?.linkedinUrn,
-        e?.contentVoice,
         e?.firstDegreeConnectionsSize,
         e?.followers,
         e?.profilePictureLinks,
@@ -359,7 +367,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.accessType,
         e?.linkedinForSpecialAccess,
         e?.onboardingStatus,
-        e?.activeCompanies
+        e?.activeCompanies,
+        e?.personaAuto,
+        e?.personaForContent
       ]);
 
   @override

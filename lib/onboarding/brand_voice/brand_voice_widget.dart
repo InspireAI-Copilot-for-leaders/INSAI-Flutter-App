@@ -86,6 +86,12 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
     _model.contentURL1TextController1 ??= TextEditingController();
     _model.contentURL1FocusNode1 ??= FocusNode();
 
+    _model.textController4 ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
+
+    _model.textController5 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
+
     _model.contentURL1TextController2 ??= TextEditingController();
     _model.contentURL1FocusNode2 ??= FocusNode();
 
@@ -243,7 +249,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 4.0),
                               child: AutoSizeText(
-                                'Setup your Brand Voice',
+                                'Setup your Persona',
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 minFontSize: 24.0,
@@ -266,7 +272,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 12.0),
                               child: Text(
-                                'The voice in which your content will be written.',
+                                'This is the voice in which your content will be ideated and written.',
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context)
                                     .labelLarge
@@ -663,11 +669,330 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Stack(
+                                  children: [
+                                    if ((valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.personaAuto,
+                                                    '') !=
+                                                '') &&
+                                        (_model.typedVoice == null ||
+                                            _model.typedVoice == ''))
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 0.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                              border: Border.all(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 12.0, 12.0, 12.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'AI detected Persona',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ),
+                                                  TextFormField(
+                                                    controller:
+                                                        _model.textController4,
+                                                    focusNode: _model
+                                                        .textFieldFocusNode1,
+                                                    autofocus: false,
+                                                    obscureText: false,
+                                                    decoration: InputDecoration(
+                                                      isDense: true,
+                                                      labelText: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.personaAuto,
+                                                          ''),
+                                                      labelStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                      enabledBorder:
+                                                          InputBorder.none,
+                                                      focusedBorder:
+                                                          InputBorder.none,
+                                                      errorBorder:
+                                                          InputBorder.none,
+                                                      focusedErrorBorder:
+                                                          InputBorder.none,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                    maxLines: null,
+                                                    validator: _model
+                                                        .textController4Validator
+                                                        .asValidator(context),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    if (_model.typedVoice != null &&
+                                        _model.typedVoice != '')
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 0.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(16.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 12.0, 12.0, 12.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Persona added by you',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                ),
+                                                TextFormField(
+                                                  controller:
+                                                      _model.textController5,
+                                                  focusNode: _model
+                                                      .textFieldFocusNode2,
+                                                  autofocus: false,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        _model.typedVoice,
+                                                    labelStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                    enabledBorder:
+                                                        InputBorder.none,
+                                                    focusedBorder:
+                                                        InputBorder.none,
+                                                    errorBorder:
+                                                        InputBorder.none,
+                                                    focusedErrorBorder:
+                                                        InputBorder.none,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                  maxLines: null,
+                                                  validator: _model
+                                                      .textController5Validator
+                                                      .asValidator(context),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                if (valueOrDefault(
+                                            currentUserDocument?.personaAuto,
+                                            '') !=
+                                        '')
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 16.0, 0.0, 16.0),
+                                    child: AuthUserStreamWidget(
+                                      builder: (context) => Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Opacity(
+                                            opacity: 0.4,
+                                            child: Container(
+                                              width: 30.0,
+                                              height: 1.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                              ),
+                                            ),
+                                          ),
+                                          Opacity(
+                                            opacity: 0.8,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
+                                                child: Text(
+                                                  'Not accurate? Change below.',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLargeFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLargeFamily),
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Opacity(
+                                            opacity: 0.4,
+                                            child: Container(
+                                              width: 30.0,
+                                              height: 1.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       12.0, 12.0, 0.0, 0.0),
                                   child: Text(
-                                    'Your content voice',
+                                    'Type your persona',
                                     textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
@@ -697,7 +1022,8 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      hintText: 'We\'ll write in this voice',
+                                      hintText:
+                                          'We\'ll model content using this',
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -833,78 +1159,6 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                     ],
                                   ),
                                 ),
-                                if (_model.typedVoice != null &&
-                                    _model.typedVoice != '')
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 0.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 12.0, 12.0, 12.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Voice added by you',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 8.0, 0.0, 0.0),
-                                              child: Text(
-                                                'Hello World',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                               ],
                             ),
                             Padding(
@@ -998,8 +1252,9 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
-                              child: StreamBuilder<List<BrandVoicesRecord>>(
-                                stream: queryBrandVoicesRecord(),
+                              child:
+                                  StreamBuilder<List<PersonasForContentRecord>>(
+                                stream: queryPersonasForContentRecord(),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -1015,8 +1270,8 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                       ),
                                     );
                                   }
-                                  List<BrandVoicesRecord>
-                                      listViewBrandVoicesRecordList =
+                                  List<PersonasForContentRecord>
+                                      listViewPersonasForContentRecordList =
                                       snapshot.data!;
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
@@ -1024,10 +1279,11 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount:
-                                        listViewBrandVoicesRecordList.length,
+                                        listViewPersonasForContentRecordList
+                                            .length,
                                     itemBuilder: (context, listViewIndex) {
-                                      final listViewBrandVoicesRecord =
-                                          listViewBrandVoicesRecordList[
+                                      final listViewPersonasForContentRecord =
+                                          listViewPersonasForContentRecordList[
                                               listViewIndex];
                                       return InkWell(
                                         splashColor: Colors.transparent,
@@ -1040,8 +1296,11 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                           logFirebaseEvent(
                                               'Card_update_page_state');
                                           _model.selectedVoice =
-                                              listViewBrandVoicesRecord.voice;
-                                          _model.typedVoice = null;
+                                              listViewPersonasForContentRecord
+                                                  .persona;
+                                          _model.typedVoice =
+                                              listViewPersonasForContentRecord
+                                                  .persona;
                                           setState(() {});
                                         },
                                         child: Card(
@@ -1071,8 +1330,8 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                                 12.0,
                                                                 12.0),
                                                     child: Text(
-                                                      listViewBrandVoicesRecord
-                                                          .voiceDisplayed,
+                                                      listViewPersonasForContentRecord
+                                                          .persona,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1116,8 +1375,8 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                                   child: Visibility(
                                                     visible: _model
                                                             .selectedVoice ==
-                                                        listViewBrandVoicesRecord
-                                                            .voice,
+                                                        listViewPersonasForContentRecord
+                                                            .persona,
                                                     child: Container(
                                                       width: 20.0,
                                                       height: 20.0,
@@ -1165,7 +1424,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
 
                           await currentUserReference!
                               .update(createUsersRecordData(
-                            contentVoice: _model.typedVoice,
+                            personaForContent: _model.typedVoice,
                           ));
                           logFirebaseEvent('Button_navigate_to');
 
@@ -1175,7 +1434,8 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
 
                           await currentUserReference!
                               .update(createUsersRecordData(
-                            contentVoice: _model.selectedVoice,
+                            personaForContent: valueOrDefault(
+                                currentUserDocument?.personaAuto, ''),
                           ));
                           logFirebaseEvent('Button_navigate_to');
 
