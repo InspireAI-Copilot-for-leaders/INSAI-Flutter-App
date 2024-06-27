@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -651,17 +650,15 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                   StreamBuilder<List<CampaignRecord>>(
                     stream: queryCampaignRecord(
                       parent: currentUserReference,
-                      queryBuilder: (campaignRecord) =>
-                          campaignRecord.where(Filter.or(
-                        Filter(
-                          'campaign_id',
-                          isEqualTo: widget.campaignID,
-                        ),
-                        Filter(
-                          'status',
-                          isEqualTo: 'Pending',
-                        ),
-                      )),
+                      queryBuilder: (campaignRecord) => campaignRecord
+                          .where(
+                            'campaign_id',
+                            isEqualTo: widget.campaignID,
+                          )
+                          .where(
+                            'status',
+                            isEqualTo: 'Pending',
+                          ),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -704,21 +701,17 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, -1.0),
+                                    Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 50.0, 0.0, 0.0),
-                                        child: SizedBox(
+                                        child: Lottie.asset(
+                                          'assets/lottie_animations/Animation_-_1719495373419.json',
                                           width: 300.0,
-                                          height: 500.0,
-                                          child: custom_widgets
-                                              .CustomProgressIndicator(
-                                            width: 300.0,
-                                            height: 500.0,
-                                            duration: 240,
-                                          ),
+                                          height: 300.0,
+                                          fit: BoxFit.contain,
+                                          animate: true,
                                         ),
                                       ),
                                     ),
@@ -726,7 +719,8 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       child: Text(
-                                        'Creating your campaign...',
+                                        'Creating your campaign...\nTakes about 2-3 min',
+                                        textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -736,7 +730,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
-                                              fontSize: 20.0,
+                                              fontSize: 18.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts: GoogleFonts

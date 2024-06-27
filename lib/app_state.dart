@@ -49,6 +49,12 @@ class FFAppState extends ChangeNotifier {
                   (await secureStorage.getInt('ff_lastDiscoverCachedTime'))!)
               : _lastDiscoverCachedTime;
     });
+    await _safeInitAsync(() async {
+      _startTime = await secureStorage.read(key: 'ff_startTime') != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              (await secureStorage.getInt('ff_startTime'))!)
+          : _startTime;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -152,10 +158,23 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_lastDiscoverCachedTime');
   }
 
-  bool _dashboardLoading = true;
+  bool _dashboardLoading = false;
   bool get dashboardLoading => _dashboardLoading;
   set dashboardLoading(bool value) {
     _dashboardLoading = value;
+  }
+
+  DateTime? _startTime;
+  DateTime? get startTime => _startTime;
+  set startTime(DateTime? value) {
+    _startTime = value;
+    value != null
+        ? secureStorage.setInt('ff_startTime', value.millisecondsSinceEpoch)
+        : secureStorage.remove('ff_startTime');
+  }
+
+  void deleteStartTime() {
+    secureStorage.delete(key: 'ff_startTime');
   }
 
   final _discoverManager = FutureRequestManager<List<ArticleRecord>>();

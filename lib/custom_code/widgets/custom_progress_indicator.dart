@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:math';
+import 'dart:async'; // Import the dart:async package
 
 class CustomProgressIndicator extends StatefulWidget {
   const CustomProgressIndicator({
@@ -32,28 +33,40 @@ class CustomProgressIndicator extends StatefulWidget {
 class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool isPlaying = true;
+  late Timer _timer;
+  late DateTime startTime;
 
   @override
   void initState() {
     super.initState();
+    startTime = FFAppState().startTime ?? DateTime.now();
+    FFAppState().startTime =
+        startTime; // Save the start time in app state if not already saved
+
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.duration),
-    )
-      ..addListener(() {
+    )..addListener(() {
         setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          isPlaying = false;
-        }
       });
-    _controller.forward(); // Start the animation automatically
+
+    // Calculate initial progress
+    final elapsed = DateTime.now().difference(startTime);
+    final initialProgress = elapsed.inMilliseconds / (widget.duration * 1000);
+    if (initialProgress < 1.0) {
+      _controller.value = initialProgress;
+      _controller.forward(); // Continue the animation from the current progress
+    } else {
+      _controller.value =
+          1.0; // Set to completed if the duration has already elapsed
+      FFAppState().startTime =
+          null; // Reset the start time if the duration is complete
+    }
   }
 
   @override
   void dispose() {
+    _timer.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -123,13 +136,16 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
         GestureDetector(
           onTap: () {
             setState(() {
-              if (isPlaying) {
-                _controller.reset();
+              if (_controller.isAnimating) {
+                _controller.stop();
               } else {
-                _controller.reset();
+                Duration elapsed = DateTime.now().difference(startTime);
+                double progressValue = (elapsed.inSeconds / widget.duration)
+                    .clamp(0, 1)
+                    .toDouble();
+                _controller.value = progressValue;
                 _controller.forward();
               }
-              isPlaying = !isPlaying;
             });
           },
           child: Container(
@@ -140,11 +156,12 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
               shape: BoxShape.circle,
             ),
             child: AnimatedContainer(
-              height: isPlaying ? 25 : 60,
-              width: isPlaying ? 25 : 60,
+              height: _controller.isAnimating ? 25 : 60,
+              width: _controller.isAnimating ? 25 : 60,
               duration: const Duration(milliseconds: 300),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(isPlaying ? 4 : 100),
+                borderRadius:
+                    BorderRadius.circular(_controller.isAnimating ? 4 : 100),
                 color: Colors.white54,
               ),
             ),
@@ -192,8 +209,8 @@ class LiquidPainter extends CustomPainter {
         endAngle: 5 * pi / 2,
         tileMode: TileMode.clamp,
         stops: [0.25, 0.35, 0.5],
-      ).createShader(
-          Rect.fromCircle(center: Offset(diameter, diameter), radius: radius))
+      ).createShader(Rect.fromCircle(
+          center: Offset(diameter / 2, diameter / 2), radius: radius))
       ..style = PaintingStyle.fill;
 
     Path circleClip = Path()

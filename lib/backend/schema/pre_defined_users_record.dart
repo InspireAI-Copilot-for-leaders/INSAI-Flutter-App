@@ -38,6 +38,12 @@ class PreDefinedUsersRecord extends FirestoreRecord {
   bool hasThoughtLeadershipAreasMapping() =>
       _thoughtLeadershipAreasMapping != null;
 
+  // "active_companies" field.
+  List<ActiveCompaniesStruct>? _activeCompanies;
+  List<ActiveCompaniesStruct> get activeCompanies =>
+      _activeCompanies ?? const [];
+  bool hasActiveCompanies() => _activeCompanies != null;
+
   void _initializeFields() {
     _linkedinUrl = snapshotData['linkedinUrl'] as String?;
     _thoughtLeadershipAreas =
@@ -46,6 +52,10 @@ class PreDefinedUsersRecord extends FirestoreRecord {
     _thoughtLeadershipAreasMapping = getStructList(
       snapshotData['thought_leadership_areas_mapping'],
       ThoughtLeadershipAreasMappingStruct.fromMap,
+    );
+    _activeCompanies = getStructList(
+      snapshotData['active_companies'],
+      ActiveCompaniesStruct.fromMap,
     );
   }
 
@@ -107,7 +117,8 @@ class PreDefinedUsersRecordDocumentEquality
             e1?.thoughtLeadershipAreas, e2?.thoughtLeadershipAreas) &&
         listEquality.equals(e1?.broadDomains, e2?.broadDomains) &&
         listEquality.equals(e1?.thoughtLeadershipAreasMapping,
-            e2?.thoughtLeadershipAreasMapping);
+            e2?.thoughtLeadershipAreasMapping) &&
+        listEquality.equals(e1?.activeCompanies, e2?.activeCompanies);
   }
 
   @override
@@ -115,7 +126,8 @@ class PreDefinedUsersRecordDocumentEquality
         e?.linkedinUrl,
         e?.thoughtLeadershipAreas,
         e?.broadDomains,
-        e?.thoughtLeadershipAreasMapping
+        e?.thoughtLeadershipAreasMapping,
+        e?.activeCompanies
       ]);
 
   @override
