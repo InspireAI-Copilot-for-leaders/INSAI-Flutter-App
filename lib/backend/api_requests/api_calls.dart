@@ -581,7 +581,8 @@ class ExpertiseOfPersonCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Expertise of Person',
-      apiUrl: 'https://api.platform.theinspireai.com/ls/linkedin_scrapper',
+      apiUrl:
+          'https://inspire-ai-backend-aws-main-5qpvtpji4a-el.a.run.app/ls/linkedin_scrapper',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -683,7 +684,8 @@ class InspireAIContentFromTopicsCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Topics',
-      apiUrl: 'https://api.platform.theinspireai.com/cft/content_from_topic',
+      apiUrl:
+          'https://inspire-ai-backend-aws-main-5qpvtpji4a-el.a.run.app/cft/content_from_topic',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -697,6 +699,12 @@ class InspireAIContentFromTopicsCall {
       alwaysAllowBody: false,
     );
   }
+
+  static String? createdDocId(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.document_id''',
+      ));
 }
 
 class InspireAIContentFromContxtCall {
@@ -734,7 +742,8 @@ class InspireAIContentFromContxtCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'InspireAI Content from Contxt',
-      apiUrl: 'https://api.platform.theinspireai.com/cfc/content_from_context',
+      apiUrl:
+          'https://inspire-ai-backend-aws-main-5qpvtpji4a-el.a.run.app/cfc/content_from_context',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -748,6 +757,12 @@ class InspireAIContentFromContxtCall {
       alwaysAllowBody: false,
     );
   }
+
+  static String? createdDocId(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.document_id''',
+      ));
 }
 
 class GetImageUploadUrlFromLinkedinCall {
