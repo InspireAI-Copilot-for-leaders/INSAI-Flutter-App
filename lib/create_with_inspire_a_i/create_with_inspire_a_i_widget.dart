@@ -406,7 +406,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                           InputDecoration(
                                                         isDense: true,
                                                         labelText:
-                                                            'Content Voice',
+                                                            'Content Persona',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -606,7 +606,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 topic: _model.textController1.text,
                                 brandVoice: _model.textController3.text == ''
                                     ? valueOrDefault(
-                                        currentUserDocument?.contentVoice, '')
+                                        currentUserDocument?.personaForContent,
+                                        '')
                                     : _model.textController3.text,
                                 numberOfWords: _model.dropDownValue,
                                 uid: currentUserUid,
@@ -664,7 +665,8 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                 topic: _model.textController1.text,
                                 brandVoice: _model.textController3.text == ''
                                     ? valueOrDefault(
-                                        currentUserDocument?.contentVoice, '')
+                                        currentUserDocument?.personaForContent,
+                                        '')
                                     : _model.textController3.text,
                                 numberOfWords: _model.dropDownValue,
                                 uid: currentUserUid,

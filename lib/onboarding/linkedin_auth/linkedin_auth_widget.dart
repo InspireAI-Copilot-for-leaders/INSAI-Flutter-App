@@ -108,6 +108,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                 logFirebaseEvent('linkedinAuth_backend_call');
 
                 await currentUserReference!.update({
+                  ...createUsersRecordData(
+                    personaAuto: _model.preDefinedUserDoc?.personaAuto,
+                    followers: _model.preDefinedUserDoc?.followers,
+                  ),
                   ...mapToFirestore(
                     {
                       'thought_leadership_areas':
