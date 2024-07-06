@@ -1006,7 +1006,7 @@ class CompanyThoughtLeadershipWithDataCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Company Thought leadership with data ',
       apiUrl:
-          'https://campaign-5qpvtpji4a-em.a.run.app/campaign/create_company_thought_leadership_content_from_data_source',
+          'https://campaign-5qpvtpji4a-em.a.run.app/campaign/company_thought_leadership_content_from_data_source',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
