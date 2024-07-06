@@ -16,6 +16,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'flutter_flow/revenue_cat_util.dart' as revenue_cat;
 
 import '/backend/firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
