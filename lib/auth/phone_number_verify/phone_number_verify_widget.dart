@@ -721,7 +721,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                   logFirebaseEvent('IconButton_navigate_to');
 
                                   context.goNamedAuth(
-                                    'payWall',
+                                    'accessWall',
                                     context.mounted,
                                     ignoreRedirect: true,
                                   );

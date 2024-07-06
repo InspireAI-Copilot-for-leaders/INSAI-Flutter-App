@@ -1464,89 +1464,120 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                           animationsMap[
                                                               'containerOnPageLoadAnimation2']!),
                                                     ),
-                                                    if ((currentUserDocument
-                                                                ?.activeCompanies
-                                                                .toList() ??
-                                                            [])
-                                                        .isNotEmpty)
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    12.0,
-                                                                    0.0,
-                                                                    12.0),
-                                                        child:
-                                                            AuthUserStreamWidget(
-                                                          builder: (context) =>
-                                                              InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              logFirebaseEvent(
-                                                                  'CAMPAIGNS_PAGE_Container_g6s0czks_ON_TAP');
-                                                              logFirebaseEvent(
-                                                                  'Container_navigate_to');
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0,
+                                                                  12.0),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'CAMPAIGNS_PAGE_Container_g6s0czks_ON_TAP');
+                                                          logFirebaseEvent(
+                                                              'Container_navigate_to');
 
-                                                              context.pushNamed(
-                                                                'companyCampaign',
-                                                                extra: <String,
-                                                                    dynamic>{
-                                                                  kTransitionInfoKey:
-                                                                      const TransitionInfo(
-                                                                    hasTransition:
-                                                                        true,
-                                                                    transitionType:
-                                                                        PageTransitionType
-                                                                            .scale,
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .bottomCenter,
-                                                                  ),
-                                                                },
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                              width: 230.0,
-                                                              height: 50.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                boxShadow: const [
-                                                                  BoxShadow(
-                                                                    blurRadius:
-                                                                        4.0,
-                                                                    color: Color(
-                                                                        0x34090F13),
-                                                                    offset:
-                                                                        Offset(
-                                                                      0.0,
-                                                                      2.0,
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12.0),
+                                                          context.pushNamed(
+                                                            'companyCampaign',
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              kTransitionInfoKey:
+                                                                  const TransitionInfo(
+                                                                hasTransition:
+                                                                    true,
+                                                                transitionType:
+                                                                    PageTransitionType
+                                                                        .scale,
+                                                                alignment: Alignment
+                                                                    .bottomCenter,
                                                               ),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
+                                                            },
+                                                          );
+                                                        },
+                                                        child: Container(
+                                                          width: 230.0,
+                                                          height: 50.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            boxShadow: const [
+                                                              BoxShadow(
+                                                                blurRadius: 4.0,
+                                                                color: Color(
+                                                                    0x34090F13),
+                                                                offset: Offset(
+                                                                  0.0,
+                                                                  2.0,
+                                                                ),
+                                                              )
+                                                            ],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                          ),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Stack(
                                                                 children: [
-                                                                  Stack(
-                                                                    children: [
-                                                                      ClipRRect(
+                                                                  ClipRRect(
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      bottomLeft:
+                                                                          Radius.circular(
+                                                                              0.0),
+                                                                      bottomRight:
+                                                                          Radius.circular(
+                                                                              0.0),
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              12.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              12.0),
+                                                                    ),
+                                                                    child: Image
+                                                                        .asset(
+                                                                      'assets/images/comapnyThoughtLeader.jpeg',
+                                                                      width: double
+                                                                          .infinity,
+                                                                      height:
+                                                                          80.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      alignment:
+                                                                          const Alignment(
+                                                                              0.0,
+                                                                              -1.0),
+                                                                    ),
+                                                                  ),
+                                                                  Opacity(
+                                                                    opacity:
+                                                                        0.7,
+                                                                    child:
+                                                                        Container(
+                                                                      width: double
+                                                                          .infinity,
+                                                                      height:
+                                                                          80.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
                                                                         borderRadius:
                                                                             const BorderRadius.only(
                                                                           bottomLeft:
@@ -1558,157 +1589,128 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                           topRight:
                                                                               Radius.circular(12.0),
                                                                         ),
-                                                                        child: Image
-                                                                            .asset(
-                                                                          'assets/images/comapnyThoughtLeader.jpeg',
-                                                                          width:
-                                                                              double.infinity,
-                                                                          height:
-                                                                              80.0,
-                                                                          fit: BoxFit
-                                                                              .cover,
-                                                                          alignment: const Alignment(
-                                                                              0.0,
-                                                                              -1.0),
-                                                                        ),
                                                                       ),
-                                                                      Opacity(
-                                                                        opacity:
-                                                                            0.7,
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              double.infinity,
-                                                                          height:
-                                                                              80.0,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                            borderRadius:
-                                                                                const BorderRadius.only(
-                                                                              bottomLeft: Radius.circular(0.0),
-                                                                              bottomRight: Radius.circular(0.0),
-                                                                              topLeft: Radius.circular(12.0),
-                                                                              topRight: Radius.circular(12.0),
-                                                                            ),
-                                                                          ),
-                                                                        ),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height:
+                                                                        80.0,
+                                                                    decoration:
+                                                                        const BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(12.0),
+                                                                        topRight:
+                                                                            Radius.circular(12.0),
                                                                       ),
-                                                                      Container(
-                                                                        width: double
-                                                                            .infinity,
-                                                                        height:
-                                                                            80.0,
-                                                                        decoration:
-                                                                            const BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.only(
-                                                                            bottomLeft:
-                                                                                Radius.circular(0.0),
-                                                                            bottomRight:
-                                                                                Radius.circular(0.0),
-                                                                            topLeft:
-                                                                                Radius.circular(12.0),
-                                                                            topRight:
-                                                                                Radius.circular(12.0),
-                                                                          ),
-                                                                        ),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.all(12.0),
-                                                                          child:
-                                                                              Column(
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              12.0),
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Row(
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
                                                                             mainAxisAlignment:
                                                                                 MainAxisAlignment.spaceBetween,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
                                                                             children: [
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Flexible(
-                                                                                    child: Text(
-                                                                                      'Company Thought leadership',
-                                                                                      style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                            fontFamily: 'Outfit',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 20.0,
-                                                                                            letterSpacing: 0.0,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
-                                                                                          ),
-                                                                                    ),
-                                                                                  ),
-                                                                                  Align(
-                                                                                    alignment: const AlignmentDirectional(1.0, -1.0),
-                                                                                    child: Container(
-                                                                                      width: 36.0,
-                                                                                      height: 36.0,
-                                                                                      decoration: BoxDecoration(
-                                                                                        color: const Color(0xA7FFC107),
-                                                                                        borderRadius: BorderRadius.circular(12.0),
-                                                                                      ),
-                                                                                      alignment: const AlignmentDirectional(0.0, 0.0),
-                                                                                      child: FaIcon(
-                                                                                        FontAwesomeIcons.solidBuilding,
+                                                                              Flexible(
+                                                                                child: Text(
+                                                                                  'Company Thought leadership',
+                                                                                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                        fontFamily: 'Outfit',
                                                                                         color: FlutterFlowTheme.of(context).alternate,
-                                                                                        size: 20.0,
+                                                                                        fontSize: 20.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
                                                                                       ),
-                                                                                    ),
+                                                                                ),
+                                                                              ),
+                                                                              Align(
+                                                                                alignment: const AlignmentDirectional(1.0, -1.0),
+                                                                                child: Container(
+                                                                                  width: 36.0,
+                                                                                  height: 36.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: const Color(0xA7FFC107),
+                                                                                    borderRadius: BorderRadius.circular(12.0),
                                                                                   ),
-                                                                                ],
+                                                                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                                  child: FaIcon(
+                                                                                    FontAwesomeIcons.solidBuilding,
+                                                                                    color: FlutterFlowTheme.of(context).alternate,
+                                                                                    size: 20.0,
+                                                                                  ),
+                                                                                ),
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                        ),
+                                                                        ],
                                                                       ),
-                                                                    ],
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12.0,
-                                                                            12.0,
-                                                                            12.0,
-                                                                            0.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        Flexible(
-                                                                          child:
-                                                                              Text(
-                                                                            'Insightful content connecting with your company.',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                                  color: const Color(0xFF0F1113),
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.normal,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                            ),
-                                                          ).animateOnPageLoad(
-                                                                  animationsMap[
-                                                                      'containerOnPageLoadAnimation3']!),
+                                                              Padding(
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12.0,
+                                                                        12.0,
+                                                                        12.0,
+                                                                        0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          Text(
+                                                                        'Insightful content connecting with your company.',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Plus Jakarta Sans',
+                                                                              color: const Color(0xFF0F1113),
+                                                                              fontSize: 14.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.normal,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
+                                                      ).animateOnPageLoad(
+                                                          animationsMap[
+                                                              'containerOnPageLoadAnimation3']!),
+                                                    ),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsetsDirectional

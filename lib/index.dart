@@ -53,3 +53,4 @@ export '/camapign_details/camapign_details_widget.dart'
     show CamapignDetailsWidget;
 export '/view_or_edit_campaign_post/view_or_edit_campaign_post_widget.dart'
     show ViewOrEditCampaignPostWidget;
+export '/access_wall/access_wall_widget.dart' show AccessWallWidget;

@@ -1209,7 +1209,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                   'email_SignupContinue_navigate_to');
 
                                               context.goNamedAuth(
-                                                'payWall',
+                                                'accessWall',
                                                 context.mounted,
                                                 ignoreRedirect: true,
                                               );
@@ -1543,7 +1543,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
 
                                                               context
                                                                   .goNamedAuth(
-                                                                'payWall',
+                                                                'accessWall',
                                                                 context.mounted,
                                                                 ignoreRedirect:
                                                                     true,
@@ -1564,7 +1564,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
 
                                                                 context
                                                                     .goNamedAuth(
-                                                                  'payWall',
+                                                                  'accessWall',
                                                                   context
                                                                       .mounted,
                                                                   ignoreRedirect:
@@ -2182,7 +2182,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                         'googleAuthButton_navigate_to');
 
                                                     context.goNamedAuth(
-                                                      'payWall',
+                                                      'accessWall',
                                                       context.mounted,
                                                       ignoreRedirect: true,
                                                     );
@@ -2422,7 +2422,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                         'appleAuthButton_navigate_to');
 
                                                     context.goNamedAuth(
-                                                      'payWall',
+                                                      'accessWall',
                                                       context.mounted,
                                                       ignoreRedirect: true,
                                                     );
