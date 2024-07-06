@@ -20,20 +20,10 @@ class CampaignRecord extends FirestoreRecord {
   String get campaignId => _campaignId ?? '';
   bool hasCampaignId() => _campaignId != null;
 
-  // "content" field.
-  String? _content;
-  String get content => _content ?? '';
-  bool hasContent() => _content != null;
-
   // "status" field.
   String? _status;
   String get status => _status ?? '';
   bool hasStatus() => _status != null;
-
-  // "final_post" field.
-  String? _finalPost;
-  String get finalPost => _finalPost ?? '';
-  bool hasFinalPost() => _finalPost != null;
 
   // "scheduledTime" field.
   DateTime? _scheduledTime;
@@ -65,19 +55,26 @@ class CampaignRecord extends FirestoreRecord {
   DocumentReference? get scheduledPostRef => _scheduledPostRef;
   bool hasScheduledPostRef() => _scheduledPostRef != null;
 
+  // "posts" field.
+  List<PostsStruct>? _posts;
+  List<PostsStruct> get posts => _posts ?? const [];
+  bool hasPosts() => _posts != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _campaignId = snapshotData['campaign_id'] as String?;
-    _content = snapshotData['content'] as String?;
     _status = snapshotData['status'] as String?;
-    _finalPost = snapshotData['final_post'] as String?;
     _scheduledTime = snapshotData['scheduledTime'] as DateTime?;
     _type = snapshotData['type'] as String?;
     _companyName = snapshotData['company_name'] as String?;
     _domain = snapshotData['domain'] as String?;
     _expertiseArea = snapshotData['expertise_area'] as String?;
     _scheduledPostRef = snapshotData['scheduledPostRef'] as DocumentReference?;
+    _posts = getStructList(
+      snapshotData['posts'],
+      PostsStruct.fromMap,
+    );
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -121,9 +118,7 @@ class CampaignRecord extends FirestoreRecord {
 
 Map<String, dynamic> createCampaignRecordData({
   String? campaignId,
-  String? content,
   String? status,
-  String? finalPost,
   DateTime? scheduledTime,
   String? type,
   String? companyName,
@@ -134,9 +129,7 @@ Map<String, dynamic> createCampaignRecordData({
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'campaign_id': campaignId,
-      'content': content,
       'status': status,
-      'final_post': finalPost,
       'scheduledTime': scheduledTime,
       'type': type,
       'company_name': companyName,
@@ -154,30 +147,29 @@ class CampaignRecordDocumentEquality implements Equality<CampaignRecord> {
 
   @override
   bool equals(CampaignRecord? e1, CampaignRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.campaignId == e2?.campaignId &&
-        e1?.content == e2?.content &&
         e1?.status == e2?.status &&
-        e1?.finalPost == e2?.finalPost &&
         e1?.scheduledTime == e2?.scheduledTime &&
         e1?.type == e2?.type &&
         e1?.companyName == e2?.companyName &&
         e1?.domain == e2?.domain &&
         e1?.expertiseArea == e2?.expertiseArea &&
-        e1?.scheduledPostRef == e2?.scheduledPostRef;
+        e1?.scheduledPostRef == e2?.scheduledPostRef &&
+        listEquality.equals(e1?.posts, e2?.posts);
   }
 
   @override
   int hash(CampaignRecord? e) => const ListEquality().hash([
         e?.campaignId,
-        e?.content,
         e?.status,
-        e?.finalPost,
         e?.scheduledTime,
         e?.type,
         e?.companyName,
         e?.domain,
         e?.expertiseArea,
-        e?.scheduledPostRef
+        e?.scheduledPostRef,
+        e?.posts
       ]);
 
   @override

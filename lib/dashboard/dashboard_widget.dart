@@ -108,7 +108,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                 'paidWaitlist')) {
           logFirebaseEvent('dashboard_navigate_to');
 
-          context.goNamed('payWall');
+          context.goNamed('accessWall');
         } else {
           if (valueOrDefault(currentUserDocument?.accessType, '') ==
               'specialWaitlist') {

@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/components/exit_dialog_widget.dart';
 import '/components/post_content_options_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_pdf_viewer.dart';
@@ -25,14 +24,12 @@ export 'view_or_edit_campaign_post_model.dart';
 class ViewOrEditCampaignPostWidget extends StatefulWidget {
   const ViewOrEditCampaignPostWidget({
     super.key,
-    required this.postText,
     required this.postRef,
     required this.postTitle,
     this.indexInList,
     this.scheduledTime,
   });
 
-  final String? postText;
   final DocumentReference? postRef;
   final String? postTitle;
   final int? indexInList;
@@ -58,8 +55,17 @@ class _ViewOrEditCampaignPostWidgetState
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'viewOrEditCampaignPost'});
+    _model.tabBarController = TabController(
+      vsync: this,
+      length: 3,
+      initialIndex: 1,
+    )..addListener(() => setState(() {}));
 
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.shortPostFocusNode ??= FocusNode();
+
+    _model.mediumPostFocusNode ??= FocusNode();
+
+    _model.longPostFocusNode ??= FocusNode();
 
     animationsMap.addAll({
       'containerOnActionTriggerAnimation': AnimationInfo(
@@ -96,39 +102,58 @@ class _ViewOrEditCampaignPostWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Flexible(
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                24.0, 12.0, 24.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Builder(
-                                      builder: (context) => Padding(
+    return StreamBuilder<CampaignRecord>(
+      stream: CampaignRecord.getDocument(widget.postRef!),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 100.0,
+                height: 100.0,
+                child: SpinKitRipple(
+                  color: FlutterFlowTheme.of(context).secondary,
+                  size: 100.0,
+                ),
+              ),
+            ),
+          );
+        }
+        final viewOrEditCampaignPostCampaignRecord = snapshot.data!;
+        return GestureDetector(
+          onTap: () => _model.unfocusNode.canRequestFocus
+              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+              : FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 12.0, 24.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 12.0, 0.0),
                                         child: InkWell(
@@ -139,73 +164,9 @@ class _ViewOrEditCampaignPostWidgetState
                                           onTap: () async {
                                             logFirebaseEvent(
                                                 'VIEW_OR_EDIT_CAMPAIGN_POST_Icon_1fy2u6xk');
-                                            if (_model.textController.text !=
-                                                widget.postText) {
-                                              logFirebaseEvent(
-                                                  'Icon_alert_dialog');
-                                              await showDialog(
-                                                context: context,
-                                                builder: (dialogContext) {
-                                                  return Dialog(
-                                                    elevation: 0,
-                                                    insetPadding:
-                                                        EdgeInsets.zero,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    alignment:
-                                                        const AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
-                                                    child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: ExitDialogWidget(
-                                                        saveAction: () async {
-                                                          logFirebaseEvent(
-                                                              '_backend_call');
-
-                                                          await widget.postRef!
-                                                              .update(
-                                                                  createCampaignRecordData(
-                                                            finalPost: _model
-                                                                .textController
-                                                                .text,
-                                                          ));
-                                                          logFirebaseEvent(
-                                                              '_navigate_to');
-
-                                                          context.goNamed(
-                                                              'campaigns');
-                                                        },
-                                                        discardAction:
-                                                            () async {
-                                                          logFirebaseEvent(
-                                                              '_navigate_to');
-
-                                                          context.goNamed(
-                                                              'allPostsOverview');
-                                                        },
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then(
-                                                  (value) => setState(() {}));
-                                            } else {
-                                              logFirebaseEvent(
-                                                  'Icon_navigate_back');
-                                              context.safePop();
-                                            }
+                                            logFirebaseEvent(
+                                                'Icon_navigate_back');
+                                            context.safePop();
                                           },
                                           child: Icon(
                                             Icons.close,
@@ -215,89 +176,73 @@ class _ViewOrEditCampaignPostWidgetState
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: AuthUserStreamWidget(
-                                        builder: (context) => Container(
-                                          width: 38.0,
-                                          height: 38.0,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              (currentUserDocument
-                                                          ?.profilePictureLinks
-                                                          .toList() ??
-                                                      [])
-                                                  .first,
-                                              'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Container(
+                                            width: 38.0,
+                                            height: 38.0,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
                                             ),
-                                            fit: BoxFit.cover,
+                                            child: Image.network(
+                                              valueOrDefault<String>(
+                                                (currentUserDocument
+                                                            ?.profilePictureLinks
+                                                            .toList() ??
+                                                        [])
+                                                    .first,
+                                                'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          AuthUserStreamWidget(
-                                            builder: (context) => Text(
-                                              '${currentUserDocument?.linkedinDetails.localizedFirstName}',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleLarge
-                                                  .override(
-                                                    fontFamily: 'Outfit',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                    fontSize: 18.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                    useGoogleFonts:
-                                                        GoogleFonts.asMap()
-                                                            .containsKey(
-                                                                'Outfit'),
-                                                  ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 0.0, 0.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            AuthUserStreamWidget(
+                                              builder: (context) => Text(
+                                                '${currentUserDocument?.linkedinDetails.localizedFirstName}',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleLarge
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      fontSize: 18.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts:
+                                                          GoogleFonts.asMap()
+                                                              .containsKey(
+                                                                  'Outfit'),
+                                                    ),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          StreamBuilder<CampaignRecord>(
-                            stream: CampaignRecord.getDocument(widget.postRef!),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 100.0,
-                                    height: 100.0,
-                                    child: SpinKitRipple(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      size: 100.0,
-                                    ),
+                                    ],
                                   ),
-                                );
-                              }
-                              final containerCampaignRecord = snapshot.data!;
-                              return Container(
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
                                 width: double.infinity,
                                 decoration: const BoxDecoration(),
                                 child: Padding(
@@ -421,91 +366,20 @@ class _ViewOrEditCampaignPostWidgetState
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(-1.0, -1.0),
-                                        child: Builder(
-                                          builder: (context) => SizedBox(
+                                        child: SizedBox(
+                                          width: 1.0,
+                                          height: 1.0,
+                                          child: custom_widgets
+                                              .BackButtonOverrider(
                                             width: 1.0,
                                             height: 1.0,
-                                            child: custom_widgets
-                                                .BackButtonOverrider(
-                                              width: 1.0,
-                                              height: 1.0,
-                                              onBack: () async {
-                                                logFirebaseEvent(
-                                                    'VIEW_OR_EDIT_CAMPAIGN_POST_Container_gri');
-                                                if (_model
-                                                        .textController.text !=
-                                                    widget.postText) {
-                                                  logFirebaseEvent(
-                                                      'BackButtonOverrider_alert_dialog');
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        child: GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
-                                                                  .unfocus(),
-                                                          child:
-                                                              ExitDialogWidget(
-                                                            saveAction:
-                                                                () async {
-                                                              logFirebaseEvent(
-                                                                  '_backend_call');
-
-                                                              await widget
-                                                                  .postRef!
-                                                                  .update(
-                                                                      createCampaignRecordData(
-                                                                finalPost: _model
-                                                                    .textController
-                                                                    .text,
-                                                              ));
-                                                              logFirebaseEvent(
-                                                                  '_navigate_to');
-
-                                                              context.goNamed(
-                                                                  'campaigns');
-                                                            },
-                                                            discardAction:
-                                                                () async {
-                                                              logFirebaseEvent(
-                                                                  '_navigate_to');
-
-                                                              context.goNamed(
-                                                                  'allPostsOverview');
-                                                            },
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      setState(() {}));
-                                                } else {
-                                                  logFirebaseEvent(
-                                                      'BackButtonOverrider_navigate_back');
-                                                  context.safePop();
-                                                }
-                                              },
-                                            ),
+                                            onBack: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_Container_gri');
+                                              logFirebaseEvent(
+                                                  'BackButtonOverrider_navigate_back');
+                                              context.safePop();
+                                            },
                                           ),
                                         ),
                                       ),
@@ -610,9 +484,25 @@ class _ViewOrEditCampaignPostWidgetState
                                                                         currentUserDocument
                                                                             ?.linkedinAccess,
                                                                         ''),
-                                                                postText: _model
-                                                                    .textController
-                                                                    .text,
+                                                                postText: () {
+                                                                  if (_model
+                                                                          .tabBarCurrentIndex ==
+                                                                      0) {
+                                                                    return _model
+                                                                        .shortPostTextController
+                                                                        .text;
+                                                                  } else if (_model
+                                                                          .tabBarCurrentIndex ==
+                                                                      1) {
+                                                                    return _model
+                                                                        .mediumPostTextController
+                                                                        .text;
+                                                                  } else {
+                                                                    return _model
+                                                                        .longPostTextController
+                                                                        .text;
+                                                                  }
+                                                                }(),
                                                                 status:
                                                                     'pending',
                                                                 postTitle: widget
@@ -635,7 +525,15 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             accessToken:
                                                                                 valueOrDefault(currentUserDocument?.linkedinAccess, ''),
                                                                             postText:
-                                                                                _model.textController.text,
+                                                                                () {
+                                                                              if (_model.tabBarCurrentIndex == 0) {
+                                                                                return _model.shortPostTextController.text;
+                                                                              } else if (_model.tabBarCurrentIndex == 1) {
+                                                                                return _model.mediumPostTextController.text;
+                                                                              } else {
+                                                                                return _model.longPostTextController.text;
+                                                                              }
+                                                                            }(),
                                                                             status:
                                                                                 'pending',
                                                                             postTitle:
@@ -1075,9 +973,25 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           currentUserDocument
                                                                               ?.linkedinAccess,
                                                                           ''),
-                                                                  postText: _model
-                                                                      .textController
-                                                                      .text,
+                                                                  postText: () {
+                                                                    if (_model
+                                                                            .tabBarCurrentIndex ==
+                                                                        0) {
+                                                                      return _model
+                                                                          .shortPostTextController
+                                                                          .text;
+                                                                    } else if (_model
+                                                                            .tabBarCurrentIndex ==
+                                                                        1) {
+                                                                      return _model
+                                                                          .mediumPostTextController
+                                                                          .text;
+                                                                    } else {
+                                                                      return _model
+                                                                          .longPostTextController
+                                                                          .text;
+                                                                    }
+                                                                  }(),
                                                                   imagesJson: functions
                                                                       .valueToJsonMapList(
                                                                           _model
@@ -1172,9 +1086,25 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           currentUserDocument
                                                                               ?.linkedinAccess,
                                                                           ''),
-                                                                  postText: _model
-                                                                      .textController
-                                                                      .text,
+                                                                  postText: () {
+                                                                    if (_model
+                                                                            .tabBarCurrentIndex ==
+                                                                        0) {
+                                                                      return _model
+                                                                          .shortPostTextController
+                                                                          .text;
+                                                                    } else if (_model
+                                                                            .tabBarCurrentIndex ==
+                                                                        1) {
+                                                                      return _model
+                                                                          .mediumPostTextController
+                                                                          .text;
+                                                                    } else {
+                                                                      return _model
+                                                                          .longPostTextController
+                                                                          .text;
+                                                                    }
+                                                                  }(),
                                                                   mediaTitle: widget
                                                                       .postTitle,
                                                                   status:
@@ -1426,9 +1356,24 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           currentUserDocument
                                                                               ?.linkedinAccess,
                                                                           ''),
-                                                                      postText: _model
-                                                                          .textController
-                                                                          .text,
+                                                                      postText:
+                                                                          () {
+                                                                        if (_model.tabBarCurrentIndex ==
+                                                                            0) {
+                                                                          return _model
+                                                                              .shortPostTextController
+                                                                              .text;
+                                                                        } else if (_model.tabBarCurrentIndex ==
+                                                                            1) {
+                                                                          return _model
+                                                                              .mediumPostTextController
+                                                                              .text;
+                                                                        } else {
+                                                                          return _model
+                                                                              .longPostTextController
+                                                                              .text;
+                                                                        }
+                                                                      }(),
                                                                       mediaId:
                                                                           GetDocUploadUrlFromLinkedinCall
                                                                               .docURN(
@@ -1456,7 +1401,15 @@ class _ViewOrEditCampaignPostWidgetState
                                                                               postType: _model.typeOfMediaUploaded,
                                                                               personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
                                                                               accessToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
-                                                                              postText: _model.textController.text,
+                                                                              postText: () {
+                                                                                if (_model.tabBarCurrentIndex == 0) {
+                                                                                  return _model.shortPostTextController.text;
+                                                                                } else if (_model.tabBarCurrentIndex == 1) {
+                                                                                  return _model.mediumPostTextController.text;
+                                                                                } else {
+                                                                                  return _model.longPostTextController.text;
+                                                                                }
+                                                                              }(),
                                                                               mediaId: GetDocUploadUrlFromLinkedinCall.docURN(
                                                                                 (_model.liDocURLScheCopy?.jsonBody ?? ''),
                                                                               ),
@@ -1667,9 +1620,25 @@ class _ViewOrEditCampaignPostWidgetState
                                                                         currentUserDocument
                                                                             ?.linkedinAccess,
                                                                         ''),
-                                                                postText: _model
-                                                                    .textController
-                                                                    .text,
+                                                                postText: () {
+                                                                  if (_model
+                                                                          .tabBarCurrentIndex ==
+                                                                      0) {
+                                                                    return _model
+                                                                        .shortPostTextController
+                                                                        .text;
+                                                                  } else if (_model
+                                                                          .tabBarCurrentIndex ==
+                                                                      1) {
+                                                                    return _model
+                                                                        .mediumPostTextController
+                                                                        .text;
+                                                                  } else {
+                                                                    return _model
+                                                                        .longPostTextController
+                                                                        .text;
+                                                                  }
+                                                                }(),
                                                                 question: _model
                                                                     .pollQuestion,
                                                                 optionsJson: functions
@@ -1703,7 +1672,15 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             accessToken:
                                                                                 valueOrDefault(currentUserDocument?.linkedinAccess, ''),
                                                                             postText:
-                                                                                _model.textController.text,
+                                                                                () {
+                                                                              if (_model.tabBarCurrentIndex == 0) {
+                                                                                return _model.shortPostTextController.text;
+                                                                              } else if (_model.tabBarCurrentIndex == 1) {
+                                                                                return _model.mediumPostTextController.text;
+                                                                              } else {
+                                                                                return _model.longPostTextController.text;
+                                                                              }
+                                                                            }(),
                                                                             question:
                                                                                 _model.pollQuestion,
                                                                             optionsJson:
@@ -1925,201 +1902,420 @@ class _ViewOrEditCampaignPostWidgetState
                                             ),
                                           ],
                                         ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 40.0),
-                                        child: TextFormField(
-                                          controller: _model.textController ??=
-                                              TextEditingController(
-                                            text: containerCampaignRecord
-                                                .finalPost,
-                                          ),
-                                          focusNode: _model.textFieldFocusNode,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.textController',
-                                            const Duration(milliseconds: 2000),
-                                            () => setState(() {}),
-                                          ),
-                                          autofocus: false,
-                                          textCapitalization:
-                                              TextCapitalization.sentences,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            hintText: 'What\'s happening?',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge
-                                                    .override(
-                                                      fontFamily:
-                                                          'Plus Jakarta Sans',
-                                                      color: const Color(0xFF57636C),
-                                                      fontSize: 16.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              'Plus Jakarta Sans'),
-                                                    ),
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            errorBorder: InputBorder.none,
-                                            focusedErrorBorder:
-                                                InputBorder.none,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Plus Jakarta Sans',
-                                                color:
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            Align(
+                                              alignment: const Alignment(0.0, 0),
+                                              child: TabBar(
+                                                labelColor:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.normal,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        'Plus Jakarta Sans'),
+                                                unselectedLabelColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMediumFamily,
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMediumFamily),
+                                                        ),
+                                                unselectedLabelStyle:
+                                                    const TextStyle(),
+                                                indicatorColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                tabs: const [
+                                                  Tab(
+                                                    text: 'Short Post',
+                                                  ),
+                                                  Tab(
+                                                    text: 'Medium Post',
+                                                  ),
+                                                  Tab(
+                                                    text: 'Long Post',
+                                                  ),
+                                                ],
+                                                controller:
+                                                    _model.tabBarController,
+                                                onTap: (i) async {
+                                                  [
+                                                    () async {},
+                                                    () async {},
+                                                    () async {}
+                                                  ][i]();
+                                                },
                                               ),
-                                          textAlign: TextAlign.start,
-                                          maxLines: null,
-                                          cursorColor: const Color(0xFF4B39EF),
-                                          validator: _model
-                                              .textControllerValidator
-                                              .asValidator(context),
+                                            ),
+                                            Expanded(
+                                              child: TabBarView(
+                                                controller:
+                                                    _model.tabBarController,
+                                                children: [
+                                                  KeepAliveWidgetWrapper(
+                                                    builder: (context) =>
+                                                        Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0,
+                                                                  40.0),
+                                                      child: TextFormField(
+                                                        controller: _model
+                                                                .shortPostTextController ??=
+                                                            TextEditingController(
+                                                          text: viewOrEditCampaignPostCampaignRecord
+                                                              .posts
+                                                              .where((e) =>
+                                                                  e.postLength ==
+                                                                  'Short-post')
+                                                              .toList()
+                                                              .first
+                                                              .finalPost,
+                                                        ),
+                                                        focusNode: _model
+                                                            .shortPostFocusNode,
+                                                        onChanged: (_) =>
+                                                            EasyDebounce
+                                                                .debounce(
+                                                          '_model.shortPostTextController',
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  2000),
+                                                          () => setState(() {}),
+                                                        ),
+                                                        autofocus: false,
+                                                        textCapitalization:
+                                                            TextCapitalization
+                                                                .sentences,
+                                                        obscureText: false,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          hintText:
+                                                              'What\'s happening?',
+                                                          hintStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Plus Jakarta Sans',
+                                                                    color: const Color(
+                                                                        0xFF57636C),
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            'Plus Jakarta Sans'),
+                                                                  ),
+                                                          enabledBorder:
+                                                              InputBorder.none,
+                                                          focusedBorder:
+                                                              InputBorder.none,
+                                                          errorBorder:
+                                                              InputBorder.none,
+                                                          focusedErrorBorder:
+                                                              InputBorder.none,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Plus Jakarta Sans',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          'Plus Jakarta Sans'),
+                                                                ),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: null,
+                                                        cursorColor:
+                                                            const Color(0xFF4B39EF),
+                                                        validator: _model
+                                                            .shortPostTextControllerValidator
+                                                            .asValidator(
+                                                                context),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  KeepAliveWidgetWrapper(
+                                                    builder: (context) =>
+                                                        Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0,
+                                                                  40.0),
+                                                      child: TextFormField(
+                                                        controller: _model
+                                                                .mediumPostTextController ??=
+                                                            TextEditingController(
+                                                          text: viewOrEditCampaignPostCampaignRecord
+                                                              .posts
+                                                              .where((e) =>
+                                                                  e.postLength ==
+                                                                  'Medium-post')
+                                                              .toList()
+                                                              .first
+                                                              .finalPost,
+                                                        ),
+                                                        focusNode: _model
+                                                            .mediumPostFocusNode,
+                                                        onChanged: (_) =>
+                                                            EasyDebounce
+                                                                .debounce(
+                                                          '_model.mediumPostTextController',
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  2000),
+                                                          () => setState(() {}),
+                                                        ),
+                                                        autofocus: false,
+                                                        textCapitalization:
+                                                            TextCapitalization
+                                                                .sentences,
+                                                        obscureText: false,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          hintText:
+                                                              'What\'s happening?',
+                                                          hintStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Plus Jakarta Sans',
+                                                                    color: const Color(
+                                                                        0xFF57636C),
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            'Plus Jakarta Sans'),
+                                                                  ),
+                                                          enabledBorder:
+                                                              InputBorder.none,
+                                                          focusedBorder:
+                                                              InputBorder.none,
+                                                          errorBorder:
+                                                              InputBorder.none,
+                                                          focusedErrorBorder:
+                                                              InputBorder.none,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Plus Jakarta Sans',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          'Plus Jakarta Sans'),
+                                                                ),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: null,
+                                                        cursorColor:
+                                                            const Color(0xFF4B39EF),
+                                                        validator: _model
+                                                            .mediumPostTextControllerValidator
+                                                            .asValidator(
+                                                                context),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  KeepAliveWidgetWrapper(
+                                                    builder: (context) =>
+                                                        Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0,
+                                                                  40.0),
+                                                      child: TextFormField(
+                                                        controller: _model
+                                                                .longPostTextController ??=
+                                                            TextEditingController(
+                                                          text: viewOrEditCampaignPostCampaignRecord
+                                                              .posts
+                                                              .where((e) =>
+                                                                  e.postLength ==
+                                                                  'Long-post')
+                                                              .toList()
+                                                              .first
+                                                              .finalPost,
+                                                        ),
+                                                        focusNode: _model
+                                                            .longPostFocusNode,
+                                                        onChanged: (_) =>
+                                                            EasyDebounce
+                                                                .debounce(
+                                                          '_model.longPostTextController',
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  2000),
+                                                          () => setState(() {}),
+                                                        ),
+                                                        autofocus: false,
+                                                        textCapitalization:
+                                                            TextCapitalization
+                                                                .sentences,
+                                                        obscureText: false,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          hintText:
+                                                              'What\'s happening?',
+                                                          hintStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Plus Jakarta Sans',
+                                                                    color: const Color(
+                                                                        0xFF57636C),
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            'Plus Jakarta Sans'),
+                                                                  ),
+                                                          enabledBorder:
+                                                              InputBorder.none,
+                                                          focusedBorder:
+                                                              InputBorder.none,
+                                                          errorBorder:
+                                                              InputBorder.none,
+                                                          focusedErrorBorder:
+                                                              InputBorder.none,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Plus Jakarta Sans',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          'Plus Jakarta Sans'),
+                                                                ),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: null,
+                                                        cursorColor:
+                                                            const Color(0xFF4B39EF),
+                                                        validator: _model
+                                                            .longPostTextControllerValidator
+                                                            .asValidator(
+                                                                context),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      if ((_model.typeOfMediaUploaded ==
-                                              'singleImage') ||
-                                          (_model.typeOfMediaUploaded ==
-                                              'multiImage'))
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 16.0),
-                                          child: Builder(
-                                            builder: (context) {
-                                              if (_model
-                                                      .numberOfImagesUploaded ==
-                                                  1) {
-                                                return Stack(
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.memory(
-                                                        _model.uploadedMedia
-                                                                .first.bytes ??
-                                                            Uint8List.fromList(
-                                                                []),
-                                                        width: double.infinity,
-                                                        height: 250.0,
-                                                        fit: BoxFit.none,
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              1.0, -1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    8.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_sa6');
-                                                            logFirebaseEvent(
-                                                                'Container_update_page_state');
-                                                            _model.typeOfMediaUploaded =
-                                                                'onlyText';
-                                                            _model.numberOfImagesUploaded =
-                                                                0;
-                                                            _model.uploadedMedia =
-                                                                [];
-                                                            setState(() {});
-                                                            logFirebaseEvent(
-                                                                'Container_clear_uploaded_data');
-                                                            setState(() {
-                                                              _model.isDataUploading3 =
-                                                                  false;
-                                                              _model.uploadedLocalFiles3 =
-                                                                  [];
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            width: 24.0,
-                                                            height: 24.0,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color: Color(
-                                                                  0xD4080808),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              size: 16.0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              } else if (_model
-                                                      .numberOfImagesUploaded ==
-                                                  2) {
-                                                return Stack(
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Flexible(
-                                                          child: ClipRRect(
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 24.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            if ((_model.typeOfMediaUploaded ==
+                                                    'singleImage') ||
+                                                (_model.typeOfMediaUploaded ==
+                                                    'multiImage'))
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 16.0),
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    if (_model
+                                                            .numberOfImagesUploaded ==
+                                                        1) {
+                                                      return Stack(
+                                                        children: [
+                                                          ClipRRect(
                                                             borderRadius:
-                                                                const BorderRadius
-                                                                    .only(
-                                                              bottomLeft: Radius
-                                                                  .circular(
-                                                                      8.0),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                      8.0),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      0.0),
-                                                            ),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
                                                             child: Image.memory(
                                                               _model
                                                                       .uploadedMedia
@@ -2128,544 +2324,253 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   Uint8List
                                                                       .fromList(
                                                                           []),
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  0.5,
+                                                              width: double
+                                                                  .infinity,
                                                               height: 250.0,
                                                               fit: BoxFit.none,
                                                             ),
                                                           ),
-                                                        ),
-                                                        Flexible(
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .only(
-                                                              bottomLeft: Radius
-                                                                  .circular(
-                                                                      0.0),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                      0.0),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      8.0),
-                                                            ),
-                                                            child: Image.memory(
-                                                              _model
-                                                                      .uploadedMedia[
-                                                                          1]
-                                                                      .bytes ??
-                                                                  Uint8List
-                                                                      .fromList(
-                                                                          []),
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  0.5,
-                                                              height: 250.0,
-                                                              fit: BoxFit.none,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              1.0, -1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    8.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_sih');
-                                                            logFirebaseEvent(
-                                                                'Container_update_page_state');
-                                                            _model.typeOfMediaUploaded =
-                                                                'onlyText';
-                                                            _model.numberOfImagesUploaded =
-                                                                0;
-                                                            _model.uploadedMedia =
-                                                                [];
-                                                            setState(() {});
-                                                            logFirebaseEvent(
-                                                                'Container_clear_uploaded_data');
-                                                            setState(() {
-                                                              _model.isDataUploading3 =
-                                                                  false;
-                                                              _model.uploadedLocalFiles3 =
-                                                                  [];
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            width: 24.0,
-                                                            height: 24.0,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color: Color(
-                                                                  0xD4080808),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              size: 16.0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              } else if (_model
-                                                      .numberOfImagesUploaded ==
-                                                  3) {
-                                                return Stack(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    8.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    8.0),
-                                                          ),
-                                                          child: Image.memory(
-                                                            _model
-                                                                    .uploadedMedia
-                                                                    .first
-                                                                    .bytes ??
-                                                                Uint8List
-                                                                    .fromList(
-                                                                        []),
-                                                            width:
-                                                                double.infinity,
-                                                            height: 150.0,
-                                                            fit: BoxFit.none,
-                                                          ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
+                                                          Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    1.0, -1.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          8.0,
                                                                           0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              1]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  width: MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width *
-                                                                      0.5,
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_64k');
+                                                                  logFirebaseEvent(
+                                                                      'Container_update_page_state');
+                                                                  _model.typeOfMediaUploaded =
+                                                                      'onlyText';
+                                                                  _model.numberOfImagesUploaded =
+                                                                      0;
+                                                                  _model.uploadedMedia =
+                                                                      [];
+                                                                  setState(
+                                                                      () {});
+                                                                  logFirebaseEvent(
+                                                                      'Container_clear_uploaded_data');
+                                                                  setState(() {
+                                                                    _model.isDataUploading3 =
+                                                                        false;
+                                                                    _model.uploadedLocalFiles3 =
+                                                                        [];
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 24.0,
+                                                                  height: 24.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    color: Color(
+                                                                        0xD4080808),
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Icon(
+                                                                    Icons.close,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    size: 16.0,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else if (_model
+                                                            .numberOfImagesUploaded ==
+                                                        2) {
+                                                      return Stack(
+                                                        children: [
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Flexible(
+                                                                child:
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .only(
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            8.0),
+                                                                    bottomRight:
+                                                                        Radius.circular(
+                                                                            0.0),
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            8.0),
+                                                                    topRight: Radius
+                                                                        .circular(
+                                                                            0.0),
+                                                                  ),
+                                                                  child: Image
+                                                                      .memory(
+                                                                    _model
+                                                                            .uploadedMedia
+                                                                            .first
+                                                                            .bytes ??
+                                                                        Uint8List.fromList(
+                                                                            []),
+                                                                    width: MediaQuery.sizeOf(context)
+                                                                            .width *
+                                                                        0.5,
+                                                                    height:
+                                                                        250.0,
+                                                                    fit: BoxFit
+                                                                        .none,
+                                                                  ),
                                                                 ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              2]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  width: MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width *
-                                                                      0.5,
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .only(
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            0.0),
+                                                                    bottomRight:
+                                                                        Radius.circular(
+                                                                            8.0),
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            0.0),
+                                                                    topRight: Radius
+                                                                        .circular(
+                                                                            8.0),
+                                                                  ),
+                                                                  child: Image
+                                                                      .memory(
+                                                                    _model
+                                                                            .uploadedMedia[
+                                                                                1]
+                                                                            .bytes ??
+                                                                        Uint8List.fromList(
+                                                                            []),
+                                                                    width: MediaQuery.sizeOf(context)
+                                                                            .width *
+                                                                        0.5,
+                                                                    height:
+                                                                        250.0,
+                                                                    fit: BoxFit
+                                                                        .none,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    1.0, -1.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_ac6');
+                                                                  logFirebaseEvent(
+                                                                      'Container_update_page_state');
+                                                                  _model.typeOfMediaUploaded =
+                                                                      'onlyText';
+                                                                  _model.numberOfImagesUploaded =
+                                                                      0;
+                                                                  _model.uploadedMedia =
+                                                                      [];
+                                                                  setState(
+                                                                      () {});
+                                                                  logFirebaseEvent(
+                                                                      'Container_clear_uploaded_data');
+                                                                  setState(() {
+                                                                    _model.isDataUploading3 =
+                                                                        false;
+                                                                    _model.uploadedLocalFiles3 =
+                                                                        [];
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 24.0,
+                                                                  height: 24.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    color: Color(
+                                                                        0xD4080808),
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Icon(
+                                                                    Icons.close,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    size: 16.0,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              1.0, -1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    8.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_cbb');
-                                                            logFirebaseEvent(
-                                                                'Container_update_page_state');
-                                                            _model.typeOfMediaUploaded =
-                                                                'onlyText';
-                                                            _model.numberOfImagesUploaded =
-                                                                0;
-                                                            _model.uploadedMedia =
-                                                                [];
-                                                            setState(() {});
-                                                            logFirebaseEvent(
-                                                                'Container_clear_uploaded_data');
-                                                            setState(() {
-                                                              _model.isDataUploading3 =
-                                                                  false;
-                                                              _model.uploadedLocalFiles3 =
-                                                                  [];
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            width: 24.0,
-                                                            height: 24.0,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color: Color(
-                                                                  0xD4080808),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              size: 16.0,
-                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              } else if (_model
-                                                      .numberOfImagesUploaded ==
-                                                  4) {
-                                                return Stack(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    8.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    8.0),
-                                                          ),
-                                                          child: Image.memory(
-                                                            _model
-                                                                    .uploadedMedia
-                                                                    .first
-                                                                    .bytes ??
-                                                                Uint8List
-                                                                    .fromList(
-                                                                        []),
-                                                            width:
-                                                                double.infinity,
-                                                            height: 150.0,
-                                                            fit: BoxFit.none,
-                                                          ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              1]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              2]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              3]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              1.0, -1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    8.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_pc0');
-                                                            logFirebaseEvent(
-                                                                'Container_update_page_state');
-                                                            _model.typeOfMediaUploaded =
-                                                                'onlyText';
-                                                            _model.numberOfImagesUploaded =
-                                                                0;
-                                                            _model.uploadedMedia =
-                                                                [];
-                                                            setState(() {});
-                                                            logFirebaseEvent(
-                                                                'Container_clear_uploaded_data');
-                                                            setState(() {
-                                                              _model.isDataUploading3 =
-                                                                  false;
-                                                              _model.uploadedLocalFiles3 =
-                                                                  [];
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            width: 24.0,
-                                                            height: 24.0,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color: Color(
-                                                                  0xD4080808),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              size: 16.0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              } else if (_model
-                                                      .numberOfImagesUploaded ==
-                                                  5) {
-                                                return Stack(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Flexible(
-                                                              child: ClipRRect(
+                                                        ],
+                                                      );
+                                                    } else if (_model
+                                                            .numberOfImagesUploaded ==
+                                                        3) {
+                                                      return Stack(
+                                                        children: [
+                                                          Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              ClipRRect(
                                                                 borderRadius:
                                                                     const BorderRadius
                                                                         .only(
@@ -2680,7 +2585,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           8.0),
                                                                   topRight: Radius
                                                                       .circular(
-                                                                          0.0),
+                                                                          8.0),
                                                                 ),
                                                                 child: Image
                                                                     .memory(
@@ -2691,422 +2596,57 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       Uint8List
                                                                           .fromList(
                                                                               []),
+                                                                  width: double
+                                                                      .infinity,
                                                                   height: 150.0,
                                                                   fit: BoxFit
                                                                       .none,
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              1]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 150.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              2]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              3]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              4]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              1.0, -1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    8.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_cad');
-                                                            logFirebaseEvent(
-                                                                'Container_update_page_state');
-                                                            _model.typeOfMediaUploaded =
-                                                                'onlyText';
-                                                            _model.numberOfImagesUploaded =
-                                                                0;
-                                                            _model.uploadedMedia =
-                                                                [];
-                                                            setState(() {});
-                                                            logFirebaseEvent(
-                                                                'Container_clear_uploaded_data');
-                                                            setState(() {
-                                                              _model.isDataUploading3 =
-                                                                  false;
-                                                              _model.uploadedLocalFiles3 =
-                                                                  [];
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            width: 24.0,
-                                                            height: 24.0,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color: Color(
-                                                                  0xD4080808),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              size: 16.0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              } else {
-                                                return Stack(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia
-                                                                          .first
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 150.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              1]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 150.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          8.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              2]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          0.0),
-                                                                ),
-                                                                child: Image
-                                                                    .memory(
-                                                                  _model
-                                                                          .uploadedMedia[
-                                                                              3]
-                                                                          .bytes ??
-                                                                      Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .none,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: Stack(
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
                                                                 children: [
-                                                                  ClipRRect(
-                                                                    borderRadius:
-                                                                        const BorderRadius
-                                                                            .only(
-                                                                      bottomLeft:
-                                                                          Radius.circular(
-                                                                              0.0),
-                                                                      bottomRight:
-                                                                          Radius.circular(
-                                                                              8.0),
-                                                                      topLeft: Radius
-                                                                          .circular(
-                                                                              0.0),
-                                                                      topRight:
-                                                                          Radius.circular(
-                                                                              0.0),
-                                                                    ),
-                                                                    child: Image
-                                                                        .memory(
-                                                                      _model.uploadedMedia[4]
-                                                                              .bytes ??
-                                                                          Uint8List.fromList([]),
-                                                                      height:
-                                                                          100.0,
-                                                                      fit: BoxFit
-                                                                          .none,
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(8.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[1].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        width: MediaQuery.sizeOf(context).width *
+                                                                            0.5,
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                  Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height:
-                                                                        100.0,
-                                                                    decoration:
-                                                                        const BoxDecoration(
-                                                                      color: Color(
-                                                                          0xC9080808),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
                                                                       borderRadius:
-                                                                          BorderRadius
+                                                                          const BorderRadius
                                                                               .only(
                                                                         bottomLeft:
                                                                             Radius.circular(0.0),
@@ -3117,34 +2657,856 @@ class _ViewOrEditCampaignPostWidgetState
                                                                         topRight:
                                                                             Radius.circular(0.0),
                                                                       ),
-                                                                    ),
-                                                                    child:
-                                                                        Align(
-                                                                      alignment:
-                                                                          const AlignmentDirectional(
-                                                                              0.0,
-                                                                              0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        '+${(_model.numberOfImagesUploaded - 5).toString()}',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                              fontSize: 18.0,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                            ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[2].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        width: MediaQuery.sizeOf(context).width *
+                                                                            0.5,
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
+                                                            ],
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    1.0, -1.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_4lw');
+                                                                  logFirebaseEvent(
+                                                                      'Container_update_page_state');
+                                                                  _model.typeOfMediaUploaded =
+                                                                      'onlyText';
+                                                                  _model.numberOfImagesUploaded =
+                                                                      0;
+                                                                  _model.uploadedMedia =
+                                                                      [];
+                                                                  setState(
+                                                                      () {});
+                                                                  logFirebaseEvent(
+                                                                      'Container_clear_uploaded_data');
+                                                                  setState(() {
+                                                                    _model.isDataUploading3 =
+                                                                        false;
+                                                                    _model.uploadedLocalFiles3 =
+                                                                        [];
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 24.0,
+                                                                  height: 24.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    color: Color(
+                                                                        0xD4080808),
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Icon(
+                                                                    Icons.close,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    size: 16.0,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ],
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else if (_model
+                                                            .numberOfImagesUploaded ==
+                                                        4) {
+                                                      return Stack(
+                                                        children: [
+                                                          Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          8.0),
+                                                                ),
+                                                                child: Image
+                                                                    .memory(
+                                                                  _model
+                                                                          .uploadedMedia
+                                                                          .first
+                                                                          .bytes ??
+                                                                      Uint8List
+                                                                          .fromList(
+                                                                              []),
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 150.0,
+                                                                  fit: BoxFit
+                                                                      .none,
+                                                                ),
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(8.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[1].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[2].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(8.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[3].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    1.0, -1.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_mr4');
+                                                                  logFirebaseEvent(
+                                                                      'Container_update_page_state');
+                                                                  _model.typeOfMediaUploaded =
+                                                                      'onlyText';
+                                                                  _model.numberOfImagesUploaded =
+                                                                      0;
+                                                                  _model.uploadedMedia =
+                                                                      [];
+                                                                  setState(
+                                                                      () {});
+                                                                  logFirebaseEvent(
+                                                                      'Container_clear_uploaded_data');
+                                                                  setState(() {
+                                                                    _model.isDataUploading3 =
+                                                                        false;
+                                                                    _model.uploadedLocalFiles3 =
+                                                                        [];
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 24.0,
+                                                                  height: 24.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    color: Color(
+                                                                        0xD4080808),
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Icon(
+                                                                    Icons.close,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    size: 16.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else if (_model
+                                                            .numberOfImagesUploaded ==
+                                                        5) {
+                                                      return Stack(
+                                                        children: [
+                                                          Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(8.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia.first.bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            150.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(8.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[1].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            150.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(8.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[2].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[3].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(8.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[4].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    1.0, -1.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_0pm');
+                                                                  logFirebaseEvent(
+                                                                      'Container_update_page_state');
+                                                                  _model.typeOfMediaUploaded =
+                                                                      'onlyText';
+                                                                  _model.numberOfImagesUploaded =
+                                                                      0;
+                                                                  _model.uploadedMedia =
+                                                                      [];
+                                                                  setState(
+                                                                      () {});
+                                                                  logFirebaseEvent(
+                                                                      'Container_clear_uploaded_data');
+                                                                  setState(() {
+                                                                    _model.isDataUploading3 =
+                                                                        false;
+                                                                    _model.uploadedLocalFiles3 =
+                                                                        [];
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 24.0,
+                                                                  height: 24.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    color: Color(
+                                                                        0xD4080808),
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Icon(
+                                                                    Icons.close,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    size: 16.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else {
+                                                      return Stack(
+                                                        children: [
+                                                          Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(8.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia.first.bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            150.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(8.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[1].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            150.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(8.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[2].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          const BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0.0),
+                                                                        bottomRight:
+                                                                            Radius.circular(0.0),
+                                                                        topLeft:
+                                                                            Radius.circular(0.0),
+                                                                        topRight:
+                                                                            Radius.circular(0.0),
+                                                                      ),
+                                                                      child: Image
+                                                                          .memory(
+                                                                        _model.uploadedMedia[3].bytes ??
+                                                                            Uint8List.fromList([]),
+                                                                        height:
+                                                                            100.0,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        Stack(
+                                                                      children: [
+                                                                        ClipRRect(
+                                                                          borderRadius:
+                                                                              const BorderRadius.only(
+                                                                            bottomLeft:
+                                                                                Radius.circular(0.0),
+                                                                            bottomRight:
+                                                                                Radius.circular(8.0),
+                                                                            topLeft:
+                                                                                Radius.circular(0.0),
+                                                                            topRight:
+                                                                                Radius.circular(0.0),
+                                                                          ),
+                                                                          child:
+                                                                              Image.memory(
+                                                                            _model.uploadedMedia[4].bytes ??
+                                                                                Uint8List.fromList([]),
+                                                                            height:
+                                                                                100.0,
+                                                                            fit:
+                                                                                BoxFit.none,
+                                                                          ),
+                                                                        ),
+                                                                        Container(
+                                                                          width:
+                                                                              double.infinity,
+                                                                          height:
+                                                                              100.0,
+                                                                          decoration:
+                                                                              const BoxDecoration(
+                                                                            color:
+                                                                                Color(0xC9080808),
+                                                                            borderRadius:
+                                                                                BorderRadius.only(
+                                                                              bottomLeft: Radius.circular(0.0),
+                                                                              bottomRight: Radius.circular(8.0),
+                                                                              topLeft: Radius.circular(0.0),
+                                                                              topRight: Radius.circular(0.0),
+                                                                            ),
+                                                                          ),
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                const AlignmentDirectional(0.0, 0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              '+${(_model.numberOfImagesUploaded - 5).toString()}',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    fontSize: 18.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    1.0, -1.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_nb8');
+                                                                  logFirebaseEvent(
+                                                                      'Container_update_page_state');
+                                                                  _model.typeOfMediaUploaded =
+                                                                      'onlyText';
+                                                                  _model.numberOfImagesUploaded =
+                                                                      0;
+                                                                  _model.uploadedMedia =
+                                                                      [];
+                                                                  setState(
+                                                                      () {});
+                                                                  logFirebaseEvent(
+                                                                      'Container_clear_uploaded_data');
+                                                                  setState(() {
+                                                                    _model.isDataUploading3 =
+                                                                        false;
+                                                                    _model.uploadedLocalFiles3 =
+                                                                        [];
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 24.0,
+                                                                  height: 24.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    color: Color(
+                                                                        0xD4080808),
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Icon(
+                                                                    Icons.close,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                    size: 16.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    }
+                                                  },
+                                                ),
+                                              ),
+                                            if (_model.typeOfMediaUploaded ==
+                                                'doc')
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 16.0),
+                                                child: Stack(
+                                                  children: [
+                                                    FlutterFlowPdfViewer(
+                                                      fileBytes: _model
+                                                          .uploadedDoc?.bytes,
+                                                      height: 300.0,
+                                                      horizontalScroll: true,
+                                                    ),
+                                                    Container(
+                                                      width: double.infinity,
+                                                      decoration: const BoxDecoration(
+                                                        color:
+                                                            Color(0xB8080808),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    8.0),
+                                                        child: Text(
+                                                          valueOrDefault<
+                                                              String>(
+                                                            _model
+                                                                .uploadedDocTitle,
+                                                            'Title',
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
                                                     Align(
                                                       alignment:
@@ -3169,24 +3531,16 @@ class _ViewOrEditCampaignPostWidgetState
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_e2w');
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_mhb');
                                                             logFirebaseEvent(
                                                                 'Container_update_page_state');
                                                             _model.typeOfMediaUploaded =
                                                                 'onlyText';
-                                                            _model.numberOfImagesUploaded =
-                                                                0;
-                                                            _model.uploadedMedia =
-                                                                [];
+                                                            _model.uploadedDoc =
+                                                                null;
+                                                            _model.uploadedDocTitle =
+                                                                null;
                                                             setState(() {});
-                                                            logFirebaseEvent(
-                                                                'Container_clear_uploaded_data');
-                                                            setState(() {
-                                                              _model.isDataUploading3 =
-                                                                  false;
-                                                              _model.uploadedLocalFiles3 =
-                                                                  [];
-                                                            });
                                                           },
                                                           child: Container(
                                                             width: 24.0,
@@ -3210,144 +3564,942 @@ class _ViewOrEditCampaignPostWidgetState
                                                       ),
                                                     ),
                                                   ],
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                      if (_model.typeOfMediaUploaded == 'doc')
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 16.0),
-                                          child: Stack(
-                                            children: [
-                                              FlutterFlowPdfViewer(
-                                                fileBytes:
-                                                    _model.uploadedDoc?.bytes,
-                                                height: 300.0,
-                                                horizontalScroll: true,
-                                              ),
-                                              Container(
-                                                width: double.infinity,
-                                                decoration: const BoxDecoration(
-                                                  color: Color(0xB8080808),
                                                 ),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 8.0, 8.0, 8.0),
-                                                  child: Text(
-                                                    valueOrDefault<String>(
-                                                      _model.uploadedDocTitle,
-                                                      'Title',
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
+                                              ),
+                                            if (_model.typeOfMediaUploaded ==
+                                                'poll')
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 16.0),
+                                                child: Stack(
+                                                  children: [
+                                                    Container(
+                                                      width: double.infinity,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        border: Border.all(
+                                                          color:
+                                                              const Color(0x65979797),
+                                                          width: 2.0,
                                                         ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    1.0, -1.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 8.0, 8.0, 0.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Container_jlu');
-                                                      logFirebaseEvent(
-                                                          'Container_update_page_state');
-                                                      _model.typeOfMediaUploaded =
-                                                          'onlyText';
-                                                      _model.uploadedDoc = null;
-                                                      _model.uploadedDocTitle =
-                                                          null;
-                                                      setState(() {});
-                                                    },
-                                                    child: Container(
-                                                      width: 24.0,
-                                                      height: 24.0,
-                                                      decoration: const BoxDecoration(
-                                                        color:
-                                                            Color(0xD4080808),
-                                                        shape: BoxShape.circle,
                                                       ),
-                                                      child: Icon(
-                                                        Icons.close,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        size: 16.0,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    8.0),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              '${_model.pollQuestion}?',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily,
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                  ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          12.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed: () {
+                                                                  print(
+                                                                      'Button pressed ...');
+                                                                },
+                                                                text: _model
+                                                                    .pollOption1!,
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 28.0,
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                                  iconPadding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                                  elevation:
+                                                                      0.0,
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondary,
+                                                                    width: 1.5,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              18.0),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          12.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed: () {
+                                                                  print(
+                                                                      'Button pressed ...');
+                                                                },
+                                                                text: _model
+                                                                    .pollOption2!,
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 28.0,
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                                  iconPadding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                                  elevation:
+                                                                      0.0,
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondary,
+                                                                    width: 1.5,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              18.0),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            if (_model.pollOption3 !=
+                                                                    null &&
+                                                                _model.pollOption3 !=
+                                                                    '')
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            12.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child:
+                                                                    FFButtonWidget(
+                                                                  onPressed:
+                                                                      () {
+                                                                    print(
+                                                                        'Button pressed ...');
+                                                                  },
+                                                                  text: _model
+                                                                      .pollOption3!,
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height:
+                                                                        28.0,
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            24.0,
+                                                                            0.0,
+                                                                            24.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        const EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondary,
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          useGoogleFonts:
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                        ),
+                                                                    elevation:
+                                                                        0.0,
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      width:
+                                                                          1.5,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            18.0),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            if (_model.pollOption4 !=
+                                                                    null &&
+                                                                _model.pollOption4 !=
+                                                                    '')
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            12.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child:
+                                                                    FFButtonWidget(
+                                                                  onPressed:
+                                                                      () {
+                                                                    print(
+                                                                        'Button pressed ...');
+                                                                  },
+                                                                  text: _model
+                                                                      .pollOption4!,
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height:
+                                                                        28.0,
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            24.0,
+                                                                            0.0,
+                                                                            24.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        const EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondary,
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          useGoogleFonts:
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                        ),
+                                                                    elevation:
+                                                                        0.0,
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      width:
+                                                                          1.5,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            18.0),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_ltv');
+                                                            logFirebaseEvent(
+                                                                'Container_update_page_state');
+                                                            _model.typeOfMediaUploaded =
+                                                                'onlyText';
+                                                            _model.numberOfImagesUploaded =
+                                                                0;
+                                                            _model.uploadedMedia =
+                                                                [];
+                                                            setState(() {});
+                                                          },
+                                                          child: Container(
+                                                            width: 24.0,
+                                                            height: 24.0,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xD4080808),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                              size: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(1.0, 1.0),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 24.0, 12.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (_model.typeOfMediaUploaded == 'onlyText')
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Container_eq0');
+                                      logFirebaseEvent(
+                                          'Container_store_media_for_upload');
+                                      final selectedMedia = await selectMedia(
+                                        mediaSource: MediaSource.photoGallery,
+                                        multiImage: true,
+                                      );
+                                      if (selectedMedia != null &&
+                                          selectedMedia.every((m) =>
+                                              validateFileFormat(
+                                                  m.storagePath, context))) {
+                                        setState(() =>
+                                            _model.isDataUploading3 = true);
+                                        var selectedUploadedFiles =
+                                            <FFUploadedFile>[];
+
+                                        try {
+                                          showUploadMessage(
+                                            context,
+                                            'Uploading file...',
+                                            showLoading: true,
+                                          );
+                                          selectedUploadedFiles = selectedMedia
+                                              .map((m) => FFUploadedFile(
+                                                    name: m.storagePath
+                                                        .split('/')
+                                                        .last,
+                                                    bytes: m.bytes,
+                                                    height:
+                                                        m.dimensions?.height,
+                                                    width: m.dimensions?.width,
+                                                    blurHash: m.blurHash,
+                                                  ))
+                                              .toList();
+                                        } finally {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          _model.isDataUploading3 = false;
+                                        }
+                                        if (selectedUploadedFiles.length ==
+                                            selectedMedia.length) {
+                                          setState(() {
+                                            _model.uploadedLocalFiles3 =
+                                                selectedUploadedFiles;
+                                          });
+                                          showUploadMessage(
+                                              context, 'Success!');
+                                        } else {
+                                          setState(() {});
+                                          showUploadMessage(
+                                              context, 'Failed to upload data');
+                                          return;
+                                        }
+                                      }
+
+                                      if (_model
+                                          .uploadedLocalFiles3.isNotEmpty) {
+                                        logFirebaseEvent(
+                                            'Container_update_page_state');
+                                        _model.typeOfMediaUploaded =
+                                            _model.uploadedLocalFiles3.length >
+                                                    1
+                                                ? 'multiImage'
+                                                : 'singleImage';
+                                        _model.numberOfImagesUploaded =
+                                            _model.uploadedLocalFiles3.length;
+                                        _model.uploadedMedia = _model
+                                            .uploadedLocalFiles3
+                                            .toList()
+                                            .cast<FFUploadedFile>();
+                                        setState(() {});
+                                      }
+                                    },
+                                    child: Container(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(
+                                        Icons.image_outlined,
+                                        color: Color(0xFF535252),
+                                        size: 28.0,
+                                      ),
+                                    ),
+                                  ),
+                                if (_model.typeOfMediaUploaded == 'onlyText')
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Container_dm9');
+                                      logFirebaseEvent(
+                                          'Container_bottom_sheet');
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () => _model
+                                                    .unfocusNode.canRequestFocus
+                                                ? FocusScope.of(context)
+                                                    .requestFocus(
+                                                        _model.unfocusNode)
+                                                : FocusScope.of(context)
+                                                    .unfocus(),
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: SizedBox(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.4,
+                                                child: PostContentOptionsWidget(
+                                                  mediaAction:
+                                                      (uploadedMedia) async {
+                                                    if (uploadedMedia != null &&
+                                                        (uploadedMedia)
+                                                            .isNotEmpty) {
+                                                      logFirebaseEvent(
+                                                          '_update_page_state');
+                                                      _model.typeOfMediaUploaded =
+                                                          uploadedMedia
+                                                                      .length >
+                                                                  1
+                                                              ? 'multiImage'
+                                                              : 'singleImage';
+                                                      _model.numberOfImagesUploaded =
+                                                          uploadedMedia.length;
+                                                      _model.uploadedMedia =
+                                                          uploadedMedia
+                                                              .toList()
+                                                              .cast<
+                                                                  FFUploadedFile>();
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                  documentAction:
+                                                      (docURL, docTitle) async {
+                                                    logFirebaseEvent(
+                                                        '_update_page_state');
+                                                    _model.typeOfMediaUploaded =
+                                                        'doc';
+                                                    _model.uploadedDoc = docURL;
+                                                    _model.uploadedDocTitle =
+                                                        docTitle;
+                                                    setState(() {});
+                                                  },
+                                                  saveAction: () async {
+                                                    logFirebaseEvent(
+                                                        '_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: const Text('Saved'),
+                                                          content: const Text(
+                                                              'Draft Saved'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  deleteAction: () async {
+                                                    logFirebaseEvent(
+                                                        '_backend_call');
+                                                    await widget.postRef!
+                                                        .delete();
+                                                    logFirebaseEvent(
+                                                        '_navigate_back');
+                                                    context.safePop();
+                                                  },
+                                                  pollAction: (question,
+                                                      option1,
+                                                      option2,
+                                                      option3,
+                                                      option4,
+                                                      duration) async {
+                                                    logFirebaseEvent(
+                                                        '_update_page_state');
+                                                    _model.typeOfMediaUploaded =
+                                                        'poll';
+                                                    _model.pollQuestion =
+                                                        question;
+                                                    _model.pollOption1 =
+                                                        option1;
+                                                    _model.pollOption2 =
+                                                        option2;
+                                                    _model.pollOption3 =
+                                                        option3;
+                                                    _model.pollOption4 =
+                                                        option4;
+                                                    _model.pollDuration =
+                                                        duration;
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    },
+                                    child: Container(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(
+                                        Icons.add_rounded,
+                                        color: Color(0xFF504E4E),
+                                        size: 32.0,
+                                      ),
+                                    ),
+                                  ),
+                              ].divide(const SizedBox(width: 10.0)),
+                            ),
+                          ),
+                        ),
+                        if (_model.datePickerVisbile)
+                          Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(
+                                sigmaX: 2.0,
+                                sigmaY: 2.0,
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'VIEW_OR_EDIT_CAMPAIGN_POST_Container_ae9');
+                                        logFirebaseEvent(
+                                            'Container_widget_animation');
+                                        if (animationsMap[
+                                                'containerOnActionTriggerAnimation'] !=
+                                            null) {
+                                          await animationsMap[
+                                                  'containerOnActionTriggerAnimation']!
+                                              .controller
+                                              .reverse();
+                                        }
+                                        logFirebaseEvent(
+                                            'Container_update_page_state');
+                                        _model.datePickerVisbile = false;
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: const BoxDecoration(),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 7.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(
+                                            0.0,
+                                            -2.0,
+                                          ),
+                                        )
+                                      ],
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(0.0),
+                                        bottomRight: Radius.circular(0.0),
+                                        topLeft: Radius.circular(16.0),
+                                        topRight: Radius.circular(16.0),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 8.0, 0.0, 0.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: 60.0,
+                                                height: 3.0,
+                                                decoration: BoxDecoration(
+                                                  color: const Color(0xFFE0E3E7),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      if (_model.typeOfMediaUploaded == 'poll')
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 16.0),
-                                          child: Stack(
-                                            children: [
-                                              Container(
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 16.0, 0.0, 0.0),
+                                            child: Text(
+                                              'Schedule',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .headlineSmall
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 24.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Montserrat'),
+                                                  ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 12.0, 0.0, 4.0),
+                                            child: Text(
+                                              'Date *',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 14.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Montserrat'),
+                                                  ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 16.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'VIEW_OR_EDIT_CAMPAIGN_POST_Container_m63');
+                                                logFirebaseEvent(
+                                                    'Container_date_time_picker');
+                                                final datePicked1Date =
+                                                    await showDatePicker(
+                                                  context: context,
+                                                  initialDate:
+                                                      getCurrentTimestamp,
+                                                  firstDate:
+                                                      getCurrentTimestamp,
+                                                  lastDate: DateTime(2050),
+                                                  builder: (context, child) {
+                                                    return wrapInMaterialDatePickerTheme(
+                                                      context,
+                                                      child!,
+                                                      headerBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      headerForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground,
+                                                      headerTextStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLargeFamily,
+                                                                fontSize: 32.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .headlineLargeFamily),
+                                                              ),
+                                                      pickerBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      pickerForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      selectedDateTimeBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      selectedDateTimeForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      actionButtonForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      iconSize: 24.0,
+                                                    );
+                                                  },
+                                                );
+
+                                                if (datePicked1Date != null) {
+                                                  safeSetState(() {
+                                                    _model.datePicked1 =
+                                                        DateTime(
+                                                      datePicked1Date.year,
+                                                      datePicked1Date.month,
+                                                      datePicked1Date.day,
+                                                    );
+                                                  });
+                                                }
+                                                logFirebaseEvent(
+                                                    'Container_update_page_state');
+                                                _model.scheduledDate =
+                                                    _model.datePicked1;
+                                                setState(() {});
+                                              },
+                                              child: Container(
                                                 width: double.infinity,
+                                                height: 44.0,
                                                 decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           8.0),
                                                   border: Border.all(
-                                                    color: const Color(0x65979797),
-                                                    width: 2.0,
+                                                    color: const Color(0xFF3D3D3D),
                                                   ),
                                                 ),
                                                 child: Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          8.0, 8.0, 8.0, 8.0),
-                                                  child: Column(
+                                                          12.0, 8.0, 12.0, 8.0),
+                                                  child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       Text(
-                                                        '${_model.pollQuestion}?',
+                                                        dateTimeFormat(
+                                                            'yMMMd',
+                                                            _model
+                                                                .scheduledDate),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -3356,8 +4508,6 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMediumFamily,
-                                                                  fontSize:
-                                                                      18.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight:
@@ -3370,1128 +4520,34 @@ class _ViewOrEditCampaignPostWidgetState
                                                                               .bodyMediumFamily),
                                                                 ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    12.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: FFButtonWidget(
-                                                          onPressed: () {
-                                                            print(
-                                                                'Button pressed ...');
-                                                          },
-                                                          text: _model
-                                                              .pollOption1!,
-                                                          options:
-                                                              FFButtonOptions(
-                                                            width:
-                                                                double.infinity,
-                                                            height: 28.0,
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        24.0,
-                                                                        0.0,
-                                                                        24.0,
-                                                                        0.0),
-                                                            iconPadding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            color: Colors
-                                                                .transparent,
-                                                            textStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleSmallFamily,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary,
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
-                                                                    ),
-                                                            elevation: 0.0,
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondary,
-                                                              width: 1.5,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        18.0),
-                                                          ),
-                                                        ),
+                                                      const Icon(
+                                                        Icons
+                                                            .calendar_month_sharp,
+                                                        color:
+                                                            Color(0xFF3F3D3D),
+                                                        size: 20.0,
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    12.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: FFButtonWidget(
-                                                          onPressed: () {
-                                                            print(
-                                                                'Button pressed ...');
-                                                          },
-                                                          text: _model
-                                                              .pollOption2!,
-                                                          options:
-                                                              FFButtonOptions(
-                                                            width:
-                                                                double.infinity,
-                                                            height: 28.0,
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        24.0,
-                                                                        0.0,
-                                                                        24.0,
-                                                                        0.0),
-                                                            iconPadding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            color: Colors
-                                                                .transparent,
-                                                            textStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleSmallFamily,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary,
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
-                                                                    ),
-                                                            elevation: 0.0,
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondary,
-                                                              width: 1.5,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        18.0),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      if (_model.pollOption3 !=
-                                                              null &&
-                                                          _model.pollOption3 !=
-                                                              '')
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      12.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: FFButtonWidget(
-                                                            onPressed: () {
-                                                              print(
-                                                                  'Button pressed ...');
-                                                            },
-                                                            text: _model
-                                                                .pollOption3!,
-                                                            options:
-                                                                FFButtonOptions(
-                                                              width: double
-                                                                  .infinity,
-                                                              height: 28.0,
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          24.0,
-                                                                          0.0,
-                                                                          24.0,
-                                                                          0.0),
-                                                              iconPadding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              color: Colors
-                                                                  .transparent,
-                                                              textStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondary,
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
-                                                                      ),
-                                                              elevation: 0.0,
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondary,
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          18.0),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      if (_model.pollOption4 !=
-                                                              null &&
-                                                          _model.pollOption4 !=
-                                                              '')
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      12.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: FFButtonWidget(
-                                                            onPressed: () {
-                                                              print(
-                                                                  'Button pressed ...');
-                                                            },
-                                                            text: _model
-                                                                .pollOption4!,
-                                                            options:
-                                                                FFButtonOptions(
-                                                              width: double
-                                                                  .infinity,
-                                                              height: 28.0,
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          24.0,
-                                                                          0.0,
-                                                                          24.0,
-                                                                          0.0),
-                                                              iconPadding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              color: Colors
-                                                                  .transparent,
-                                                              textStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondary,
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
-                                                                      ),
-                                                              elevation: 0.0,
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondary,
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          18.0),
-                                                            ),
-                                                          ),
-                                                        ),
                                                     ],
                                                   ),
                                                 ),
                                               ),
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    1.0, -1.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 8.0, 8.0, 0.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'VIEW_OR_EDIT_CAMPAIGN_POST_Container_j8i');
-                                                      logFirebaseEvent(
-                                                          'Container_update_page_state');
-                                                      _model.typeOfMediaUploaded =
-                                                          'onlyText';
-                                                      _model.numberOfImagesUploaded =
-                                                          0;
-                                                      _model.uploadedMedia = [];
-                                                      setState(() {});
-                                                    },
-                                                    child: Container(
-                                                      width: 24.0,
-                                                      height: 24.0,
-                                                      decoration: const BoxDecoration(
-                                                        color:
-                                                            Color(0xD4080808),
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.close,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        size: 16.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(1.0, 1.0),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 0.0, 24.0, 12.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (_model.typeOfMediaUploaded == 'onlyText')
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  logFirebaseEvent(
-                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_eq0');
-                                  logFirebaseEvent(
-                                      'Container_store_media_for_upload');
-                                  final selectedMedia = await selectMedia(
-                                    mediaSource: MediaSource.photoGallery,
-                                    multiImage: true,
-                                  );
-                                  if (selectedMedia != null &&
-                                      selectedMedia.every((m) =>
-                                          validateFileFormat(
-                                              m.storagePath, context))) {
-                                    setState(
-                                        () => _model.isDataUploading3 = true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
-
-                                    try {
-                                      showUploadMessage(
-                                        context,
-                                        'Uploading file...',
-                                        showLoading: true,
-                                      );
-                                      selectedUploadedFiles = selectedMedia
-                                          .map((m) => FFUploadedFile(
-                                                name: m.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes: m.bytes,
-                                                height: m.dimensions?.height,
-                                                width: m.dimensions?.width,
-                                                blurHash: m.blurHash,
-                                              ))
-                                          .toList();
-                                    } finally {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
-                                      _model.isDataUploading3 = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                        selectedMedia.length) {
-                                      setState(() {
-                                        _model.uploadedLocalFiles3 =
-                                            selectedUploadedFiles;
-                                      });
-                                      showUploadMessage(context, 'Success!');
-                                    } else {
-                                      setState(() {});
-                                      showUploadMessage(
-                                          context, 'Failed to upload data');
-                                      return;
-                                    }
-                                  }
-
-                                  if (_model.uploadedLocalFiles3.isNotEmpty) {
-                                    logFirebaseEvent(
-                                        'Container_update_page_state');
-                                    _model.typeOfMediaUploaded =
-                                        _model.uploadedLocalFiles3.length > 1
-                                            ? 'multiImage'
-                                            : 'singleImage';
-                                    _model.numberOfImagesUploaded =
-                                        _model.uploadedLocalFiles3.length;
-                                    _model.uploadedMedia = _model
-                                        .uploadedLocalFiles3
-                                        .toList()
-                                        .cast<FFUploadedFile>();
-                                    setState(() {});
-                                  }
-                                },
-                                child: Container(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.image_outlined,
-                                    color: Color(0xFF535252),
-                                    size: 28.0,
-                                  ),
-                                ),
-                              ),
-                            if (_model.typeOfMediaUploaded == 'onlyText')
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  logFirebaseEvent(
-                                      'VIEW_OR_EDIT_CAMPAIGN_POST_Container_dm9');
-                                  logFirebaseEvent('Container_bottom_sheet');
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    enableDrag: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return GestureDetector(
-                                        onTap: () => _model
-                                                .unfocusNode.canRequestFocus
-                                            ? FocusScope.of(context)
-                                                .requestFocus(
-                                                    _model.unfocusNode)
-                                            : FocusScope.of(context).unfocus(),
-                                        child: Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: SizedBox(
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.4,
-                                            child: PostContentOptionsWidget(
-                                              mediaAction:
-                                                  (uploadedMedia) async {
-                                                if (uploadedMedia != null &&
-                                                    (uploadedMedia)
-                                                        .isNotEmpty) {
-                                                  logFirebaseEvent(
-                                                      '_update_page_state');
-                                                  _model.typeOfMediaUploaded =
-                                                      uploadedMedia.length > 1
-                                                          ? 'multiImage'
-                                                          : 'singleImage';
-                                                  _model.numberOfImagesUploaded =
-                                                      uploadedMedia.length;
-                                                  _model.uploadedMedia =
-                                                      uploadedMedia
-                                                          .toList()
-                                                          .cast<
-                                                              FFUploadedFile>();
-                                                  setState(() {});
-                                                }
-                                              },
-                                              documentAction:
-                                                  (docURL, docTitle) async {
-                                                logFirebaseEvent(
-                                                    '_update_page_state');
-                                                _model.typeOfMediaUploaded =
-                                                    'doc';
-                                                _model.uploadedDoc = docURL;
-                                                _model.uploadedDocTitle =
-                                                    docTitle;
-                                                setState(() {});
-                                              },
-                                              saveAction: () async {
-                                                logFirebaseEvent(
-                                                    '_backend_call');
-
-                                                await widget.postRef!.update(
-                                                    createCampaignRecordData(
-                                                  finalPost: _model
-                                                      .textController.text,
-                                                ));
-                                                logFirebaseEvent(
-                                                    '_alert_dialog');
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: const Text('Saved'),
-                                                      content:
-                                                          const Text('Draft Saved'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: const Text('Ok'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              deleteAction: () async {
-                                                logFirebaseEvent(
-                                                    '_backend_call');
-                                                await widget.postRef!.delete();
-                                                logFirebaseEvent(
-                                                    '_navigate_back');
-                                                context.safePop();
-                                              },
-                                              pollAction: (question,
-                                                  option1,
-                                                  option2,
-                                                  option3,
-                                                  option4,
-                                                  duration) async {
-                                                logFirebaseEvent(
-                                                    '_update_page_state');
-                                                _model.typeOfMediaUploaded =
-                                                    'poll';
-                                                _model.pollQuestion = question;
-                                                _model.pollOption1 = option1;
-                                                _model.pollOption2 = option2;
-                                                _model.pollOption3 = option3;
-                                                _model.pollOption4 = option4;
-                                                _model.pollDuration = duration;
-                                                setState(() {});
-                                              },
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  ).then((value) => safeSetState(() {}));
-                                },
-                                child: Container(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.add_rounded,
-                                    color: Color(0xFF504E4E),
-                                    size: 32.0,
-                                  ),
-                                ),
-                              ),
-                          ].divide(const SizedBox(width: 10.0)),
-                        ),
-                      ),
-                    ),
-                    if (_model.datePickerVisbile)
-                      Container(
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                        ),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 2.0,
-                            sigmaY: 2.0,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    logFirebaseEvent(
-                                        'VIEW_OR_EDIT_CAMPAIGN_POST_Container_ae9');
-                                    logFirebaseEvent(
-                                        'Container_widget_animation');
-                                    if (animationsMap[
-                                            'containerOnActionTriggerAnimation'] !=
-                                        null) {
-                                      await animationsMap[
-                                              'containerOnActionTriggerAnimation']!
-                                          .controller
-                                          .reverse();
-                                    }
-                                    logFirebaseEvent(
-                                        'Container_update_page_state');
-                                    _model.datePickerVisbile = false;
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: const BoxDecoration(),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      blurRadius: 7.0,
-                                      color: Color(0x33000000),
-                                      offset: Offset(
-                                        0.0,
-                                        -2.0,
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(0.0),
-                                    bottomRight: Radius.circular(0.0),
-                                    topLeft: Radius.circular(16.0),
-                                    topRight: Radius.circular(16.0),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 8.0, 0.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 60.0,
-                                            height: 3.0,
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFE0E3E7),
-                                              borderRadius:
-                                                  BorderRadius.circular(4.0),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                        child: Text(
-                                          'Schedule',
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 24.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts:
-                                                    GoogleFonts.asMap()
-                                                        .containsKey(
-                                                            'Montserrat'),
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 12.0, 0.0, 4.0),
-                                        child: Text(
-                                          'Date *',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelMedium
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts:
-                                                    GoogleFonts.asMap()
-                                                        .containsKey(
-                                                            'Montserrat'),
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            logFirebaseEvent(
-                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_m63');
-                                            logFirebaseEvent(
-                                                'Container_date_time_picker');
-                                            final datePicked1Date =
-                                                await showDatePicker(
-                                              context: context,
-                                              initialDate: getCurrentTimestamp,
-                                              firstDate: getCurrentTimestamp,
-                                              lastDate: DateTime(2050),
-                                              builder: (context, child) {
-                                                return wrapInMaterialDatePickerTheme(
-                                                  context,
-                                                  child!,
-                                                  headerBackgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  headerForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryBackground,
-                                                  headerTextStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineLarge
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineLargeFamily,
-                                                            fontSize: 32.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                .containsKey(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLargeFamily),
-                                                          ),
-                                                  pickerBackgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryBackground,
-                                                  pickerForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  selectedDateTimeBackgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                  selectedDateTimeForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  actionButtonForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  iconSize: 24.0,
-                                                );
-                                              },
-                                            );
-
-                                            if (datePicked1Date != null) {
-                                              safeSetState(() {
-                                                _model.datePicked1 = DateTime(
-                                                  datePicked1Date.year,
-                                                  datePicked1Date.month,
-                                                  datePicked1Date.day,
-                                                );
-                                              });
-                                            }
-                                            logFirebaseEvent(
-                                                'Container_update_page_state');
-                                            _model.scheduledDate =
-                                                _model.datePicked1;
-                                            setState(() {});
-                                          },
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: 44.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              border: Border.all(
-                                                color: const Color(0xFF3D3D3D),
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 8.0, 12.0, 8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    dateTimeFormat('yMMMd',
-                                                        _model.scheduledDate),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                  ),
-                                                  const Icon(
-                                                    Icons.calendar_month_sharp,
-                                                    color: Color(0xFF3F3D3D),
-                                                    size: 20.0,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 20.0, 0.0, 4.0),
-                                        child: Text(
-                                          'Time *',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelMedium
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts:
-                                                    GoogleFonts.asMap()
-                                                        .containsKey(
-                                                            'Montserrat'),
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            logFirebaseEvent(
-                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Container_n0h');
-                                            logFirebaseEvent(
-                                                'Container_date_time_picker');
-
-                                            final datePicked2Time =
-                                                await showTimePicker(
-                                              context: context,
-                                              initialTime:
-                                                  TimeOfDay.fromDateTime(
-                                                      getCurrentTimestamp),
-                                              builder: (context, child) {
-                                                return wrapInMaterialTimePickerTheme(
-                                                  context,
-                                                  child!,
-                                                  headerBackgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  headerForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryBackground,
-                                                  headerTextStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineLarge
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineLargeFamily,
-                                                            fontSize: 32.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                .containsKey(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLargeFamily),
-                                                          ),
-                                                  pickerBackgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryBackground,
-                                                  pickerForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  selectedDateTimeBackgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                  selectedDateTimeForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  actionButtonForegroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  iconSize: 24.0,
-                                                );
-                                              },
-                                            );
-                                            if (datePicked2Time != null) {
-                                              safeSetState(() {
-                                                _model.datePicked2 = DateTime(
-                                                  getCurrentTimestamp.year,
-                                                  getCurrentTimestamp.month,
-                                                  getCurrentTimestamp.day,
-                                                  datePicked2Time.hour,
-                                                  datePicked2Time.minute,
-                                                );
-                                              });
-                                            }
-                                            logFirebaseEvent(
-                                                'Container_update_page_state');
-                                            _model.scheduledTime =
-                                                _model.datePicked2;
-                                            setState(() {});
-                                          },
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: 44.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              border: Border.all(
-                                                color: const Color(0xFF3D3D3D),
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 8.0, 12.0, 8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    dateTimeFormat('jm',
-                                                        _model.scheduledTime),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                  ),
-                                                  const Icon(
-                                                    Icons.access_time_rounded,
-                                                    color: Color(0xFF3F3D3D),
-                                                    size: 20.0,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 16.0, 0.0),
-                                        child: Text(
-                                          '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
-                                              ),
-                                        ),
-                                      ),
-                                      if (!_model.isScheduled)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 16.0, 44.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              logFirebaseEvent(
-                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
-                                              logFirebaseEvent(
-                                                  'Button_widget_animation');
-                                              if (animationsMap[
-                                                      'containerOnActionTriggerAnimation'] !=
-                                                  null) {
-                                                await animationsMap[
-                                                        'containerOnActionTriggerAnimation']!
-                                                    .controller
-                                                    .reverse();
-                                              }
-                                              logFirebaseEvent(
-                                                  'Button_update_page_state');
-                                              _model.isScheduled = true;
-                                              _model.datePickerVisbile = false;
-                                              setState(() {});
-                                            },
-                                            text: 'Next',
-                                            options: FFButtonOptions(
-                                              width: double.infinity,
-                                              height: 32.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                              textStyle: FlutterFlowTheme.of(
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 20.0, 0.0, 4.0),
+                                            child: Text(
+                                              'Time *',
+                                              style: FlutterFlowTheme.of(
                                                       context)
-                                                  .titleSmall
+                                                  .labelMedium
                                                   .override(
                                                     fontFamily: 'Montserrat',
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 14.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts:
@@ -4499,197 +4555,468 @@ class _ViewOrEditCampaignPostWidgetState
                                                             .containsKey(
                                                                 'Montserrat'),
                                                   ),
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(24.0),
                                             ),
                                           ),
-                                        ),
-                                      if (_model.isScheduled)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 16.0, 44.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    logFirebaseEvent(
-                                                        'VIEW_OR_EDIT_CAMPAIGN_POST_CANCEL_SCHEDU');
-                                                    logFirebaseEvent(
-                                                        'Button_widget_animation');
-                                                    if (animationsMap[
-                                                            'containerOnActionTriggerAnimation'] !=
-                                                        null) {
-                                                      animationsMap[
-                                                              'containerOnActionTriggerAnimation']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
-                                                    logFirebaseEvent(
-                                                        'Button_update_page_state');
-                                                    _model.scheduledTime = null;
-                                                    _model.scheduledDate = null;
-                                                    _model.isScheduled = false;
-                                                    _model.datePickerVisbile =
-                                                        false;
-                                                    setState(() {});
-                                                    logFirebaseEvent(
-                                                        'Button_backend_call');
-                                                    await _model
-                                                        .scheduledDocument!
-                                                        .delete();
-                                                  },
-                                                  text: 'Cancel Schedule',
-                                                  options: FFButtonOptions(
-                                                    width: double.infinity,
-                                                    height: 32.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: Colors.transparent,
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts:
-                                                              GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      'Montserrat'),
-                                                        ),
-                                                    elevation: 0.0,
-                                                    borderSide: BorderSide(
-                                                      color:
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 16.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'VIEW_OR_EDIT_CAMPAIGN_POST_Container_n0h');
+                                                logFirebaseEvent(
+                                                    'Container_date_time_picker');
+
+                                                final datePicked2Time =
+                                                    await showTimePicker(
+                                                  context: context,
+                                                  initialTime:
+                                                      TimeOfDay.fromDateTime(
+                                                          getCurrentTimestamp),
+                                                  builder: (context, child) {
+                                                    return wrapInMaterialTimePickerTheme(
+                                                      context,
+                                                      child!,
+                                                      headerBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      headerForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground,
+                                                      headerTextStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLargeFamily,
+                                                                fontSize: 32.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .headlineLargeFamily),
+                                                              ),
+                                                      pickerBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      pickerForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      selectedDateTimeBackgroundColor:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .secondary,
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24.0),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    logFirebaseEvent(
-                                                        'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
-                                                    logFirebaseEvent(
-                                                        'Button_backend_call');
-
-                                                    await _model
-                                                        .scheduledDocument!
-                                                        .update(
-                                                            createScheduledPostsRecordData(
-                                                      timestamp: functions
-                                                          .combineDateTime(
-                                                              _model
-                                                                  .scheduledDate!,
-                                                              _model
-                                                                  .scheduledTime!),
-                                                    ));
-                                                    logFirebaseEvent(
-                                                        'Button_widget_animation');
-                                                    if (animationsMap[
-                                                            'containerOnActionTriggerAnimation'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'containerOnActionTriggerAnimation']!
-                                                          .controller
-                                                          .reverse();
-                                                    }
-                                                    logFirebaseEvent(
-                                                        'Button_update_page_state');
-                                                    _model.datePickerVisbile =
-                                                        false;
-                                                    setState(() {});
+                                                      selectedDateTimeForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      actionButtonForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      iconSize: 24.0,
+                                                    );
                                                   },
-                                                  text: 'Next',
-                                                  options: FFButtonOptions(
-                                                    width: double.infinity,
-                                                    height: 32.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondary,
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: Colors.white,
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts:
-                                                              GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      'Montserrat'),
-                                                        ),
-                                                    borderSide: const BorderSide(
-                                                      color: Colors.transparent,
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24.0),
+                                                );
+                                                if (datePicked2Time != null) {
+                                                  safeSetState(() {
+                                                    _model.datePicked2 =
+                                                        DateTime(
+                                                      getCurrentTimestamp.year,
+                                                      getCurrentTimestamp.month,
+                                                      getCurrentTimestamp.day,
+                                                      datePicked2Time.hour,
+                                                      datePicked2Time.minute,
+                                                    );
+                                                  });
+                                                }
+                                                logFirebaseEvent(
+                                                    'Container_update_page_state');
+                                                _model.scheduledTime =
+                                                    _model.datePicked2;
+                                                setState(() {});
+                                              },
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 44.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  border: Border.all(
+                                                    color: const Color(0xFF3D3D3D),
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          12.0, 8.0, 12.0, 8.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        dateTimeFormat(
+                                                            'jm',
+                                                            _model
+                                                                .scheduledTime),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                      const Icon(
+                                                        Icons
+                                                            .access_time_rounded,
+                                                        color:
+                                                            Color(0xFF3F3D3D),
+                                                        size: 20.0,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 16.0)),
+                                            ),
                                           ),
-                                        ),
-                                    ],
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 16.0, 16.0, 0.0),
+                                            child: Text(
+                                              '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                            ),
+                                          ),
+                                          if (!_model.isScheduled)
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 16.0, 16.0, 44.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
+                                                  logFirebaseEvent(
+                                                      'Button_widget_animation');
+                                                  if (animationsMap[
+                                                          'containerOnActionTriggerAnimation'] !=
+                                                      null) {
+                                                    await animationsMap[
+                                                            'containerOnActionTriggerAnimation']!
+                                                        .controller
+                                                        .reverse();
+                                                  }
+                                                  logFirebaseEvent(
+                                                      'Button_update_page_state');
+                                                  _model.isScheduled = true;
+                                                  _model.datePickerVisbile =
+                                                      false;
+                                                  setState(() {});
+                                                },
+                                                text: 'Next',
+                                                options: FFButtonOptions(
+                                                  width: double.infinity,
+                                                  height: 32.0,
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color: Colors.white,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts:
+                                                            GoogleFonts.asMap()
+                                                                .containsKey(
+                                                                    'Montserrat'),
+                                                      ),
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24.0),
+                                                ),
+                                              ),
+                                            ),
+                                          if (_model.isScheduled)
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 16.0, 16.0, 44.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        logFirebaseEvent(
+                                                            'VIEW_OR_EDIT_CAMPAIGN_POST_CANCEL_SCHEDU');
+                                                        logFirebaseEvent(
+                                                            'Button_widget_animation');
+                                                        if (animationsMap[
+                                                                'containerOnActionTriggerAnimation'] !=
+                                                            null) {
+                                                          animationsMap[
+                                                                  'containerOnActionTriggerAnimation']!
+                                                              .controller
+                                                              .reverse();
+                                                        }
+                                                        logFirebaseEvent(
+                                                            'Button_update_page_state');
+                                                        _model.scheduledTime =
+                                                            null;
+                                                        _model.scheduledDate =
+                                                            null;
+                                                        _model.isScheduled =
+                                                            false;
+                                                        _model.datePickerVisbile =
+                                                            false;
+                                                        setState(() {});
+                                                        logFirebaseEvent(
+                                                            'Button_backend_call');
+                                                        await _model
+                                                            .scheduledDocument!
+                                                            .delete();
+                                                      },
+                                                      text: 'Cancel Schedule',
+                                                      options: FFButtonOptions(
+                                                        width: double.infinity,
+                                                        height: 32.0,
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color:
+                                                            Colors.transparent,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          'Montserrat'),
+                                                                ),
+                                                        elevation: 0.0,
+                                                        borderSide: BorderSide(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        logFirebaseEvent(
+                                                            'VIEW_OR_EDIT_CAMPAIGN_POST_NEXT_BTN_ON_T');
+                                                        logFirebaseEvent(
+                                                            'Button_backend_call');
+
+                                                        await _model
+                                                            .scheduledDocument!
+                                                            .update(
+                                                                createScheduledPostsRecordData(
+                                                          timestamp: functions
+                                                              .combineDateTime(
+                                                                  _model
+                                                                      .scheduledDate!,
+                                                                  _model
+                                                                      .scheduledTime!),
+                                                        ));
+                                                        logFirebaseEvent(
+                                                            'Button_widget_animation');
+                                                        if (animationsMap[
+                                                                'containerOnActionTriggerAnimation'] !=
+                                                            null) {
+                                                          await animationsMap[
+                                                                  'containerOnActionTriggerAnimation']!
+                                                              .controller
+                                                              .reverse();
+                                                        }
+                                                        logFirebaseEvent(
+                                                            'Button_update_page_state');
+                                                        _model.datePickerVisbile =
+                                                            false;
+                                                        setState(() {});
+                                                      },
+                                                      text: 'Next',
+                                                      options: FFButtonOptions(
+                                                        width: double.infinity,
+                                                        height: 32.0,
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          'Montserrat'),
+                                                                ),
+                                                        borderSide: const BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ].divide(const SizedBox(width: 16.0)),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
+                          ).animateOnActionTrigger(
+                            animationsMap['containerOnActionTriggerAnimation']!,
                           ),
-                        ),
-                      ).animateOnActionTrigger(
-                        animationsMap['containerOnActionTriggerAnimation']!,
-                      ),
-                  ],
-                ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

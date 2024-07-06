@@ -433,10 +433,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'viewOrEditCampaignPost',
               requireAuth: true,
               builder: (context, params) => ViewOrEditCampaignPostWidget(
-                postText: params.getParam(
-                  'postText',
-                  ParamType.String,
-                ),
                 postRef: params.getParam(
                   'postRef',
                   ParamType.DocumentReference,
@@ -456,6 +452,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.DateTime,
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'accessWall',
+              path: 'accessWall',
+              builder: (context, params) => const AccessWallWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

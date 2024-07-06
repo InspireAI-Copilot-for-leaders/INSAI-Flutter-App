@@ -983,6 +983,45 @@ class CompanyThoughtLeaderhipCampaignCall {
   }
 }
 
+class CompanyThoughtLeadershipWithDataCall {
+  static Future<ApiCallResponse> call({
+    String? uid = '',
+    String? companyName = '',
+    String? campaignId = '',
+    int? noOfPosts,
+    List<String>? dataList,
+    String? dataType = '',
+  }) async {
+    final data = _serializeList(dataList);
+
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid",
+  "company_name": "$companyName",
+  "campaign_id": "$campaignId",
+  "num_of_posts": $noOfPosts,
+  "data": $data,
+  "data_type": "$dataType"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Company Thought leadership with data ',
+      apiUrl:
+          'https://campaign-5qpvtpji4a-em.a.run.app/campaign/create_company_thought_leadership_content_from_data_source',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class CurrentEventsCampaignCall {
   static Future<ApiCallResponse> call({
     String? uid = '',

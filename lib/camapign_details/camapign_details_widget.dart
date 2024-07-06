@@ -250,11 +250,6 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                             context.pushNamed(
                                               'viewOrEditCampaignPost',
                                               queryParameters: {
-                                                'postText': serializeParam(
-                                                  camapignDetailsVarItem
-                                                      .finalPost,
-                                                  ParamType.String,
-                                                ),
                                                 'postRef': serializeParam(
                                                   camapignDetailsVarItem
                                                       .reference,
@@ -430,7 +425,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                                   'Pending')
                                                 Text(
                                                   camapignDetailsVarItem
-                                                      .finalPost,
+                                                      .posts.first.topic,
                                                   maxLines: 2,
                                                   style: FlutterFlowTheme.of(
                                                           context)

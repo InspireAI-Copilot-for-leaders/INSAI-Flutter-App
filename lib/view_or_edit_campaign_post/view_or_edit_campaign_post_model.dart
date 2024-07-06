@@ -91,10 +91,23 @@ class ViewOrEditCampaignPostModel
   ScheduledPostsRecord? scheduledDocDoc;
   // Stores action output result for [Backend Call - Create Document] action in pollSchedule widget.
   ScheduledPostsRecord? scheduledDocOnlyPoll;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
+  // State field(s) for TabBar widget.
+  TabController? tabBarController;
+  int get tabBarCurrentIndex =>
+      tabBarController != null ? tabBarController!.index : 0;
+
+  // State field(s) for shortPost widget.
+  FocusNode? shortPostFocusNode;
+  TextEditingController? shortPostTextController;
+  String? Function(BuildContext, String?)? shortPostTextControllerValidator;
+  // State field(s) for MediumPost widget.
+  FocusNode? mediumPostFocusNode;
+  TextEditingController? mediumPostTextController;
+  String? Function(BuildContext, String?)? mediumPostTextControllerValidator;
+  // State field(s) for longPost widget.
+  FocusNode? longPostFocusNode;
+  TextEditingController? longPostTextController;
+  String? Function(BuildContext, String?)? longPostTextControllerValidator;
   bool isDataUploading3 = false;
   List<FFUploadedFile> uploadedLocalFiles3 = [];
 
@@ -107,7 +120,14 @@ class ViewOrEditCampaignPostModel
   @override
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode?.dispose();
-    textController?.dispose();
+    tabBarController?.dispose();
+    shortPostFocusNode?.dispose();
+    shortPostTextController?.dispose();
+
+    mediumPostFocusNode?.dispose();
+    mediumPostTextController?.dispose();
+
+    longPostFocusNode?.dispose();
+    longPostTextController?.dispose();
   }
 }

@@ -216,13 +216,13 @@ final parametersBuilderMap =
       ),
   'viewOrEditCampaignPost': (data) async => ParameterData(
         allParams: {
-          'postText': getParameter<String>(data, 'postText'),
           'postRef': getParameter<DocumentReference>(data, 'postRef'),
           'postTitle': getParameter<String>(data, 'postTitle'),
           'indexInList': getParameter<int>(data, 'indexInList'),
           'scheduledTime': getParameter<DateTime>(data, 'scheduledTime'),
         },
       ),
+  'accessWall': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

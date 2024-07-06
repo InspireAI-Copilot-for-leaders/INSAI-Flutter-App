@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -87,49 +86,8 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                               onTap: () async {
                                 logFirebaseEvent(
                                     'PAY_WALL_PAGE_Icon_lzwjxiqh_ON_TAP');
-                                logFirebaseEvent('Icon_alert_dialog');
-                                var confirmDialogResponse =
-                                    await showDialog<bool>(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: const Text('Logout?'),
-                                              content: const Text(
-                                                  'This will log you out of InspireAI completely. Are you sure you want to logout?'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          false),
-                                                  child: const Text('Cancel'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          true),
-                                                  child: const Text('Yes, Logout'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ) ??
-                                        false;
-                                if (confirmDialogResponse) {
-                                  logFirebaseEvent('Icon_auth');
-                                  GoRouter.of(context).prepareAuthEvent(true);
-                                  await authManager.signOut();
-                                  GoRouter.of(context).clearRedirectLocation();
-
-                                  logFirebaseEvent('Icon_navigate_to');
-
-                                  context.goNamedAuth(
-                                    'LandingPage',
-                                    context.mounted,
-                                    ignoreRedirect: true,
-                                  );
-                                }
+                                logFirebaseEvent('Icon_navigate_back');
+                                context.pop();
                               },
                               child: Icon(
                                 Icons.arrow_back_rounded,
@@ -138,58 +96,6 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 1.0,
-                        height: 1.0,
-                        child: custom_widgets.BackButtonOverrider(
-                          width: 1.0,
-                          height: 1.0,
-                          onBack: () async {
-                            logFirebaseEvent(
-                                'PAY_WALL_Container_7ytidltv_CALLBACK');
-                            logFirebaseEvent(
-                                'BackButtonOverrider_alert_dialog');
-                            var confirmDialogResponse = await showDialog<bool>(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: const Text('Logout?'),
-                                      content: const Text(
-                                          'This will log you out of InspireAI completely. Are you sure you want to logout?'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(
-                                              alertDialogContext, false),
-                                          child: const Text('Cancel'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(
-                                              alertDialogContext, true),
-                                          child: const Text('Yes, Logout'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ) ??
-                                false;
-                            if (confirmDialogResponse) {
-                              logFirebaseEvent('BackButtonOverrider_auth');
-                              GoRouter.of(context).prepareAuthEvent(true);
-                              await authManager.signOut();
-                              GoRouter.of(context).clearRedirectLocation();
-
-                              logFirebaseEvent(
-                                  'BackButtonOverrider_navigate_to');
-
-                              context.goNamedAuth(
-                                'LandingPage',
-                                context.mounted,
-                                ignoreRedirect: true,
-                              );
-                            }
-                          },
                         ),
                       ),
                       Padding(
