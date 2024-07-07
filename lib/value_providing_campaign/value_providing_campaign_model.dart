@@ -53,10 +53,10 @@ class ValueProvidingCampaignModel
   // State field(s) for DropDown widget.
   int? dropDownValue2;
   FormFieldController<int>? dropDownValueController2;
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  CampaignsDetailsRecord? apiResult7;
   // Stores action output result for [Backend Call - API (Domain Thought leaderhip Campaign)] action in Button widget.
   ApiCallResponse? apiResult7vv;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  CampaignsDetailsRecord? apiResult7;
   // Model for LoadingScreen component.
   late LoadingScreenModel loadingScreenModel;
   // State field(s) for contentURL1 widget.

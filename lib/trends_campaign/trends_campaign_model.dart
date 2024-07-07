@@ -28,10 +28,10 @@ class TrendsCampaignModel extends FlutterFlowModel<TrendsCampaignWidget> {
   // State field(s) for DropDown widget.
   int? dropDownValue2;
   FormFieldController<int>? dropDownValueController2;
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  CampaignsDetailsRecord? apiResult7vv;
   // Stores action output result for [Backend Call - API (Current events Campaign)] action in Button widget.
   ApiCallResponse? apiResulttd4;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  CampaignsDetailsRecord? apiResult7vv;
   // Model for LoadingScreen component.
   late LoadingScreenModel loadingScreenModel;
 
