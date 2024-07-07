@@ -1360,7 +1360,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                                                               children: [
                                                                                                 Text(
-                                                                                                  highlightItem.expertiseArea,
+                                                                                                  highlightItem.domain,
                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                         fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                         color: FlutterFlowTheme.of(context).alternate,
@@ -1873,28 +1873,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
                                                                             mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
+                                                                                MainAxisAlignment.end,
                                                                             children: [
-                                                                              Flexible(
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 8.0, 0.0),
-                                                                                  child: AutoSizeText(
-                                                                                    filteredTabsItem.expertiseArea.maybeHandleOverflow(
-                                                                                      maxChars: 70,
-                                                                                      replacement: '…',
-                                                                                    ),
-                                                                                    textAlign: TextAlign.start,
-                                                                                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                          fontFamily: 'Plus Jakarta Sans',
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          fontSize: 12.0,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
                                                                               Flexible(
                                                                                 child: Padding(
                                                                                   padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 0.0, 0.0),
@@ -2122,28 +2102,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                               ),
                                                                               Row(
                                                                                 mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                mainAxisAlignment: MainAxisAlignment.end,
                                                                                 children: [
-                                                                                  Flexible(
-                                                                                    child: Padding(
-                                                                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 8.0, 0.0),
-                                                                                      child: AutoSizeText(
-                                                                                        forYouItem.expertiseArea.maybeHandleOverflow(
-                                                                                          maxChars: 70,
-                                                                                          replacement: '…',
-                                                                                        ),
-                                                                                        textAlign: TextAlign.start,
-                                                                                        style: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                              fontFamily: 'Plus Jakarta Sans',
-                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                              fontSize: 12.0,
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
                                                                                   Flexible(
                                                                                     child: Padding(
                                                                                       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),

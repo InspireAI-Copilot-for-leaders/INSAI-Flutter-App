@@ -1026,9 +1026,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                   queryBuilder: (articleRecord) =>
                                                       articleRecord
                                                           .whereIn(
-                                                              'expertise_area',
+                                                              'domain',
                                                               (currentUserDocument
-                                                                      ?.thoughtLeadershipAreas
+                                                                      ?.broadDomains
                                                                       .toList() ??
                                                                   []))
                                                           .orderBy(

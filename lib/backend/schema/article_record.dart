@@ -45,11 +45,6 @@ class ArticleRecord extends FirestoreRecord {
   String get domain => _domain ?? '';
   bool hasDomain() => _domain != null;
 
-  // "expertise_area" field.
-  String? _expertiseArea;
-  String get expertiseArea => _expertiseArea ?? '';
-  bool hasExpertiseArea() => _expertiseArea != null;
-
   // "publish_dates" field.
   List<DateTime>? _publishDates;
   List<DateTime> get publishDates => _publishDates ?? const [];
@@ -66,7 +61,6 @@ class ArticleRecord extends FirestoreRecord {
     _scrappedAt = snapshotData['scrapped_at'] as DateTime?;
     _trendKeyword = snapshotData['trend_keyword'] as String?;
     _domain = snapshotData['domain'] as String?;
-    _expertiseArea = snapshotData['expertise_area'] as String?;
     _publishDates = getDataList(snapshotData['publish_dates']);
   }
 
@@ -110,7 +104,6 @@ Map<String, dynamic> createArticleRecordData({
   DateTime? scrappedAt,
   String? trendKeyword,
   String? domain,
-  String? expertiseArea,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -119,7 +112,6 @@ Map<String, dynamic> createArticleRecordData({
       'scrapped_at': scrappedAt,
       'trend_keyword': trendKeyword,
       'domain': domain,
-      'expertise_area': expertiseArea,
     }.withoutNulls,
   );
 
@@ -138,7 +130,6 @@ class ArticleRecordDocumentEquality implements Equality<ArticleRecord> {
         e1?.scrappedAt == e2?.scrappedAt &&
         e1?.trendKeyword == e2?.trendKeyword &&
         e1?.domain == e2?.domain &&
-        e1?.expertiseArea == e2?.expertiseArea &&
         listEquality.equals(e1?.publishDates, e2?.publishDates);
   }
 
@@ -150,7 +141,6 @@ class ArticleRecordDocumentEquality implements Equality<ArticleRecord> {
         e?.scrappedAt,
         e?.trendKeyword,
         e?.domain,
-        e?.expertiseArea,
         e?.publishDates
       ]);
 

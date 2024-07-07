@@ -54,12 +54,14 @@ class CompanyCampaignModel extends FlutterFlowModel<CompanyCampaignWidget> {
   // State field(s) for DropDown widget.
   int? dropDownValue2;
   FormFieldController<int>? dropDownValueController2;
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  CampaignsDetailsRecord? apiResult7vv;
   // Stores action output result for [Backend Call - API (Company Thought leadership with data )] action in Button widget.
   ApiCallResponse? apiResult2cx;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  CampaignsDetailsRecord? apiResult7vv;
   // Stores action output result for [Backend Call - API (Company Thought leaderhip Campaign)] action in Button widget.
   ApiCallResponse? apiResultm97;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  CampaignsDetailsRecord? apiResult7v;
   // Model for LoadingScreen component.
   late LoadingScreenModel loadingScreenModel;
   // State field(s) for contentURL1 widget.

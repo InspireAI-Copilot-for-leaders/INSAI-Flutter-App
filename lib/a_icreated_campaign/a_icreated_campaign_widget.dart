@@ -340,85 +340,99 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 8.0, 0.0, 12.0),
                                             child: AuthUserStreamWidget(
-                                              builder: (context) => RichText(
-                                                textScaler:
-                                                    MediaQuery.of(context)
-                                                        .textScaler,
-                                                text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: _model.newCompanyName !=
-                                                                  null &&
-                                                              _model.newCompanyName !=
-                                                                  ''
-                                                          ? 'Added your organization. '
-                                                          : 'We didn\'t find enough details about your company/organization to include in the campaign. ',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelLarge
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                fontSize: 14.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .labelLargeFamily),
-                                                              ),
-                                                    ),
-                                                    TextSpan(
-                                                      text: _model.newCompanyName !=
-                                                                  null &&
-                                                              _model.newCompanyName !=
-                                                                  ''
-                                                          ? 'Change.'
-                                                          : 'Add your company.',
-                                                      style: TextStyle(
-                                                        color:
+                                              builder: (context) => InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'A_ICREATED_CAMPAIGN_Text_lkk806o6_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'RichText_update_page_state');
+                                                  _model.addCompany = true;
+                                                  setState(() {});
+                                                },
+                                                child: RichText(
+                                                  textScaler:
+                                                      MediaQuery.of(context)
+                                                          .textScaler,
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: _model.newCompanyName !=
+                                                                    null &&
+                                                                _model.newCompanyName !=
+                                                                    ''
+                                                            ? 'Added your organization. '
+                                                            : 'We didn\'t find enough details about your company/organization to include in the campaign. ',
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondary,
-                                                        fontWeight:
-                                                            FontWeight.normal,
+                                                                .labelLarge
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .labelLargeFamily),
+                                                                ),
                                                       ),
-                                                    )
-                                                  ],
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelLargeFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily),
-                                                      ),
+                                                      TextSpan(
+                                                        text: _model.newCompanyName !=
+                                                                    null &&
+                                                                _model.newCompanyName !=
+                                                                    ''
+                                                            ? 'Change.'
+                                                            : 'Add your company.',
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                      )
+                                                    ],
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLargeFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily),
+                                                        ),
+                                                  ),
+                                                  textAlign: TextAlign.start,
                                                 ),
-                                                textAlign: TextAlign.start,
                                               ),
                                             ),
                                           ),
@@ -1434,16 +1448,6 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'A_ICREATED_CAMPAIGN_DO_THE_INSPIRE_A_I_M');
-                                logFirebaseEvent('Button_backend_call');
-
-                                await CampaignsDetailsRecord.createDoc(
-                                        currentUserReference!)
-                                    .set(createCampaignsDetailsRecordData(
-                                  campaignId:
-                                      '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                  createdOn: getCurrentTimestamp,
-                                  campaignTitle: _model.textController1.text,
-                                ));
                                 await Future.wait([
                                   Future(() async {
                                     logFirebaseEvent('Button_backend_call');
@@ -1461,28 +1465,6 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                       campaignId:
                                           '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
                                     );
-
-                                    if (!(_model.apiResult7vv?.succeeded ??
-                                        true)) {
-                                      logFirebaseEvent('Button_alert_dialog');
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title: const Text('Request Failed!'),
-                                            content: const Text(
-                                                'Campaign creation request failed.'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: const Text('Ok'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
                                   }),
                                   Future(() async {
                                     logFirebaseEvent('Button_backend_call');
@@ -1498,28 +1480,6 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                       campaignId:
                                           '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
                                     );
-
-                                    if (!(_model.apiResulttd4?.succeeded ??
-                                        true)) {
-                                      logFirebaseEvent('Button_alert_dialog');
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title: const Text('Request Failed!'),
-                                            content: const Text(
-                                                'Campaign creation request failed.'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: const Text('Ok'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
                                   }),
                                   Future(() async {
                                     if (_model.newCompanyName != null &&
@@ -1540,29 +1500,6 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                 ? _model.plainText
                                                 : _model.listOfUrls,
                                       );
-
-                                      if (!(_model.apiResults13?.succeeded ??
-                                          true)) {
-                                        logFirebaseEvent('Button_alert_dialog');
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: const Text('Request Failed!'),
-                                              content: const Text(
-                                                  'Campaign creation request failed.'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: const Text('Ok'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      }
                                     } else {
                                       if ((currentUserDocument?.activeCompanies
                                                   .toList() ??
@@ -1583,43 +1520,62 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                               .first
                                               .companyName,
                                         );
-
-                                        if (!(_model.apiResultm97?.succeeded ??
-                                            true)) {
-                                          logFirebaseEvent(
-                                              'Button_alert_dialog');
-                                          await showDialog(
-                                            context: context,
-                                            builder: (alertDialogContext) {
-                                              return AlertDialog(
-                                                title: const Text('Request Failed!'),
-                                                content: const Text(
-                                                    'Campaign creation request failed.'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext),
-                                                    child: const Text('Ok'),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        }
                                       }
                                     }
                                   }),
                                 ]);
-                                logFirebaseEvent('Button_update_page_state');
-                                _model.loadingScreenVisible = true;
-                                setState(() {});
-                                logFirebaseEvent('Button_wait__delay');
-                                await Future.delayed(
-                                    const Duration(milliseconds: 4000));
-                                logFirebaseEvent('Button_navigate_to');
+                                if ((_model.apiResult7vv?.succeeded ?? true) &&
+                                    (_model.apiResulttd4?.succeeded ?? true) &&
+                                    ((_model.apiResults13?.succeeded ?? true) ||
+                                        (_model.apiResultm97?.succeeded ??
+                                            true) ||
+                                        (!((currentUserDocument?.activeCompanies
+                                                        .toList() ??
+                                                    [])
+                                                .isNotEmpty) &&
+                                            (_model.newCompanyName == null ||
+                                                _model.newCompanyName ==
+                                                    '')))) {
+                                  logFirebaseEvent('Button_update_page_state');
+                                  _model.loadingScreenVisible = true;
+                                  setState(() {});
+                                  logFirebaseEvent('Button_backend_call');
 
-                                context.goNamed('campaigns');
+                                  await CampaignsDetailsRecord.createDoc(
+                                    currentUserReference!,
+                                    id: '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                  ).set(createCampaignsDetailsRecordData(
+                                    campaignId:
+                                        '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                    createdOn: getCurrentTimestamp,
+                                    campaignTitle: _model.textController1.text,
+                                  ));
+                                  logFirebaseEvent('Button_wait__delay');
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 4000));
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.goNamed('campaigns');
+                                } else {
+                                  logFirebaseEvent('Button_alert_dialog');
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Request Failed!'),
+                                        content: const Text(
+                                            'Campaign creation request failed.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
 
                                 setState(() {});
                               },

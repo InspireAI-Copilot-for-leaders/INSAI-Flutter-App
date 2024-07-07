@@ -647,27 +647,6 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                             );
                           } else {
                             logFirebaseEvent('Button_backend_call');
-
-                            var campaignsDetailsRecordReference =
-                                CampaignsDetailsRecord.createDoc(
-                                    currentUserReference!);
-                            await campaignsDetailsRecordReference
-                                .set(createCampaignsDetailsRecordData(
-                              campaignId:
-                                  '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                              createdOn: getCurrentTimestamp,
-                              campaignTitle: _model.textController.text,
-                            ));
-                            _model.apiResult7vv =
-                                CampaignsDetailsRecord.getDocumentFromData(
-                                    createCampaignsDetailsRecordData(
-                                      campaignId:
-                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                      createdOn: getCurrentTimestamp,
-                                      campaignTitle: _model.textController.text,
-                                    ),
-                                    campaignsDetailsRecordReference);
-                            logFirebaseEvent('Button_backend_call');
                             _model.apiResulttd4 =
                                 await CurrentEventsCampaignCall.call(
                               uid: currentUserUid,
@@ -684,6 +663,30 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                               logFirebaseEvent('Button_update_page_state');
                               _model.loadingScreenVisible = true;
                               setState(() {});
+                              logFirebaseEvent('Button_backend_call');
+
+                              var campaignsDetailsRecordReference =
+                                  CampaignsDetailsRecord.createDoc(
+                                currentUserReference!,
+                                id: '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                              );
+                              await campaignsDetailsRecordReference
+                                  .set(createCampaignsDetailsRecordData(
+                                campaignId:
+                                    '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                createdOn: getCurrentTimestamp,
+                                campaignTitle: _model.textController.text,
+                              ));
+                              _model.apiResult7vv =
+                                  CampaignsDetailsRecord.getDocumentFromData(
+                                      createCampaignsDetailsRecordData(
+                                        campaignId:
+                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        createdOn: getCurrentTimestamp,
+                                        campaignTitle:
+                                            _model.textController.text,
+                                      ),
+                                      campaignsDetailsRecordReference);
                               logFirebaseEvent('Button_wait__delay');
                               await Future.delayed(
                                   const Duration(milliseconds: 4000));
