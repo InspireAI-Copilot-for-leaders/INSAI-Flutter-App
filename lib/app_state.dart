@@ -158,7 +158,7 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_lastDiscoverCachedTime');
   }
 
-  bool _dashboardLoading = true;
+  bool _dashboardLoading = false;
   bool get dashboardLoading => _dashboardLoading;
   set dashboardLoading(bool value) {
     _dashboardLoading = value;

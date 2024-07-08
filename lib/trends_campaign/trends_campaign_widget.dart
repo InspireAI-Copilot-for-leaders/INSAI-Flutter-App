@@ -302,7 +302,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                   .fromSTEB(
                                                       12.0, 12.0, 12.0, 0.0),
                                               child: Text(
-                                                'Company to create content',
+                                                'Domain to watch trends on',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -660,16 +660,11 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                             );
 
                             if ((_model.apiResulttd4?.succeeded ?? true)) {
-                              logFirebaseEvent('Button_update_page_state');
-                              _model.loadingScreenVisible = true;
-                              setState(() {});
                               logFirebaseEvent('Button_backend_call');
 
                               var campaignsDetailsRecordReference =
                                   CampaignsDetailsRecord.createDoc(
-                                currentUserReference!,
-                                id: '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                              );
+                                      currentUserReference!);
                               await campaignsDetailsRecordReference
                                   .set(createCampaignsDetailsRecordData(
                                 campaignId:
@@ -687,6 +682,9 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                             _model.textController.text,
                                       ),
                                       campaignsDetailsRecordReference);
+                              logFirebaseEvent('Button_update_page_state');
+                              _model.loadingScreenVisible = true;
+                              setState(() {});
                               logFirebaseEvent('Button_wait__delay');
                               await Future.delayed(
                                   const Duration(milliseconds: 4000));
