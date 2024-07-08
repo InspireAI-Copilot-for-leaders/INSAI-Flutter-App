@@ -761,16 +761,11 @@ class _ValueProvidingCampaignWidgetState
                             );
 
                             if ((_model.apiResult7vv?.succeeded ?? true)) {
-                              logFirebaseEvent('Button_update_page_state');
-                              _model.isLoading = true;
-                              setState(() {});
                               logFirebaseEvent('Button_backend_call');
 
                               var campaignsDetailsRecordReference =
                                   CampaignsDetailsRecord.createDoc(
-                                currentUserReference!,
-                                id: '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                              );
+                                      currentUserReference!);
                               await campaignsDetailsRecordReference
                                   .set(createCampaignsDetailsRecordData(
                                 campaignId:
@@ -788,6 +783,9 @@ class _ValueProvidingCampaignWidgetState
                                             _model.textController1.text,
                                       ),
                                       campaignsDetailsRecordReference);
+                              logFirebaseEvent('Button_update_page_state');
+                              _model.isLoading = true;
+                              setState(() {});
                               logFirebaseEvent('Button_wait__delay');
                               await Future.delayed(
                                   const Duration(milliseconds: 4000));

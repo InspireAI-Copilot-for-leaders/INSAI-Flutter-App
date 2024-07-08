@@ -1035,16 +1035,11 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                               );
 
                               if ((_model.apiResult2cx?.succeeded ?? true)) {
-                                logFirebaseEvent('Button_update_page_state');
-                                _model.loadingScreenVisible = true;
-                                setState(() {});
                                 logFirebaseEvent('Button_backend_call');
 
                                 var campaignsDetailsRecordReference1 =
                                     CampaignsDetailsRecord.createDoc(
-                                  currentUserReference!,
-                                  id: '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                );
+                                        currentUserReference!);
                                 await campaignsDetailsRecordReference1
                                     .set(createCampaignsDetailsRecordData(
                                   campaignId:
@@ -1062,6 +1057,9 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                               _model.textController1.text,
                                         ),
                                         campaignsDetailsRecordReference1);
+                                logFirebaseEvent('Button_update_page_state');
+                                _model.loadingScreenVisible = true;
+                                setState(() {});
                                 logFirebaseEvent('Button_wait__delay');
                                 await Future.delayed(
                                     const Duration(milliseconds: 4000));
@@ -1110,16 +1108,11 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                 );
 
                                 if ((_model.apiResultm97?.succeeded ?? true)) {
-                                  logFirebaseEvent('Button_update_page_state');
-                                  _model.loadingScreenVisible = true;
-                                  setState(() {});
                                   logFirebaseEvent('Button_backend_call');
 
                                   var campaignsDetailsRecordReference2 =
                                       CampaignsDetailsRecord.createDoc(
-                                    currentUserReference!,
-                                    id: '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                  );
+                                          currentUserReference!);
                                   await campaignsDetailsRecordReference2
                                       .set(createCampaignsDetailsRecordData(
                                     campaignId:
@@ -1137,6 +1130,9 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                 _model.textController1.text,
                                           ),
                                           campaignsDetailsRecordReference2);
+                                  logFirebaseEvent('Button_update_page_state');
+                                  _model.loadingScreenVisible = true;
+                                  setState(() {});
                                   logFirebaseEvent('Button_wait__delay');
                                   await Future.delayed(
                                       const Duration(milliseconds: 4000));

@@ -570,10 +570,10 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                                             ?.activeCompanies
                                                                             .toList() ??
                                                                         [])
-                                                                    .isNotEmpty) &&
-                                                                (_model.newCompanyName ==
-                                                                        null ||
-                                                                    _model.newCompanyName ==
+                                                                    .isNotEmpty) ||
+                                                                (_model.newCompanyName !=
+                                                                        null &&
+                                                                    _model.newCompanyName !=
                                                                         ''))
                                                               Padding(
                                                                 padding:
@@ -1189,10 +1189,10 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                                             ?.activeCompanies
                                                                             .toList() ??
                                                                         [])
-                                                                    .isNotEmpty) &&
-                                                                (_model.newCompanyName ==
-                                                                        null ||
-                                                                    _model.newCompanyName ==
+                                                                    .isNotEmpty) ||
+                                                                (_model.newCompanyName !=
+                                                                        null &&
+                                                                    _model.newCompanyName !=
                                                                         ''))
                                                               Padding(
                                                                 padding:
@@ -1536,20 +1536,19 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                             (_model.newCompanyName == null ||
                                                 _model.newCompanyName ==
                                                     '')))) {
-                                  logFirebaseEvent('Button_update_page_state');
-                                  _model.loadingScreenVisible = true;
-                                  setState(() {});
                                   logFirebaseEvent('Button_backend_call');
 
                                   await CampaignsDetailsRecord.createDoc(
-                                    currentUserReference!,
-                                    id: '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                  ).set(createCampaignsDetailsRecordData(
+                                          currentUserReference!)
+                                      .set(createCampaignsDetailsRecordData(
                                     campaignId:
                                         '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
                                     createdOn: getCurrentTimestamp,
                                     campaignTitle: _model.textController1.text,
                                   ));
+                                  logFirebaseEvent('Button_update_page_state');
+                                  _model.loadingScreenVisible = true;
+                                  setState(() {});
                                   logFirebaseEvent('Button_wait__delay');
                                   await Future.delayed(
                                       const Duration(milliseconds: 4000));
