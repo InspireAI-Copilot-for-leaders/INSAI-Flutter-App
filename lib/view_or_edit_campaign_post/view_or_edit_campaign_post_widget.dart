@@ -655,6 +655,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                                 () async {
                                                               logFirebaseEvent(
                                                                   'VIEW_OR_EDIT_CAMPAIGN_POST_ImageSchedule');
+                                                              var shouldSetState =
+                                                                  false;
                                                               logFirebaseEvent(
                                                                   'ImageSchedule_upload_media_to_firebase');
                                                               {
@@ -737,6 +739,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           ''),
                                                                 );
 
+                                                                shouldSetState =
+                                                                    true;
                                                                 if ((_model
                                                                         .imageUrlSchCamp
                                                                         ?.succeeded ??
@@ -763,6 +767,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             .noOfImagesUploadedToFirebase],
                                                                   );
 
+                                                                  shouldSetState =
+                                                                      true;
                                                                   if ((_model
                                                                           .imageUploadedSchCamp
                                                                           ?.succeeded ??
@@ -859,6 +865,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           },
                                                                         ),
                                                                       }, scheduledPostsRecordReference);
+                                                                      shouldSetState =
+                                                                          true;
                                                                       logFirebaseEvent(
                                                                           'ImageSchedule_update_page_state');
                                                                       _model.noOfImagesUploadedToFirebase =
@@ -889,6 +897,11 @@ class _ViewOrEditCampaignPostWidgetState
                                                                         );
                                                                       },
                                                                     );
+                                                                    if (shouldSetState) {
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+                                                                    return;
                                                                   }
                                                                 } else {
                                                                   logFirebaseEvent(
@@ -914,6 +927,11 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       );
                                                                     },
                                                                   );
+                                                                  if (shouldSetState) {
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                  return;
                                                                 }
                                                               }
                                                               if (_model
@@ -1145,7 +1163,9 @@ class _ViewOrEditCampaignPostWidgetState
                                                                 setState(() {});
                                                               }
 
-                                                              setState(() {});
+                                                              if (shouldSetState) {
+                                                                setState(() {});
+                                                              }
                                                             },
                                                             text: 'Approve',
                                                             options:

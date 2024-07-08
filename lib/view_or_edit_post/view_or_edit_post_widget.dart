@@ -518,6 +518,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_PAGE_docButton_ON_TAP');
+                                              var shouldSetState = false;
                                               if (_model.typeOfMediaUploaded ==
                                                   'doc') {
                                                 logFirebaseEvent(
@@ -596,6 +597,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                 );
 
+                                                shouldSetState = true;
                                                 if ((_model
                                                         .liDocURL?.succeeded ??
                                                     true)) {
@@ -619,6 +621,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         _model.uploadedFileUrl1,
                                                   );
 
+                                                  shouldSetState = true;
                                                   if ((_model.docUploaded
                                                           ?.succeeded ??
                                                       true)) {
@@ -650,6 +653,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ''),
                                                     );
 
+                                                    shouldSetState = true;
                                                     if ((_model.apiResult9vv
                                                             ?.succeeded ??
                                                         true)) {
@@ -730,12 +734,91 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
 
                                                       context.goNamed(
                                                           'allPostsOverview');
+                                                    } else {
+                                                      logFirebaseEvent(
+                                                          'docButton_alert_dialog');
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: const Text(
+                                                                'Posting Failed!'),
+                                                            content: const Text(
+                                                                'Your doc could not be uploaded to linkedin.'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    const Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
                                                     }
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'docButton_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Upload Failed!'),
+                                                          content: const Text(
+                                                              'Your doc could not be uploaded to linkedin.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                    if (shouldSetState) {
+                                                      setState(() {});
+                                                    }
+                                                    return;
                                                   }
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'docButton_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Upload Failed!'),
+                                                        content: const Text(
+                                                            'Your doc could not be uploaded to linkedin.'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: const Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                  if (shouldSetState) {
+                                                    setState(() {});
+                                                  }
+                                                  return;
                                                 }
                                               }
-
-                                              setState(() {});
+                                              if (shouldSetState) {
+                                                setState(() {});
+                                              }
                                             },
                                             text: 'Post',
                                             options: FFButtonOptions(
@@ -781,6 +864,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_imageButton_ON_TAP');
+                                              var shouldSetState = false;
                                               logFirebaseEvent(
                                                   'imageButton_upload_media_to_firebase');
                                               {
@@ -852,6 +936,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                 );
 
+                                                shouldSetState = true;
                                                 if ((_model
                                                         .imageUrl?.succeeded ??
                                                     true)) {
@@ -877,6 +962,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             .noOfImagesUploadedToFirebase],
                                                   );
 
+                                                  shouldSetState = true;
                                                   if ((_model.imageUploaded
                                                           ?.succeeded ??
                                                       true)) {
@@ -978,6 +1064,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           },
                                                         ),
                                                       }, postedOnLinkedinRecordReference);
+                                                      shouldSetState = true;
                                                       logFirebaseEvent(
                                                           'imageButton_update_page_state');
                                                       _model.noOfImagesUploadedToFirebase =
@@ -985,7 +1072,61 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                               1;
                                                       setState(() {});
                                                     }
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'imageButton_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Image upload Failed!'),
+                                                          content: const Text(
+                                                              'Your images could not be uploaded to linkedin.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                    if (shouldSetState) {
+                                                      setState(() {});
+                                                    }
+                                                    return;
                                                   }
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'imageButton_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Image upload Failed!'),
+                                                        content: const Text(
+                                                            'Your images could not be uploaded to linkedin.'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: const Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                  if (shouldSetState) {
+                                                    setState(() {});
+                                                  }
+                                                  return;
                                                 }
                                               }
                                               if (_model
@@ -1018,6 +1159,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                 );
 
+                                                shouldSetState = true;
                                                 if ((_model.multiImgPosted
                                                         ?.succeeded ??
                                                     true)) {
@@ -1111,6 +1253,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                 );
 
+                                                shouldSetState = true;
                                                 if ((_model.singleImgPosted
                                                         ?.succeeded ??
                                                     true)) {
@@ -1178,7 +1321,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 }
                                               }
 
-                                              setState(() {});
+                                              if (shouldSetState) {
+                                                setState(() {});
+                                              }
                                             },
                                             text: 'Post',
                                             options: FFButtonOptions(
@@ -1727,7 +1872,53 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
 
                                                     context.goNamed(
                                                         'allPostsOverview');
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'scheduleDoc_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Upload Failed!'),
+                                                          content: const Text(
+                                                              'Your doc could not be uploaded to linkedin.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
                                                   }
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'scheduleDoc_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Upload Failed!'),
+                                                        content: const Text(
+                                                            'Your doc could not be uploaded to linkedin.'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: const Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
                                                 }
                                               }
 
@@ -1939,6 +2130,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_scheduleImage_ON_TAP');
+                                              var shouldSetState = false;
                                               logFirebaseEvent(
                                                   'scheduleImage_upload_media_to_firebase');
                                               {
@@ -2010,6 +2202,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                 );
 
+                                                shouldSetState = true;
                                                 if ((_model.imageUrlSch
                                                         ?.succeeded ??
                                                     true)) {
@@ -2035,6 +2228,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             .noOfImagesUploadedToFirebase],
                                                   );
 
+                                                  shouldSetState = true;
                                                   if ((_model.imageUploadedSch
                                                           ?.succeeded ??
                                                       true)) {
@@ -2151,6 +2345,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           },
                                                         ),
                                                       }, scheduledPostsRecordReference);
+                                                      shouldSetState = true;
                                                       logFirebaseEvent(
                                                           'scheduleImage_update_page_state');
                                                       _model.noOfImagesUploadedToFirebase =
@@ -2181,6 +2376,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         );
                                                       },
                                                     );
+                                                    if (shouldSetState) {
+                                                      setState(() {});
+                                                    }
+                                                    return;
                                                   }
                                                 } else {
                                                   logFirebaseEvent(
@@ -2204,6 +2403,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       );
                                                     },
                                                   );
+                                                  if (shouldSetState) {
+                                                    setState(() {});
+                                                  }
+                                                  return;
                                                 }
                                               }
                                               if (_model
@@ -2357,7 +2560,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     'allPostsOverview');
                                               }
 
-                                              setState(() {});
+                                              if (shouldSetState) {
+                                                setState(() {});
+                                              }
                                             },
                                             text: 'Schedule',
                                             options: FFButtonOptions(
