@@ -2608,8 +2608,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                             ),
                           ),
                           StreamBuilder<CreatedPostsRecord>(
-                            stream:
-                                CreatedPostsRecord.getDocument(widget.postRef!),
+                            stream: CreatedPostsRecord.getDocument(
+                                widget.postRef!),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
@@ -2625,8 +2625,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                   ),
                                 );
                               }
+
                               final containerCreatedPostsRecord =
                                   snapshot.data!;
+
                               return Container(
                                 width: double.infinity,
                                 decoration: const BoxDecoration(),

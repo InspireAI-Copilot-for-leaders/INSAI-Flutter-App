@@ -324,7 +324,7 @@ class _AccessWallWidgetState extends State<AccessWallWidget> {
                       Flexible(
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 8.0, 0.0, 0.0),
+                              0.0, 8.0, 0.0, 16.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -358,46 +358,42 @@ class _AccessWallWidgetState extends State<AccessWallWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            logFirebaseEvent(
-                                'ACCESS_WALL_GET_PAID_ACCESS_BTN_ON_TAP');
-                            logFirebaseEvent('Button_navigate_to');
+                      FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'ACCESS_WALL_GET_PAID_ACCESS_BTN_ON_TAP');
+                          logFirebaseEvent('Button_navigate_to');
 
-                            context.pushNamed('payWall');
-                          },
-                          text: 'Get Paid Access',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: Colors.transparent,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  fontSize: 17.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleSmallFamily),
-                                ),
-                            elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).secondary,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(4.0),
+                          context.pushNamed('payWall');
+                        },
+                        text: 'Get Paid Access',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 40.0,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Colors.transparent,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .titleSmallFamily,
+                                color: FlutterFlowTheme.of(context).secondary,
+                                fontSize: 17.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .titleSmallFamily),
+                              ),
+                          elevation: 0.0,
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).secondary,
+                            width: 1.0,
                           ),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       Align(
@@ -611,24 +607,68 @@ class _AccessWallWidgetState extends State<AccessWallWidget> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            'Request Special Access',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .headlineLarge
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  'Request Special Access',
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
                                                           context)
-                                                      .primary,
-                                                  fontSize: 24.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  useGoogleFonts:
-                                                      GoogleFonts.asMap()
-                                                          .containsKey(
-                                                              'Poppins'),
+                                                      .headlineLarge
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        fontSize: 24.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        useGoogleFonts:
+                                                            GoogleFonts.asMap()
+                                                                .containsKey(
+                                                                    'Poppins'),
+                                                      ),
                                                 ),
+                                              ),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    1.0, -1.0),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'ACCESS_WALL_PAGE_Icon_54x4xbwk_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Icon_update_page_state');
+                                                    _model.specialAccessClicked =
+                                                        false;
+                                                    setState(() {});
+                                                  },
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 24.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           Text(
                                             'For a limited time, we\'re offering executives, business leaders and influencers an exclusive opportunity to receive access to InspireAI absolutely free.\n\nPlease provide your linkedin profile below to request to recieve special access. ',
@@ -785,136 +825,188 @@ class _AccessWallWidgetState extends State<AccessWallWidget> {
                                                   .asValidator(context),
                                             ),
                                           ),
-                                        ].divide(const SizedBox(height: 8.0)),
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              logFirebaseEvent(
-                                                  'ACCESS_WALL_REQUEST_ACCESS_BTN_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'Button_backend_call');
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 4.0, 0.0, 0.0),
+                                                child: FFButtonWidget(
+                                                  onPressed: () async {
+                                                    logFirebaseEvent(
+                                                        'ACCESS_WALL_REQUEST_ACCESS_BTN_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Button_backend_call');
 
-                                              await currentUserReference!
-                                                  .update(createUsersRecordData(
-                                                accessType: 'specialWaitlist',
-                                                linkedinForSpecialAccess:
-                                                    _model.textController.text,
-                                              ));
-                                              logFirebaseEvent(
-                                                  'Button_navigate_to');
+                                                    await currentUserReference!
+                                                        .update(
+                                                            createUsersRecordData(
+                                                      accessType:
+                                                          'specialWaitlist',
+                                                      linkedinForSpecialAccess:
+                                                          _model.textController
+                                                              .text,
+                                                    ));
+                                                    logFirebaseEvent(
+                                                        'Button_navigate_to');
 
-                                              context
-                                                  .goNamed('accessRequested');
-                                            },
-                                            text: 'Request Access',
-                                            options: FFButtonOptions(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              height: 44.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily:
-                                                        FlutterFlowTheme.of(
+                                                    context.goNamed(
+                                                        'accessRequested');
+                                                  },
+                                                  text: 'Request Access',
+                                                  options: FFButtonOptions(
+                                                    width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .titleSmallFamily,
+                                                            .width *
+                                                        1.0,
+                                                    height: 44.0,
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                24.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .alternate,
-                                                    fontSize: 16.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                    useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                        .containsKey(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmallFamily),
+                                                        .primary,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily),
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderSide: const BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
                                                   ),
-                                              elevation: 0.0,
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              logFirebaseEvent(
-                                                  'ACCESS_WALL_PAGE_CANCEL_BTN_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'Button_update_page_state');
-                                              _model.specialAccessClicked =
-                                                  false;
-                                              setState(() {});
-                                            },
-                                            text: 'Cancel',
-                                            options: FFButtonOptions(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              height: 48.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: const Color(0x00FFFFFF),
-                                              textStyle: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmallFamily,
-                                                    color: const Color(0xFF111111),
-                                                    fontSize: 18.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w600,
-                                                    useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                        .containsKey(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmallFamily),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 12.0, 0.0, 0.0),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'ACCESS_WALL_RichText_i5rl3l5i_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'RichText_launch_u_r_l');
+                                                    await launchURL(
+                                                        'https://calendly.com/vinayak-theinspireai/inspire-ai-onboarding-call');
+                                                  },
+                                                  child: RichText(
+                                                    textScaler:
+                                                        MediaQuery.of(context)
+                                                            .textScaler,
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'OR ',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              'Book a 20 min demo call ',
+                                                          style: GoogleFonts
+                                                              .getFont(
+                                                            'Montserrat',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondary,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        const TextSpan(
+                                                          text:
+                                                              'with our executive to get access immediately!',
+                                                          style: TextStyle(),
+                                                        )
+                                                      ],
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                    ),
+                                                    textAlign: TextAlign.center,
                                                   ),
-                                              elevation: 0.0,
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(16.0),
-                                            ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
+                                        ].divide(const SizedBox(height: 8.0)),
+                                      ),
                                     ),
                                   ],
                                 ),

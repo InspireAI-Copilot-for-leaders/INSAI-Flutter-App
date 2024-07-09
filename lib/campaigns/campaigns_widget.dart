@@ -2345,6 +2345,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                             List<CampaignsDetailsRecord>
                                                                 listViewCampaignsDetailsRecordList =
                                                                 snapshot.data!;
+
                                                             return ListView
                                                                 .builder(
                                                               padding:

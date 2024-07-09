@@ -377,6 +377,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                                               .toList() ??
                                                                           [])
                                                                       .toList();
+
                                                               return Wrap(
                                                                 spacing: 4.0,
                                                                 runSpacing: 4.0,

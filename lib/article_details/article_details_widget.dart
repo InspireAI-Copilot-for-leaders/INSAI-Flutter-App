@@ -233,6 +233,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                                   .articleDocument?.metadata
                                                   .toList() ??
                                               [];
+
                                           return SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
                                             child: Row(
@@ -450,8 +451,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                             type: PageTransitionType.fade,
                                             child: FlutterFlowExpandedImageView(
                                               image: Image.network(
-                                                widget.articleDocument!.metadata
-                                                    .first.imageUrl,
+                                                widget.articleDocument!
+                                                    .metadata.first.imageUrl,
                                                 fit: BoxFit.contain,
                                               ),
                                               allowRotation: false,
@@ -582,8 +583,8 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                               child: Image.network(
-                                                widget.articleDocument!.metadata
-                                                    .last.imageUrl,
+                                                widget.articleDocument!
+                                                    .metadata.last.imageUrl,
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                             .width *

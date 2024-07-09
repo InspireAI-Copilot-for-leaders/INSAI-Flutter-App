@@ -193,6 +193,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                           .toList()
                           .take(10)
                           .toList();
+
                       return Wrap(
                         spacing: 4.0,
                         runSpacing: 1.0,

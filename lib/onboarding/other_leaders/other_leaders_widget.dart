@@ -406,6 +406,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                   List<ThoughtLeadersRecord>
                                       staggeredViewThoughtLeadersRecordList =
                                       snapshot.data!;
+
                                   return MasonryGridView.builder(
                                     physics:
                                         const NeverScrollableScrollPhysics(),

@@ -338,6 +338,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                                       .toList() ??
                                                                   [])
                                                               .toList();
+
                                                       return ListView.builder(
                                                         padding:
                                                             EdgeInsets.zero,

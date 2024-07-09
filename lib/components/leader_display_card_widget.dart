@@ -160,6 +160,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
                         child: Builder(
                           builder: (context) {
                             final speaksabout = widget.speaksAbout!.toList();
+
                             return Wrap(
                               spacing: 0.25,
                               runSpacing: 0.25,

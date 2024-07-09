@@ -70,14 +70,14 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
             logFirebaseEvent('viewScheduledPost_update_page_state');
             _model.pollQuestion = widget.postDocument?.question;
             _model.pollDuration = widget.postDocument?.duration;
-            _model.pollOption1 =
-                functions.getValueFromJson(widget.postDocument!.optionsJson, 0);
-            _model.pollOption2 =
-                functions.getValueFromJson(widget.postDocument!.optionsJson, 1);
-            _model.pollOption3 =
-                functions.getValueFromJson(widget.postDocument!.optionsJson, 2);
-            _model.pollOption4 =
-                functions.getValueFromJson(widget.postDocument!.optionsJson, 3);
+            _model.pollOption1 = functions.getValueFromJson(
+                widget.postDocument!.optionsJson, 0);
+            _model.pollOption2 = functions.getValueFromJson(
+                widget.postDocument!.optionsJson, 1);
+            _model.pollOption3 = functions.getValueFromJson(
+                widget.postDocument!.optionsJson, 2);
+            _model.pollOption4 = functions.getValueFromJson(
+                widget.postDocument!.optionsJson, 3);
             setState(() {});
           }
         }

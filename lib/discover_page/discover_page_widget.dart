@@ -875,6 +875,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           List<ArticleRecord>
                                               discoverContainerArticleRecordList =
                                               snapshot.data!;
+
                                           return Container(
                                             decoration: const BoxDecoration(),
                                             child: Column(
@@ -946,6 +947,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                       .toList() ??
                                                                   [])
                                                               .toList();
+
                                                       return Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -1015,6 +1017,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         containerArticleRecordList =
                                                                         snapshot
                                                                             .data!;
+
                                                                     // Return an empty Container when the item does not exist.
                                                                     if (snapshot
                                                                         .data!
@@ -1174,6 +1177,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                 .toList()
                                                                 .take(4)
                                                                 .toList();
+
                                                         return SizedBox(
                                                           width:
                                                               double.infinity,
@@ -1580,6 +1584,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                               .toList() ??
                                                                           [])
                                                                       .toList();
+
                                                               return Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -1699,6 +1704,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                       e.publishDates
                                                                           .first))
                                                               .toList();
+
                                                       return ListView.separated(
                                                         padding:
                                                             EdgeInsets.zero,
@@ -1928,6 +1934,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     e.articleSummary)
                                                                 .take(20)
                                                                 .toList();
+
                                                         return ListView
                                                             .separated(
                                                           padding:

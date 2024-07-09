@@ -1273,6 +1273,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                   List<PersonasForContentRecord>
                                       listViewPersonasForContentRecordList =
                                       snapshot.data!;
+
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     primary: false,
