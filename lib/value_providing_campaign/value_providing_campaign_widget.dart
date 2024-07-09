@@ -361,6 +361,7 @@ class _ValueProvidingCampaignWidgetState
                                                         _model
                                                             .expertiseForContent
                                                             .toList();
+
                                                     return Wrap(
                                                       spacing: 4.0,
                                                       runSpacing: 4.0,
@@ -1086,6 +1087,7 @@ class _ValueProvidingCampaignWidgetState
                                                         List<BroadDomainRecord>
                                                             listViewBroadDomainRecordList =
                                                             snapshot.data!;
+
                                                         return ListView
                                                             .separated(
                                                           padding:
@@ -1141,6 +1143,7 @@ class _ValueProvidingCampaignWidgetState
                                                                     containerExpertiseAreasRecordList =
                                                                     snapshot
                                                                         .data!;
+
                                                                 return Material(
                                                                   color: Colors
                                                                       .transparent,
@@ -1260,6 +1263,7 @@ class _ValueProvidingCampaignWidgetState
                                                                               child: Builder(
                                                                                 builder: (context) {
                                                                                   final expertiseAreaNoSearch = containerExpertiseAreasRecordList.toList();
+
                                                                                   return Wrap(
                                                                                     spacing: 4.0,
                                                                                     runSpacing: 4.0,
@@ -1413,6 +1417,7 @@ class _ValueProvidingCampaignWidgetState
                                                         List<BroadDomainRecord>
                                                             listViewBroadDomainRecordList =
                                                             snapshot.data!;
+
                                                         if (listViewBroadDomainRecordList
                                                             .isEmpty) {
                                                           return const EmptyStateWidget();
@@ -1577,6 +1582,7 @@ class _ValueProvidingCampaignWidgetState
                                                                                 );
                                                                               }
                                                                               final expertiseAreaSearch = _model.algoliaSearchResults?.where((e) => e.broadDomain == listViewBroadDomainRecord.reference).toList().toList() ?? [];
+
                                                                               return Wrap(
                                                                                 spacing: 4.0,
                                                                                 runSpacing: 4.0,

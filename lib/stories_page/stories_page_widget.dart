@@ -80,6 +80,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                   );
                 }
                 List<ArticleRecord> pageViewArticleRecordList = snapshot.data!;
+
                 return SizedBox(
                   width: double.infinity,
                   height: double.infinity,

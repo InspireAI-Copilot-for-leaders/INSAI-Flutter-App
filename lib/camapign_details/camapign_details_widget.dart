@@ -127,6 +127,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
           );
         }
         List<CampaignRecord> camapignDetailsCampaignRecordList = snapshot.data!;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -194,6 +195,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                             builder: (context) {
                               final camapignDetailsVar =
                                   camapignDetailsCampaignRecordList.toList();
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 primary: false,
@@ -671,6 +673,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                       }
                       List<CampaignRecord> containerCampaignRecordList =
                           snapshot.data!;
+
                       return Container(
                         decoration: const BoxDecoration(),
                         child: Visibility(

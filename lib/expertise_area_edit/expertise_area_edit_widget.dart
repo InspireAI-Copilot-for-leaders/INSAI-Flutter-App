@@ -91,6 +91,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
         }
         List<BroadDomainRecord> expertiseAreaEditBroadDomainRecordList =
             snapshot.data!;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -379,6 +380,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                     .toList() ??
                                                                 [])
                                                             .toList();
+
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
                                                       primary: false,
@@ -525,6 +527,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                           final expertiseArea = thoughtLeadershipAreasItem
                                                                               .subCategories
                                                                               .toList();
+
                                                                           return Wrap(
                                                                             spacing:
                                                                                 4.0,
@@ -941,6 +944,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                               final broadDomainListNoSearch =
                                                                   expertiseAreaEditBroadDomainRecordList
                                                                       .toList();
+
                                                               return ListView
                                                                   .separated(
                                                                 padding:
@@ -998,6 +1002,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                           containerExpertiseAreasRecordList =
                                                                           snapshot
                                                                               .data!;
+
                                                                       return Material(
                                                                         color: Colors
                                                                             .transparent,
@@ -1103,6 +1108,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                     child: Builder(
                                                                                       builder: (context) {
                                                                                         final expertiseAreaNoSearch = containerExpertiseAreasRecordList.toList();
+
                                                                                         return Wrap(
                                                                                           spacing: 4.0,
                                                                                           runSpacing: 4.0,
@@ -1333,6 +1339,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                   listViewBroadDomainRecordList =
                                                                   snapshot
                                                                       .data!;
+
                                                               if (listViewBroadDomainRecordList
                                                                   .isEmpty) {
                                                                 return const EmptyStateWidget();
@@ -1481,6 +1488,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                       );
                                                                                     }
                                                                                     final expertiseAreaSearch = _model.algoliaSearchResults?.where((e) => e.broadDomain == listViewBroadDomainRecord.reference).toList().toList() ?? [];
+
                                                                                     return Wrap(
                                                                                       spacing: 4.0,
                                                                                       runSpacing: 4.0,

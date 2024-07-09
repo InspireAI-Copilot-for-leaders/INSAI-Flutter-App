@@ -246,8 +246,10 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                     ),
                                   );
                                 }
+
                                 final containerCreatedPostsRecord =
                                     snapshot.data!;
+
                                 return Container(
                                   width: double.infinity,
                                   decoration: const BoxDecoration(),
@@ -414,6 +416,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                             builder: (context) {
                                               final oneLiners =
                                                   widget.postText!.toList();
+
                                               return ListView.separated(
                                                 padding: const EdgeInsets.fromLTRB(
                                                   0,

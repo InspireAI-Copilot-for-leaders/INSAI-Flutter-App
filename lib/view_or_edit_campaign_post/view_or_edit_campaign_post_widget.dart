@@ -121,7 +121,9 @@ class _ViewOrEditCampaignPostWidgetState
             ),
           );
         }
+
         final viewOrEditCampaignPostCampaignRecord = snapshot.data!;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -1018,8 +1020,9 @@ class _ViewOrEditCampaignPostWidgetState
                                                                               .toList(),
                                                                           'id')
                                                                       .toString(),
-                                                                  mediaTitle: widget
-                                                                      .postTitle,
+                                                                  mediaTitle:
+                                                                      widget
+                                                                          .postTitle,
                                                                   status:
                                                                       'pending',
                                                                 ));
@@ -1123,8 +1126,9 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           .text;
                                                                     }
                                                                   }(),
-                                                                  mediaTitle: widget
-                                                                      .postTitle,
+                                                                  mediaTitle:
+                                                                      widget
+                                                                          .postTitle,
                                                                   status:
                                                                       'pending',
                                                                   mediaId:

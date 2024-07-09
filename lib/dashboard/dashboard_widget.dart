@@ -1058,6 +1058,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                   List<ArticleRecord>
                                                       wrapArticleRecordList =
                                                       snapshot.data!;
+
                                                   return Wrap(
                                                     spacing: 8.0,
                                                     runSpacing: 8.0,

@@ -693,6 +693,7 @@ class _SupportWidgetState extends State<SupportWidget>
                       child: Builder(
                         builder: (context) {
                           final uploaded = _model.uploadedFileUrls.toList();
+
                           return Row(
                             mainAxisSize: MainAxisSize.max,
                             children:

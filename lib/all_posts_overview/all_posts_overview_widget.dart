@@ -1059,6 +1059,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                           List<CreatedPostsRecord>
                                               pendingPostsContainerCreatedPostsRecordList =
                                               snapshot.data!;
+
                                           return Container(
                                             width: 500.0,
                                             constraints: const BoxConstraints(
@@ -1287,6 +1288,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     List<CreatedPostsRecord>
                                                         draftsListViewCreatedPostsRecordList =
                                                         snapshot.data!;
+
                                                     if (draftsListViewCreatedPostsRecordList
                                                         .isEmpty) {
                                                       return const EmptyStateWidget(
@@ -1653,6 +1655,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     List<PostedOnLinkedinRecord>
                                                         postedListViewPostedOnLinkedinRecordList =
                                                         snapshot.data!;
+
                                                     if (postedListViewPostedOnLinkedinRecordList
                                                         .isEmpty) {
                                                       return const EmptyStateWidget(
@@ -1941,6 +1944,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     List<ScheduledPostsRecord>
                                                         scheduledListViewScheduledPostsRecordList =
                                                         snapshot.data!;
+
                                                     if (scheduledListViewScheduledPostsRecordList
                                                         .isEmpty) {
                                                       return const EmptyStateWidget(

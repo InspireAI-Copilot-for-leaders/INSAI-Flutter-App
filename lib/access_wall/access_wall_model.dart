@@ -19,9 +19,21 @@ class AccessWallModel extends FlutterFlowModel<AccessWallWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  String? _textControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (!RegExp(kTextValidatorWebsiteRegex).hasMatch(val)) {
+      return 'Please enter a valid url';
+    }
+    return null;
+  }
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    textControllerValidator = _textControllerValidator;
+  }
 
   @override
   void dispose() {
