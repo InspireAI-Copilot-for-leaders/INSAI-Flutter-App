@@ -57,9 +57,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'viewOrEditPost'});
 
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.textFieldFocusNode ??= FocusNode();
 
     animationsMap.addAll({
       'containerOnActionTriggerAnimation': AnimationInfo(
@@ -139,10 +137,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           onTap: () async {
                                             logFirebaseEvent(
                                                 'VIEW_OR_EDIT_POST_Icon_gr9oprw7_ON_TAP');
-                                            if ((_model.textController2.text !=
-                                                    widget.postText) ||
-                                                (_model.textController1.text !=
-                                                    widget.postTitle)) {
+                                            if (_model.textController.text !=
+                                                widget.postText) {
                                               logFirebaseEvent(
                                                   'Icon_alert_dialog');
                                               await showDialog(
@@ -192,9 +188,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           await widget.postRef!
                                                               .update({
                                                             ...createCreatedPostsRecordData(
-                                                              topic: _model
-                                                                  .textController1
-                                                                  .text,
+                                                              topic: widget
+                                                                  .postTitle,
                                                             ),
                                                             ...mapToFirestore(
                                                               {
@@ -202,7 +197,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                     FieldValue
                                                                         .arrayUnion([
                                                                   _model
-                                                                      .textController2
+                                                                      .textController
                                                                       .text
                                                                 ]),
                                                               },
@@ -382,7 +377,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ''),
                                                 postText: functions
                                                     .formatStringForLIJson(
-                                                        _model.textController2
+                                                        _model.textController
                                                             .text),
                                                 accessToken: valueOrDefault(
                                                     currentUserDocument
@@ -440,9 +435,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                   postedOn: getCurrentTimestamp,
                                                   postText: _model
-                                                      .textController2.text,
-                                                  postTitle: _model
-                                                      .textController1.text,
+                                                      .textController.text,
+                                                  postTitle: widget.postTitle,
                                                   reactionRefreshQuota: 2,
                                                   typeOfPost: 'onlyText',
                                                 ));
@@ -638,7 +632,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       postText: functions
                                                           .formatStringForLIJson(
                                                               _model
-                                                                  .textController2
+                                                                  .textController
                                                                   .text),
                                                       mediaId:
                                                           GetDocUploadUrlFromLinkedinCall
@@ -707,11 +701,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         postedOn:
                                                             getCurrentTimestamp,
                                                         postText: _model
-                                                            .textController2
+                                                            .textController
                                                             .text,
-                                                        postTitle: _model
-                                                            .textController1
-                                                            .text,
+                                                        postTitle:
+                                                            widget.postTitle,
                                                         reactionRefreshQuota: 2,
                                                         docUrn:
                                                             GetDocUploadUrlFromLinkedinCall
@@ -1144,7 +1137,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                   postText: functions
                                                       .formatStringForLIJson(
-                                                          _model.textController2
+                                                          _model.textController
                                                               .text),
                                                   imagesJson: functions
                                                       .valueToJsonMapList(
@@ -1213,9 +1206,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     postedOn:
                                                         getCurrentTimestamp,
                                                     postText: _model
-                                                        .textController2.text,
-                                                    postTitle: _model
-                                                        .textController1.text,
+                                                        .textController.text,
+                                                    postTitle:
+                                                        widget.postTitle,
                                                     typeOfPost: 'multiImage',
                                                     reactionRefreshQuota: 2,
                                                   ));
@@ -1238,7 +1231,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       ''),
                                                   postText: functions
                                                       .formatStringForLIJson(
-                                                          _model.textController2
+                                                          _model.textController
                                                               .text),
                                                   mediaId:
                                                       GetImageUploadUrlFromLinkedinCall
@@ -1307,9 +1300,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     postedOn:
                                                         getCurrentTimestamp,
                                                     postText: _model
-                                                        .textController2.text,
-                                                    postTitle: _model
-                                                        .textController1.text,
+                                                        .textController.text,
+                                                    postTitle:
+                                                        widget.postTitle,
                                                     typeOfPost: 'singleImage',
                                                     reactionRefreshQuota: 2,
                                                   ));
@@ -1423,7 +1416,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ''),
                                                 postText: functions
                                                     .formatStringForLIJson(
-                                                        _model.textController2
+                                                        _model.textController
                                                             .text),
                                                 question: _model.pollQuestion,
                                                 duration: _model.pollDuration,
@@ -1486,9 +1479,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     postedOn:
                                                         getCurrentTimestamp,
                                                     postText: _model
-                                                        .textController2.text,
-                                                    postTitle: _model
-                                                        .textController1.text,
+                                                        .textController.text,
+                                                    postTitle:
+                                                        widget.postTitle,
                                                     reactionRefreshQuota: 2,
                                                     typeOfPost: 'poll',
                                                     pollQuestion:
@@ -1606,10 +1599,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             ?.linkedinAccess,
                                                         ''),
                                                     postText: _model
-                                                        .textController2.text,
+                                                        .textController.text,
                                                     status: 'pending',
-                                                    postTitle: _model
-                                                        .textController1.text,
+                                                    postTitle:
+                                                        widget.postTitle,
                                                   ));
                                               logFirebaseEvent(
                                                   'scheduleOnlyText_alert_dialog');
@@ -1820,7 +1813,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                   ?.linkedinAccess,
                                                               ''),
                                                           postText: _model
-                                                              .textController2
+                                                              .textController
                                                               .text,
                                                           mediaId:
                                                               GetDocUploadUrlFromLinkedinCall
@@ -1834,9 +1827,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           status: 'pending',
                                                           docFirebaseUrl: _model
                                                               .uploadedFileUrl3,
-                                                          postTitle: _model
-                                                              .textController1
-                                                              .text,
+                                                          postTitle:
+                                                              widget.postTitle,
                                                         ));
                                                     logFirebaseEvent(
                                                         'scheduleDoc_alert_dialog');
@@ -2036,7 +2028,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             ?.linkedinAccess,
                                                         ''),
                                                     postText: _model
-                                                        .textController2.text,
+                                                        .textController.text,
                                                     question:
                                                         _model.pollQuestion,
                                                     optionsJson: functions
@@ -2049,8 +2041,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     duration:
                                                         _model.pollDuration,
                                                     status: 'pending',
-                                                    postTitle: _model
-                                                        .textController1.text,
+                                                    postTitle:
+                                                        widget.postTitle,
                                                   ));
                                               logFirebaseEvent(
                                                   'schedulePoll_alert_dialog');
@@ -2439,7 +2431,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                   postText: _model
-                                                      .textController2.text,
+                                                      .textController.text,
                                                   imagesJson: functions
                                                       .valueToJsonMapList(
                                                           _model
@@ -2448,9 +2440,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                               .toList(),
                                                           'id')
                                                       .toString(),
-                                                  mediaTitle: _model
-                                                      .textController1.text,
+                                                  mediaTitle: widget.postTitle,
                                                   status: 'pending',
+                                                  postTitle: widget.postTitle,
                                                 ));
                                                 logFirebaseEvent(
                                                     'scheduleImage_alert_dialog');
@@ -2513,9 +2505,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           ?.linkedinAccess,
                                                       ''),
                                                   postText: _model
-                                                      .textController2.text,
-                                                  mediaTitle: _model
-                                                      .textController1.text,
+                                                      .textController.text,
+                                                  mediaTitle: widget.postTitle,
                                                   status: 'pending',
                                                   mediaId:
                                                       GetImageUploadUrlFromLinkedinCall
@@ -2524,6 +2515,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             ?.jsonBody ??
                                                         ''),
                                                   ),
+                                                  postTitle: widget.postTitle,
                                                 ));
                                                 logFirebaseEvent(
                                                     'scheduleImage_alert_dialog');
@@ -2743,119 +2735,6 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             ],
                                           ),
                                         ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 16.0, 0.0, 12.0),
-                                        child: TextFormField(
-                                          controller: _model.textController1 ??=
-                                              TextEditingController(
-                                            text: containerCreatedPostsRecord
-                                                .topic,
-                                          ),
-                                          focusNode: _model.textFieldFocusNode1,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.textController1',
-                                            const Duration(milliseconds: 2000),
-                                            () => setState(() {}),
-                                          ),
-                                          autofocus: false,
-                                          textCapitalization:
-                                              TextCapitalization.sentences,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText:
-                                                'Title for Reference (will not be posted)',
-                                            hintText:
-                                                'Add a Title to the post so you can refrence it later...',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge
-                                                    .override(
-                                                      fontFamily:
-                                                          'Plus Jakarta Sans',
-                                                      color: const Color(0xFF57636C),
-                                                      fontSize: 16.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              'Plus Jakarta Sans'),
-                                                    ),
-                                            enabledBorder: const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFE0E3E7),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedBorder: const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFF4B39EF),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            errorBorder: const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFFF5963),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedErrorBorder:
-                                                const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFFF5963),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            contentPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 8.0, 16.0, 12.0),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Plus Jakarta Sans',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.normal,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        'Plus Jakarta Sans'),
-                                              ),
-                                          textAlign: TextAlign.start,
-                                          maxLines: null,
-                                          cursorColor: const Color(0xFF4B39EF),
-                                          validator: _model
-                                              .textController1Validator
-                                              .asValidator(context),
-                                        ),
-                                      ),
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(-1.0, -1.0),
@@ -2870,12 +2749,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               onBack: () async {
                                                 logFirebaseEvent(
                                                     'VIEW_OR_EDIT_POST_Container_1cuobz7g_CAL');
-                                                if ((_model.textController2
-                                                            .text !=
-                                                        widget.postText) ||
-                                                    (_model.textController1
-                                                            .text !=
-                                                        widget.postTitle)) {
+                                                if (_model
+                                                        .textController.text !=
+                                                    widget.postText) {
                                                   logFirebaseEvent(
                                                       'BackButtonOverrider_alert_dialog');
                                                   await showDialog(
@@ -2930,9 +2806,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                   .postRef!
                                                                   .update({
                                                                 ...createCreatedPostsRecordData(
-                                                                  topic: _model
-                                                                      .textController1
-                                                                      .text,
+                                                                  topic: widget
+                                                                      .postTitle,
                                                                 ),
                                                                 ...mapToFirestore(
                                                                   {
@@ -2940,7 +2815,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                         FieldValue
                                                                             .arrayUnion([
                                                                       _model
-                                                                          .textController2
+                                                                          .textController
                                                                           .text
                                                                     ]),
                                                                   },
@@ -2980,7 +2855,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 40.0),
                                         child: TextFormField(
-                                          controller: _model.textController2 ??=
+                                          controller: _model.textController ??=
                                               TextEditingController(
                                             text: containerCreatedPostsRecord
                                                 .content[valueOrDefault<int>(
@@ -2988,10 +2863,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               0,
                                             )],
                                           ),
-                                          focusNode: _model.textFieldFocusNode2,
+                                          focusNode: _model.textFieldFocusNode,
                                           onChanged: (_) =>
                                               EasyDebounce.debounce(
-                                            '_model.textController2',
+                                            '_model.textController',
                                             const Duration(milliseconds: 2000),
                                             () => setState(() {}),
                                           ),
@@ -3042,7 +2917,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           maxLines: null,
                                           cursorColor: const Color(0xFF4B39EF),
                                           validator: _model
-                                              .textController2Validator
+                                              .textControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -4962,15 +4837,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
 
                                                 await widget.postRef!.update({
                                                   ...createCreatedPostsRecordData(
-                                                    topic: _model
-                                                        .textController1.text,
+                                                    topic: widget.postTitle,
                                                   ),
                                                   ...mapToFirestore(
                                                     {
                                                       'content': FieldValue
                                                           .arrayUnion([
-                                                        _model.textController2
-                                                            .text
+                                                        _model
+                                                            .textController.text
                                                       ]),
                                                     },
                                                   ),

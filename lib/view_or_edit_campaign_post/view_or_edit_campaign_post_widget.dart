@@ -1025,6 +1025,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           .postTitle,
                                                                   status:
                                                                       'pending',
+                                                                  postTitle: widget
+                                                                      .postTitle,
                                                                 ));
                                                                 logFirebaseEvent(
                                                                     'ImageSchedule_update_page_state');
@@ -1138,6 +1140,9 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             ?.jsonBody ??
                                                                         ''),
                                                                   ),
+                                                                  imagesJson:
+                                                                      widget
+                                                                          .postTitle,
                                                                 ));
                                                                 logFirebaseEvent(
                                                                     'ImageSchedule_update_page_state');
@@ -1965,7 +1970,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                     text: 'Short Post',
                                                   ),
                                                   Tab(
-                                                    text: 'Medium Post',
+                                                    text: 'Medium',
                                                   ),
                                                   Tab(
                                                     text: 'Long Post',

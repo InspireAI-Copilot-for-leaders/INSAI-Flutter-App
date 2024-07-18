@@ -111,13 +111,9 @@ class ViewOrEditPostModel extends FlutterFlowModel<ViewOrEditPostWidget> {
   // Stores action output result for [Backend Call - Create Document] action in scheduleImage widget.
   ScheduledPostsRecord? createdDocRefrenceSch;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
   bool isDataUploading5 = false;
   List<FFUploadedFile> uploadedLocalFiles5 = [];
 
@@ -130,10 +126,7 @@ class ViewOrEditPostModel extends FlutterFlowModel<ViewOrEditPostWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
-
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
   }
 }
