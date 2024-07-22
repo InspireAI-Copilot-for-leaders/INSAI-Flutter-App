@@ -1,17 +1,16 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'phone_number_verify_model.dart';
 export 'phone_number_verify_model.dart';
 
@@ -41,27 +40,38 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('PHONE_NUMBER_VERIFY_phoneNumberVerify_ON');
-      logFirebaseEvent('phoneNumberVerify_update_page_state');
-      _model.otp = random_data.randomInteger(6, 6).toString();
-      setState(() {});
-      logFirebaseEvent('phoneNumberVerify_send_s_m_s');
-      if (isiOS) {
-        await launchUrl(Uri.parse(
-            "sms:${FFAppState().userPhoneNumber}&body=${Uri.encodeComponent('The code to verify your phone number for Inspire AI is ${_model.otp}')}"));
-      } else {
-        await launchUrl(Uri(
-          scheme: 'sms',
-          path: FFAppState().userPhoneNumber,
-          queryParameters: <String, String>{
-            'body':
-                'The code to verify your phone number for Inspire AI is ${_model.otp}',
+      logFirebaseEvent('phoneNumberVerify_backend_call');
+      _model.apiResultash = await TwilloSMSVerifyGroup.sendCodeCall.call(
+        to: FFAppState().userPhoneNumber,
+        encodedCredentials: FFAppState().encodedCreds,
+        verifyServiceSid: FFAppState().vid,
+      );
+
+      if (!(_model.apiResultash?.succeeded ?? true)) {
+        logFirebaseEvent('phoneNumberVerify_alert_dialog');
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              title: const Text('Failed!'),
+              content: const Text(
+                  'Failed to send message. Check number or contact support.'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: const Text('Ok'),
+                ),
+              ],
+            );
           },
-        ));
+        );
+        logFirebaseEvent('phoneNumberVerify_navigate_back');
+        context.safePop();
       }
     });
 
     animationsMap.addAll({
-      'richTextOnPageLoadAnimation1': AnimationInfo(
+      'richTextOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           VisibilityEffect(duration: 100.ms),
@@ -89,33 +99,6 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
         ],
       ),
       'pinCodeOnPageLoadAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          VisibilityEffect(duration: 200.ms),
-          ScaleEffect(
-            curve: Curves.easeOut,
-            delay: 200.0.ms,
-            duration: 600.0.ms,
-            begin: const Offset(2.5, 2.5),
-            end: const Offset(1.0, 1.0),
-          ),
-          FadeEffect(
-            curve: Curves.easeOut,
-            delay: 200.0.ms,
-            duration: 600.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          BlurEffect(
-            curve: Curves.easeOut,
-            delay: 200.0.ms,
-            duration: 600.0.ms,
-            begin: const Offset(10.0, 10.0),
-            end: const Offset(0.0, 0.0),
-          ),
-        ],
-      ),
-      'richTextOnPageLoadAnimation2': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           VisibilityEffect(duration: 200.ms),
@@ -336,7 +319,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                                 ),
                           ),
                         ).animateOnPageLoad(
-                            animationsMap['richTextOnPageLoadAnimation1']!),
+                            animationsMap['richTextOnPageLoadAnimation']!),
                       ),
                       Padding(
                         padding:
@@ -396,90 +379,6 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                         ).animateOnPageLoad(
                             animationsMap['pinCodeOnPageLoadAnimation']!),
                       ),
-                      Align(
-                        alignment: const AlignmentDirectional(-1.0, -1.0),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 12.0, 0.0, 0.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'PHONE_NUMBER_VERIFY_RichText_cdg07bmj_ON');
-                              logFirebaseEvent('RichText_update_page_state');
-                              _model.otp =
-                                  random_data.randomInteger(6, 6).toString();
-                              setState(() {});
-                              logFirebaseEvent('RichText_send_s_m_s');
-                              if (isiOS) {
-                                await launchUrl(Uri.parse(
-                                    "sms:${FFAppState().userPhoneNumber}&body=${Uri.encodeComponent('The code to verify your phone number for Inspire AI is ${_model.otp}')}"));
-                              } else {
-                                await launchUrl(Uri(
-                                  scheme: 'sms',
-                                  path: FFAppState().userPhoneNumber,
-                                  queryParameters: <String, String>{
-                                    'body':
-                                        'The code to verify your phone number for Inspire AI is ${_model.otp}',
-                                  },
-                                ));
-                              }
-                            },
-                            child: RichText(
-                              textScaler: MediaQuery.of(context).textScaler,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Didn\'t get a code?',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
-                                        ),
-                                  ),
-                                  const TextSpan(
-                                    text: ' ',
-                                    style: TextStyle(),
-                                  ),
-                                  const TextSpan(
-                                    text: 'Send Again',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  )
-                                ],
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily),
-                                    ),
-                              ),
-                            ),
-                          ).animateOnPageLoad(
-                              animationsMap['richTextOnPageLoadAnimation2']!),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -489,20 +388,29 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
               padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 24.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  logFirebaseEvent('PHONE_NUMBER_VERIFY_CONTINUE_BTN_ON_TAP');
+                  logFirebaseEvent('PHONE_NUMBER_VERIFY_VERIFY_BTN_ON_TAP');
                   if (_model.phoneOTPcode!.text != '') {
-                    if (_model.phoneOTPcode!.text == _model.otp) {
+                    logFirebaseEvent('Button_backend_call');
+                    _model.apiResult7uq =
+                        await TwilloSMSVerifyGroup.verifyCodeCall.call(
+                      to: FFAppState().userPhoneNumber,
+                      code: int.tryParse(_model.phoneOTPcode!.text),
+                      verifyServiceSid: FFAppState().vid,
+                      encodedCredentials: FFAppState().encodedCreds,
+                    );
+
+                    if ((_model.apiResult7uq?.succeeded ?? true)) {
                       logFirebaseEvent('Button_backend_call');
 
                       await currentUserReference!.update(createUsersRecordData(
-                        onboardingStatus: 'numberVerified',
+                        onboardingStatus: 'phoneVerified',
                         phoneNumber: FFAppState().userPhoneNumber,
                       ));
                       logFirebaseEvent('Button_wait__delay');
                       await Future.delayed(const Duration(milliseconds: 2000));
                       logFirebaseEvent('Button_navigate_to');
 
-                      context.pushNamed('linkedinConnect');
+                      context.goNamed('linkedinProfileInput');
                     } else {
                       logFirebaseEvent('Button_alert_dialog');
                       await showDialog(
@@ -537,8 +445,10 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                       ),
                     );
                   }
+
+                  setState(() {});
                 },
-                text: 'Continue',
+                text: 'Verify',
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 48.0,

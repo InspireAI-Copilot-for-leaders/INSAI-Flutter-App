@@ -55,6 +55,13 @@ class FFAppState extends ChangeNotifier {
               (await secureStorage.getInt('ff_startTime'))!)
           : _startTime;
     });
+    await _safeInitAsync(() async {
+      _encodedCreds =
+          await secureStorage.getString('ff_encodedCreds') ?? _encodedCreds;
+    });
+    await _safeInitAsync(() async {
+      _vid = await secureStorage.getString('ff_vid') ?? _vid;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -175,6 +182,29 @@ class FFAppState extends ChangeNotifier {
 
   void deleteStartTime() {
     secureStorage.delete(key: 'ff_startTime');
+  }
+
+  String _encodedCreds =
+      'QUNiNTQ2ZWExMDQzYTIwMmFhMTdhYzkxNjA4MDQ0MzU3OTpmZTQ0NTdmYTc5MGUyZDc2MzhjNjY4YzJhNDM2YTFkOQ==';
+  String get encodedCreds => _encodedCreds;
+  set encodedCreds(String value) {
+    _encodedCreds = value;
+    secureStorage.setString('ff_encodedCreds', value);
+  }
+
+  void deleteEncodedCreds() {
+    secureStorage.delete(key: 'ff_encodedCreds');
+  }
+
+  String _vid = 'VA2141a8c584713de1592609ff8dd1a09f';
+  String get vid => _vid;
+  set vid(String value) {
+    _vid = value;
+    secureStorage.setString('ff_vid', value);
+  }
+
+  void deleteVid() {
+    secureStorage.delete(key: 'ff_vid');
   }
 
   final _discoverManager = FutureRequestManager<List<ArticleRecord>>();

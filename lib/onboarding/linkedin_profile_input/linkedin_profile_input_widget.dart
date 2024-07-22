@@ -305,6 +305,17 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
                                   controller:
                                       _model.forgotPassEmailTextController,
                                   focusNode: _model.forgotPassEmailFocusNode,
+                                  onFieldSubmitted: (_) async {
+                                    logFirebaseEvent(
+                                        'LINKEDIN_PROFILE_INPUT_forgot_pass_email');
+                                    logFirebaseEvent(
+                                        'forgot_pass_email_validate_form');
+                                    if (_model.formKey.currentState == null ||
+                                        !_model.formKey.currentState!
+                                            .validate()) {
+                                      return;
+                                    }
+                                  },
                                   autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -558,7 +569,6 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
                             width: 0.0,
                           ),
                           borderRadius: BorderRadius.circular(50.0),
-                          hoverColor: FlutterFlowTheme.of(context).primaryText,
                         ),
                       ),
                     ),
@@ -569,12 +579,19 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
                       onPressed: () async {
                         logFirebaseEvent(
                             'LINKEDIN_PROFILE_INPUT_CONTINUE_BTN_ON_T');
+                        logFirebaseEvent('Button_validate_form');
+                        if (_model.formKey.currentState == null ||
+                            !_model.formKey.currentState!.validate()) {
+                          return;
+                        }
                         if (_model.profileGot) {
                           logFirebaseEvent('Button_backend_call');
 
                           await currentUserReference!
                               .update(createUsersRecordData(
                             onboardingStatus: 'linkedinSet',
+                            linkedinForSpecialAccess:
+                                _model.forgotPassEmailTextController.text,
                           ));
                           logFirebaseEvent('Button_navigate_to');
 

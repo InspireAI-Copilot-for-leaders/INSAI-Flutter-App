@@ -569,6 +569,64 @@ class PeopleCall {
 
 /// End linkedinPost Group Code
 
+/// Start Twillo SMS Verify Group Code
+
+class TwilloSMSVerifyGroup {
+  static SendCodeCall sendCodeCall = SendCodeCall();
+  static VerifyCodeCall verifyCodeCall = VerifyCodeCall();
+}
+
+class SendCodeCall {
+  Future<ApiCallResponse> call({
+    String? to = '',
+    String? verifyServiceSid = '',
+    String? encodedCredentials = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'SendCodeCall',
+        'variables': {
+          'to': to,
+          'verifyServiceSid': verifyServiceSid,
+          'encodedCredentials': encodedCredentials,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+}
+
+class VerifyCodeCall {
+  Future<ApiCallResponse> call({
+    String? to = '',
+    int? code,
+    String? verifyServiceSid = '',
+    String? encodedCredentials = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'VerifyCodeCall',
+        'variables': {
+          'to': to,
+          'code': code,
+          'verifyServiceSid': verifyServiceSid,
+          'encodedCredentials': encodedCredentials,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+
+  String? status(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.status''',
+      ));
+}
+
+/// End Twillo SMS Verify Group Code
+
 class ExpertiseOfPersonCall {
   static Future<ApiCallResponse> call({
     String? linkedinUrl = '',
