@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
 import '/components/loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -638,6 +639,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.loadingScreenVisible = true;
                                   setState(() {});
+                                  logFirebaseEvent('Button_backend_call');
+
+                                  await currentUserReference!.update({
+                                    ...mapToFirestore(
+                                      {
+                                        'freeTrialPostsCreated':
+                                            FieldValue.increment(1),
+                                      },
+                                    ),
+                                  });
                                   logFirebaseEvent(
                                       'Button_clear_text_fields_pin_codes');
                                   setState(() {
@@ -702,6 +713,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.loadingScreenVisible = true;
                                   setState(() {});
+                                  logFirebaseEvent('Button_backend_call');
+
+                                  await currentUserReference!.update({
+                                    ...mapToFirestore(
+                                      {
+                                        'freeTrialPostsCreated':
+                                            FieldValue.increment(1),
+                                      },
+                                    ),
+                                  });
                                   logFirebaseEvent(
                                       'Button_clear_text_fields_pin_codes');
                                   setState(() {
@@ -793,6 +814,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         'Button_update_page_state');
                                     _model.loadingScreenVisible = true;
                                     setState(() {});
+                                    logFirebaseEvent('Button_backend_call');
+
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'freeTrialPostsCreated':
+                                              FieldValue.increment(1),
+                                        },
+                                      ),
+                                    });
                                     logFirebaseEvent(
                                         'Button_clear_text_fields_pin_codes');
                                     setState(() {
@@ -859,6 +890,16 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                         'Button_update_page_state');
                                     _model.loadingScreenVisible = true;
                                     setState(() {});
+                                    logFirebaseEvent('Button_backend_call');
+
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'freeTrialPostsCreated':
+                                              FieldValue.increment(1),
+                                        },
+                                      ),
+                                    });
                                     logFirebaseEvent(
                                         'Button_clear_text_fields_pin_codes');
                                     setState(() {
