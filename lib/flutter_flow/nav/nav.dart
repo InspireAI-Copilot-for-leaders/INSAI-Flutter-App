@@ -115,11 +115,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'phone_number_verify',
-              path: 'phoneNumberVerify',
-              builder: (context, params) => const PhoneNumberVerifyWidget(),
-            ),
-            FFRoute(
               name: 'forgot_pass',
               path: 'forgot_pass',
               builder: (context, params) => const ForgotPassWidget(),
@@ -454,9 +449,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'accessWall',
-              path: 'accessWall',
-              builder: (context, params) => const AccessWallWidget(),
+              name: 'freeTrial',
+              path: 'freeTrial',
+              builder: (context, params) => const FreeTrialWidget(),
+            ),
+            FFRoute(
+              name: 'phoneNumberInput',
+              path: 'phoneNumberInput',
+              requireAuth: true,
+              builder: (context, params) => const PhoneNumberInputWidget(),
+            ),
+            FFRoute(
+              name: 'phoneNumberVerify',
+              path: 'phoneNumberVerify',
+              requireAuth: true,
+              builder: (context, params) => const PhoneNumberVerifyWidget(),
+            ),
+            FFRoute(
+              name: 'linkedinProfileInput',
+              path: 'linkedinProfileInput',
+              requireAuth: true,
+              builder: (context, params) => const LinkedinProfileInputWidget(),
+            ),
+            FFRoute(
+              name: 'setExpertise',
+              path: 'setExpertise',
+              requireAuth: true,
+              builder: (context, params) => const SetExpertiseWidget(),
+            ),
+            FFRoute(
+              name: 'freeTrialExpired',
+              path: 'freeTrialExpired',
+              builder: (context, params) => const FreeTrialExpiredWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

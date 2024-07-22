@@ -7,6 +7,7 @@ export 'elements_struct.dart';
 export 'identifiers_struct.dart';
 export 'linkedin_prefered_locale_struct.dart';
 export 'linkedin_details_auth_struct.dart';
+export 'linkedin_scrapped_struct.dart';
 export 'notification_popup_struct.dart';
 export 'original_article_for_rag_struct.dart';
 export 'posts_struct.dart';

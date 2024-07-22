@@ -251,11 +251,20 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                           child: Image.network(
                                             valueOrDefault<String>(
                                               (currentUserDocument
-                                                          ?.profilePictureLinks
-                                                          .toList() ??
-                                                      [])
-                                                  .first,
-                                              'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                                              ?.profilePictureLinks
+                                                              .toList() ??
+                                                          [])
+                                                      .isNotEmpty
+                                                  ? valueOrDefault<String>(
+                                                      (currentUserDocument
+                                                                  ?.profilePictureLinks
+                                                                  .toList() ??
+                                                              [])
+                                                          .first,
+                                                      'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                                    )
+                                                  : 'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                              'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
                                             ),
                                             fit: BoxFit.cover,
                                           ),
@@ -274,7 +283,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         children: [
                                           AuthUserStreamWidget(
                                             builder: (context) => Text(
-                                              '${currentUserDocument?.linkedinDetails.localizedFirstName}',
+                                              '${currentUserDocument?.linkedinScrapped.firstName}',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .titleLarge
@@ -309,45 +318,93 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'VIEW_OR_EDIT_POST_Icon_ryam30mi_ON_TAP');
-                                        if (_model.isScheduled) {
-                                          logFirebaseEvent(
-                                              'Icon_update_page_state');
-                                          _model.datePickerVisbile = true;
-                                          setState(() {});
-                                          logFirebaseEvent('Icon_wait__delay');
-                                          await Future.delayed(const Duration(
-                                              milliseconds: 100));
-                                          logFirebaseEvent(
-                                              'Icon_widget_animation');
-                                          if (animationsMap[
-                                                  'containerOnActionTriggerAnimation'] !=
-                                              null) {
-                                            await animationsMap[
-                                                    'containerOnActionTriggerAnimation']!
-                                                .controller
-                                                .forward(from: 0.0);
+                                        if (valueOrDefault<bool>(
+                                            currentUserDocument
+                                                ?.linkedinConnected,
+                                            false)) {
+                                          if (_model.isScheduled) {
+                                            logFirebaseEvent(
+                                                'Icon_update_page_state');
+                                            _model.datePickerVisbile = true;
+                                            setState(() {});
+                                            logFirebaseEvent(
+                                                'Icon_wait__delay');
+                                            await Future.delayed(const Duration(
+                                                milliseconds: 100));
+                                            logFirebaseEvent(
+                                                'Icon_widget_animation');
+                                            if (animationsMap[
+                                                    'containerOnActionTriggerAnimation'] !=
+                                                null) {
+                                              await animationsMap[
+                                                      'containerOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .forward(from: 0.0);
+                                            }
+                                          } else {
+                                            logFirebaseEvent(
+                                                'Icon_update_page_state');
+                                            _model.scheduledTime =
+                                                getCurrentTimestamp;
+                                            _model.scheduledDate =
+                                                getCurrentTimestamp;
+                                            _model.datePickerVisbile = true;
+                                            setState(() {});
+                                            logFirebaseEvent(
+                                                'Icon_wait__delay');
+                                            await Future.delayed(const Duration(
+                                                milliseconds: 100));
+                                            logFirebaseEvent(
+                                                'Icon_widget_animation');
+                                            if (animationsMap[
+                                                    'containerOnActionTriggerAnimation'] !=
+                                                null) {
+                                              await animationsMap[
+                                                      'containerOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .forward(from: 0.0);
+                                            }
                                           }
                                         } else {
-                                          logFirebaseEvent(
-                                              'Icon_update_page_state');
-                                          _model.scheduledTime =
-                                              getCurrentTimestamp;
-                                          _model.scheduledDate =
-                                              getCurrentTimestamp;
-                                          _model.datePickerVisbile = true;
-                                          setState(() {});
-                                          logFirebaseEvent('Icon_wait__delay');
-                                          await Future.delayed(const Duration(
-                                              milliseconds: 100));
-                                          logFirebaseEvent(
-                                              'Icon_widget_animation');
-                                          if (animationsMap[
-                                                  'containerOnActionTriggerAnimation'] !=
-                                              null) {
-                                            await animationsMap[
-                                                    'containerOnActionTriggerAnimation']!
-                                                .controller
-                                                .forward(from: 0.0);
+                                          logFirebaseEvent('Icon_alert_dialog');
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Linkedin Not Connected!'),
+                                                        content: const Text(
+                                                            'To be able to post to Linkedin, you need to connect your account.'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child:
+                                                                const Text('Cancel'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child: const Text(
+                                                                'Let\'s Connect'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ) ??
+                                                  false;
+                                          if (confirmDialogResponse) {
+                                            logFirebaseEvent(
+                                                'Icon_navigate_to');
+
+                                            context
+                                                .pushNamed('linkedinConnect');
                                           }
                                         }
                                       },
@@ -365,108 +422,159 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_onlyTextButton_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'onlyTextButton_backend_call');
-                                              _model.linkedinPost =
-                                                  await LinkedinPostGroup
-                                                      .postOnlyTextCall
-                                                      .call(
-                                                personUrn: valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.linkedinUrn,
-                                                    ''),
-                                                postText: functions
-                                                    .formatStringForLIJson(
-                                                        _model.textController
-                                                            .text),
-                                                accessToken: valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.linkedinAccess,
-                                                    ''),
-                                              );
-
-                                              if ((_model.linkedinPost
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                logFirebaseEvent(
-                                                    'onlyTextButton_alert_dialog');
-                                                unawaited(
-                                                  () async {
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title:
-                                                              const Text('Success'),
-                                                          content: const Text(
-                                                              'Your post has been successfully posted!'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: const Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                  }(),
-                                                );
+                                              if (valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.linkedinConnected,
+                                                  false)) {
                                                 logFirebaseEvent(
                                                     'onlyTextButton_backend_call');
-
-                                                await widget.postRef!.update(
-                                                    createCreatedPostsRecordData(
-                                                  status: 'Posted',
-                                                ));
-                                                logFirebaseEvent(
-                                                    'onlyTextButton_backend_call');
-
-                                                await PostedOnLinkedinRecord
-                                                        .createDoc(
-                                                            currentUserReference!)
-                                                    .set(
-                                                        createPostedOnLinkedinRecordData(
-                                                  postURN: (_model.linkedinPost
-                                                          ?.getHeader(
-                                                              'x-linkedin-id') ??
+                                                _model.linkedinPost =
+                                                    await LinkedinPostGroup
+                                                        .postOnlyTextCall
+                                                        .call(
+                                                  personUrn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
                                                       ''),
-                                                  postedOn: getCurrentTimestamp,
-                                                  postText: _model
-                                                      .textController.text,
-                                                  postTitle: widget.postTitle,
-                                                  reactionRefreshQuota: 2,
-                                                  typeOfPost: 'onlyText',
-                                                ));
-                                                logFirebaseEvent(
-                                                    'onlyTextButton_navigate_to');
+                                                  postText: functions
+                                                      .formatStringForLIJson(
+                                                          _model.textController
+                                                              .text),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                );
 
-                                                context.goNamed(
-                                                    'allPostsOverview');
+                                                if ((_model.linkedinPost
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'onlyTextButton_alert_dialog');
+                                                  unawaited(
+                                                    () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title:
+                                                                const Text('Success'),
+                                                            content: const Text(
+                                                                'Your post has been successfully posted!'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    const Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    }(),
+                                                  );
+                                                  logFirebaseEvent(
+                                                      'onlyTextButton_backend_call');
+
+                                                  await widget.postRef!.update(
+                                                      createCreatedPostsRecordData(
+                                                    status: 'Posted',
+                                                  ));
+                                                  logFirebaseEvent(
+                                                      'onlyTextButton_backend_call');
+
+                                                  await PostedOnLinkedinRecord
+                                                          .createDoc(
+                                                              currentUserReference!)
+                                                      .set(
+                                                          createPostedOnLinkedinRecordData(
+                                                    postURN: (_model
+                                                            .linkedinPost
+                                                            ?.getHeader(
+                                                                'x-linkedin-id') ??
+                                                        ''),
+                                                    postedOn:
+                                                        getCurrentTimestamp,
+                                                    postText: _model
+                                                        .textController.text,
+                                                    postTitle:
+                                                        widget.postTitle,
+                                                    reactionRefreshQuota: 2,
+                                                    typeOfPost: 'onlyText',
+                                                  ));
+                                                  logFirebaseEvent(
+                                                      'onlyTextButton_navigate_to');
+
+                                                  context.goNamed(
+                                                      'allPostsOverview');
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'onlyTextButton_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text('Failed'),
+                                                        content: const Text(
+                                                            'Posting action failed!'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: const Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                }
                                               } else {
                                                 logFirebaseEvent(
                                                     'onlyTextButton_alert_dialog');
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: const Text('Failed'),
-                                                      content: const Text(
-                                                          'Posting action failed!'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: const Text('Ok'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Linkedin Not Connected!'),
+                                                              content: const Text(
+                                                                  'To be able to post to Linkedin, you need to connect your account.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: const Text(
+                                                                      'Let\'s Connect'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
+                                                  logFirebaseEvent(
+                                                      'onlyTextButton_navigate_to');
+
+                                                  context.pushNamed(
+                                                      'linkedinConnect');
+                                                }
                                               }
 
                                               setState(() {});
@@ -513,220 +621,255 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_PAGE_docButton_ON_TAP');
                                               var shouldSetState = false;
-                                              if (_model.typeOfMediaUploaded ==
-                                                  'doc') {
-                                                logFirebaseEvent(
-                                                    'docButton_upload_file_to_firebase');
-                                                {
-                                                  setState(() => _model
-                                                      .isDataUploading1 = true);
-                                                  var selectedUploadedFiles =
-                                                      <FFUploadedFile>[];
-                                                  var selectedFiles =
-                                                      <SelectedFile>[];
-                                                  var downloadUrls = <String>[];
-                                                  try {
-                                                    selectedUploadedFiles =
-                                                        _model
-                                                                .uploadedDoc!
-                                                                .bytes!
-                                                                .isNotEmpty
-                                                            ? [
-                                                                _model
-                                                                    .uploadedDoc!
-                                                              ]
-                                                            : <FFUploadedFile>[];
-                                                    selectedFiles =
-                                                        selectedFilesFromUploadedFiles(
-                                                      selectedUploadedFiles,
-                                                    );
-                                                    downloadUrls = (await Future
-                                                            .wait(
-                                                      selectedFiles.map(
-                                                        (f) async =>
-                                                            await uploadData(
-                                                                f.storagePath,
-                                                                f.bytes),
-                                                      ),
-                                                    ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
-                                                  } finally {
-                                                    _model.isDataUploading1 =
-                                                        false;
+                                              if (valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.linkedinConnected,
+                                                  false)) {
+                                                if (_model
+                                                        .typeOfMediaUploaded ==
+                                                    'doc') {
+                                                  logFirebaseEvent(
+                                                      'docButton_upload_file_to_firebase');
+                                                  {
+                                                    setState(() => _model
+                                                            .isDataUploading1 =
+                                                        true);
+                                                    var selectedUploadedFiles =
+                                                        <FFUploadedFile>[];
+                                                    var selectedFiles =
+                                                        <SelectedFile>[];
+                                                    var downloadUrls =
+                                                        <String>[];
+                                                    try {
+                                                      selectedUploadedFiles =
+                                                          _model
+                                                                  .uploadedDoc!
+                                                                  .bytes!
+                                                                  .isNotEmpty
+                                                              ? [
+                                                                  _model
+                                                                      .uploadedDoc!
+                                                                ]
+                                                              : <FFUploadedFile>[];
+                                                      selectedFiles =
+                                                          selectedFilesFromUploadedFiles(
+                                                        selectedUploadedFiles,
+                                                      );
+                                                      downloadUrls =
+                                                          (await Future.wait(
+                                                        selectedFiles.map(
+                                                          (f) async =>
+                                                              await uploadData(
+                                                                  f.storagePath,
+                                                                  f.bytes),
+                                                        ),
+                                                      ))
+                                                              .where((u) =>
+                                                                  u != null)
+                                                              .map((u) => u!)
+                                                              .toList();
+                                                    } finally {
+                                                      _model.isDataUploading1 =
+                                                          false;
+                                                    }
+                                                    if (selectedUploadedFiles
+                                                                .length ==
+                                                            selectedFiles
+                                                                .length &&
+                                                        downloadUrls.length ==
+                                                            selectedFiles
+                                                                .length) {
+                                                      setState(() {
+                                                        _model.uploadedLocalFile1 =
+                                                            selectedUploadedFiles
+                                                                .first;
+                                                        _model.uploadedFileUrl1 =
+                                                            downloadUrls.first;
+                                                      });
+                                                    } else {
+                                                      setState(() {});
+                                                      return;
+                                                    }
                                                   }
-                                                  if (selectedUploadedFiles
-                                                              .length ==
-                                                          selectedFiles
-                                                              .length &&
-                                                      downloadUrls.length ==
-                                                          selectedFiles
-                                                              .length) {
-                                                    setState(() {
-                                                      _model.uploadedLocalFile1 =
-                                                          selectedUploadedFiles
-                                                              .first;
-                                                      _model.uploadedFileUrl1 =
-                                                          downloadUrls.first;
-                                                    });
-                                                  } else {
-                                                    setState(() {});
-                                                    return;
-                                                  }
-                                                }
 
-                                                logFirebaseEvent(
-                                                    'docButton_backend_call');
-                                                _model.liDocURL =
-                                                    await GetDocUploadUrlFromLinkedinCall
-                                                        .call(
-                                                  urn: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinUrn,
-                                                      ''),
-                                                  accessToken: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinAccess,
-                                                      ''),
-                                                );
-
-                                                shouldSetState = true;
-                                                if ((_model
-                                                        .liDocURL?.succeeded ??
-                                                    true)) {
                                                   logFirebaseEvent(
                                                       'docButton_backend_call');
-                                                  _model.docUploaded =
-                                                      await UploadDocToLinkedinCall
+                                                  _model.liDocURL =
+                                                      await GetDocUploadUrlFromLinkedinCall
                                                           .call(
+                                                    urn: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinUrn,
+                                                        ''),
                                                     accessToken: valueOrDefault(
                                                         currentUserDocument
                                                             ?.linkedinAccess,
                                                         ''),
-                                                    uploadUrl:
-                                                        GetDocUploadUrlFromLinkedinCall
-                                                            .uploadURL(
-                                                      (_model.liDocURL
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                    ),
-                                                    docToBeUploaded:
-                                                        _model.uploadedFileUrl1,
                                                   );
 
                                                   shouldSetState = true;
-                                                  if ((_model.docUploaded
+                                                  if ((_model.liDocURL
                                                           ?.succeeded ??
                                                       true)) {
                                                     logFirebaseEvent(
                                                         'docButton_backend_call');
-                                                    _model.apiResult9vv =
-                                                        await LinkedinPostGroup
-                                                            .postTextWithMediaCall
+                                                    _model.docUploaded =
+                                                        await UploadDocToLinkedinCall
                                                             .call(
-                                                      personUrn: valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.linkedinUrn,
-                                                          ''),
-                                                      postText: functions
-                                                          .formatStringForLIJson(
-                                                              _model
-                                                                  .textController
-                                                                  .text),
-                                                      mediaId:
-                                                          GetDocUploadUrlFromLinkedinCall
-                                                              .docURN(
-                                                        (_model.liDocURL
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
                                                       accessToken: valueOrDefault(
                                                           currentUserDocument
                                                               ?.linkedinAccess,
                                                           ''),
+                                                      uploadUrl:
+                                                          GetDocUploadUrlFromLinkedinCall
+                                                              .uploadURL(
+                                                        (_model.liDocURL
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      ),
+                                                      docToBeUploaded: _model
+                                                          .uploadedFileUrl1,
                                                     );
 
                                                     shouldSetState = true;
-                                                    if ((_model.apiResult9vv
+                                                    if ((_model.docUploaded
                                                             ?.succeeded ??
                                                         true)) {
                                                       logFirebaseEvent(
-                                                          'docButton_alert_dialog');
-                                                      unawaited(
-                                                        () async {
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return AlertDialog(
-                                                                title: const Text(
-                                                                    'Success'),
-                                                                content: const Text(
-                                                                    'Your post has been successfully posted!'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: const Text(
-                                                                        'Ok'),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          );
-                                                        }(),
-                                                      );
-                                                      logFirebaseEvent(
                                                           'docButton_backend_call');
-
-                                                      await widget.postRef!.update(
-                                                          createCreatedPostsRecordData(
-                                                        status: 'Posted',
-                                                      ));
-                                                      logFirebaseEvent(
-                                                          'docButton_backend_call');
-
-                                                      await PostedOnLinkedinRecord
-                                                              .createDoc(
-                                                                  currentUserReference!)
-                                                          .set(
-                                                              createPostedOnLinkedinRecordData(
-                                                        postURN: (_model
-                                                                .apiResult9vv
-                                                                ?.getHeader(
-                                                                    'x-linkedin-id') ??
+                                                      _model.apiResult9vv =
+                                                          await LinkedinPostGroup
+                                                              .postTextWithMediaCall
+                                                              .call(
+                                                        personUrn: valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.linkedinUrn,
                                                             ''),
-                                                        postedOn:
-                                                            getCurrentTimestamp,
-                                                        postText: _model
-                                                            .textController
-                                                            .text,
-                                                        postTitle:
-                                                            widget.postTitle,
-                                                        reactionRefreshQuota: 2,
-                                                        docUrn:
+                                                        postText: functions
+                                                            .formatStringForLIJson(
+                                                                _model
+                                                                    .textController
+                                                                    .text),
+                                                        mediaId:
                                                             GetDocUploadUrlFromLinkedinCall
                                                                 .docURN(
                                                           (_model.liDocURL
                                                                   ?.jsonBody ??
                                                               ''),
                                                         ),
-                                                        uploadedDocUrl:
-                                                            GetDocUploadUrlFromLinkedinCall
-                                                                .uploadURL(
-                                                          (_model.liDocURL
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        ),
-                                                        typeOfPost: 'doc',
-                                                      ));
-                                                      logFirebaseEvent(
-                                                          'docButton_navigate_to');
+                                                        accessToken: valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.linkedinAccess,
+                                                            ''),
+                                                      );
 
-                                                      context.goNamed(
-                                                          'allPostsOverview');
+                                                      shouldSetState = true;
+                                                      if ((_model.apiResult9vv
+                                                              ?.succeeded ??
+                                                          true)) {
+                                                        logFirebaseEvent(
+                                                            'docButton_alert_dialog');
+                                                        unawaited(
+                                                          () async {
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (alertDialogContext) {
+                                                                return AlertDialog(
+                                                                  title: const Text(
+                                                                      'Success'),
+                                                                  content: const Text(
+                                                                      'Your post has been successfully posted!'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                      child: const Text(
+                                                                          'Ok'),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+                                                            );
+                                                          }(),
+                                                        );
+                                                        logFirebaseEvent(
+                                                            'docButton_backend_call');
+
+                                                        await widget.postRef!
+                                                            .update(
+                                                                createCreatedPostsRecordData(
+                                                          status: 'Posted',
+                                                        ));
+                                                        logFirebaseEvent(
+                                                            'docButton_backend_call');
+
+                                                        await PostedOnLinkedinRecord
+                                                                .createDoc(
+                                                                    currentUserReference!)
+                                                            .set(
+                                                                createPostedOnLinkedinRecordData(
+                                                          postURN: (_model
+                                                                  .apiResult9vv
+                                                                  ?.getHeader(
+                                                                      'x-linkedin-id') ??
+                                                              ''),
+                                                          postedOn:
+                                                              getCurrentTimestamp,
+                                                          postText: _model
+                                                              .textController
+                                                              .text,
+                                                          postTitle:
+                                                              widget.postTitle,
+                                                          reactionRefreshQuota:
+                                                              2,
+                                                          docUrn:
+                                                              GetDocUploadUrlFromLinkedinCall
+                                                                  .docURN(
+                                                            (_model.liDocURL
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          ),
+                                                          uploadedDocUrl:
+                                                              GetDocUploadUrlFromLinkedinCall
+                                                                  .uploadURL(
+                                                            (_model.liDocURL
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          ),
+                                                          typeOfPost: 'doc',
+                                                        ));
+                                                        logFirebaseEvent(
+                                                            'docButton_navigate_to');
+
+                                                        context.goNamed(
+                                                            'allPostsOverview');
+                                                      } else {
+                                                        logFirebaseEvent(
+                                                            'docButton_alert_dialog');
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Posting Failed!'),
+                                                              content: const Text(
+                                                                  'Your doc could not be uploaded to linkedin.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: const Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }
                                                     } else {
                                                       logFirebaseEvent(
                                                           'docButton_alert_dialog');
@@ -736,7 +879,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             (alertDialogContext) {
                                                           return AlertDialog(
                                                             title: const Text(
-                                                                'Posting Failed!'),
+                                                                'Upload Failed!'),
                                                             content: const Text(
                                                                 'Your doc could not be uploaded to linkedin.'),
                                                             actions: [
@@ -751,6 +894,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           );
                                                         },
                                                       );
+                                                      if (shouldSetState) {
+                                                        setState(() {});
+                                                      }
+                                                      return;
                                                     }
                                                   } else {
                                                     logFirebaseEvent(
@@ -780,35 +927,51 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     }
                                                     return;
                                                   }
-                                                } else {
+                                                }
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'docButton_alert_dialog');
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Linkedin Not Connected!'),
+                                                              content: const Text(
+                                                                  'To be able to post to Linkedin, you need to connect your account.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: const Text(
+                                                                      'Let\'s Connect'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
                                                   logFirebaseEvent(
-                                                      'docButton_alert_dialog');
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                            'Upload Failed!'),
-                                                        content: const Text(
-                                                            'Your doc could not be uploaded to linkedin.'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext),
-                                                            child: const Text('Ok'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                  if (shouldSetState) {
-                                                    setState(() {});
-                                                  }
-                                                  return;
+                                                      'docButton_navigate_to');
+
+                                                  context.pushNamed(
+                                                      'linkedinConnect');
                                                 }
                                               }
+
                                               if (shouldSetState) {
                                                 setState(() {});
                                               }
@@ -858,212 +1021,246 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_imageButton_ON_TAP');
                                               var shouldSetState = false;
-                                              logFirebaseEvent(
-                                                  'imageButton_upload_media_to_firebase');
-                                              {
-                                                setState(() => _model
-                                                    .isDataUploading2 = true);
-                                                var selectedUploadedFiles =
-                                                    <FFUploadedFile>[];
-                                                var selectedMedia =
-                                                    <SelectedFile>[];
-                                                var downloadUrls = <String>[];
-                                                try {
-                                                  selectedUploadedFiles =
-                                                      _model.uploadedMedia;
-                                                  selectedMedia =
-                                                      selectedFilesFromUploadedFiles(
-                                                    selectedUploadedFiles,
-                                                    isMultiData: true,
-                                                  );
-                                                  downloadUrls =
-                                                      (await Future.wait(
-                                                    selectedMedia.map(
-                                                      (m) async =>
-                                                          await uploadData(
-                                                              m.storagePath,
-                                                              m.bytes),
-                                                    ),
-                                                  ))
-                                                          .where(
-                                                              (u) => u != null)
-                                                          .map((u) => u!)
-                                                          .toList();
-                                                } finally {
-                                                  _model.isDataUploading2 =
-                                                      false;
-                                                }
-                                                if (selectedUploadedFiles
-                                                            .length ==
-                                                        selectedMedia.length &&
-                                                    downloadUrls.length ==
-                                                        selectedMedia.length) {
-                                                  setState(() {
-                                                    _model.uploadedLocalFiles2 =
-                                                        selectedUploadedFiles;
-                                                    _model.uploadedFileUrls2 =
-                                                        downloadUrls;
-                                                  });
-                                                } else {
-                                                  setState(() {});
-                                                  return;
-                                                }
-                                              }
-
-                                              while (_model
-                                                      .noOfImagesUploadedToFirebase <
-                                                  _model
-                                                      .numberOfImagesUploaded) {
+                                              if (valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.linkedinConnected,
+                                                  false)) {
                                                 logFirebaseEvent(
-                                                    'imageButton_backend_call');
-                                                _model.imageUrl =
-                                                    await GetImageUploadUrlFromLinkedinCall
-                                                        .call(
-                                                  urn: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinUrn,
-                                                      ''),
-                                                  accessToken: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinAccess,
-                                                      ''),
-                                                );
+                                                    'imageButton_upload_media_to_firebase');
+                                                {
+                                                  setState(() => _model
+                                                      .isDataUploading2 = true);
+                                                  var selectedUploadedFiles =
+                                                      <FFUploadedFile>[];
+                                                  var selectedMedia =
+                                                      <SelectedFile>[];
+                                                  var downloadUrls = <String>[];
+                                                  try {
+                                                    selectedUploadedFiles =
+                                                        _model.uploadedMedia;
+                                                    selectedMedia =
+                                                        selectedFilesFromUploadedFiles(
+                                                      selectedUploadedFiles,
+                                                      isMultiData: true,
+                                                    );
+                                                    downloadUrls = (await Future
+                                                            .wait(
+                                                      selectedMedia.map(
+                                                        (m) async =>
+                                                            await uploadData(
+                                                                m.storagePath,
+                                                                m.bytes),
+                                                      ),
+                                                    ))
+                                                        .where((u) => u != null)
+                                                        .map((u) => u!)
+                                                        .toList();
+                                                  } finally {
+                                                    _model.isDataUploading2 =
+                                                        false;
+                                                  }
+                                                  if (selectedUploadedFiles
+                                                              .length ==
+                                                          selectedMedia
+                                                              .length &&
+                                                      downloadUrls.length ==
+                                                          selectedMedia
+                                                              .length) {
+                                                    setState(() {
+                                                      _model.uploadedLocalFiles2 =
+                                                          selectedUploadedFiles;
+                                                      _model.uploadedFileUrls2 =
+                                                          downloadUrls;
+                                                    });
+                                                  } else {
+                                                    setState(() {});
+                                                    return;
+                                                  }
+                                                }
 
-                                                shouldSetState = true;
-                                                if ((_model
-                                                        .imageUrl?.succeeded ??
-                                                    true)) {
+                                                while (_model
+                                                        .noOfImagesUploadedToFirebase <
+                                                    _model
+                                                        .numberOfImagesUploaded) {
                                                   logFirebaseEvent(
                                                       'imageButton_backend_call');
-                                                  _model.imageUploaded =
-                                                      await UploadImageToLinkedinCall
+                                                  _model.imageUrl =
+                                                      await GetImageUploadUrlFromLinkedinCall
                                                           .call(
+                                                    urn: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinUrn,
+                                                        ''),
                                                     accessToken: valueOrDefault(
                                                         currentUserDocument
                                                             ?.linkedinAccess,
                                                         ''),
-                                                    uploadUrl:
-                                                        GetImageUploadUrlFromLinkedinCall
-                                                            .uploadURL(
-                                                      (_model.imageUrl
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                    ),
-                                                    imageToBeUploaded: _model
-                                                            .uploadedFileUrls2[
-                                                        _model
-                                                            .noOfImagesUploadedToFirebase],
                                                   );
 
                                                   shouldSetState = true;
-                                                  if ((_model.imageUploaded
+                                                  if ((_model.imageUrl
                                                           ?.succeeded ??
                                                       true)) {
-                                                    if (_model
-                                                            .noOfImagesUploadedToFirebase >=
-                                                        1) {
-                                                      logFirebaseEvent(
-                                                          'imageButton_backend_call');
+                                                    logFirebaseEvent(
+                                                        'imageButton_backend_call');
+                                                    _model.imageUploaded =
+                                                        await UploadImageToLinkedinCall
+                                                            .call(
+                                                      accessToken: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.linkedinAccess,
+                                                          ''),
+                                                      uploadUrl:
+                                                          GetImageUploadUrlFromLinkedinCall
+                                                              .uploadURL(
+                                                        (_model.imageUrl
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      ),
+                                                      imageToBeUploaded: _model
+                                                              .uploadedFileUrls2[
+                                                          _model
+                                                              .noOfImagesUploadedToFirebase],
+                                                    );
 
-                                                      await _model
-                                                          .createdDocRefrence!
-                                                          .reference
-                                                          .update({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'imageUrns':
-                                                                FieldValue
-                                                                    .arrayUnion([
-                                                              GetImageUploadUrlFromLinkedinCall
-                                                                  .imageURN(
-                                                                (_model.imageUrl
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              )
-                                                            ]),
-                                                            'uploadedImageUrls':
-                                                                FieldValue
-                                                                    .arrayUnion([
-                                                              GetImageUploadUrlFromLinkedinCall
-                                                                  .uploadURL(
-                                                                (_model.imageUrl
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              )
-                                                            ]),
-                                                          },
-                                                        ),
-                                                      });
-                                                      logFirebaseEvent(
-                                                          'imageButton_update_page_state');
-                                                      _model.noOfImagesUploadedToFirebase =
-                                                          _model.noOfImagesUploadedToFirebase +
-                                                              1;
-                                                      setState(() {});
+                                                    shouldSetState = true;
+                                                    if ((_model.imageUploaded
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      if (_model
+                                                              .noOfImagesUploadedToFirebase >=
+                                                          1) {
+                                                        logFirebaseEvent(
+                                                            'imageButton_backend_call');
+
+                                                        await _model
+                                                            .createdDocRefrence!
+                                                            .reference
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'imageUrns':
+                                                                  FieldValue
+                                                                      .arrayUnion([
+                                                                GetImageUploadUrlFromLinkedinCall
+                                                                    .imageURN(
+                                                                  (_model.imageUrl
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                )
+                                                              ]),
+                                                              'uploadedImageUrls':
+                                                                  FieldValue
+                                                                      .arrayUnion([
+                                                                GetImageUploadUrlFromLinkedinCall
+                                                                    .uploadURL(
+                                                                  (_model.imageUrl
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                )
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+                                                        logFirebaseEvent(
+                                                            'imageButton_update_page_state');
+                                                        _model.noOfImagesUploadedToFirebase =
+                                                            _model.noOfImagesUploadedToFirebase +
+                                                                1;
+                                                        setState(() {});
+                                                      } else {
+                                                        logFirebaseEvent(
+                                                            'imageButton_backend_call');
+
+                                                        var postedOnLinkedinRecordReference =
+                                                            PostedOnLinkedinRecord
+                                                                .createDoc(
+                                                                    currentUserReference!);
+                                                        await postedOnLinkedinRecordReference
+                                                            .set({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'imageUrns': [
+                                                                GetImageUploadUrlFromLinkedinCall
+                                                                    .imageURN(
+                                                                  (_model.imageUrl
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                )
+                                                              ],
+                                                              'uploadedImageUrls':
+                                                                  [
+                                                                GetImageUploadUrlFromLinkedinCall
+                                                                    .uploadURL(
+                                                                  (_model.imageUrl
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                )
+                                                              ],
+                                                            },
+                                                          ),
+                                                        });
+                                                        _model.createdDocRefrence =
+                                                            PostedOnLinkedinRecord
+                                                                .getDocumentFromData({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'imageUrns': [
+                                                                GetImageUploadUrlFromLinkedinCall
+                                                                    .imageURN(
+                                                                  (_model.imageUrl
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                )
+                                                              ],
+                                                              'uploadedImageUrls':
+                                                                  [
+                                                                GetImageUploadUrlFromLinkedinCall
+                                                                    .uploadURL(
+                                                                  (_model.imageUrl
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                )
+                                                              ],
+                                                            },
+                                                          ),
+                                                        }, postedOnLinkedinRecordReference);
+                                                        shouldSetState = true;
+                                                        logFirebaseEvent(
+                                                            'imageButton_update_page_state');
+                                                        _model.noOfImagesUploadedToFirebase =
+                                                            _model.noOfImagesUploadedToFirebase +
+                                                                1;
+                                                        setState(() {});
+                                                      }
                                                     } else {
                                                       logFirebaseEvent(
-                                                          'imageButton_backend_call');
-
-                                                      var postedOnLinkedinRecordReference =
-                                                          PostedOnLinkedinRecord
-                                                              .createDoc(
-                                                                  currentUserReference!);
-                                                      await postedOnLinkedinRecordReference
-                                                          .set({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'imageUrns': [
-                                                              GetImageUploadUrlFromLinkedinCall
-                                                                  .imageURN(
-                                                                (_model.imageUrl
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              )
+                                                          'imageButton_alert_dialog');
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: const Text(
+                                                                'Image upload Failed!'),
+                                                            content: const Text(
+                                                                'Your images could not be uploaded to linkedin.'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    const Text('Ok'),
+                                                              ),
                                                             ],
-                                                            'uploadedImageUrls':
-                                                                [
-                                                              GetImageUploadUrlFromLinkedinCall
-                                                                  .uploadURL(
-                                                                (_model.imageUrl
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              )
-                                                            ],
-                                                          },
-                                                        ),
-                                                      });
-                                                      _model.createdDocRefrence =
-                                                          PostedOnLinkedinRecord
-                                                              .getDocumentFromData({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'imageUrns': [
-                                                              GetImageUploadUrlFromLinkedinCall
-                                                                  .imageURN(
-                                                                (_model.imageUrl
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              )
-                                                            ],
-                                                            'uploadedImageUrls':
-                                                                [
-                                                              GetImageUploadUrlFromLinkedinCall
-                                                                  .uploadURL(
-                                                                (_model.imageUrl
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              )
-                                                            ],
-                                                          },
-                                                        ),
-                                                      }, postedOnLinkedinRecordReference);
-                                                      shouldSetState = true;
-                                                      logFirebaseEvent(
-                                                          'imageButton_update_page_state');
-                                                      _model.noOfImagesUploadedToFirebase =
-                                                          _model.noOfImagesUploadedToFirebase +
-                                                              1;
-                                                      setState(() {});
+                                                          );
+                                                        },
+                                                      );
+                                                      if (shouldSetState) {
+                                                        setState(() {});
+                                                      }
+                                                      return;
                                                     }
                                                   } else {
                                                     logFirebaseEvent(
@@ -1093,224 +1290,241 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     }
                                                     return;
                                                   }
+                                                }
+                                                if (_model
+                                                        .numberOfImagesUploaded >
+                                                    1) {
+                                                  logFirebaseEvent(
+                                                      'imageButton_backend_call');
+                                                  _model.multiImgPosted =
+                                                      await LinkedinPostGroup
+                                                          .postTextWithMultipleImagesCall
+                                                          .call(
+                                                    personUrn: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinUrn,
+                                                        ''),
+                                                    postText: functions
+                                                        .formatStringForLIJson(
+                                                            _model
+                                                                .textController
+                                                                .text),
+                                                    imagesJson: functions
+                                                        .valueToJsonMapList(
+                                                            _model
+                                                                .createdDocRefrence!
+                                                                .imageUrns
+                                                                .toList(),
+                                                            'id'),
+                                                    accessToken: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinAccess,
+                                                        ''),
+                                                  );
+
+                                                  shouldSetState = true;
+                                                  if ((_model.multiImgPosted
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    logFirebaseEvent(
+                                                        'imageButton_alert_dialog');
+                                                    unawaited(
+                                                      () async {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Success'),
+                                                              content: const Text(
+                                                                  'Your post has been successfully posted!'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: const Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }(),
+                                                    );
+                                                    logFirebaseEvent(
+                                                        'imageButton_backend_call');
+
+                                                    await widget.postRef!.update(
+                                                        createCreatedPostsRecordData(
+                                                      status: 'Posted',
+                                                    ));
+                                                    logFirebaseEvent(
+                                                        'imageButton_backend_call');
+
+                                                    await _model
+                                                        .createdDocRefrence!
+                                                        .reference
+                                                        .update(
+                                                            createPostedOnLinkedinRecordData(
+                                                      postURN: (_model
+                                                              .multiImgPosted
+                                                              ?.getHeader(
+                                                                  'x-linkedin-id') ??
+                                                          ''),
+                                                      postedOn:
+                                                          getCurrentTimestamp,
+                                                      postText: _model
+                                                          .textController.text,
+                                                      postTitle:
+                                                          widget.postTitle,
+                                                      typeOfPost: 'multiImage',
+                                                      reactionRefreshQuota: 2,
+                                                    ));
+                                                    logFirebaseEvent(
+                                                        'imageButton_navigate_to');
+
+                                                    context.goNamed(
+                                                        'allPostsOverview');
+                                                  }
                                                 } else {
                                                   logFirebaseEvent(
-                                                      'imageButton_alert_dialog');
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                            'Image upload Failed!'),
-                                                        content: const Text(
-                                                            'Your images could not be uploaded to linkedin.'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext),
-                                                            child: const Text('Ok'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                  if (shouldSetState) {
-                                                    setState(() {});
-                                                  }
-                                                  return;
-                                                }
-                                              }
-                                              if (_model
-                                                      .numberOfImagesUploaded >
-                                                  1) {
-                                                logFirebaseEvent(
-                                                    'imageButton_backend_call');
-                                                _model.multiImgPosted =
-                                                    await LinkedinPostGroup
-                                                        .postTextWithMultipleImagesCall
-                                                        .call(
-                                                  personUrn: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinUrn,
-                                                      ''),
-                                                  postText: functions
-                                                      .formatStringForLIJson(
-                                                          _model.textController
-                                                              .text),
-                                                  imagesJson: functions
-                                                      .valueToJsonMapList(
-                                                          _model
-                                                              .createdDocRefrence!
-                                                              .imageUrns
-                                                              .toList(),
-                                                          'id'),
-                                                  accessToken: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinAccess,
-                                                      ''),
-                                                );
-
-                                                shouldSetState = true;
-                                                if ((_model.multiImgPosted
-                                                        ?.succeeded ??
-                                                    true)) {
-                                                  logFirebaseEvent(
-                                                      'imageButton_alert_dialog');
-                                                  unawaited(
-                                                    () async {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title:
-                                                                const Text('Success'),
-                                                            content: const Text(
-                                                                'Your post has been successfully posted!'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    const Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                    }(),
-                                                  );
-                                                  logFirebaseEvent(
                                                       'imageButton_backend_call');
-
-                                                  await widget.postRef!.update(
-                                                      createCreatedPostsRecordData(
-                                                    status: 'Posted',
-                                                  ));
-                                                  logFirebaseEvent(
-                                                      'imageButton_backend_call');
-
-                                                  await _model
-                                                      .createdDocRefrence!
-                                                      .reference
-                                                      .update(
-                                                          createPostedOnLinkedinRecordData(
-                                                    postURN: (_model
-                                                            .multiImgPosted
-                                                            ?.getHeader(
-                                                                'x-linkedin-id') ??
+                                                  _model.singleImgPosted =
+                                                      await LinkedinPostGroup
+                                                          .postTextWithMediaCall
+                                                          .call(
+                                                    personUrn: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinUrn,
                                                         ''),
-                                                    postedOn:
-                                                        getCurrentTimestamp,
-                                                    postText: _model
-                                                        .textController.text,
-                                                    postTitle:
-                                                        widget.postTitle,
-                                                    typeOfPost: 'multiImage',
-                                                    reactionRefreshQuota: 2,
-                                                  ));
-                                                  logFirebaseEvent(
-                                                      'imageButton_navigate_to');
+                                                    postText: functions
+                                                        .formatStringForLIJson(
+                                                            _model
+                                                                .textController
+                                                                .text),
+                                                    mediaId:
+                                                        GetImageUploadUrlFromLinkedinCall
+                                                            .imageURN(
+                                                      (_model.imageUrl
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                    accessToken: valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.linkedinAccess,
+                                                        ''),
+                                                  );
 
-                                                  context.goNamed(
-                                                      'allPostsOverview');
+                                                  shouldSetState = true;
+                                                  if ((_model.singleImgPosted
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    logFirebaseEvent(
+                                                        'imageButton_alert_dialog');
+                                                    unawaited(
+                                                      () async {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Success'),
+                                                              content: const Text(
+                                                                  'Your post has been successfully posted!'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: const Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }(),
+                                                    );
+                                                    logFirebaseEvent(
+                                                        'imageButton_backend_call');
+
+                                                    await widget.postRef!.update(
+                                                        createCreatedPostsRecordData(
+                                                      status: 'Posted',
+                                                    ));
+                                                    logFirebaseEvent(
+                                                        'imageButton_backend_call');
+
+                                                    await _model
+                                                        .createdDocRefrence!
+                                                        .reference
+                                                        .update(
+                                                            createPostedOnLinkedinRecordData(
+                                                      postURN: (_model
+                                                              .singleImgPosted
+                                                              ?.getHeader(
+                                                                  'x-linkedin-id') ??
+                                                          ''),
+                                                      postedOn:
+                                                          getCurrentTimestamp,
+                                                      postText: _model
+                                                          .textController.text,
+                                                      postTitle:
+                                                          widget.postTitle,
+                                                      typeOfPost: 'singleImage',
+                                                      reactionRefreshQuota: 2,
+                                                    ));
+                                                    logFirebaseEvent(
+                                                        'imageButton_navigate_to');
+
+                                                    context.goNamed(
+                                                        'allPostsOverview');
+                                                  }
                                                 }
                                               } else {
                                                 logFirebaseEvent(
-                                                    'imageButton_backend_call');
-                                                _model.singleImgPosted =
-                                                    await LinkedinPostGroup
-                                                        .postTextWithMediaCall
-                                                        .call(
-                                                  personUrn: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinUrn,
-                                                      ''),
-                                                  postText: functions
-                                                      .formatStringForLIJson(
-                                                          _model.textController
-                                                              .text),
-                                                  mediaId:
-                                                      GetImageUploadUrlFromLinkedinCall
-                                                          .imageURN(
-                                                    (_model.imageUrl
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                  ),
-                                                  accessToken: valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.linkedinAccess,
-                                                      ''),
-                                                );
-
-                                                shouldSetState = true;
-                                                if ((_model.singleImgPosted
-                                                        ?.succeeded ??
-                                                    true)) {
-                                                  logFirebaseEvent(
-                                                      'imageButton_alert_dialog');
-                                                  unawaited(
-                                                    () async {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title:
-                                                                const Text('Success'),
-                                                            content: const Text(
-                                                                'Your post has been successfully posted!'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    const Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                    }(),
-                                                  );
-                                                  logFirebaseEvent(
-                                                      'imageButton_backend_call');
-
-                                                  await widget.postRef!.update(
-                                                      createCreatedPostsRecordData(
-                                                    status: 'Posted',
-                                                  ));
-                                                  logFirebaseEvent(
-                                                      'imageButton_backend_call');
-
-                                                  await _model
-                                                      .createdDocRefrence!
-                                                      .reference
-                                                      .update(
-                                                          createPostedOnLinkedinRecordData(
-                                                    postURN: (_model
-                                                            .singleImgPosted
-                                                            ?.getHeader(
-                                                                'x-linkedin-id') ??
-                                                        ''),
-                                                    postedOn:
-                                                        getCurrentTimestamp,
-                                                    postText: _model
-                                                        .textController.text,
-                                                    postTitle:
-                                                        widget.postTitle,
-                                                    typeOfPost: 'singleImage',
-                                                    reactionRefreshQuota: 2,
-                                                  ));
+                                                    'imageButton_alert_dialog');
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Linkedin Not Connected!'),
+                                                              content: const Text(
+                                                                  'To be able to post to Linkedin, you need to connect your account.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: const Text(
+                                                                      'Let\'s Connect'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
                                                   logFirebaseEvent(
                                                       'imageButton_navigate_to');
 
-                                                  context.goNamed(
-                                                      'allPostsOverview');
+                                                  context.pushNamed(
+                                                      'linkedinConnect');
                                                 }
                                               }
 
@@ -1360,169 +1574,221 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             onPressed: () async {
                                               logFirebaseEvent(
                                                   'VIEW_OR_EDIT_POST_PAGE_pollButton_ON_TAP');
-                                              await Future.wait([
-                                                Future(() async {
-                                                  logFirebaseEvent(
-                                                      'pollButton_update_page_state');
-                                                  _model.addToPollOptionsList(
-                                                      _model.pollOption1!);
-                                                  setState(() {});
-                                                }),
-                                                Future(() async {
-                                                  logFirebaseEvent(
-                                                      'pollButton_update_page_state');
-                                                  _model.addToPollOptionsList(
-                                                      _model.pollOption2!);
-                                                  setState(() {});
-                                                }),
-                                                Future(() async {
-                                                  if (_model.pollOption3 !=
-                                                          null &&
-                                                      _model.pollOption3 !=
-                                                          '') {
+                                              if (valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.linkedinConnected,
+                                                  false)) {
+                                                await Future.wait([
+                                                  Future(() async {
                                                     logFirebaseEvent(
                                                         'pollButton_update_page_state');
                                                     _model.addToPollOptionsList(
-                                                        _model.pollOption3!);
+                                                        _model.pollOption1!);
                                                     setState(() {});
-                                                  }
-                                                }),
-                                                Future(() async {
-                                                  if (_model.pollOption4 !=
-                                                          null &&
-                                                      _model.pollOption4 !=
-                                                          '') {
+                                                  }),
+                                                  Future(() async {
                                                     logFirebaseEvent(
                                                         'pollButton_update_page_state');
                                                     _model.addToPollOptionsList(
-                                                        _model.pollOption4!);
+                                                        _model.pollOption2!);
                                                     setState(() {});
-                                                  }
-                                                }),
-                                              ]);
-                                              logFirebaseEvent(
-                                                  'pollButton_backend_call');
-                                              _model.linkedinPollPost =
-                                                  await LinkedinPostGroup
-                                                      .postTextWithPollCall
-                                                      .call(
-                                                personUrn: valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.linkedinUrn,
-                                                    ''),
-                                                accessToken: valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.linkedinAccess,
-                                                    ''),
-                                                postText: functions
-                                                    .formatStringForLIJson(
-                                                        _model.textController
-                                                            .text),
-                                                question: _model.pollQuestion,
-                                                duration: _model.pollDuration,
-                                                optionsJson: functions
-                                                    .valueToJsonMapList(
-                                                        _model.pollOptionsList
-                                                            .toList(),
-                                                        'text'),
-                                              );
-
-                                              if ((_model.linkedinPollPost
-                                                      ?.succeeded ??
-                                                  true)) {
+                                                  }),
+                                                  Future(() async {
+                                                    if (_model.pollOption3 !=
+                                                            null &&
+                                                        _model.pollOption3 !=
+                                                            '') {
+                                                      logFirebaseEvent(
+                                                          'pollButton_update_page_state');
+                                                      _model
+                                                          .addToPollOptionsList(
+                                                              _model
+                                                                  .pollOption3!);
+                                                      setState(() {});
+                                                    }
+                                                  }),
+                                                  Future(() async {
+                                                    if (_model.pollOption4 !=
+                                                            null &&
+                                                        _model.pollOption4 !=
+                                                            '') {
+                                                      logFirebaseEvent(
+                                                          'pollButton_update_page_state');
+                                                      _model
+                                                          .addToPollOptionsList(
+                                                              _model
+                                                                  .pollOption4!);
+                                                      setState(() {});
+                                                    }
+                                                  }),
+                                                ]);
                                                 logFirebaseEvent(
-                                                    'pollButton_alert_dialog');
-                                                unawaited(
-                                                  () async {
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title:
-                                                              const Text('Success'),
-                                                          content: const Text(
-                                                              'Your post has been successfully posted!'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: const Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                  }(),
+                                                    'pollButton_backend_call');
+                                                _model.linkedinPollPost =
+                                                    await LinkedinPostGroup
+                                                        .postTextWithPollCall
+                                                        .call(
+                                                  personUrn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                  accessToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                  postText: functions
+                                                      .formatStringForLIJson(
+                                                          _model.textController
+                                                              .text),
+                                                  question: _model.pollQuestion,
+                                                  duration: _model.pollDuration,
+                                                  optionsJson: functions
+                                                      .valueToJsonMapList(
+                                                          _model.pollOptionsList
+                                                              .toList(),
+                                                          'text'),
                                                 );
-                                                logFirebaseEvent(
-                                                    'pollButton_backend_call');
 
-                                                await widget.postRef!.update(
-                                                    createCreatedPostsRecordData(
-                                                  status: 'Posted',
-                                                ));
-                                                logFirebaseEvent(
-                                                    'pollButton_backend_call');
+                                                if ((_model.linkedinPollPost
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'pollButton_alert_dialog');
+                                                  unawaited(
+                                                    () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title:
+                                                                const Text('Success'),
+                                                            content: const Text(
+                                                                'Your post has been successfully posted!'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    const Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    }(),
+                                                  );
+                                                  logFirebaseEvent(
+                                                      'pollButton_backend_call');
 
-                                                await PostedOnLinkedinRecord
-                                                        .createDoc(
-                                                            currentUserReference!)
-                                                    .set({
-                                                  ...createPostedOnLinkedinRecordData(
-                                                    postURN: (_model
-                                                            .linkedinPollPost
-                                                            ?.getHeader(
-                                                                'x-linkedin-id') ??
-                                                        ''),
-                                                    postedOn:
-                                                        getCurrentTimestamp,
-                                                    postText: _model
-                                                        .textController.text,
-                                                    postTitle:
-                                                        widget.postTitle,
-                                                    reactionRefreshQuota: 2,
-                                                    typeOfPost: 'poll',
-                                                    pollQuestion:
-                                                        _model.pollQuestion,
-                                                    pollDuration:
-                                                        _model.pollDuration,
-                                                  ),
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'pollOptions': _model
-                                                          .pollOptionsList,
+                                                  await widget.postRef!.update(
+                                                      createCreatedPostsRecordData(
+                                                    status: 'Posted',
+                                                  ));
+                                                  logFirebaseEvent(
+                                                      'pollButton_backend_call');
+
+                                                  await PostedOnLinkedinRecord
+                                                          .createDoc(
+                                                              currentUserReference!)
+                                                      .set({
+                                                    ...createPostedOnLinkedinRecordData(
+                                                      postURN: (_model
+                                                              .linkedinPollPost
+                                                              ?.getHeader(
+                                                                  'x-linkedin-id') ??
+                                                          ''),
+                                                      postedOn:
+                                                          getCurrentTimestamp,
+                                                      postText: _model
+                                                          .textController.text,
+                                                      postTitle:
+                                                          widget.postTitle,
+                                                      reactionRefreshQuota: 2,
+                                                      typeOfPost: 'poll',
+                                                      pollQuestion:
+                                                          _model.pollQuestion,
+                                                      pollDuration:
+                                                          _model.pollDuration,
+                                                    ),
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'pollOptions': _model
+                                                            .pollOptionsList,
+                                                      },
+                                                    ),
+                                                  });
+                                                  logFirebaseEvent(
+                                                      'pollButton_navigate_to');
+
+                                                  context.goNamed(
+                                                      'allPostsOverview');
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'pollButton_alert_dialog');
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text('Failed'),
+                                                        content: const Text(
+                                                            'Posting action failed!'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: const Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
                                                     },
-                                                  ),
-                                                });
-                                                logFirebaseEvent(
-                                                    'pollButton_navigate_to');
-
-                                                context.goNamed(
-                                                    'allPostsOverview');
+                                                  );
+                                                }
                                               } else {
                                                 logFirebaseEvent(
                                                     'pollButton_alert_dialog');
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: const Text('Failed'),
-                                                      content: const Text(
-                                                          'Posting action failed!'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: const Text('Ok'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Linkedin Not Connected!'),
+                                                              content: const Text(
+                                                                  'To be able to post to Linkedin, you need to connect your account.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: const Text(
+                                                                      'Let\'s Connect'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
+                                                  logFirebaseEvent(
+                                                      'pollButton_navigate_to');
+
+                                                  context.pushNamed(
+                                                      'linkedinConnect');
+                                                }
                                               }
 
                                               setState(() {});

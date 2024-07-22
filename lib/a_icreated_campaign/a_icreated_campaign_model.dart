@@ -57,6 +57,14 @@ class AIcreatedCampaignModel extends FlutterFlowModel<AIcreatedCampaignWidget> {
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
   // Stores action output result for [Backend Call - API (Domain Thought leaderhip Campaign)] action in Button widget.
+  ApiCallResponse? apiResult7vv1;
+  // Stores action output result for [Backend Call - API (Current events Campaign)] action in Button widget.
+  ApiCallResponse? apiResulttd41;
+  // Stores action output result for [Backend Call - API (Company Thought leadership with data )] action in Button widget.
+  ApiCallResponse? apiResults131;
+  // Stores action output result for [Backend Call - API (Company Thought leaderhip Campaign)] action in Button widget.
+  ApiCallResponse? apiResultm971;
+  // Stores action output result for [Backend Call - API (Domain Thought leaderhip Campaign)] action in Button widget.
   ApiCallResponse? apiResult7vv;
   // Stores action output result for [Backend Call - API (Current events Campaign)] action in Button widget.
   ApiCallResponse? apiResulttd4;

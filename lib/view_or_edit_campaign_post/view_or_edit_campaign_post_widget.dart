@@ -648,6 +648,332 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           8.0),
                                                             ),
                                                           ),
+                                                        if (_model
+                                                                .typeOfMediaUploaded ==
+                                                            'doc')
+                                                          FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_docSchedule_O');
+                                                              if (_model
+                                                                      .typeOfMediaUploaded ==
+                                                                  'doc') {
+                                                                logFirebaseEvent(
+                                                                    'docSchedule_upload_file_to_firebase');
+                                                                {
+                                                                  setState(() =>
+                                                                      _model.isDataUploading1 =
+                                                                          true);
+                                                                  var selectedUploadedFiles =
+                                                                      <FFUploadedFile>[];
+                                                                  var selectedFiles =
+                                                                      <SelectedFile>[];
+                                                                  var downloadUrls =
+                                                                      <String>[];
+                                                                  try {
+                                                                    selectedUploadedFiles = _model
+                                                                            .uploadedDoc!
+                                                                            .bytes!
+                                                                            .isNotEmpty
+                                                                        ? [
+                                                                            _model.uploadedDoc!
+                                                                          ]
+                                                                        : <FFUploadedFile>[];
+                                                                    selectedFiles =
+                                                                        selectedFilesFromUploadedFiles(
+                                                                      selectedUploadedFiles,
+                                                                    );
+                                                                    downloadUrls = (await Future
+                                                                            .wait(
+                                                                      selectedFiles
+                                                                          .map(
+                                                                        (f) async => await uploadData(
+                                                                            f.storagePath,
+                                                                            f.bytes),
+                                                                      ),
+                                                                    ))
+                                                                        .where((u) =>
+                                                                            u !=
+                                                                            null)
+                                                                        .map((u) =>
+                                                                            u!)
+                                                                        .toList();
+                                                                  } finally {
+                                                                    _model.isDataUploading1 =
+                                                                        false;
+                                                                  }
+                                                                  if (selectedUploadedFiles
+                                                                              .length ==
+                                                                          selectedFiles
+                                                                              .length &&
+                                                                      downloadUrls
+                                                                              .length ==
+                                                                          selectedFiles
+                                                                              .length) {
+                                                                    setState(
+                                                                        () {
+                                                                      _model.uploadedLocalFile1 =
+                                                                          selectedUploadedFiles
+                                                                              .first;
+                                                                      _model.uploadedFileUrl1 =
+                                                                          downloadUrls
+                                                                              .first;
+                                                                    });
+                                                                  } else {
+                                                                    setState(
+                                                                        () {});
+                                                                    return;
+                                                                  }
+                                                                }
+
+                                                                logFirebaseEvent(
+                                                                    'docSchedule_backend_call');
+                                                                _model.liDocURLScheCopy =
+                                                                    await GetDocUploadUrlFromLinkedinCall
+                                                                        .call(
+                                                                  urn: valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.linkedinUrn,
+                                                                      ''),
+                                                                  accessToken:
+                                                                      valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinAccess,
+                                                                          ''),
+                                                                );
+
+                                                                if ((_model
+                                                                        .liDocURLScheCopy
+                                                                        ?.succeeded ??
+                                                                    true)) {
+                                                                  logFirebaseEvent(
+                                                                      'docSchedule_backend_call');
+                                                                  _model.docUploadedScheCopy =
+                                                                      await UploadDocToLinkedinCall
+                                                                          .call(
+                                                                    accessToken:
+                                                                        valueOrDefault(
+                                                                            currentUserDocument?.linkedinAccess,
+                                                                            ''),
+                                                                    uploadUrl:
+                                                                        GetDocUploadUrlFromLinkedinCall
+                                                                            .uploadURL(
+                                                                      (_model.liDocURLScheCopy
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ),
+                                                                    docToBeUploaded:
+                                                                        _model
+                                                                            .uploadedFileUrl1,
+                                                                  );
+
+                                                                  if ((_model
+                                                                          .docUploadedScheCopy
+                                                                          ?.succeeded ??
+                                                                      true)) {
+                                                                    logFirebaseEvent(
+                                                                        'docSchedule_backend_call');
+
+                                                                    var scheduledPostsRecordReference =
+                                                                        ScheduledPostsRecord
+                                                                            .collection
+                                                                            .doc();
+                                                                    await scheduledPostsRecordReference
+                                                                        .set(
+                                                                            createScheduledPostsRecordData(
+                                                                      userRef:
+                                                                          currentUserReference,
+                                                                      timestamp: functions.combineDateTimeStr(
+                                                                          functions.modifiedDateTime(
+                                                                              getCurrentTimestamp,
+                                                                              0,
+                                                                              0,
+                                                                              (widget.indexInList!) + 1,
+                                                                              true)!,
+                                                                          '9:47:00'),
+                                                                      timeOfCreation:
+                                                                          getCurrentTimestamp,
+                                                                      postType:
+                                                                          _model
+                                                                              .typeOfMediaUploaded,
+                                                                      personUrn: valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinUrn,
+                                                                          ''),
+                                                                      accessToken: valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.linkedinAccess,
+                                                                          ''),
+                                                                      postText:
+                                                                          () {
+                                                                        if (_model.tabBarCurrentIndex ==
+                                                                            0) {
+                                                                          return _model
+                                                                              .shortPostTextController
+                                                                              .text;
+                                                                        } else if (_model.tabBarCurrentIndex ==
+                                                                            1) {
+                                                                          return _model
+                                                                              .mediumPostTextController
+                                                                              .text;
+                                                                        } else {
+                                                                          return _model
+                                                                              .longPostTextController
+                                                                              .text;
+                                                                        }
+                                                                      }(),
+                                                                      mediaId:
+                                                                          GetDocUploadUrlFromLinkedinCall
+                                                                              .docURN(
+                                                                        (_model.liDocURLScheCopy?.jsonBody ??
+                                                                            ''),
+                                                                      ),
+                                                                      mediaTitle:
+                                                                          _model
+                                                                              .uploadedDocTitle,
+                                                                      status:
+                                                                          'pending',
+                                                                      docFirebaseUrl:
+                                                                          _model
+                                                                              .uploadedFileUrl1,
+                                                                      postTitle:
+                                                                          widget
+                                                                              .postTitle,
+                                                                    ));
+                                                                    _model.scheduledDocDoc =
+                                                                        ScheduledPostsRecord.getDocumentFromData(
+                                                                            createScheduledPostsRecordData(
+                                                                              userRef: currentUserReference,
+                                                                              timestamp: functions.combineDateTimeStr(functions.modifiedDateTime(getCurrentTimestamp, 0, 0, (widget.indexInList!) + 1, true)!, '9:47:00'),
+                                                                              timeOfCreation: getCurrentTimestamp,
+                                                                              postType: _model.typeOfMediaUploaded,
+                                                                              personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
+                                                                              accessToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
+                                                                              postText: () {
+                                                                                if (_model.tabBarCurrentIndex == 0) {
+                                                                                  return _model.shortPostTextController.text;
+                                                                                } else if (_model.tabBarCurrentIndex == 1) {
+                                                                                  return _model.mediumPostTextController.text;
+                                                                                } else {
+                                                                                  return _model.longPostTextController.text;
+                                                                                }
+                                                                              }(),
+                                                                              mediaId: GetDocUploadUrlFromLinkedinCall.docURN(
+                                                                                (_model.liDocURLScheCopy?.jsonBody ?? ''),
+                                                                              ),
+                                                                              mediaTitle: _model.uploadedDocTitle,
+                                                                              status: 'pending',
+                                                                              docFirebaseUrl: _model.uploadedFileUrl1,
+                                                                              postTitle: widget.postTitle,
+                                                                            ),
+                                                                            scheduledPostsRecordReference);
+                                                                    logFirebaseEvent(
+                                                                        'docSchedule_backend_call');
+
+                                                                    await widget
+                                                                        .postRef!
+                                                                        .update(
+                                                                            createCampaignRecordData(
+                                                                      status:
+                                                                          'scheduled',
+                                                                      scheduledTime: functions.combineDateTimeStr(
+                                                                          functions.modifiedDateTime(
+                                                                              getCurrentTimestamp,
+                                                                              0,
+                                                                              0,
+                                                                              (widget.indexInList!) + 1,
+                                                                              true)!,
+                                                                          '9:47:00'),
+                                                                      scheduledPostRef: _model
+                                                                          .scheduledDocDoc
+                                                                          ?.reference,
+                                                                    ));
+                                                                    logFirebaseEvent(
+                                                                        'docSchedule_update_page_state');
+                                                                    _model.isScheduled =
+                                                                        true;
+                                                                    _model.scheduledTime = functions.combineDateTimeStr(
+                                                                        functions.modifiedDateTime(
+                                                                            getCurrentTimestamp,
+                                                                            0,
+                                                                            0,
+                                                                            (widget.indexInList!) +
+                                                                                1,
+                                                                            true)!,
+                                                                        '9:47:00');
+                                                                    _model.scheduledDate = functions.combineDateTimeStr(
+                                                                        functions.modifiedDateTime(
+                                                                            getCurrentTimestamp,
+                                                                            0,
+                                                                            0,
+                                                                            (widget.indexInList!) +
+                                                                                1,
+                                                                            true)!,
+                                                                        '9:47:00');
+                                                                    _model.scheduledDocument = _model
+                                                                        .scheduledDocDoc
+                                                                        ?.reference;
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                }
+                                                              }
+
+                                                              setState(() {});
+                                                            },
+                                                            text: 'Approve',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 30.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                      ),
+                                                              elevation: 3.0,
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1.0,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
                                                         if ((_model.typeOfMediaUploaded ==
                                                                 'singleImage') ||
                                                             (_model.typeOfMediaUploaded ==
@@ -663,7 +989,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   'ImageSchedule_upload_media_to_firebase');
                                                               {
                                                                 setState(() =>
-                                                                    _model.isDataUploading1 =
+                                                                    _model.isDataUploading2 =
                                                                         true);
                                                                 var selectedUploadedFiles =
                                                                     <FFUploadedFile>[];
@@ -697,7 +1023,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           u!)
                                                                       .toList();
                                                                 } finally {
-                                                                  _model.isDataUploading1 =
+                                                                  _model.isDataUploading2 =
                                                                       false;
                                                                 }
                                                                 if (selectedUploadedFiles
@@ -709,9 +1035,9 @@ class _ViewOrEditCampaignPostWidgetState
                                                                         selectedMedia
                                                                             .length) {
                                                                   setState(() {
-                                                                    _model.uploadedLocalFiles1 =
+                                                                    _model.uploadedLocalFiles2 =
                                                                         selectedUploadedFiles;
-                                                                    _model.uploadedFileUrls1 =
+                                                                    _model.uploadedFileUrls2 =
                                                                         downloadUrls;
                                                                   });
                                                                 } else {
@@ -764,7 +1090,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                           ''),
                                                                     ),
                                                                     imageToBeUploaded: _model
-                                                                            .uploadedFileUrls1[
+                                                                            .uploadedFileUrls2[
                                                                         _model
                                                                             .noOfImagesUploadedToFirebase],
                                                                   );
@@ -801,7 +1127,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             ]),
                                                                             'firebaseImgUrls':
                                                                                 FieldValue.arrayUnion([
-                                                                              _model.uploadedFileUrls1[_model.noOfImagesUploadedToFirebase]
+                                                                              _model.uploadedFileUrls2[_model.noOfImagesUploadedToFirebase]
                                                                             ]),
                                                                           },
                                                                         ),
@@ -838,7 +1164,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             ],
                                                                             'firebaseImgUrls':
                                                                                 [
-                                                                              _model.uploadedFileUrls1[_model.noOfImagesUploadedToFirebase]
+                                                                              _model.uploadedFileUrls2[_model.noOfImagesUploadedToFirebase]
                                                                             ],
                                                                           },
                                                                         ),
@@ -862,7 +1188,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             ],
                                                                             'firebaseImgUrls':
                                                                                 [
-                                                                              _model.uploadedFileUrls1[_model.noOfImagesUploadedToFirebase]
+                                                                              _model.uploadedFileUrls2[_model.noOfImagesUploadedToFirebase]
                                                                             ],
                                                                           },
                                                                         ),
@@ -1230,332 +1556,6 @@ class _ViewOrEditCampaignPostWidgetState
                                                           ),
                                                         if (_model
                                                                 .typeOfMediaUploaded ==
-                                                            'doc')
-                                                          FFButtonWidget(
-                                                            onPressed:
-                                                                () async {
-                                                              logFirebaseEvent(
-                                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_docSchedule_O');
-                                                              if (_model
-                                                                      .typeOfMediaUploaded ==
-                                                                  'doc') {
-                                                                logFirebaseEvent(
-                                                                    'docSchedule_upload_file_to_firebase');
-                                                                {
-                                                                  setState(() =>
-                                                                      _model.isDataUploading2 =
-                                                                          true);
-                                                                  var selectedUploadedFiles =
-                                                                      <FFUploadedFile>[];
-                                                                  var selectedFiles =
-                                                                      <SelectedFile>[];
-                                                                  var downloadUrls =
-                                                                      <String>[];
-                                                                  try {
-                                                                    selectedUploadedFiles = _model
-                                                                            .uploadedDoc!
-                                                                            .bytes!
-                                                                            .isNotEmpty
-                                                                        ? [
-                                                                            _model.uploadedDoc!
-                                                                          ]
-                                                                        : <FFUploadedFile>[];
-                                                                    selectedFiles =
-                                                                        selectedFilesFromUploadedFiles(
-                                                                      selectedUploadedFiles,
-                                                                    );
-                                                                    downloadUrls = (await Future
-                                                                            .wait(
-                                                                      selectedFiles
-                                                                          .map(
-                                                                        (f) async => await uploadData(
-                                                                            f.storagePath,
-                                                                            f.bytes),
-                                                                      ),
-                                                                    ))
-                                                                        .where((u) =>
-                                                                            u !=
-                                                                            null)
-                                                                        .map((u) =>
-                                                                            u!)
-                                                                        .toList();
-                                                                  } finally {
-                                                                    _model.isDataUploading2 =
-                                                                        false;
-                                                                  }
-                                                                  if (selectedUploadedFiles
-                                                                              .length ==
-                                                                          selectedFiles
-                                                                              .length &&
-                                                                      downloadUrls
-                                                                              .length ==
-                                                                          selectedFiles
-                                                                              .length) {
-                                                                    setState(
-                                                                        () {
-                                                                      _model.uploadedLocalFile2 =
-                                                                          selectedUploadedFiles
-                                                                              .first;
-                                                                      _model.uploadedFileUrl2 =
-                                                                          downloadUrls
-                                                                              .first;
-                                                                    });
-                                                                  } else {
-                                                                    setState(
-                                                                        () {});
-                                                                    return;
-                                                                  }
-                                                                }
-
-                                                                logFirebaseEvent(
-                                                                    'docSchedule_backend_call');
-                                                                _model.liDocURLScheCopy =
-                                                                    await GetDocUploadUrlFromLinkedinCall
-                                                                        .call(
-                                                                  urn: valueOrDefault(
-                                                                      currentUserDocument
-                                                                          ?.linkedinUrn,
-                                                                      ''),
-                                                                  accessToken:
-                                                                      valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.linkedinAccess,
-                                                                          ''),
-                                                                );
-
-                                                                if ((_model
-                                                                        .liDocURLScheCopy
-                                                                        ?.succeeded ??
-                                                                    true)) {
-                                                                  logFirebaseEvent(
-                                                                      'docSchedule_backend_call');
-                                                                  _model.docUploadedScheCopy =
-                                                                      await UploadDocToLinkedinCall
-                                                                          .call(
-                                                                    accessToken:
-                                                                        valueOrDefault(
-                                                                            currentUserDocument?.linkedinAccess,
-                                                                            ''),
-                                                                    uploadUrl:
-                                                                        GetDocUploadUrlFromLinkedinCall
-                                                                            .uploadURL(
-                                                                      (_model.liDocURLScheCopy
-                                                                              ?.jsonBody ??
-                                                                          ''),
-                                                                    ),
-                                                                    docToBeUploaded:
-                                                                        _model
-                                                                            .uploadedFileUrl2,
-                                                                  );
-
-                                                                  if ((_model
-                                                                          .docUploadedScheCopy
-                                                                          ?.succeeded ??
-                                                                      true)) {
-                                                                    logFirebaseEvent(
-                                                                        'docSchedule_backend_call');
-
-                                                                    var scheduledPostsRecordReference =
-                                                                        ScheduledPostsRecord
-                                                                            .collection
-                                                                            .doc();
-                                                                    await scheduledPostsRecordReference
-                                                                        .set(
-                                                                            createScheduledPostsRecordData(
-                                                                      userRef:
-                                                                          currentUserReference,
-                                                                      timestamp: functions.combineDateTimeStr(
-                                                                          functions.modifiedDateTime(
-                                                                              getCurrentTimestamp,
-                                                                              0,
-                                                                              0,
-                                                                              (widget.indexInList!) + 1,
-                                                                              true)!,
-                                                                          '9:47:00'),
-                                                                      timeOfCreation:
-                                                                          getCurrentTimestamp,
-                                                                      postType:
-                                                                          _model
-                                                                              .typeOfMediaUploaded,
-                                                                      personUrn: valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.linkedinUrn,
-                                                                          ''),
-                                                                      accessToken: valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.linkedinAccess,
-                                                                          ''),
-                                                                      postText:
-                                                                          () {
-                                                                        if (_model.tabBarCurrentIndex ==
-                                                                            0) {
-                                                                          return _model
-                                                                              .shortPostTextController
-                                                                              .text;
-                                                                        } else if (_model.tabBarCurrentIndex ==
-                                                                            1) {
-                                                                          return _model
-                                                                              .mediumPostTextController
-                                                                              .text;
-                                                                        } else {
-                                                                          return _model
-                                                                              .longPostTextController
-                                                                              .text;
-                                                                        }
-                                                                      }(),
-                                                                      mediaId:
-                                                                          GetDocUploadUrlFromLinkedinCall
-                                                                              .docURN(
-                                                                        (_model.liDocURLScheCopy?.jsonBody ??
-                                                                            ''),
-                                                                      ),
-                                                                      mediaTitle:
-                                                                          _model
-                                                                              .uploadedDocTitle,
-                                                                      status:
-                                                                          'pending',
-                                                                      docFirebaseUrl:
-                                                                          _model
-                                                                              .uploadedFileUrl2,
-                                                                      postTitle:
-                                                                          widget
-                                                                              .postTitle,
-                                                                    ));
-                                                                    _model.scheduledDocDoc =
-                                                                        ScheduledPostsRecord.getDocumentFromData(
-                                                                            createScheduledPostsRecordData(
-                                                                              userRef: currentUserReference,
-                                                                              timestamp: functions.combineDateTimeStr(functions.modifiedDateTime(getCurrentTimestamp, 0, 0, (widget.indexInList!) + 1, true)!, '9:47:00'),
-                                                                              timeOfCreation: getCurrentTimestamp,
-                                                                              postType: _model.typeOfMediaUploaded,
-                                                                              personUrn: valueOrDefault(currentUserDocument?.linkedinUrn, ''),
-                                                                              accessToken: valueOrDefault(currentUserDocument?.linkedinAccess, ''),
-                                                                              postText: () {
-                                                                                if (_model.tabBarCurrentIndex == 0) {
-                                                                                  return _model.shortPostTextController.text;
-                                                                                } else if (_model.tabBarCurrentIndex == 1) {
-                                                                                  return _model.mediumPostTextController.text;
-                                                                                } else {
-                                                                                  return _model.longPostTextController.text;
-                                                                                }
-                                                                              }(),
-                                                                              mediaId: GetDocUploadUrlFromLinkedinCall.docURN(
-                                                                                (_model.liDocURLScheCopy?.jsonBody ?? ''),
-                                                                              ),
-                                                                              mediaTitle: _model.uploadedDocTitle,
-                                                                              status: 'pending',
-                                                                              docFirebaseUrl: _model.uploadedFileUrl2,
-                                                                              postTitle: widget.postTitle,
-                                                                            ),
-                                                                            scheduledPostsRecordReference);
-                                                                    logFirebaseEvent(
-                                                                        'docSchedule_backend_call');
-
-                                                                    await widget
-                                                                        .postRef!
-                                                                        .update(
-                                                                            createCampaignRecordData(
-                                                                      status:
-                                                                          'scheduled',
-                                                                      scheduledTime: functions.combineDateTimeStr(
-                                                                          functions.modifiedDateTime(
-                                                                              getCurrentTimestamp,
-                                                                              0,
-                                                                              0,
-                                                                              (widget.indexInList!) + 1,
-                                                                              true)!,
-                                                                          '9:47:00'),
-                                                                      scheduledPostRef: _model
-                                                                          .scheduledDocDoc
-                                                                          ?.reference,
-                                                                    ));
-                                                                    logFirebaseEvent(
-                                                                        'docSchedule_update_page_state');
-                                                                    _model.isScheduled =
-                                                                        true;
-                                                                    _model.scheduledTime = functions.combineDateTimeStr(
-                                                                        functions.modifiedDateTime(
-                                                                            getCurrentTimestamp,
-                                                                            0,
-                                                                            0,
-                                                                            (widget.indexInList!) +
-                                                                                1,
-                                                                            true)!,
-                                                                        '9:47:00');
-                                                                    _model.scheduledDate = functions.combineDateTimeStr(
-                                                                        functions.modifiedDateTime(
-                                                                            getCurrentTimestamp,
-                                                                            0,
-                                                                            0,
-                                                                            (widget.indexInList!) +
-                                                                                1,
-                                                                            true)!,
-                                                                        '9:47:00');
-                                                                    _model.scheduledDocument = _model
-                                                                        .scheduledDocDoc
-                                                                        ?.reference;
-                                                                    setState(
-                                                                        () {});
-                                                                  }
-                                                                }
-                                                              }
-
-                                                              setState(() {});
-                                                            },
-                                                            text: 'Approve',
-                                                            options:
-                                                                FFButtonOptions(
-                                                              width: double
-                                                                  .infinity,
-                                                              height: 30.0,
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          24.0,
-                                                                          0.0,
-                                                                          24.0,
-                                                                          0.0),
-                                                              iconPadding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .success,
-                                                              textStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).titleSmallFamily,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            16.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
-                                                                      ),
-                                                              elevation: 3.0,
-                                                              borderSide:
-                                                                  const BorderSide(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                width: 1.0,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                            ),
-                                                          ),
-                                                        if (_model
-                                                                .typeOfMediaUploaded ==
                                                             'poll')
                                                           FFButtonWidget(
                                                             onPressed:
@@ -1826,6 +1826,106 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   BorderRadius
                                                                       .circular(
                                                                           8.0),
+                                                            ),
+                                                          ),
+                                                        if (!valueOrDefault<
+                                                                bool>(
+                                                            currentUserDocument
+                                                                ?.linkedinConnected,
+                                                            false))
+                                                          AuthUserStreamWidget(
+                                                            builder: (context) =>
+                                                                FFButtonWidget(
+                                                              onPressed:
+                                                                  () async {
+                                                                logFirebaseEvent(
+                                                                    'VIEW_OR_EDIT_CAMPAIGN_POST_linkedinConne');
+                                                                logFirebaseEvent(
+                                                                    'linkedinConnec_alert_dialog');
+                                                                var confirmDialogResponse =
+                                                                    await showDialog<
+                                                                            bool>(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (alertDialogContext) {
+                                                                            return AlertDialog(
+                                                                              title: const Text('Linkedin Not Connected!'),
+                                                                              content: const Text('To be able to post to Linkedin, you need to connect your account.'),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                  child: const Text('Cancel'),
+                                                                                ),
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                  child: const Text('Let\'s Connect'),
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        ) ??
+                                                                        false;
+                                                                if (confirmDialogResponse) {
+                                                                  logFirebaseEvent(
+                                                                      'linkedinConnec_navigate_to');
+
+                                                                  context.pushNamed(
+                                                                      'linkedinConnect');
+                                                                }
+                                                              },
+                                                              text: 'Approve',
+                                                              options:
+                                                                  FFButtonOptions(
+                                                                width: double
+                                                                    .infinity,
+                                                                height: 30.0,
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                                iconPadding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .success,
+                                                                textStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                    ),
+                                                                elevation: 3.0,
+                                                                borderSide:
+                                                                    const BorderSide(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8.0),
+                                                              ),
                                                             ),
                                                           ),
                                                       ],

@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -597,146 +598,318 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                         onPressed: () async {
                           logFirebaseEvent(
                               'CREATE_WITH_INSPIRE_A_I_DO_THE_INSPIRE_A');
-                          if (_model.dropDownValue != null) {
-                            if (widget.contextForContent == null ||
-                                widget.contextForContent == '') {
-                              logFirebaseEvent('Button_backend_call');
-                              _model.contentfromtopic =
-                                  await InspireAIContentFromTopicsCall.call(
-                                topic: _model.textController1.text,
-                                brandVoice: _model.textController3.text == ''
-                                    ? valueOrDefault(
-                                        currentUserDocument?.personaForContent,
-                                        '')
-                                    : _model.textController3.text,
-                                numberOfWords: _model.dropDownValue,
-                                uid: currentUserUid,
-                                insight: functions.formatStringforNormalJson(
-                                    _model.textController2.text),
-                                contentType: widget.contentType,
-                                notificationTitle: 'Content Created!',
-                                notificationText:
-                                    'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
-                                initialPageName: 'viewOrEditPostCopy',
-                                anthropicKey: FFAppState().anthropicKey,
-                              );
+                          logFirebaseEvent('Button_revenue_cat');
+                          final isEntitled = await revenue_cat
+                                  .isEntitled('premium-full-access') ??
+                              false;
+                          if (!isEntitled) {
+                            await revenue_cat.loadOfferings();
+                          }
 
-                              if ((_model.contentfromtopic?.succeeded ??
-                                  true)) {
-                                logFirebaseEvent('Button_update_page_state');
-                                _model.loadingScreenVisible = true;
-                                setState(() {});
-                                logFirebaseEvent(
-                                    'Button_clear_text_fields_pin_codes');
-                                setState(() {
-                                  _model.textController1?.clear();
-                                  _model.textController2?.clear();
-                                  _model.textController3?.clear();
-                                });
-                                logFirebaseEvent('Button_wait__delay');
-                                await Future.delayed(
-                                    const Duration(milliseconds: 4000));
-                                logFirebaseEvent('Button_navigate_to');
-
-                                context.goNamed('allPostsOverview');
-                              } else {
-                                logFirebaseEvent('Button_alert_dialog');
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: const Text('Failed Request!'),
-                                      content: const Text('Request Failed'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: const Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                          if (isEntitled) {
+                            if (_model.dropDownValue != null) {
+                              if (widget.contextForContent == null ||
+                                  widget.contextForContent == '') {
+                                logFirebaseEvent('Button_backend_call');
+                                _model.contentfromtopic1 =
+                                    await InspireAIContentFromTopicsCall.call(
+                                  topic: _model.textController1.text,
+                                  brandVoice:
+                                      _model.textController3.text == ''
+                                          ? valueOrDefault(
+                                              currentUserDocument
+                                                  ?.personaForContent,
+                                              '')
+                                          : _model.textController3.text,
+                                  numberOfWords: _model.dropDownValue,
+                                  uid: currentUserUid,
+                                  insight: functions.formatStringforNormalJson(
+                                      _model.textController2.text),
+                                  contentType: widget.contentType,
+                                  notificationTitle: 'Content Created!',
+                                  notificationText:
+                                      'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
+                                  initialPageName: 'viewOrEditPostCopy',
+                                  anthropicKey: FFAppState().anthropicKey,
                                 );
+
+                                if ((_model.contentfromtopic?.succeeded ??
+                                    true)) {
+                                  logFirebaseEvent('Button_update_page_state');
+                                  _model.loadingScreenVisible = true;
+                                  setState(() {});
+                                  logFirebaseEvent(
+                                      'Button_clear_text_fields_pin_codes');
+                                  setState(() {
+                                    _model.textController1?.clear();
+                                    _model.textController2?.clear();
+                                    _model.textController3?.clear();
+                                  });
+                                  logFirebaseEvent('Button_wait__delay');
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 4000));
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.goNamed('allPostsOverview');
+                                } else {
+                                  logFirebaseEvent('Button_alert_dialog');
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Failed Request!'),
+                                        content: const Text('Request Failed'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              } else {
+                                logFirebaseEvent('Button_backend_call');
+                                _model.contentfromcontext1 =
+                                    await InspireAIContentFromContxtCall.call(
+                                  topic: _model.textController1.text,
+                                  brandVoice:
+                                      _model.textController3.text == ''
+                                          ? valueOrDefault(
+                                              currentUserDocument
+                                                  ?.personaForContent,
+                                              '')
+                                          : _model.textController3.text,
+                                  numberOfWords: _model.dropDownValue,
+                                  uid: currentUserUid,
+                                  insight: functions.formatStringforNormalJson(
+                                      _model.textController2.text),
+                                  contentType: widget.contentType,
+                                  broadDomain: widget.broadDomain,
+                                  notificationTitle: 'Content Created!',
+                                  notificationText:
+                                      'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
+                                  initialPageName: 'viewOrEditPostCopy',
+                                  context: functions.formatStringforNormalJson(
+                                      widget.contextForContent!),
+                                  anthropicKey: FFAppState().anthropicKey,
+                                );
+
+                                if ((_model.contentfromcontext?.succeeded ??
+                                    true)) {
+                                  logFirebaseEvent('Button_update_page_state');
+                                  _model.loadingScreenVisible = true;
+                                  setState(() {});
+                                  logFirebaseEvent(
+                                      'Button_clear_text_fields_pin_codes');
+                                  setState(() {
+                                    _model.textController1?.clear();
+                                    _model.textController2?.clear();
+                                    _model.textController3?.clear();
+                                  });
+                                  logFirebaseEvent('Button_wait__delay');
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 4000));
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.goNamed('allPostsOverview');
+                                } else {
+                                  logFirebaseEvent('Button_alert_dialog');
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Failed Request!'),
+                                        content: const Text('Request Failed'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
                               }
                             } else {
-                              logFirebaseEvent('Button_backend_call');
-                              _model.contentfromcontext =
-                                  await InspireAIContentFromContxtCall.call(
-                                topic: _model.textController1.text,
-                                brandVoice: _model.textController3.text == ''
-                                    ? valueOrDefault(
-                                        currentUserDocument?.personaForContent,
-                                        '')
-                                    : _model.textController3.text,
-                                numberOfWords: _model.dropDownValue,
-                                uid: currentUserUid,
-                                insight: functions.formatStringforNormalJson(
-                                    _model.textController2.text),
-                                contentType: widget.contentType,
-                                broadDomain: widget.broadDomain,
-                                notificationTitle: 'Content Created!',
-                                notificationText:
-                                    'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
-                                initialPageName: 'viewOrEditPostCopy',
-                                context: functions.formatStringforNormalJson(
-                                    widget.contextForContent!),
-                                anthropicKey: FFAppState().anthropicKey,
+                              logFirebaseEvent('Button_show_snack_bar');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Selecting length of post is required.',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
                               );
+                            }
+                          } else {
+                            if (valueOrDefault(
+                                    currentUserDocument?.freeTrialPostsCreated,
+                                    0) >=
+                                10) {
+                              logFirebaseEvent('Button_navigate_to');
 
-                              if ((_model.contentfromcontext?.succeeded ??
-                                  true)) {
-                                logFirebaseEvent('Button_update_page_state');
-                                _model.loadingScreenVisible = true;
-                                setState(() {});
-                                logFirebaseEvent(
-                                    'Button_clear_text_fields_pin_codes');
-                                setState(() {
-                                  _model.textController1?.clear();
-                                  _model.textController2?.clear();
-                                  _model.textController3?.clear();
-                                });
-                                logFirebaseEvent('Button_wait__delay');
-                                await Future.delayed(
-                                    const Duration(milliseconds: 4000));
-                                logFirebaseEvent('Button_navigate_to');
+                              context.pushNamed('freeTrialExpired');
+                            } else {
+                              if (_model.dropDownValue != null) {
+                                if (widget.contextForContent == null ||
+                                    widget.contextForContent == '') {
+                                  logFirebaseEvent('Button_backend_call');
+                                  _model.contentfromtopic =
+                                      await InspireAIContentFromTopicsCall.call(
+                                    topic: _model.textController1.text,
+                                    brandVoice: _model.textController3.text == ''
+                                        ? valueOrDefault(
+                                            currentUserDocument
+                                                ?.personaForContent,
+                                            '')
+                                        : _model.textController3.text,
+                                    numberOfWords: _model.dropDownValue,
+                                    uid: currentUserUid,
+                                    insight:
+                                        functions.formatStringforNormalJson(
+                                            _model.textController2.text),
+                                    contentType: widget.contentType,
+                                    notificationTitle: 'Content Created!',
+                                    notificationText:
+                                        'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
+                                    initialPageName: 'viewOrEditPostCopy',
+                                    anthropicKey: FFAppState().anthropicKey,
+                                  );
 
-                                context.goNamed('allPostsOverview');
-                              } else {
-                                logFirebaseEvent('Button_alert_dialog');
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: const Text('Failed Request!'),
-                                      content: const Text('Request Failed'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: const Text('Ok'),
-                                        ),
-                                      ],
+                                  if ((_model.contentfromtopic?.succeeded ??
+                                      true)) {
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
+                                    _model.loadingScreenVisible = true;
+                                    setState(() {});
+                                    logFirebaseEvent(
+                                        'Button_clear_text_fields_pin_codes');
+                                    setState(() {
+                                      _model.textController1?.clear();
+                                      _model.textController2?.clear();
+                                      _model.textController3?.clear();
+                                    });
+                                    logFirebaseEvent('Button_wait__delay');
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 4000));
+                                    logFirebaseEvent('Button_navigate_to');
+
+                                    context.goNamed('allPostsOverview');
+                                  } else {
+                                    logFirebaseEvent('Button_alert_dialog');
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: const Text('Failed Request!'),
+                                          content: const Text('Request Failed'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     );
-                                  },
+                                  }
+                                } else {
+                                  logFirebaseEvent('Button_backend_call');
+                                  _model.contentfromcontext =
+                                      await InspireAIContentFromContxtCall.call(
+                                    topic: _model.textController1.text,
+                                    brandVoice: _model.textController3.text == ''
+                                        ? valueOrDefault(
+                                            currentUserDocument
+                                                ?.personaForContent,
+                                            '')
+                                        : _model.textController3.text,
+                                    numberOfWords: _model.dropDownValue,
+                                    uid: currentUserUid,
+                                    insight:
+                                        functions.formatStringforNormalJson(
+                                            _model.textController2.text),
+                                    contentType: widget.contentType,
+                                    broadDomain: widget.broadDomain,
+                                    notificationTitle: 'Content Created!',
+                                    notificationText:
+                                        'The content you requested on \'${_model.textController1.text}\', is ready. Tap to view.',
+                                    initialPageName: 'viewOrEditPostCopy',
+                                    context:
+                                        functions.formatStringforNormalJson(
+                                            widget.contextForContent!),
+                                    anthropicKey: FFAppState().anthropicKey,
+                                  );
+
+                                  if ((_model.contentfromcontext?.succeeded ??
+                                      true)) {
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
+                                    _model.loadingScreenVisible = true;
+                                    setState(() {});
+                                    logFirebaseEvent(
+                                        'Button_clear_text_fields_pin_codes');
+                                    setState(() {
+                                      _model.textController1?.clear();
+                                      _model.textController2?.clear();
+                                      _model.textController3?.clear();
+                                    });
+                                    logFirebaseEvent('Button_wait__delay');
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 4000));
+                                    logFirebaseEvent('Button_navigate_to');
+
+                                    context.goNamed('allPostsOverview');
+                                  } else {
+                                    logFirebaseEvent('Button_alert_dialog');
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: const Text('Failed Request!'),
+                                          content: const Text('Request Failed'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                }
+                              } else {
+                                logFirebaseEvent('Button_show_snack_bar');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Selecting length of post is required.',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: const Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
                                 );
                               }
                             }
-                          } else {
-                            logFirebaseEvent('Button_show_snack_bar');
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Selecting length of post is required.',
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),
-                                duration: const Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
-                              ),
-                            );
                           }
 
                           setState(() {});

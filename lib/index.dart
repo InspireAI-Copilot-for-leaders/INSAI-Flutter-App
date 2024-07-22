@@ -4,11 +4,8 @@ export '/auth/auth_signup_or_login/auth_signup_or_login_widget.dart'
     show AuthSignupOrLoginWidget;
 export '/onboarding/linkedin_connect/linkedin_connect_widget.dart'
     show LinkedinConnectWidget;
-export '/auth/phone_number_verify/phone_number_verify_widget.dart'
-    show PhoneNumberVerifyWidget;
 export '/auth/forgot_pass/forgot_pass_widget.dart' show ForgotPassWidget;
-export '/onboarding/linkedin_auth/linkedin_auth_widget.dart'
-    show LinkedinAuthWidget;
+export '/auth/linkedin_auth/linkedin_auth_widget.dart' show LinkedinAuthWidget;
 export '/onboarding/brand_voice/brand_voice_widget.dart' show BrandVoiceWidget;
 export '/discover_page/discover_page_widget.dart' show DiscoverPageWidget;
 export '/article_details/article_details_widget.dart' show ArticleDetailsWidget;
@@ -53,4 +50,14 @@ export '/camapign_details/camapign_details_widget.dart'
     show CamapignDetailsWidget;
 export '/view_or_edit_campaign_post/view_or_edit_campaign_post_widget.dart'
     show ViewOrEditCampaignPostWidget;
-export '/access_wall/access_wall_widget.dart' show AccessWallWidget;
+export '/free_trial/free_trial_widget.dart' show FreeTrialWidget;
+export '/onboarding/phone_number_input/phone_number_input_widget.dart'
+    show PhoneNumberInputWidget;
+export '/onboarding/phone_number_verify/phone_number_verify_widget.dart'
+    show PhoneNumberVerifyWidget;
+export '/onboarding/linkedin_profile_input/linkedin_profile_input_widget.dart'
+    show LinkedinProfileInputWidget;
+export '/onboarding/set_expertise/set_expertise_widget.dart'
+    show SetExpertiseWidget;
+export '/free_trial_expired/free_trial_expired_widget.dart'
+    show FreeTrialExpiredWidget;

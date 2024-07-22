@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/empty_state_widget.dart';
 import '/components/profile_loading_screen_widget.dart';
@@ -14,27 +13,21 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'linkedin_auth_model.dart';
-export 'linkedin_auth_model.dart';
+import 'set_expertise_model.dart';
+export 'set_expertise_model.dart';
 
-class LinkedinAuthWidget extends StatefulWidget {
-  const LinkedinAuthWidget({
-    super.key,
-    this.code,
-  });
-
-  final String? code;
+class SetExpertiseWidget extends StatefulWidget {
+  const SetExpertiseWidget({super.key});
 
   @override
-  State<LinkedinAuthWidget> createState() => _LinkedinAuthWidgetState();
+  State<SetExpertiseWidget> createState() => _SetExpertiseWidgetState();
 }
 
-class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
-  late LinkedinAuthModel _model;
+class _SetExpertiseWidgetState extends State<SetExpertiseWidget> {
+  late SetExpertiseModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
@@ -43,163 +36,10 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LinkedinAuthModel());
+    _model = createModel(context, () => SetExpertiseModel());
 
     logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'linkedinAuth'});
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('LINKEDIN_AUTH_linkedinAuth_ON_INIT_STATE');
-      if (valueOrDefault(currentUserDocument?.onboardingStatus, '') !=
-          'inProgress') {
-        if (currentUserEmail == 'admindemo@inspireai.com') {
-          logFirebaseEvent('linkedinAuth_update_page_state');
-          _model.isLoading = false;
-          setState(() {});
-        } else {
-          logFirebaseEvent('linkedinAuth_backend_call');
-          _model.linkedintokens = await LinkedinTokensCall.call(
-            authCodeRecieved: widget.code,
-          );
-
-          if ((_model.linkedintokens?.succeeded ?? true)) {
-            logFirebaseEvent('linkedinAuth_backend_call');
-
-            await currentUserReference!.update(createUsersRecordData(
-              linkedinAccess: getJsonField(
-                (_model.linkedintokens?.jsonBody ?? ''),
-                r'''$.access_token''',
-              ).toString().toString(),
-              linkedinRefresh: getJsonField(
-                (_model.linkedintokens?.jsonBody ?? ''),
-                r'''$.refresh_token''',
-              ).toString().toString(),
-            ));
-            logFirebaseEvent('linkedinAuth_backend_call');
-            _model.lIprofileDetails =
-                await LinkedInDataGroup.linkedinProfileDetailsCall.call(
-              authToken:
-                  valueOrDefault(currentUserDocument?.linkedinAccess, ''),
-            );
-
-            if ((_model.lIprofileDetails?.succeeded ?? true)) {
-              logFirebaseEvent('linkedinAuth_backend_call');
-
-              await currentUserReference!.update(createUsersRecordData(
-                linkedinDetails: updateLinkedinDetailsAuthStruct(
-                  LinkedinDetailsAuthStruct.maybeFromMap(
-                      (_model.lIprofileDetails?.jsonBody ?? '')),
-                  clearUnsetFields: false,
-                ),
-              ));
-              logFirebaseEvent('linkedinAuth_firestore_query');
-              _model.wannabeUser = await queryPreDefinedUsersRecordOnce(
-                queryBuilder: (preDefinedUsersRecord) =>
-                    preDefinedUsersRecord.where(
-                  'linkedinUrl',
-                  isEqualTo:
-                      'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
-                ),
-              );
-              if (_model.wannabeUser!.isNotEmpty) {
-                logFirebaseEvent('linkedinAuth_update_page_state');
-                _model.preDefinedUserDoc = _model.wannabeUser?.first;
-                setState(() {});
-                logFirebaseEvent('linkedinAuth_backend_call');
-
-                await currentUserReference!.update({
-                  ...createUsersRecordData(
-                    personaAuto: _model.preDefinedUserDoc?.personaAuto,
-                    followers: _model.preDefinedUserDoc?.followers,
-                  ),
-                  ...mapToFirestore(
-                    {
-                      'thought_leadership_areas':
-                          _model.preDefinedUserDoc?.thoughtLeadershipAreas,
-                      'thought_leadership_areas_mapping':
-                          getThoughtLeadershipAreasMappingListFirestoreData(
-                        _model.preDefinedUserDoc?.thoughtLeadershipAreasMapping,
-                      ),
-                      'broad_domains': _model.preDefinedUserDoc?.broadDomains,
-                      'active_companies': getActiveCompaniesListFirestoreData(
-                        _model.preDefinedUserDoc?.activeCompanies,
-                      ),
-                    },
-                  ),
-                });
-                logFirebaseEvent('linkedinAuth_update_page_state');
-                _model.isLoading = false;
-                setState(() {});
-                logFirebaseEvent('linkedinAuth_backend_call');
-
-                await currentUserReference!.update(createUsersRecordData(
-                  onboardingStatus: 'inProgress',
-                ));
-              } else {
-                logFirebaseEvent('linkedinAuth_backend_call');
-                _model.getExpertiseWorflow = await ExpertiseOfPersonCall.call(
-                  linkedinUrl:
-                      'https://www.linkedin.com/in/${currentUserDocument?.linkedinDetails.vanityName}',
-                  uid: currentUserUid,
-                );
-
-                if ((_model.getExpertiseWorflow?.succeeded ?? true)) {
-                  logFirebaseEvent('linkedinAuth_update_page_state');
-                  _model.isLoading = false;
-                  setState(() {});
-                  logFirebaseEvent('linkedinAuth_backend_call');
-
-                  await currentUserReference!.update(createUsersRecordData(
-                    onboardingStatus: 'inProgress',
-                  ));
-                } else {
-                  logFirebaseEvent('linkedinAuth_navigate_to');
-
-                  context.goNamed(
-                    'linkedinConnect',
-                    queryParameters: {
-                      'connectSuccess': serializeParam(
-                        false,
-                        ParamType.bool,
-                      ),
-                    }.withoutNulls,
-                  );
-                }
-              }
-            } else {
-              logFirebaseEvent('linkedinAuth_navigate_to');
-
-              context.goNamed(
-                'linkedinConnect',
-                queryParameters: {
-                  'connectSuccess': serializeParam(
-                    false,
-                    ParamType.bool,
-                  ),
-                }.withoutNulls,
-              );
-            }
-          } else {
-            logFirebaseEvent('linkedinAuth_navigate_to');
-
-            context.goNamed(
-              'linkedinConnect',
-              queryParameters: {
-                'connectSuccess': serializeParam(
-                  false,
-                  ParamType.bool,
-                ),
-              }.withoutNulls,
-            );
-          }
-        }
-      } else {
-        logFirebaseEvent('linkedinAuth_update_page_state');
-        _model.isLoading = false;
-        setState(() {});
-      }
-    });
-
+        parameters: {'screen_name': 'setExpertise'});
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
@@ -248,7 +88,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
             ),
           );
         }
-        List<BroadDomainRecord> linkedinAuthBroadDomainRecordList =
+        List<BroadDomainRecord> setExpertiseBroadDomainRecordList =
             snapshot.data!;
 
         return GestureDetector(
@@ -280,7 +120,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               logFirebaseEvent(
-                                  'LINKEDIN_AUTH_PAGE_Row_8t9eg47v_ON_TAP');
+                                  'SET_EXPERTISE_PAGE_Row_32oc1fdl_ON_TAP');
                               logFirebaseEvent('Row_alert_dialog');
                               var confirmDialogResponse =
                                   await showDialog<bool>(
@@ -388,7 +228,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 logFirebaseEvent(
-                                    'LINKEDIN_AUTH_PAGE_Icon_4rby4r5s_ON_TAP');
+                                    'SET_EXPERTISE_PAGE_Icon_28yars5z_ON_TAP');
                                 logFirebaseEvent('Icon_navigate_to');
 
                                 context.pushNamed('support');
@@ -439,7 +279,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             0.0, 0.0, 0.0, 4.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => AutoSizeText(
-                                            'Hey ${currentUserDocument?.linkedinDetails.localizedFirstName}!',
+                                            'Hey ${currentUserDocument?.linkedinScrapped.firstName}!',
                                             textAlign: TextAlign.start,
                                             maxLines: 2,
                                             minFontSize: 26.0,
@@ -633,7 +473,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                               BorderRadius.circular(8.0),
                                                                           child:
                                                                               Image.network(
-                                                                            linkedinAuthBroadDomainRecordList.where((e) => e.broadDomain == thoughtLeadershipAreasItem.category).toList().first.iconUrl,
+                                                                            setExpertiseBroadDomainRecordList.where((e) => e.broadDomain == thoughtLeadershipAreasItem.category).toList().first.iconUrl,
                                                                             width:
                                                                                 36.0,
                                                                             height:
@@ -651,7 +491,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                               BorderRadius.circular(8.0),
                                                                           child:
                                                                               Image.network(
-                                                                            linkedinAuthBroadDomainRecordList.where((e) => e.broadDomain == thoughtLeadershipAreasItem.category).toList().first.iconUrlDarkMode,
+                                                                            setExpertiseBroadDomainRecordList.where((e) => e.broadDomain == thoughtLeadershipAreasItem.category).toList().first.iconUrlDarkMode,
                                                                             width:
                                                                                 36.0,
                                                                             height:
@@ -762,7 +602,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                               Colors.transparent,
                                                                           onTap:
                                                                               () async {
-                                                                            logFirebaseEvent('LINKEDIN_AUTH_Container_dxz8mxil_ON_TAP');
+                                                                            logFirebaseEvent('SET_EXPERTISE_Container_hw4575a0_ON_TAP');
                                                                             logFirebaseEvent('Container_update_page_state');
                                                                             _model.leadershipAreasMapping =
                                                                                 (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
@@ -975,7 +815,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                             const Duration(milliseconds: 2000),
                                             () async {
                                               logFirebaseEvent(
-                                                  'LINKEDIN_AUTH_contentURL1_ON_TEXTFIELD_C');
+                                                  'SET_EXPERTISE_contentURL1_ON_TEXTFIELD_C');
                                               if (_model.contentURL1TextController
                                                           .text !=
                                                       '') {
@@ -1127,7 +967,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                     child: Builder(
                                                       builder: (context) {
                                                         final broadDomainsNoSearch =
-                                                            linkedinAuthBroadDomainRecordList
+                                                            setExpertiseBroadDomainRecordList
                                                                 .toList();
 
                                                         return ListView
@@ -1327,7 +1167,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                           hoverColor: Colors.transparent,
                                                                                           highlightColor: Colors.transparent,
                                                                                           onTap: () async {
-                                                                                            logFirebaseEvent('LINKEDIN_AUTH_Container_nc4vam80_ON_TAP');
+                                                                                            logFirebaseEvent('SET_EXPERTISE_Container_15nrxoi1_ON_TAP');
                                                                                             if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
                                                                                               logFirebaseEvent('Container_update_page_state');
                                                                                               _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
@@ -1724,7 +1564,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                                                       hoverColor: Colors.transparent,
                                                                                       highlightColor: Colors.transparent,
                                                                                       onTap: () async {
-                                                                                        logFirebaseEvent('LINKEDIN_AUTH_Container_43go6gof_ON_TAP');
+                                                                                        logFirebaseEvent('SET_EXPERTISE_Container_92lrtlhu_ON_TAP');
                                                                                         if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
                                                                                           logFirebaseEvent('Container_update_page_state');
                                                                                           _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
@@ -1921,7 +1761,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
                                                       logFirebaseEvent(
-                                                          'LINKEDIN_AUTH_PAGE_+_ADD_NEW_BTN_ON_TAP');
+                                                          'SET_EXPERTISE_PAGE_+_ADD_NEW_BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
                                                       _model.addNewArea = true;
@@ -1997,7 +1837,13 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     logFirebaseEvent(
-                                        'LINKEDIN_AUTH_PAGE_CONTINUE_BTN_ON_TAP');
+                                        'SET_EXPERTISE_PAGE_CONTINUE_BTN_ON_TAP');
+                                    logFirebaseEvent('Button_backend_call');
+
+                                    await currentUserReference!
+                                        .update(createUsersRecordData(
+                                      onboardingStatus: 'expertiseSet',
+                                    ));
                                     logFirebaseEvent('Button_navigate_to');
 
                                     context.pushNamed('brandVoice');
@@ -2155,7 +2001,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                         FormFieldController<
                                                             String>(null),
                                                     options:
-                                                        linkedinAuthBroadDomainRecordList
+                                                        setExpertiseBroadDomainRecordList
                                                             .map((e) =>
                                                                 e.broadDomain)
                                                             .toList(),
@@ -2366,7 +2212,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
                                                       logFirebaseEvent(
-                                                          'LINKEDIN_AUTH_ADD_EXPERTISE_AREA_BTN_ON_');
+                                                          'SET_EXPERTISE_ADD_EXPERTISE_AREA_BTN_ON_');
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
                                                       _model.leadershipAreasMapping =
@@ -2548,7 +2394,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
                                                       logFirebaseEvent(
-                                                          'LINKEDIN_AUTH_PAGE_CANCEL_BTN_ON_TAP');
+                                                          'SET_EXPERTISE_PAGE_CANCEL_BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_update_page_state');
                                                       _model.addNewArea = false;

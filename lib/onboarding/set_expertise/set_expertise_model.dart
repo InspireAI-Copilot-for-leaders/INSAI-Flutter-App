@@ -1,13 +1,12 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/empty_state_widget.dart';
 import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'linkedin_auth_widget.dart' show LinkedinAuthWidget;
+import 'set_expertise_widget.dart' show SetExpertiseWidget;
 import 'package:flutter/material.dart';
 
-class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
+class SetExpertiseModel extends FlutterFlowModel<SetExpertiseWidget> {
   ///  Local state fields for this page.
 
   bool isLoading = true;
@@ -49,14 +48,6 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
-  // Stores action output result for [Backend Call - API (LinkedinTokens)] action in linkedinAuth widget.
-  ApiCallResponse? linkedintokens;
-  // Stores action output result for [Backend Call - API (Linkedin Profile Details)] action in linkedinAuth widget.
-  ApiCallResponse? lIprofileDetails;
-  // Stores action output result for [Firestore Query - Query a collection] action in linkedinAuth widget.
-  List<PreDefinedUsersRecord>? wannabeUser;
-  // Stores action output result for [Backend Call - API (Expertise of Person)] action in linkedinAuth widget.
-  ApiCallResponse? getExpertiseWorflow;
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode;
   TextEditingController? contentURL1TextController;

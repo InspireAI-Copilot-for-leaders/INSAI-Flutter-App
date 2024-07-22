@@ -50,57 +50,12 @@ class _DashboardWidgetState extends State<DashboardWidget>
         return;
       }
       logFirebaseEvent('DASHBOARD_PAGE_dashboard_ON_INIT_STATE');
-      logFirebaseEvent('dashboard_revenue_cat');
-      final isEntitled =
-          await revenue_cat.isEntitled('premium-full-access') ?? false;
-      if (!isEntitled) {
-        await revenue_cat.loadOfferings();
-      }
+      if ((currentUserEmail == 'admindemo@inspireai.com') &&
+          (valueOrDefault(currentUserDocument?.accessType, '') !=
+              'paidExpired')) {
+        logFirebaseEvent('dashboard_navigate_to');
 
-      if (isEntitled) {
-        if (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
-            'notStarted') {
-          logFirebaseEvent('dashboard_navigate_to');
-
-          context.goNamed('paymentSuccess');
-        } else {
-          if (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
-              'inProgress') {
-            logFirebaseEvent('dashboard_navigate_to');
-
-            context.goNamed('linkedinAuth');
-          } else {
-            if (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
-                'completed') {
-              logFirebaseEvent('dashboard_widget_animation');
-              if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
-                animationsMap['iconOnActionTriggerAnimation1']!
-                    .controller
-                    .forward(from: 0.0);
-              }
-              logFirebaseEvent('dashboard_update_app_state');
-              FFAppState().dashboardLoading = false;
-              setState(() {});
-            } else {
-              logFirebaseEvent('dashboard_alert_dialog');
-              await showDialog(
-                context: context,
-                builder: (alertDialogContext) {
-                  return AlertDialog(
-                    title: const Text('Failed!'),
-                    content: const Text('All validation conditions failed.'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(alertDialogContext),
-                        child: const Text('Ok'),
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
-          }
-        }
+        context.goNamed('freeTrial');
       } else {
         if ((valueOrDefault(currentUserDocument?.accessType, '') ==
                 'noAccess') ||
@@ -108,48 +63,72 @@ class _DashboardWidgetState extends State<DashboardWidget>
                 'paidWaitlist')) {
           logFirebaseEvent('dashboard_navigate_to');
 
-          context.goNamed('accessWall');
+          context.goNamed('freeTrial');
         } else {
-          if (valueOrDefault(currentUserDocument?.accessType, '') ==
-              'specialWaitlist') {
+          if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                      'freeTrial') ||
+                  (valueOrDefault(currentUserDocument?.accessType, '') ==
+                      'subscribed')) &&
+              (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
+                  'notStarted')) {
             logFirebaseEvent('dashboard_navigate_to');
 
-            context.goNamed('accessRequested');
+            context.goNamed('phoneNumberInput');
           } else {
-            if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                    'specialGranted') &&
+            if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                        'freeTrial') ||
+                    (valueOrDefault(currentUserDocument?.accessType, '') ==
+                        'subscribed')) &&
                 (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
-                    'notStarted')) {
+                    'phoneVerified')) {
               logFirebaseEvent('dashboard_navigate_to');
 
-              context.goNamed('accessRequested');
+              context.goNamed('linkedinProfileInput');
             } else {
-              if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                      'specialGranted') &&
+              if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                          'freeTrial') ||
+                      (valueOrDefault(currentUserDocument?.accessType, '') ==
+                          'subscribed')) &&
                   (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
-                      'inProgress')) {
+                      'linkedinSet')) {
                 logFirebaseEvent('dashboard_navigate_to');
 
-                context.goNamed('linkedinAuth');
+                context.goNamed('setExpertise');
               } else {
-                if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                        'specialGranted') &&
+                if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                            'freeTrial') ||
+                        (valueOrDefault(currentUserDocument?.accessType, '') ==
+                            'subscribed')) &&
                     (valueOrDefault(
                             currentUserDocument?.onboardingStatus, '') ==
-                        'completed')) {
-                  logFirebaseEvent('dashboard_widget_animation');
-                  if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
-                    animationsMap['iconOnActionTriggerAnimation1']!
-                        .controller
-                        .forward(from: 0.0);
-                  }
-                  logFirebaseEvent('dashboard_update_app_state');
-                  FFAppState().dashboardLoading = false;
-                  setState(() {});
-                } else {
+                        'expertiseSet')) {
                   logFirebaseEvent('dashboard_navigate_to');
 
-                  context.goNamed('subsExpired');
+                  context.goNamed('brandVoice');
+                } else {
+                  if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                              'freeTrial') ||
+                          (valueOrDefault(
+                                  currentUserDocument?.accessType, '') ==
+                              'subscribed')) &&
+                      (valueOrDefault(
+                              currentUserDocument?.onboardingStatus, '') ==
+                          'completed')) {
+                    logFirebaseEvent('dashboard_widget_animation');
+                    if (animationsMap['iconOnActionTriggerAnimation1'] !=
+                        null) {
+                      animationsMap['iconOnActionTriggerAnimation1']!
+                          .controller
+                          .forward(from: 0.0);
+                    }
+                    logFirebaseEvent('dashboard_update_app_state');
+                    FFAppState().dashboardLoading = false;
+                    setState(() {});
+                  } else {
+                    logFirebaseEvent('dashboard_navigate_to');
+
+                    context.pushNamed('subsExpired');
+                  }
                 }
               }
             }
@@ -752,11 +731,20 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
-                                              (currentUserDocument
-                                                          ?.profilePictureLinks
-                                                          .toList() ??
-                                                      [])
-                                                  .first,
+                                              valueOrDefault<String>(
+                                                (currentUserDocument
+                                                                ?.profilePictureLinks
+                                                                .toList() ??
+                                                            [])
+                                                        .isNotEmpty
+                                                    ? (currentUserDocument
+                                                                ?.profilePictureLinks
+                                                                .toList() ??
+                                                            [])
+                                                        .first
+                                                    : 'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                                'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                              ),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -943,7 +931,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      'Hi ${currentUserDocument?.linkedinDetails.localizedFirstName},',
+                                                      'Hi ${currentUserDocument?.linkedinScrapped.firstName},',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -1507,64 +1495,66 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       ],
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 8.0, 24.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 4.0, 0.0),
-                                          child: FaIcon(
-                                            FontAwesomeIcons.handsHelping,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            size: 24.0,
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: AuthUserStreamWidget(
-                                            builder: (context) => Text(
-                                              valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.firstDegreeConnectionsSize,
-                                                      0)
-                                                  .toString(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
+                                  if (valueOrDefault<bool>(
+                                      currentUserDocument?.linkedinConnected,
+                                      false))
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 8.0, 24.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 4.0, 0.0),
+                                              child: FaIcon(
+                                                FontAwesomeIcons.handsHelping,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                                size: 24.0,
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 4.0, 0.0, 0.0),
-                                            child: Text(
-                                              'people have connected with you.',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                            Flexible(
+                                              child: Text(
+                                                valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.firstDegreeConnectionsSize,
+                                                        0)
+                                                    .toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
+                                            ),
+                                            Flexible(
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        8.0, 4.0, 0.0, 0.0),
+                                                child: Text(
+                                                  'people have connected with you.',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily:
@@ -1586,12 +1576,13 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                         context)
                                                                     .bodyMediumFamily),
                                                       ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 16.0, 0.0, 0.0),
@@ -2025,10 +2016,41 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               logFirebaseEvent(
                                                   'DASHBOARD_PAGE_MiddleButton_ON_TAP');
                                               logFirebaseEvent(
-                                                  'MiddleButton_update_page_state');
-                                              _model.createContentDialogVisible =
-                                                  true;
-                                              setState(() {});
+                                                  'MiddleButton_revenue_cat');
+                                              final isEntitled =
+                                                  await revenue_cat.isEntitled(
+                                                          'premium-full-access') ??
+                                                      false;
+                                              if (!isEntitled) {
+                                                await revenue_cat
+                                                    .loadOfferings();
+                                              }
+
+                                              if (isEntitled) {
+                                                logFirebaseEvent(
+                                                    'MiddleButton_update_page_state');
+                                                _model.createContentDialogVisible =
+                                                    true;
+                                                setState(() {});
+                                              } else {
+                                                if (valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.freeTrialPostsCreated,
+                                                        0) >=
+                                                    10) {
+                                                  logFirebaseEvent(
+                                                      'MiddleButton_navigate_to');
+
+                                                  context.pushNamed(
+                                                      'freeTrialExpired');
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'MiddleButton_update_page_state');
+                                                  _model.createContentDialogVisible =
+                                                      true;
+                                                  setState(() {});
+                                                }
+                                              }
                                             },
                                           ),
                                         ),

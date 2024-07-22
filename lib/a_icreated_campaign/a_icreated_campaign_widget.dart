@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -1448,132 +1449,319 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'A_ICREATED_CAMPAIGN_DO_THE_INSPIRE_A_I_M');
-                                await Future.wait([
-                                  Future(() async {
-                                    logFirebaseEvent('Button_backend_call');
-                                    _model.apiResult7vv =
-                                        await DomainThoughtLeaderhipCampaignCall
-                                            .call(
-                                      uid: currentUserUid,
-                                      expertiseareasList: (currentUserDocument
-                                                  ?.thoughtLeadershipAreas
-                                                  .toList() ??
-                                              [])
-                                          .take(2)
-                                          .toList(),
-                                      noOfPosts: 2,
-                                      campaignId:
-                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                    );
-                                  }),
-                                  Future(() async {
-                                    logFirebaseEvent('Button_backend_call');
-                                    _model.apiResulttd4 =
-                                        await CurrentEventsCampaignCall.call(
-                                      uid: currentUserUid,
-                                      expertiseArea: (currentUserDocument
-                                                  ?.broadDomains
-                                                  .toList() ??
-                                              [])
-                                          .first,
-                                      noOfPosts: 2,
-                                      campaignId:
-                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                    );
-                                  }),
-                                  Future(() async {
-                                    if (_model.newCompanyName != null &&
-                                        _model.newCompanyName != '') {
+                                logFirebaseEvent('Button_revenue_cat');
+                                final isEntitled = await revenue_cat
+                                        .isEntitled('premium-full-access') ??
+                                    false;
+                                if (!isEntitled) {
+                                  await revenue_cat.loadOfferings();
+                                }
+
+                                if (isEntitled) {
+                                  await Future.wait([
+                                    Future(() async {
                                       logFirebaseEvent('Button_backend_call');
-                                      _model.apiResults13 =
-                                          await CompanyThoughtLeadershipWithDataCall
+                                      _model.apiResult7vv1 =
+                                          await DomainThoughtLeaderhipCampaignCall
                                               .call(
                                         uid: currentUserUid,
-                                        companyName: _model.newCompanyName,
+                                        expertiseareasList: (currentUserDocument
+                                                    ?.thoughtLeadershipAreas
+                                                    .toList() ??
+                                                [])
+                                            .take(2)
+                                            .toList(),
+                                        noOfPosts: 2,
                                         campaignId:
                                             '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                        noOfPosts: 1,
-                                        dataType: _model.typeOfContentUploaded,
-                                        dataList:
-                                            _model.typeOfContentUploaded ==
-                                                    'text'
-                                                ? _model.plainText
-                                                : _model.listOfUrls,
                                       );
-                                    } else {
-                                      if ((currentUserDocument?.activeCompanies
-                                                  .toList() ??
-                                              [])
-                                          .isNotEmpty) {
+                                    }),
+                                    Future(() async {
+                                      logFirebaseEvent('Button_backend_call');
+                                      _model.apiResulttd41 =
+                                          await CurrentEventsCampaignCall.call(
+                                        uid: currentUserUid,
+                                        expertiseArea: (currentUserDocument
+                                                    ?.broadDomains
+                                                    .toList() ??
+                                                [])
+                                            .first,
+                                        noOfPosts: 2,
+                                        campaignId:
+                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      );
+                                    }),
+                                    Future(() async {
+                                      if (_model.newCompanyName != null &&
+                                          _model.newCompanyName != '') {
                                         logFirebaseEvent('Button_backend_call');
-                                        _model.apiResultm97 =
-                                            await CompanyThoughtLeaderhipCampaignCall
+                                        _model.apiResults131 =
+                                            await CompanyThoughtLeadershipWithDataCall
                                                 .call(
                                           uid: currentUserUid,
+                                          companyName: _model.newCompanyName,
                                           campaignId:
                                               '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
                                           noOfPosts: 1,
-                                          companyName: (currentUserDocument
+                                          dataType:
+                                              _model.typeOfContentUploaded,
+                                          dataList:
+                                              _model.typeOfContentUploaded ==
+                                                      'text'
+                                                  ? _model.plainText
+                                                  : _model.listOfUrls,
+                                        );
+                                      } else {
+                                        if ((currentUserDocument
+                                                    ?.activeCompanies
+                                                    .toList() ??
+                                                [])
+                                            .isNotEmpty) {
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+                                          _model.apiResultm971 =
+                                              await CompanyThoughtLeaderhipCampaignCall
+                                                  .call(
+                                            uid: currentUserUid,
+                                            campaignId:
+                                                '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                            noOfPosts: 1,
+                                            companyName: (currentUserDocument
+                                                        ?.activeCompanies
+                                                        .toList() ??
+                                                    [])
+                                                .first
+                                                .companyName,
+                                          );
+                                        }
+                                      }
+                                    }),
+                                  ]);
+                                  if ((_model.apiResult7vv1?.succeeded ?? true) &&
+                                      (_model.apiResulttd41?.succeeded ??
+                                          true) &&
+                                      ((_model.apiResults131?.succeeded ??
+                                              true) ||
+                                          (_model.apiResultm971?.succeeded ??
+                                              true) ||
+                                          (!((currentUserDocument
+                                                          ?.activeCompanies
+                                                          .toList() ??
+                                                      [])
+                                                  .isNotEmpty) &&
+                                              (_model.newCompanyName == null ||
+                                                  _model.newCompanyName ==
+                                                      '')))) {
+                                    logFirebaseEvent('Button_backend_call');
+
+                                    await CampaignsDetailsRecord.createDoc(
+                                            currentUserReference!)
+                                        .set(createCampaignsDetailsRecordData(
+                                      campaignId:
+                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      createdOn: getCurrentTimestamp,
+                                      campaignTitle:
+                                          _model.textController1.text,
+                                    ));
+                                    logFirebaseEvent('Button_backend_call');
+
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'freeTrialCampignsCreated':
+                                              FieldValue.increment(1),
+                                        },
+                                      ),
+                                    });
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
+                                    _model.loadingScreenVisible = true;
+                                    setState(() {});
+                                    logFirebaseEvent('Button_wait__delay');
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 4000));
+                                    logFirebaseEvent('Button_navigate_to');
+
+                                    context.goNamed('campaigns');
+                                  } else {
+                                    logFirebaseEvent('Button_alert_dialog');
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: const Text('Request Failed!'),
+                                          content: const Text(
+                                              'Campaign creation request failed.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                } else {
+                                  if (valueOrDefault(
+                                          currentUserDocument
+                                              ?.freeTrialCampignsCreated,
+                                          0) >=
+                                      5) {
+                                    logFirebaseEvent('Button_navigate_to');
+
+                                    context.pushNamed('freeTrialExpired');
+                                  } else {
+                                    await Future.wait([
+                                      Future(() async {
+                                        logFirebaseEvent('Button_backend_call');
+                                        _model.apiResult7vv =
+                                            await DomainThoughtLeaderhipCampaignCall
+                                                .call(
+                                          uid: currentUserUid,
+                                          expertiseareasList: (currentUserDocument
+                                                      ?.thoughtLeadershipAreas
+                                                      .toList() ??
+                                                  [])
+                                              .take(2)
+                                              .toList(),
+                                          noOfPosts: 2,
+                                          campaignId:
+                                              '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        );
+                                      }),
+                                      Future(() async {
+                                        logFirebaseEvent('Button_backend_call');
+                                        _model.apiResulttd4 =
+                                            await CurrentEventsCampaignCall
+                                                .call(
+                                          uid: currentUserUid,
+                                          expertiseArea: (currentUserDocument
+                                                      ?.broadDomains
+                                                      .toList() ??
+                                                  [])
+                                              .first,
+                                          noOfPosts: 2,
+                                          campaignId:
+                                              '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        );
+                                      }),
+                                      Future(() async {
+                                        if (_model.newCompanyName != null &&
+                                            _model.newCompanyName != '') {
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+                                          _model.apiResults13 =
+                                              await CompanyThoughtLeadershipWithDataCall
+                                                  .call(
+                                            uid: currentUserUid,
+                                            companyName: _model.newCompanyName,
+                                            campaignId:
+                                                '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                            noOfPosts: 1,
+                                            dataType:
+                                                _model.typeOfContentUploaded,
+                                            dataList:
+                                                _model.typeOfContentUploaded ==
+                                                        'text'
+                                                    ? _model.plainText
+                                                    : _model.listOfUrls,
+                                          );
+                                        } else {
+                                          if ((currentUserDocument
                                                       ?.activeCompanies
                                                       .toList() ??
                                                   [])
-                                              .first
-                                              .companyName,
-                                        );
-                                      }
-                                    }
-                                  }),
-                                ]);
-                                if ((_model.apiResult7vv?.succeeded ?? true) &&
-                                    (_model.apiResulttd4?.succeeded ?? true) &&
-                                    ((_model.apiResults13?.succeeded ?? true) ||
-                                        (_model.apiResultm97?.succeeded ??
-                                            true) ||
-                                        (!((currentUserDocument?.activeCompanies
-                                                        .toList() ??
-                                                    [])
-                                                .isNotEmpty) &&
-                                            (_model.newCompanyName == null ||
-                                                _model.newCompanyName ==
-                                                    '')))) {
-                                  logFirebaseEvent('Button_backend_call');
+                                              .isNotEmpty) {
+                                            logFirebaseEvent(
+                                                'Button_backend_call');
+                                            _model.apiResultm97 =
+                                                await CompanyThoughtLeaderhipCampaignCall
+                                                    .call(
+                                              uid: currentUserUid,
+                                              campaignId:
+                                                  '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                              noOfPosts: 1,
+                                              companyName: (currentUserDocument
+                                                          ?.activeCompanies
+                                                          .toList() ??
+                                                      [])
+                                                  .first
+                                                  .companyName,
+                                            );
+                                          }
+                                        }
+                                      }),
+                                    ]);
+                                    if ((_model.apiResult7vv?.succeeded ?? true) &&
+                                        (_model.apiResulttd4?.succeeded ??
+                                            true) &&
+                                        ((_model.apiResults13?.succeeded ??
+                                                true) ||
+                                            (_model.apiResultm97?.succeeded ??
+                                                true) ||
+                                            (!((currentUserDocument
+                                                            ?.activeCompanies
+                                                            .toList() ??
+                                                        [])
+                                                    .isNotEmpty) &&
+                                                (_model.newCompanyName ==
+                                                        null ||
+                                                    _model.newCompanyName ==
+                                                        '')))) {
+                                      logFirebaseEvent('Button_backend_call');
 
-                                  await CampaignsDetailsRecord.createDoc(
-                                          currentUserReference!)
-                                      .set(createCampaignsDetailsRecordData(
-                                    campaignId:
-                                        '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
-                                    createdOn: getCurrentTimestamp,
-                                    campaignTitle: _model.textController1.text,
-                                  ));
-                                  logFirebaseEvent('Button_update_page_state');
-                                  _model.loadingScreenVisible = true;
-                                  setState(() {});
-                                  logFirebaseEvent('Button_wait__delay');
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 4000));
-                                  logFirebaseEvent('Button_navigate_to');
+                                      await CampaignsDetailsRecord.createDoc(
+                                              currentUserReference!)
+                                          .set(createCampaignsDetailsRecordData(
+                                        campaignId:
+                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        createdOn: getCurrentTimestamp,
+                                        campaignTitle:
+                                            _model.textController1.text,
+                                      ));
+                                      logFirebaseEvent('Button_backend_call');
 
-                                  context.goNamed('campaigns');
-                                } else {
-                                  logFirebaseEvent('Button_alert_dialog');
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: const Text('Request Failed!'),
-                                        content: const Text(
-                                            'Campaign creation request failed.'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: const Text('Ok'),
-                                          ),
-                                        ],
+                                      await currentUserReference!.update({
+                                        ...mapToFirestore(
+                                          {
+                                            'freeTrialCampignsCreated':
+                                                FieldValue.increment(1),
+                                          },
+                                        ),
+                                      });
+                                      logFirebaseEvent(
+                                          'Button_update_page_state');
+                                      _model.loadingScreenVisible = true;
+                                      setState(() {});
+                                      logFirebaseEvent('Button_wait__delay');
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 4000));
+                                      logFirebaseEvent('Button_navigate_to');
+
+                                      context.goNamed('campaigns');
+                                    } else {
+                                      logFirebaseEvent('Button_alert_dialog');
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: const Text('Request Failed!'),
+                                            content: const Text(
+                                                'Campaign creation request failed.'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       );
-                                    },
-                                  );
+                                    }
+                                  }
                                 }
 
                                 setState(() {});

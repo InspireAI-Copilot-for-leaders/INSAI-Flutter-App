@@ -115,7 +115,6 @@ final parametersBuilderMap =
           'connectSuccess': getParameter<bool>(data, 'connectSuccess'),
         },
       ),
-  'phone_number_verify': ParameterData.none(),
   'forgot_pass': ParameterData.none(),
   'linkedinAuth': (data) async {
     final allParams = {
@@ -222,7 +221,12 @@ final parametersBuilderMap =
           'scheduledTime': getParameter<DateTime>(data, 'scheduledTime'),
         },
       ),
-  'accessWall': ParameterData.none(),
+  'freeTrial': ParameterData.none(),
+  'phoneNumberInput': ParameterData.none(),
+  'phoneNumberVerify': ParameterData.none(),
+  'linkedinProfileInput': ParameterData.none(),
+  'setExpertise': ParameterData.none(),
+  'freeTrialExpired': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

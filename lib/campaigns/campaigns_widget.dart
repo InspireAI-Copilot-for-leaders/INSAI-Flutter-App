@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -804,11 +805,20 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            (currentUserDocument
-                                                        ?.profilePictureLinks
-                                                        .toList() ??
-                                                    [])
-                                                .first,
+                                            valueOrDefault<String>(
+                                              (currentUserDocument
+                                                              ?.profilePictureLinks
+                                                              .toList() ??
+                                                          [])
+                                                      .isNotEmpty
+                                                  ? (currentUserDocument
+                                                              ?.profilePictureLinks
+                                                              .toList() ??
+                                                          [])
+                                                      .first
+                                                  : 'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                              'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                            ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -3004,10 +3014,40 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                             logFirebaseEvent(
                                                 'CAMPAIGNS_PAGE_MiddleButton_ON_TAP');
                                             logFirebaseEvent(
-                                                'MiddleButton_update_page_state');
-                                            _model.createContentDialogVisible =
-                                                true;
-                                            setState(() {});
+                                                'MiddleButton_revenue_cat');
+                                            final isEntitled =
+                                                await revenue_cat.isEntitled(
+                                                        'premium-full-access') ??
+                                                    false;
+                                            if (!isEntitled) {
+                                              await revenue_cat.loadOfferings();
+                                            }
+
+                                            if (isEntitled) {
+                                              logFirebaseEvent(
+                                                  'MiddleButton_update_page_state');
+                                              _model.createContentDialogVisible =
+                                                  true;
+                                              setState(() {});
+                                            } else {
+                                              if (valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.freeTrialPostsCreated,
+                                                      0) >=
+                                                  10) {
+                                                logFirebaseEvent(
+                                                    'MiddleButton_navigate_to');
+
+                                                context.pushNamed(
+                                                    'freeTrialExpired');
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'MiddleButton_update_page_state');
+                                                _model.createContentDialogVisible =
+                                                    true;
+                                                setState(() {});
+                                              }
+                                            }
                                           },
                                         ),
                                       ),

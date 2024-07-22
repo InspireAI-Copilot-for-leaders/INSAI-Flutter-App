@@ -122,11 +122,20 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            (currentUserDocument
-                                                        ?.profilePictureLinks
-                                                        .toList() ??
-                                                    [])
-                                                .first,
+                                            valueOrDefault<String>(
+                                              (currentUserDocument
+                                                              ?.profilePictureLinks
+                                                              .toList() ??
+                                                          [])
+                                                      .isNotEmpty
+                                                  ? (currentUserDocument
+                                                              ?.profilePictureLinks
+                                                              .toList() ??
+                                                          [])
+                                                      .first
+                                                  : 'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                              'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                            ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
