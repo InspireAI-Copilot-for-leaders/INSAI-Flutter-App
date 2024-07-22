@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'brand_voice_widget.dart' show BrandVoiceWidget;
 import 'package:flutter/material.dart';
@@ -15,10 +14,6 @@ class BrandVoiceModel extends FlutterFlowModel<BrandVoiceWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (Linkedin Profile Picture)] action in brandVoice widget.
-  ApiCallResponse? profilePicture;
-  // Stores action output result for [Backend Call - API (First degree connections size)] action in brandVoice widget.
-  ApiCallResponse? firstConnectionSize;
   // State field(s) for contentURL2 widget.
   FocusNode? contentURL2FocusNode;
   TextEditingController? contentURL2TextController;

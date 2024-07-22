@@ -138,49 +138,8 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'LINKEDIN_CONNECT_arrow_back_ios_rounded_');
-                                logFirebaseEvent('IconButton_alert_dialog');
-                                var confirmDialogResponse =
-                                    await showDialog<bool>(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: const Text('Logout?'),
-                                              content: const Text(
-                                                  'This will log you out of InspireAI completely. Are you sure you want to logout?'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          false),
-                                                  child: const Text('Cancel'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          true),
-                                                  child: const Text('Yes, Logout'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ) ??
-                                        false;
-                                if (confirmDialogResponse) {
-                                  logFirebaseEvent('IconButton_auth');
-                                  GoRouter.of(context).prepareAuthEvent(true);
-                                  await authManager.signOut();
-                                  GoRouter.of(context).clearRedirectLocation();
-
-                                  logFirebaseEvent('IconButton_navigate_to');
-
-                                  context.goNamedAuth(
-                                    'LandingPage',
-                                    context.mounted,
-                                    ignoreRedirect: true,
-                                  );
-                                }
+                                logFirebaseEvent('IconButton_navigate_back');
+                                context.safePop();
                               },
                             ),
                           ),
@@ -239,7 +198,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 16.0),
                               child: AutoSizeText(
-                                'To get the best from InspireAI, we need you to connect your LinkedIn account.',
+                                'To be able to schedule or post to Linkedin, we need you to connect your LinkedIn account.',
                                 maxLines: 3,
                                 minFontSize: 14.0,
                                 style: FlutterFlowTheme.of(context)

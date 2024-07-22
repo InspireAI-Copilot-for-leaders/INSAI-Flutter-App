@@ -162,6 +162,27 @@ class UsersRecord extends FirestoreRecord {
   String get personaForContent => _personaForContent ?? '';
   bool hasPersonaForContent() => _personaForContent != null;
 
+  // "linkedin_scrapped" field.
+  LinkedinScrappedStruct? _linkedinScrapped;
+  LinkedinScrappedStruct get linkedinScrapped =>
+      _linkedinScrapped ?? LinkedinScrappedStruct();
+  bool hasLinkedinScrapped() => _linkedinScrapped != null;
+
+  // "freeTrialPostsCreated" field.
+  int? _freeTrialPostsCreated;
+  int get freeTrialPostsCreated => _freeTrialPostsCreated ?? 0;
+  bool hasFreeTrialPostsCreated() => _freeTrialPostsCreated != null;
+
+  // "freeTrialCampignsCreated" field.
+  int? _freeTrialCampignsCreated;
+  int get freeTrialCampignsCreated => _freeTrialCampignsCreated ?? 0;
+  bool hasFreeTrialCampignsCreated() => _freeTrialCampignsCreated != null;
+
+  // "linkedinConnected" field.
+  bool? _linkedinConnected;
+  bool get linkedinConnected => _linkedinConnected ?? false;
+  bool hasLinkedinConnected() => _linkedinConnected != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -204,6 +225,13 @@ class UsersRecord extends FirestoreRecord {
     );
     _personaAuto = snapshotData['personaAuto'] as String?;
     _personaForContent = snapshotData['personaForContent'] as String?;
+    _linkedinScrapped =
+        LinkedinScrappedStruct.maybeFromMap(snapshotData['linkedin_scrapped']);
+    _freeTrialPostsCreated =
+        castToType<int>(snapshotData['freeTrialPostsCreated']);
+    _freeTrialCampignsCreated =
+        castToType<int>(snapshotData['freeTrialCampignsCreated']);
+    _linkedinConnected = snapshotData['linkedinConnected'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -262,6 +290,10 @@ Map<String, dynamic> createUsersRecordData({
   String? onboardingStatus,
   String? personaAuto,
   String? personaForContent,
+  LinkedinScrappedStruct? linkedinScrapped,
+  int? freeTrialPostsCreated,
+  int? freeTrialCampignsCreated,
+  bool? linkedinConnected,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -287,6 +319,10 @@ Map<String, dynamic> createUsersRecordData({
       'onboardingStatus': onboardingStatus,
       'personaAuto': personaAuto,
       'personaForContent': personaForContent,
+      'linkedin_scrapped': LinkedinScrappedStruct().toMap(),
+      'freeTrialPostsCreated': freeTrialPostsCreated,
+      'freeTrialCampignsCreated': freeTrialCampignsCreated,
+      'linkedinConnected': linkedinConnected,
     }.withoutNulls,
   );
 
@@ -297,6 +333,10 @@ Map<String, dynamic> createUsersRecordData({
   // Handle nested data for "pushNotifications" field.
   addNotificationPopupStructData(
       firestoreData, pushNotifications, 'pushNotifications');
+
+  // Handle nested data for "linkedin_scrapped" field.
+  addLinkedinScrappedStructData(
+      firestoreData, linkedinScrapped, 'linkedin_scrapped');
 
   return firestoreData;
 }
@@ -337,7 +377,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.onboardingStatus == e2?.onboardingStatus &&
         listEquality.equals(e1?.activeCompanies, e2?.activeCompanies) &&
         e1?.personaAuto == e2?.personaAuto &&
-        e1?.personaForContent == e2?.personaForContent;
+        e1?.personaForContent == e2?.personaForContent &&
+        e1?.linkedinScrapped == e2?.linkedinScrapped &&
+        e1?.freeTrialPostsCreated == e2?.freeTrialPostsCreated &&
+        e1?.freeTrialCampignsCreated == e2?.freeTrialCampignsCreated &&
+        e1?.linkedinConnected == e2?.linkedinConnected;
   }
 
   @override
@@ -369,7 +413,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.onboardingStatus,
         e?.activeCompanies,
         e?.personaAuto,
-        e?.personaForContent
+        e?.personaForContent,
+        e?.linkedinScrapped,
+        e?.freeTrialPostsCreated,
+        e?.freeTrialCampignsCreated,
+        e?.linkedinConnected
       ]);
 
   @override

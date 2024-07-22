@@ -69,19 +69,9 @@ class ViewOrEditCampaignPostModel
   // Stores action output result for [Backend Call - Create Document] action in onlyTextSchedule widget.
   ScheduledPostsRecord? scheduledDocOnlyText;
   bool isDataUploading1 = false;
-  List<FFUploadedFile> uploadedLocalFiles1 = [];
-  List<String> uploadedFileUrls1 = [];
-
-  // Stores action output result for [Backend Call - API (getImageUploadUrlFromLinkedin)] action in ImageSchedule widget.
-  ApiCallResponse? imageUrlSchCamp;
-  // Stores action output result for [Backend Call - API (uploadImageToLinkedin)] action in ImageSchedule widget.
-  ApiCallResponse? imageUploadedSchCamp;
-  // Stores action output result for [Backend Call - Create Document] action in ImageSchedule widget.
-  ScheduledPostsRecord? scheduledDocImage;
-  bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
+  FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
+  String uploadedFileUrl1 = '';
 
   // Stores action output result for [Backend Call - API (getDocUploadUrlFromLinkedin)] action in docSchedule widget.
   ApiCallResponse? liDocURLScheCopy;
@@ -89,6 +79,16 @@ class ViewOrEditCampaignPostModel
   ApiCallResponse? docUploadedScheCopy;
   // Stores action output result for [Backend Call - Create Document] action in docSchedule widget.
   ScheduledPostsRecord? scheduledDocDoc;
+  bool isDataUploading2 = false;
+  List<FFUploadedFile> uploadedLocalFiles2 = [];
+  List<String> uploadedFileUrls2 = [];
+
+  // Stores action output result for [Backend Call - API (getImageUploadUrlFromLinkedin)] action in ImageSchedule widget.
+  ApiCallResponse? imageUrlSchCamp;
+  // Stores action output result for [Backend Call - API (uploadImageToLinkedin)] action in ImageSchedule widget.
+  ApiCallResponse? imageUploadedSchCamp;
+  // Stores action output result for [Backend Call - Create Document] action in ImageSchedule widget.
+  ScheduledPostsRecord? scheduledDocImage;
   // Stores action output result for [Backend Call - Create Document] action in pollSchedule widget.
   ScheduledPostsRecord? scheduledDocOnlyPoll;
   // State field(s) for TabBar widget.

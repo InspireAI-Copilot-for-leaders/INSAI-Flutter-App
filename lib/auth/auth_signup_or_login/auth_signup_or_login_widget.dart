@@ -6,8 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
-import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +14,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'auth_signup_or_login_model.dart';
 export 'auth_signup_or_login_model.dart';
 
@@ -237,8 +234,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -1125,34 +1120,6 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                               ),
                                             ],
                                           ),
-                                        if (_model.authType == 'phone')
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 16.0, 0.0, 24.0),
-                                                child: SizedBox(
-                                                  width: double.infinity,
-                                                  height: 56.0,
-                                                  child: custom_widgets
-                                                      .CountryCodePickerWidget(
-                                                    width: double.infinity,
-                                                    height: 56.0,
-                                                    refreshPageUI: () async {
-                                                      logFirebaseEvent(
-                                                          'AUTH_SIGNUP_OR_LOGIN_Container_ion0jaq4_');
-                                                      logFirebaseEvent(
-                                                          'CountryCodePickerWidget_update_app_state');
-
-                                                      setState(() {});
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                       ],
                                     ),
                                   ),
@@ -1203,13 +1170,14 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     onboardingStatus:
                                                         'notStarted',
                                                     accessType: 'noAccess',
+                                                    linkedinConnected: false,
                                                   ));
 
                                               logFirebaseEvent(
                                                   'email_SignupContinue_navigate_to');
 
                                               context.goNamedAuth(
-                                                'accessWall',
+                                                'freeTrial',
                                                 context.mounted,
                                                 ignoreRedirect: true,
                                               );
@@ -1432,202 +1400,129 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                             return;
                                                           }
 
-                                                          logFirebaseEvent(
-                                                              'email_loginContinue_revenue_cat');
-                                                          final isEntitled =
-                                                              await revenue_cat
-                                                                      .isEntitled(
-                                                                          'premium-full-access') ??
-                                                                  false;
-                                                          if (!isEntitled) {
-                                                            await revenue_cat
-                                                                .loadOfferings();
-                                                          }
-
-                                                          if (isEntitled) {
-                                                            if (currentUserEmail ==
-                                                                'admindemo@inspireai.com') {
-                                                              logFirebaseEvent(
-                                                                  'email_loginContinue_navigate_to');
-
-                                                              context
-                                                                  .goNamedAuth(
-                                                                'paymentSuccess',
-                                                                context.mounted,
-                                                                ignoreRedirect:
-                                                                    true,
-                                                              );
-                                                            } else {
-                                                              if (valueOrDefault(
+                                                          if ((currentUserEmail ==
+                                                                  'admindemo@inspireai.com') &&
+                                                              (valueOrDefault(
                                                                       currentUserDocument
-                                                                          ?.onboardingStatus,
-                                                                      '') ==
-                                                                  'notStarted') {
-                                                                logFirebaseEvent(
-                                                                    'email_loginContinue_navigate_to');
+                                                                          ?.accessType,
+                                                                      '') !=
+                                                                  'paidExpired')) {
+                                                            logFirebaseEvent(
+                                                                'email_loginContinue_navigate_to');
 
-                                                                context
-                                                                    .goNamedAuth(
-                                                                  'paymentSuccess',
-                                                                  context
-                                                                      .mounted,
-                                                                  ignoreRedirect:
-                                                                      true,
-                                                                );
-                                                              } else {
-                                                                if (valueOrDefault(
-                                                                        currentUserDocument
-                                                                            ?.onboardingStatus,
-                                                                        '') ==
-                                                                    'inProgress') {
-                                                                  logFirebaseEvent(
-                                                                      'email_loginContinue_navigate_to');
-
-                                                                  context
-                                                                      .goNamedAuth(
-                                                                    'linkedinAuth',
-                                                                    context
-                                                                        .mounted,
-                                                                    ignoreRedirect:
-                                                                        true,
-                                                                  );
-                                                                } else {
-                                                                  if (valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.onboardingStatus,
-                                                                          '') ==
-                                                                      'completed') {
-                                                                    logFirebaseEvent(
-                                                                        'email_loginContinue_navigate_to');
-
-                                                                    context.goNamedAuth(
-                                                                        'dashboard',
-                                                                        context
-                                                                            .mounted);
-                                                                  } else {
-                                                                    logFirebaseEvent(
-                                                                        'email_loginContinue_alert_dialog');
-                                                                    await showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (alertDialogContext) {
-                                                                        return AlertDialog(
-                                                                          title:
-                                                                              const Text('Failed!'),
-                                                                          content:
-                                                                              const Text('All validation conditions failed.'),
-                                                                          actions: [
-                                                                            TextButton(
-                                                                              onPressed: () => Navigator.pop(alertDialogContext),
-                                                                              child: const Text('Ok'),
-                                                                            ),
-                                                                          ],
-                                                                        );
-                                                                      },
-                                                                    );
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
+                                                            context.goNamedAuth(
+                                                              'freeTrial',
+                                                              context.mounted,
+                                                              ignoreRedirect:
+                                                                  true,
+                                                            );
                                                           } else {
-                                                            if ((currentUserEmail ==
-                                                                    'admindemo@inspireai.com') &&
+                                                            if ((valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.accessType,
+                                                                        '') ==
+                                                                    'noAccess') ||
                                                                 (valueOrDefault(
                                                                         currentUserDocument
                                                                             ?.accessType,
-                                                                        '') !=
-                                                                    'paidExpired')) {
+                                                                        '') ==
+                                                                    'paidWaitlist')) {
                                                               logFirebaseEvent(
                                                                   'email_loginContinue_navigate_to');
 
                                                               context
                                                                   .goNamedAuth(
-                                                                'accessWall',
+                                                                'freeTrial',
                                                                 context.mounted,
                                                                 ignoreRedirect:
                                                                     true,
                                                               );
                                                             } else {
-                                                              if ((valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.accessType,
-                                                                          '') ==
-                                                                      'noAccess') ||
+                                                              if (((valueOrDefault(
+                                                                              currentUserDocument
+                                                                                  ?.accessType,
+                                                                              '') ==
+                                                                          'freeTrial') ||
+                                                                      (valueOrDefault(
+                                                                              currentUserDocument
+                                                                                  ?.accessType,
+                                                                              '') ==
+                                                                          'subscribed')) &&
                                                                   (valueOrDefault(
                                                                           currentUserDocument
-                                                                              ?.accessType,
+                                                                              ?.onboardingStatus,
                                                                           '') ==
-                                                                      'paidWaitlist')) {
+                                                                      'notStarted')) {
                                                                 logFirebaseEvent(
                                                                     'email_loginContinue_navigate_to');
 
                                                                 context
                                                                     .goNamedAuth(
-                                                                  'accessWall',
+                                                                  'phoneNumberInput',
                                                                   context
                                                                       .mounted,
                                                                   ignoreRedirect:
                                                                       true,
                                                                 );
                                                               } else {
-                                                                if (valueOrDefault(
-                                                                        currentUserDocument
-                                                                            ?.accessType,
-                                                                        '') ==
-                                                                    'specialWaitlist') {
+                                                                if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                                                                            'freeTrial') ||
+                                                                        (valueOrDefault(currentUserDocument?.accessType, '') ==
+                                                                            'subscribed')) &&
+                                                                    (valueOrDefault(
+                                                                            currentUserDocument?.onboardingStatus,
+                                                                            '') ==
+                                                                        'phoneVerified')) {
                                                                   logFirebaseEvent(
                                                                       'email_loginContinue_navigate_to');
 
                                                                   context
                                                                       .goNamedAuth(
-                                                                    'accessRequested',
+                                                                    'linkedinProfileInput',
                                                                     context
                                                                         .mounted,
                                                                     ignoreRedirect:
                                                                         true,
                                                                   );
                                                                 } else {
-                                                                  if ((valueOrDefault(
-                                                                              currentUserDocument
-                                                                                  ?.accessType,
-                                                                              '') ==
-                                                                          'specialGranted') &&
+                                                                  if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                                                                              'freeTrial') ||
+                                                                          (valueOrDefault(currentUserDocument?.accessType, '') ==
+                                                                              'subscribed')) &&
                                                                       (valueOrDefault(
                                                                               currentUserDocument?.onboardingStatus,
                                                                               '') ==
-                                                                          'notStarted')) {
+                                                                          'linkedinSet')) {
                                                                     logFirebaseEvent(
                                                                         'email_loginContinue_navigate_to');
 
                                                                     context
                                                                         .goNamedAuth(
-                                                                      'accessRequested',
+                                                                      'setExpertise',
                                                                       context
                                                                           .mounted,
                                                                       ignoreRedirect:
                                                                           true,
                                                                     );
                                                                   } else {
-                                                                    if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                                                                            'specialGranted') &&
+                                                                    if (((valueOrDefault(currentUserDocument?.accessType, '') ==
+                                                                                'freeTrial') ||
+                                                                            (valueOrDefault(currentUserDocument?.accessType, '') ==
+                                                                                'subscribed')) &&
                                                                         (valueOrDefault(currentUserDocument?.onboardingStatus,
                                                                                 '') ==
-                                                                            'inProgress')) {
+                                                                            'expertiseSet')) {
                                                                       logFirebaseEvent(
                                                                           'email_loginContinue_navigate_to');
 
-                                                                      context
-                                                                          .goNamedAuth(
-                                                                        'linkedinAuth',
-                                                                        context
-                                                                            .mounted,
-                                                                        ignoreRedirect:
-                                                                            true,
-                                                                      );
+                                                                      context.goNamedAuth(
+                                                                          'brandVoice',
+                                                                          context
+                                                                              .mounted);
                                                                     } else {
-                                                                      if ((valueOrDefault(currentUserDocument?.accessType, '') ==
-                                                                              'specialGranted') &&
+                                                                      if (((valueOrDefault(currentUserDocument?.accessType, '') == 'freeTrial') ||
+                                                                              (valueOrDefault(currentUserDocument?.accessType, '') ==
+                                                                                  'subscribed')) &&
                                                                           (valueOrDefault(currentUserDocument?.onboardingStatus, '') ==
                                                                               'completed')) {
                                                                         logFirebaseEvent(
@@ -1640,7 +1535,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                                         logFirebaseEvent(
                                                                             'email_loginContinue_navigate_to');
 
-                                                                        context.goNamedAuth(
+                                                                        context.pushNamedAuth(
                                                                             'subsExpired',
                                                                             context.mounted);
                                                                       }
@@ -1714,18 +1609,9 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           ),
                                         if (_model.authType == 'phone')
                                           FFButtonWidget(
-                                            onPressed: () async {
-                                              logFirebaseEvent(
-                                                  'AUTH_SIGNUP_OR_LOGIN_phoneAuthContinue_O');
-                                              if (FFAppState()
-                                                          .userPhoneNumber !=
-                                                      '') {
-                                                logFirebaseEvent(
-                                                    'phoneAuthContinue_navigate_to');
-
-                                                context.pushNamed(
-                                                    'phone_number_verify');
-                                              }
+                                            onPressed: () {
+                                              print(
+                                                  'phoneAuthContinue pressed ...');
                                             },
                                             text: 'Continue',
                                             options: FFButtonOptions(
@@ -2087,86 +1973,24 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     onboardingStatus:
                                                         'notStarted',
                                                     accessType: 'noAccess',
+                                                    linkedinConnected: false,
                                                   ));
                                                 }
-                                                logFirebaseEvent(
-                                                    'googleAuthButton_revenue_cat');
-                                                final isEntitled =
-                                                    await revenue_cat.isEntitled(
-                                                            'premium-full-access') ??
-                                                        false;
-                                                if (!isEntitled) {
-                                                  await revenue_cat
-                                                      .loadOfferings();
-                                                }
-
-                                                if (isEntitled) {
-                                                  if (valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.onboardingStatus,
-                                                          '') ==
-                                                      'notStarted') {
-                                                    logFirebaseEvent(
-                                                        'googleAuthButton_navigate_to');
-
-                                                    context.goNamedAuth(
-                                                      'paymentSuccess',
-                                                      context.mounted,
-                                                      ignoreRedirect: true,
-                                                    );
-                                                  } else {
-                                                    if (valueOrDefault(
+                                                if ((currentUserEmail ==
+                                                        'admindemo@inspireai.com') &&
+                                                    (valueOrDefault(
                                                             currentUserDocument
-                                                                ?.onboardingStatus,
-                                                            '') ==
-                                                        'inProgress') {
-                                                      logFirebaseEvent(
-                                                          'googleAuthButton_navigate_to');
+                                                                ?.accessType,
+                                                            '') !=
+                                                        'paidExpired')) {
+                                                  logFirebaseEvent(
+                                                      'googleAuthButton_navigate_to');
 
-                                                      context.goNamedAuth(
-                                                        'linkedinAuth',
-                                                        context.mounted,
-                                                        ignoreRedirect: true,
-                                                      );
-                                                    } else {
-                                                      if (valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.onboardingStatus,
-                                                              '') ==
-                                                          'completed') {
-                                                        logFirebaseEvent(
-                                                            'googleAuthButton_navigate_to');
-
-                                                        context.goNamedAuth(
-                                                            'dashboard',
-                                                            context.mounted);
-                                                      } else {
-                                                        logFirebaseEvent(
-                                                            'googleAuthButton_alert_dialog');
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title: const Text(
-                                                                  'Failed!'),
-                                                              content: const Text(
-                                                                  'All validation conditions failed.'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: const Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
-                                                      }
-                                                    }
-                                                  }
+                                                  context.goNamedAuth(
+                                                    'freeTrial',
+                                                    context.mounted,
+                                                    ignoreRedirect: true,
+                                                  );
                                                 } else {
                                                   if ((valueOrDefault(
                                                               currentUserDocument
@@ -2182,91 +2006,138 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                         'googleAuthButton_navigate_to');
 
                                                     context.goNamedAuth(
-                                                      'accessWall',
+                                                      'freeTrial',
                                                       context.mounted,
                                                       ignoreRedirect: true,
                                                     );
                                                   } else {
-                                                    if (valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.accessType,
-                                                            '') ==
-                                                        'specialWaitlist') {
+                                                    if (((valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.accessType,
+                                                                    '') ==
+                                                                'freeTrial') ||
+                                                            (valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.accessType,
+                                                                    '') ==
+                                                                'subscribed')) &&
+                                                        (valueOrDefault(
+                                                                currentUserDocument
+                                                                    ?.onboardingStatus,
+                                                                '') ==
+                                                            'notStarted')) {
                                                       logFirebaseEvent(
                                                           'googleAuthButton_navigate_to');
 
                                                       context.goNamedAuth(
-                                                        'accessRequested',
+                                                        'phoneNumberInput',
                                                         context.mounted,
                                                         ignoreRedirect: true,
                                                       );
                                                     } else {
-                                                      if ((valueOrDefault(
-                                                                  currentUserDocument
-                                                                      ?.accessType,
-                                                                  '') ==
-                                                              'specialGranted') &&
+                                                      if (((valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.accessType,
+                                                                      '') ==
+                                                                  'freeTrial') ||
+                                                              (valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.accessType,
+                                                                      '') ==
+                                                                  'subscribed')) &&
                                                           (valueOrDefault(
                                                                   currentUserDocument
                                                                       ?.onboardingStatus,
                                                                   '') ==
-                                                              'notStarted')) {
+                                                              'phoneVerified')) {
                                                         logFirebaseEvent(
                                                             'googleAuthButton_navigate_to');
 
                                                         context.goNamedAuth(
-                                                          'accessRequested',
+                                                          'linkedinProfileInput',
                                                           context.mounted,
                                                           ignoreRedirect: true,
                                                         );
                                                       } else {
-                                                        if ((valueOrDefault(
-                                                                    currentUserDocument
-                                                                        ?.accessType,
-                                                                    '') ==
-                                                                'specialGranted') &&
+                                                        if (((valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.accessType,
+                                                                        '') ==
+                                                                    'freeTrial') ||
+                                                                (valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.accessType,
+                                                                        '') ==
+                                                                    'subscribed')) &&
                                                             (valueOrDefault(
                                                                     currentUserDocument
                                                                         ?.onboardingStatus,
                                                                     '') ==
-                                                                'inProgress')) {
+                                                                'linkedinSet')) {
                                                           logFirebaseEvent(
                                                               'googleAuthButton_navigate_to');
 
                                                           context.goNamedAuth(
-                                                            'linkedinAuth',
+                                                            'setExpertise',
                                                             context.mounted,
                                                             ignoreRedirect:
                                                                 true,
                                                           );
                                                         } else {
-                                                          if ((valueOrDefault(
-                                                                      currentUserDocument
-                                                                          ?.accessType,
-                                                                      '') ==
-                                                                  'specialGranted') &&
+                                                          if (((valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.accessType,
+                                                                          '') ==
+                                                                      'freeTrial') ||
+                                                                  (valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.accessType,
+                                                                          '') ==
+                                                                      'subscribed')) &&
                                                               (valueOrDefault(
                                                                       currentUserDocument
                                                                           ?.onboardingStatus,
                                                                       '') ==
-                                                                  'completed')) {
+                                                                  'expertiseSet')) {
                                                             logFirebaseEvent(
                                                                 'googleAuthButton_navigate_to');
 
                                                             context.goNamedAuth(
-                                                                'dashboard',
+                                                                'brandVoice',
                                                                 context
                                                                     .mounted);
                                                           } else {
-                                                            logFirebaseEvent(
-                                                                'googleAuthButton_navigate_to');
+                                                            if (((valueOrDefault(
+                                                                            currentUserDocument
+                                                                                ?.accessType,
+                                                                            '') ==
+                                                                        'freeTrial') ||
+                                                                    (valueOrDefault(
+                                                                            currentUserDocument
+                                                                                ?.accessType,
+                                                                            '') ==
+                                                                        'subscribed')) &&
+                                                                (valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.onboardingStatus,
+                                                                        '') ==
+                                                                    'completed')) {
+                                                              logFirebaseEvent(
+                                                                  'googleAuthButton_navigate_to');
 
-                                                            context.goNamedAuth(
-                                                              'subsExpired',
-                                                              context.mounted,
-                                                              ignoreRedirect:
-                                                                  true,
-                                                            );
+                                                              context.goNamedAuth(
+                                                                  'dashboard',
+                                                                  context
+                                                                      .mounted);
+                                                            } else {
+                                                              logFirebaseEvent(
+                                                                  'googleAuthButton_navigate_to');
+
+                                                              context.pushNamedAuth(
+                                                                  'subsExpired',
+                                                                  context
+                                                                      .mounted);
+                                                            }
                                                           }
                                                         }
                                                       }
@@ -2327,86 +2198,24 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     onboardingStatus:
                                                         'notStarted',
                                                     accessType: 'noAccess',
+                                                    linkedinConnected: false,
                                                   ));
                                                 }
-                                                logFirebaseEvent(
-                                                    'appleAuthButton_revenue_cat');
-                                                final isEntitled =
-                                                    await revenue_cat.isEntitled(
-                                                            'premium-full-access') ??
-                                                        false;
-                                                if (!isEntitled) {
-                                                  await revenue_cat
-                                                      .loadOfferings();
-                                                }
-
-                                                if (isEntitled) {
-                                                  if (valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.onboardingStatus,
-                                                          '') ==
-                                                      'notStarted') {
-                                                    logFirebaseEvent(
-                                                        'appleAuthButton_navigate_to');
-
-                                                    context.goNamedAuth(
-                                                      'paymentSuccess',
-                                                      context.mounted,
-                                                      ignoreRedirect: true,
-                                                    );
-                                                  } else {
-                                                    if (valueOrDefault(
+                                                if ((currentUserEmail ==
+                                                        'admindemo@inspireai.com') &&
+                                                    (valueOrDefault(
                                                             currentUserDocument
-                                                                ?.onboardingStatus,
-                                                            '') ==
-                                                        'inProgress') {
-                                                      logFirebaseEvent(
-                                                          'appleAuthButton_navigate_to');
+                                                                ?.accessType,
+                                                            '') !=
+                                                        'paidExpired')) {
+                                                  logFirebaseEvent(
+                                                      'appleAuthButton_navigate_to');
 
-                                                      context.goNamedAuth(
-                                                        'linkedinAuth',
-                                                        context.mounted,
-                                                        ignoreRedirect: true,
-                                                      );
-                                                    } else {
-                                                      if (valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.onboardingStatus,
-                                                              '') ==
-                                                          'completed') {
-                                                        logFirebaseEvent(
-                                                            'appleAuthButton_navigate_to');
-
-                                                        context.goNamedAuth(
-                                                            'dashboard',
-                                                            context.mounted);
-                                                      } else {
-                                                        logFirebaseEvent(
-                                                            'appleAuthButton_alert_dialog');
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title: const Text(
-                                                                  'Failed!'),
-                                                              content: const Text(
-                                                                  'All validation conditions failed.'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: const Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
-                                                      }
-                                                    }
-                                                  }
+                                                  context.goNamedAuth(
+                                                    'freeTrial',
+                                                    context.mounted,
+                                                    ignoreRedirect: true,
+                                                  );
                                                 } else {
                                                   if ((valueOrDefault(
                                                               currentUserDocument
@@ -2422,89 +2231,138 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                         'appleAuthButton_navigate_to');
 
                                                     context.goNamedAuth(
-                                                      'accessWall',
+                                                      'freeTrial',
                                                       context.mounted,
                                                       ignoreRedirect: true,
                                                     );
                                                   } else {
-                                                    if (valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.accessType,
-                                                            '') ==
-                                                        'specialWaitlist') {
+                                                    if (((valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.accessType,
+                                                                    '') ==
+                                                                'freeTrial') ||
+                                                            (valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.accessType,
+                                                                    '') ==
+                                                                'subscribed')) &&
+                                                        (valueOrDefault(
+                                                                currentUserDocument
+                                                                    ?.onboardingStatus,
+                                                                '') ==
+                                                            'notStarted')) {
                                                       logFirebaseEvent(
                                                           'appleAuthButton_navigate_to');
 
                                                       context.goNamedAuth(
-                                                        'accessRequested',
+                                                        'phoneNumberInput',
                                                         context.mounted,
                                                         ignoreRedirect: true,
                                                       );
                                                     } else {
-                                                      if ((valueOrDefault(
-                                                                  currentUserDocument
-                                                                      ?.accessType,
-                                                                  '') ==
-                                                              'specialGranted') &&
+                                                      if (((valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.accessType,
+                                                                      '') ==
+                                                                  'freeTrial') ||
+                                                              (valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.accessType,
+                                                                      '') ==
+                                                                  'subscribed')) &&
                                                           (valueOrDefault(
                                                                   currentUserDocument
                                                                       ?.onboardingStatus,
                                                                   '') ==
-                                                              'notStarted')) {
+                                                              'phoneVerified')) {
                                                         logFirebaseEvent(
                                                             'appleAuthButton_navigate_to');
 
                                                         context.goNamedAuth(
-                                                          'accessRequested',
+                                                          'linkedinProfileInput',
                                                           context.mounted,
                                                           ignoreRedirect: true,
                                                         );
                                                       } else {
-                                                        if ((valueOrDefault(
-                                                                    currentUserDocument
-                                                                        ?.accessType,
-                                                                    '') ==
-                                                                'specialGranted') &&
+                                                        if (((valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.accessType,
+                                                                        '') ==
+                                                                    'freeTrial') ||
+                                                                (valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.accessType,
+                                                                        '') ==
+                                                                    'subscribed')) &&
                                                             (valueOrDefault(
                                                                     currentUserDocument
                                                                         ?.onboardingStatus,
                                                                     '') ==
-                                                                'inProgress')) {
+                                                                'linkedinSet')) {
                                                           logFirebaseEvent(
                                                               'appleAuthButton_navigate_to');
 
                                                           context.goNamedAuth(
-                                                            'linkedinAuth',
+                                                            'setExpertise',
                                                             context.mounted,
                                                             ignoreRedirect:
                                                                 true,
                                                           );
                                                         } else {
-                                                          if ((valueOrDefault(
-                                                                      currentUserDocument
-                                                                          ?.accessType,
-                                                                      '') ==
-                                                                  'specialGranted') &&
+                                                          if (((valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.accessType,
+                                                                          '') ==
+                                                                      'freeTrial') ||
+                                                                  (valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.accessType,
+                                                                          '') ==
+                                                                      'subscribed')) &&
                                                               (valueOrDefault(
                                                                       currentUserDocument
                                                                           ?.onboardingStatus,
                                                                       '') ==
-                                                                  'completed')) {
+                                                                  'expertiseSet')) {
                                                             logFirebaseEvent(
                                                                 'appleAuthButton_navigate_to');
 
                                                             context.goNamedAuth(
-                                                                'dashboard',
+                                                                'brandVoice',
                                                                 context
                                                                     .mounted);
                                                           } else {
-                                                            logFirebaseEvent(
-                                                                'appleAuthButton_navigate_to');
+                                                            if (((valueOrDefault(
+                                                                            currentUserDocument
+                                                                                ?.accessType,
+                                                                            '') ==
+                                                                        'freeTrial') ||
+                                                                    (valueOrDefault(
+                                                                            currentUserDocument
+                                                                                ?.accessType,
+                                                                            '') ==
+                                                                        'subscribed')) &&
+                                                                (valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.onboardingStatus,
+                                                                        '') ==
+                                                                    'completed')) {
+                                                              logFirebaseEvent(
+                                                                  'appleAuthButton_navigate_to');
 
-                                                            context.goNamedAuth(
-                                                                'subsExpired',
-                                                                context
-                                                                    .mounted);
+                                                              context.goNamedAuth(
+                                                                  'dashboard',
+                                                                  context
+                                                                      .mounted);
+                                                            } else {
+                                                              logFirebaseEvent(
+                                                                  'appleAuthButton_navigate_to');
+
+                                                              context.pushNamedAuth(
+                                                                  'subsExpired',
+                                                                  context
+                                                                      .mounted);
+                                                            }
                                                           }
                                                         }
                                                       }
@@ -2515,7 +2373,12 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                             ),
                                           ),
                                         ),
-                                        if (_model.authType != 'phone')
+                                        if ((_model.authType != 'phone') &&
+                                            responsiveVisibility(
+                                              context: context,
+                                              phone: false,
+                                              tablet: false,
+                                            ))
                                           Opacity(
                                             opacity: 0.8,
                                             child: FlutterFlowIconButton(
@@ -2741,92 +2604,109 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(0.0, 1.0),
-                                        child: RichText(
-                                          textScaler:
-                                              MediaQuery.of(context).textScaler,
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: 'Terms of Service',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                mouseCursor:
-                                                    SystemMouseCursors.click,
-                                                recognizer:
-                                                    TapGestureRecognizer()
-                                                      ..onTap = () async {
-                                                        logFirebaseEvent(
-                                                            'AUTH_SIGNUP_OR_LOGIN_RichTextSpan_3vxhy1');
-                                                        logFirebaseEvent(
-                                                            'RichTextSpan_launch_u_r_l');
-                                                        await launchURL(
-                                                            'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
-                                                      },
-                                              ),
-                                              TextSpan(
-                                                text: ', ',
-                                                style: TextStyle(
-                                                  color: FlutterFlowTheme.of(
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'AUTH_SIGNUP_OR_LOGIN_RichText_lhaxo90g_O');
+                                            logFirebaseEvent(
+                                                'RichText_launch_u_r_l');
+                                            await launchURL(
+                                                'https://www.theinspireai.com/termsandconditions');
+                                          },
+                                          child: RichText(
+                                            textScaler: MediaQuery.of(context)
+                                                .textScaler,
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Terms of Service',
+                                                  style: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryText,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                  mouseCursor:
+                                                      SystemMouseCursors.click,
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () async {
+                                                          logFirebaseEvent(
+                                                              'AUTH_SIGNUP_OR_LOGIN_RichTextSpan_3vxhy1');
+                                                          logFirebaseEvent(
+                                                              'RichTextSpan_launch_u_r_l');
+                                                          await launchURL(
+                                                              'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
+                                                        },
                                                 ),
-                                              ),
-                                              TextSpan(
-                                                text: 'Content Policy',
-                                                style: GoogleFonts.getFont(
-                                                  'Montserrat',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 12.0,
-                                                  decoration:
-                                                      TextDecoration.underline,
+                                                TextSpan(
+                                                  text: ', ',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
                                                 ),
-                                              )
-                                            ],
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMediumFamily),
-                                                ),
+                                                TextSpan(
+                                                  text: 'Content Policy',
+                                                  style: GoogleFonts.getFont(
+                                                    'Montserrat',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 12.0,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                )
+                                              ],
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -2875,7 +2755,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                         logFirebaseEvent(
                                                             'RichTextSpan_launch_u_r_l');
                                                         await launchURL(
-                                                            'https://www.termsfeed.com/live/ff126888-fa9c-40e3-b8a8-f7eb2a63039e');
+                                                            'https://www.theinspireai.com/privacypolicy');
                                                       },
                                               )
                                             ],

@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:badges/badges.dart' as badges;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
@@ -663,11 +664,17 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           child: Image.network(
                                             valueOrDefault<String>(
                                               (currentUserDocument
-                                                          ?.profilePictureLinks
-                                                          .toList() ??
-                                                      [])
-                                                  .first,
-                                              'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
+                                                              ?.profilePictureLinks
+                                                              .toList() ??
+                                                          [])
+                                                      .isNotEmpty
+                                                  ? (currentUserDocument
+                                                              ?.profilePictureLinks
+                                                              .toList() ??
+                                                          [])
+                                                      .first
+                                                  : 'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                              'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
                                             ),
                                             fit: BoxFit.cover,
                                           ),
@@ -2312,10 +2319,40 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                             logFirebaseEvent(
                                                 'DISCOVER_PAGE_PAGE_MiddleButton_ON_TAP');
                                             logFirebaseEvent(
-                                                'MiddleButton_update_page_state');
-                                            _model.createContentDialogVisible =
-                                                true;
-                                            setState(() {});
+                                                'MiddleButton_revenue_cat');
+                                            final isEntitled =
+                                                await revenue_cat.isEntitled(
+                                                        'premium-full-access') ??
+                                                    false;
+                                            if (!isEntitled) {
+                                              await revenue_cat.loadOfferings();
+                                            }
+
+                                            if (isEntitled) {
+                                              logFirebaseEvent(
+                                                  'MiddleButton_update_page_state');
+                                              _model.createContentDialogVisible =
+                                                  true;
+                                              setState(() {});
+                                            } else {
+                                              if (valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.freeTrialPostsCreated,
+                                                      0) >=
+                                                  10) {
+                                                logFirebaseEvent(
+                                                    'MiddleButton_navigate_to');
+
+                                                context.pushNamed(
+                                                    'freeTrialExpired');
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'MiddleButton_update_page_state');
+                                                _model.createContentDialogVisible =
+                                                    true;
+                                                setState(() {});
+                                              }
+                                            }
                                           },
                                         ),
                                       ),

@@ -33,6 +33,10 @@ class CreateWithInspireAIModel
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
   // Stores action output result for [Backend Call - API (InspireAI Content from Topics)] action in Button widget.
+  ApiCallResponse? contentfromtopic1;
+  // Stores action output result for [Backend Call - API (InspireAI Content from Contxt)] action in Button widget.
+  ApiCallResponse? contentfromcontext1;
+  // Stores action output result for [Backend Call - API (InspireAI Content from Topics)] action in Button widget.
   ApiCallResponse? contentfromtopic;
   // Stores action output result for [Backend Call - API (InspireAI Content from Contxt)] action in Button widget.
   ApiCallResponse? contentfromcontext;
