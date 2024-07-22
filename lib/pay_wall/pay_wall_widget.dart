@@ -951,7 +951,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
 
                                 await currentUserReference!
                                     .update(createUsersRecordData(
-                                  accessType: 'paidGranted',
+                                  accessType: 'subscribed',
                                 ));
                                 logFirebaseEvent('Button_navigate_to');
 
@@ -984,7 +984,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
 
                                 await currentUserReference!
                                     .update(createUsersRecordData(
-                                  accessType: 'paidGranted',
+                                  accessType: 'subscribed',
                                 ));
                                 logFirebaseEvent('Button_navigate_to');
 
