@@ -64,13 +64,13 @@ class _FreeTrialWidgetState extends State<FreeTrialWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
+                  Flexible(
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                       child: SingleChildScrollView(
                         child: Column(
-                          mainAxisSize: MainAxisSize.max,
+                          mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
@@ -344,6 +344,9 @@ class _FreeTrialWidgetState extends State<FreeTrialWidget> {
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMediumFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                               useGoogleFonts: GoogleFonts
@@ -381,7 +384,7 @@ class _FreeTrialWidgetState extends State<FreeTrialWidget> {
                                             style: TextStyle(),
                                           ),
                                           TextSpan(
-                                            text: '10 posts and 3 campigns ',
+                                            text: '10 posts and 5 campigns ',
                                             style: TextStyle(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -400,7 +403,7 @@ class _FreeTrialWidgetState extends State<FreeTrialWidget> {
                                               fontFamily: 'Montserrat',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .primary,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
@@ -436,6 +439,8 @@ class _FreeTrialWidgetState extends State<FreeTrialWidget> {
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMediumFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                             useGoogleFonts: GoogleFonts.asMap()
@@ -572,6 +577,7 @@ class _FreeTrialWidgetState extends State<FreeTrialWidget> {
                                   ),
                               elevation: 0.0,
                               borderSide: const BorderSide(
+                                color: Colors.transparent,
                                 width: 0.0,
                               ),
                               borderRadius: BorderRadius.circular(4.0),
