@@ -1,6 +1,5 @@
 import '/backend/backend.dart';
 import '/components/empty_state_widget.dart';
-import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'set_expertise_widget.dart' show SetExpertiseWidget;
@@ -56,8 +55,6 @@ class SetExpertiseModel extends FlutterFlowModel<SetExpertiseWidget> {
   List<ExpertiseAreasCollectionRecord>? algoliaSearchResults = [];
   // Model for emptyState component.
   late EmptyStateModel emptyStateModel;
-  // Model for profileLoadingScreen component.
-  late ProfileLoadingScreenModel profileLoadingScreenModel;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -69,8 +66,6 @@ class SetExpertiseModel extends FlutterFlowModel<SetExpertiseWidget> {
   @override
   void initState(BuildContext context) {
     emptyStateModel = createModel(context, () => EmptyStateModel());
-    profileLoadingScreenModel =
-        createModel(context, () => ProfileLoadingScreenModel());
   }
 
   @override
@@ -80,7 +75,6 @@ class SetExpertiseModel extends FlutterFlowModel<SetExpertiseWidget> {
     contentURL1TextController?.dispose();
 
     emptyStateModel.dispose();
-    profileLoadingScreenModel.dispose();
     textFieldFocusNode?.dispose();
     textController2?.dispose();
   }

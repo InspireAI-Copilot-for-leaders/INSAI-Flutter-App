@@ -1,6 +1,91 @@
 const axios = require("axios").default;
 const qs = require("qs");
 
+/// Start Twillo SMS Verify Group Code
+
+function createTwilloSMSVerifyGroup(verifyServiceSid, encodedCredentials) {
+  return {
+    baseUrl: `https://verify.twilio.com/v2/Services/${verifyServiceSid}`,
+    headers: {
+      "Content-Type": `application/x-www-form-urlencoded`,
+      Authorization: `Basic [encoded_credentials]`,
+    },
+  };
+}
+
+async function _sendCodeCall(context, ffVariables) {
+  if (!context.auth) {
+    return _unauthenticatedResponse;
+  }
+  var to = ffVariables["to"];
+  var verifyServiceSid = ffVariables["verifyServiceSid"];
+  var encodedCredentials = ffVariables["encodedCredentials"];
+  const twilloSMSVerifyGroup = createTwilloSMSVerifyGroup(
+    verifyServiceSid,
+    encodedCredentials,
+  );
+
+  var url = `${twilloSMSVerifyGroup.baseUrl}/Verifications`;
+  var headers = {
+    "Content-Type": `application/x-www-form-urlencoded`,
+    Authorization: `Basic ${encodedCredentials}`,
+  };
+  var params = { To: to, Channel: `sms` };
+  var ffApiRequestBody = undefined;
+
+  return makeApiRequest({
+    method: "post",
+    url,
+    headers,
+    body: createBody({
+      headers,
+      params,
+      body: ffApiRequestBody,
+      bodyType: "X_WWW_FORM_URL_ENCODED",
+    }),
+    returnBody: true,
+    isStreamingApi: false,
+  });
+}
+
+async function _verifyCodeCall(context, ffVariables) {
+  if (!context.auth) {
+    return _unauthenticatedResponse;
+  }
+  var to = ffVariables["to"];
+  var code = ffVariables["code"];
+  var verifyServiceSid = ffVariables["verifyServiceSid"];
+  var encodedCredentials = ffVariables["encodedCredentials"];
+  const twilloSMSVerifyGroup = createTwilloSMSVerifyGroup(
+    verifyServiceSid,
+    encodedCredentials,
+  );
+
+  var url = `${twilloSMSVerifyGroup.baseUrl}/VerificationCheck`;
+  var headers = {
+    "Content-Type": `application/x-www-form-urlencoded`,
+    Authorization: `Basic ${encodedCredentials}`,
+  };
+  var params = { To: to, Code: code };
+  var ffApiRequestBody = undefined;
+
+  return makeApiRequest({
+    method: "post",
+    url,
+    headers,
+    body: createBody({
+      headers,
+      params,
+      body: ffApiRequestBody,
+      bodyType: "X_WWW_FORM_URL_ENCODED",
+    }),
+    returnBody: true,
+    isStreamingApi: false,
+  });
+}
+
+/// End Twillo SMS Verify Group Code
+
 async function _linkedinTokensCall(context, ffVariables) {
   if (!context.auth) {
     return _unauthenticatedResponse;
@@ -72,6 +157,8 @@ async function makeApiCall(context, data) {
   const callMap = {
     LinkedinTokensCall: _linkedinTokensCall,
     LinkedinRefreshTokenCall: _linkedinRefreshTokenCall,
+    SendCodeCall: _sendCodeCall,
+    VerifyCodeCall: _verifyCodeCall,
   };
 
   if (!(callName in callMap)) {

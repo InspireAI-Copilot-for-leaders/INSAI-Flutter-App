@@ -1351,50 +1351,66 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                   ..reset()
                                                   ..repeat();
                                               }
-                                              logFirebaseEvent(
-                                                  'Icon_backend_call');
-                                              _model.firstConnectionSize =
-                                                  await LinkedInDataGroup
-                                                      .firstDegreeConnectionsSizeCall
-                                                      .call(
-                                                authToken: valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.linkedinAccess,
-                                                    ''),
-                                                personUrn: valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.linkedinUrn,
-                                                    ''),
-                                              );
-
-                                              if ((_model.firstConnectionSize
-                                                      ?.succeeded ??
-                                                  true)) {
+                                              if (valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.linkedinConnected,
+                                                  false)) {
                                                 logFirebaseEvent(
                                                     'Icon_backend_call');
+                                                _model.firstConnectionSize =
+                                                    await LinkedInDataGroup
+                                                        .firstDegreeConnectionsSizeCall
+                                                        .call(
+                                                  authToken: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinAccess,
+                                                      ''),
+                                                  personUrn: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.linkedinUrn,
+                                                      ''),
+                                                );
 
-                                                await currentUserReference!
-                                                    .update(
-                                                        createUsersRecordData(
-                                                  firstDegreeConnectionsSize:
-                                                      LinkedInDataGroup
-                                                          .firstDegreeConnectionsSizeCall
-                                                          .connects(
-                                                    (_model.firstConnectionSize
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                  ),
-                                                ));
-                                              }
-                                              logFirebaseEvent(
-                                                  'Icon_widget_animation');
-                                              if (animationsMap[
-                                                      'iconOnActionTriggerAnimation3'] !=
-                                                  null) {
-                                                animationsMap[
-                                                        'iconOnActionTriggerAnimation3']!
-                                                    .controller
-                                                    .stop();
+                                                if ((_model.firstConnectionSize
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'Icon_backend_call');
+
+                                                  await currentUserReference!
+                                                      .update(
+                                                          createUsersRecordData(
+                                                    firstDegreeConnectionsSize:
+                                                        LinkedInDataGroup
+                                                            .firstDegreeConnectionsSizeCall
+                                                            .connects(
+                                                      (_model.firstConnectionSize
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                  ));
+                                                }
+                                                logFirebaseEvent(
+                                                    'Icon_widget_animation');
+                                                if (animationsMap[
+                                                        'iconOnActionTriggerAnimation3'] !=
+                                                    null) {
+                                                  animationsMap[
+                                                          'iconOnActionTriggerAnimation3']!
+                                                      .controller
+                                                      .stop();
+                                                }
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'Icon_widget_animation');
+                                                if (animationsMap[
+                                                        'iconOnActionTriggerAnimation3'] !=
+                                                    null) {
+                                                  animationsMap[
+                                                          'iconOnActionTriggerAnimation3']!
+                                                      .controller
+                                                      .stop();
+                                                }
                                               }
 
                                               setState(() {});

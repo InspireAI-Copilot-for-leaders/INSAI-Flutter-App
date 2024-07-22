@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/empty_state_widget.dart';
-import '/components/profile_loading_screen_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -1886,15 +1885,6 @@ class _SetExpertiseWidgetState extends State<SetExpertiseWidget> {
                           ],
                         ),
                       ),
-                      if (_model.isLoading ? true : false)
-                        wrapWithModel(
-                          model: _model.profileLoadingScreenModel,
-                          updateCallback: () => setState(() {}),
-                          child: const ProfileLoadingScreenWidget(
-                            loadingText:
-                                'Setting up your profile. This usually takes a minute. Hang Tight...',
-                          ),
-                        ),
                       if (_model.addNewArea)
                         Container(
                           width: double.infinity,

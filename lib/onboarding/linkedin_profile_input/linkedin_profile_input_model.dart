@@ -27,7 +27,7 @@ class LinkedinProfileInputModel
     }
 
     if (!RegExp(
-            '^(https?:\\/\\/)?(www\\.)?linkedin\\.com\\/[a-zA-Z0-9-]+\\/?\$')
+            '^(https?:\\/\\/)?(www\\.)?linkedin\\.com\\/[a-zA-Z0-9-]+(\\/.*)?\$')
         .hasMatch(val)) {
       return 'Please enter a valid linkedin url';
     }
