@@ -1781,13 +1781,13 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           logFirebaseEvent(
-                                              'EXPERTISE_AREA_EDIT_CONTINUE_BTN_ON_TAP');
+                                              'EXPERTISE_AREA_EDIT_PAGE_DONE_BTN_ON_TAP');
                                           logFirebaseEvent(
                                               'Button_navigate_to');
 
                                           context.goNamed('ProfileDetails');
                                         },
-                                        text: 'Continue',
+                                        text: 'Done',
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 48.0,

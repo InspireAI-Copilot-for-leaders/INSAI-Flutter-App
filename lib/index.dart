@@ -15,7 +15,8 @@ export '/view_or_edit_post/view_or_edit_post_widget.dart'
     show ViewOrEditPostWidget;
 export '/onboarding/other_leaders/other_leaders_widget.dart'
     show OtherLeadersWidget;
-export '/profile_details/profile_details_widget.dart' show ProfileDetailsWidget;
+export '/profile_detail_pages/profile_details/profile_details_widget.dart'
+    show ProfileDetailsWidget;
 export '/post_detailed/post_detailed_widget.dart' show PostDetailedWidget;
 export '/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/stories_page/stories_page_widget.dart' show StoriesPageWidget;
@@ -23,32 +24,33 @@ export '/support/support_widget.dart' show SupportWidget;
 export '/post_review/post_review_widget.dart' show PostReviewWidget;
 export '/view_or_edit_one_liner/view_or_edit_one_liner_widget.dart'
     show ViewOrEditOneLinerWidget;
-export '/edit_brand_voice/edit_brand_voice_widget.dart'
+export '/profile_detail_pages/edit_brand_voice/edit_brand_voice_widget.dart'
     show EditBrandVoiceWidget;
 export '/all_posts_overview/all_posts_overview_widget.dart'
     show AllPostsOverviewWidget;
-export '/campaigns/campaigns_widget.dart' show CampaignsWidget;
+export '/campaigns/campaigns/campaigns_widget.dart' show CampaignsWidget;
 export '/view_scheduled_post/view_scheduled_post_widget.dart'
     show ViewScheduledPostWidget;
 export '/pay_wall/pay_wall_widget.dart' show PayWallWidget;
 export '/access_requested/access_requested_widget.dart'
     show AccessRequestedWidget;
-export '/expertise_area_edit/expertise_area_edit_widget.dart'
+export '/profile_detail_pages/expertise_area_edit/expertise_area_edit_widget.dart'
     show ExpertiseAreaEditWidget;
 export '/payment_success/payment_success_widget.dart' show PaymentSuccessWidget;
 export '/subs_expired/subs_expired_widget.dart' show SubsExpiredWidget;
-export '/campaign_loading/campaign_loading_widget.dart'
+export '/campaigns/campaign_loading/campaign_loading_widget.dart'
     show CampaignLoadingWidget;
-export '/value_providing_campaign/value_providing_campaign_widget.dart'
+export '/campaigns/value_providing_campaign/value_providing_campaign_widget.dart'
     show ValueProvidingCampaignWidget;
-export '/company_campaign/company_campaign_widget.dart'
+export '/campaigns/company_campaign/company_campaign_widget.dart'
     show CompanyCampaignWidget;
-export '/trends_campaign/trends_campaign_widget.dart' show TrendsCampaignWidget;
-export '/a_icreated_campaign/a_icreated_campaign_widget.dart'
+export '/campaigns/trends_campaign/trends_campaign_widget.dart'
+    show TrendsCampaignWidget;
+export '/campaigns/a_icreated_campaign/a_icreated_campaign_widget.dart'
     show AIcreatedCampaignWidget;
-export '/camapign_details/camapign_details_widget.dart'
+export '/campaigns/camapign_details/camapign_details_widget.dart'
     show CamapignDetailsWidget;
-export '/view_or_edit_campaign_post/view_or_edit_campaign_post_widget.dart'
+export '/campaigns/view_or_edit_campaign_post/view_or_edit_campaign_post_widget.dart'
     show ViewOrEditCampaignPostWidget;
 export '/free_trial/free_trial_widget.dart' show FreeTrialWidget;
 export '/onboarding/phone_number_input/phone_number_input_widget.dart'
@@ -61,3 +63,5 @@ export '/onboarding/set_expertise/set_expertise_widget.dart'
     show SetExpertiseWidget;
 export '/free_trial_expired/free_trial_expired_widget.dart'
     show FreeTrialExpiredWidget;
+export '/profile_detail_pages/social_accounts/social_accounts_widget.dart'
+    show SocialAccountsWidget;

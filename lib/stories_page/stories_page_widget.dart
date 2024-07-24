@@ -190,11 +190,13 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                               dateTimeFormat(
                                                   'yMMMd',
                                                   pageViewArticleRecord.metadata
-                                                      .sortedList((e) =>
-                                                          pageViewArticleRecord
-                                                              .metadata
-                                                              .first
-                                                              .publishDate!)
+                                                      .sortedList(
+                                                          keyOf: (e) =>
+                                                              pageViewArticleRecord
+                                                                  .metadata
+                                                                  .first
+                                                                  .publishDate!,
+                                                          desc: false)
                                                       .first
                                                       .publishDate),
                                               'Jan 01, 2024',
