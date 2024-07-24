@@ -1225,7 +1225,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                             Text(
                                                                           dateTimeFormat(
                                                                               'relative',
-                                                                              wrapArticleRecord.metadata.sortedList((e) => dateTimeFormat('relative', e.publishDate!)).first.publishDate!),
+                                                                              wrapArticleRecord.metadata.sortedList(keyOf: (e) => dateTimeFormat('relative', e.publishDate!), desc: false).first.publishDate!),
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)

@@ -1177,10 +1177,12 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                       builder: (context) {
                                                         final highlight =
                                                             discoverContainerArticleRecordList
-                                                                .sortedList((e) =>
-                                                                    dateTimeFormat(
-                                                                        'relative',
-                                                                        e.scrappedAt!))
+                                                                .sortedList(
+                                                                    keyOf: (e) =>
+                                                                        dateTimeFormat(
+                                                                            'relative',
+                                                                            e.scrappedAt!),
+                                                                    desc: false)
                                                                 .toList()
                                                                 .take(4)
                                                                 .toList();
@@ -1698,19 +1700,20 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                           24.0, 0.0),
                                                   child: Builder(
                                                     builder: (context) {
-                                                      final filteredTabs =
-                                                          discoverContainerArticleRecordList
-                                                              .where((e) =>
-                                                                  e.domain ==
-                                                                  _model
-                                                                      .filteredTabView)
-                                                              .toList()
-                                                              .sortedList((e) =>
+                                                      final filteredTabs = discoverContainerArticleRecordList
+                                                          .where((e) =>
+                                                              e.domain ==
+                                                              _model
+                                                                  .filteredTabView)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) =>
                                                                   dateTimeFormat(
                                                                       'relative',
                                                                       e.publishDates
-                                                                          .first))
-                                                              .toList();
+                                                                          .first),
+                                                              desc: false)
+                                                          .toList();
 
                                                       return ListView.separated(
                                                         padding:
@@ -1937,8 +1940,10 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                       builder: (context) {
                                                         final forYou =
                                                             discoverContainerArticleRecordList
-                                                                .sortedList((e) =>
-                                                                    e.articleSummary)
+                                                                .sortedList(
+                                                                    keyOf: (e) =>
+                                                                        e.articleSummary,
+                                                                    desc: false)
                                                                 .take(20)
                                                                 .toList();
 

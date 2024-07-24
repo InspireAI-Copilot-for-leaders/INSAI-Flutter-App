@@ -95,10 +95,19 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                               builder: (context) => ClipRRect(
                                 borderRadius: BorderRadius.circular(50.0),
                                 child: Image.network(
-                                  (currentUserDocument?.profilePictureLinks
-                                              .toList() ??
-                                          [])
-                                      .first,
+                                  valueOrDefault<String>(
+                                    (currentUserDocument?.profilePictureLinks
+                                                    .toList() ??
+                                                [])
+                                            .isNotEmpty
+                                        ? (currentUserDocument
+                                                    ?.profilePictureLinks
+                                                    .toList() ??
+                                                [])
+                                            .first
+                                        : 'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                    'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                  ),
                                   width: 100.0,
                                   height: 100.0,
                                   fit: BoxFit.cover,
@@ -152,7 +161,10 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => Text(
-                    '${currentUserDocument?.linkedinDetails.localizedFirstName} ${currentUserDocument?.linkedinDetails.localizedLastName}',
+                    valueOrDefault<String>(
+                      currentUserDocument?.linkedinScrapped.fullName,
+                      'Name',
+                    ),
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
                           fontFamily: 'Plus Jakarta Sans',
@@ -183,7 +195,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 36.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 18.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => Builder(
                     builder: (context) {
@@ -278,75 +290,122 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       ),
                                 ),
                               ),
-                              if (valueOrDefault(
-                                      currentUserDocument?.accessType, '') !=
-                                  'specialGranted')
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: AuthUserStreamWidget(
-                                    builder: (context) => InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'PROFILE_DETAILS_PAGE_Row_xhoggcdg_ON_TAP');
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'PROFILE_DETAILS_PAGE_Row_xhoggcdg_ON_TAP');
+                                    if (valueOrDefault(
+                                            currentUserDocument?.accessType,
+                                            '') ==
+                                        'freeTrial') {
+                                      logFirebaseEvent('Row_alert_dialog');
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                        'No Subscription Found!'),
+                                                    content: const Text(
+                                                        'You are currently on Free Trial. Purchase a subscription now to manage it.'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: const Text('Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child:
+                                                            const Text('See Plans'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
+                                        logFirebaseEvent('Row_navigate_to');
+
+                                        context.pushNamed('payWall');
+                                      }
+                                    } else {
+                                      logFirebaseEvent('Row_alert_dialog');
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                        'You will leave the app.'),
+                                                    content: const Text(
+                                                        'You will be redirected to your app store\'s subscription page where you can manage your subscription.'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: const Text('Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: const Text('Confirm'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
                                         logFirebaseEvent('Row_launch_u_r_l');
                                         await launchURL(isiOS
                                             ? 'https://apps.apple.com/account/subscriptions'
                                             : 'https://play.google.com/store/account/subscriptions');
-                                      },
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          const Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 8.0, 16.0, 8.0),
-                                            child: Icon(
-                                              Icons.monetization_on_outlined,
-                                              color: Color(0xFF57636C),
-                                              size: 24.0,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 12.0, 0.0),
-                                              child: Text(
-                                                'Manage Subscription',
-                                                textAlign: TextAlign.start,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: const Color(0xFF101213),
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      useGoogleFonts:
-                                                          GoogleFonts.asMap()
-                                                              .containsKey(
-                                                                  'Montserrat'),
-                                                    ),
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            'Manage',
-                                            textAlign: TextAlign.center,
+                                      }
+                                    }
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 16.0, 8.0),
+                                        child: Icon(
+                                          Icons.monetization_on_outlined,
+                                          color: Color(0xFF57636C),
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: Text(
+                                            'Manage Subscription',
+                                            textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: const Color(0xFF4B39EF),
+                                                  color: const Color(0xFF101213),
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -356,11 +415,29 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                                               'Montserrat'),
                                                 ),
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                      Text(
+                                        'Manage',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: const Color(0xFF4B39EF),
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts:
+                                                  GoogleFonts.asMap()
+                                                      .containsKey(
+                                                          'Montserrat'),
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                              ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
@@ -517,6 +594,79 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
+                                        'PROFILE_DETAILS_PAGE_Row_xmj5dswi_ON_TAP');
+                                    logFirebaseEvent('Row_navigate_to');
+
+                                    context.pushNamed('editBrandVoice');
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 16.0, 8.0),
+                                        child: Icon(
+                                          Icons.people_alt_outlined,
+                                          color: Color(0xFF57636C),
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: Text(
+                                            'Social Accounts',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey(
+                                                              'Montserrat'),
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Manage',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: const Color(0xFF4B39EF),
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts:
+                                                  GoogleFonts.asMap()
+                                                      .containsKey(
+                                                          'Montserrat'),
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
                                         'PROFILE_DETAILS_PAGE_Row_uer1fkxg_ON_TAP');
                                     logFirebaseEvent('Row_navigate_to');
 
@@ -642,12 +792,13 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      const Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
                                           Icons.login_rounded,
-                                          color: Color(0xFF57636C),
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
                                           size: 24.0,
                                         ),
                                       ),
@@ -677,117 +828,6 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                       ),
                                       Text(
                                         'Log Out?',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: const Color(0xFF4B39EF),
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          'Montserrat'),
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 24.0, 0.0, 8.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    logFirebaseEvent(
-                                        'PROFILE_DETAILS_PAGE_Row_80tp4762_ON_TAP');
-                                    logFirebaseEvent('Row_alert_dialog');
-                                    var confirmDialogResponse =
-                                        await showDialog<bool>(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title:
-                                                      const Text('Delete Account?'),
-                                                  content: const Text(
-                                                      'This will permanantly delete your InspireAI account. Are you sure you want to continue?'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              false),
-                                                      child: const Text('Cancel'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              true),
-                                                      child:
-                                                          const Text('Yes, Delete'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            ) ??
-                                            false;
-                                    if (confirmDialogResponse) {
-                                      logFirebaseEvent('Row_auth');
-                                      await authManager.deleteUser(context);
-                                      logFirebaseEvent('Row_navigate_to');
-
-                                      context.goNamed('LandingPage');
-                                    }
-                                  },
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 8.0, 16.0, 8.0),
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 12.0, 0.0),
-                                          child: Text(
-                                            'Delete account',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  fontSize: 14.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts:
-                                                      GoogleFonts.asMap()
-                                                          .containsKey(
-                                                              'Montserrat'),
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Delete',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium

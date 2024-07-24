@@ -481,6 +481,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'freeTrialExpired',
               path: 'freeTrialExpired',
               builder: (context, params) => const FreeTrialExpiredWidget(),
+            ),
+            FFRoute(
+              name: 'socialAccounts',
+              path: 'socialAccounts',
+              requireAuth: true,
+              builder: (context, params) => const SocialAccountsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
