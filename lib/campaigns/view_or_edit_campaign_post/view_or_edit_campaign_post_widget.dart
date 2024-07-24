@@ -152,93 +152,109 @@ class _ViewOrEditCampaignPostWidgetState
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 12.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            logFirebaseEvent(
-                                                'VIEW_OR_EDIT_CAMPAIGN_POST_Icon_1fy2u6xk');
-                                            logFirebaseEvent(
-                                                'Icon_navigate_back');
-                                            context.safePop();
-                                          },
-                                          child: Icon(
-                                            Icons.close,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: AuthUserStreamWidget(
-                                          builder: (context) => Container(
-                                            width: 38.0,
-                                            height: 38.0,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.network(
-                                              valueOrDefault<String>(
-                                                (currentUserDocument
-                                                            ?.profilePictureLinks
-                                                            .toList() ??
-                                                        [])
-                                                    .first,
-                                                'https://media.licdn.com/dms/image/D4D03AQF_8fEtGdSJTQ/profile-displayphoto-shrink_100_100/0/1683101018648?e=1720656000&v=beta&t=4iLxpsgMzhXGvsc9qJB__5w1KkW1oRunUf_TkVD18Ao',
-                                              ),
-                                              fit: BoxFit.cover,
+                                  Flexible(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              logFirebaseEvent(
+                                                  'VIEW_OR_EDIT_CAMPAIGN_POST_Icon_1fy2u6xk');
+                                              logFirebaseEvent(
+                                                  'Icon_navigate_back');
+                                              context.safePop();
+                                            },
+                                            child: Icon(
+                                              Icons.close,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            AuthUserStreamWidget(
-                                              builder: (context) => Text(
-                                                '${currentUserDocument?.linkedinDetails.localizedFirstName}',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Outfit',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      fontSize: 18.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      useGoogleFonts:
-                                                          GoogleFonts.asMap()
-                                                              .containsKey(
-                                                                  'Outfit'),
-                                                    ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: AuthUserStreamWidget(
+                                            builder: (context) => Container(
+                                              width: 38.0,
+                                              height: 38.0,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Image.network(
+                                                valueOrDefault<String>(
+                                                  (currentUserDocument
+                                                                  ?.profilePictureLinks
+                                                                  .toList() ??
+                                                              [])
+                                                          .isNotEmpty
+                                                      ? (currentUserDocument
+                                                                  ?.profilePictureLinks
+                                                                  .toList() ??
+                                                              [])
+                                                          .first
+                                                      : 'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                                  'https://ofcan.org/wp-content/uploads/2021/01/100-1006688_headshot-silhouette-placeholder-image-person-free-1.png',
+                                                ),
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 0.0, 0.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              AuthUserStreamWidget(
+                                                builder: (context) => Text(
+                                                  valueOrDefault<String>(
+                                                    currentUserDocument
+                                                        ?.linkedinScrapped
+                                                        .firstName,
+                                                    'Name',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .titleLarge
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 18.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts:
+                                                            GoogleFonts.asMap()
+                                                                .containsKey(
+                                                                    'Outfit'),
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
