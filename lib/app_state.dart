@@ -185,7 +185,7 @@ class FFAppState extends ChangeNotifier {
   }
 
   String _encodedCreds =
-      'QUNiNTQ2ZWExMDQzYTIwMmFhMTdhYzkxNjA4MDQ0MzU3OTpmZTQ0NTdmYTc5MGUyZDc2MzhjNjY4YzJhNDM2YTFkOQ==';
+      'QUM0ZmYyMjI5NzZmNDk5YmU4OWM2NmUyMWQ0YjY1MGVmZjo4YzdlNjc1Y2ExOTVmYTk0ZDRjYjRlMzgzZDk2MzQ5ZA==';
   String get encodedCreds => _encodedCreds;
   set encodedCreds(String value) {
     _encodedCreds = value;
@@ -196,7 +196,7 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_encodedCreds');
   }
 
-  String _vid = 'VA2141a8c584713de1592609ff8dd1a09f';
+  String _vid = 'VA77b794858c45b8ed5dfc737c483ba9a2';
   String get vid => _vid;
   set vid(String value) {
     _vid = value;

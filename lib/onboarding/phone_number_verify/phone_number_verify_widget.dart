@@ -399,7 +399,10 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                       encodedCredentials: FFAppState().encodedCreds,
                     );
 
-                    if ((_model.apiResult7uq?.succeeded ?? true)) {
+                    if (TwilloSMSVerifyGroup.verifyCodeCall.status(
+                          (_model.apiResult7uq?.jsonBody ?? ''),
+                        ) ==
+                        'approved') {
                       logFirebaseEvent('Button_backend_call');
 
                       await currentUserReference!.update(createUsersRecordData(
