@@ -44,7 +44,7 @@ class _SubsExpiredWidgetState extends State<SubsExpiredWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

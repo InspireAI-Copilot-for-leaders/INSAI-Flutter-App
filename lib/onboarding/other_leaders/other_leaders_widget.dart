@@ -37,7 +37,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
     _model.contentURL3TextController ??= TextEditingController();
     _model.contentURL3FocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -50,9 +50,7 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -440,14 +438,14 @@ class _OtherLeadersWidgetState extends State<OtherLeadersWidget> {
                                           _model.removeFromLeadersSelected(
                                               staggeredViewThoughtLeadersRecord
                                                   .reference);
-                                          setState(() {});
+                                          safeSetState(() {});
                                         } else {
                                           logFirebaseEvent(
                                               'leaderDisplayCard_update_page_state');
                                           _model.addToLeadersSelected(
                                               staggeredViewThoughtLeadersRecord
                                                   .reference);
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
                                       },
                                     );

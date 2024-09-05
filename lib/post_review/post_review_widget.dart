@@ -39,7 +39,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -52,9 +52,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -153,7 +151,7 @@ class _PostReviewWidgetState extends State<PostReviewWidget> {
                       isSearchable: false,
                       isMultiSelect: true,
                       onMultiSelectChanged: (val) =>
-                          setState(() => _model.dropDownValue = val),
+                          safeSetState(() => _model.dropDownValue = val),
                     ),
                     TextFormField(
                       controller: _model.textController,

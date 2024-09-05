@@ -65,3 +65,5 @@ export '/free_trial_expired/free_trial_expired_widget.dart'
     show FreeTrialExpiredWidget;
 export '/profile_detail_pages/social_accounts/social_accounts_widget.dart'
     show SocialAccountsWidget;
+export '/neo_chat/chat_ai_screen/chat_ai_screen_widget.dart'
+    show ChatAiScreenWidget;

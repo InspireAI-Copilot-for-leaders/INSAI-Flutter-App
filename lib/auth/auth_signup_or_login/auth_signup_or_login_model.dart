@@ -11,7 +11,6 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for login_user_email widget.
   FocusNode? loginUserEmailFocusNode;
@@ -106,7 +105,6 @@ class AuthSignupOrLoginModel extends FlutterFlowModel<AuthSignupOrLoginWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     loginUserEmailFocusNode?.dispose();
     loginUserEmailTextController?.dispose();
 

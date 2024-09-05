@@ -123,7 +123,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     }
                     logFirebaseEvent('dashboard_update_app_state');
                     FFAppState().dashboardLoading = false;
-                    setState(() {});
+                    safeSetState(() {});
                   } else {
                     logFirebaseEvent('dashboard_navigate_to');
 
@@ -410,7 +410,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -425,9 +425,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -584,7 +582,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                           .brightness ==
                                                       Brightness.dark,
                                               onChanged: (newValue) async {
-                                                setState(() => _model
+                                                safeSetState(() => _model
                                                     .switchValue = newValue);
                                                 if (newValue) {
                                                   logFirebaseEvent(
@@ -765,7 +763,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                         logFirebaseEvent(
                                             'Container_update_app_state');
                                         FFAppState().drawer = false;
-                                        setState(() {});
+                                        safeSetState(() {});
                                         logFirebaseEvent(
                                             'Container_widget_animation');
                                         if (animationsMap[
@@ -814,7 +812,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                         logFirebaseEvent(
                                             'Container_update_app_state');
                                         FFAppState().drawer = true;
-                                        setState(() {});
+                                        safeSetState(() {});
                                         logFirebaseEvent(
                                             'Container_widget_animation');
                                         if (animationsMap[
@@ -1224,8 +1222,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                                         child:
                                                                             Text(
                                                                           dateTimeFormat(
-                                                                              'relative',
-                                                                              wrapArticleRecord.metadata.sortedList(keyOf: (e) => dateTimeFormat('relative', e.publishDate!), desc: false).first.publishDate!),
+                                                                              "relative",
+                                                                              wrapArticleRecord.metadata.sortedList(keyOf: (e) => dateTimeFormat("relative", e.publishDate!), desc: false).first.publishDate!),
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)
@@ -1413,7 +1411,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                 }
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Icon(
                                               Icons.replay_rounded,
@@ -1631,7 +1629,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                     AuthUserStreamWidget(
                                       builder: (context) => wrapWithModel(
                                         model: _model.emptyStateModel1,
-                                        updateCallback: () => setState(() {}),
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
                                         child: const EmptyStateWidget(
                                           loadingText:
                                               'There\'s nothing here. Create your first post to start seeing analytics.',
@@ -2047,7 +2046,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                     'MiddleButton_update_page_state');
                                                 _model.createContentDialogVisible =
                                                     true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               } else {
                                                 if (valueOrDefault(
                                                         currentUserDocument
@@ -2064,7 +2063,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                       'MiddleButton_update_page_state');
                                                   _model.createContentDialogVisible =
                                                       true;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
                                               }
                                             },
@@ -2221,13 +2220,13 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             'Badge_update_app_state');
                                         FFAppState().isNotificationsVisible =
                                             false;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       } else {
                                         logFirebaseEvent(
                                             'Badge_update_app_state');
                                         FFAppState().isNotificationsVisible =
                                             true;
-                                        setState(() {});
+                                        safeSetState(() {});
                                         logFirebaseEvent('Badge_wait__delay');
                                         await Future.delayed(
                                             const Duration(milliseconds: 100));
@@ -2362,7 +2361,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             wrapWithModel(
                                               model: _model.emptyStateModel2,
                                               updateCallback: () =>
-                                                  setState(() {}),
+                                                  safeSetState(() {}),
                                               child: const EmptyStateWidget(
                                                 loadingText:
                                                     'You have no new notifications',
@@ -2486,7 +2485,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       logFirebaseEvent(
                                           'Icon_update_page_state');
                                       _model.createContentDialogVisible = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Icon(
                                       Icons.close,
@@ -3138,7 +3137,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     ),
                     wrapWithModel(
                       model: _model.allowNotificationPopupModel,
-                      updateCallback: () => setState(() {}),
+                      updateCallback: () => safeSetState(() {}),
                       updateOnChange: true,
                       child: AllowNotificationPopupWidget(
                         allowAction: () async {
@@ -3165,7 +3164,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           logFirebaseEvent(
                               'Allow_notification_popup_update_app_stat');
                           FFAppState().notificationPopupVisible = false;
-                          setState(() {});
+                          safeSetState(() {});
                           logFirebaseEvent(
                               'Allow_notification_popup_backend_call');
 
@@ -3199,7 +3198,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           logFirebaseEvent(
                               'Allow_notification_popup_update_app_stat');
                           FFAppState().notificationPopupVisible = false;
-                          setState(() {});
+                          safeSetState(() {});
                           logFirebaseEvent(
                               'Allow_notification_popup_backend_call');
 
@@ -3219,7 +3218,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
               if (FFAppState().dashboardLoading)
                 wrapWithModel(
                   model: _model.profileLoadingScreenModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: const ProfileLoadingScreenWidget(
                     loadingText: 'Loading your dashboard. Just a sec...',
                   ),

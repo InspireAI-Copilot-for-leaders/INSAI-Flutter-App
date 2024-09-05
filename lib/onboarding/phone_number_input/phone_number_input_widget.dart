@@ -29,7 +29,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'phoneNumberInput'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -44,9 +44,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -268,7 +266,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
                                 logFirebaseEvent(
                                     'CountryCodePickerWidget_update_app_state');
 
-                                setState(() {});
+                                safeSetState(() {});
                               },
                             ),
                           ),

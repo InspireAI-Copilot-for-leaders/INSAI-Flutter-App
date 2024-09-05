@@ -34,7 +34,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
     _model = createModel(context, () => StoriesPageModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'storiesPage'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -47,9 +47,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -93,7 +91,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                     0,
                                     min(0,
                                         pageViewArticleRecordList.length - 1))),
-                        onPageChanged: (_) => setState(() {}),
+                        onPageChanged: (_) => safeSetState(() {}),
                         scrollDirection: Axis.horizontal,
                         itemCount: pageViewArticleRecordList.length,
                         itemBuilder: (context, pageViewIndex) {
@@ -188,7 +186,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                           child: Text(
                                             valueOrDefault<String>(
                                               dateTimeFormat(
-                                                  'yMMMd',
+                                                  "yMMMd",
                                                   pageViewArticleRecord.metadata
                                                       .sortedList(
                                                           keyOf: (e) =>
@@ -453,7 +451,7 @@ class _StoriesPageWidgetState extends State<StoriesPageWidget> {
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             effect: smooth_page_indicator.ExpandingDotsEffect(
                               expansionFactor: 3.0,

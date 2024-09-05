@@ -56,7 +56,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
     _model.plainTextTextController ??= TextEditingController();
     _model.plainTextFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -69,9 +69,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -426,7 +424,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                                           'Container_update_page_state');
                                                                       _model.selectedCompanyIndex =
                                                                           companiesListIndex;
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     },
                                                                     child:
@@ -536,7 +534,8 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                                   'RichText_update_page_state');
                                                               _model.addNewCompany =
                                                                   true;
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             },
                                                             child: RichText(
                                                               textScaler:
@@ -710,7 +709,8 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                                     'Row_update_page_state');
                                                                 _model.addNewCompany =
                                                                     true;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               child: Row(
                                                                 mainAxisSize:
@@ -800,7 +800,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                                       'Text_update_page_state');
                                                                   _model.newCompanyName =
                                                                       null;
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 },
                                                                 child: Text(
@@ -862,8 +862,9 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                 '1 week',
                                                 '2 weeks'
                                               ],
-                                              onChanged: (val) => setState(() =>
-                                                  _model.dropDownValue1 = val),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue1 =
+                                                      val),
                                               width: 286.0,
                                               height: 50.0,
                                               textStyle:
@@ -939,8 +940,9 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                 'Twice per week',
                                                 '3 times a week'
                                               ],
-                                              onChanged: (val) => setState(() =>
-                                                  _model.dropDownValue2 = val),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue2 =
+                                                      val),
                                               width: 286.0,
                                               height: 50.0,
                                               textStyle:
@@ -1036,7 +1038,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                   uid: currentUserUid,
                                   companyName: _model.newCompanyName,
                                   campaignId:
-                                      '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                   noOfPosts: (_model.dropDownValue1!) *
                                       (_model.dropDownValue2!),
                                   dataType: _model.typeOfContentUploaded,
@@ -1055,7 +1057,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                   await campaignsDetailsRecordReference1
                                       .set(createCampaignsDetailsRecordData(
                                     campaignId:
-                                        '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                     createdOn: getCurrentTimestamp,
                                     campaignTitle: _model.textController1.text,
                                   ));
@@ -1063,7 +1065,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                       .getDocumentFromData(
                                           createCampaignsDetailsRecordData(
                                             campaignId:
-                                                '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                             createdOn: getCurrentTimestamp,
                                             campaignTitle:
                                                 _model.textController1.text,
@@ -1081,7 +1083,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                   });
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.loadingScreenVisible = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   logFirebaseEvent('Button_wait__delay');
                                   await Future.delayed(
                                       const Duration(milliseconds: 4000));
@@ -1124,7 +1126,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                             [])[_model.selectedCompanyIndex]
                                         .companyName,
                                     campaignId:
-                                        '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                     noOfPosts: (_model.dropDownValue1!) *
                                         (_model.dropDownValue2!),
                                   );
@@ -1139,7 +1141,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                     await campaignsDetailsRecordReference2
                                         .set(createCampaignsDetailsRecordData(
                                       campaignId:
-                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                          '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                       createdOn: getCurrentTimestamp,
                                       campaignTitle:
                                           _model.textController1.text,
@@ -1148,7 +1150,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                         .getDocumentFromData(
                                             createCampaignsDetailsRecordData(
                                               campaignId:
-                                                  '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                  '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                               createdOn: getCurrentTimestamp,
                                               campaignTitle:
                                                   _model.textController1.text,
@@ -1167,7 +1169,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                     logFirebaseEvent(
                                         'Button_update_page_state');
                                     _model.loadingScreenVisible = true;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     logFirebaseEvent('Button_wait__delay');
                                     await Future.delayed(
                                         const Duration(milliseconds: 4000));
@@ -1251,7 +1253,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                     uid: currentUserUid,
                                     companyName: _model.newCompanyName,
                                     campaignId:
-                                        '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                     noOfPosts: (_model.dropDownValue1!) *
                                         (_model.dropDownValue2!),
                                     dataType: _model.typeOfContentUploaded,
@@ -1271,7 +1273,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                     await campaignsDetailsRecordReference3
                                         .set(createCampaignsDetailsRecordData(
                                       campaignId:
-                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                          '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                       createdOn: getCurrentTimestamp,
                                       campaignTitle:
                                           _model.textController1.text,
@@ -1280,7 +1282,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                         .getDocumentFromData(
                                             createCampaignsDetailsRecordData(
                                               campaignId:
-                                                  '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                  '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                               createdOn: getCurrentTimestamp,
                                               campaignTitle:
                                                   _model.textController1.text,
@@ -1299,7 +1301,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                     logFirebaseEvent(
                                         'Button_update_page_state');
                                     _model.loadingScreenVisible = true;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     logFirebaseEvent('Button_wait__delay');
                                     await Future.delayed(
                                         const Duration(milliseconds: 4000));
@@ -1342,7 +1344,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                               [])[_model.selectedCompanyIndex]
                                           .companyName,
                                       campaignId:
-                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                          '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                       noOfPosts: (_model.dropDownValue1!) *
                                           (_model.dropDownValue2!),
                                     );
@@ -1357,7 +1359,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                       await campaignsDetailsRecordReference4
                                           .set(createCampaignsDetailsRecordData(
                                         campaignId:
-                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                            '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                         createdOn: getCurrentTimestamp,
                                         campaignTitle:
                                             _model.textController1.text,
@@ -1366,7 +1368,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                           .getDocumentFromData(
                                               createCampaignsDetailsRecordData(
                                                 campaignId:
-                                                    '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                    '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                                 createdOn: getCurrentTimestamp,
                                                 campaignTitle:
                                                     _model.textController1.text,
@@ -1385,7 +1387,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                       logFirebaseEvent(
                                           'Button_update_page_state');
                                       _model.loadingScreenVisible = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent('Button_wait__delay');
                                       await Future.delayed(
                                           const Duration(milliseconds: 4000));
@@ -1435,7 +1437,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                             }
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: 'Do the InspireAI magic',
                         options: FFButtonOptions(
@@ -1474,7 +1476,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
               if (_model.loadingScreenVisible == true)
                 wrapWithModel(
                   model: _model.loadingScreenModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingScreenWidget(
                     loadingText:
                         'Configuring your campaign. Will take around 2-3 minutes. You can leave this page...',
@@ -1659,7 +1661,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                         _model.dropDownTypeValueController ??=
                                             FormFieldController<String>(null),
                                     options: const ['PDF', 'Plain Text', 'URL'],
-                                    onChanged: (val) => setState(
+                                    onChanged: (val) => safeSetState(
                                         () => _model.dropDownTypeValue = val),
                                     width: double.infinity,
                                     height: 56.0,
@@ -1973,7 +1975,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                         'IconButton_update_page_state');
                                                     _model.noOfUrls =
                                                         _model.noOfUrls + -1;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                 ),
                                               ].divide(const SizedBox(width: 8.0)),
@@ -2131,7 +2133,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                         'IconButton_update_page_state');
                                                     _model.noOfUrls =
                                                         _model.noOfUrls + -1;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                 ),
                                               ].divide(const SizedBox(width: 8.0)),
@@ -2154,7 +2156,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                       'Text_update_page_state');
                                                   _model.noOfUrls =
                                                       _model.noOfUrls + 1;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 },
                                                 child: Text(
                                                   '+ Add More',
@@ -2330,7 +2332,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                     multiFile: true,
                                                   );
                                                   if (selectedFiles != null) {
-                                                    setState(() => _model
+                                                    safeSetState(() => _model
                                                             .isDataUploading1 =
                                                         true);
                                                     var selectedUploadedFiles =
@@ -2365,7 +2367,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                     if (selectedUploadedFiles
                                                             .length ==
                                                         selectedFiles.length) {
-                                                      setState(() {
+                                                      safeSetState(() {
                                                         _model.uploadedLocalFiles1 =
                                                             selectedUploadedFiles;
                                                       });
@@ -2374,7 +2376,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                         'Success!',
                                                       );
                                                     } else {
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                       showUploadMessage(
                                                         context,
                                                         'Failed to upload file',
@@ -2480,7 +2482,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                       logFirebaseEvent(
                                           'Button_upload_file_to_firebase');
                                       {
-                                        setState(() =>
+                                        safeSetState(() =>
                                             _model.isDataUploading2 = true);
                                         var selectedUploadedFiles =
                                             <FFUploadedFile>[];
@@ -2510,14 +2512,14 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                                 selectedFiles.length &&
                                             downloadUrls.length ==
                                                 selectedFiles.length) {
-                                          setState(() {
+                                          safeSetState(() {
                                             _model.uploadedLocalFiles2 =
                                                 selectedUploadedFiles;
                                             _model.uploadedFileUrls2 =
                                                 downloadUrls;
                                           });
                                         } else {
-                                          setState(() {});
+                                          safeSetState(() {});
                                           return;
                                         }
                                       }
@@ -2529,7 +2531,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                           .uploadedFileUrls2
                                           .toList()
                                           .cast<String>();
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       if (_model.dropDownTypeValue ==
                                           'Plain Text') {
@@ -2538,14 +2540,14 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                         _model.addToTextOfContent(_model
                                             .plainTextTextController.text);
                                         _model.typeOfContentUploaded = 'text';
-                                        setState(() {});
+                                        safeSetState(() {});
                                       } else {
                                         logFirebaseEvent(
                                             'Button_update_page_state');
                                         _model.typeOfContentUploaded = 'url';
                                         _model.addToUrlsOfContent(_model
                                             .contentURL1TextController2.text);
-                                        setState(() {});
+                                        safeSetState(() {});
                                         if (_model.contentURL2TextController
                                                     .text !=
                                                 '') {
@@ -2553,7 +2555,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                               'Button_update_page_state');
                                           _model.addToUrlsOfContent(_model
                                               .contentURL2TextController.text);
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
                                         if (_model.contentURL3TextController
                                                     .text !=
@@ -2562,7 +2564,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                               'Button_update_page_state');
                                           _model.addToUrlsOfContent(_model
                                               .contentURL3TextController.text);
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
                                       }
                                     }
@@ -2572,7 +2574,7 @@ class _CompanyCampaignWidgetState extends State<CompanyCampaignWidget> {
                                     _model.addNewCompany = false;
                                     _model.newCompanyName =
                                         _model.contentURL1TextController1.text;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: 'Done',
                                   options: FFButtonOptions(

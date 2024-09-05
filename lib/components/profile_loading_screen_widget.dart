@@ -35,7 +35,7 @@ class _ProfileLoadingScreenWidgetState
     super.initState();
     _model = createModel(context, () => ProfileLoadingScreenModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

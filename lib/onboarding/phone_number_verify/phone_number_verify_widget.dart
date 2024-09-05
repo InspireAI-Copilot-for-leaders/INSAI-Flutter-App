@@ -127,7 +127,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -142,9 +142,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -365,11 +363,6 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                             inactiveColor: const Color(0xA757636C),
                             selectedColor:
                                 FlutterFlowTheme.of(context).secondary,
-                            activeFillColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            inactiveFillColor: const Color(0xA757636C),
-                            selectedFillColor:
-                                FlutterFlowTheme.of(context).secondary,
                           ),
                           controller: _model.phoneOTPcode,
                           onChanged: (_) {},
@@ -449,7 +442,7 @@ class _PhoneNumberVerifyWidgetState extends State<PhoneNumberVerifyWidget>
                     );
                   }
 
-                  setState(() {});
+                  safeSetState(() {});
                 },
                 text: 'Verify',
                 options: FFButtonOptions(

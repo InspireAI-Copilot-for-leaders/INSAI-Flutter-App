@@ -45,7 +45,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
+        safeSetState(() {
           _isKeyboardVisible = visible;
         });
       });
@@ -219,7 +219,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -235,9 +235,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -760,7 +758,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       color: Color(0x9C57636C),
                                                     ),
                                                     suffixIcon: InkWell(
-                                                      onTap: () => setState(
+                                                      onTap: () => safeSetState(
                                                         () => _model
                                                                 .loginUserPassVisibility =
                                                             !_model
@@ -1066,7 +1064,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                       color: Color(0x9C57636C),
                                                     ),
                                                     suffixIcon: InkWell(
-                                                      onTap: () => setState(
+                                                      onTap: () => safeSetState(
                                                         () => _model
                                                                 .signupUserPassVisibility =
                                                             !_model
@@ -1673,7 +1671,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
                                           _model.authType = 'login_email';
-                                          setState(() {});
+                                          safeSetState(() {});
                                           logFirebaseEvent(
                                               'createAccount_wait__delay');
                                           await Future.delayed(const Duration(
@@ -1715,12 +1713,12 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
                                           _model.loginBtnVisible = true;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         } else {
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
                                           _model.loginBtnVisible = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                           logFirebaseEvent(
                                               'createAccount_wait__delay');
                                           await Future.delayed(const Duration(
@@ -1758,13 +1756,13 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                           logFirebaseEvent(
                                               'createAccount_update_page_state');
                                           _model.authType = 'signup_email';
-                                          setState(() {});
+                                          safeSetState(() {});
                                           logFirebaseEvent(
                                               'createAccount_widget_animation');
                                           if (animationsMap[
                                                   'buttonOnActionTriggerAnimation1'] !=
                                               null) {
-                                            setState(() =>
+                                            safeSetState(() =>
                                                 hasButtonTriggered1 = true);
                                             SchedulerBinding.instance
                                                 .addPostFrameCallback((_) async =>
@@ -2445,7 +2443,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 logFirebaseEvent(
                                                     'phoneAuthButton_update_page_state');
                                                 _model.authType = 'phone';
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 logFirebaseEvent(
                                                     'phoneAuthButton_wait__delay');
                                                 await Future.delayed(
@@ -2497,7 +2495,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                     'emailAuthButton_update_page_state');
                                                 _model.authType =
                                                     'signup_email';
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 logFirebaseEvent(
                                                     'emailAuthButton_wait__delay');
                                                 await Future.delayed(
@@ -2508,7 +2506,7 @@ class _AuthSignupOrLoginWidgetState extends State<AuthSignupOrLoginWidget>
                                                 if (animationsMap[
                                                         'buttonOnActionTriggerAnimation1'] !=
                                                     null) {
-                                                  setState(() =>
+                                                  safeSetState(() =>
                                                       hasButtonTriggered1 =
                                                           true);
                                                   SchedulerBinding.instance

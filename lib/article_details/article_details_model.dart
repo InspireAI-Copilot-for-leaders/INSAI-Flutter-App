@@ -12,7 +12,6 @@ class ArticleDetailsModel extends FlutterFlowModel<ArticleDetailsWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Expandable widget.
   late ExpandableController expandableExpandableController;
 
@@ -21,7 +20,6 @@ class ArticleDetailsModel extends FlutterFlowModel<ArticleDetailsWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     expandableExpandableController.dispose();
   }
 }

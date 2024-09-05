@@ -59,7 +59,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
       if (FFAppState().lastDiscoverCachedTime == null) {
         logFirebaseEvent('discoverPage_update_app_state');
         FFAppState().lastDiscoverCachedTime = getCurrentTimestamp;
-        setState(() {});
+        safeSetState(() {});
       }
       logFirebaseEvent('discoverPage_custom_action');
       _model.isCacheOverride = actions.isOverrideCacheAction(
@@ -69,14 +69,14 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
         logFirebaseEvent('discoverPage_update_app_state');
         FFAppState().shouldOverideDiscoverCache = true;
         FFAppState().lastDiscoverCachedTime = getCurrentTimestamp;
-        setState(() {});
+        safeSetState(() {});
         logFirebaseEvent('discoverPage_clear_query_cache');
         FFAppState().clearDiscoverCacheKey(currentUserUid);
         logFirebaseEvent('discoverPage_wait__delay');
         await Future.delayed(const Duration(milliseconds: 1000));
         logFirebaseEvent('discoverPage_update_app_state');
         FFAppState().shouldOverideDiscoverCache = false;
-        setState(() {});
+        safeSetState(() {});
       }
     });
 
@@ -355,7 +355,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -370,9 +370,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -521,7 +519,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                 Theme.of(context).brightness ==
                                                     Brightness.dark,
                                             onChanged: (newValue) async {
-                                              setState(() => _model
+                                              safeSetState(() => _model
                                                   .switchValue = newValue);
                                               if (newValue) {
                                                 logFirebaseEvent(
@@ -696,7 +694,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       logFirebaseEvent(
                                           'Container_update_app_state');
                                       FFAppState().drawer = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -744,7 +742,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                       logFirebaseEvent(
                                           'Container_update_app_state');
                                       FFAppState().drawer = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -1024,7 +1022,6 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         containerArticleRecordList =
                                                                         snapshot
                                                                             .data!;
-
                                                                     // Return an empty Container when the item does not exist.
                                                                     if (snapshot
                                                                         .data!
@@ -1036,6 +1033,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         ? containerArticleRecordList
                                                                             .first
                                                                         : null;
+
                                                                     return Container(
                                                                       width:
                                                                           90.0,
@@ -1180,7 +1178,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                 .sortedList(
                                                                     keyOf: (e) =>
                                                                         dateTimeFormat(
-                                                                            'relative',
+                                                                            "relative",
                                                                             e.scrappedAt!),
                                                                     desc: false)
                                                                 .toList()
@@ -1450,7 +1448,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                         curve: Curves
                                                                             .ease,
                                                                       );
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     },
                                                                     effect: smooth_page_indicator
@@ -1518,7 +1516,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                     'Container_update_page_state');
                                                                 _model.filteredTabView =
                                                                     'For You';
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               child: Container(
                                                                 height: 32.0,
@@ -1634,7 +1633,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                             'Container_update_page_state');
                                                                         _model.filteredTabView =
                                                                             filterTabsItem;
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                       },
                                                                       child:
@@ -1709,7 +1708,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                           .sortedList(
                                                               keyOf: (e) =>
                                                                   dateTimeFormat(
-                                                                      'relative',
+                                                                      "relative",
                                                                       e.publishDates
                                                                           .first),
                                                               desc: false)
@@ -1895,7 +1894,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                 child: Padding(
                                                                                   padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 0.0, 0.0),
                                                                                   child: AutoSizeText(
-                                                                                    dateTimeFormat('MMMEd', filteredTabsItem.metadata.first.publishDate!).maybeHandleOverflow(
+                                                                                    dateTimeFormat("MMMEd", filteredTabsItem.metadata.first.publishDate!).maybeHandleOverflow(
                                                                                       maxChars: 70,
                                                                                       replacement: '…',
                                                                                     ),
@@ -2127,7 +2126,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                                                     child: Padding(
                                                                                       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                                                                                       child: AutoSizeText(
-                                                                                        dateTimeFormat('MMMEd', forYouItem.metadata.first.publishDate!).maybeHandleOverflow(
+                                                                                        dateTimeFormat("MMMEd", forYouItem.metadata.first.publishDate!).maybeHandleOverflow(
                                                                                           maxChars: 70,
                                                                                           replacement: '…',
                                                                                         ),
@@ -2338,7 +2337,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                   'MiddleButton_update_page_state');
                                               _model.createContentDialogVisible =
                                                   true;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             } else {
                                               if (valueOrDefault(
                                                       currentUserDocument
@@ -2355,7 +2354,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                     'MiddleButton_update_page_state');
                                                 _model.createContentDialogVisible =
                                                     true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             }
                                           },
@@ -2508,13 +2507,13 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           'Badge_update_app_state');
                                       FFAppState().isNotificationsVisible =
                                           false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
                                           'Badge_update_app_state');
                                       FFAppState().isNotificationsVisible =
                                           true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent('Badge_wait__delay');
                                       await Future.delayed(
                                           const Duration(milliseconds: 100));
@@ -2647,7 +2646,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                           wrapWithModel(
                                             model: _model.emptyStateModel,
                                             updateCallback: () =>
-                                                setState(() {}),
+                                                safeSetState(() {}),
                                             child: const EmptyStateWidget(
                                               loadingText:
                                                   'You have no new notifications',
@@ -2766,7 +2765,7 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                         'DISCOVER_PAGE_PAGE_Icon_cily0l7t_ON_TAP');
                                     logFirebaseEvent('Icon_update_page_state');
                                     _model.createContentDialogVisible = false;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Icon(
                                     Icons.close,

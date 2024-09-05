@@ -89,7 +89,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -129,9 +129,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
         List<CampaignRecord> camapignDetailsCampaignRecordList = snapshot.data!;
 
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -270,7 +268,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                           }
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,
@@ -561,7 +559,7 @@ class _CamapignDetailsWidgetState extends State<CamapignDetailsWidget>
                                                                     0.0),
                                                         child: Text(
                                                           dateTimeFormat(
-                                                              'MMMEd',
+                                                              "MMMEd",
                                                               camapignDetailsVarItem
                                                                   .scheduledTime!),
                                                           style: FlutterFlowTheme

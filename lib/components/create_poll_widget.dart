@@ -78,7 +78,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -588,7 +588,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                             logFirebaseEvent('Text_update_component_state');
                             _model.optionFieldsNumber =
                                 _model.optionFieldsNumber + -1;
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           child: Text(
                             'Remove',
@@ -716,7 +716,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                             logFirebaseEvent('Text_update_component_state');
                             _model.optionFieldsNumber =
                                 _model.optionFieldsNumber + -1;
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           child: Text(
                             'Remove',
@@ -745,10 +745,10 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                   child: FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent(
-                          'CREATE_POLL_COMP_+_ADD_OPTION_BTN_ON_TAP');
+                          'CREATE_POLL_COMP__ADD_OPTION_BTN_ON_TAP');
                       logFirebaseEvent('Button_update_component_state');
                       _model.optionFieldsNumber = _model.optionFieldsNumber + 1;
-                      setState(() {});
+                      safeSetState(() {});
                     },
                     text: '+ Add Option',
                     options: FFButtonOptions(
@@ -790,7 +790,7 @@ class _CreatePollWidgetState extends State<CreatePollWidget>
                       ['ONE_DAY', 'THREE_DAYS', 'SEVEN_DAYS', 'FOURTEEN_DAYS']),
                   optionLabels: const ['1 day', '3 days', '7 days', '14 days'],
                   onChanged: (val) =>
-                      setState(() => _model.dropDownValue = val),
+                      safeSetState(() => _model.dropDownValue = val),
                   width: double.infinity,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily:

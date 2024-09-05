@@ -27,6 +27,8 @@ class LinkedInDataGroup {
   static FirstDegreeConnectionsSizeCall firstDegreeConnectionsSizeCall =
       FirstDegreeConnectionsSizeCall();
   static FindOtherPeopleCall findOtherPeopleCall = FindOtherPeopleCall();
+  static FindOtherPeopleCopyCall findOtherPeopleCopyCall =
+      FindOtherPeopleCopyCall();
 }
 
 class LinkedinProfileDetailsCall {
@@ -157,6 +159,59 @@ class FindOtherPeopleCall {
       alwaysAllowBody: false,
     );
   }
+
+  String? personLastName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.localizedLastName''',
+      ));
+  String? personVanityName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.vanityName''',
+      ));
+  String? personHealine(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.localizedHeadline''',
+      ));
+  String? personId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.id''',
+      ));
+  String? personFirstName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.localizedFirstName''',
+      ));
+  String? personPicture(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.profilePicture.displayImage''',
+      ));
+}
+
+class FindOtherPeopleCopyCall {
+  Future<ApiCallResponse> call({
+    String? personUrn = '',
+    String? authToken = '',
+  }) async {
+    final baseUrl = LinkedInDataGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Find Other People Copy',
+      apiUrl: '$baseUrl/people/(id:$personUrn)',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $authToken',
+        'X-RestLi-Protocol-Version': '2.0.0',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 /// End LinkedInData Group Code
@@ -182,6 +237,7 @@ class LinkedinPostGroup {
   static GetPostLikesCall getPostLikesCall = GetPostLikesCall();
   static GetSocialMetadataCall getSocialMetadataCall = GetSocialMetadataCall();
   static PeopleCall peopleCall = PeopleCall();
+  static GetPostsByURNCall getPostsByURNCall = GetPostsByURNCall();
 }
 
 class PostOnlyTextCall {
@@ -541,6 +597,7 @@ class GetSocialMetadataCall {
 
 class PeopleCall {
   Future<ApiCallResponse> call({
+    String? memberId = '',
     String? accessToken = '',
   }) async {
     final baseUrl = LinkedinPostGroup.getBaseUrl(
@@ -549,7 +606,36 @@ class PeopleCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'people',
-      apiUrl: '$baseUrl/people',
+      apiUrl: '$baseUrl/people/$memberId',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'LinkedIn-Version': '202402',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetPostsByURNCall {
+  Future<ApiCallResponse> call({
+    String? postUrn = '',
+    String? accessToken = '',
+  }) async {
+    final baseUrl = LinkedinPostGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Posts by URN',
+      apiUrl: '$baseUrl/posts/$postUrn',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
@@ -626,6 +712,65 @@ class VerifyCodeCall {
 }
 
 /// End Twillo SMS Verify Group Code
+
+/// Start OpenAI ChatGPT Group Code
+
+class OpenAIChatGPTGroup {
+  static String getBaseUrl() => 'https://api.openai.com/v1';
+  static Map<String, String> headers = {
+    'Content-Type': 'application/json',
+  };
+  static SendFullPromptCall sendFullPromptCall = SendFullPromptCall();
+}
+
+class SendFullPromptCall {
+  Future<ApiCallResponse> call({
+    String? apiKey = '',
+    dynamic promptJson,
+  }) async {
+    final baseUrl = OpenAIChatGPTGroup.getBaseUrl();
+
+    final prompt = _serializeJson(promptJson);
+    final ffApiRequestBody = '''
+{
+  "model": "gpt-4",
+  "messages": $prompt
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Send Full Prompt',
+      apiUrl: '$baseUrl/chat/completions',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $apiKey',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? createdTimestamp(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.created''',
+      ));
+  String? role(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.choices[:].message.role''',
+      ));
+  String? content(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.choices[:].message.content''',
+      ));
+}
+
+/// End OpenAI ChatGPT Group Code
 
 class ExpertiseOfPersonCall {
   static Future<ApiCallResponse> call({

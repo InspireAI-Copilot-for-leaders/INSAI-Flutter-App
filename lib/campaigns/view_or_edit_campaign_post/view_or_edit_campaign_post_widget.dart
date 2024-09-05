@@ -59,7 +59,7 @@ class _ViewOrEditCampaignPostWidgetState
       vsync: this,
       length: 3,
       initialIndex: 1,
-    )..addListener(() => setState(() {}));
+    )..addListener(() => safeSetState(() {}));
 
     _model.shortPostFocusNode ??= FocusNode();
 
@@ -90,7 +90,7 @@ class _ViewOrEditCampaignPostWidgetState
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -125,9 +125,7 @@ class _ViewOrEditCampaignPostWidgetState
         final viewOrEditCampaignPostCampaignRecord = snapshot.data!;
 
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -211,46 +209,48 @@ class _ViewOrEditCampaignPostWidgetState
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 0.0, 0.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              AuthUserStreamWidget(
-                                                builder: (context) => Text(
-                                                  valueOrDefault<String>(
-                                                    currentUserDocument
-                                                        ?.linkedinScrapped
-                                                        .firstName,
-                                                    'Name',
+                                        Flexible(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 0.0, 0.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                AuthUserStreamWidget(
+                                                  builder: (context) => Text(
+                                                    valueOrDefault<String>(
+                                                      currentUserDocument
+                                                          ?.linkedinScrapped
+                                                          .firstName,
+                                                      'Name',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts:
+                                                              GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Outfit'),
+                                                        ),
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleLarge
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts:
-                                                            GoogleFonts.asMap()
-                                                                .containsKey(
-                                                                    'Outfit'),
-                                                      ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -290,7 +290,7 @@ class _ViewOrEditCampaignPostWidgetState
                                               ),
                                               Flexible(
                                                 child: Text(
-                                                  'Posting on ${dateTimeFormat('MMMEd', _model.scheduledDate)} at ${dateTimeFormat('jm', _model.scheduledTime)}.',
+                                                  'Posting on ${dateTimeFormat("MMMEd", _model.scheduledDate)} at ${dateTimeFormat("jm", _model.scheduledTime)}.',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -332,7 +332,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                           'Text_update_page_state');
                                                       _model.datePickerVisbile =
                                                           true;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                       logFirebaseEvent(
                                                           'Text_wait__delay');
                                                       await Future.delayed(
@@ -608,9 +608,11 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   _model
                                                                       .scheduledDocOnlyText
                                                                       ?.reference;
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
 
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             },
                                                             text: 'Approve',
                                                             options:
@@ -678,7 +680,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                 logFirebaseEvent(
                                                                     'docSchedule_upload_file_to_firebase');
                                                                 {
-                                                                  setState(() =>
+                                                                  safeSetState(() =>
                                                                       _model.isDataUploading1 =
                                                                           true);
                                                                   var selectedUploadedFiles =
@@ -727,7 +729,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                               .length ==
                                                                           selectedFiles
                                                                               .length) {
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {
                                                                       _model.uploadedLocalFile1 =
                                                                           selectedUploadedFiles
@@ -737,7 +739,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                               .first;
                                                                     });
                                                                   } else {
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                     return;
                                                                   }
@@ -930,13 +932,14 @@ class _ViewOrEditCampaignPostWidgetState
                                                                     _model.scheduledDocument = _model
                                                                         .scheduledDocDoc
                                                                         ?.reference;
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   }
                                                                 }
                                                               }
 
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             },
                                                             text: 'Approve',
                                                             options:
@@ -1004,7 +1007,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                               logFirebaseEvent(
                                                                   'ImageSchedule_upload_media_to_firebase');
                                                               {
-                                                                setState(() =>
+                                                                safeSetState(() =>
                                                                     _model.isDataUploading2 =
                                                                         true);
                                                                 var selectedUploadedFiles =
@@ -1050,14 +1053,15 @@ class _ViewOrEditCampaignPostWidgetState
                                                                             .length ==
                                                                         selectedMedia
                                                                             .length) {
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
                                                                     _model.uploadedLocalFiles2 =
                                                                         selectedUploadedFiles;
                                                                     _model.uploadedFileUrls2 =
                                                                         downloadUrls;
                                                                   });
                                                                 } else {
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                   return;
                                                                 }
@@ -1153,7 +1157,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       _model.noOfImagesUploadedToFirebase =
                                                                           _model.noOfImagesUploadedToFirebase +
                                                                               1;
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     } else {
                                                                       logFirebaseEvent(
@@ -1216,7 +1220,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       _model.noOfImagesUploadedToFirebase =
                                                                           _model.noOfImagesUploadedToFirebase +
                                                                               1;
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     }
                                                                   } else {
@@ -1242,7 +1246,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       },
                                                                     );
                                                                     if (shouldSetState) {
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     }
                                                                     return;
@@ -1272,7 +1276,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                     },
                                                                   );
                                                                   if (shouldSetState) {
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   }
                                                                   return;
@@ -1395,7 +1399,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                                 _model.scheduledDocument = _model
                                                                     .scheduledDocImage
                                                                     ?.reference;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               } else {
                                                                 logFirebaseEvent(
                                                                     'ImageSchedule_backend_call');
@@ -1511,11 +1516,13 @@ class _ViewOrEditCampaignPostWidgetState
                                                                 _model.scheduledDocument = _model
                                                                     .scheduledDocImage
                                                                     ?.reference;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               }
 
                                                               if (shouldSetState) {
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               }
                                                             },
                                                             text: 'Approve',
@@ -1587,7 +1594,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   _model.addToPollOptionsList(
                                                                       _model
                                                                           .pollOption1!);
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 }),
                                                                 Future(
@@ -1597,7 +1604,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   _model.addToPollOptionsList(
                                                                       _model
                                                                           .pollOption2!);
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 }),
                                                                 Future(
@@ -1611,7 +1618,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                     _model.addToPollOptionsList(
                                                                         _model
                                                                             .pollOption3!);
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   }
                                                                 }),
@@ -1626,7 +1633,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                     _model.addToPollOptionsList(
                                                                         _model
                                                                             .pollOption4!);
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   }
                                                                 }),
@@ -1788,9 +1795,11 @@ class _ViewOrEditCampaignPostWidgetState
                                                                   _model
                                                                       .scheduledDocOnlyPoll
                                                                       ?.reference;
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
 
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             },
                                                             text: 'Approve',
                                                             options:
@@ -1951,9 +1960,9 @@ class _ViewOrEditCampaignPostWidgetState
                                                     child: FFButtonWidget(
                                                       onPressed: () async {
                                                         logFirebaseEvent(
-                                                            'VIEW_OR_EDIT_CAMPAIGN_POST_DECLINE_BTN_O');
+                                                            'VIEW_OR_EDIT_CAMPAIGN_POST_Decline_Butto');
                                                         logFirebaseEvent(
-                                                            'Button_backend_call');
+                                                            'Decline_Button_backend_call');
 
                                                         await widget.postRef!
                                                             .update(
@@ -1961,7 +1970,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                           status: 'declined',
                                                         ));
                                                         logFirebaseEvent(
-                                                            'Button_navigate_to');
+                                                            'Decline_Button_navigate_to');
 
                                                         context.pushNamed(
                                                           'postReview',
@@ -2140,7 +2149,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                           const Duration(
                                                               milliseconds:
                                                                   2000),
-                                                          () => setState(() {}),
+                                                          () => safeSetState(
+                                                              () {}),
                                                         ),
                                                         autofocus: false,
                                                         textCapitalization:
@@ -2247,7 +2257,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                           const Duration(
                                                               milliseconds:
                                                                   2000),
-                                                          () => setState(() {}),
+                                                          () => safeSetState(
+                                                              () {}),
                                                         ),
                                                         autofocus: false,
                                                         textCapitalization:
@@ -2354,7 +2365,8 @@ class _ViewOrEditCampaignPostWidgetState
                                                           const Duration(
                                                               milliseconds:
                                                                   2000),
-                                                          () => setState(() {}),
+                                                          () => safeSetState(
+                                                              () {}),
                                                         ),
                                                         autofocus: false,
                                                         textCapitalization:
@@ -2509,11 +2521,12 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       0;
                                                                   _model.uploadedMedia =
                                                                       [];
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                   logFirebaseEvent(
                                                                       'Container_clear_uploaded_data');
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
                                                                     _model.isDataUploading3 =
                                                                         false;
                                                                     _model.uploadedLocalFiles3 =
@@ -2670,11 +2683,12 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       0;
                                                                   _model.uploadedMedia =
                                                                       [];
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                   logFirebaseEvent(
                                                                       'Container_clear_uploaded_data');
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
                                                                     _model.isDataUploading3 =
                                                                         false;
                                                                     _model.uploadedLocalFiles3 =
@@ -2853,11 +2867,12 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       0;
                                                                   _model.uploadedMedia =
                                                                       [];
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                   logFirebaseEvent(
                                                                       'Container_clear_uploaded_data');
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
                                                                     _model.isDataUploading3 =
                                                                         false;
                                                                     _model.uploadedLocalFiles3 =
@@ -3058,11 +3073,12 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       0;
                                                                   _model.uploadedMedia =
                                                                       [];
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                   logFirebaseEvent(
                                                                       'Container_clear_uploaded_data');
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
                                                                     _model.isDataUploading3 =
                                                                         false;
                                                                     _model.uploadedLocalFiles3 =
@@ -3289,11 +3305,12 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       0;
                                                                   _model.uploadedMedia =
                                                                       [];
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                   logFirebaseEvent(
                                                                       'Container_clear_uploaded_data');
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
                                                                     _model.isDataUploading3 =
                                                                         false;
                                                                     _model.uploadedLocalFiles3 =
@@ -3555,11 +3572,12 @@ class _ViewOrEditCampaignPostWidgetState
                                                                       0;
                                                                   _model.uploadedMedia =
                                                                       [];
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                   logFirebaseEvent(
                                                                       'Container_clear_uploaded_data');
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
                                                                     _model.isDataUploading3 =
                                                                         false;
                                                                     _model.uploadedLocalFiles3 =
@@ -3685,7 +3703,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                 null;
                                                             _model.uploadedDocTitle =
                                                                 null;
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           },
                                                           child: Container(
                                                             width: 24.0,
@@ -4088,7 +4106,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                                 0;
                                                             _model.uploadedMedia =
                                                                 [];
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           },
                                                           child: Container(
                                                             width: 24.0,
@@ -4151,7 +4169,7 @@ class _ViewOrEditCampaignPostWidgetState
                                           selectedMedia.every((m) =>
                                               validateFileFormat(
                                                   m.storagePath, context))) {
-                                        setState(() =>
+                                        safeSetState(() =>
                                             _model.isDataUploading3 = true);
                                         var selectedUploadedFiles =
                                             <FFUploadedFile>[];
@@ -4181,14 +4199,14 @@ class _ViewOrEditCampaignPostWidgetState
                                         }
                                         if (selectedUploadedFiles.length ==
                                             selectedMedia.length) {
-                                          setState(() {
+                                          safeSetState(() {
                                             _model.uploadedLocalFiles3 =
                                                 selectedUploadedFiles;
                                           });
                                           showUploadMessage(
                                               context, 'Success!');
                                         } else {
-                                          setState(() {});
+                                          safeSetState(() {});
                                           showUploadMessage(
                                               context, 'Failed to upload data');
                                           return;
@@ -4210,7 +4228,7 @@ class _ViewOrEditCampaignPostWidgetState
                                             .uploadedLocalFiles3
                                             .toList()
                                             .cast<FFUploadedFile>();
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
                                     },
                                     child: Container(
@@ -4246,13 +4264,8 @@ class _ViewOrEditCampaignPostWidgetState
                                         context: context,
                                         builder: (context) {
                                           return GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
+                                            onTap: () => FocusScope.of(context)
+                                                .unfocus(),
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
@@ -4282,7 +4295,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                               .toList()
                                                               .cast<
                                                                   FFUploadedFile>();
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                   },
                                                   documentAction:
@@ -4294,7 +4307,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                     _model.uploadedDoc = docURL;
                                                     _model.uploadedDocTitle =
                                                         docTitle;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                   saveAction: () async {
                                                     logFirebaseEvent(
@@ -4350,7 +4363,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                         option4;
                                                     _model.pollDuration =
                                                         duration;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                 ),
                                               ),
@@ -4416,7 +4429,7 @@ class _ViewOrEditCampaignPostWidgetState
                                         logFirebaseEvent(
                                             'Container_update_page_state');
                                         _model.datePickerVisbile = false;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,
@@ -4613,7 +4626,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                     'Container_update_page_state');
                                                 _model.scheduledDate =
                                                     _model.datePicked1;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               child: Container(
                                                 width: double.infinity,
@@ -4642,7 +4655,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                     children: [
                                                       Text(
                                                         dateTimeFormat(
-                                                            'yMMMd',
+                                                            "yMMMd",
                                                             _model
                                                                 .scheduledDate),
                                                         style:
@@ -4796,7 +4809,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                     'Container_update_page_state');
                                                 _model.scheduledTime =
                                                     _model.datePicked2;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               child: Container(
                                                 width: double.infinity,
@@ -4825,7 +4838,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                     children: [
                                                       Text(
                                                         dateTimeFormat(
-                                                            'jm',
+                                                            "jm",
                                                             _model
                                                                 .scheduledTime),
                                                         style:
@@ -4911,7 +4924,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                   _model.isScheduled = true;
                                                   _model.datePickerVisbile =
                                                       false;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 },
                                                 text: 'Next',
                                                 options: FFButtonOptions(
@@ -4989,7 +5002,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                             false;
                                                         _model.datePickerVisbile =
                                                             false;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                         logFirebaseEvent(
                                                             'Button_backend_call');
                                                         await _model
@@ -5084,7 +5097,7 @@ class _ViewOrEditCampaignPostWidgetState
                                                             'Button_update_page_state');
                                                         _model.datePickerVisbile =
                                                             false;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       text: 'Next',
                                                       options: FFButtonOptions(

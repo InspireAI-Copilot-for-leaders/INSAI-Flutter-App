@@ -65,7 +65,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -332,7 +332,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                         multiFile: false,
                       );
                       if (selectedFiles != null) {
-                        setState(() => _model.isDataUploading = true);
+                        safeSetState(() => _model.isDataUploading = true);
                         var selectedUploadedFiles = <FFUploadedFile>[];
 
                         try {
@@ -353,7 +353,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                         }
                         if (selectedUploadedFiles.length ==
                             selectedFiles.length) {
-                          setState(() {
+                          safeSetState(() {
                             _model.uploadedLocalFile =
                                 selectedUploadedFiles.first;
                           });
@@ -362,7 +362,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                             'Success!',
                           );
                         } else {
-                          setState(() {});
+                          safeSetState(() {});
                           showUploadMessage(
                             context,
                             'Failed to upload file',
@@ -424,7 +424,7 @@ class _UploadDocWidgetState extends State<UploadDocWidget>
                             logFirebaseEvent(
                                 'Container_update_component_state');
                             _model.fileUploaded = false;
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           child: Container(
                             width: 24.0,

@@ -21,14 +21,6 @@ class FFAppState extends ChangeNotifier {
   Future initializePersistedState() async {
     secureStorage = const FlutterSecureStorage();
     await _safeInitAsync(() async {
-      _onesignalappid =
-          await secureStorage.getString('ff_onesignalappid') ?? _onesignalappid;
-    });
-    await _safeInitAsync(() async {
-      _apifytoken =
-          await secureStorage.getString('ff_apifytoken') ?? _apifytoken;
-    });
-    await _safeInitAsync(() async {
       _notificationPopupVisible =
           await secureStorage.getBool('ff_notificationPopupVisible') ??
               _notificationPopupVisible;
@@ -93,28 +85,6 @@ class FFAppState extends ChangeNotifier {
   bool get storyVisible => _storyVisible;
   set storyVisible(bool value) {
     _storyVisible = value;
-  }
-
-  String _onesignalappid = '81645fb1-17aa-4ebc-908f-5ccc07499ec5';
-  String get onesignalappid => _onesignalappid;
-  set onesignalappid(String value) {
-    _onesignalappid = value;
-    secureStorage.setString('ff_onesignalappid', value);
-  }
-
-  void deleteOnesignalappid() {
-    secureStorage.delete(key: 'ff_onesignalappid');
-  }
-
-  String _apifytoken = 'apify_api_yJdWtJercdZZdUUWDXlgDvniyTzSdI0lWKBg';
-  String get apifytoken => _apifytoken;
-  set apifytoken(String value) {
-    _apifytoken = value;
-    secureStorage.setString('ff_apifytoken', value);
-  }
-
-  void deleteApifytoken() {
-    secureStorage.delete(key: 'ff_apifytoken');
   }
 
   bool _notificationPopupVisible = true;

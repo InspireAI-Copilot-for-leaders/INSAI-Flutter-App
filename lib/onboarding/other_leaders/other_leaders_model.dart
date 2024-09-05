@@ -24,7 +24,6 @@ class OtherLeadersModel extends FlutterFlowModel<OtherLeadersWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for contentURL2 widget.
   FocusNode? contentURL2FocusNode;
   TextEditingController? contentURL2TextController;
@@ -39,7 +38,6 @@ class OtherLeadersModel extends FlutterFlowModel<OtherLeadersWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     contentURL2FocusNode?.dispose();
     contentURL2TextController?.dispose();
 

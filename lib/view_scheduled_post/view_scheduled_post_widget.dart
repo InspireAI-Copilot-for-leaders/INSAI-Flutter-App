@@ -51,20 +51,20 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
       _model.typeOfMediaUploaded = widget.postDocument!.postType;
       _model.scheduledTime = widget.postDocument?.timestamp;
       _model.scheduledDate = widget.postDocument?.timestamp;
-      setState(() {});
+      safeSetState(() {});
       if ((widget.postDocument?.postType == 'singleImage') ||
           (widget.postDocument?.postType == 'multiImage')) {
         logFirebaseEvent('viewScheduledPost_update_page_state');
         _model.numberOfImagesUploaded = widget.postDocument!.imageUrns.length;
         _model.uploadedMedia =
             widget.postDocument!.firebaseImgUrls.toList().cast<String>();
-        setState(() {});
+        safeSetState(() {});
       } else {
         if (widget.postDocument?.postType == 'doc') {
           logFirebaseEvent('viewScheduledPost_update_page_state');
           _model.uploadedDocTitle = widget.postDocument?.mediaTitle;
           _model.uploadedDoc = widget.postDocument?.docFirebaseUrl;
-          setState(() {});
+          safeSetState(() {});
         } else {
           if (widget.postDocument?.postType == 'poll') {
             logFirebaseEvent('viewScheduledPost_update_page_state');
@@ -78,7 +78,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                 widget.postDocument!.optionsJson, 2);
             _model.pollOption4 = functions.getValueFromJson(
                 widget.postDocument!.optionsJson, 3);
-            setState(() {});
+            safeSetState(() {});
           }
         }
       }
@@ -115,7 +115,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -128,9 +128,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -338,7 +336,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                         ),
                                         Flexible(
                                           child: Text(
-                                            'Posting on ${dateTimeFormat('yMMMd', widget.postDocument?.timestamp)} at ${dateTimeFormat('jm', widget.postDocument?.timestamp)}.',
+                                            'Posting on ${dateTimeFormat("yMMMd", widget.postDocument?.timestamp)} at ${dateTimeFormat("jm", widget.postDocument?.timestamp)}.',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -369,7 +367,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                               logFirebaseEvent(
                                                   'Text_update_page_state');
                                               _model.datePickerVisbile = true;
-                                              setState(() {});
+                                              safeSetState(() {});
                                               logFirebaseEvent(
                                                   'Text_wait__delay');
                                               await Future.delayed(
@@ -423,7 +421,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.textController1',
                                         const Duration(milliseconds: 2000),
-                                        () => setState(() {}),
+                                        () => safeSetState(() {}),
                                       ),
                                       autofocus: false,
                                       textCapitalization:
@@ -1755,7 +1753,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                       logFirebaseEvent(
                                           'Container_update_page_state');
                                       _model.datePickerVisbile = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -1948,7 +1946,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   'Container_update_page_state');
                                               _model.scheduledDate =
                                                   _model.datePicked1;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -1975,7 +1973,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      dateTimeFormat('yMMMd',
+                                                      dateTimeFormat("yMMMd",
                                                           _model.scheduledDate),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -2126,7 +2124,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                   'Container_update_page_state');
                                               _model.scheduledTime =
                                                   _model.datePicked2;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -2153,7 +2151,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      dateTimeFormat('jm',
+                                                      dateTimeFormat("jm",
                                                           _model.scheduledTime),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -2234,7 +2232,7 @@ class _ViewScheduledPostWidgetState extends State<ViewScheduledPostWidget>
                                                 _model.datePickerVisbile =
                                                     false;
                                                 _model.reschedule = true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               text: 'Next',
                                               options: FFButtonOptions(

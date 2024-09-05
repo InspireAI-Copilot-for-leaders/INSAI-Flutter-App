@@ -34,7 +34,7 @@ class _NewsLoadingScreenWidgetState extends State<NewsLoadingScreenWidget> {
     super.initState();
     _model = createModel(context, () => NewsLoadingScreenModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

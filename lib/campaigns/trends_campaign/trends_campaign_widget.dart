@@ -37,7 +37,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
     _model.textController ??= TextEditingController(text: 'My Trends Campaign');
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -50,9 +50,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -369,7 +367,8 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                                   'Container_update_page_state');
                                                               _model.selectedCompanyIndex =
                                                                   broadDomainsIndex;
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             },
                                                             child: Material(
                                                               color: Colors
@@ -492,8 +491,9 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                 '1 week',
                                                 '2 weeks'
                                               ],
-                                              onChanged: (val) => setState(() =>
-                                                  _model.dropDownValue1 = val),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue1 =
+                                                      val),
                                               width: 286.0,
                                               height: 50.0,
                                               textStyle:
@@ -569,8 +569,9 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                                 'Twice per week',
                                                 '3 times a week'
                                               ],
-                                              onChanged: (val) => setState(() =>
-                                                  _model.dropDownValue2 = val),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue2 =
+                                                      val),
                                               width: 286.0,
                                               height: 50.0,
                                               textStyle:
@@ -666,7 +667,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                         .toList() ??
                                     [])[_model.selectedCompanyIndex],
                                 campaignId:
-                                    '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                    '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                 noOfPosts: (_model.dropDownValue1!) *
                                     (_model.dropDownValue2!),
                               );
@@ -680,7 +681,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                 await campaignsDetailsRecordReference1
                                     .set(createCampaignsDetailsRecordData(
                                   campaignId:
-                                      '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                   createdOn: getCurrentTimestamp,
                                   campaignTitle: _model.textController.text,
                                 ));
@@ -688,7 +689,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                     CampaignsDetailsRecord.getDocumentFromData(
                                         createCampaignsDetailsRecordData(
                                           campaignId:
-                                              '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                              '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                           createdOn: getCurrentTimestamp,
                                           campaignTitle:
                                               _model.textController.text,
@@ -706,7 +707,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                 });
                                 logFirebaseEvent('Button_update_page_state');
                                 _model.loadingScreenVisible = true;
-                                setState(() {});
+                                safeSetState(() {});
                                 logFirebaseEvent('Button_wait__delay');
                                 await Future.delayed(
                                     const Duration(milliseconds: 4000));
@@ -771,7 +772,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                           .toList() ??
                                       [])[_model.selectedCompanyIndex],
                                   campaignId:
-                                      '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                   noOfPosts: (_model.dropDownValue1!) *
                                       (_model.dropDownValue2!),
                                 );
@@ -785,7 +786,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                   await campaignsDetailsRecordReference2
                                       .set(createCampaignsDetailsRecordData(
                                     campaignId:
-                                        '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                     createdOn: getCurrentTimestamp,
                                     campaignTitle: _model.textController.text,
                                   ));
@@ -793,7 +794,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                       .getDocumentFromData(
                                           createCampaignsDetailsRecordData(
                                             campaignId:
-                                                '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                             createdOn: getCurrentTimestamp,
                                             campaignTitle:
                                                 _model.textController.text,
@@ -811,7 +812,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                                   });
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.loadingScreenVisible = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   logFirebaseEvent('Button_wait__delay');
                                   await Future.delayed(
                                       const Duration(milliseconds: 4000));
@@ -842,7 +843,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
                             }
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: 'Do the InspireAI magic',
                         options: FFButtonOptions(
@@ -881,7 +882,7 @@ class _TrendsCampaignWidgetState extends State<TrendsCampaignWidget> {
               if (_model.loadingScreenVisible == true)
                 wrapWithModel(
                   model: _model.loadingScreenModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingScreenWidget(
                     loadingText:
                         'Configuring your campaign. Will take around 2-3 minutes. You can leave this page...',

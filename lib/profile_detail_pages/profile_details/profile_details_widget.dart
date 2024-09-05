@@ -26,7 +26,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'ProfileDetails'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -39,9 +39,7 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,

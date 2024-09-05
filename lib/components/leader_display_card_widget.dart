@@ -41,7 +41,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
     super.initState();
     _model = createModel(context, () => LeaderDisplayCardModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -62,7 +62,7 @@ class _LeaderDisplayCardWidgetState extends State<LeaderDisplayCardWidget> {
         logFirebaseEvent('LEADER_DISPLAY_CARD_Container_t593micf_O');
         logFirebaseEvent('Container_update_component_state');
         _model.isSelected = !_model.isSelected;
-        setState(() {});
+        safeSetState(() {});
         logFirebaseEvent('Container_execute_callback');
         await widget.addToPageStateAction?.call();
       },

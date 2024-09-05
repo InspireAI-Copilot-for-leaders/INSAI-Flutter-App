@@ -11,7 +11,6 @@ class PayWallModel extends FlutterFlowModel<PayWallWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [RevenueCat - Purchase] action in Button widget.
   bool? yearlySubs;
   // Stores action output result for [RevenueCat - Purchase] action in Button widget.
@@ -21,7 +20,5 @@ class PayWallModel extends FlutterFlowModel<PayWallWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

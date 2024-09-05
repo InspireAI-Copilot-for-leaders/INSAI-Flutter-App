@@ -61,7 +61,6 @@ class ViewOrEditPostModel extends FlutterFlowModel<ViewOrEditPostWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (postOnlyText)] action in onlyTextButton widget.
   ApiCallResponse? linkedinPost;
   bool isDataUploading1 = false;
@@ -125,7 +124,6 @@ class ViewOrEditPostModel extends FlutterFlowModel<ViewOrEditPostWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }

@@ -487,6 +487,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'socialAccounts',
               requireAuth: true,
               builder: (context, params) => const SocialAccountsWidget(),
+            ),
+            FFRoute(
+              name: 'chat_ai_Screen',
+              path: 'chatAiScreen',
+              builder: (context, params) => const ChatAiScreenWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

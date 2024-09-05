@@ -43,7 +43,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
+        safeSetState(() {
           _isKeyboardVisible = visible;
         });
       });
@@ -55,7 +55,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -93,9 +93,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
             snapshot.data!;
 
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: WillPopScope(
             onWillPop: () async => false,
             child: Scaffold(
@@ -557,7 +555,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                   logFirebaseEvent('EXPERTISE_AREA_EDIT_Container_vfwsle37_O');
                                                                                   logFirebaseEvent('Container_update_page_state');
                                                                                   _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                   logFirebaseEvent('Container_update_page_state');
                                                                                   _model.updateLeadershipAreasMappingAtIndex(
                                                                                     thoughtLeadershipAreasIndex,
@@ -566,7 +564,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                         (e) => e.remove(expertiseAreaItem),
                                                                                       ),
                                                                                   );
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                   logFirebaseEvent('Container_backend_call');
 
                                                                                   await currentUserReference!.update({
@@ -791,7 +789,8 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                               _model.algoliaSearchResults =
                                                                   [])
                                                           .whenComplete(() =>
-                                                              setState(() {}));
+                                                              safeSetState(
+                                                                  () {}));
 
                                                       if (_model.algoliaSearchResults !=
                                                               null &&
@@ -801,7 +800,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                             'contentURL1_update_page_state');
                                                         _model.emptySearch =
                                                             false;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       } else {
                                                         logFirebaseEvent(
                                                             'contentURL1_wait__delay');
@@ -813,14 +812,14 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                             'contentURL1_update_page_state');
                                                         _model.emptySearch =
                                                             true;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
                                                     } else {
                                                       logFirebaseEvent(
                                                           'contentURL1_update_page_state');
                                                       _model.emptySearch =
                                                           false;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                   },
                                                 ),
@@ -1131,7 +1130,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                   if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaNoSearchItem.expertiseArea)) {
                                                                                                     logFirebaseEvent('Container_update_page_state');
                                                                                                     _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                                    setState(() {});
+                                                                                                    safeSetState(() {});
                                                                                                     logFirebaseEvent('Container_update_page_state');
                                                                                                     _model.updateLeadershipAreasMappingAtIndex(
                                                                                                       broadDomainListNoSearchIndex,
@@ -1140,7 +1139,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                           (e) => e.remove(expertiseAreaNoSearchItem.expertiseArea),
                                                                                                         ),
                                                                                                     );
-                                                                                                    setState(() {});
+                                                                                                    safeSetState(() {});
                                                                                                     logFirebaseEvent('Container_backend_call');
 
                                                                                                     await currentUserReference!.update({
@@ -1159,7 +1158,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                     logFirebaseEvent('Container_update_page_state');
                                                                                                     _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
                                                                                                     _model.addToAddExpertiseAreaList(expertiseAreaNoSearchItem.expertiseArea);
-                                                                                                    setState(() {});
+                                                                                                    safeSetState(() {});
                                                                                                     if ((currentUserDocument?.broadDomains.toList() ?? []).contains(broadDomainListNoSearchItem.broadDomain)) {
                                                                                                       logFirebaseEvent('Container_update_page_state');
                                                                                                       _model.updateLeadershipAreasMappingAtIndex(
@@ -1169,7 +1168,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                             (e) => e.add(expertiseAreaNoSearchItem.expertiseArea),
                                                                                                           ),
                                                                                                       );
-                                                                                                      setState(() {});
+                                                                                                      safeSetState(() {});
                                                                                                       logFirebaseEvent('Container_backend_call');
 
                                                                                                       await currentUserReference!.update({
@@ -1190,7 +1189,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                         category: broadDomainListNoSearchItem.broadDomain,
                                                                                                         subCategories: _model.addExpertiseAreaList,
                                                                                                       ));
-                                                                                                      setState(() {});
+                                                                                                      safeSetState(() {});
                                                                                                       logFirebaseEvent('Container_backend_call');
 
                                                                                                       await currentUserReference!.update({
@@ -1212,7 +1211,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
 
                                                                                                     logFirebaseEvent('Container_update_page_state');
                                                                                                     _model.addExpertiseAreaList = [];
-                                                                                                    setState(() {});
+                                                                                                    safeSetState(() {});
                                                                                                   }
                                                                                                 },
                                                                                                 child: Container(
@@ -1339,11 +1338,11 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                   listViewBroadDomainRecordList =
                                                                   snapshot
                                                                       .data!;
-
                                                               if (listViewBroadDomainRecordList
                                                                   .isEmpty) {
                                                                 return const EmptyStateWidget();
                                                               }
+
                                                               return ListView
                                                                   .separated(
                                                                 padding:
@@ -1511,7 +1510,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                               if ((currentUserDocument?.thoughtLeadershipAreas.toList() ?? []).contains(expertiseAreaSearchItem.expertiseArea)) {
                                                                                                 logFirebaseEvent('Container_update_page_state');
                                                                                                 _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
-                                                                                                setState(() {});
+                                                                                                safeSetState(() {});
                                                                                                 logFirebaseEvent('Container_update_page_state');
                                                                                                 _model.updateLeadershipAreasMappingAtIndex(
                                                                                                   listViewIndex,
@@ -1520,7 +1519,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                       (e) => e.remove(expertiseAreaSearchItem.expertiseArea),
                                                                                                     ),
                                                                                                 );
-                                                                                                setState(() {});
+                                                                                                safeSetState(() {});
                                                                                                 logFirebaseEvent('Container_backend_call');
 
                                                                                                 await currentUserReference!.update({
@@ -1539,7 +1538,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                 logFirebaseEvent('Container_update_page_state');
                                                                                                 _model.leadershipAreasMapping = (currentUserDocument?.thoughtLeadershipAreasMapping.toList() ?? []).toList().cast<ThoughtLeadershipAreasMappingStruct>();
                                                                                                 _model.addToAddExpertiseAreaList(expertiseAreaSearchItem.expertiseArea);
-                                                                                                setState(() {});
+                                                                                                safeSetState(() {});
                                                                                                 if ((currentUserDocument?.broadDomains.toList() ?? []).contains(listViewBroadDomainRecord.broadDomain)) {
                                                                                                   logFirebaseEvent('Container_update_page_state');
                                                                                                   _model.updateLeadershipAreasMappingAtIndex(
@@ -1549,7 +1548,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                         (e) => e.add(expertiseAreaSearchItem.expertiseArea),
                                                                                                       ),
                                                                                                   );
-                                                                                                  setState(() {});
+                                                                                                  safeSetState(() {});
                                                                                                   logFirebaseEvent('Container_backend_call');
 
                                                                                                   await currentUserReference!.update({
@@ -1570,7 +1569,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                                                                     category: listViewBroadDomainRecord.broadDomain,
                                                                                                     subCategories: _model.addExpertiseAreaList,
                                                                                                   ));
-                                                                                                  setState(() {});
+                                                                                                  safeSetState(() {});
                                                                                                   logFirebaseEvent('Container_backend_call');
 
                                                                                                   await currentUserReference!.update({
@@ -1592,7 +1591,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
 
                                                                                                 logFirebaseEvent('Container_update_page_state');
                                                                                                 _model.addExpertiseAreaList = [];
-                                                                                                setState(() {});
+                                                                                                safeSetState(() {});
                                                                                               }
                                                                                             },
                                                                                             child: Container(
@@ -1685,7 +1684,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                         model: _model
                                                             .emptyStateModel,
                                                         updateCallback: () =>
-                                                            setState(() {}),
+                                                            safeSetState(() {}),
                                                         child: const EmptyStateWidget(
                                                           loadingText:
                                                               'Cant find what you\'re looking for?',
@@ -1698,12 +1697,12 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                         child: FFButtonWidget(
                                                           onPressed: () async {
                                                             logFirebaseEvent(
-                                                                'EXPERTISE_AREA_EDIT_+_ADD_NEW_BTN_ON_TAP');
+                                                                'EXPERTISE_AREA_EDIT__ADD_NEW_BTN_ON_TAP');
                                                             logFirebaseEvent(
                                                                 'Button_update_page_state');
                                                             _model.addNewArea =
                                                                 true;
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           },
                                                           text: '+ Add New',
                                                           options:
@@ -1942,9 +1941,9 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                         .map((e) =>
                                                             e.broadDomain)
                                                         .toList(),
-                                                onChanged: (val) => setState(
-                                                    () => _model.dropDownValue =
-                                                        val),
+                                                onChanged: (val) =>
+                                                    safeSetState(() => _model
+                                                        .dropDownValue = val),
                                                 width: 300.0,
                                                 height: 56.0,
                                                 textStyle:
@@ -2162,7 +2161,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                       .addToAddExpertiseAreaList(
                                                           _model.textController2
                                                               .text);
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                   if ((currentUserDocument
                                                               ?.broadDomains
                                                               .toList() ??
@@ -2188,7 +2187,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                               .text),
                                                         ),
                                                     );
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     logFirebaseEvent(
                                                         'Button_backend_call');
 
@@ -2221,7 +2220,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                       subCategories: _model
                                                           .addExpertiseAreaList,
                                                     ));
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     logFirebaseEvent(
                                                         'Button_backend_call');
 
@@ -2256,10 +2255,10 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                   _model.addNewArea = false;
                                                   _model.addExpertiseAreaList =
                                                       [];
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                   logFirebaseEvent(
                                                       'Button_clear_text_fields_pin_codes');
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model.textController2
                                                         ?.clear();
                                                   });
@@ -2326,7 +2325,7 @@ class _ExpertiseAreaEditWidgetState extends State<ExpertiseAreaEditWidget> {
                                                   logFirebaseEvent(
                                                       'Button_update_page_state');
                                                   _model.addNewArea = false;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 },
                                                 text: 'Cancel',
                                                 options: FFButtonOptions(

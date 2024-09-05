@@ -32,7 +32,7 @@ class _GlowingButtonWidgetState extends State<GlowingButtonWidget> {
     super.initState();
     _model = createModel(context, () => GlowingButtonModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -117,7 +117,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
           }
           logFirebaseEvent('linkedinAuth_update_page_state');
           _model.isLoading = false;
-          setState(() {});
+          safeSetState(() {});
         } else {
           logFirebaseEvent('linkedinAuth_navigate_to');
 
@@ -146,7 +146,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -159,9 +159,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -380,7 +378,7 @@ class _LinkedinAuthWidgetState extends State<LinkedinAuthWidget> {
                   if (_model.isLoading ? true : false)
                     wrapWithModel(
                       model: _model.profileLoadingScreenModel,
-                      updateCallback: () => setState(() {}),
+                      updateCallback: () => safeSetState(() {}),
                       child: const ProfileLoadingScreenWidget(
                         loadingText:
                             'Connecting your profile. This usually takes a minute. Hang Tight...',

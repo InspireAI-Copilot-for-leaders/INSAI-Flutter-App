@@ -82,7 +82,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -95,9 +95,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -157,15 +155,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 Directionality.of(
                                                                     context)),
                                                     child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
+                                                      onTap: () =>
+                                                          FocusScope.of(
+                                                                  dialogContext)
                                                               .unfocus(),
                                                       child: ExitDialogWidget(
                                                         saveAction: () async {
@@ -221,8 +213,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              );
                                             } else {
                                               logFirebaseEvent(
                                                   'Icon_navigate_back');
@@ -326,7 +317,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             logFirebaseEvent(
                                                 'Icon_update_page_state');
                                             _model.datePickerVisbile = true;
-                                            setState(() {});
+                                            safeSetState(() {});
                                             logFirebaseEvent(
                                                 'Icon_wait__delay');
                                             await Future.delayed(const Duration(
@@ -349,7 +340,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                             _model.scheduledDate =
                                                 getCurrentTimestamp;
                                             _model.datePickerVisbile = true;
-                                            setState(() {});
+                                            safeSetState(() {});
                                             logFirebaseEvent(
                                                 'Icon_wait__delay');
                                             await Future.delayed(const Duration(
@@ -577,7 +568,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 }
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'Post',
                                             options: FFButtonOptions(
@@ -631,7 +622,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   logFirebaseEvent(
                                                       'docButton_upload_file_to_firebase');
                                                   {
-                                                    setState(() => _model
+                                                    safeSetState(() => _model
                                                             .isDataUploading1 =
                                                         true);
                                                     var selectedUploadedFiles =
@@ -679,7 +670,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         downloadUrls.length ==
                                                             selectedFiles
                                                                 .length) {
-                                                      setState(() {
+                                                      safeSetState(() {
                                                         _model.uploadedLocalFile1 =
                                                             selectedUploadedFiles
                                                                 .first;
@@ -687,7 +678,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                             downloadUrls.first;
                                                       });
                                                     } else {
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                       return;
                                                     }
                                                   }
@@ -895,7 +886,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         },
                                                       );
                                                       if (shouldSetState) {
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
                                                       return;
                                                     }
@@ -923,7 +914,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       },
                                                     );
                                                     if (shouldSetState) {
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                     return;
                                                   }
@@ -973,7 +964,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               }
 
                                               if (shouldSetState) {
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             },
                                             text: 'Post',
@@ -1028,7 +1019,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 logFirebaseEvent(
                                                     'imageButton_upload_media_to_firebase');
                                                 {
-                                                  setState(() => _model
+                                                  safeSetState(() => _model
                                                       .isDataUploading2 = true);
                                                   var selectedUploadedFiles =
                                                       <FFUploadedFile>[];
@@ -1066,14 +1057,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       downloadUrls.length ==
                                                           selectedMedia
                                                               .length) {
-                                                    setState(() {
+                                                    safeSetState(() {
                                                       _model.uploadedLocalFiles2 =
                                                           selectedUploadedFiles;
                                                       _model.uploadedFileUrls2 =
                                                           downloadUrls;
                                                     });
                                                   } else {
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     return;
                                                   }
                                                 }
@@ -1167,7 +1158,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         _model.noOfImagesUploadedToFirebase =
                                                             _model.noOfImagesUploadedToFirebase +
                                                                 1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       } else {
                                                         logFirebaseEvent(
                                                             'imageButton_backend_call');
@@ -1231,7 +1222,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         _model.noOfImagesUploadedToFirebase =
                                                             _model.noOfImagesUploadedToFirebase +
                                                                 1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
                                                     } else {
                                                       logFirebaseEvent(
@@ -1258,7 +1249,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         },
                                                       );
                                                       if (shouldSetState) {
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
                                                       return;
                                                     }
@@ -1286,7 +1277,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       },
                                                     );
                                                     if (shouldSetState) {
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                     return;
                                                   }
@@ -1529,7 +1520,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               }
 
                                               if (shouldSetState) {
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             },
                                             text: 'Post',
@@ -1584,14 +1575,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         'pollButton_update_page_state');
                                                     _model.addToPollOptionsList(
                                                         _model.pollOption1!);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }),
                                                   Future(() async {
                                                     logFirebaseEvent(
                                                         'pollButton_update_page_state');
                                                     _model.addToPollOptionsList(
                                                         _model.pollOption2!);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }),
                                                   Future(() async {
                                                     if (_model.pollOption3 !=
@@ -1604,7 +1595,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           .addToPollOptionsList(
                                                               _model
                                                                   .pollOption3!);
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                   }),
                                                   Future(() async {
@@ -1618,7 +1609,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           .addToPollOptionsList(
                                                               _model
                                                                   .pollOption4!);
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                   }),
                                                 ]);
@@ -1791,7 +1782,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 }
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'Post',
                                             options: FFButtonOptions(
@@ -1951,7 +1942,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 logFirebaseEvent(
                                                     'scheduleDoc_upload_file_to_firebase');
                                                 {
-                                                  setState(() => _model
+                                                  safeSetState(() => _model
                                                       .isDataUploading3 = true);
                                                   var selectedUploadedFiles =
                                                       <FFUploadedFile>[];
@@ -1996,7 +1987,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       downloadUrls.length ==
                                                           selectedFiles
                                                               .length) {
-                                                    setState(() {
+                                                    safeSetState(() {
                                                       _model.uploadedLocalFile3 =
                                                           selectedUploadedFiles
                                                               .first;
@@ -2004,7 +1995,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           downloadUrls.first;
                                                     });
                                                   } else {
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     return;
                                                   }
                                                 }
@@ -2180,7 +2171,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 }
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'Schedule',
                                             options: FFButtonOptions(
@@ -2231,14 +2222,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       'schedulePoll_update_page_state');
                                                   _model.addToPollOptionsList(
                                                       _model.pollOption1!);
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }),
                                                 Future(() async {
                                                   logFirebaseEvent(
                                                       'schedulePoll_update_page_state');
                                                   _model.addToPollOptionsList(
                                                       _model.pollOption2!);
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }),
                                                 Future(() async {
                                                   if (_model.pollOption3 !=
@@ -2249,7 +2240,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         'schedulePoll_update_page_state');
                                                     _model.addToPollOptionsList(
                                                         _model.pollOption3!);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                 }),
                                                 Future(() async {
@@ -2261,7 +2252,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         'schedulePoll_update_page_state');
                                                     _model.addToPollOptionsList(
                                                         _model.pollOption4!);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                 }),
                                               ]);
@@ -2392,7 +2383,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               logFirebaseEvent(
                                                   'scheduleImage_upload_media_to_firebase');
                                               {
-                                                setState(() => _model
+                                                safeSetState(() => _model
                                                     .isDataUploading4 = true);
                                                 var selectedUploadedFiles =
                                                     <FFUploadedFile>[];
@@ -2429,14 +2420,14 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         selectedMedia.length &&
                                                     downloadUrls.length ==
                                                         selectedMedia.length) {
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model.uploadedLocalFiles4 =
                                                         selectedUploadedFiles;
                                                     _model.uploadedFileUrls4 =
                                                         downloadUrls;
                                                   });
                                                 } else {
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                   return;
                                                 }
                                               }
@@ -2537,7 +2528,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       _model.noOfImagesUploadedToFirebase =
                                                           _model.noOfImagesUploadedToFirebase +
                                                               1;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     } else {
                                                       logFirebaseEvent(
                                                           'scheduleImage_backend_call');
@@ -2609,7 +2600,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       _model.noOfImagesUploadedToFirebase =
                                                           _model.noOfImagesUploadedToFirebase +
                                                               1;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                   } else {
                                                     logFirebaseEvent(
@@ -2635,7 +2626,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       },
                                                     );
                                                     if (shouldSetState) {
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                     return;
                                                   }
@@ -2662,7 +2653,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                     },
                                                   );
                                                   if (shouldSetState) {
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                   return;
                                                 }
@@ -2819,7 +2810,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               }
 
                                               if (shouldSetState) {
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             },
                                             text: 'Schedule',
@@ -2917,7 +2908,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               ),
                                               Flexible(
                                                 child: Text(
-                                                  'Posting on ${dateTimeFormat('MMMEd', _model.scheduledDate)} at ${dateTimeFormat('jm', _model.scheduledTime)}.',
+                                                  'Posting on ${dateTimeFormat("MMMEd", _model.scheduledDate)} at ${dateTimeFormat("jm", _model.scheduledTime)}.',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -2955,7 +2946,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         'Text_update_page_state');
                                                     _model.datePickerVisbile =
                                                         true;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     logFirebaseEvent(
                                                         'Text_wait__delay');
                                                     await Future.delayed(
@@ -3036,16 +3027,9 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                     Directionality.of(
                                                                         context)),
                                                         child: GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
+                                                          onTap: () =>
+                                                              FocusScope.of(
+                                                                      dialogContext)
                                                                   .unfocus(),
                                                           child:
                                                               ExitDialogWidget(
@@ -3105,8 +3089,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                         ),
                                                       );
                                                     },
-                                                  ).then((value) =>
-                                                      setState(() {}));
+                                                  );
                                                 } else {
                                                   logFirebaseEvent(
                                                       'BackButtonOverrider_navigate_back');
@@ -3134,7 +3117,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                               EasyDebounce.debounce(
                                             '_model.textController',
                                             const Duration(milliseconds: 2000),
-                                            () => setState(() {}),
+                                            () => safeSetState(() {}),
                                           ),
                                           autofocus: false,
                                           textCapitalization:
@@ -3248,10 +3231,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 0;
                                                             _model.uploadedMedia =
                                                                 [];
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
-                                                            setState(() {
+                                                            safeSetState(() {
                                                               _model.isDataUploading5 =
                                                                   false;
                                                               _model.uploadedLocalFiles5 =
@@ -3404,10 +3387,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 0;
                                                             _model.uploadedMedia =
                                                                 [];
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
-                                                            setState(() {
+                                                            safeSetState(() {
                                                               _model.isDataUploading5 =
                                                                   false;
                                                               _model.uploadedLocalFiles5 =
@@ -3596,10 +3579,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 0;
                                                             _model.uploadedMedia =
                                                                 [];
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
-                                                            setState(() {
+                                                            safeSetState(() {
                                                               _model.isDataUploading5 =
                                                                   false;
                                                               _model.uploadedLocalFiles5 =
@@ -3813,10 +3796,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 0;
                                                             _model.uploadedMedia =
                                                                 [];
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
-                                                            setState(() {
+                                                            safeSetState(() {
                                                               _model.isDataUploading5 =
                                                                   false;
                                                               _model.uploadedLocalFiles5 =
@@ -4072,10 +4055,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 0;
                                                             _model.uploadedMedia =
                                                                 [];
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
-                                                            setState(() {
+                                                            safeSetState(() {
                                                               _model.isDataUploading5 =
                                                                   false;
                                                               _model.uploadedLocalFiles5 =
@@ -4373,10 +4356,10 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                                 0;
                                                             _model.uploadedMedia =
                                                                 [];
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                             logFirebaseEvent(
                                                                 'Container_clear_uploaded_data');
-                                                            setState(() {
+                                                            safeSetState(() {
                                                               _model.isDataUploading5 =
                                                                   false;
                                                               _model.uploadedLocalFiles5 =
@@ -4487,7 +4470,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       _model.uploadedDoc = null;
                                                       _model.uploadedDocTitle =
                                                           null;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     child: Container(
                                                       width: 24.0,
@@ -4889,7 +4872,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                       _model.numberOfImagesUploaded =
                                                           0;
                                                       _model.uploadedMedia = [];
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     child: Container(
                                                       width: 24.0,
@@ -4950,7 +4933,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       selectedMedia.every((m) =>
                                           validateFileFormat(
                                               m.storagePath, context))) {
-                                    setState(
+                                    safeSetState(
                                         () => _model.isDataUploading5 = true);
                                     var selectedUploadedFiles =
                                         <FFUploadedFile>[];
@@ -4979,13 +4962,13 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                     }
                                     if (selectedUploadedFiles.length ==
                                         selectedMedia.length) {
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.uploadedLocalFiles5 =
                                             selectedUploadedFiles;
                                       });
                                       showUploadMessage(context, 'Success!');
                                     } else {
-                                      setState(() {});
+                                      safeSetState(() {});
                                       showUploadMessage(
                                           context, 'Failed to upload data');
                                       return;
@@ -5005,7 +4988,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                         .uploadedLocalFiles5
                                         .toList()
                                         .cast<FFUploadedFile>();
-                                    setState(() {});
+                                    safeSetState(() {});
                                   }
                                 },
                                 child: Container(
@@ -5040,12 +5023,8 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                     context: context,
                                     builder: (context) {
                                       return GestureDetector(
-                                        onTap: () => _model
-                                                .unfocusNode.canRequestFocus
-                                            ? FocusScope.of(context)
-                                                .requestFocus(
-                                                    _model.unfocusNode)
-                                            : FocusScope.of(context).unfocus(),
+                                        onTap: () =>
+                                            FocusScope.of(context).unfocus(),
                                         child: Padding(
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
@@ -5072,7 +5051,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           .toList()
                                                           .cast<
                                                               FFUploadedFile>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
                                               },
                                               documentAction:
@@ -5084,7 +5063,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 _model.uploadedDoc = docURL;
                                                 _model.uploadedDocTitle =
                                                     docTitle;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               saveAction: () async {
                                                 logFirebaseEvent(
@@ -5161,7 +5140,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 _model.pollOption3 = option3;
                                                 _model.pollOption4 = option4;
                                                 _model.pollDuration = duration;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                             ),
                                           ),
@@ -5228,7 +5207,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                       logFirebaseEvent(
                                           'Container_update_page_state');
                                       _model.datePickerVisbile = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -5421,7 +5400,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   'Container_update_page_state');
                                               _model.scheduledDate =
                                                   _model.datePicked1;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -5448,7 +5427,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      dateTimeFormat('yMMMd',
+                                                      dateTimeFormat("yMMMd",
                                                           _model.scheduledDate),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -5599,7 +5578,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                   'Container_update_page_state');
                                               _model.scheduledTime =
                                                   _model.datePicked2;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -5626,7 +5605,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      dateTimeFormat('jm',
+                                                      dateTimeFormat("jm",
                                                           _model.scheduledTime),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -5707,7 +5686,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                 _model.isScheduled = true;
                                                 _model.datePickerVisbile =
                                                     false;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               text: 'Next',
                                               options: FFButtonOptions(
@@ -5783,7 +5762,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           false;
                                                       _model.datePickerVisbile =
                                                           false;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     text: 'Clear',
                                                     options: FFButtonOptions(
@@ -5858,7 +5837,7 @@ class _ViewOrEditPostWidgetState extends State<ViewOrEditPostWidget>
                                                           'Button_update_page_state');
                                                       _model.datePickerVisbile =
                                                           false;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     text: 'Next',
                                                     options: FFButtonOptions(

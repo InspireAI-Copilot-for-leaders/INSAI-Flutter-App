@@ -28,7 +28,7 @@ class _AccessRequestedWidgetState extends State<AccessRequestedWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'accessRequested'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
