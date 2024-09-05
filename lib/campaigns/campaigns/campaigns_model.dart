@@ -12,7 +12,6 @@ class CampaignsModel extends FlutterFlowModel<CampaignsWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Switch widget.
   bool? switchValue;
   // State field(s) for TabBar widget.
@@ -33,7 +32,6 @@ class CampaignsModel extends FlutterFlowModel<CampaignsWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     tabBarController?.dispose();
     emptyStateModel1.dispose();
     emptyStateModel2.dispose();

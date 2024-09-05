@@ -43,7 +43,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
 
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -56,9 +56,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -287,7 +285,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                                 EasyDebounce.debounce(
                                               '_model.textController',
                                               const Duration(milliseconds: 2000),
-                                              () => setState(() {}),
+                                              () => safeSetState(() {}),
                                             ),
                                             autofocus: false,
                                             textCapitalization:
@@ -472,7 +470,7 @@ class _ViewOrEditOneLinerWidgetState extends State<ViewOrEditOneLinerWidget> {
                                                           oneLinersIndex;
                                                       _model.oneLinerText =
                                                           oneLinersItem;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                   );
                                                 },

@@ -43,7 +43,7 @@ class _FreeTrialExpiredWidgetState extends State<FreeTrialExpiredWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -198,6 +198,51 @@ class _FreeTrialExpiredWidgetState extends State<FreeTrialExpiredWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Align(
+                      alignment: const AlignmentDirectional(0.0, 1.0),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'FREE_TRIAL_EXPIRED_GO_BACK_BTN_ON_TAP');
+                            logFirebaseEvent('Button_navigate_back');
+                            context.safePop();
+                          },
+                          text: 'Go Back',
+                          options: FFButtonOptions(
+                            width: 300.0,
+                            height: 50.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyLargeFamily,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .bodyLargeFamily),
+                                ),
+                            elevation: 0.0,
+                            borderSide: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ),
+                      ),
+                    ),
                     Align(
                       alignment: const AlignmentDirectional(0.0, 1.0),
                       child: FFButtonWidget(

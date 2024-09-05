@@ -13,7 +13,6 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Switch widget.
   bool? switchValue;
   // Stores action output result for [Backend Call - API (First degree connections size)] action in Icon widget.
@@ -39,7 +38,6 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     emptyStateModel1.dispose();
     emptyStateModel2.dispose();
     allowNotificationPopupModel.dispose();

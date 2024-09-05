@@ -41,7 +41,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'postDetailed'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -76,9 +76,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
         final postDetailedPostedOnLinkedinRecord = snapshot.data!;
 
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Colors.white,
@@ -242,7 +240,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: Text(
-                                    dateTimeFormat('yMMMd', widget.postedOn),
+                                    dateTimeFormat("yMMMd", widget.postedOn),
                                     style: FlutterFlowTheme.of(context)
                                         .titleLarge
                                         .override(
@@ -325,7 +323,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                               });
                               logFirebaseEvent('Button_update_page_state');
                               _model.infoVisible = true;
-                              setState(() {});
+                              safeSetState(() {});
                             } else {
                               logFirebaseEvent('Button_show_snack_bar');
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -344,10 +342,10 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                               );
                               logFirebaseEvent('Button_update_page_state');
                               _model.infoVisible = true;
-                              setState(() {});
+                              safeSetState(() {});
                             }
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: 'Refresh',
                           options: FFButtonOptions(
@@ -430,7 +428,7 @@ class _PostDetailedWidgetState extends State<PostDetailedWidget> {
                                       logFirebaseEvent(
                                           'Icon_update_page_state');
                                       _model.infoVisible = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Icon(
                                       Icons.close_sharp,

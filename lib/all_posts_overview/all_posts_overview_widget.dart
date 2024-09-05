@@ -277,7 +277,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -292,9 +292,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -443,7 +441,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                 Theme.of(context).brightness ==
                                                     Brightness.dark,
                                             onChanged: (newValue) async {
-                                              setState(() => _model
+                                              safeSetState(() => _model
                                                   .switchValue = newValue);
                                               if (newValue) {
                                                 logFirebaseEvent(
@@ -618,7 +616,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       logFirebaseEvent(
                                           'Container_update_app_state');
                                       FFAppState().drawer = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -666,7 +664,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                       logFirebaseEvent(
                                           'Container_update_app_state');
                                       FFAppState().drawer = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -952,8 +950,8 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                   ChipData('Scheduled'),
                                                   ChipData('Drafts')
                                                 ],
-                                                onChanged: (val) => setState(
-                                                    () => _model
+                                                onChanged: (val) =>
+                                                    safeSetState(() => _model
                                                             .choiceChipsValue =
                                                         val?.firstOrNull),
                                                 selectedChipStyle: ChipStyle(
@@ -1298,7 +1296,6 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     List<CreatedPostsRecord>
                                                         draftsListViewCreatedPostsRecordList =
                                                         snapshot.data!;
-
                                                     if (draftsListViewCreatedPostsRecordList
                                                         .isEmpty) {
                                                       return const EmptyStateWidget(
@@ -1306,6 +1303,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                             'You have not created any content yet! Click the plus icon below to get started.',
                                                       );
                                                     }
+
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
                                                       scrollDirection:
@@ -1569,7 +1567,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                           Flexible(
                                                                             child:
                                                                                 Text(
-                                                                              dateTimeFormat('relative', draftsListViewCreatedPostsRecord.timeStamp!),
+                                                                              dateTimeFormat("relative", draftsListViewCreatedPostsRecord.timeStamp!),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primary,
@@ -1665,7 +1663,6 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     List<PostedOnLinkedinRecord>
                                                         postedListViewPostedOnLinkedinRecordList =
                                                         snapshot.data!;
-
                                                     if (postedListViewPostedOnLinkedinRecordList
                                                         .isEmpty) {
                                                       return const EmptyStateWidget(
@@ -1673,6 +1670,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                             'Nothing here. Create your first post now!',
                                                       );
                                                     }
+
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
                                                       shrinkWrap: true,
@@ -1858,7 +1856,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                           Flexible(
                                                                             child:
                                                                                 Text(
-                                                                              dateTimeFormat('relative', postedListViewPostedOnLinkedinRecord.postedOn!),
+                                                                              dateTimeFormat("relative", postedListViewPostedOnLinkedinRecord.postedOn!),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primary,
@@ -1954,7 +1952,6 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     List<ScheduledPostsRecord>
                                                         scheduledListViewScheduledPostsRecordList =
                                                         snapshot.data!;
-
                                                     if (scheduledListViewScheduledPostsRecordList
                                                         .isEmpty) {
                                                       return const EmptyStateWidget(
@@ -1962,6 +1959,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                             'No scheduled posts!',
                                                       );
                                                     }
+
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
                                                       scrollDirection:
@@ -2174,7 +2172,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                                           Flexible(
                                                                             child:
                                                                                 Text(
-                                                                              'Posting on ${dateTimeFormat('MMMEd', scheduledListViewScheduledPostsRecord.timestamp)} at ${dateTimeFormat('jm', scheduledListViewScheduledPostsRecord.timestamp)}.',
+                                                                              'Posting on ${dateTimeFormat("MMMEd", scheduledListViewScheduledPostsRecord.timestamp)} at ${dateTimeFormat("jm", scheduledListViewScheduledPostsRecord.timestamp)}.',
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primary,
@@ -2420,7 +2418,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                   'MiddleButton_update_page_state');
                                               _model.createContentDialogVisible =
                                                   true;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             } else {
                                               if (valueOrDefault(
                                                       currentUserDocument
@@ -2437,7 +2435,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                                     'MiddleButton_update_page_state');
                                                 _model.createContentDialogVisible =
                                                     true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             }
                                           },
@@ -2576,13 +2574,13 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                           'Badge_update_app_state');
                                       FFAppState().isNotificationsVisible =
                                           false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
                                           'Badge_update_app_state');
                                       FFAppState().isNotificationsVisible =
                                           true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent('Badge_wait__delay');
                                       await Future.delayed(
                                           const Duration(milliseconds: 100));
@@ -2715,7 +2713,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                           wrapWithModel(
                                             model: _model.emptyStateModel,
                                             updateCallback: () =>
-                                                setState(() {}),
+                                                safeSetState(() {}),
                                             child: const EmptyStateWidget(
                                               loadingText:
                                                   'You have no new notifications',
@@ -2834,7 +2832,7 @@ class _AllPostsOverviewWidgetState extends State<AllPostsOverviewWidget>
                                         'ALL_POSTS_OVERVIEW_Icon_prc3bg3d_ON_TAP');
                                     logFirebaseEvent('Icon_update_page_state');
                                     _model.createContentDialogVisible = false;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Icon(
                                     Icons.close,

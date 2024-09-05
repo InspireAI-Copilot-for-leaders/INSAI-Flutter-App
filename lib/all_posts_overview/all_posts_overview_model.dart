@@ -11,7 +11,6 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Switch widget.
   bool? switchValue;
   // State field(s) for ChoiceChips widget.
@@ -30,7 +29,6 @@ class AllPostsOverviewModel extends FlutterFlowModel<AllPostsOverviewWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     emptyStateModel.dispose();
   }
 }

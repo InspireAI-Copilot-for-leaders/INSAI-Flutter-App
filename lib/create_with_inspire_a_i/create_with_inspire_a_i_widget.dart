@@ -59,7 +59,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -529,7 +529,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                                       'Comment (One-Liners)'
                                                     ],
                                                     onChanged: (val) =>
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                 .dropDownValue =
                                                             val),
                                                     width: 286.0,
@@ -638,7 +638,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     true)) {
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.loadingScreenVisible = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   logFirebaseEvent('Button_backend_call');
 
                                   await currentUserReference!.update({
@@ -651,7 +651,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   });
                                   logFirebaseEvent(
                                       'Button_clear_text_fields_pin_codes');
-                                  setState(() {
+                                  safeSetState(() {
                                     _model.textController1?.clear();
                                     _model.textController2?.clear();
                                     _model.textController3?.clear();
@@ -712,7 +712,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     true)) {
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.loadingScreenVisible = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   logFirebaseEvent('Button_backend_call');
 
                                   await currentUserReference!.update({
@@ -725,7 +725,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                   });
                                   logFirebaseEvent(
                                       'Button_clear_text_fields_pin_codes');
-                                  setState(() {
+                                  safeSetState(() {
                                     _model.textController1?.clear();
                                     _model.textController2?.clear();
                                     _model.textController3?.clear();
@@ -813,7 +813,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     logFirebaseEvent(
                                         'Button_update_page_state');
                                     _model.loadingScreenVisible = true;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     logFirebaseEvent('Button_backend_call');
 
                                     await currentUserReference!.update({
@@ -826,7 +826,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     });
                                     logFirebaseEvent(
                                         'Button_clear_text_fields_pin_codes');
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.textController1?.clear();
                                       _model.textController2?.clear();
                                       _model.textController3?.clear();
@@ -889,7 +889,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     logFirebaseEvent(
                                         'Button_update_page_state');
                                     _model.loadingScreenVisible = true;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     logFirebaseEvent('Button_backend_call');
 
                                     await currentUserReference!.update({
@@ -902,7 +902,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                                     });
                                     logFirebaseEvent(
                                         'Button_clear_text_fields_pin_codes');
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.textController1?.clear();
                                       _model.textController2?.clear();
                                       _model.textController3?.clear();
@@ -953,7 +953,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
                             }
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: 'Do the InspireAI magic',
                         options: FFButtonOptions(
@@ -992,7 +992,7 @@ class _CreateWithInspireAIWidgetState extends State<CreateWithInspireAIWidget> {
               if (_model.loadingScreenVisible == true)
                 wrapWithModel(
                   model: _model.loadingScreenModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingScreenWidget(
                     loadingText:
                         'Writing the post. Will take around 30 seconds. You can leave this page...',

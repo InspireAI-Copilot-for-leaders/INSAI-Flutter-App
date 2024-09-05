@@ -55,7 +55,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
       vsync: this,
       length: 2,
       initialIndex: 0,
-    )..addListener(() => setState(() {}));
+    )..addListener(() => safeSetState(() {}));
     animationsMap.addAll({
       'containerOnActionTriggerAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
@@ -498,7 +498,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -513,9 +513,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -664,7 +662,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                 Theme.of(context).brightness ==
                                                     Brightness.dark,
                                             onChanged: (newValue) async {
-                                              setState(() => _model
+                                              safeSetState(() => _model
                                                   .switchValue = newValue);
                                               if (newValue) {
                                                 logFirebaseEvent(
@@ -839,7 +837,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       logFirebaseEvent(
                                           'Container_update_app_state');
                                       FFAppState().drawer = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -887,7 +885,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                       logFirebaseEvent(
                                           'Container_update_app_state');
                                       FFAppState().drawer = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent(
                                           'Container_widget_animation');
                                       if (animationsMap[
@@ -2483,7 +2481,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                                   child: Padding(
                                                                                     padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                                                                                     child: Text(
-                                                                                      dateTimeFormat('MMMEd', listViewCampaignsDetailsRecord.createdOn!),
+                                                                                      dateTimeFormat("MMMEd", listViewCampaignsDetailsRecord.createdOn!),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Plus Jakarta Sans',
                                                                                             color: const Color(0xFF827AE1),
@@ -2821,8 +2819,8 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                           wrapWithModel(
                                                             model: _model
                                                                 .emptyStateModel1,
-                                                            updateCallback:
-                                                                () => setState(
+                                                            updateCallback: () =>
+                                                                safeSetState(
                                                                     () {}),
                                                             child:
                                                                 const EmptyStateWidget(
@@ -3028,7 +3026,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                   'MiddleButton_update_page_state');
                                               _model.createContentDialogVisible =
                                                   true;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             } else {
                                               if (valueOrDefault(
                                                       currentUserDocument
@@ -3045,7 +3043,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                     'MiddleButton_update_page_state');
                                                 _model.createContentDialogVisible =
                                                     true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             }
                                           },
@@ -3184,13 +3182,13 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                           'Badge_update_app_state');
                                       FFAppState().isNotificationsVisible =
                                           false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
                                           'Badge_update_app_state');
                                       FFAppState().isNotificationsVisible =
                                           true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent('Badge_wait__delay');
                                       await Future.delayed(
                                           const Duration(milliseconds: 100));
@@ -3323,7 +3321,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                           wrapWithModel(
                                             model: _model.emptyStateModel2,
                                             updateCallback: () =>
-                                                setState(() {}),
+                                                safeSetState(() {}),
                                             child: const EmptyStateWidget(
                                               loadingText:
                                                   'You have no new notifications',
@@ -3442,7 +3440,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                         'CAMPAIGNS_PAGE_Icon_v0ytq2yq_ON_TAP');
                                     logFirebaseEvent('Icon_update_page_state');
                                     _model.createContentDialogVisible = false;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Icon(
                                     Icons.close,

@@ -13,7 +13,6 @@ class EditBrandVoiceModel extends FlutterFlowModel<EditBrandVoiceWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for contentURL2 widget.
   FocusNode? contentURL2FocusNode;
   TextEditingController? contentURL2TextController;
@@ -44,7 +43,6 @@ class EditBrandVoiceModel extends FlutterFlowModel<EditBrandVoiceWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     contentURL2FocusNode?.dispose();
     contentURL2TextController?.dispose();
 

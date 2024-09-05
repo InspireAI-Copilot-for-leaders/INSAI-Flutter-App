@@ -10,7 +10,6 @@ class PostDetailedModel extends FlutterFlowModel<PostDetailedWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (get post likes)] action in Button widget.
   ApiCallResponse? likes;
   // Stores action output result for [Backend Call - API (get post comments)] action in Button widget.
@@ -20,7 +19,5 @@ class PostDetailedModel extends FlutterFlowModel<PostDetailedWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

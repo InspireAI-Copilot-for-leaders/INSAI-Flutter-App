@@ -29,7 +29,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
     _model = createModel(context, () => PayWallModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'payWall'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -42,9 +42,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -303,7 +301,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                       'PAY_WALL_PAGE_Stack_gz47nd9t_ON_TAP');
                                   logFirebaseEvent('Stack_update_page_state');
                                   _model.isYearly = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 child: SizedBox(
                                   height: 145.0,
@@ -661,7 +659,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                       'PAY_WALL_PAGE_Stack_8p8echjj_ON_TAP');
                                   logFirebaseEvent('Stack_update_page_state');
                                   _model.isYearly = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 child: SizedBox(
                                   height: 145.0,
@@ -1009,7 +1007,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                               }
                             }
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: 'Continue to payment',
                           options: FFButtonOptions(

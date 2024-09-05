@@ -10,7 +10,6 @@ class PhoneNumberVerifyModel extends FlutterFlowModel<PhoneNumberVerifyWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (Send Code)] action in phoneNumberVerify widget.
   ApiCallResponse? apiResultash;
   // State field(s) for phoneOTPcode widget.
@@ -26,7 +25,6 @@ class PhoneNumberVerifyModel extends FlutterFlowModel<PhoneNumberVerifyWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     phoneOTPcode?.dispose();
   }
 }

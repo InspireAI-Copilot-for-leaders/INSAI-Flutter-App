@@ -34,7 +34,7 @@ class _ExitDialogWidgetState extends State<ExitDialogWidget> {
     super.initState();
     _model = createModel(context, () => ExitDialogModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -11,7 +11,6 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (LinkedinTokens)] action in linkedinAuth widget.
   ApiCallResponse? linkedintokens;
   // Stores action output result for [Backend Call - API (Linkedin Profile Details)] action in linkedinAuth widget.
@@ -31,7 +30,6 @@ class LinkedinAuthModel extends FlutterFlowModel<LinkedinAuthWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     profileLoadingScreenModel.dispose();
   }
 }

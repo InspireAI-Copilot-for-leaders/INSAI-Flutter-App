@@ -55,7 +55,7 @@ class _ValueProvidingCampaignWidgetState
               .toList()
               .toList()
               .cast<String>();
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController1 ??= TextEditingController(text: 'My Campaign');
@@ -64,7 +64,7 @@ class _ValueProvidingCampaignWidgetState
     _model.contentURL1TextController ??= TextEditingController();
     _model.contentURL1FocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -77,9 +77,7 @@ class _ValueProvidingCampaignWidgetState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -411,7 +409,8 @@ class _ValueProvidingCampaignWidgetState
                                                                 (_) =>
                                                                     expertiseAreaListItem,
                                                               );
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                               if (_model
                                                                       .indexToRemoveAt ==
                                                                   0) {
@@ -419,13 +418,15 @@ class _ValueProvidingCampaignWidgetState
                                                                     'Container_update_page_state');
                                                                 _model.indexToRemoveAt =
                                                                     1;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               } else {
                                                                 logFirebaseEvent(
                                                                     'Container_update_page_state');
                                                                 _model.indexToRemoveAt =
                                                                     0;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               }
                                                             }
                                                           },
@@ -529,7 +530,7 @@ class _ValueProvidingCampaignWidgetState
                                                         'Text_update_page_state');
                                                     _model.addExpertiseArea =
                                                         true;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                   child: Text(
                                                     '+ Add More',
@@ -594,8 +595,9 @@ class _ValueProvidingCampaignWidgetState
                                                 '3 weeks',
                                                 '4 weeks'
                                               ],
-                                              onChanged: (val) => setState(() =>
-                                                  _model.dropDownValue1 = val),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue1 =
+                                                      val),
                                               width: 286.0,
                                               height: 50.0,
                                               textStyle:
@@ -672,8 +674,9 @@ class _ValueProvidingCampaignWidgetState
                                                 '3 times a week',
                                                 '5 times a week'
                                               ],
-                                              onChanged: (val) => setState(() =>
-                                                  _model.dropDownValue2 = val),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue2 =
+                                                      val),
                                               width: 286.0,
                                               height: 50.0,
                                               textStyle:
@@ -768,7 +771,7 @@ class _ValueProvidingCampaignWidgetState
                                 noOfPosts: (_model.dropDownValue1!) *
                                     (_model.dropDownValue2!),
                                 campaignId:
-                                    '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                    '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                               );
 
                               if ((_model.apiResult7vv1?.succeeded ?? true)) {
@@ -780,7 +783,7 @@ class _ValueProvidingCampaignWidgetState
                                 await campaignsDetailsRecordReference1
                                     .set(createCampaignsDetailsRecordData(
                                   campaignId:
-                                      '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                   createdOn: getCurrentTimestamp,
                                   campaignTitle: _model.textController1.text,
                                 ));
@@ -788,7 +791,7 @@ class _ValueProvidingCampaignWidgetState
                                     CampaignsDetailsRecord.getDocumentFromData(
                                         createCampaignsDetailsRecordData(
                                           campaignId:
-                                              '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                              '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                           createdOn: getCurrentTimestamp,
                                           campaignTitle:
                                               _model.textController1.text,
@@ -806,7 +809,7 @@ class _ValueProvidingCampaignWidgetState
                                 });
                                 logFirebaseEvent('Button_update_page_state');
                                 _model.isLoading = true;
-                                setState(() {});
+                                safeSetState(() {});
                                 logFirebaseEvent('Button_wait__delay');
                                 await Future.delayed(
                                     const Duration(milliseconds: 4000));
@@ -871,7 +874,7 @@ class _ValueProvidingCampaignWidgetState
                                   noOfPosts: (_model.dropDownValue1!) *
                                       (_model.dropDownValue2!),
                                   campaignId:
-                                      '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                      '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                 );
 
                                 if ((_model.apiResult7vv?.succeeded ?? true)) {
@@ -883,7 +886,7 @@ class _ValueProvidingCampaignWidgetState
                                   await campaignsDetailsRecordReference2
                                       .set(createCampaignsDetailsRecordData(
                                     campaignId:
-                                        '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                        '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                     createdOn: getCurrentTimestamp,
                                     campaignTitle: _model.textController1.text,
                                   ));
@@ -891,7 +894,7 @@ class _ValueProvidingCampaignWidgetState
                                       .getDocumentFromData(
                                           createCampaignsDetailsRecordData(
                                             campaignId:
-                                                '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-${_model.dropDownValue1?.toString()}-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                             createdOn: getCurrentTimestamp,
                                             campaignTitle:
                                                 _model.textController1.text,
@@ -909,7 +912,7 @@ class _ValueProvidingCampaignWidgetState
                                   });
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.isLoading = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   logFirebaseEvent('Button_wait__delay');
                                   await Future.delayed(
                                       const Duration(milliseconds: 4000));
@@ -940,7 +943,7 @@ class _ValueProvidingCampaignWidgetState
                             }
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: 'Do the InspireAI magic',
                         options: FFButtonOptions(
@@ -979,7 +982,7 @@ class _ValueProvidingCampaignWidgetState
               if (_model.isLoading == true)
                 wrapWithModel(
                   model: _model.loadingScreenModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingScreenWidget(
                     loadingText:
                         'Configuring your campaign. Will take around 2-3 minutes. You can leave this page...',
@@ -1069,7 +1072,7 @@ class _ValueProvidingCampaignWidgetState
                                             .onError((_, __) => _model
                                                 .algoliaSearchResults = [])
                                             .whenComplete(
-                                                () => setState(() {}));
+                                                () => safeSetState(() {}));
 
                                         if (_model.algoliaSearchResults !=
                                                 null &&
@@ -1078,7 +1081,7 @@ class _ValueProvidingCampaignWidgetState
                                           logFirebaseEvent(
                                               'contentURL1_update_page_state');
                                           _model.emptySearch = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         } else {
                                           logFirebaseEvent(
                                               'contentURL1_wait__delay');
@@ -1087,13 +1090,13 @@ class _ValueProvidingCampaignWidgetState
                                           logFirebaseEvent(
                                               'contentURL1_update_page_state');
                                           _model.emptySearch = true;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
                                       } else {
                                         logFirebaseEvent(
                                             'contentURL1_update_page_state');
                                         _model.emptySearch = false;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
                                     },
                                   ),
@@ -1410,11 +1413,11 @@ class _ValueProvidingCampaignWidgetState
                                                                                           if (_model.expertiseForContent.contains(expertiseAreaNoSearchItem.expertiseArea)) {
                                                                                             logFirebaseEvent('Container_update_page_state');
                                                                                             _model.removeFromExpertiseForContent(expertiseAreaNoSearchItem.expertiseArea);
-                                                                                            setState(() {});
+                                                                                            safeSetState(() {});
                                                                                           } else {
                                                                                             logFirebaseEvent('Container_update_page_state');
                                                                                             _model.addToExpertiseForContent(expertiseAreaNoSearchItem.expertiseArea);
-                                                                                            setState(() {});
+                                                                                            safeSetState(() {});
                                                                                           }
                                                                                         },
                                                                                         child: Container(
@@ -1542,11 +1545,11 @@ class _ValueProvidingCampaignWidgetState
                                                         List<BroadDomainRecord>
                                                             listViewBroadDomainRecordList =
                                                             snapshot.data!;
-
                                                         if (listViewBroadDomainRecordList
                                                             .isEmpty) {
                                                           return const EmptyStateWidget();
                                                         }
+
                                                         return ListView
                                                             .separated(
                                                           padding:
@@ -1729,11 +1732,11 @@ class _ValueProvidingCampaignWidgetState
                                                                                       if (_model.expertiseForContent.contains(expertiseAreaSearchItem.expertiseArea)) {
                                                                                         logFirebaseEvent('Container_update_page_state');
                                                                                         _model.removeFromExpertiseForContent(expertiseAreaSearchItem.expertiseArea);
-                                                                                        setState(() {});
+                                                                                        safeSetState(() {});
                                                                                       } else {
                                                                                         logFirebaseEvent('Container_update_page_state');
                                                                                         _model.addToExpertiseForContent(expertiseAreaSearchItem.expertiseArea);
-                                                                                        setState(() {});
+                                                                                        safeSetState(() {});
                                                                                       }
                                                                                     },
                                                                                     child: Container(
@@ -1829,7 +1832,7 @@ class _ValueProvidingCampaignWidgetState
                                                 wrapWithModel(
                                                   model: _model.emptyStateModel,
                                                   updateCallback: () =>
-                                                      setState(() {}),
+                                                      safeSetState(() {}),
                                                   child: const EmptyStateWidget(
                                                     loadingText:
                                                         'Cant find what you\'re looking for?',
@@ -1849,7 +1852,7 @@ class _ValueProvidingCampaignWidgetState
                                       'VALUE_PROVIDING_CAMPAIGN_DONE_BTN_ON_TAP');
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.addExpertiseArea = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: 'Done',
                                 options: FFButtonOptions(

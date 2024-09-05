@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class LinkedinConnectModel extends FlutterFlowModel<LinkedinConnectWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   UsersRecord? yesss;
 
@@ -14,7 +13,5 @@ class LinkedinConnectModel extends FlutterFlowModel<LinkedinConnectWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

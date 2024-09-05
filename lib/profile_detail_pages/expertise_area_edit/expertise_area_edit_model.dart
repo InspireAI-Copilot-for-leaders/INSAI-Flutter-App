@@ -41,7 +41,6 @@ class ExpertiseAreaEditModel extends FlutterFlowModel<ExpertiseAreaEditWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for contentURL1 widget.
   FocusNode? contentURL1FocusNode;
@@ -66,7 +65,6 @@ class ExpertiseAreaEditModel extends FlutterFlowModel<ExpertiseAreaEditWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     contentURL1FocusNode?.dispose();
     contentURL1TextController?.dispose();
 

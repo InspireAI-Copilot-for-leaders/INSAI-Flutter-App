@@ -46,7 +46,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
           (currentUserDocument?.thoughtLeadershipAreas.toList() ?? [])
               .toList()
               .cast<String>();
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController1 ??=
@@ -68,7 +68,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
     _model.plainTextTextController ??= TextEditingController();
     _model.plainTextFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -81,9 +81,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -353,7 +351,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                   logFirebaseEvent(
                                                       'RichText_update_page_state');
                                                   _model.addCompany = true;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 },
                                                 child: RichText(
                                                   textScaler:
@@ -1473,7 +1471,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                             .toList(),
                                         noOfPosts: 2,
                                         campaignId:
-                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                            '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                       );
                                     }),
                                     Future(() async {
@@ -1488,7 +1486,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                             .first,
                                         noOfPosts: 2,
                                         campaignId:
-                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                            '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                       );
                                     }),
                                     Future(() async {
@@ -1501,7 +1499,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                           uid: currentUserUid,
                                           companyName: _model.newCompanyName,
                                           campaignId:
-                                              '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                              '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                           noOfPosts: 1,
                                           dataType:
                                               _model.typeOfContentUploaded,
@@ -1524,7 +1522,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                   .call(
                                             uid: currentUserUid,
                                             campaignId:
-                                                '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                             noOfPosts: 1,
                                             companyName: (currentUserDocument
                                                         ?.activeCompanies
@@ -1558,7 +1556,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                             currentUserReference!)
                                         .set(createCampaignsDetailsRecordData(
                                       campaignId:
-                                          '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                          '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                       createdOn: getCurrentTimestamp,
                                       campaignTitle:
                                           _model.textController1.text,
@@ -1576,7 +1574,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                     logFirebaseEvent(
                                         'Button_update_page_state');
                                     _model.loadingScreenVisible = true;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     logFirebaseEvent('Button_wait__delay');
                                     await Future.delayed(
                                         const Duration(milliseconds: 4000));
@@ -1628,7 +1626,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                               .toList(),
                                           noOfPosts: 2,
                                           campaignId:
-                                              '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                              '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                         );
                                       }),
                                       Future(() async {
@@ -1644,7 +1642,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                               .first,
                                           noOfPosts: 2,
                                           campaignId:
-                                              '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                              '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                         );
                                       }),
                                       Future(() async {
@@ -1658,7 +1656,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                             uid: currentUserUid,
                                             companyName: _model.newCompanyName,
                                             campaignId:
-                                                '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                             noOfPosts: 1,
                                             dataType:
                                                 _model.typeOfContentUploaded,
@@ -1681,7 +1679,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                     .call(
                                               uid: currentUserUid,
                                               campaignId:
-                                                  '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                                  '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                               noOfPosts: 1,
                                               companyName: (currentUserDocument
                                                           ?.activeCompanies
@@ -1716,7 +1714,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                               currentUserReference!)
                                           .set(createCampaignsDetailsRecordData(
                                         campaignId:
-                                            '${dateTimeFormat('d/M/y', getCurrentTimestamp)}-1-${dateTimeFormat('Hm', getCurrentTimestamp)}',
+                                            '${dateTimeFormat("d/M/y", getCurrentTimestamp)}-1-${dateTimeFormat("Hm", getCurrentTimestamp)}',
                                         createdOn: getCurrentTimestamp,
                                         campaignTitle:
                                             _model.textController1.text,
@@ -1734,7 +1732,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                       logFirebaseEvent(
                                           'Button_update_page_state');
                                       _model.loadingScreenVisible = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       logFirebaseEvent('Button_wait__delay');
                                       await Future.delayed(
                                           const Duration(milliseconds: 4000));
@@ -1764,7 +1762,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                   }
                                 }
 
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: 'Do the InspireAI magic',
                               options: FFButtonOptions(
@@ -1804,7 +1802,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                     if (_model.loadingScreenVisible == true)
                       wrapWithModel(
                         model: _model.loadingScreenModel,
-                        updateCallback: () => setState(() {}),
+                        updateCallback: () => safeSetState(() {}),
                         child: LoadingScreenWidget(
                           loadingText:
                               'Configuring your campaign. Will take around 2-3 minutes. You can leave this page...',
@@ -1862,7 +1860,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                           logFirebaseEvent(
                                               'Icon_update_page_state');
                                           _model.addCompany = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         child: Icon(
                                           Icons.close,
@@ -2026,7 +2024,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                 .dropDownTypeValueController ??=
                                             FormFieldController<String>(null),
                                         options: const ['PDF', 'Plain Text', 'URL'],
-                                        onChanged: (val) => setState(() =>
+                                        onChanged: (val) => safeSetState(() =>
                                             _model.dropDownTypeValue = val),
                                         width: double.infinity,
                                         height: 56.0,
@@ -2355,7 +2353,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                         _model.noOfUrls =
                                                             _model.noOfUrls +
                                                                 -1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                     ),
                                                   ].divide(
@@ -2519,7 +2517,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                         _model.noOfUrls =
                                                             _model.noOfUrls +
                                                                 -1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                     ),
                                                   ].divide(
@@ -2546,7 +2544,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                           'Text_update_page_state');
                                                       _model.noOfUrls =
                                                           _model.noOfUrls + 1;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     child: Text(
                                                       '+ Add More',
@@ -2743,7 +2741,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                       );
                                                       if (selectedFiles !=
                                                           null) {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                 .isDataUploading1 =
                                                             true);
                                                         var selectedUploadedFiles =
@@ -2778,7 +2776,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                                 .length ==
                                                             selectedFiles
                                                                 .length) {
-                                                          setState(() {
+                                                          safeSetState(() {
                                                             _model.uploadedLocalFiles1 =
                                                                 selectedUploadedFiles;
                                                           });
@@ -2787,7 +2785,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                             'Success!',
                                                           );
                                                         } else {
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           showUploadMessage(
                                                             context,
                                                             'Failed to upload file',
@@ -2892,7 +2890,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                           logFirebaseEvent(
                                               'Button_upload_file_to_firebase');
                                           {
-                                            setState(() =>
+                                            safeSetState(() =>
                                                 _model.isDataUploading2 = true);
                                             var selectedUploadedFiles =
                                                 <FFUploadedFile>[];
@@ -2923,14 +2921,14 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                     selectedFiles.length &&
                                                 downloadUrls.length ==
                                                     selectedFiles.length) {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.uploadedLocalFiles2 =
                                                     selectedUploadedFiles;
                                                 _model.uploadedFileUrls2 =
                                                     downloadUrls;
                                               });
                                             } else {
-                                              setState(() {});
+                                              safeSetState(() {});
                                               return;
                                             }
                                           }
@@ -2942,7 +2940,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                               .toList()
                                               .cast<String>();
                                           _model.typeOfContentUploaded = 'pdf';
-                                          setState(() {});
+                                          safeSetState(() {});
                                         } else {
                                           if (_model.dropDownTypeValue ==
                                               'Plain Text') {
@@ -2952,7 +2950,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                                 .plainTextTextController.text);
                                             _model.typeOfContentUploaded =
                                                 'text';
-                                            setState(() {});
+                                            safeSetState(() {});
                                           } else {
                                             logFirebaseEvent(
                                                 'Button_update_page_state');
@@ -2961,7 +2959,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                             _model.addToListOfUrls(_model
                                                 .contentURL1TextController2
                                                 .text);
-                                            setState(() {});
+                                            safeSetState(() {});
                                             if (_model.contentURL2TextController
                                                         .text !=
                                                     '') {
@@ -2970,7 +2968,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                               _model.addToListOfUrls(_model
                                                   .contentURL2TextController
                                                   .text);
-                                              setState(() {});
+                                              safeSetState(() {});
                                             }
                                             if (_model.contentURL3TextController
                                                         .text !=
@@ -2980,7 +2978,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                               _model.addToListOfUrls(_model
                                                   .contentURL3TextController
                                                   .text);
-                                              setState(() {});
+                                              safeSetState(() {});
                                             }
                                           }
                                         }
@@ -2990,7 +2988,7 @@ class _AIcreatedCampaignWidgetState extends State<AIcreatedCampaignWidget> {
                                         _model.addCompany = false;
                                         _model.newCompanyName = _model
                                             .contentURL1TextController1.text;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       text: 'Done',
                                       options: FFButtonOptions(

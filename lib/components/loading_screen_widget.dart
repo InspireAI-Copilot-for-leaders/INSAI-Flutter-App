@@ -41,7 +41,7 @@ class _LoadingScreenWidgetState extends State<LoadingScreenWidget> {
     super.initState();
     _model = createModel(context, () => LoadingScreenModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

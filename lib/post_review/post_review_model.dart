@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class PostReviewModel extends FlutterFlowModel<PostReviewWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for DropDown widget.
   List<String>? dropDownValue;
   FormFieldController<List<String>>? dropDownValueController;
@@ -20,7 +19,6 @@ class PostReviewModel extends FlutterFlowModel<PostReviewWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }

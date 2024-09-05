@@ -28,7 +28,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'paymentSuccess'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

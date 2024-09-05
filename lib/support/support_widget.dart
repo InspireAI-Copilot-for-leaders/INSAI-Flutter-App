@@ -109,7 +109,7 @@ class _SupportWidgetState extends State<SupportWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -122,9 +122,7 @@ class _SupportWidgetState extends State<SupportWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -630,7 +628,8 @@ class _SupportWidgetState extends State<SupportWidget>
                               if (selectedMedia != null &&
                                   selectedMedia.every((m) => validateFileFormat(
                                       m.storagePath, context))) {
-                                setState(() => _model.isDataUploading = true);
+                                safeSetState(
+                                    () => _model.isDataUploading = true);
                                 var selectedUploadedFiles = <FFUploadedFile>[];
 
                                 var downloadUrls = <String>[];
@@ -668,14 +667,14 @@ class _SupportWidgetState extends State<SupportWidget>
                                         selectedMedia.length &&
                                     downloadUrls.length ==
                                         selectedMedia.length) {
-                                  setState(() {
+                                  safeSetState(() {
                                     _model.uploadedLocalFiles =
                                         selectedUploadedFiles;
                                     _model.uploadedFileUrls = downloadUrls;
                                   });
                                   showUploadMessage(context, 'Success!');
                                 } else {
-                                  setState(() {});
+                                  safeSetState(() {});
                                   showUploadMessage(
                                       context, 'Failed to upload data');
                                   return;

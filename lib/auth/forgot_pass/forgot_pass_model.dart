@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class ForgotPassModel extends FlutterFlowModel<ForgotPassWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for forgot_pass_email widget.
   FocusNode? forgotPassEmailFocusNode;
   TextEditingController? forgotPassEmailTextController;
@@ -17,7 +16,6 @@ class ForgotPassModel extends FlutterFlowModel<ForgotPassWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     forgotPassEmailFocusNode?.dispose();
     forgotPassEmailTextController?.dispose();
   }

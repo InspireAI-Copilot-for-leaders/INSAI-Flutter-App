@@ -69,7 +69,7 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -82,9 +82,7 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -532,13 +530,13 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
                       child: FFButtonWidget(
                         onPressed: () async {
                           logFirebaseEvent(
-                              'LINKEDIN_PROFILE_INPUT_NOT_ME_,_RESET_BT');
+                              'LINKEDIN_PROFILE_INPUT_NOT_ME__RESET_BTN');
                           logFirebaseEvent('Button_update_page_state');
                           _model.profileGot = false;
-                          setState(() {});
+                          safeSetState(() {});
                           logFirebaseEvent(
                               'Button_clear_text_fields_pin_codes');
-                          setState(() {
+                          safeSetState(() {
                             _model.forgotPassEmailTextController?.clear();
                           });
                         },
@@ -599,7 +597,7 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
                         } else {
                           logFirebaseEvent('Button_update_page_state');
                           _model.profileGetting = true;
-                          setState(() {});
+                          safeSetState(() {});
                           logFirebaseEvent('Button_backend_call');
                           _model.apiResulthif =
                               await ExpertiseOfPersonCall.call(
@@ -612,11 +610,11 @@ class _LinkedinProfileInputWidgetState extends State<LinkedinProfileInputWidget>
                             logFirebaseEvent('Button_update_page_state');
                             _model.profileGetting = false;
                             _model.profileGot = true;
-                            setState(() {});
+                            safeSetState(() {});
                           }
                         }
 
-                        setState(() {});
+                        safeSetState(() {});
                       },
                       text: _model.profileGot
                           ? 'Yes it\'s me, Continue'

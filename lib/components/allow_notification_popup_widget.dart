@@ -36,7 +36,7 @@ class _AllowNotificationPopupWidgetState
     super.initState();
     _model = createModel(context, () => AllowNotificationPopupModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

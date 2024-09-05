@@ -46,7 +46,7 @@ class _OneLinerExpandableWidgetState extends State<OneLinerExpandableWidget> {
     _model.textController ??= TextEditingController(text: widget.expandedText);
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

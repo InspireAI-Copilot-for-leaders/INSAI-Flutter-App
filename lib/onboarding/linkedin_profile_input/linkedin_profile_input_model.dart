@@ -13,7 +13,6 @@ class LinkedinProfileInputModel
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for forgot_pass_email widget.
   FocusNode? forgotPassEmailFocusNode;
@@ -45,7 +44,6 @@ class LinkedinProfileInputModel
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     forgotPassEmailFocusNode?.dispose();
     forgotPassEmailTextController?.dispose();
   }

@@ -51,12 +51,12 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
       logFirebaseEvent('ARTICLE_DETAILS_articleDetails_ON_INIT_S');
       logFirebaseEvent('articleDetails_update_page_state');
       _model.numberOfImgaes = widget.articleDocument?.metadata.length;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.expandableExpandableController =
         ExpandableController(initialExpanded: false);
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -69,9 +69,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -756,7 +754,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                     'ARTICLE_DETAILS_POST_WITH_YOUR_THOUGHTS_');
                                 logFirebaseEvent('Button_update_page_state');
                                 _model.createContentDialogVisible = true;
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: 'Post with your thoughts',
                               options: FFButtonOptions(
@@ -858,7 +856,7 @@ class _ArticleDetailsWidgetState extends State<ArticleDetailsWidget> {
                                         'ARTICLE_DETAILS_Icon_mxsu0nob_ON_TAP');
                                     logFirebaseEvent('Icon_update_page_state');
                                     _model.createContentDialogVisible = false;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Icon(
                                     Icons.close,

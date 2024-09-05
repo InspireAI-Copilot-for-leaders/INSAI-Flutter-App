@@ -33,7 +33,7 @@ class _PaymentDollarWidgetState extends State<PaymentDollarWidget> {
     super.initState();
     _model = createModel(context, () => PaymentDollarModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

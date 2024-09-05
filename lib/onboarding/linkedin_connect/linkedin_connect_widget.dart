@@ -70,7 +70,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -83,9 +83,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -280,7 +278,7 @@ class _LinkedinConnectWidgetState extends State<LinkedinConnectWidget> {
                                       'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867aib47yndmjx&redirect_uri=https://us-central1-inspire-ai-40690.cloudfunctions.net/linkedinAuth&scope=r_basicprofile%20w_member_social%20w_member_social_feed%20r_1st_connections_size');
                                 }
 
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: 'Connect LinkedIn',
                               icon: FaIcon(

@@ -28,7 +28,7 @@ class _SocialAccountsWidgetState extends State<SocialAccountsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'socialAccounts'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -41,9 +41,7 @@ class _SocialAccountsWidgetState extends State<SocialAccountsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -230,7 +228,7 @@ class _SocialAccountsWidgetState extends State<SocialAccountsWidget> {
                                     logFirebaseEvent(
                                         'Container_update_page_state');
                                     _model.isExpanded = !_model.isExpanded;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   } else {
                                     logFirebaseEvent('Container_navigate_to');
 

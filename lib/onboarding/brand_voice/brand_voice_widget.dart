@@ -46,7 +46,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
     _model.contentURL1TextController2 ??= TextEditingController();
     _model.contentURL1FocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -59,9 +59,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -1028,10 +1026,10 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                             'Button_update_page_state');
                                         _model.typedVoice = _model
                                             .contentURL1TextController2.text;
-                                        setState(() {});
+                                        safeSetState(() {});
                                         logFirebaseEvent(
                                             'Button_clear_text_fields_pin_codes');
-                                        setState(() {
+                                        safeSetState(() {
                                           _model.contentURL1TextController2
                                               ?.clear();
                                         });
@@ -1219,7 +1217,7 @@ class _BrandVoiceWidgetState extends State<BrandVoiceWidget> {
                                         _model.typedVoice =
                                             listViewPersonasForContentRecord
                                                 .persona;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Card(
                                         clipBehavior:

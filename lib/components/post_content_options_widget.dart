@@ -45,7 +45,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
     super.initState();
     _model = createModel(context, () => PostContentOptionsModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -89,7 +89,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                       if (selectedMedia != null &&
                           selectedMedia.every((m) =>
                               validateFileFormat(m.storagePath, context))) {
-                        setState(() => _model.isDataUploading = true);
+                        safeSetState(() => _model.isDataUploading = true);
                         var selectedUploadedFiles = <FFUploadedFile>[];
 
                         try {
@@ -113,12 +113,12 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         }
                         if (selectedUploadedFiles.length ==
                             selectedMedia.length) {
-                          setState(() {
+                          safeSetState(() {
                             _model.uploadedLocalFiles = selectedUploadedFiles;
                           });
                           showUploadMessage(context, 'Success!');
                         } else {
-                          setState(() {});
+                          safeSetState(() {});
                           showUploadMessage(context, 'Failed to upload data');
                           return;
                         }
@@ -247,7 +247,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                   logFirebaseEvent('_update_component_state');
                                   _model.uploadedDoc = doc;
                                   _model.docTitle = docTitle;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                               ),
                             ),
@@ -337,7 +337,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                         logFirebaseEvent('Column_execute_callback');
                         await widget.deleteAction?.call();
                       } else {
-                        logFirebaseEvent('Column_close_dialog,_drawer,_etc');
+                        logFirebaseEvent('Column_close_dialog_drawer_etc');
                         Navigator.pop(context);
                       }
                     },
@@ -411,7 +411,7 @@ class _PostContentOptionsWidgetState extends State<PostContentOptionsWidget> {
                                   _model.pollDuration = pollDuration;
                                   _model.pollOption3 = option3;
                                   _model.pollOption4 = option4;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                               ),
                             ),
