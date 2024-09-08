@@ -922,78 +922,97 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 20.0, 24.0, 0.0),
-                                          child: RichText(
-                                            textScaler: MediaQuery.of(context)
-                                                .textScaler,
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      'Hi ${currentUserDocument?.linkedinScrapped.firstName},',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        fontSize: 32.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' here\'s',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              logFirebaseEvent(
+                                                  'DASHBOARD_PAGE_RichText_206yd61q_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'RichText_navigate_to');
+
+                                              context
+                                                  .pushNamed('chat_ai_Screen');
+                                            },
+                                            child: RichText(
+                                              textScaler: MediaQuery.of(context)
+                                                  .textScaler,
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text:
+                                                        'Hi ${currentUserDocument?.linkedinScrapped.firstName},',
+                                                    style: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryText,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 32.0,
-                                                    fontStyle: FontStyle.italic,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 32.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
                                                   ),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      '\nwhat\'s happening in your domain.',
-                                                  style: GoogleFonts.getFont(
-                                                    'Montserrat',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 32.0,
+                                                  TextSpan(
+                                                    text: ' here\'s',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 32.0,
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                    ),
                                                   ),
-                                                )
-                                              ],
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
+                                                  TextSpan(
+                                                    text:
+                                                        '\nwhat\'s happening in your domain.',
+                                                    style: GoogleFonts.getFont(
+                                                      'Montserrat',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 32.0,
+                                                    ),
+                                                  )
+                                                ],
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
                                             ),
                                           ),
                                         ),
