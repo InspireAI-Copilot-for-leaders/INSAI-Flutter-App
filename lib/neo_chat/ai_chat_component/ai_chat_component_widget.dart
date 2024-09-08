@@ -636,7 +636,8 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                           logFirebaseEvent('IconButton_backend_call');
                           _model.chatGPTResponse =
                               await OpenAIChatGPTGroup.sendFullPromptCall.call(
-                            apiKey: ' ',
+                            apiKey:
+                                ' sk-service-inspireai-T4Ybiu6ciH1VQIOqGzx4T3BlbkFJnpGer7G9DSdLrp3bNn1h',
                             promptJson: _model.chatHistory,
                           );
 

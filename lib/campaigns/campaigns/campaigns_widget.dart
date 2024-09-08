@@ -2446,16 +2446,61 @@ class _CampaignsWidgetState extends State<CampaignsWidget>
                                                                           crossAxisAlignment:
                                                                               CrossAxisAlignment.start,
                                                                           children: [
-                                                                            Text(
-                                                                              listViewCampaignsDetailsRecord.campaignTitle,
-                                                                              style: FlutterFlowTheme.of(context).headlineSmall.override(
-                                                                                    fontFamily: 'Outfit',
-                                                                                    color: const Color(0xFF0F1113),
-                                                                                    fontSize: 20.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.normal,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                Text(
+                                                                                  listViewCampaignsDetailsRecord.campaignTitle,
+                                                                                  style: FlutterFlowTheme.of(context).headlineSmall.override(
+                                                                                        fontFamily: 'Outfit',
+                                                                                        color: const Color(0xFF0F1113),
+                                                                                        fontSize: 20.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.normal,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                                      ),
+                                                                                ),
+                                                                                InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  onTap: () async {
+                                                                                    logFirebaseEvent('CAMPAIGNS_PAGE_Icon_2wwt6w8u_ON_TAP');
+                                                                                    logFirebaseEvent('Icon_alert_dialog');
+                                                                                    var confirmDialogResponse = await showDialog<bool>(
+                                                                                          context: context,
+                                                                                          builder: (alertDialogContext) {
+                                                                                            return AlertDialog(
+                                                                                              title: const Text('Delete?'),
+                                                                                              content: const Text('This action will permanatly delete this draft. Continue?'),
+                                                                                              actions: [
+                                                                                                TextButton(
+                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                  child: const Text('Cancel'),
+                                                                                                ),
+                                                                                                TextButton(
+                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                  child: const Text('Delete'),
+                                                                                                ),
+                                                                                              ],
+                                                                                            );
+                                                                                          },
+                                                                                        ) ??
+                                                                                        false;
+                                                                                    if (confirmDialogResponse) {
+                                                                                      logFirebaseEvent('Icon_backend_call');
+                                                                                      await listViewCampaignsDetailsRecord.reference.delete();
+                                                                                    }
+                                                                                  },
+                                                                                  child: Icon(
+                                                                                    Icons.delete_rounded,
+                                                                                    color: FlutterFlowTheme.of(context).error,
+                                                                                    size: 24.0,
                                                                                   ),
+                                                                                ),
+                                                                              ],
                                                                             ),
                                                                             const Divider(
                                                                               height: 24.0,
